@@ -1,0 +1,6 @@
+; PHY_RS232__FFU_SYSWORK.def : Declares the module parameters for the DLL.
+
+LIBRARY      "PHY_RS232__FFU_SYSWORK"
+
+EXPORTS
+    ; Explicit exports can go here

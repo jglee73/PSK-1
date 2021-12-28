@@ -1,0 +1,3 @@
+Move : [LP1][12] -> [ATM_RB1_B][B]
+Move : [ATM_RB1_B][B] -> [PM2][1]
+TOOL_CLEAR

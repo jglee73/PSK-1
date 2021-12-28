@@ -1,0 +1,12 @@
+#ID=1	5101	LIGHT	PHY_VAT - VAT Control Warning Range Alarm.
+#ID=2	5102	LIGHT	PHY_VAT - VAT Control Abort Range Alarm.
+#ID=3	5103	LIGHT	PHY_VAT - During Idle, VAT Control Warning Range Alarm.
+#ID=4	5104	LIGHT	PHY_VAT - During Idle, VAT Control Abort Range Alarm.
+#ID=11	5111	LIGHT	PHY_VAT - VAT Control Aborted !.
+#ID=12	5112	LIGHT	PHY_VAT - In VAT config page, VAT's use is selected to "NOT USE".
+#ID=13	5113	LIGHT	PHY_VAT - TV Interlock 관련 Digital Output이 "ON" 되어 있습니다.
+#ID=15	5115	LIGHT	PHY_VAT - "VAT open timeout" occurred !
+#ID=16	5116	LIGHT	PHY_VAT - "VAT close timeout" occurred !
+#ID=21	5121	LIGHT	PHY_VAT - "VAT,Enable Sensor Error" occurred !
+#ID=22	5122	LIGHT	PHY_VAT - "VAT,Ready Error" occurred !
+#ID=25	5125	LIGHT	PHY_VAT - Open Interlock !

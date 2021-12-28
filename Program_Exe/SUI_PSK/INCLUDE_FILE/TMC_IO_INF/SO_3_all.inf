@@ -1,0 +1,15 @@
+IO+so.LL1.Chuck.Heater.SetPoint
+IO+so.LL1_3.Wall.Heater.SetPoint
+IO+so.LL1.Pumping_Pipe.Heater.SetPoint
+IO+so.LL2.Chuck.Heater.SetPoint
+IO+so.LL2_4.Wall.Heater.SetPoint
+IO+so.LL2.Pumping_Pipe.Heater.SetPoint
+IO+so.LL3_4.Pumping_Pipe.Heater.SetPoint
+IO+so.PM1.Gate_Valve.Heater.SetPoint
+IO+so.PM2.Gate_Valve.Heater.SetPoint
+IO+so.PM3.Gate_Valve.Heater.SetPoint
+IO+so.PM4.Gate_Valve.Heater.SetPoint
+IO+so.PM5.Gate_Valve.Heater.SetPoint
+IO+so.PM6.Gate_Valve.Heater.SetPoint
+IO+so.TM.Pumping_Pipe.Heater.SetPoint
+IO+so.Global.Alarm.Reset

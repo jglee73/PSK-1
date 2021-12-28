@@ -1,0 +1,207 @@
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PAGE__LBA            
+
+#FNC_MODE           INIT                FNC__LBA         INIT 
+#FNC_MODE           PUMP                FNC__LBA         PUMP 
+#FNC_MODE           VENT                FNC__LBA         VENT 
+#FNC_MODE           ISOLATE             FNC__LBA         ISOLATE 
+#FNC_MODE           LEAK_CHECK          FNC__LBA         LEAK_CHECK 
+#FNC_MODE           CYCLE_PURGE         FNC__LBA         CYCLE_PURGE 
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PAGE__LBB            
+
+#FNC_MODE           INIT                FNC__LBB         INIT 
+#FNC_MODE           PUMP                FNC__LBB         PUMP 
+#FNC_MODE           VENT                FNC__LBB         VENT 
+#FNC_MODE           ISOLATE             FNC__LBB         ISOLATE 
+#FNC_MODE           LEAK_CHECK          FNC__LBB         LEAK_CHECK 
+#FNC_MODE           CYCLE_PURGE         FNC__LBB         CYCLE_PURGE 
+#FNC_MODE           LIFT_PIN_UP         FNC__LBB         LIFT_PIN.UP 
+#FNC_MODE           LIFT_PIN_DOWN       FNC__LBB         LIFT_PIN.DOWN
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    INF__LBA
+
+#DEFINE_CONSTANT    OBJ__LBx     	                      OPR__LBA
+
+//------------------------------------------------
+#OBJECT_PROPERTY    INF__LBB
+
+#DEFINE_CONSTANT    OBJ__LBx     	                      OPR__LBB
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    OPR__LBA
+
+#DEFINE_CONSTANT    OBJ__LBx	      		                FNC__LBA
+#DEFINE_CONSTANT    OTERH_OBJ__LBx	                    FNC__LBB
+
+//------------------------------------------------
+#OBJECT_PROPERTY    OPR__LBB
+
+#DEFINE_CONSTANT    OBJ__LBx	      		                FNC__LBB
+#DEFINE_CONSTANT    OTERH_OBJ__LBx	                    FNC__LBA
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    FNC__LBA
+
+#DEFINE_CONSTANT    LBx_NAME          					        LBA
+#DEFINE_CONSTANT    OBJ__LBx_MANIFOLD      			        FNC__LBx_CHM
+#DEFINE_CONSTANT    OBJ__LBx_CHM		      			        PHY__LBA
+#DEFINE_CONSTANT    Other_OBJ__LBx_CHM					        PHY__LBB
+#DEFINE_CONSTANT    OTHER_LBx_PUMPING_FLAG  		        FNC__LBB+dOTR.OUT.PUMPING.STS.FLAG
+#DEFINE_CONSTANT    OTHER_LBx_VENTING_FLAG  		        FNC__LBB+dOTR.OUT.VENTING.STS.FLAG
+#DEFINE_CONSTANT    OBJ__PRESS_VLV                      PHY__LBx_VLV
+
+#DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
+
+//------------------------------------------------
+#OBJECT_PROPERTY    FNC__LBB
+
+#DEFINE_CONSTANT    LBx_NAME          					        LBB
+#DEFINE_CONSTANT    OBJ__LBx_MANIFOLD      			        FNC__LBx_CHM
+#DEFINE_CONSTANT    OBJ__LBx_CHM          			        PHY__LBB
+#DEFINE_CONSTANT    Other_OBJ__LBx_CHM					        PHY__LBA
+#DEFINE_CONSTANT    OTHER_LBx_PUMPING_FLAG  		        FNC__LBA+dOTR.OUT.PUMPING.STS.FLAG
+#DEFINE_CONSTANT    OTHER_LBx_VENTING_FLAG  		        FNC__LBA+dOTR.OUT.VENTING.STS.FLAG
+#DEFINE_CONSTANT    OBJ__PRESS_VLV                      PHY__LBx_VLV
+
+#DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    FNC__LBx_CHM
+
+#DEFINE_CONSTANT    PM_SIZE     	                      ##PM_LIMIT
+#DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
+#DEFINE_CONSTANT    OBJ__LBA							              PHY__LBA
+#DEFINE_CONSTANT    OBJ__LBB							              PHY__LBB
+#DEFINE_CONSTANT    OBJ__PRESS_VLV                      PHY__LBx_VLV
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY__LBA
+
+#DEFINE_CONSTANT    LBx_NAME          		              LBA
+#DEFINE_CONSTANT    LBx_SLOT.SIZE      		              1
+
+#DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
+#DEFINE_CONSTANT    OBJ__PUMP       		                PHY__LBx_PUMP
+#DEFINE_CONSTANT    VAR__PRESSURE_TORR		              IO_LBA__CHM_GAUGE+s.DATA.PRESSURE.TORR
+#DEFINE_CONSTANT    VAR__EXHAUST_PRESSURE	              IO_LBA__PUMP_GAUGE+s.DATA.PRESSURE.TORR
+
+#DEFINE_CONSTANT    VAR__ATM_SNS                        IO+di.LBA.ATM.SNS
+#DEFINE_CONSTANT    VAR__VAC_SNS                        IO+di.LBA.VAC.SNS
+
+// Pump & Vent Valve
+#DEFINE_CONSTANT    VAR__IO_DO_SOFT_VENT_VLV		        IO+do.LBA.SOFT.VENT.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_FAST_VENT_VLV		        IO+do.LBA.FAST.VENT.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_EQUAL_VLV    		        IO+do.LBA.EQUAL.ATM.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_SOFT_PUMP_VLV		        IO+do.LBA.SOFT.PUMP.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_FAST_PUMP_VLV		        IO+do.LBA.FAST.PUMP.VLV
+
+// TM
+#DEFINE_CONSTANT    VAR__PHY_TM_PRESS_STS  				      PHY__TMC_CHM+OTR.OUT.MON.dPRESSURE.STATUS
+#DEFINE_CONSTANT    VAR__PHY_TM_PRESS_TORR  				    PHY__TMC_CHM+OTR.OUT.MON.aPRESSURE.TORR
+
+// DV
+#DEFINE_CONSTANT    VAR__IO_DO_DV_OPEN		              IO+do.LBA.DV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DO_DV_CLOSE		              IO+do.LBA.DV.CLOSE
+#DEFINE_CONSTANT    VAR__IO_DI_DV_OPEN		              IO+di.LBA.DV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DI_DV_CLOSE		              IO+di.LBA.DV.CLOSE
+
+// SV OP/CL
+#DEFINE_CONSTANT    VAR__IO_DO_SV_TM_OPEN		            IO+do.LBA.SV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DO_SV_TM_CLOSE		          IO+do.LBA.SV.CLOSE
+#DEFINE_CONSTANT    VAR__IO_DI_SV_TM_OPEN		            IO+di.LBA.SV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DI_SV_TM_CLOSE		          IO+di.LBA.SV.CLOSE
+
+// SV UP/DN
+#DEFINE_CONSTANT    VAR__IO_DO_SV_UP		      		      IO+do.LBA.SV.UP
+#DEFINE_CONSTANT    VAR__IO_DO_SV_DOWN		    		      IO+do.LBA.SV.DOWN
+#DEFINE_CONSTANT    VAR__IO_DI_SV_UP		      		      IO+di.LBA.SV.UP
+#DEFINE_CONSTANT    VAR__IO_DI_SV_DOWN		    		      IO+di.LBA.SV.DOWN
+
+// LIFT_PIN UP/DN
+#DEFINE_CONSTANT    VAR__IO_DO_LIFT_PIN_UP		 		      IO+do.LBA.LIFT_PIN.UP.SET
+#DEFINE_CONSTANT    VAR__IO_DO_LIFT_PIN_DOWN	 		      IO+do.LBA.LIFT_PIN.DOWN.SET
+#DEFINE_CONSTANT    VAR__IO_DI_LIFT_PIN_UP		      	  IO+di.LBA.LIFT_PIN.UP.SNS
+#DEFINE_CONSTANT    VAR__IO_DI_LIFT_PIN_DOWN		    	  IO+di.LBA.LIFT_PIN.DOWN.SNS
+
+// ROBOT Sns
+#DEFINE_CONSTANT    VAR__IO_DI_VAC_RB_RNE               IO+di.VTM_Robot.Retract_LL1
+#DEFINE_CONSTANT    VAR__IO_DI_ATM_RB_RNE               IO+di.ATM_RB.Retract_LL1
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY__LBB
+
+#DEFINE_CONSTANT    LBx_NAME          		              LBB
+#DEFINE_CONSTANT    LBx_SLOT.SIZE      		              1
+
+#DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
+#DEFINE_CONSTANT    OBJ__PUMP       		                PHY__LBx_PUMP
+#DEFINE_CONSTANT    VAR__PRESSURE_TORR		              IO_LBB__CHM_GAUGE+s.DATA.PRESSURE.TORR
+#DEFINE_CONSTANT    VAR__EXHAUST_PRESSURE	              IO_LBB__PUMP_GAUGE+s.DATA.PRESSURE.TORR
+
+#DEFINE_CONSTANT    VAR__ATM_SNS                        IO+di.LBB.ATM.SNS
+#DEFINE_CONSTANT    VAR__VAC_SNS                        IO+di.LBB.VAC.SNS
+
+// TM
+#DEFINE_CONSTANT    VAR__PHY_TM_PRESS_STS  				      PHY__TMC_CHM+OTR.OUT.MON.dPRESSURE.STATUS
+#DEFINE_CONSTANT    VAR__PHY_TM_PRESS_TORR  				    PHY__TMC_CHM+OTR.OUT.MON.aPRESSURE.TORR
+
+// Pump & Vent Valve
+#DEFINE_CONSTANT    VAR__IO_DO_SOFT_VENT_VLV		        IO+do.LBB.SOFT.VENT.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_FAST_VENT_VLV		        IO+do.LBB.FAST.VENT.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_EQUAL_VLV    		        IO+do.LBB.EQUAL.ATM.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_SOFT_PUMP_VLV		        IO+do.LBB.SOFT.PUMP.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_FAST_PUMP_VLV		        IO+do.LBB.FAST.PUMP.VLV
+
+// DV
+#DEFINE_CONSTANT    VAR__IO_DO_DV_OPEN		              IO+do.LBB.DV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DO_DV_CLOSE		              IO+do.LBB.DV.CLOSE
+#DEFINE_CONSTANT    VAR__IO_DI_DV_OPEN		              IO+di.LBB.DV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DI_DV_CLOSE		              IO+di.LBB.DV.CLOSE
+
+// SV OP/CL
+#DEFINE_CONSTANT    VAR__IO_DO_SV_TM_OPEN		            IO+do.LBB.SV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DO_SV_TM_CLOSE		          IO+do.LBB.SV.CLOSE
+#DEFINE_CONSTANT    VAR__IO_DI_SV_TM_OPEN		            IO+di.LBB.SV.OPEN
+#DEFINE_CONSTANT    VAR__IO_DI_SV_TM_CLOSE		          IO+di.LBB.SV.CLOSE
+
+// SV UP/DN
+#DEFINE_CONSTANT    VAR__IO_DO_SV_UP		      		      IO+do.LBB.SV.UP
+#DEFINE_CONSTANT    VAR__IO_DO_SV_DOWN		    		      IO+do.LBB.SV.DOWN
+#DEFINE_CONSTANT    VAR__IO_DI_SV_UP		      		      IO+di.LBB.SV.UP
+#DEFINE_CONSTANT    VAR__IO_DI_SV_DOWN		    		      IO+di.LBB.SV.DOWN
+
+// LIFT_PIN UP/DN
+#DEFINE_CONSTANT    VAR__IO_DO_LIFT_PIN_UP		 		      IO+do.LBB.LIFT_PIN.UP.SET
+#DEFINE_CONSTANT    VAR__IO_DO_LIFT_PIN_DOWN	 		      IO+do.LBB.LIFT_PIN.DOWN.SET
+#DEFINE_CONSTANT    VAR__IO_DI_LIFT_PIN_UP		      	  IO+di.LBB.LIFT_PIN.UP.SNS
+#DEFINE_CONSTANT    VAR__IO_DI_LIFT_PIN_DOWN		    	  IO+di.LBB.LIFT_PIN.DOWN.SNS
+
+// Sns
+#DEFINE_CONSTANT    VAR__IO_DI_VAC_RB_RNE               IO+di.VTM_Robot.Retract_LL2
+#DEFINE_CONSTANT    VAR__IO_DI_ATM_RB_RNE               IO+di.ATM_RB.Retract_LL2
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY__LBx_VLV
+
+// LBA
+#DEFINE_CONSTANT    VAR__IO_DO_LBA_SOFT_PUMP_VLV		    IO+do.LBA.SOFT.PUMP.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_LBA_FAST_PUMP_VLV		    IO+do.LBA.FAST.PUMP.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_LBA_SOFT_VENT_VLV		    IO+do.LBA.SOFT.VENT.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_LBA_FAST_VENT_VLV		    IO+do.LBA.FAST.VENT.VLV
+
+// LBB
+#DEFINE_CONSTANT    VAR__IO_DO_LBB_SOFT_PUMP_VLV		    IO+do.LBB.SOFT.PUMP.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_LBB_FAST_PUMP_VLV		    IO+do.LBB.FAST.PUMP.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_LBB_SOFT_VENT_VLV		    IO+do.LBB.SOFT.VENT.VLV
+#DEFINE_CONSTANT    VAR__IO_DO_LBB_FAST_VENT_VLV		    IO+do.LBB.FAST.VENT.VLV

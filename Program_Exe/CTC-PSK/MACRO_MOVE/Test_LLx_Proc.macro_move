@@ -1,0 +1,8 @@
+Move : [LP1][25] -> [LBA][1]
+Process : [LL1]
+Move : [LBA][1] -> [PM1][1]
+Process : [PM1]
+Move : [PM1][1] -> [LBA][1]
+Process : [LL1]
+Repeat[2] : [3] -> [6]
+TOOL_CLEAR

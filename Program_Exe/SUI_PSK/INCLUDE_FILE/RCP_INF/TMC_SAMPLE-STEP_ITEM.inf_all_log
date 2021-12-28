@@ -1,0 +1,41 @@
+// Make_Exe_Channel_List ..... 
+
+001)   DB_RCP+RCP.STEP.MESSAGE 
+002)   DB_RCP+RCP.STEP.MODE 
+003)   DB_RCP+RCP.STEP.TIME 
+004)   DB_RCP+RCP.APC.MODE 
+005)   DB_RCP+RCP.APC.PRESSURE 
+006)   DB_RCP+RCP.APC.POSITION 
+007)   DB_RCP+RCP.APC.PRESET.POS 
+008)   DB_RCP+RCP.APC.HOLD.DELAY 
+009)   DB_RCP+CFG.PARA.MFC.N2.RANGE.MIN 
+010)   DB_RCP+CFG.PARA.MFC.N2.RANGE.MAX 
+011)   DB_RCP+RCP.LIFT_PIN.MODE 
+012)   DB_RCP+RCP.LOOP_START 
+013)   DB_RCP+RCP.LOOP_REPEAT 
+
+
+// Header Recipe .....
+1)  [] [] : [] [] []
+2)  [] [] : [] [] []
+3)  [] [] : [] [] []
+4)  [] [] : [] [] []
+5)  [] [] : [] [] []
+
+// Step Recipe .....
+1)  [1._Step_Name] [DB_RCP+RCP.STEP.MESSAGE] : [] [] []
+2)  [2._Step_Mode] [DB_RCP+RCP.STEP.MODE] : [] [] []
+3)  [3._Time(sec)] [DB_RCP+RCP.STEP.TIME] : [(0,9999)] [] []
+4)  [4._APC] [] : [] [] []
+5)  [1._Control_Mode] [DB_RCP+RCP.APC.MODE] : [] [] []
+6)  [2._Pressure(torr)] [DB_RCP+RCP.APC.PRESSURE] : [(0,10)] [] []
+7)  [3._Position(%)] [DB_RCP+RCP.APC.POSITION] : [(0,100)] [] []
+8)  [4._Preset_Position(%)] [DB_RCP+RCP.APC.PRESET.POS] : [(0,100)] [] []
+9)  [5._Hold_Delay(sec)] [DB_RCP+RCP.APC.HOLD.DELAY] : [(0,10)] [] []
+10)  [5._GAS] [] : [] [] []
+11)  [1._N2] [] : [] [DB_RCP+CFG.PARA.MFC.N2.RANGE.MIN] [DB_RCP+CFG.PARA.MFC.N2.RANGE.MAX]
+12)  [6._LIFT_PIN] [] : [] [] []
+13)  [1._Lift_Pin] [DB_RCP+RCP.LIFT_PIN.MODE] : [] [] []
+14)  [7._LoopStart] [DB_RCP+RCP.LOOP_START] : [(0,100)] [] []
+15)  [8._LoopRepeat] [DB_RCP+RCP.LOOP_REPEAT] : [(0,1000)] [] []
+

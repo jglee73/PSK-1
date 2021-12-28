@@ -1,0 +1,4145 @@
+
+<<<----  [OUT]
+2020/11/04 01:00:00:838
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:00:02:889
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:00:05:369
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:00:053
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2020/11/04 01:18:00:056
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2020/11/04 01:18:00:658
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2020/11/04 01:18:00:749
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2020/11/04 01:18:00:749
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2020/11/04 01:18:00:779
+
+Socket Open Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:00:779
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2020/11/04 01:18:00:779
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:00:839
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2020/11/04 01:18:02:851
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:05:339
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:07:620
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:10:105
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:12:170
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:14:652
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:16:710
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:19:199
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:21:257
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:23:746
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:25:798
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:28:277
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:30:326
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:32:808
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:34:880
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:37:370
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:39:422
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:41:902
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:43:966
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:46:448
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:48:494
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:50:979
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:53:043
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:18:55:528
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:18:57:592
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:00:072
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:02:100
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:04:588
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:06:648
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:09:136
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:11:193
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:13:682
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:15:728
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:18:214
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:20:267
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:22:746
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:24:806
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:27:293
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:29:352
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:31:839
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:33:872
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:36:354
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:38:388
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:40:870
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:42:919
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:45:401
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:47:439
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:49:918
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:51:969
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:54:449
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:19:56:500
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:19:58:979
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:01:047
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:03:526
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:05:589
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:08:073
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:10:125
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:12:606
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:14:660
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:17:152
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:19:207
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:21:698
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:23:760
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:26:246
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:28:286
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:30:777
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:32:827
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:35:309
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:37:363
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:39:855
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:41:920
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:44:402
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:46:453
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:48:932
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:50:990
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:53:480
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:20:55:525
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:20:58:011
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:00:061
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:02:543
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:04:591
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:07:073
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:09:126
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:11:604
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:13:657
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:16:137
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:18:188
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:20:668
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:22:726
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:25:213
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:27:264
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:29:745
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:31:788
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:34:277
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:36:315
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:38:792
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:40:842
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:43:324
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:45:371
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:47:855
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:49:915
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:52:402
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:54:460
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:21:56:948
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:21:59:010
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:01:495
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:03:554
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:06:041
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:08:088
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:10:573
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:12:619
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:15:105
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:17:142
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:19:621
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:21:679
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:24:168
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:26:217
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:28:699
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:30:742
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:33:230
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:35:283
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:37:761
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:39:797
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:42:278
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:44:315
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:46:792
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:48:836
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:51:324
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:53:368
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:22:55:854
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:22:57:897
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:00:386
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:02:425
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:04:901
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:06:941
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:09:417
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:11:455
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:13:932
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:15:979
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:18:464
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:20:514
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:22:995
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:25:052
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:27:543
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:29:591
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:32:072
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:34:120
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:36:606
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:38:662
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:41:151
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:43:197
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:45:683
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:47:730
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:50:215
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:52:265
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:54:746
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:23:56:783
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:23:59:262
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:01:297
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:03:776
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:05:829
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:08:308
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:10:356
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:12:838
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:14:884
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:17:369
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:19:423
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:21:901
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:23:949
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:26:433
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:28:492
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:30:980
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:33:034
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:35:512
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:37:562
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:40:043
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:42:091
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:44:574
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:46:621
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:49:106
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:51:140
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:53:619
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:24:55:665
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:24:58:152
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:00:211
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:02:698
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:04:753
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:07:229
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:09:279
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:11:760
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:13:821
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:16:308
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:18:364
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:20:855
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:22:909
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:25:386
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:27:426
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:29:917
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:31:969
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:34:449
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:36:500
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:38:980
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:41:025
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:43:510
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:45:555
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:48:043
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:50:107
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:52:589
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:54:637
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:25:57:121
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:25:59:161
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:01:652
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:03:712
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:06:197
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:08:256
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:10:745
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:12:794
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:15:276
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:17:317
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:19:807
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:21:852
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:24:340
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:26:393
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:28:871
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:30:922
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:33:401
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:35:437
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:37:918
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:39:962
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:42:449
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:44:502
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:46:980
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:49:031
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:51:510
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:53:552
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:26:56:041
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:26:58:082
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:00:558
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:02:601
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:05:089
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:07:146
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:09:637
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:11:690
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:14:168
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:16:217
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:18:699
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:20:752
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:23:230
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:25:284
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:27:761
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:29:815
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:32:291
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:34:344
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:36:824
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:38:875
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:41:355
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:43:404
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:45:886
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:47:915
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:50:402
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:52:464
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:54:948
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:27:56:998
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:27:59:481
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:01:528
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:04:011
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:06:065
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:08:541
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:10:600
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:13:089
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:15:140
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:17:621
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:19:679
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:22:167
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:24:227
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:26:715
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:28:768
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:31:245
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:33:292
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:35:777
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:37:837
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:40:322
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:42:383
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:44:871
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:46:917
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:49:402
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:51:443
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:53:933
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:28:55:985
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:28:58:465
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:29:00:496
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:29:02:979
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:29:05:039
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:29:07:526
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:29:09:575
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:29:12:058
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:29:14:118
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:29:16:606
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:29:18:665
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:40:32:247
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2020/11/04 01:40:32:250
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2020/11/04 01:40:32:851
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2020/11/04 01:40:32:942
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2020/11/04 01:40:32:942
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2020/11/04 01:40:32:977
+
+Socket Open Started...
+
+<<<----  [OUT]
+2020/11/04 01:40:32:977
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2020/11/04 01:40:32:977
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:40:33:033
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2020/11/04 01:40:35:048
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:40:37:526
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:40:39:580
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:40:42:058
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:40:44:128
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:40:46:605
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:40:48:661
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:40:51:152
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:40:53:218
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:40:55:699
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:40:57:757
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:00:246
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:02:296
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:04:776
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:06:838
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:09:324
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:11:383
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:13:871
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:15:900
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:18:387
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:20:415
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:22:901
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:24:950
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:27:432
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:29:499
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:31:980
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:34:044
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:36:526
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:38:576
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:41:058
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:43:100
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:45:590
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:47:636
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:50:121
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:52:179
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:54:668
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:41:56:713
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:41:59:199
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:01:247
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:03:729
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:05:780
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:08:260
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:10:314
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:12:792
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:14:837
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:17:324
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:19:358
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:21:839
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:23:879
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:26:371
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:28:429
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:30:917
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:32:975
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:35:463
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:37:514
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:39:995
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:42:052
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:44:543
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:46:594
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:49:074
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:51:121
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:53:605
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:42:55:663
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:42:58:152
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:00:211
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:02:699
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:04:764
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:07:245
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:09:300
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:11:777
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:13:839
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:16:323
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:18:382
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:20:871
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:22:915
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:25:401
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:27:450
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:29:934
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:31:984
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:34:465
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:36:517
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:38:996
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:41:030
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:43:511
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:45:559
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:48:042
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:50:093
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:52:573
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:54:632
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:43:57:121
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:43:59:174
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:01:651
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:03:709
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:06:199
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:08:252
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:10:731
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:12:792
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:15:277
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:17:319
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:19:807
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:21:860
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:24:339
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:26:391
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:28:871
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:30:926
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:33:417
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:35:475
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:37:965
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:40:003
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:42:479
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:44:523
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:47:012
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:49:052
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:51:543
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:53:593
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:44:56:074
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:44:58:120
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:00:605
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:02:646
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:05:135
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:07:207
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:09:683
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:11:724
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:14:214
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:16:260
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:18:746
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:20:802
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:23:292
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:25:351
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:27:839
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:29:881
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:32:369
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:34:432
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:36:916
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:38:955
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:41:433
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:43:498
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:45:980
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:48:030
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:50:511
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:52:558
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:55:043
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:45:57:087
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:45:59:573
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:01:620
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:04:105
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:06:151
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:08:635
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:10:676
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:13:167
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:15:210
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:17:698
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:19:743
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:22:229
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:24:265
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:26:746
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:28:783
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:31:261
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:33:313
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:35:792
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:37:839
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:40:323
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:42:356
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:44:839
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:46:883
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:49:371
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:51:394
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:53:870
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:46:55:906
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:46:58:387
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:00:432
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:02:917
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:04:962
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:07:447
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:09:486
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:11:963
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:14:000
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:16:480
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:18:532
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:21:011
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:23:046
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:25:527
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:27:568
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:30:058
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:32:107
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:34:590
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:36:639
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:39:121
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:41:168
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:43:651
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:45:694
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:48:184
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:50:247
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:52:729
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:54:792
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:47:57:276
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:47:59:324
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:01:808
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:03:874
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:06:355
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:08:417
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:10:901
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:12:961
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:15:449
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:17:492
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:19:981
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:22:047
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:24:527
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:26:585
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:29:073
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:31:115
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:33:605
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:35:660
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:38:136
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:40:192
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:42:683
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:44:746
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:47:231
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:49:284
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:51:762
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:53:812
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:48:56:291
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:48:58:347
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:00:823
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:02:854
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:05:338
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:07:366
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:09:855
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:11:907
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:14:386
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:16:435
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:18:917
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:20:971
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:23:449
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:25:492
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:27:979
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:30:042
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:32:527
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:34:580
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:37:058
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:39:097
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:41:573
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:43:632
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:46:120
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:48:179
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:50:667
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:52:723
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:55:214
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:49:57:263
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:49:59:745
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:01:780
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:04:262
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:06:302
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:08:792
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:10:842
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:13:323
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:15:381
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:17:869
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:19:924
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:22:401
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:24:453
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:26:933
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:28:986
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:31:464
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:33:515
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:35:995
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:38:055
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:40:543
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:42:597
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:45:074
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:47:115
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:49:606
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:51:656
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:54:136
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:50:56:201
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:50:58:682
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:51:00:727
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:51:03:214
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:51:05:278
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:51:07:760
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:51:52:232
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2020/11/04 01:51:52:236
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2020/11/04 01:51:52:837
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2020/11/04 01:51:52:929
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2020/11/04 01:51:52:929
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2020/11/04 01:51:52:958
+
+Socket Open Started...
+
+<<<----  [OUT]
+2020/11/04 01:51:52:958
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2020/11/04 01:51:52:958
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:51:53:020
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2020/11/04 01:51:55:020
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:51:57:512
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:51:59:590
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:02:074
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:04:132
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:06:619
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:08:664
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:11:151
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:13:190
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:15:666
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:17:717
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:20:198
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:22:248
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:24:729
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:26:779
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:29:262
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:31:300
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:33:776
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:35:827
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:38:308
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:40:372
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:42:855
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:44:902
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:47:386
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:49:436
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:51:916
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:53:976
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:52:56:464
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:52:58:524
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:01:011
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:03:059
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:05:542
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:07:598
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:10:089
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:12:143
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:14:621
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:16:676
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:19:167
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:21:210
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:23:699
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:25:758
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:28:244
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:30:291
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:32:777
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:34:805
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:37:293
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:39:330
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:41:808
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:43:846
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:46:323
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:48:375
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:50:854
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:52:909
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:55:386
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:53:57:441
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:53:59:932
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:01:972
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:04:448
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:06:505
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:08:996
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:11:057
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:13:543
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:15:595
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:18:073
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:20:135
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:22:620
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:24:674
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:27:151
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:29:202
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:31:683
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:33:732
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:36:213
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:38:264
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:40:745
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:42:784
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:45:260
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:47:317
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:49:808
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:51:869
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:54:356
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:54:56:414
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:54:58:901
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:00:944
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:03:433
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:05:489
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:07:980
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:10:045
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:12:527
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:14:594
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:17:074
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:19:131
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:21:620
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:23:657
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:26:136
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:28:195
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:30:683
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:32:730
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:35:214
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:37:259
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:39:746
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:41:793
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:44:276
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:46:321
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:48:807
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:50:859
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:53:340
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:55:399
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:55:57:887
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:55:59:946
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:02:434
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:04:505
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:06:996
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:09:063
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:11:541
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:13:596
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:16:074
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:18:127
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:20:604
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:22:664
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:25:151
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:27:197
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:29:682
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:31:717
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:34:199
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:36:240
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:38:729
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:40:801
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:43:291
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:45:336
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:47:823
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:49:876
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:52:354
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:54:409
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:56:56:885
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:56:58:940
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:01:418
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:03:474
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:05:964
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:08:027
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:10:511
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:12:562
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:15:043
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:17:092
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:19:572
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:21:624
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:24:105
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:26:138
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:28:620
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:30:664
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:33:151
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:35:191
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:37:667
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:39:710
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:42:199
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:44:239
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:46:729
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:48:783
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:51:260
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:53:304
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:57:55:792
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:57:57:829
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:00:308
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:02:351
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:04:839
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:06:882
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:09:369
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:11:417
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:13:902
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:15:943
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:18:432
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:20:471
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:22:949
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:25:004
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:27:479
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:29:515
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:31:995
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:34:046
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:36:527
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:38:568
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:41:058
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:43:101
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:45:589
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:47:634
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:50:120
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:52:161
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:54:651
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:58:56:705
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:58:59:182
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:01:198
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:03:683
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:05:735
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:08:214
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:10:263
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:12:745
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:14:791
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:17:276
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:19:338
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:21:823
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:23:875
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:26:356
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:28:413
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:30:901
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:32:960
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:35:449
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:37:479
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:39:963
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:42:012
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:44:495
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:46:547
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:49:027
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:51:089
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:53:573
+
+Connecting Started...
+
+<<<----  [OUT]
+2020/11/04 01:59:55:615
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10061 !
+
+<<<----  [OUT]
+2020/11/04 01:59:58:105
+
+Connecting Started...

@@ -1,0 +1,6 @@
+; PHY_RS232__RF_AE.def : Declares the module parameters for the DLL.
+
+LIBRARY      "PHY_RS232__RF_AE"
+
+EXPORTS
+    ; Explicit exports can go here

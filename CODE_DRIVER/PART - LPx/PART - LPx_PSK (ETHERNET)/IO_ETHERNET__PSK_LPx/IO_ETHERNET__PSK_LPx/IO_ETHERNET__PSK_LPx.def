@@ -1,0 +1,6 @@
+; IO_ETHERNET__PSK_LPx.def : Declares the module parameters for the DLL.
+
+LIBRARY      "IO_ETHERNET__PSK_LPx"
+
+EXPORTS
+    ; Explicit exports can go here

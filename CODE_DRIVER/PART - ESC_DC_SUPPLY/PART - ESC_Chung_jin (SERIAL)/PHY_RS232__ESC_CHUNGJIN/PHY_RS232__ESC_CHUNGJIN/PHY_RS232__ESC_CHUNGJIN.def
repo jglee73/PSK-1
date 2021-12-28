@@ -1,0 +1,6 @@
+; PHY_RS232__ESC_CHUNGJIN.def : Declares the module parameters for the DLL.
+
+LIBRARY      "PHY_RS232__ESC_CHUNGJIN"
+
+EXPORTS
+    ; Explicit exports can go here

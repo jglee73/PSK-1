@@ -1,0 +1,6 @@
+#ID=2	4702	LIGHT	PHY_MFC7 - In MFC config page, MFC's use is selected to "YES".
+#ID=1	4701	LIGHT	PHY_MFC7 - MFC Flow Control Aborted !.
+#ID=3	4703	LIGHT	PHY_MFC7 - MFC Flow Control Warning Range Alarm.
+#ID=4	4704	LIGHT	PHY_MFC7 - MFC Flow Control Abort Range Alarm.
+#ID=5	4705	LIGHT	PHY_MFC7 - During Idle, MFC Flow Control Warning Range Alarm.
+#ID=6	4706	LIGHT	PHY_MFC7 - During Idle, MFC Flow Control Abort Range Alarm.

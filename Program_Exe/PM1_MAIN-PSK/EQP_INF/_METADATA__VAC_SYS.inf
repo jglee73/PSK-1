@@ -1,0 +1,75 @@
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    FNC_VAC_VLV_CTRL
+
+#DEFINE_CONSTANT    OBJ__VAC_VLV                        PHY_VAC_VLV
+#DEFINE_CONSTANT    OBJ__APC_VLV                        PHY_VAT
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_VAC_VLV
+
+#DEFINE_CONSTANT    CH__DO_FR_VLV                       IO+do.Fast.Vac.Vlv
+#DEFINE_CONSTANT    CH__DO_SR_VLV                       IO+do.Soft.Vac.Vlv
+#DEFINE_CONSTANT    CH__DO_EXHAUST_VLV                  IO+do.TMP.Vac.Vlv
+
+#DEFINE_CONSTANT    CH__DI_FR_OPEN_SNS                  IO+di.Vac.Fast.Vlv.Open
+#DEFINE_CONSTANT    CH__DI_FR_CLOSE_SNS                 IO+di.Vac.Fast.Vlv.Close
+
+#DEFINE_CONSTANT    CH__DI_SR_OPEN_SNS                  NONE
+#DEFINE_CONSTANT    CH__DI_SR_CLOSE_SNS                 NONE
+
+#DEFINE_CONSTANT    CH__DI_DRY_PUMP_POWER_SENSOR        PHY_DRY+MON.PUMP.POWER.SNS
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_VAT
+
+#DEFINE_CONSTANT    OBJ__DB_SYS                         DB_SYS
+
+#DEFINE_CONSTANT    CH__DO_APC_CTRL_MODE                IO+so.APC.Mode.Set
+#DEFINE_CONSTANT    CH__AO_APC_SETPOINT_DATA            IO+so.APC.SetPoint.Data
+#DEFINE_CONSTANT    CH__DO_APC_SETPOINT_TYPE            IO+so.APC.SetPoint.Type
+
+#DEFINE_CONSTANT    CH__DI_APC_STATE                    IO+si.APC.Status
+#DEFINE_CONSTANT    CH__AI_APC_PRESSURE                 IO+si.APC.Pressure
+#DEFINE_CONSTANT    CH__AI_APC_POSITION                 IO+si.APC.Position
+#DEFINE_CONSTANT    CH__DI_APC_VLV_CLOSE                IO+si.APC.Vlv.Close.Check
+#DEFINE_CONSTANT    CH__DI_APC_VLV_OPEN                 IO+si.APC.Vlv.Open.Check
+#DEFINE_CONSTANT    CH__DI_APC_VLV_STATE                IO+si.APC.Device.Check
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_TMP
+
+#DEFINE_CONSTANT    OBJ__TMP                            PHY_IO__TMP
+#DEFINE_CONSTANT    TMP_MODE.START                      PUMP_ON
+#DEFINE_CONSTANT    TMP_MODE.STOP                       AUTO_STOP
+#DEFINE_CONSTANT    TMP_MODE.STOP_NO_WAIT               AUTO_STOP_NO_WAIT
+
+#DEFINE_CONSTANT    CH__TMP_DI_COMM_STATE               PHY_IO__TMP+MON.COMM.STS
+#DEFINE_CONSTANT    CH__TMP_DI_PUMP_STATE               PHY_IO__TMP+MON.PUMP.STS
+#DEFINE_CONSTANT    CH__TMP_DI_ERROR_STATE              PHY_IO__TMP+MON.ERROR.STS
+#DEFINE_CONSTANT    CH__TMP_AI_ROT_RPM                  PHY_IO__TMP+INFO.ROT_SPEED.RPM
+
+#DEFINE_CONSTANT    OBJ__VAT                            PHY_VAT
+
+#DEFINE_CONSTANT    CH__DI_FORELINE_VAC_SNS             PHY_DRY+MON.VAC.ON.SNS
+#DEFINE_CONSTANT    CH__DI_DRY_PUMP_ON                  PHY_DRY+MON.PUMP.POWER.SNS
+
+#DEFINE_CONSTANT    CH__DO_TMP_EXHAUST_VALVE            IO+do.TMP.Vac.Vlv
+#DEFINE_CONSTANT    CH__DO_TMP_N2_VALVE                 IO+do.TMP.N2.Supply.Vlv
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_DRY
+
+#DEFINE_CONSTANT    PUMP.CONTROL_TYPE                   MANUAL    // OBJECT   IO
+// #DEFINE_CONSTANT    OBJ__IO_PUMP                        PHY_IO_DRY
+// #DEFINE_CONSTANT    CH__DO_PUMP_SET                     IO+do.Pump.Power.Set
+
+#DEFINE_CONSTANT    CH__DI_PUMP_POWER_SNS               NULL
+#DEFINE_CONSTANT    CH__DI_PUMP_VAC_SNS                 NULL
+#DEFINE_CONSTANT    CH__AI_PUMP_PRESSURE_TORR           IO+ai.Pump.Line.Pressure
+

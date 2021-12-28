@@ -1,0 +1,12 @@
+#pragma once
+
+
+#define ALID__OFFLINE_ALARM					1
+#define ALID__REMOTE_ALARM					2
+#define ALID__SEND_COMMAND_FAIL				3
+#define ALID__RF_CONTACTOR_ALARM			4
+#define ALID__RF_ON_TIMEOUT_ALARM			5
+#define ALID__RF_INTERLOCK_ALARM			6
+#define ALID__RF_WATERFLOW_ALARM			7
+#define ALID__RF_OVERTEMP_ALARM				8
+#define ALID__RF_OVERTIME_ALARM				9

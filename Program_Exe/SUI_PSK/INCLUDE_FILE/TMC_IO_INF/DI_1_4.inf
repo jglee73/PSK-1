@@ -1,0 +1,16 @@
+IO+di.ATM_RB.Status.Ready
+IO+di.ATM_RB.Alarm.Normal
+IO+di.ATM_AL.Alarm.Normal
+IO+di.ATM_RB.Retract_LP1
+IO+di.ATM_RB.Retract_LP2
+IO+di.ATM_RB.Retract_LP3
+IO+di.ATM_RB.Retract_ST1
+IO+di.ATM_RB.Retract_LL1
+IO+di.ATM_RB.Retract_LL2
+IO+di.ATM_RB.Retract_LL3
+IO+di.ATM_RB.Retract_LL4
+IO+di.LL1.Door.Open
+IO+di.LL1.Door.Close
+IO+di.LL2.Door.Open
+IO+di.LL2.Door.Close
+IO+di.LL3.Door.Open

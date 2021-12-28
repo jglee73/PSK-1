@@ -1,0 +1,100 @@
+
+#DEFINE   ##MFC_SIZE           9
+
+
+#INCLUDE  "_METADATA__IO_INTERLOCK.inf"
+#INCLUDE  "_METADATA__GAS_BOX.inf"
+#INCLUDE  "_METADATA__VAC_SYS.inf"
+#INCLUDE  "_METADATA__RF_SYS.inf"
+#INCLUDE  "_METADATA__HEATER_SYS.inf"
+
+#INCLUDE  "_METADATA__PMC_SYS.inf"
+#INCLUDE  "_METADATA__PROC_SYS.inf"
+#INCLUDE  "_METADATA__UTILITY_SYS.inf"
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_CHM_IO
+
+#DEFINE_CONSTANT    OBJ__DB_INF                         DB_INF
+#DEFINE_CONSTANT    OBJ__DB_SYS                         DB_SYS
+
+#DEFINE_CONSTANT    CH__DI_VAC_SNS                      IO+di.CHM.VAC.Sts
+#DEFINE_CONSTANT    CH__DI_ATM_SNS                      IO+di.CHM.ATM.Sts
+
+#DEFINE_CONSTANT    CH__DO_MANOMETER_ISO_VLV	          IO+do.Bara.Protect.01_Torr.Vlv
+#DEFINE_CONSTANT    CH__AI_MANOMETER_TORR               PHY_VAT+MON.PRESSURE
+
+#DEFINE_CONSTANT    CH__AI_FORELINE_PRESSURE_TORR       IO+ai.Pump.Line.Pressure
+
+/*
+#DEFINE_CONSTANT    CH__PROC_STATE                      FNC_PROC+dPRC.STS
+
+#DEFINE_CONSTANT    CH__RF_ON_STATE                     DB_INF+RF.ON.STS
+#DEFINE_CONSTANT    CH__PLASMA_RF_POWER                 Phy_RS232__PLASMA_RF+ao.Set.Power
+#DEFINE_CONSTANT    CH__BIAS_RF_POWER                   Phy_RS232__BIAS_RF+ao.Set.Power
+*/
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_PM_SLOT
+
+#DEFINE_CONSTANT    CH__MON_DOOR_STATE                  DB_INF+PMC.SLOT.STATUS
+
+#DEFINE_CONSTANT    CH__DO_DOOR_CLOSE                   IO+do.PM.Slot.Vlv.Close
+#DEFINE_CONSTANT    CH__DO_DOOR_OPEN                    IO+do.PM.Slot.Vlv.Open
+
+#DEFINE_CONSTANT    CH__DI_DOOR_CLOSE                   IO+di.PM.Slot.Vlv.Close
+#DEFINE_CONSTANT    CH__DI_DOOR_OPEN                    IO+di.PM.Slot.Vlv.Open
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_LIFT_PIN
+
+#DEFINE_CONSTANT    CH__LIFT_PIN_STATE                  DB_INF+LIFT_PIN.STATUS
+
+#DEFINE_CONSTANT    CH__CHUCK_STATE                     PHY_ESC+MON.CHUCK_STATUS
+#DEFINE_CONSTANT    CH__AI_ESC_VOLTAGE									PHY_IO__ESC+si.ESC.VOLTAGE
+
+#DEFINE_CONSTANT    CH__DO_PIN_UP                       IO+do.ESC.Pin.Up
+#DEFINE_CONSTANT    CH__DO_PIN_DOWN                     IO+do.ESC.Pin.Down
+#DEFINE_CONSTANT    CH__DO_PIN_MIDDLE                   IO+do.ESC.Pin.Middle
+
+#DEFINE_CONSTANT    DATA__PIN_SIZE                      3
+#DEFINE_CONSTANT    CH__AI_PIN_POS.1                    IO+ai.Pin_Pos.AMP1
+#DEFINE_CONSTANT    CH__AI_PIN_POS.2                    IO+ai.Pin_Pos.AMP2
+#DEFINE_CONSTANT    CH__AI_PIN_POS.3                    IO+ai.Pin_Pos.AMP3
+
+			
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__TMP
+
+#OBJECT_IO_PARA     COM_PORT                       5
+
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__ESC
+
+#OBJECT_IO_PARA     COM_PORT                       6
+
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__RF_SRC
+
+#OBJECT_IO_PARA     COM_PORT                       11
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__RF_BIAS
+
+#OBJECT_IO_PARA     COM_PORT                       12
+
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__MATCHER
+
+#OBJECT_IO_PARA     COM_PORT                       13
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    IO
+
+#OBJECT_IO_FILE     CFG_IO__PMC_MAIN.cfg  
+

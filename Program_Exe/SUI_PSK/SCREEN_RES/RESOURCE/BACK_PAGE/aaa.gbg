@@ -1,0 +1,46 @@
+@SCREEN_SIZE 926 704
+
+#BITMAP_EX
+{
+JGLEE__STD_SIG_RED.bmp
+0
+(1, 0, 1)
+(0, 1, 0)
+(618, 240) (648 260)
+}
+#DYNAMIC
+{
+}
+#BITMAP_EX
+{
+JGLEE__STD_SIG_RED.bmp
+0
+(1, 0, 1)
+(0, 1, 0)
+(397, 340) (427 360)
+}
+#DYNAMIC
+{
+}
+#BITMAP_EX
+{
+JGLEE__STD_SIG_RED.bmp
+0
+(1, 0, 1)
+(0, 1, 0)
+(620, 322) (650 342)
+}
+#DYNAMIC
+{
+}
+#BITMAP_EX
+{
+JGLEE__STD_SIG_RED.bmp
+0
+(1, 0, 1)
+(0, 1, 0)
+(399, 422) (429 442)
+}
+#DYNAMIC
+{
+}
