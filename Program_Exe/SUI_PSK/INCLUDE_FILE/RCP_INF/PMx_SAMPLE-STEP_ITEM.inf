@@ -252,8 +252,23 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
+#CHANNEL           FNC_STEP+RCP.RF.BIAS.WAIT.TIME
+#TITLE             1._Wait_Time(msec)
+#CHANNEL_TYPE      ANALOG
+#CH_CHANNEL_ITEM 
+#LIST
+#RANGE             (0,5000)
+#CH_ALG_MIN
+#CH_ALG_MAX
+#TEXTCOLOR         RGB(0,0,0)
+#BACKCOLOR         RGB(255,255,255)
+#CATEGORY 			   CHILD
+
+//-----------------------------------------------------------------
+##ITEM   YES
+
 #CHANNEL           FNC_STEP+RCP.RF.BIAS.POWER
-#TITLE             1._POWER(W)
+#TITLE             2._POWER(W)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -268,7 +283,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.RF.BIAS.TOL.WARNING
-#TITLE             2._Warning(%)
+#TITLE             3._Warning(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -283,7 +298,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.RF.BIAS.TOL.ALARM
-#TITLE             3._Alarm(%)
+#TITLE             4._Alarm(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -304,23 +319,8 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.MAT.SOURCE.WAIT.TIME
-#TITLE             1._Wait_Time(msec)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,5000)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
 #CHANNEL           FNC_STEP+RCP.MAT.SOURCE.SHUNT
-#TITLE             2._Shunt(%)
+#TITLE             1._Shunt(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -335,7 +335,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.MAT.SOURCE.SERIES
-#TITLE             3._Series(%)
+#TITLE             2._Series(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -350,7 +350,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.MAT.SOURCE.CAPACITY
-#TITLE             4._Capacity(%)
+#TITLE             3._Capacity(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -371,23 +371,8 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.MAT.BIAS.WAIT.TIME
-#TITLE             1._Wait_Time(msec)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,5000)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
 #CHANNEL           FNC_STEP+RCP.MAT.BIAS.SHUNT
-#TITLE             2._Shunt(%)
+#TITLE             1._Shunt(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -402,7 +387,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.MAT.BIAS.SERIES
-#TITLE             3._Series(%)
+#TITLE             2._Series(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -417,7 +402,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.MAT.BIAS.CAPACITY
-#TITLE             4._Capacity(%)
+#TITLE             3._Capacity(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -839,14 +824,14 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.WALL.HTR1.TEMP
-#TITLE             1._Heater1(C)
+#CHANNEL           FNC_STEP+RCP.WALL.MAIN.TEMP
+#TITLE             1._Main_Setpoint(C)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
 #RANGE             
-#CH_ALG_MIN        PHY_HTR_WALL+CFG.MIN.VALUE.LOOP.02
-#CH_ALG_MAX        PHY_HTR_WALL+CFG.MAX.VALUE.LOOP.02
+#CH_ALG_MIN        PHY_HTR_WALL+CFG.MIN.VALUE.LOOP.01
+#CH_ALG_MAX        PHY_HTR_WALL+CFG.MAX.VALUE.LOOP.01
 #TEXTCOLOR         RGB(0,0,0)
 #BACKCOLOR         RGB(255,255,255)
 #CATEGORY 			   CHILD
@@ -854,7 +839,7 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.WALL.HTR1.OFFSET
+#CHANNEL           FNC_STEP+RCP.WALL.MAIN.OFFSET
 #TITLE             1.1_Offset(C)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
@@ -869,7 +854,7 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.WALL.HTR1.WARNING
+#CHANNEL           FNC_STEP+RCP.WALL.MAIN.WARNING
 #TITLE             1.2_Warning(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
@@ -884,191 +869,8 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.WALL.HTR1.ALARM
+#CHANNEL           FNC_STEP+RCP.WALL.MAIN.ALARM
 #TITLE             1.3_Alarm(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR2.TEMP
-#TITLE             2._Heater2(C)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             
-#CH_ALG_MIN        PHY_HTR_WALL+CFG.MIN.VALUE.LOOP.03
-#CH_ALG_MAX        PHY_HTR_WALL+CFG.MAX.VALUE.LOOP.03
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR2.OFFSET
-#TITLE             2.1_Offset(C)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR2.WARNING
-#TITLE             2.2_Warning(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR2.ALARM
-#TITLE             2.3_Alarm(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR3.TEMP
-#TITLE             3._Heater3(C)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             
-#CH_ALG_MIN        PHY_HTR_WALL+CFG.MIN.VALUE.LOOP.04
-#CH_ALG_MAX        PHY_HTR_WALL+CFG.MAX.VALUE.LOOP.04
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR3.OFFSET
-#TITLE             3.1_Offset(C)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR3.WARNING
-#TITLE             3.2_Warning(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR3.ALARM
-#TITLE             3.3_Alarm(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR4.TEMP
-#TITLE             4._Heater4(C)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             
-#CH_ALG_MIN        PHY_HTR_WALL+CFG.MIN.VALUE.LOOP.05
-#CH_ALG_MAX        PHY_HTR_WALL+CFG.MAX.VALUE.LOOP.05
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR4.OFFSET
-#TITLE             4.1_Offset(C)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR4.WARNING
-#TITLE             4.2_Warning(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.WALL.HTR4.ALARM
-#TITLE             4.3_Alarm(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
