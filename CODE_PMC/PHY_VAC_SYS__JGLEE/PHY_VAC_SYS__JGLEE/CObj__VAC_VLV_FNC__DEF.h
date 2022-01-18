@@ -4,6 +4,8 @@
 // ...
 #define APC_CMMD__CLOSE				"CLOSE"
 #define APC_CMMD__OPEN				"OPEN"
+#define APC_CMMD__POSITION			"POSITION"
+
 #define APC_CMMD__BALLAST_CTRL		"BALLAST_CTRL"
 #define APC_CMMD__BALLAST_POS		"BALLAST_POS"
 

@@ -531,12 +531,6 @@ int CObj__SYSTEM_STD::__CALL__MONITORING(id,p_variable,p_alarm)
 
 
 //-------------------------------------------------------------------------
-void CObj__SYSTEM_STD
-::Fnc__WRITE_LOG(CString msg)
-{
-	xLOG_CTRL->WRITE__LOG(msg);
-}
-
 int  CObj__SYSTEM_STD
 ::Alarm__CHECK_RETRY_ABORT(CII_OBJECT__ALARM* p_alarm,CString msg, const int alarm_id)
 {

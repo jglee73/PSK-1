@@ -124,7 +124,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\CCommon_Error;&quot;..\PHY_IO_CTRL__JGLEE&quot;"
+				AdditionalIncludeDirectories="..\..\CCommon_Error;..\..\CCommon_Utility;..\PHY_IO_CTRL__JGLEE"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -347,34 +347,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="CObj__CHM_PSK_IO"
-				>
-				<File
-					RelativePath=".\CObj__CHM_PSK_IO.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__CHM_PSK_IO.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__CHM_PSK_IO__ALID.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__CHM_PSK_IO__CALL_FNC.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__CHM_PSK_IO__DEF.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__CHM_PSK_IO__MON_FNC.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="CObj__PM_SLOT_IO"
 				>
 				<File
@@ -431,6 +403,18 @@
 				</File>
 				<File
 					RelativePath=".\CObj__LIFT_PIN_IO__SUB_FNC.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CCommon_Utility"
+				>
+				<File
+					RelativePath="..\..\CCommon_Utility\CCommon_Utility.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\CCommon_Utility\CCommon_Utility.h"
 					>
 				</File>
 			</Filter>

@@ -22,7 +22,13 @@ LOOP_RETRY:
 
 	// Interlock Check ...
 	{
-
+		for(int i=0; i<iDATA__RF_SIZE; i++)
+		{
+			if(Check__RF_POWER(p_alarm, i) < 0)
+			{
+				return -101;
+			}
+		}
 	}
 
 	// Open ...
@@ -55,11 +61,11 @@ LOOP_RETRY:
 
 			if(p_variable->Check__CTRL_ABORT() > 0)
 			{
-				return OBJ_ABORT;
+				return -11;
 			}
 
 			if((dEXT_CH__DI_DOOR_OPEN->Check__DATA(STR__ON)   > 0)
-				&& (dEXT_CH__DI_DOOR_CLOSE->Check__DATA(STR__OFF) > 0))
+			&& (dEXT_CH__DI_DOOR_CLOSE->Check__DATA(STR__OFF) > 0))
 			{
 				break;
 			}
@@ -74,28 +80,28 @@ LOOP_RETRY:
 				alm_msg.Format("Config Open-Timeout <- %.1f sec \n", cfg_sec);
 
 				alm_bff.Format("%s <- %s \n", 
-					dEXT_CH__DI_DOOR_OPEN->Get__VARIABLE_NAME(),
-					dEXT_CH__DI_DOOR_OPEN->Get__STRING());
+								dEXT_CH__DI_DOOR_OPEN->Get__VARIABLE_NAME(),
+								dEXT_CH__DI_DOOR_OPEN->Get__STRING());
 				alm_msg += alm_bff;
 
 				alm_bff.Format("%s <- %s \n", 
-					dEXT_CH__DI_DOOR_CLOSE->Get__VARIABLE_NAME(),
-					dEXT_CH__DI_DOOR_CLOSE->Get__STRING());
+								dEXT_CH__DI_DOOR_CLOSE->Get__VARIABLE_NAME(),
+								dEXT_CH__DI_DOOR_CLOSE->Get__STRING());
 				alm_msg += alm_bff;
 
 				p_alarm->Popup__ALARM_With_MESSAGE(alm_id, alm_msg, r_act);
 
-				if(r_act.CompareNoCase(STR__RETRY) == 0)
+				if(r_act.CompareNoCase(ACT__RETRY) == 0)
 				{
 					goto LOOP_RETRY;
 				}
 
-				return OBJ_ABORT;
+				return -21;
 			}
 		}
 	}
 
-	return OBJ_AVAILABLE;
+	return 1;
 }
 
 int CObj__PM_SLOT_IO
@@ -140,7 +146,7 @@ LOOP_RETRY:
 
 			if(p_variable->Check__CTRL_ABORT() > 0)
 			{
-				return OBJ_ABORT;
+				return -11;
 			}
 
 			if((dEXT_CH__DI_DOOR_OPEN->Check__DATA(STR__OFF) > 0)
@@ -159,26 +165,72 @@ LOOP_RETRY:
 				alm_msg.Format("Config Close-Timeout <- %.1f sec \n", cfg_sec);
 
 				alm_bff.Format("%s <- %s \n", 
-					dEXT_CH__DI_DOOR_OPEN->Get__VARIABLE_NAME(),
-					dEXT_CH__DI_DOOR_OPEN->Get__STRING());
+								dEXT_CH__DI_DOOR_OPEN->Get__VARIABLE_NAME(),
+								dEXT_CH__DI_DOOR_OPEN->Get__STRING());
 				alm_msg += alm_bff;
 
 				alm_bff.Format("%s <- %s \n", 
-					dEXT_CH__DI_DOOR_CLOSE->Get__VARIABLE_NAME(),
-					dEXT_CH__DI_DOOR_CLOSE->Get__STRING());
+								dEXT_CH__DI_DOOR_CLOSE->Get__VARIABLE_NAME(),
+								dEXT_CH__DI_DOOR_CLOSE->Get__STRING());
 				alm_msg += alm_bff;
 
 				p_alarm->Popup__ALARM_With_MESSAGE(alm_id, alm_msg, r_act);
 
-				if(r_act.CompareNoCase(STR__RETRY) == 0)
+				if(r_act.CompareNoCase(ACT__RETRY) == 0)
 				{
 					goto LOOP_RETRY;
 				}
 
-				return OBJ_ABORT;
+				return -21;
 			}
 		}
 	}
 
-	return OBJ_AVAILABLE;
+	return 1;
+}
+
+int CObj__PM_SLOT_IO
+::Check__RF_POWER(CII_OBJECT__ALARM *p_alarm, int rf_index)
+{
+	while(1)
+	{
+		if(dEXT_CH__RFx_ON_STS[rf_index]->Check__DATA(STR__OFF) < 0)
+		{
+			int alarm_id = ALID__RF_POWER_STS;
+
+			CString alm_msg;
+			CString r_act;
+
+			CString rf_name = sList__RFx_NAME[rf_index];
+
+			alm_msg.Format("Please, Check RF %s - Power On Status.", rf_name);	
+
+			p_alarm->Check__ALARM(alarm_id,r_act);
+			p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, alm_msg, r_act);
+
+			if(r_act.CompareNoCase(ACT__RETRY) != 0)
+			{
+				CString log_msg;
+				CString log_bff;
+
+				log_msg.Format("RF(%s) Power Status Error ... \n", rf_name);
+
+				log_bff.Format(" * %s <- %s \n",
+					dEXT_CH__RFx_ON_STS[rf_index]->Get__CHANNEL_NAME(),
+					dEXT_CH__RFx_ON_STS[rf_index]->Get__STRING());
+				log_msg += log_bff;
+
+				xI_LOG_CTRL->WRITE__LOG(log_msg);
+				return -1;
+			}	
+		}
+		else
+		{
+			return 1;
+		}
+
+		Sleep(500);
+	}
+
+	return -1;
 }

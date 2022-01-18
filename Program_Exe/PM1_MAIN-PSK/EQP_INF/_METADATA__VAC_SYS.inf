@@ -1,13 +1,6 @@
 
 
 //------------------------------------------------
-#OBJECT_PROPERTY    FNC_VAC_VLV_CTRL
-
-#DEFINE_CONSTANT    OBJ__VAC_VLV                        PHY_VAC_VLV
-#DEFINE_CONSTANT    OBJ__APC_VLV                        PHY_VAT
-
-
-//------------------------------------------------
 #OBJECT_PROPERTY    PHY_VAC_VLV
 
 #DEFINE_CONSTANT    CH__DO_FR_VLV                       IO+do.Fast.Vac.Vlv
@@ -43,23 +36,43 @@
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_TMP
 
+#DEFINE_CONSTANT    DATA.TMP_TYPE                       OBJ   // IO OBJ
+
+// TMP.IO INFO ...
+#DEFINE_CONSTANT    LINK_TMP.DI_PUMP_STATE              PHY_IO__TMP+MON.PUMP.STS
+#DEFINE_CONSTANT    LINK_TMP.DI_ERROR_STATE             PHY_IO__TMP+MON.ERROR.STS
+#DEFINE_CONSTANT    LINK_TMP.AI_ROT_RPM                 PHY_IO__TMP+INFO.ROT_SPEED.RPM
+
+// TMP.OBJ INFO ...
 #DEFINE_CONSTANT    OBJ__TMP                            PHY_IO__TMP
 #DEFINE_CONSTANT    TMP_MODE.START                      PUMP_ON
 #DEFINE_CONSTANT    TMP_MODE.STOP                       AUTO_STOP
 #DEFINE_CONSTANT    TMP_MODE.STOP_NO_WAIT               AUTO_STOP_NO_WAIT
 
-#DEFINE_CONSTANT    CH__TMP_DI_COMM_STATE               PHY_IO__TMP+MON.COMM.STS
-#DEFINE_CONSTANT    CH__TMP_DI_PUMP_STATE               PHY_IO__TMP+MON.PUMP.STS
-#DEFINE_CONSTANT    CH__TMP_DI_ERROR_STATE              PHY_IO__TMP+MON.ERROR.STS
-#DEFINE_CONSTANT    CH__TMP_AI_ROT_RPM                  PHY_IO__TMP+INFO.ROT_SPEED.RPM
+#DEFINE_CONSTANT    LINK_TMP.DI_COMM_STATE              PHY_IO__TMP+MON.COMM.STS
 
+// GATE.VLV INFO ...
+#DEFINE_CONSTANT    DATA.GV_USE                         NULL
+/*
+#DEFINE_CONSTANT    LINK_GV.DO_OPEN                     NULL
+#DEFINE_CONSTANT    LINK_GV.DO_CLOSE                    NULL
+#DEFINE_CONSTANT    LINK_GV.DI_OPEN                     NULL
+#DEFINE_CONSTANT    LINK_GV.DI_CLOSE                    NULL
+*/
+
+// VAT.OBJ INFO ...
+#DEFINE_CONSTANT    DATA.VAT_USE                        YES
 #DEFINE_CONSTANT    OBJ__VAT                            PHY_VAT
 
-#DEFINE_CONSTANT    CH__DI_FORELINE_VAC_SNS             PHY_DRY+MON.VAC.ON.SNS
-#DEFINE_CONSTANT    CH__DI_DRY_PUMP_ON                  PHY_DRY+MON.PUMP.POWER.SNS
+// LINK.IO INFO ...
+#DEFINE_CONSTANT    LINK_IO.DI_FORELINE_VAC_SNS         PHY_DRY+MON.VAC.ON.SNS
+#DEFINE_CONSTANT    LINK_IO.DI_BACKING_PUMP_ON          PHY_DRY+MON.PUMP.POWER.SNS
 
-#DEFINE_CONSTANT    CH__DO_TMP_EXHAUST_VALVE            IO+do.TMP.Vac.Vlv
-#DEFINE_CONSTANT    CH__DO_TMP_N2_VALVE                 IO+do.TMP.N2.Supply.Vlv
+#DEFINE_CONSTANT    LINK_IO.DI_PCW_ALARM                IO+di.TMP.PCW.Alarm
+#DEFINE_CONSTANT    LINK_IO.DI_PCW_WATER_LEAK           IO+di.TMP.Water_Leak.Alarm
+
+#DEFINE_CONSTANT    LINK_IO.DO_TMP_EXHAUST_VALVE        IO+do.TMP.Vac.Vlv
+#DEFINE_CONSTANT    LINK_IO.DO_TMP_PURGE_VALVE          IO+do.TMP.N2.Supply.Vlv
 
 
 //------------------------------------------------

@@ -54,39 +54,55 @@ int CObj__VAT_IO
 int CObj__VAT_IO
 ::Call__POSITION(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
-	CString ch_data;
+	double set_pos = aCH__PARA_POSITION->Get__VALUE();
 
-	aCH__PARA_POSITION->Get__DATA(ch_data);
-	sCH__MON_SET_POSITION->Set__DATA(ch_data);
-	aEXT_CH__AO_APC_SETPOINT_DATA->Set__DATA(ch_data);
+	return Fnc__POSITION(p_alarm, set_pos);
+}
+int CObj__VAT_IO
+::Fnc__POSITION(CII_OBJECT__ALARM *p_alarm, const double set_pos)
+{
+	CString ch_pos;
+	ch_pos.Format("%.1f", set_pos);
+
+	sCH__MON_SET_POSITION->Set__DATA(ch_pos);
+	aEXT_CH__AO_APC_SETPOINT_DATA->Set__DATA(ch_pos);
 
 	dEXT_CH__DO_APC_SETPOINT_TYPE->Set__DATA(STR__POSITION);
 	dEXT_CH__DO_APC_CTRL_MODE->Set__DATA(STR__CONTROL);
 
 	if(iActive__SIM_MODE > 0)
 	{
-		aEXT_CH__AI_APC_POSITION->Set__DATA(ch_data);
+		aEXT_CH__AI_APC_POSITION->Set__DATA(ch_pos);
 
 		if(bActive__DI_APC_VLV_CLOSE)		dEXT_CH__DI_APC_VLV_CLOSE->Set__DATA(STR__OFF);
 		if(bActive__DI_APC_VLV_OPEN)		dEXT_CH__DI_APC_VLV_OPEN->Set__DATA(STR__OFF);
 	}
 	return 1;
 }
+
 int CObj__VAT_IO
 ::Call__PRESSURE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
-	CString ch_data;
+	double set_pressure = aCH__PARA_PRESSURE->Get__VALUE();
 
-	aCH__PARA_PRESSURE->Get__DATA(ch_data);
-	sCH__MON_SET_PRESSURE->Set__DATA(ch_data);
-	aEXT_CH__AO_APC_SETPOINT_DATA->Set__DATA(ch_data);
+	return Fnc__PRESSURE(p_alarm, set_pressure);
+}
+int CObj__VAT_IO
+::Fnc__PRESSURE(CII_OBJECT__ALARM *p_alarm, const double set_pressure)
+{
+	CString ch_pressure;
+	ch_pressure.Format("%.3f", set_pressure);
+
+	sCH__MON_SET_PRESSURE->Set__DATA(ch_pressure);
+	aEXT_CH__AO_APC_SETPOINT_DATA->Set__DATA(ch_pressure);
 
 	dEXT_CH__DO_APC_SETPOINT_TYPE->Set__DATA(STR__PRESSURE);
 	dEXT_CH__DO_APC_CTRL_MODE->Set__DATA(STR__CONTROL);
 
 	if(iActive__SIM_MODE > 0)
 	{
-		aEXT_CH__AI_APC_PRESSURE->Set__DATA(ch_data);
+		sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch_pressure);
+		aEXT_CH__AI_APC_PRESSURE->Set__DATA(ch_pressure);
 
 		if(bActive__DI_APC_VLV_CLOSE)		dEXT_CH__DI_APC_VLV_CLOSE->Set__DATA(STR__OFF);
 		if(bActive__DI_APC_VLV_OPEN)		dEXT_CH__DI_APC_VLV_OPEN->Set__DATA(STR__OFF);

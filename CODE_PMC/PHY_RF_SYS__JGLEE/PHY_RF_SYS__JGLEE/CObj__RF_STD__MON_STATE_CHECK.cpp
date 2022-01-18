@@ -54,10 +54,14 @@ Mon__STATE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 			// SET.POWER ...
 			{
 				ch_data = sEXT_CH__RF_AO_SET_POWER->Get__STRING();
-				double io_value = atof(ch_data) + set_offset;
+				double io_set   = atof(ch_data);
+				double io_value = io_set + set_offset;
 
 				ch_data.Format("%.1f", io_value);
 				sCH__MON_IO_SET_POWER->Set__DATA(ch_data);
+
+				if(io_set > 0.1)		dCH__MON_IO_POWER_STATE->Set__DATA(STR__ON);
+				else					dCH__MON_IO_POWER_STATE->Set__DATA(STR__OFF);
 			}
 
 			// FORWARD.POWER ...

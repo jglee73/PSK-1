@@ -69,7 +69,7 @@ int  CObj__ESC_IO
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 		}
-		if(bActive__CENTER_USE)
+		if(bActive__EDGE_USE)
 		{
 			edge__delay_check__final_vlv = doEXT_CH__He_Final_Out_Vlv_EDGE->Check__DATA(STR__Open);
 
@@ -2198,6 +2198,8 @@ Fnc__DECHUCK(CII_OBJECT__VARIABLE* p_variable,
 		log_msg.Format("ESC Voltage Control (Step)");	
 		sCH__APP_LOG_SUB_MSG->Set__DATA(log_msg);
 
+		xLOG_CTRL->WRITE__LOG(log_msg);	
+
 		// ...
 		SCX__TIMER_CTRL x_timer_ctrl;
 		x_timer_ctrl->REGISTER__ABORT_OBJECT(sObject_Name);
@@ -2221,23 +2223,39 @@ Fnc__DECHUCK(CII_OBJECT__VARIABLE* p_variable,
 			{
 				x_app_timer->START__COUNT_UP(9999);
 
+				// ...
+				{
+					log_msg = "\n";
+
+					log_bff.Format("Step (%1d) ... \n", i+1);
+					log_msg += log_bff;
+				}
+
 				if(bActive__CENTER_USE)
 				{
-					log_msg.Format("ESC Center Voltage Set <- %.1f V \n", cfg_volt__center);
+					log_bff.Format(" * ESC Center Voltage Set <- %.1f V \n", cfg_volt__center);
 					log_msg += log_bff;
 				}
 				if(bActive__EDGE_USE)
 				{
-					log_msg.Format("ESC Edge Voltage Set <- %.1f V \n", cfg_volt__edge);
+					log_bff.Format(" * ESC Edge Voltage Set <- %.1f V \n", cfg_volt__edge);
 					log_msg += log_bff;
 				}
 				
-				log_bff.Format("Delay Time <- %.1f sec", cfg_sec);
-				log_msg += log_bff;
+				// ...
+				{
+					log_bff.Format(" * Delay Time <- %.1f sec \n", cfg_sec);
+					log_msg += log_bff;
 				
-				xLOG_CTRL->WRITE__LOG(log_msg);	
+					xLOG_CTRL->WRITE__LOG(log_msg);	
+				}
 				
-				sCH__APP_LOG_SUB_MSG->Set__DATA(log_msg);
+				// ...
+				{
+					log_msg.Format("Delay Time <- %.1f sec \n", cfg_sec);
+					
+					sCH__APP_LOG_SUB_MSG->Set__DATA(log_msg);
+				}
 
 				if(bActive__CENTER_USE)			aoEXT_CH__ESC_Voltage_CENTER->Set__VALUE(cfg_volt__center);
 				if(bActive__EDGE_USE)			aoEXT_CH__ESC_Voltage_EDGE->Set__VALUE(cfg_volt__edge);
@@ -2464,8 +2482,17 @@ int  CObj__ESC_IO
 
 		CString var_data;
 
-		double cur__center_flow = aiEXT_CH__He_Flow_CENTER_IO->Get__VALUE();
-		double cur__edge_flow   = aiEXT_CH__He_Flow_EDGE_IO->Get__VALUE();
+		double cur__center_flow;
+		double cur__edge_flow;
+
+		if(bActive__CENTER_USE)
+		{
+			cur__center_flow = aiEXT_CH__He_Flow_CENTER_IO->Get__VALUE();
+		}
+		if(bActive__EDGE_USE)
+		{
+			cur__edge_flow = aiEXT_CH__He_Flow_EDGE_IO->Get__VALUE();
+		}
 
 		sCH__CUR_HE_CENTER_BYPASS_FLOW_FOR_DECHUCK_VERIFY->Get__DATA(var_data);
 		double ref__center_bypass = atof(var_data);
@@ -2567,7 +2594,10 @@ int  CObj__ESC_IO
 		return Fnc__HE_CLOSE(p_variable,p_alarm);
 	}
 
-	return Fnc__DECHUCK(p_variable,p_alarm,0);
+	int r_flag = Fnc__DECHUCK(p_variable,p_alarm, 0);
+	if(r_flag < 0)		return r_flag;
+
+	return Fnc__HE_CLOSE(p_variable,p_alarm);
 }
 int  CObj__ESC_IO
 ::Fnc__PUMP_READY(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)

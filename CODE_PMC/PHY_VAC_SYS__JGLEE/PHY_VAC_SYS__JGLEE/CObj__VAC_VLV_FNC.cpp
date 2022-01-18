@@ -35,6 +35,7 @@ int CObj__VAC_VLV_FNC::__DEFINE__CONTROL_MODE(obj,l_mode)
 		//
 		ADD__CTRL_VAR(sMODE__APC_OPEN,		"APC_OPEN");
 		ADD__CTRL_VAR(sMODE__APC_CLOSE,		"APC_CLOSE");
+		ADD__CTRL_VAR(sMODE__APC_POSITION,  "APC_POSITION");
 
 		//
 		ADD__CTRL_VAR(sMODE__APC_BALLAST_CTRL,	"APC_BALLAST_CTRL");
@@ -68,6 +69,13 @@ int CObj__VAC_VLV_FNC::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "OBJ.MSG";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_MSG, str_name);
+	}
+
+	// PARA ...
+	{
+		str_name = "PARA.APC_POSITION";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "%", 1, 0, 100, "");
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_APC_POSITION, str_name);
 	}
 
 	// MON ...
@@ -215,6 +223,7 @@ int CObj__VAC_VLV_FNC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 
 		ELSE_IF__CTRL_MODE(sMODE__APC_OPEN)				flag = Call__APC_OPEN(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__APC_CLOSE)			flag = Call__APC_CLOSE(p_variable);
+		ELSE_IF__CTRL_MODE(sMODE__APC_POSITION)			flag = Call__APC_POSITION(p_variable);
 
 		ELSE_IF__CTRL_MODE(sMODE__APC_BALLAST_CTRL)		flag = Call__APC_BALLAST_CTRL(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__APC_BALLAST_POS)		flag = Call__APC_BALLAST_POS(p_variable);

@@ -49,8 +49,19 @@ int CObj__VAT_IO
 
 		// AI.PRESSURE ...
 		{
-			aEXT_CH__AI_APC_PRESSURE->Get__DATA(ch_data);
-			sCH__MON_PRESSURE->Set__DATA(ch_data);
+			if(iActive__SIM_MODE > 0)
+			{
+				ch_data = sEXT_CH__SIM_PRESSURE_TORR->Get__STRING();
+				aEXT_CH__AI_APC_PRESSURE->Set__DATA(ch_data);
+			}
+
+			double cur_pressure = aEXT_CH__AI_APC_PRESSURE->Get__VALUE();
+
+			ch_data.Format("%.3f", cur_pressure);
+			sCH__MON_PRESSURE_TORR->Set__DATA(ch_data);
+
+			ch_data.Format("%.1f", cur_pressure * 1000.0);
+			sCH__MON_PRESSURE_mTORR->Set__DATA(ch_data);
 		}
 		// AI.POSITION ...
 		{

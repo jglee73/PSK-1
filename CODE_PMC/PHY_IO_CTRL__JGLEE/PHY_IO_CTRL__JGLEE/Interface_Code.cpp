@@ -2,7 +2,6 @@
 #include "Interface_Code.h"
 
 #include "CObj__CHM_IO.h"
-#include "CObj__CHM_PSK_IO.h"
 
 #include "CObj__INTERLOCK_IO.h"
 #include "CObj__LIFT_PIN_IO.h"
@@ -27,7 +26,6 @@ DECLARE_END__DLL_STD_OBJ__GET_VERSION
 
 //----------------------------------------------------------
 #define CLS__CHM_IO									"CHM.IO"
-#define CLS__CHM_PSK_IO								"CHM_PSK.IO"
 
 #define CLS__INTERLOCK_IO							"INTERLOCK.IO"
 #define CLS__LIFT_PIN_IO							"LIFT_PIN.IO"
@@ -39,7 +37,6 @@ DECLARE_END__DLL_STD_OBJ__GET_VERSION
 DECLARE_START__DLL_STD_OBJ__GET_CLASS_LIST
 
 ADD__OBJ_CLS(CLS__CHM_IO);
-ADD__OBJ_CLS(CLS__CHM_PSK_IO);
 
 ADD__OBJ_CLS(CLS__INTERLOCK_IO);
 ADD__OBJ_CLS(CLS__LIFT_PIN_IO);
@@ -53,7 +50,6 @@ DECLARE_END__DLL_STD_OBJ__GET_CLASS_LIST
 DECLARE_START__DLL_STD_OBJ__CREATE_LINK
 
 IF__OBJ_CLS(CLS__CHM_IO)							return (new CObj__CHM_IO);
-IF__OBJ_CLS(CLS__CHM_PSK_IO)						return (new CObj__CHM_PSK_IO);
 
 IF__OBJ_CLS(CLS__INTERLOCK_IO)						return (new CObj__INTERLOCK_IO);
 IF__OBJ_CLS(CLS__LIFT_PIN_IO)						return (new CObj__LIFT_PIN_IO);

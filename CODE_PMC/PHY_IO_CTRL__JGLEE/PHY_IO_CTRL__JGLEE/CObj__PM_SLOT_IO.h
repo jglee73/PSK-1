@@ -3,6 +3,8 @@
 #include "Interface_Code.h"
 #include "CCommon_Error.h"
 
+#include "CObj__PM_SLOT_IO__DEF.h"
+
 
 class CObj__PM_SLOT_IO : public __IOBJ__STD_TYPE
 {
@@ -24,6 +26,7 @@ private:
 	//
 
 	//-------------------------------------------------------------------------
+	// OBJ : IO Channel ...
 	CX__VAR_STRING_CTRL   sEXT_CH__MON_DOOR_STATE;
 
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__DO_DOOR_CLOSE;
@@ -31,6 +34,12 @@ private:
 
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__DI_DOOR_CLOSE;
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__DI_DOOR_OPEN;
+
+	// OBJ : RFx ...
+	int iDATA__RF_SIZE;
+
+	CString sList__RFx_NAME[_CFG__RF_SIZE];
+	CX__VAR_DIGITAL_CTRL dEXT_CH__RFx_ON_STS[_CFG__RF_SIZE];
 	//
 
 	//-------------------------------------------------------------------------
@@ -42,6 +51,8 @@ private:
 
 	CString sMODE__DOOR_CLOSE;
 	int Call__DOOR_CLOSE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+
+	int Check__RF_POWER(CII_OBJECT__ALARM *p_alarm, int rf_index);
 
 	// ...
 	int Mon__STATUS(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);

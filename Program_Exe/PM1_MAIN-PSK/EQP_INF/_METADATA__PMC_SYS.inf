@@ -28,7 +28,8 @@
 //------------------------------------------------
 #OBJECT_PROPERTY		PAGE_CHM
 
-#FNC_MODE		  PUMPING		      	                        FNC_CHM		        PUMPING
+#FNC_MODE		  LOW_VAC_PUMP     	                        FNC_CHM		        LOW_VAC_PUMP
+#FNC_MODE		  HIGH_VAC_PUMP                             FNC_CHM		        HIGH_VAC_PUMP
 #FNC_MODE		  VENTING						                        FNC_CHM		        VENTING
 #FNC_MODE		  LEAK_CHECK				                        FNC_CHM		        LEAK_CHECK
 #FNC_MODE		  PURGE							                        FNC_CHM		        PURGE
@@ -72,7 +73,7 @@
 #FNC_MODE     OBJ_MODE__MAINT								            FNC_SYSTEM	    SYSTEM_MAINT
 #FNC_MODE     OBJ_MODE__TRANSFER_INIT					          FNC_SYSTEM 	    TRANSFER_INIT
 
-#FNC_MODE     OBJ_MODE__PUMP								            FNC_CHM			    LOW_VAC_PUMP
+#FNC_MODE     OBJ_MODE__PUMP								            FNC_CHM			    HIGH_VAC_PUMP
 #FNC_MODE     OBJ_MODE__VENT									          FNC_CHM			    VENTING
 #FNC_MODE     OBJ_MODE__LEAK_CHECK						          FNC_CHM			    LEAK_CHECK
 #FNC_MODE     OBJ_MODE__PURGE								            FNC_CHM			    PURGE
@@ -125,7 +126,7 @@
 
 //---------------------------------
 #DEFINE_CONSTANT		OBJ_CHAMBER.LIFT_PIN                PHY_LIFT_PIN        
-#DEFINE_CONSTANT		OBJ_CHAMBER.DECHUCK                 NULL
+#DEFINE_CONSTANT		OBJ_CHAMBER.DECHUCK                 FNC_CHM
 
 
 //------------------------------------------------
@@ -136,13 +137,17 @@
 
 #DEFINE_CONSTANT    OBJ__PMC_LOG                        FNC_PM_DATALOG
 
-#DEFINE_CONSTANT    OBJ__VAC_VALVE                      FNC_VAC_VLV_CTRL
+#DEFINE_CONSTANT    OBJ__TRANSFER                       FNC_TRANSFER
+
 #DEFINE_CONSTANT    OBJ__GAS_VALVE                      FNC_GAS_VLV_CTRL
 
-#DEFINE_CONSTANT    OBJ__ESC                            PHY_ESC
+#DEFINE_CONSTANT    OBJ__VAT			                      PHY_VAT
+#DEFINE_CONSTANT    OBJ__VAC_VALVE                      PHY_VAC_VLV
 
 #DEFINE_CONSTANT    OBJ__TURBO_PUMP                     PHY_TMP
 #DEFINE_CONSTANT    OBJ__DRY_PUMP                       PHY_DRY
+
+#DEFINE_CONSTANT    OBJ__ESC                            PHY_ESC
 
 #DEFINE_CONSTANT    CH__CHM_SHUTTER_STATE               NULL
 // #DEFINE_CONSTANT    CH__CHM_SHUTTER_STATE               DB_INF+SHUTTER.STATUS
@@ -150,4 +155,33 @@
 #DEFINE_CONSTANT    CH__CHM_VAC_SNS                     IO+di.CHM.VAC.Sts
 #DEFINE_CONSTANT    CH__CHM_ATM_SNS                     IO+di.CHM.ATM.Sts
 
+
+//------------------------------------------------
+#OBJECT_PROPERTY    FNC_TRANSFER
+
+#DEFINE_CONSTANT    DATA.RF_SIZE						            2
+#DEFINE_CONSTANT    DATA__IO_RF_NAME.1                  RF.SOURCE
+#DEFINE_CONSTANT    CH__IO_RF_ON_STATUS.1               PHY_RF_SRC+MON.IO.POWER.STATE
+#DEFINE_CONSTANT    DATA__IO_RF_NAME.2                  RF.BIAS
+#DEFINE_CONSTANT    CH__IO_RF_ON_STATUS.2               PHY_RF_BIAS+MON.IO.POWER.STATE
+		
+#DEFINE_CONSTANT    CH__ESC_ON_STS                      PHY_ESC+MON.ESC.VOLTAGE.STATE
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_PM_SLOT
+
+#DEFINE_CONSTANT    CH__MON_DOOR_STATE                  DB_INF+PMC.SLOT.STATUS
+
+#DEFINE_CONSTANT    CH__DO_DOOR_CLOSE                   IO+do.PM.Slot.Vlv.Close
+#DEFINE_CONSTANT    CH__DO_DOOR_OPEN                    IO+do.PM.Slot.Vlv.Open
+
+#DEFINE_CONSTANT    CH__DI_DOOR_CLOSE                   IO+di.PM.Slot.Vlv.Close
+#DEFINE_CONSTANT    CH__DI_DOOR_OPEN                    IO+di.PM.Slot.Vlv.Open
+
+#DEFINE_CONSTANT    DATA.RF_SIZE						            2
+#DEFINE_CONSTANT    DATA__IO_RF_NAME.1                  RF.SOURCE
+#DEFINE_CONSTANT    CH__IO_RF_ON_STATUS.1               PHY_RF_SRC+MON.IO.POWER.STATE
+#DEFINE_CONSTANT    DATA__IO_RF_NAME.2                  RF.BIAS
+#DEFINE_CONSTANT    CH__IO_RF_ON_STATUS.2               PHY_RF_BIAS+MON.IO.POWER.STATE
 

@@ -45,7 +45,7 @@ int  CObj__VAT_IO
 			error__proc_warning.Disable__MAX_RANGE();
 
 			error__proc_warning.Link__REF_OUT_CHANNEL(sCH__MON_SET_PRESSURE);
-			error__proc_warning.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE);
+			error__proc_warning.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE_TORR);
 			error__proc_warning.Link__REF_RANGE_CHANNEL(aCH__PARA_PRESSURE);
 
 			error__proc_warning.Link__ERROR_COMMON(&x_link_common);
@@ -65,7 +65,7 @@ int  CObj__VAT_IO
 			error__idle_warning.Disable__MAX_RANGE();
 
 			error__idle_warning.Link__REF_OUT_CHANNEL(sCH__MON_SET_PRESSURE);
-			error__idle_warning.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE);
+			error__idle_warning.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE_TORR);
 			error__idle_warning.Link__REF_RANGE_CHANNEL(aCH__PARA_PRESSURE);
 
 			error__idle_warning.Link__ERROR_COMMON(&x_link_common);
@@ -102,7 +102,7 @@ int  CObj__VAT_IO
 			error__proc_abort.Disable__MAX_RANGE();
 
 			error__proc_abort.Link__REF_OUT_CHANNEL(sCH__MON_SET_PRESSURE);
-			error__proc_abort.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE);
+			error__proc_abort.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE_TORR);
 			error__proc_abort.Link__REF_RANGE_CHANNEL(aCH__PARA_PRESSURE);
 
 			error__proc_abort.Link__ERROR_COMMON(&x_link_common);
@@ -122,7 +122,7 @@ int  CObj__VAT_IO
 			error__idle_abort.Disable__MAX_RANGE();
 
 			error__idle_abort.Link__REF_OUT_CHANNEL(sCH__MON_SET_PRESSURE);
-			error__idle_abort.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE);
+			error__idle_abort.Link__REF_IN_CHANNEL(sCH__MON_PRESSURE_TORR);
 			error__idle_abort.Link__REF_RANGE_CHANNEL(aCH__PARA_PRESSURE);
 
 			error__idle_abort.Link__ERROR_COMMON(&x_link_common);
@@ -275,7 +275,7 @@ int  CObj__VAT_IO
 			if(active__proc_state > 0)
 			{
 				if((error__proc_warning.IsStable())
-					&& (error__proc_abort.IsStable()))
+				&& (error__proc_abort.IsStable()))
 				{
 					dCH__MON_PRESSURE_STABLE_ACTIVE->Set__DATA(STR__ON);	
 					dCH__MON_PRESSURE_ABORT_ACTIVE->Set__DATA(STR__OFF);
@@ -288,7 +288,7 @@ int  CObj__VAT_IO
 			else
 			{
 				if((error__idle_warning.IsStable())
-					&& (error__idle_abort.IsStable()))
+				&& (error__idle_abort.IsStable()))
 				{
 					dCH__MON_PRESSURE_STABLE_ACTIVE->Set__DATA(STR__ON);	
 					dCH__MON_PRESSURE_ABORT_ACTIVE->Set__DATA(STR__OFF);

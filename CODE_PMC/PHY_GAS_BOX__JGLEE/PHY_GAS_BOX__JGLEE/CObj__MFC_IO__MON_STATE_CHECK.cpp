@@ -77,15 +77,23 @@ int  CObj__MFC_IO
 
 				ch_data.Format("%02X", i_sts);
 				sCH__MON_MFC_EXCEPTION_STATE->Set__DATA(ch_data);
+
+				//
+				if(i_sts == 0)			ch_data = "Normal";
+				else					ch_data = "Alarm";
+
+				sCH__MON_MFC_EXCEPTION_INFO->Set__DATA(ch_data);
 			}
 			else
 			{
 				sCH__MON_MFC_EXCEPTION_STATE->Set__DATA("???");
+				sCH__MON_MFC_EXCEPTION_INFO->Set__DATA("???");
 			}
 		}
 		else
 		{
 			sCH__MON_MFC_EXCEPTION_STATE->Set__DATA("__");
+			sCH__MON_MFC_EXCEPTION_INFO->Set__DATA("__");
 		}
 
 		// Valve.Voltage ...
@@ -108,21 +116,27 @@ int  CObj__MFC_IO
 				double cur_value = cfg_max * cur_percent;
 				ch_data.Format("%.1f", cur_value);
 				sCH__MON_MFC_READ_VALVE_VOLTAGE->Set__DATA(ch_data);
+
+				ch_data.Format("%.1f", cur_percent);
+				sCH__MON_MFC_VALVE_VOLTAGE_PERCENT->Set__DATA(ch_data);
 			}
 			else
 			{
 				sCH__MON_MFC_READ_VALVE_VOLTAGE->Set__DATA("???");
+				sCH__MON_MFC_VALVE_VOLTAGE_PERCENT->Set__DATA("???");
 			}
 		}
 		else
 		{
 			sCH__MON_MFC_READ_VALVE_VOLTAGE->Set__DATA("__");
+			sCH__MON_MFC_VALVE_VOLTAGE_PERCENT->Set__DATA("__");
 		}
 
 		// Pressure ...
 		if(iActive__SIM_MODE > 0)
 		{
-
+			ch_data = "50.0";
+			sCH__MON_MFC_INLET_PRESSURE_PERCENT->Set__DATA(ch_data);
 		}
 		else
 		{
@@ -148,15 +162,20 @@ int  CObj__MFC_IO
 					double cur_value = cfg_max * cur_percent;
 					ch_data.Format(str_fmt, cur_value);
 					sCH__MON_MFC_READ_INLET_PRESSURE->Set__DATA(ch_data);			
+
+					ch_data.Format("%.1f", cur_percent);
+					sCH__MON_MFC_INLET_PRESSURE_PERCENT->Set__DATA(ch_data);			
 				}
 				else
 				{
 					sCH__MON_MFC_READ_INLET_PRESSURE->Set__DATA("???");
+					sCH__MON_MFC_INLET_PRESSURE_PERCENT->Set__DATA("???");			
 				}
 			}
 			else
 			{
 				sCH__MON_MFC_READ_INLET_PRESSURE->Set__DATA("__");
+				sCH__MON_MFC_INLET_PRESSURE_PERCENT->Set__DATA("__");			
 			}
 		}
 
@@ -183,15 +202,20 @@ int  CObj__MFC_IO
 				double cur_value = cfg_max * cur_percent;
 				ch_data.Format(str_fmt, cur_value);
 				sCH__MON_MFC_READ_TEMPERATURE->Set__DATA(ch_data);
+
+				ch_data.Format("%.1f", cur_percent);
+				sCH__MON_MFC_TEMPERATURE_PERCENT->Set__DATA(ch_data);
 			}
 			else
 			{
 				sCH__MON_MFC_READ_TEMPERATURE->Set__DATA("???");
+				sCH__MON_MFC_TEMPERATURE_PERCENT->Set__DATA("???");
 			}
 		}
 		else
 		{
 			sCH__MON_MFC_READ_TEMPERATURE->Set__DATA("__");
+			sCH__MON_MFC_TEMPERATURE_PERCENT->Set__DATA("__");
 		}
 
 		//

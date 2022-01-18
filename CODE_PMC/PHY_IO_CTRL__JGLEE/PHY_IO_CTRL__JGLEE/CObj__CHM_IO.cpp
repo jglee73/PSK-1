@@ -2,6 +2,8 @@
 #include "CObj__CHM_IO.h"
 #include "CObj__CHM_IO__ALID.h"
 
+#include "CCommon_Utility.h"
+
 
 //-------------------------------------------------------------------------
 CObj__CHM_IO::CObj__CHM_IO()
@@ -44,9 +46,9 @@ int CObj__CHM_IO::__DEFINE__VARIABLE_STD(p_variable)
 
 	// ...
 	CString str_name;
-	CString item_list;
+	int i;
 
-	// ...
+	// OBJ ...
 	{
 		str_name = "APP.OBJ.MSG";
 		STD__ADD_STRING(str_name);
@@ -55,6 +57,18 @@ int CObj__CHM_IO::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "APP.OBJ.STATUS";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_STATUS, str_name);
+	}
+
+	// CFG ...
+	{
+		for(i=0; i<_CFG__PRC_GAUGE_SIZE; i++)
+		{
+			int id = i + 1;
+
+			str_name.Format("CFG.PROCESS_MANOMETER.MAX_PRESSURE.mTORR.%1d", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 0, 1, 10000, "");
+			LINK__VAR_ANALOG_CTRL(aCH__CFG_PROCESS_MANOMETER_MAX_PRESSURE_mTORR_X[i], str_name);
+		}
 	}
 
 	// ...
@@ -121,9 +135,15 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	CString def_name;
+	CString def_data;
 	CString ch_name;
 	CString obj_name;
 	CString var_name;
+	int i;
+
+	// ...
+	CCommon_Utility x_utility;
+	bool def_check;
 
 	// OBJ DB_INF ...
 	{
@@ -161,6 +181,10 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
 		//
+		var_name = "SIM.PRESSURE.TORR";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SIM_PRESSURE_TORR, obj_name,var_name);
+
+		//
 		var_name = "CFG.INTERLOCK.USE.MODE";
 		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_INTERLOCK_USE_MODE, obj_name,var_name);
 
@@ -168,19 +192,8 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_INTERLOCK_USE__CHM_MANOMETER_ISO, obj_name,var_name);
 
 		//
-		var_name = "SIM.PRESSURE.TORR";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SIM_PRESSURE_TORR, obj_name,var_name);
-
-		//
 		var_name = "SYSTEM.SETUP.REQ";
 		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SYSTEM_SETUP_REQ, obj_name,var_name);
-
-		//
-		var_name = "CFG.PROCESS.MANOMETER.MAX.PRESSURE.mTORR";
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_PROCESS_MANOMETER_MAX_PRESSURE_mTORR, obj_name,var_name);
-
-		var_name = "CFG.PROCESS.MANOMETER.ISO.PRESSURE.mTORR";
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_PROCESS_MANOMETER_ISO_PRESSURE_mTORR, obj_name,var_name);
 	}
 
 	// LINK : IO_Chammel
@@ -196,22 +209,41 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_ATM_SNS, obj_name,var_name);
 
 		//
-		def_name = "CH__DO_MANOMETER_ISO_VLV";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_MANOMETER_ISO_VLV, obj_name,var_name);
-		
-		def_name = "CH__AI_MANOMETER_TORR";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_MANOMETER_TORR, obj_name,var_name);
+		def_name = "DATA.PRC_GAUGE_SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-		def_name = "CH__AI_FORELINE_PRESSURE_TORR";
+		iSIZE__PRC_GUAGE = atoi(def_data);
+		if(iSIZE__PRC_GUAGE > _CFG__PRC_GAUGE_SIZE)			iSIZE__PRC_GUAGE = _CFG__PRC_GAUGE_SIZE;
+
+		for(i=0; i<iSIZE__PRC_GUAGE; i++)
+		{
+			int id = i + 1;
+
+			def_name.Format("CH.DO_PRC_GAUGE_VLV.%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[i], obj_name,var_name);
+
+			def_name.Format("CH.AI_PRC_GAUGE_TORR.%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_PRC_GAUGE_TORR_X[i], obj_name,var_name);
+		}
+
+		//
+		def_name = "CH__AI_CHM_GAUGE_TORR";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_FORELINE_PRESSURE_TORR, obj_name,var_name);
+		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_CHM_GAUGE_TORR, obj_name,var_name);
+
+		//
+		def_name = "CH__AI_FORELINE_GAUGE_TORR";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_FORELINE_GAUGE_TORR, obj_name,var_name);
 	}
 
+	/*
 	// LINK : State Channel
 	{
 		def_name = "CH__PROC_STATE";
@@ -240,13 +272,13 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__BIAS_RF_POWER, obj_name,var_name);
 	}
+	*/
 
 	// ...
 	{
 		SCX__SEQ_INFO seq_info;
 
-		if(seq_info->Is__SIMULATION_MODE() > 0)			iSIM_MODE =  1;
-		else											iSIM_MODE = -1;
+		iActive__SIM_MODE = seq_info->Is__SIMULATION_MODE();
 	}
 	return 1;
 }
@@ -268,13 +300,6 @@ int CObj__CHM_IO::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	// ...
 	{
 		IF__CTRL_MODE(sMODE__INIT)				flag = Call__INIT(p_variable, p_alarm);
-
-		else									
-		{
-			CString log_msg;
-			log_msg.Format("Invalid Mode: [%s]", mode);
-			flag = -1;
-		}
 	}
 
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))

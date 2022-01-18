@@ -266,6 +266,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__VAT_IO__CALL_BALLAST.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__VAT_IO__CALL_FNC.cpp"
 					>
 				</File>

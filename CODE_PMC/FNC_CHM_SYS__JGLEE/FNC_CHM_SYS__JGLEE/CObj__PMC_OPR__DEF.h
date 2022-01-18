@@ -16,17 +16,3 @@
 #define STR__PreparingForProcess		"PreparingForProcess"
 
 
-// ...
-#define STR__STANDBY					"STANDBY"
-#define STR__MAINTMODE					"MAINTMODE"
-
-#define STR__DISABLE					"DISABLE"
-#define STR__ENABLE						"ENABLE"
-
-#define STR__IDLE						"IDLE"
-#define STR__PROCESSING					"PROCESSING"
-#define STR__END						"END"
-
-#define STR__MAPPED						"MAPPED"
-
-#define STR__YES						"YES"

@@ -95,7 +95,7 @@ int CObj__PM_SLOT_IO::__DEFINE__ALARM(p_alarm)
 
 	// ...
 	CString title;
-	title.Format("%s : ", sObject_Name);
+	title.Format("%s - ", sObject_Name);
 
 	CString alarm_title;
 	CString alarm_msg;
@@ -113,12 +113,11 @@ int CObj__PM_SLOT_IO::__DEFINE__ALARM(p_alarm)
 		alarm_msg += "PM Slot 관련 Sensor를 확인 바랍니다.\n";
 
 		l_act.RemoveAll();
-		l_act.Add(STR__ABORT);
-		l_act.Add(STR__RETRY);
+		l_act.Add(ACT__RETRY);
+		l_act.Add(ACT__ABORT);
 
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-
 	// ...
 	{
 		alarm_id = ALID__DOOR_CLOSE_TIMEOUT;
@@ -130,8 +129,24 @@ int CObj__PM_SLOT_IO::__DEFINE__ALARM(p_alarm)
 		alarm_msg += "PM Slot 관련 Sensor를 확인 바랍니다.\n";
 
 		l_act.RemoveAll();
-		l_act.Add(STR__ABORT);
-		l_act.Add(STR__RETRY);
+		l_act.Add(ACT__RETRY);
+		l_act.Add(ACT__ABORT);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__RF_POWER_STS;
+
+		alarm_title  = title;
+		alarm_title += "RF POWER STATUS ALARM";
+
+		alarm_msg = "RF Power Status Error.";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__RETRY);
+		l_act.Add(ACT__ABORT);
 
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
@@ -164,11 +179,13 @@ int CObj__PM_SLOT_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	CString def_name;
+	CString def_data;
 	CString ch_name;
 	CString obj_name;
 	CString var_name;
+	int i;
 
-	// LINK : IO_Chammel
+	// LINK : IO Chammel ...
 	{
 		def_name = "CH__MON_DOOR_STATE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
@@ -197,6 +214,30 @@ int CObj__PM_SLOT_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_DOOR_OPEN, obj_name,var_name);
 	}
+
+	// OBJ : RFx ...
+	{
+		def_name = "DATA.RF_SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		iDATA__RF_SIZE = atoi(def_data);
+		if(iDATA__RF_SIZE > _CFG__RF_SIZE)			iDATA__RF_SIZE = _CFG__RF_SIZE;
+
+		for(i=0; i<iDATA__RF_SIZE; i++)
+		{
+			int id = i + 1;
+
+			def_name.Format("DATA__IO_RF_NAME.%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			sList__RFx_NAME[i] = def_data;
+
+			def_name.Format("CH__IO_RF_ON_STATUS.%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RFx_ON_STS[i], obj_name,var_name);
+		}
+	}
+
 	return 1;
 }
 

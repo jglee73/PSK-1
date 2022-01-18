@@ -115,9 +115,6 @@ private:
 	// ...
 	int	 Alarm__CHECK_RETRY_ABORT(CII_OBJECT__ALARM* p_alarm, CString msg, const int alarm_id);
 	void Alarm__POST_CHECK(CII_OBJECT__ALARM *p_alarm, CString msg, const int alarm_id);
-
-	void Fnc__WRITE_LOG(CString msg);
-	void Fnc__WRITE_COMMON_LOG(CString msg);
 	//
 
 public:

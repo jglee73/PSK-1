@@ -20,37 +20,34 @@ Mon__PRESSURE_STATUS(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alar
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.1);	
 
-
-		/*
 		// ...
 		{
-			dEXT_CH__PMC_SLIT_VLV_STS->Get__DATA(var_data);
-			if(var_data.CompareNoCase(STR__CLOSE) != 0)
-			{
-				if(pre_slit_vlv_sts != var_data)
-				{
-					if(sCH__TRANSFER_BALLAST_FLAG->Check__DATA(STR__YES) > 0)
-					{
-						sCH__TRANSFER_BALLAST_FLAG->Set__DATA("");
+			int active_pumping = -1;
 
-						// Fnc__BALLAST_POSITION(p_variable);
-						Fnc__BALLAST_PRESSURE(p_variable);
-					}
+			double cur_pos = aEXT_CH__VAT_PARA_POSITION->Get__VALUE();
+
+			if(cur_pos > 90)
+			{
+				if(sEXT_CH__VAC_VLV__MON_PUMPING_STATE->Check__DATA(STR__PUMPING) > 0)
+				{
+					active_pumping = 1;
 				}
 			}
-			pre_slit_vlv_sts = var_data;
+
+			if(active_pumping > 0)		sCH__MON_PUMPING_STATE->Set__DATA(STR__PUMPING);
+			else						sCH__MON_PUMPING_STATE->Set__DATA(STR__IDLE);
 		}
-		*/
 
 		// ...
 		{
-			ref_atm_press = aCH__CFG_ATM_PRESSURE->Get__VALUE();
-			ref_vac_press = aCH__CFG_PUMPING_PRESSURE->Get__VALUE();
+			ref_atm_press = aCH__CFG_FAST_VENT_PRESSURE->Get__VALUE();
+			ref_vac_press = aCH__CFG_FAST_PUMP_PRESSURE->Get__VALUE();
+
 			cur_chm_press = aEXT_CH__CHM_PRESSURE_TORR->Get__VALUE();
 
-				 if(cur_chm_press >= ref_atm_press)			sCH__CHM_PRESS_STS->Set__DATA(STR__ATM);
-			else if(cur_chm_press <= ref_vac_press)			sCH__CHM_PRESS_STS->Set__DATA(STR__VAC);
-			else											sCH__CHM_PRESS_STS->Set__DATA(STR__BTW);
+				 if(cur_chm_press >= ref_atm_press)			sEXT_CH__CHM_PRESSURE_STATE->Set__DATA(STR__ATM);
+			else if(cur_chm_press <= ref_vac_press)			sEXT_CH__CHM_PRESSURE_STATE->Set__DATA(STR__VAC);
+			else											sEXT_CH__CHM_PRESSURE_STATE->Set__DATA(STR__BTW);
 		}
 	}
 }

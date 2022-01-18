@@ -124,7 +124,7 @@ WINDOW_NAME PMC_BTM_UTILITY
 
 // Bottom => Config
 
-WINDOW_NAME PMC_CONFIG_MODULE
+WINDOW_NAME PMC_CONFIG_MODULE-PRESSURE
 {
 	#CALL_DEFINE                    DEF__FRAME_CLIENT
 
@@ -132,7 +132,18 @@ WINDOW_NAME PMC_CONFIG_MODULE
 	USER_LEVEL                      Maint 
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_GUI+GUI.CONFIG.MODULE.SAVE
+	STATUS_CHANNEL		              DB_GUI+GUI.CONFIG.MODULE_PRESSURE.SAVE
+}
+
+WINDOW_NAME PMC_CONFIG_MODULE-PUMP
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint 
+	
+	PAGE_TYPE			                  CONFIG 
+	STATUS_CHANNEL		              DB_GUI+GUI.CONFIG.MODULE_PUMP.SAVE
 }
 
 WINDOW_NAME PMC_CONFIG_GAS_MFC
@@ -442,7 +453,55 @@ WINDOW_NAME PMC_PART-HEATER
 	USER_LEVEL                      Maint
 }
 
-WINDOW_NAME PMC_PART-IO_INTERLOCK
+WINDOW_NAME PMC_PART-RF_SOURCE
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint
+}
+
+WINDOW_NAME PMC_PART-RF_BIAS
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint
+}
+
+WINDOW_NAME PMC_PART-RF_MATCHER
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint
+}
+
+WINDOW_NAME PMC_PART-MFC
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint
+}
+
+WINDOW_NAME PMC_PART-DIO_1
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint
+}
+
+WINDOW_NAME PMC_PART-AIO_1
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint
+}
+
+WINDOW_NAME PMC_PART-DIO_2
 {
 	#CALL_DEFINE                    DEF__FRAME_CLIENT
 

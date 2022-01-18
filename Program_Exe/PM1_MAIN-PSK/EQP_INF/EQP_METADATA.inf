@@ -22,10 +22,12 @@
 #DEFINE_CONSTANT    CH__DI_VAC_SNS                      IO+di.CHM.VAC.Sts
 #DEFINE_CONSTANT    CH__DI_ATM_SNS                      IO+di.CHM.ATM.Sts
 
-#DEFINE_CONSTANT    CH__DO_MANOMETER_ISO_VLV	          IO+do.Bara.Protect.01_Torr.Vlv
-#DEFINE_CONSTANT    CH__AI_MANOMETER_TORR               PHY_VAT+MON.PRESSURE
+#DEFINE_CONSTANT    DATA.PRC_GAUGE_SIZE     	          1
+#DEFINE_CONSTANT    CH.DO_PRC_GAUGE_VLV.1	              IO+do.Bara.Protect.10_Torr.Vlv
+#DEFINE_CONSTANT    CH.AI_PRC_GAUGE_TORR.1              IO+ai.CHM.Pressure.10_Torr
 
-#DEFINE_CONSTANT    CH__AI_FORELINE_PRESSURE_TORR       IO+ai.Pump.Line.Pressure
+#DEFINE_CONSTANT    CH__AI_CHM_GAUGE_TORR               IO+ai.CHM.Pressure.1000_Torr
+#DEFINE_CONSTANT    CH__AI_FORELINE_GAUGE_TORR          IO+ai.Pump.Line.Pressure
 
 /*
 #DEFINE_CONSTANT    CH__PROC_STATE                      FNC_PROC+dPRC.STS
@@ -34,17 +36,6 @@
 #DEFINE_CONSTANT    CH__PLASMA_RF_POWER                 Phy_RS232__PLASMA_RF+ao.Set.Power
 #DEFINE_CONSTANT    CH__BIAS_RF_POWER                   Phy_RS232__BIAS_RF+ao.Set.Power
 */
-
-//------------------------------------------------
-#OBJECT_PROPERTY    PHY_PM_SLOT
-
-#DEFINE_CONSTANT    CH__MON_DOOR_STATE                  DB_INF+PMC.SLOT.STATUS
-
-#DEFINE_CONSTANT    CH__DO_DOOR_CLOSE                   IO+do.PM.Slot.Vlv.Close
-#DEFINE_CONSTANT    CH__DO_DOOR_OPEN                    IO+do.PM.Slot.Vlv.Open
-
-#DEFINE_CONSTANT    CH__DI_DOOR_CLOSE                   IO+di.PM.Slot.Vlv.Close
-#DEFINE_CONSTANT    CH__DI_DOOR_OPEN                    IO+di.PM.Slot.Vlv.Open
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_LIFT_PIN

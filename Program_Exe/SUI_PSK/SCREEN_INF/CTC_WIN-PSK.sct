@@ -25,7 +25,7 @@
 #DEFINE  DEF__FRAME_CLIENT
 	POPUP              NO
 	LOW_LEFT_X         0
-	LOW_LEFT_Y         55
+  LOW_LEFT_Y         55
 	WIDTH              1280 
 	HEIGHT             770 
 #END

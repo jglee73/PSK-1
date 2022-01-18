@@ -577,16 +577,29 @@ int CObj__GAS_VLV_FNC::Fnc__LINE_PURGE_WITH_N2(CII_OBJECT__VARIABLE *p_variable)
 // Chamber Ballast Flow Control ...
 int CObj__GAS_VLV_FNC::Call__CHM_BALLAST_FLOW(CII_OBJECT__VARIABLE *p_variable)
 {
-	CString var_data;
 	CString log_msg;
+	CString log_bff;
+
+	CString ch_data;
+
 	int db_index;
 	int i;
 
-	dCH__CFG_CHAMBER_BALLAST_GAS->Get__DATA(var_data);
-	log_msg.Format("Chamber Ballast Gas : %s ...", var_data);	Fnc__WRITE_LOG(log_msg);
+	// ...
+	{
+		log_msg  = "\n";
+		log_msg += " * Ballast.Chamber Parameter ... \n";
+
+		log_bff.Format(" * %s <- %s \n",
+						dCH__CFG_CHAMBER_BALLAST_GAS_ID->Get__CHANNEL_NAME(),
+						dCH__CFG_CHAMBER_BALLAST_GAS_ID->Get__STRING());
+		log_msg += log_bff;
+		
+		Fnc__WRITE_LOG(log_msg);
+	}
 
 	// Ballast Gas Select ...
-	if(dCH__CFG_CHAMBER_BALLAST_GAS->Check__DATA("N2Ballast") > 0)
+	if(dCH__CFG_CHAMBER_BALLAST_GAS_ID->Check__DATA("N2.Ballast") > 0)
 	{
 		// A. N2(V8) Transfer Valve Select
 		// A-1. Gas Line Valve All Close
@@ -623,33 +636,46 @@ int CObj__GAS_VLV_FNC::Call__CHM_BALLAST_FLOW(CII_OBJECT__VARIABLE *p_variable)
 
 		// ...
 		{
-			dCH__CFG_CHAMBER_BALLAST_GAS->Get__DATA(var_data);
-			db_index = Get__MFC_INDEX(var_data);	
+			ch_data = dCH__CFG_CHAMBER_BALLAST_GAS_ID->Get__STRING();
+			db_index = Get__MFC_INDEX(ch_data);	
 			if(db_index < 0)												return -24;
 
-			aCH__CFG_CHAMBER_BALLAST_GAS_FLOW->Get__DATA(var_data);
-			aEXT_CH__PARA_SET_FLOW[db_index]->Set__DATA(var_data);
+			aCH__CFG_CHAMBER_BALLAST_GAS_FLOW->Get__DATA(ch_data);
+			aEXT_CH__PARA_SET_FLOW[db_index]->Set__DATA(ch_data);
 		}
 
 		if(pOBJ_CTRL__MFC[db_index]->Call__OBJECT(MFC_CMMD__CONTROL) < 0)	return -25;
 	}
 
-	return OBJ_AVAILABLE;
+	return 1;
 }
 
 // ... Transfer Ballast Flow Control ...
 int CObj__GAS_VLV_FNC::Call__TRANS_BALLAST_FLOW(CII_OBJECT__VARIABLE *p_variable)
 {
-	CString var_data;
 	CString log_msg;
+	CString log_bff;
+
+	CString ch_data;
+
 	int db_index;
 	int i;
 
-	dCH__CFG_TRANSFER_BALLAST_GAS->Get__DATA(var_data);
-	log_msg.Format("Transfer Ballast Gas : %s ...", var_data);	Fnc__WRITE_LOG(log_msg);
+	// ...
+	{
+		log_msg = "\n";
+		log_msg = " * Ballast.Transfer Parameter ... \n";
+
+		log_bff.Format(" * %s <- %s ", 
+						dCH__CFG_TRANSFER_BALLAST_GAS_ID->Get__CHANNEL_NAME(),
+						dCH__CFG_TRANSFER_BALLAST_GAS_ID->Get__STRING());
+		log_msg += log_bff;
+	
+		Fnc__WRITE_LOG(log_msg);
+	}
 
 	// Ballast Gas Select ...
-	if(dCH__CFG_TRANSFER_BALLAST_GAS->Check__DATA("N2Ballast") > 0)
+	if(dCH__CFG_TRANSFER_BALLAST_GAS_ID->Check__DATA(STR__N2_Ballast) > 0)
 	{
 		// A. N2(V8) Transfer Valve Select
 		// A-1. MFC All Close
@@ -698,17 +724,17 @@ int CObj__GAS_VLV_FNC::Call__TRANS_BALLAST_FLOW(CII_OBJECT__VARIABLE *p_variable
 			}
 		}
 
-		dCH__CFG_TRANSFER_BALLAST_GAS->Get__DATA(var_data);
-		db_index = Get__MFC_INDEX(var_data);	
+		ch_data = dCH__CFG_TRANSFER_BALLAST_GAS_ID->Get__STRING();
+		db_index = Get__MFC_INDEX(ch_data);	
 		if(db_index < 0)													return -24;
 
-		aCH__CFG_TRANSFER_BALLAST_GAS_FLOW->Get__DATA(var_data);
-		aEXT_CH__PARA_SET_FLOW[db_index]->Set__DATA(var_data);
+		aCH__CFG_TRANSFER_BALLAST_GAS_FLOW->Get__DATA(ch_data);
+		aEXT_CH__PARA_SET_FLOW[db_index]->Set__DATA(ch_data);
 
 		if(pOBJ_CTRL__MFC[db_index]->Call__OBJECT(MFC_CMMD__CONTROL) < 0)	return -25;
 	}
 
-	return OBJ_AVAILABLE;
+	return 1;
 }
 
 // ...

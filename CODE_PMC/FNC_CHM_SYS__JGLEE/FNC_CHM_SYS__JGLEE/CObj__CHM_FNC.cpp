@@ -23,22 +23,36 @@ int CObj__CHM_FNC::__DEFINE__CONTROL_MODE(obj,l_mode)
 
 	// ...
 	{
-		ADD__CTRL_VAR(sMODE__INIT,				  "INIT");
-		ADD__CTRL_VAR(sMODE__MAINT,				  "MAINT");
+		ADD__CTRL_VAR(sMODE__INIT,	           "INIT");
+		ADD__CTRL_VAR(sMODE__MAINT,	           "MAINT");
 
 		//
-		ADD__CTRL_VAR(sMODE__PUMPING,			  "PUMPING");
-		ADD__CTRL_VAR(sMODE__LOW_VAC_PUMP,		  "LOW_VAC_PUMP");
-		ADD__CTRL_VAR(sMODE__HIGH_VAC_PUMP,		  "HIGH_VAC_PUMP");
+		ADD__CTRL_VAR(sMODE__PUMPING,		   "PUMPING");
+		ADD__CTRL_VAR(sMODE__LOW_VAC_PUMP,	   "LOW_VAC_PUMP");
+		ADD__CTRL_VAR(sMODE__HIGH_VAC_PUMP,	   "HIGH_VAC_PUMP");
 
 		//
-		ADD__CTRL_VAR(sMODE__CLOSE_VAC_LINE,	  "CLOSE.VAC_LINE");
+		ADD__CTRL_VAR(sMODE__CLOSE_VAC_LINE,   "CLOSE.VAC_LINE");
 
 		//
-		ADD__CTRL_VAR(sMODE__VENT,				  "VENTING");
+		ADD__CTRL_VAR(sMODE__VENT,			   "VENTING");
 
-		ADD__CTRL_VAR(sMODE__LEAK_CHECK,		  "LEAK_CHECK");
-		ADD__CTRL_VAR(sMODE__PURGE,				  "PURGE");
+		ADD__CTRL_VAR(sMODE__LEAK_CHECK,	   "LEAK_CHECK");
+		ADD__CTRL_VAR(sMODE__PURGE,			   "PURGE");
+
+		// PICK ...
+		ADD__CTRL_VAR(sMODE__PICK_READY,       "PICK_READY");
+		ADD__CTRL_VAR(sMODE__PICK_X_READY,     "PICK_X_READY");
+
+		ADD__CTRL_VAR(sMODE__PICK_COMPLETE,    "PICK_COMPLETE");
+		ADD__CTRL_VAR(sMODE__PICK_X_COMPLETE,  "PICK_X_COMPLETE");
+
+		// PLACE ...
+		ADD__CTRL_VAR(sMODE__PLACE_READY,      "PLACE_READY");
+		ADD__CTRL_VAR(sMODE__PLACE_X_READY,    "PLACE_X_READY");
+
+		ADD__CTRL_VAR(sMODE__PLACE_COMPLETE,   "PLACE_COMPLETE");
+		ADD__CTRL_VAR(sMODE__PLACE_X_COMPLETE, "PLACE_X_COMPLETE");
 
 		//
 		ADD__CTRL_VAR(sMODE__CHM_BALLAST_START,	  "CHM_BALLAST_START");
@@ -46,7 +60,7 @@ int CObj__CHM_FNC::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__BALLAST_END,		  "BALLAST_END");
 
 		// 
-		ADD__CTRL_VAR(sMODE__APC_AUTO_LEARN,	  "APC_AUTO_LEARN");
+		ADD__CTRL_VAR(sMODE__APC_AUTO_LEARN,   "APC_AUTO_LEARN");
 	}
 	return 1;
 }
@@ -78,27 +92,30 @@ int CObj__CHM_FNC::__DEFINE__VARIABLE_STD(p_variable)
 	CString str_name;
 	int i;
 
-	// OBJECT PARAMETER
+	// OBJ PARAMETER ...
 	{
 		str_name = "OBJ.STATUS";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_STATUS, str_name);
 
-		str_name = "OBJ.MESSAGE";
+		str_name = "OBJ.MSG";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_MSG, str_name);
 
-		str_name = "APP.TIMER.COUNT";
+		str_name = "OBJ.TIMER";
 		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__TIMER_COUNT,str_name);
+		LINK__VAR_STRING_CTRL(sCH__OBJ_TIMER, str_name);
+	}
+
+	// MON PARAMETER ...
+	{
+		str_name = "MON.PUMPING.STATE";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_PUMPING_STATE, str_name);
 	}
 
 	// ...
 	{
-		str_name = "CHM.PRESS.STS";
-		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__CHM_PRESS_STS,str_name);
-
 		str_name = "TRANSFER.BALLAST.FLAG";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__TRANSFER_BALLAST_FLAG,str_name);
@@ -115,110 +132,153 @@ int CObj__CHM_FNC::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__ACTIVE_VENTING_STATE, str_name);
 	}
 
-	// PRESSURE PARAMETER
+	// FAST-VENTING PARAMETER ...
 	{
-		str_name = "CFG.ATM.VENTING.MODE";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "TIME  PRESSURE", "");
-		LINK__VAR_DIGITAL_CTRL(dCH__CFG_ATM_VENTING_MODE, str_name);
+		str_name = "CFG.FAST_VENT.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 0, 600, 800, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_FAST_VENT_PRESSURE, str_name);
 
-		str_name = "CFG.ATM.PRESSURE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"torr",0,600,800,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_ATM_PRESSURE, str_name);
+		str_name.Format("CFG.FAST_VENT.TIMEOUT");
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_FAST_VENT_TIMEOUT, str_name);
 
-		str_name = "CFG.ATM.VENTING.TIME";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,600,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_ATM_VENTING_TIME, str_name);
+		str_name = "CFG.FAST_VENT.OVER.TIME";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 60, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_FAST_VENT_OVER_TIME, str_name);
 
-		str_name = "CFG.ATM.VENT.HOLD.DELAY";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,60,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_ATM_VENT_HOLD_DELAY, str_name);
+		str_name = "CFG.FAST_VENT.ATM_SNS_ON.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 1, 600, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_FAST_VENT_ATM_SNS_ON_TIMEOUT, str_name);
+	}
 
-		str_name = "CFG.SOFT.VENT.PRESSURE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"torr",0,0,600,"");
+	// SOFT-VENTING PARAMETER ...
+	{
+		str_name = "CFG.SOFT_VENT.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 0, 0, 600, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_VENT_PRESSURE, str_name);
 
-		str_name = "CFG.SOFT.PUMP.PRESSURE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"torr",0,1,600,"");
+		str_name = "CFG.SOFT_VENT.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_VENT_TIMEOUT, str_name);
+
+		str_name = "CFG.SOFT_VENT.OVER.TIME";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 60, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_VENT_OVER_TIME, str_name);
+
+		str_name = "CFG.SOFT_VENT.VAC_SNS_OFF.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_VENT_VAC_SNS_OFF_TIMEOUT, str_name);
+	}
+
+	// SOFT-PUMPING PARAMETER ...
+	{
+		str_name = "CFG.SOFT_PUMP.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 0, 1, 600, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_PUMP_PRESSURE, str_name);
 
-		str_name = "CFG.SOFT.PUMP.MODE";
-		STD__ADD_DIGITAL(str_name, LIST__SOFT_PUMP_MODE);
-		LINK__VAR_DIGITAL_CTRL(dCH__CFG_SOFT_PUMP_MODE, str_name);
+		str_name = "CFG.SOFT_PUMP.OVER.TIME";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 60, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_PUMP_OVER_TIME, str_name);
 
-		str_name = "CFG.SOFT.PUMP.DELAY";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,60,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_PUMP_DELAY, str_name);
-
-		str_name = "CFG.PUMPING.PRESSURE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"torr",3,0,1,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_PUMPING_PRESSURE, str_name);
-
-		str_name = "CFG.SR_OPT.AFTER.SOFT_PUMP";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"CLOSE OPEN","");
-		LINK__VAR_DIGITAL_CTRL(dCH__CFG_SR_OPT_AFTER_SOFT_PUMP, str_name);
-
-		//
-		str_name = "CFG.FORELINE.PUMP.TIMEOUT";
+		str_name = "CFG.SOFT_PUMP.TIMEOUT";
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_FORELINE_PUMP_TIMEOUT, str_name);
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_PUMP_TIMEOUT, str_name);
 	}
 
-	// PURGE
+	// FAST-PUMPING PARAMETER ...
 	{
-		str_name = "CFG.aPURGE.CYCLE_COUNT";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"num",0,1,600,"");
-		LINK__VAR_ANALOG_CTRL(aCFG_CH__PURGE_CYCLE_COUNT,str_name);
+		str_name = "CFG.FAST_PUMP.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 3, 0, 1, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_FAST_PUMP_PRESSURE, str_name);
 
-		str_name = "APP.PURGE.CURRENT_COUNT";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"num",0,1,9999,"");
-		LINK__VAR_ANALOG_CTRL(aCH__PURGE_CURRENT_COUNT,str_name);
-
-		str_name = "APP.PURGE.UP_PRESSURE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"torr",1,0.0,1000,"");
-		LINK__VAR_ANALOG_CTRL(aCH__PURGE_UP_PRESSURE,str_name);
-
-		str_name = "APP.PURGE.DOWN_PRESSURE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"torr",3,0.0,10,"");
-		LINK__VAR_ANALOG_CTRL(aCH__PURGE_DOWN_PRESSURE,str_name);
+		str_name = "CFG.FAST_PUMP.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_FAST_PUMP_TIMEOUT, str_name);
 	}
 
-	// LEAK CHECK
+	// HIGH_VAC-PUMPING PARAMETER ...
 	{
-		str_name = "APP.LEAK_CHECK.TIME_MIN";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"min",0,1,7,"");
-		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__TIME_MIN,str_name);
+		str_name = "CFG.HIGH_VAC.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 3, 0, 1, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_HIGH_VAC_PRESSURE, str_name);
+
+		str_name = "CFG.HIGH_VAC.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_HIGH_VAC_TIMEOUT, str_name);
+	}
+
+	// FORELINE-PUMPING PARAMETER ...
+	{
+		str_name = "CFG.FORELINE.PUMPING.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_FORELINE_PUMPING_TIMEOUT, str_name);
+	}
+
+	// PURGE PARAMETER ...
+	{
+		str_name = "CFG.PURGE.CYCLE_COUNT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "num", 0, 1, 600, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_PURGE_CYCLE_COUNT, str_name);
+
+		str_name = "CUR.PURGE.CYCLE_COUNT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CUR_PURGE_CYCLE_COUNT, str_name);
 
 		//
-		str_name = "APP.LEAK_CHECK.TIME_COUNT";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0.0,9999,"");
-		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__TIME_COUNT,str_name);
+		str_name = "CFG.PURGE.UP_PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 1, 0.0, 1000, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_PURGE_UP_PRESSURE, str_name);
 
-		str_name = "APP.LEAK_CHECK.OVER_PUMPING.TIME";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0.0,9999,"");
-		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__OVER_PUMPING_TIME,str_name);
-
-		str_name = "APP.LEAK_CHECK.STABLE.TIME";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0.0,9999,"");
-		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__STABLE_TIME,str_name);
+		str_name = "CFG.PURGE.DOWN_PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 3, 0.0, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_PURGE_DOWN_PRESSURE, str_name);
 
 		//
-		str_name = "APP.LEAK_CHECK.VAT_VLV_POS_MOVING";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"DISABLE ENABLE","");
-		LINK__VAR_DIGITAL_CTRL(dCH__LEAK_CHECK__VAT_VLV_POS_MOVING,str_name);
+		str_name = "CFG.ADD.PUMP.TIME.SECONDS.FOR.PP";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 20, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_ADD_PUMP_TIME_SECONDS_FOR_PP, str_name);
+
+		str_name = "CFG.ADD.PURGE.TIME.SECONDS.FOR.PP";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 20, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_ADD_PURGE_TIME_SECONDS_FOR_PP, str_name);
+	}
+
+	// LEAK-CHECK PARAMETER ...
+	{
+		str_name = "CUR.LEAK_CHECK.TIME_COUNT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__CUR_TIME_COUNT, str_name);
+
+		//
+		str_name = "CFG.LEAK_CHECK.OVER_PUMPING.TIME";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0.0, 9999, "");
+		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__CFG_OVER_PUMPING_TIME, str_name);
+
+		str_name = "CFG.LEAK_CHECK.STABLE.TIME";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0.0, 9999, "");
+		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__CFG_STABLE_TIME, str_name);
+
+		str_name = "CFG.LEAK_CHECK.TIME_MIN";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "min", 0, 1, 7, "");
+		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__CFG_TIME_MIN, str_name);
+
+		str_name = "CFG.LEAK_CHECK.VAT_VLV_POS_MOVING";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "DISABLE  ENABLE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__LEAK_CHECK__CFG_VAT_VLV_POS_MOVING, str_name);
 
 		//
 		str_name = "APP.LEAK_CHECK.DATE.FDC.MONTH";
 		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
-		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__DATE_FDC_MONTH,str_name);
+		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__APP_DATE_FDC_MONTH,str_name);
 
 		//
 		str_name = "APP.LEAK_CHECK.START.TIME";
 		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
-		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__START_TIME,str_name);
+		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__APP_START_TIME,str_name);
 
 		str_name = "APP.LEAK_CHECK.END.TIME";
 		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
-		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__END_TIME,str_name);
+		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__APP_END_TIME,str_name);
 
 		//
 		str_name = "APP.LEAK_CHECK.BASE_PRESSURE";
@@ -273,77 +333,32 @@ int CObj__CHM_FNC::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "APP.LEAK_CHECK.LOG.RESULT";
 		STD__ADD_STRING_WITH_OPTION(str_name,-1,"E","");
 		LINK__VAR_STRING_CTRL(sCH__LEAK_CHECK__LOG_RESULT_mTORR_Per_MIN,str_name);
-	}
 
-	// Leak Check중 이 압력 이상이면, Leak Check가 Abort된다.
-	{
+		// Leak.Check 결과가 설정 압력 이상이면, Alarm Posting 한다.
 		str_name = "CFG.LEAK_CHECK.MAX_PRESSURE";
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 0, 0, 1000, "");
 		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__MAX_PRESSURE_mTORR,str_name);
-	}
 
-	// Leak Check결과가 이 압력 이상이면, Alarm Posting 한다.
-	{
 		str_name = "CFG.LEAK_CHECK.CFG.RESULT.POSTING";
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr/min", 0, 0, 100, "");
 		LINK__VAR_ANALOG_CTRL(aCH__LEAK_CHECK__CFG_RESULT_POSTING,str_name);
 	}
 
-
-	// TIME-OUT PARAMETER
+	// CFG : Transfer.Ballast ...
 	{
-		str_name.Format("CFG.ATM.TIMEOUT");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,300,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_ATM_TIMEOUT, str_name);
-
-		str_name.Format("CFG.SOFT.VENT.TIMEOUT");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,300,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_VENT_TIMEOUT, str_name);
-
-		str_name.Format("CFG.SOFT.PUMP.TIMEOUT");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,300,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_SOFT_PUMP_TIMEOUT, str_name);
-
-		str_name.Format("CFG.PUMPING.TIMEOUT");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,300,"");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_PUMPING_TIMEOUT, str_name);
-
-		//
-		str_name.Format("CFG.VENT.VAC.SNS.OFF.TIMEOUT");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 600, "");
-		LINK__VAR_ANALOG_CTRL(aCFG_VENT_VAC_SNS_OFF_TIMEOUT, str_name);
-
-		str_name.Format("CFG.VENT.ATM.SNS.ON.TIMEOUT");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 1, 600, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_VENT_TO_ATM_TIMEOUT, str_name);
-
-		str_name = "CFG.VENT_TIMEOUT.SOFT_VENT_TO_FAST_VENT";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 60, 600, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_VENT_TIMEOUT_SOFT_VENT_TO_FAST_VENT, str_name);
+		str_name = "CFG.TRANSFER.BALLAST.ENABLED";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "NO  YES", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_TRANSFER_BALLAST_ENABLED, str_name);
+	}
+	// CFG : Chamber.Ballast ...
+	{
+		str_name = "CFG.CHAMBER.BALLAST.ENABLED";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "NO  YES", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_CHAMBER_BALLAST_ENABLED, str_name);
 	}
 
-	// Chamber Ballast User Config ...
+	// AUTO.LEARN ...
 	{
-		str_name.Format("CFG.CHABMER.BALLAST.ENABLED");
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "False True", "");
-		LINK__VAR_DIGITAL_CTRL(dCH__CFG_CHAMBER_BALLAST_ENABLED, str_name);
-
-		str_name.Format("CFG.ADD.PUMP.TIME.SECONDS.FOR.PP");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 20, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_ADD_PUMP_TIME_SECONDS_FOR_PP, str_name);
-
-		str_name.Format("CFG.ADD.PURGE.TIME.SECONDS.FOR.PP");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 20, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_ADD_PURGE_TIME_SECONDS_FOR_PP, str_name);
-
-		str_name.Format("CFG.OVER.VENT.TIME");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 500, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_OVER_VENT_TIME, str_name);
-
-		str_name.Format("CFG.PROCESS.MANOMETER.ZERO.OFFSET.LIMIT");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 0, 0, 10, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_PROCESS_MANOMETER_ZERO_OFFSET_LIMIT, str_name);
-
 		str_name.Format("CFG.aBEFORE.AUTO.LEARNING.DELAY.TIME");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 1, 60, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_BEFORE_AUTO_LEARNING_DELAY_TIME, str_name);
@@ -886,9 +901,6 @@ int CObj__CHM_FNC::__Define__USER_FUNCTION(CII_DEFINE__FUNCTION *p_fnc_ctrl)
 //-------------------------------------------------------------------------
 int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {	
-	xI_TIMER->REGISTER__ABORT_OBJECT(sObject_Name);
-
-	// ...
 	CString def_name;
 	CString def_data;
 	CString ch_name;
@@ -938,6 +950,9 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		var_name = "CHM.PRESSURE.mTORR";
 		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CHM_PRESSURE_mTORR, obj_name,var_name);
 
+		var_name = "CHM.PRESSURE.STATUS";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CHM_PRESSURE_STATE, obj_name,var_name);
+
 		//
 		var_name = "PMP.PRESSURE.VALUE";
 		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__PMP_PRESSURE_TORR, obj_name,var_name);
@@ -947,11 +962,22 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		var_name = "PMP.VAC.SNS";
 		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMP_VAC_SNS, obj_name,var_name);
+
+		//
+		var_name = "SLOT01.STATUS";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__WAFER_SLOT01_STATE, obj_name,var_name);
+
+		var_name = "CFG.DECHUCK.CTRL.MODE";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DECHUCK_CTRL_MODE, obj_name,var_name);
 	}
 	// DB SYS ...
 	{
 		def_name = "OBJ__DB_SYS";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		//
+		var_name = "SIM.PRESSURE.TORR";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SIM_PRESSURE_TORR, obj_name,var_name);
 
 		//
 		var_name = "CTC.LEAK_CHECK.USE.FLAG";
@@ -994,19 +1020,58 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__PMC_LOG__SAMPLING_PERIOD, obj_name,"LOG.SAMPLING.PERIOD");
 	}
 
-	// OBJ : VAC_VALVE
+	// OBJ : TRANSFER ...
+	{
+		def_name = "OBJ__TRANSFER";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		bool def_check = x_utility.Check__Link(obj_name);
+		bActive__TRANSFER_OBJ = def_check;
+
+		if(def_check)
+		{
+			pOBJ_CTRL__TRANSFER = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		}
+	}
+
+	// OBJ : PHY_VAC_VLV ...
 	{
 		def_name = "OBJ__VAC_VALVE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-		pOBJ_CTRL__VAC_VALVE = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		pOBJ_CTRL__PHY_VAC_VLV = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+		//
+		var_name = "MON.PUMPING.STATE";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__VAC_VLV__MON_PUMPING_STATE, obj_name,var_name);
 	}
-	// OBJ : GAS_VALVE
+	// OBJ : VAT ...
+	{
+		def_name = "OBJ__VAT";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		bool def_check = x_utility.Check__Link(obj_name);
+		bActive__VAT_OBJ = def_check;
+
+		if(def_check)
+		{
+			pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			//
+			var_name = "PARA.POSITION";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__VAT_PARA_POSITION, obj_name,var_name);
+
+			var_name = "PARA.PRESSURE";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__VAT_PARA_PRESSURE, obj_name,var_name);
+		}
+	}
+
+	// OBJ : GAS_VLV ...
 	{
 		def_name = "OBJ__GAS_VALVE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-		pOBJ_CTRL__GAS_VALVE = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		pOBJ_CTRL__GAS_VLV = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 	}
 
 	// OBJ : ESC
@@ -1020,6 +1085,10 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		if(def_check)
 		{
 			pOBJ_CTRL__ESC = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			//
+			var_name = "MON.CHUCK_STATUS";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ESC_MON_CHUCK_STATUS, obj_name,var_name);
 		}
 	}
 
@@ -1105,7 +1174,7 @@ int CObj__CHM_FNC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 {
 	int flag = -1;
 
-	pOBJ_CTRL__GAS_VALVE->Link__UPPER_OBJECT();
+	pOBJ_CTRL__GAS_VLV->Link__UPPER_OBJECT();
 
 	// ...
 	{
@@ -1249,7 +1318,7 @@ int CObj__CHM_FNC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		
 		ELSE_IF__CTRL_MODE(sMODE__PUMPING)					flag = Call__LOW_VAC_PUMP(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__LOW_VAC_PUMP)				flag = Call__LOW_VAC_PUMP(p_variable,p_alarm);
-		ELSE_IF__CTRL_MODE(sMODE__HIGH_VAC_PUMP)			flag = Call__LOW_VAC_PUMP(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__HIGH_VAC_PUMP)			flag = Call__HIGH_VAC_PUMP(p_variable,p_alarm);
 
 		ELSE_IF__CTRL_MODE(sMODE__CLOSE_VAC_LINE)			flag = Call__CLOSE_VAC_LINE(p_variable,p_alarm);
 
@@ -1262,9 +1331,24 @@ int CObj__CHM_FNC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 			sCH__ACTIVE_VENTING_STATE->Set__DATA("OFF");
 		}
 
-		ELSE_IF__CTRL_MODE(sMODE__LEAK_CHECK)				flag = Call__LEAK_CHECK(p_variable,p_alarm);
-		ELSE_IF__CTRL_MODE(sMODE__PURGE)					flag = Call__PURGE(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__LEAK_CHECK)				flag = Call__LEAK_CHECK(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PURGE)					flag = Call__PURGE(p_variable, p_alarm);
 
+		// PICK ...
+		ELSE_IF__CTRL_MODE(sMODE__PICK_READY)				flag = Call__PICK_READY(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PICK_X_READY)				flag = Call__PICK_X_READY(p_variable, p_alarm);
+
+		ELSE_IF__CTRL_MODE(sMODE__PICK_COMPLETE)			flag = Call__PICK_COMPLETE(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PICK_X_COMPLETE)			flag = Call__PICK_X_COMPLETE(p_variable, p_alarm);
+
+		// PLACE ...
+		ELSE_IF__CTRL_MODE(sMODE__PLACE_READY)				flag = Call__PLACE_READY(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PLACE_X_READY)			flag = Call__PLACE_X_READY(p_variable, p_alarm);
+
+		ELSE_IF__CTRL_MODE(sMODE__PLACE_COMPLETE)			flag = Call__PLACE_COMPLETE(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PLACE_X_COMPLETE)			flag = Call__PLACE_X_COMPLETE(p_variable, p_alarm);
+
+		//
 		ELSE_IF__CTRL_MODE(sMODE__CHM_BALLAST_START)		flag = Call__CHM_BALLAST_START(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__TRANS_BALLAST_START)		flag = Call__TRANS_BALLAST_START(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__BALLAST_END)				flag = Call__BALLAST_END(p_variable,p_alarm);
@@ -1281,7 +1365,7 @@ int CObj__CHM_FNC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		// ...
 		{
 			CString log_msg;
-			log_msg.Format("[%s] Aborted ... : Flag [%1d]",mode,flag);
+			log_msg.Format("[%s] Aborted (%1d)",mode,flag);
 
 			xLOG_CTRL->WRITE__LOG(log_msg);
 			sCH__OBJ_MSG->Set__DATA(log_msg);

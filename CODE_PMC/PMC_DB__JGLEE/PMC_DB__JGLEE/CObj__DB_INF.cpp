@@ -76,6 +76,11 @@ int CObj__DB_INF::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(xCH__CHM_ATM_SNS, str_name);
 
 		//
+		str_name = "PMC.PROCESS.STATUS";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__PMC_PROCESS_STATUS, str_name);
+
+		//
 		str_name = "PMC.SLOT.STATUS";
 		STD__ADD_STRING(str_name);
 
@@ -244,6 +249,7 @@ int CObj__DB_INF::__DEFINE__ALARM(p_alarm)
 //-------------------------------------------------------------------------
 int CObj__DB_INF::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {	
+	sCH__PMC_PROCESS_STATUS->Set__DATA("IDLE");
 
 	return 1;
 }

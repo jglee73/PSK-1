@@ -38,7 +38,7 @@ Dechuck
 (100, 100, 100)
 0
 255
-(194, 106) (434 122)
+(244, 106) (384 122)
 }
 #DYNAMIC
 {
@@ -979,7 +979,7 @@ Dechuck 1
 (100, 100, 100)
 0
 255
-(526, 106) (766 122)
+(576, 106) (716 122)
 }
 #DYNAMIC
 {
@@ -1638,36 +1638,6 @@ DATA.EDGE_UP_COLOR=RGB(143,90,254)
 DATA.EDGE_DOWN_COLOR=RGB(88,62,196)
 DATA.OUTLINE_COLOR=
 DATA.TEXT.Y_POS.OFFSET=0
-}
-#TEXT_EX
-{
-Tahoma
-"Dechuck"은 하나의 Step에서 진행됩니다.
-(0, 0, 160)
-9
-1
-(192, 192, 192)
-0
-255
-(92, 703) (498 747)
-}
-#DYNAMIC
-{
-}
-#TEXT_EX
-{
-Tahoma
-"Dechuck1"과 "Dechuck2"은 분리되어 두개의 Step에서 진행되고, 반드시 한쌍으로 진행되어야 합니다.
-(0, 0, 160)
-9
-1
-(192, 192, 192)
-0
-255
-(8, 724) (975 797)
-}
-#DYNAMIC
-{
 }
 #GOBJ_INTERFACE
 {
@@ -3177,7 +3147,7 @@ Dechuck 2
 (100, 100, 100)
 0
 255
-(859, 106) (1099 122)
+(909, 106) (1049 122)
 }
 #DYNAMIC
 {
@@ -4673,4 +4643,34 @@ DATA.SAVE.LOCK.STS.1=
 DATA.SAVE.LOCK.STS.2=
 DATA.SAVE.LOCK.STS.3=
 DATA.LOCK.TYPE=
+}
+#TEXT_EX
+{
+Arial
+"Dechuck1"과 "Dechuck2"은 분리되어 두개의 Step에서 진행되고, 반드시 한쌍으로 진행되어야 합니다.
+(0, 0, 160)
+10
+1
+(100, 100, 100)
+0
+255
+(-45, 739) (962 755)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Arial
+"Dechuck"은 하나의 Step에서 진행됩니다.
+(0, 0, 160)
+10
+1
+(100, 100, 100)
+0
+255
+(56, 717) (460 733)
+}
+#DYNAMIC
+{
 }

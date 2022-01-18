@@ -2739,36 +2739,6 @@ DATA.EDGE_DOWN_COLOR=
 DATA.OUTLINE_COLOR=
 DATA.TEXT.Y_POS.OFFSET=0
 }
-#TEXT_EX
-{
-Tahoma
-"Chuck"은 하나의 Step에서 진행됩니다.
-(0, 0, 160)
-9
-1
-(192, 192, 192)
-0
-255
-(88, 710) (479 743)
-}
-#DYNAMIC
-{
-}
-#TEXT_EX
-{
-Tahoma
-"Chuck1"과 "Chuck2"은 분리되어 두개의 Step에서 진행되고, 반드시 한쌍으로 진행되어야 합니다.
-(0, 0, 160)
-9
-1
-(192, 192, 192)
-0
-255
-(12, 731) (970 790)
-}
-#DYNAMIC
-{
-}
 #RECTANGLE
 {
 RECTANGLE
@@ -3623,4 +3593,34 @@ DATA.SAVE.LOCK.STS.1=
 DATA.SAVE.LOCK.STS.2=
 DATA.SAVE.LOCK.STS.3=
 DATA.LOCK.TYPE=
+}
+#TEXT_EX
+{
+Arial
+"Chuck1"과 "Chuck2"은 분리되어 두개의 Step에서 진행되고, 반드시 한쌍으로 진행되어야 합니다.
+(0, 0, 160)
+10
+1
+(100, 100, 100)
+0
+255
+(-45, 739) (949 755)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Arial
+"Chuck"은 하나의 Step에서 진행됩니다.
+(0, 0, 160)
+10
+1
+(100, 100, 100)
+0
+255
+(61, 717) (457 733)
+}
+#DYNAMIC
+{
 }

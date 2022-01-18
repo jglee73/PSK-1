@@ -564,11 +564,7 @@ int CObj__PMC_OPR::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))
 	{
 		CString log_msg;
-
-		log_msg.Format("Aborted ... : [%s] -- Flag [%1d], Ctrl [%1d]",
-			mode,
-			flag,
-			p_variable->Check__CTRL_ABORT());
+		log_msg.Format("[%s] Aborted ... [%1d]", mode,flag);
 
 		xLOG_CTRL->WRITE__LOG(log_msg);
 		xCH__OBJ_STATUS->Set__DATA(STR__MAINTMODE);
@@ -576,8 +572,8 @@ int CObj__PMC_OPR::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	else
 	{
 		CString log_msg;
+		log_msg.Format("[%s] Completed ... ", mode);
 
-		log_msg.Format("Completed ... :  [%s]",mode);
 		xLOG_CTRL->WRITE__LOG(log_msg);
 	}
 
@@ -586,17 +582,7 @@ int CObj__PMC_OPR::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 }
 int CObj__PMC_OPR::__CALL__MONITORING(id,p_variable,p_alarm)
 {
-	if(id == MON_ID__STATUS)
-	{
-		Mon__STATUS(p_variable);
-	}
+	if(id == MON_ID__STATUS)		Mon__STATUS(p_variable);
+
 	return 1;
 }
-
-// ...
-void CObj__PMC_OPR
-::Fnc__WRITE_LOG(CString msg)
-{
-	xLOG_CTRL->WRITE__LOG(msg);
-}
-

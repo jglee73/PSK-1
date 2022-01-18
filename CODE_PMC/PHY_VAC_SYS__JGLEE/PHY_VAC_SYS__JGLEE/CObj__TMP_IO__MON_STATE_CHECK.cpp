@@ -19,8 +19,16 @@ int CObj__TMP_IO
 		aCH__MON_PUMP_RPM_VALUE->Set__DATA("0");
 	}
 
+	if(iActive__SIM_MODE > 0)
+	{
+		if(bActive__DI_PCW_ALARM)			dEXT_CH__DI_PCW_ALARM->Set__DATA(STR__OFF);
+		if(bActive__DI_PCW_WATER_LEAK)		dEXT_CH__DI_PCW_WATER_LEAK->Set__DATA(STR__OFF);
+	}
+
+	// ...
 	double loop_sec = 0.1;
-	double cur__err_sec = 0;
+	double cur__di_foreline__err_sec = 0;
+	double cur__di_pcw__err_sec = 0;
 
 
 	while(1)
@@ -66,7 +74,7 @@ int CObj__TMP_IO
 			}				
 		}
 
-		// INTERLOCK.CHECK ...
+		// INTERLOCK.CHECK : FORELINE ...
 		{
 			bool active__err_sns = false;
 
@@ -74,19 +82,19 @@ int CObj__TMP_IO
 			{
 				if(dEXT_CH__DI_FORELINE_VAC_SNS->Check__DATA(STR__ON) < 0)			active__err_sns = true;
 			}
-			if(bActive__DI_DRY_PUMP_ON)
+			if(bActive__DI_BACKING_PUMP_ON)
 			{
-				if(dEXT_CH__DI_DRY_PUMP_ON->Check__DATA(STR__ON) < 0)				active__err_sns = true;
+				if(dEXT_CH__DI_BACKING_PUMP_ON->Check__DATA(STR__ON) < 0)			active__err_sns = true;
 			}
 
 			if(active__err_sns)
 			{
-				double cfg_sec = aCH__CFG_STOP_ERR_DELAY->Get__VALUE();
+				double cfg_sec = aCH__CFG_DI_FORELINE_ERR_CHECK_SEC->Get__VALUE();
 
-				cur__err_sec += loop_sec;
-				if(cur__err_sec >= cfg_sec)
+				cur__di_foreline__err_sec += loop_sec;
+				if(cur__di_foreline__err_sec >= cfg_sec)
 				{
-					cur__err_sec = 0.0;
+					cur__di_foreline__err_sec = 0.0;
 
 					if(dCH__MON_PUMP_ON_SNS->Check__DATA(STR__ON) > 0)
 					{
@@ -102,11 +110,11 @@ int CObj__TMP_IO
 											dEXT_CH__DI_FORELINE_VAC_SNS->Get__STRING());
 							alm_msg += alm_bff;
 						}
-						if(bActive__DI_DRY_PUMP_ON)
+						if(bActive__DI_BACKING_PUMP_ON)
 						{
 							alm_bff.Format(" * %s <- %s \n", 
-											dEXT_CH__DI_DRY_PUMP_ON->Get__CHANNEL_NAME(),
-											dEXT_CH__DI_DRY_PUMP_ON->Get__STRING());
+											dEXT_CH__DI_BACKING_PUMP_ON->Get__CHANNEL_NAME(),
+											dEXT_CH__DI_BACKING_PUMP_ON->Get__STRING());
 							alm_msg += alm_bff;
 						}
 
@@ -119,9 +127,68 @@ int CObj__TMP_IO
 			}
 			else
 			{
-				cur__err_sec = 0.0;
+				cur__di_foreline__err_sec = 0.0;
 			}
 		}
+
+		// INTERLOCK.CHECK : PCW ...
+		{
+			bool active__err_sns = false;
+
+			if(bActive__DI_PCW_ALARM)
+			{
+				if(dEXT_CH__DI_PCW_ALARM->Check__DATA(STR__ON) > 0)					active__err_sns = true;
+			}
+			if(bActive__DI_PCW_WATER_LEAK)
+			{
+				if(dEXT_CH__DI_PCW_WATER_LEAK->Check__DATA(STR__ON) > 0)			active__err_sns = true;
+			}
+
+			if(active__err_sns)
+			{
+				double cfg_sec = aCH__CFG_DI_PCW_ERR_CHECK_SEC->Get__VALUE();
+
+				cur__di_pcw__err_sec += loop_sec;
+				if(cur__di_pcw__err_sec >= cfg_sec)
+				{
+					cur__di_pcw__err_sec = 0.0;
+
+					if(dCH__MON_PUMP_ON_SNS->Check__DATA(STR__ON) > 0)
+					{
+						int alm_id = ALID__PCW_UNSTABLE_ALARM;
+						CString alm_msg;
+						CString alm_bff;
+						CString r_act;
+
+						if(bActive__DI_PCW_ALARM)
+						{
+							alm_bff.Format(" * %s <- %s \n", 
+											dEXT_CH__DI_PCW_ALARM->Get__CHANNEL_NAME(),
+											dEXT_CH__DI_PCW_ALARM->Get__STRING());
+							alm_msg += alm_bff;
+						}
+						if(bActive__DI_PCW_WATER_LEAK)
+						{
+							alm_bff.Format(" * %s <- %s \n", 
+											dEXT_CH__DI_PCW_WATER_LEAK->Get__CHANNEL_NAME(),
+											dEXT_CH__DI_PCW_WATER_LEAK->Get__STRING());
+							alm_msg += alm_bff;
+						}
+
+						p_alarm->Check__ALARM(alm_id, r_act);
+						p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+
+						Call__OFF(p_variable, p_alarm, false);
+					}
+				}
+			}
+			else
+			{
+				cur__di_pcw__err_sec = 0.0;
+			}
+		}
+
+		// ...
 	}
 }
 

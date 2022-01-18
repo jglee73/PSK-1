@@ -265,6 +265,11 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 			var_name = "MON.FAULT.FLAG";
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_FAULT_FLAG, var_name);
+
+			//
+			var_name = "MON.ESC.VOLTAGE.STATE";
+			STD__ADD_DIGITAL(var_name, "OFF ON");
+			LINK__VAR_DIGITAL_CTRL(dCH__MON_ESC_VOLTAGE_STATE, var_name);
 		}
 
 		// ESC Center ...
@@ -294,6 +299,11 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 			var_name = "MON.CENTER.FAULT.ESC.TIME";
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_CENTER_FAULT_ESC_TIME, var_name);
+
+			//
+			var_name = "MON.CENTER.ESC.VOLTAGE.STATE";
+			STD__ADD_DIGITAL(var_name, "OFF ON");
+			LINK__VAR_DIGITAL_CTRL(dCH__MON_CENTER_ESC_VOLTAGE_STATE, var_name);
 		}
 		// ESC Edge ...
 		{
@@ -322,6 +332,11 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 			var_name = "MON.EDGE.FAULT.ESC.TIME";
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_EDGE_FAULT_ESC_TIME, var_name);
+
+			//
+			var_name = "MON.EDGE.ESC.VOLTAGE.STATE";
+			STD__ADD_DIGITAL(var_name, "OFF ON");
+			LINK__VAR_DIGITAL_CTRL(dCH__MON_EDGE_ESC_VOLTAGE_STATE, var_name);
 		}
 
 		// He Center ...
@@ -1431,7 +1446,7 @@ int CObj__ESC_IO::__DEFINE__ALARM(p_alarm)
 		alarm_title += "Wafer가 Dechuck된 상태가 아닙니다 !";
 
 		alarm_msg  = "";
-		alarm_msg += "Wafer Minimum Leak Error !";
+		alarm_msg += "Wafer Minimum Leak Error ! \n";
 		alarm_msg += "Please, check He flow! \n";
 
 		ACT__CLEAR;
@@ -1510,7 +1525,7 @@ int CObj__ESC_IO::__DEFINE__ALARM(p_alarm)
 		alarm_title  = title;
 		alarm_title += "Helium setting error !";
 
-		alarm_msg  = "Process 중에 Helium 설정 값을 변경하는 작업을 할 수 없습니다.";
+		alarm_msg  = "Process 중에 Helium 설정 값을 변경하는 작업을 할 수 없습니다. \n";
 		alarm_msg += "ESC 상태가 \"Chucked\"인 상태에서만 가능합니다. \n";
 
 		ACT__CLEAR;

@@ -105,14 +105,14 @@ int CObj__MFC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_ANALOG_WITH_OPTION(str_name, "sccm", 1, 0, 10000, -1, "L", "");
 		LINK__VAR_ANALOG_CTRL(aCH__MON_MFC_SET_FLOW, str_name);
 
-		str_name = "MON.MFC.READ.FLOW";		
-		STD__ADD_ANALOG_WITH_OPTION(str_name, "sccm", 1, 0, 10000, -1, "L", "");
-		LINK__VAR_ANALOG_CTRL(aCH__MON_MFC_READ_FLOW, str_name);
-
-		//
 		str_name = "MON.MFC.SET.PERCENT";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_MFC_SET_PERCENT, str_name);
+
+		//
+		str_name = "MON.MFC.READ.FLOW";		
+		STD__ADD_ANALOG_WITH_OPTION(str_name, "sccm", 1, 0, 10000, -1, "L", "");
+		LINK__VAR_ANALOG_CTRL(aCH__MON_MFC_READ_FLOW, str_name);
 
 		str_name = "MON.MFC.FLOW.PERCENT";
 		STD__ADD_STRING(str_name);
@@ -123,17 +123,36 @@ int CObj__MFC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_MFC_EXCEPTION_STATE, str_name);
 
+		str_name = "MON.MFC.EXCEPTION_INFO";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_MFC_EXCEPTION_INFO, str_name);
+
+		//
 		str_name = "MON.MFC.READ.VALVE_VOLTAGE";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_MFC_READ_VALVE_VOLTAGE, str_name);
 
+		str_name = "MON.MFC.VALVE_VOLTAGE.PERCENT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_MFC_VALVE_VOLTAGE_PERCENT, str_name);
+
+		//
 		str_name = "MON.MFC.READ.INLET_PRESSURE";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_MFC_READ_INLET_PRESSURE, str_name);
 
+		str_name = "MON.MFC.INLET_PRESSURE.PERCENT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_MFC_INLET_PRESSURE_PERCENT, str_name);
+
+		//
 		str_name = "MON.MFC.READ.TEMPERATURE";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_MFC_READ_TEMPERATURE, str_name);
+
+		str_name = "MON.MFC.TEMPERATURE.PERCENT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_MFC_TEMPERATURE_PERCENT, str_name);
 	}
 
 	// MON.STABLE ...
@@ -481,9 +500,9 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString var_name;
 	CString ch_data;
 
+	// ...
 	CCommon_Utility m_fnc;	
 
-	
 	// DB_SYS ...
 	{
 		def_name = "OBJ__DB_SYS";
@@ -574,82 +593,77 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		// MFC ...
 		{
-			def_name = "CH__IO_MFC_SET";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_SET, obj_name,var_name);
-
-			def_name = "CH__IO_MFC_READ";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_READ, obj_name,var_name);
-
-			//
-			def_name = "CH__IO_MFC_STATE";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-
-			if((ch_name.CompareNoCase(STR__NO)   == 0)
-			|| (ch_name.CompareNoCase(STR__NONE) == 0))
+			// SET & READ ...
 			{
-				bActive__MFC_STATE = false;
-			}
-			else
-			{
-				bActive__MFC_STATE = true;
-
+				def_name = "CH__IO_MFC_SET";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_STATE, obj_name,var_name);
-			}
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_SET, obj_name,var_name);
 
-			//
-			def_name = "CH__IO_MFC_VALVE_VOLTAGE";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-
-			if((ch_name.CompareNoCase(STR__NO)   == 0)
-			|| (ch_name.CompareNoCase(STR__NONE) == 0))
-			{
-				bActive__MFC_VALVE_VOLTAGE = false;
-			}
-			else
-			{
-				bActive__MFC_VALVE_VOLTAGE = true;
-
+				def_name = "CH__IO_MFC_READ";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_VALVE_VOLTAGE, obj_name,var_name);
-			}
-			
-			//
-			def_name = "CH__IO_MFC_PRESSURE";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-
-			if((ch_name.CompareNoCase(STR__NO)   == 0)
-			|| (ch_name.CompareNoCase(STR__NONE) == 0))
-			{
-				bActive__MFC_PRESSURE = false;
-			}
-			else
-			{
-				bActive__MFC_PRESSURE = true;
-
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_PRESSURE, obj_name,var_name);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_READ, obj_name,var_name);
 			}
 
-			//
-			def_name = "CH__IO_MFC_TEMPERATURE";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-
-			if((ch_name.CompareNoCase(STR__NO)   == 0)
-			|| (ch_name.CompareNoCase(STR__NONE) == 0))
+			// IO.STATE ...
 			{
-				bActive__MFC_TEMPERATURE = false;
+				def_name = "CH__IO_MFC_STATE";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+				bool def_check = m_fnc.Check__Link(ch_name);
+				bActive__MFC_STATE = def_check;
+
+				if(def_check)
+				{
+					p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+					LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_STATE, obj_name,var_name);
+				}
 			}
-			else
-			{
-				bActive__MFC_TEMPERATURE = true;
 
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_TEMPERATURE, obj_name,var_name);
+			// IO.VOLTAGE ...
+			{
+				def_name = "CH__IO_MFC_VALVE_VOLTAGE";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+				bool def_check = m_fnc.Check__Link(ch_name);
+				bActive__MFC_VALVE_VOLTAGE = def_check;
+
+				if(def_check)
+				{
+					p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+					LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_VALVE_VOLTAGE, obj_name,var_name);
+				}
+			}
+
+			// IO.PRESSYRE ...
+			{
+				def_name = "CH__IO_MFC_PRESSURE";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+				bool def_check = m_fnc.Check__Link(ch_name);
+				bActive__MFC_PRESSURE = def_check;
+
+				if(def_check)
+				{
+					p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+					LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_PRESSURE, obj_name,var_name);
+				}
+			}
+
+			// IO.TEMPERATURE ...
+			{
+				def_name = "CH__IO_MFC_TEMPERATURE";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+				bool def_check = m_fnc.Check__Link(ch_name);
+				bActive__MFC_TEMPERATURE = def_check;
+
+				if(def_check)
+				{
+					p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+					LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_TEMPERATURE, obj_name,var_name);
+				}
 			}
 		}
 
@@ -658,15 +672,11 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			def_name = "CH__IO_VLV_PURGE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
-			if((ch_name.CompareNoCase(STR__NO)   == 0)
-			|| (ch_name.CompareNoCase(STR__NONE) == 0))
-			{
-				bActive__VLV_PURGE = false;
-			}
-			else
-			{
-				bActive__VLV_PURGE = true;
+			bool def_check = m_fnc.Check__Link(ch_name);
+			bActive__VLV_PURGE = def_check;
 
+			if(def_check)
+			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__IO_VLV_PURGE, obj_name,var_name);
 			}

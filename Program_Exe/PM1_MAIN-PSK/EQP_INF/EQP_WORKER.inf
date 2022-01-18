@@ -23,7 +23,9 @@
 ===========================================================================
 #OBJECT_STD     FNC_CHM_SYS__JGLEE          PMC.OPR                 OPR_PMC
 #OBJECT_STD     FNC_CHM_SYS__JGLEE          SYSTEM.STD              FNC_SYSTEM
+
 #OBJECT_STD     FNC_CHM_SYS__JGLEE          CHM.FNC                 FNC_CHM
+#OBJECT_STD     FNC_CHM_SYS__JGLEE          TRANSFER.FNC            FNC_TRANSFER
 
 ===========================================================================
 #OBJECT_STD     EQP__STD_OBJ                PM_Datalog_Ex           FNC_PM_DATALOG
@@ -34,7 +36,7 @@
 
 
 ===========================================================================
-#OBJECT_STD     PHY_IO_CTRL__JGLEE          CHM_PSK.IO              PHY_CHM_IO
+#OBJECT_STD     PHY_IO_CTRL__JGLEE          CHM.IO                  PHY_CHM_IO
 #OBJECT_STD     PHY_IO_CTRL__JGLEE          PM_SLOT.IO              PHY_PM_SLOT
 #OBJECT_STD     PHY_IO_CTRL__JGLEE          LIFT_PIN.IO             PHY_LIFT_PIN
 
@@ -61,7 +63,6 @@
 
 
 ===========================================================================
-#OBJECT_STD     PHY_VAC_SYS__JGLEE          VAC_VLV.FNC             FNC_VAC_VLV_CTRL
 #OBJECT_STD     PHY_VAC_SYS__JGLEE          VAC_VLV.PHY             PHY_VAC_VLV
 
 #OBJECT_STD     PHY_VAC_SYS__JGLEE          VAT.IO                  PHY_VAT

@@ -1,6 +1,11 @@
 #pragma once
 
 
+// ...
+#define _CFG__PRC_GAUGE_SIZE		3
+
+
+// ...
 #define STR__STANDBY				"STANDBY"
 
 #define STR__ON						"ON"

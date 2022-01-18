@@ -131,7 +131,7 @@ int CObj__GAS_VLV_FNC::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_ANALOG_CTRL(aCH__CUR_PURGE_DELAY_SEC, str_name);
 	}
 
-	// CFG ...
+	// CFG : WAP ...
 	{
 		str_name = "CFG.WAP.AUTO.LEARN.GAS";
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "", "");
@@ -146,36 +146,40 @@ int CObj__GAS_VLV_FNC::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_WAP_AUTO_LEARN_START_DELAY, str_name);	
 	}
 
-	// ...
+	// CFG : Ballast ...
 	{
 		CString list_gas = "";
 		CString str_gas;
 
-		int i_limit = _MAX__MFC_OBJ;
-		int i;
+		list_gas  = STR__N2_Ballast;
+		list_gas += " ";
 
-		for(i=0; i<i_limit; i++)
+		for(int i=0; i<_MAX__MFC_OBJ; i++)
 		{
 			str_gas.Format("GAS%02d ", i+1);
 			list_gas += str_gas;
 		}
 
-		str_name = "CFG.CHAMBER.BALLAST.GAS";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, list_gas, "");
-		LINK__VAR_DIGITAL_CTRL(dCH__CFG_CHAMBER_BALLAST_GAS, str_name);
+		// Transfer ...
+		{
+			str_name = "CFG.TRANSFER.BALLAST.GAS.ID";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, list_gas, "");
+			LINK__VAR_DIGITAL_CTRL(dCH__CFG_TRANSFER_BALLAST_GAS_ID, str_name);
 
-		//
-		str_name = "CFG.CHAMBER.BALLAST.GAS.FLOW";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 10000, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_CHAMBER_BALLAST_GAS_FLOW, str_name);
+			str_name.Format("CFG.TRANSFER.BALLAST.GAS.FLOW");
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 10000, "");
+			LINK__VAR_ANALOG_CTRL(aCH__CFG_TRANSFER_BALLAST_GAS_FLOW, str_name);
+		}
+		// Chamber ...
+		{
+			str_name = "CFG.CHAMBER.BALLAST.GAS.ID";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, list_gas, "");
+			LINK__VAR_DIGITAL_CTRL(dCH__CFG_CHAMBER_BALLAST_GAS_ID, str_name);
 
-		str_name = "CFG.TRANSFER.BALLAST.GAS";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, list_gas, "");
-		LINK__VAR_DIGITAL_CTRL(dCH__CFG_TRANSFER_BALLAST_GAS, str_name);
-
-		str_name.Format("CFG.TRANSFER.BALLAST.GAS.FLOW");
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 10000, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_TRANSFER_BALLAST_GAS_FLOW, str_name);
+			str_name = "CFG.CHAMBER.BALLAST.GAS.FLOW";
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 10000, "");
+			LINK__VAR_ANALOG_CTRL(aCH__CFG_CHAMBER_BALLAST_GAS_FLOW, str_name);
+		}
 	}
 
 	// ...
@@ -255,7 +259,7 @@ int CObj__GAS_VLV_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	CStringArray l_mfc_type;
-	CStringArray ballast_mfc_type;
+	CStringArray l_ballast_mfc_type;
 	int i;
 
 	// OBJ : CHM_PUMPING_STATE 
@@ -337,22 +341,21 @@ int CObj__GAS_VLV_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			//
 			var_name.Format("GAS%02d", i+1);
 			l_mfc_type.Add(var_name);
-			ballast_mfc_type.Add(var_name);
+			l_ballast_mfc_type.Add(var_name);
 		}
 	}
 
 	// Item Change ...
 	{
-		var_name.Format("N2Ballast");
-		ballast_mfc_type.Add(var_name);
+		var_name = STR__N2_Ballast;
+		l_ballast_mfc_type.InsertAt(0, var_name);
 
-		// Change MFC channel item list.
 		p_variable->Change__DIGITAL_LIST(dCH__PARA_MFC_TYPE->Get__VARIABLE_NAME(),             l_mfc_type);
 		p_variable->Change__DIGITAL_LIST(dCH__PARA_SINGLE_TEST_GAS_TYPE->Get__VARIABLE_NAME(), l_mfc_type);
 		p_variable->Change__DIGITAL_LIST(dCH__CFG_WAP_AUTO_LEARN_GAS->Get__VARIABLE_NAME(),    l_mfc_type);
 		
-		p_variable->Change__DIGITAL_LIST(dCH__CFG_CHAMBER_BALLAST_GAS->Get__VARIABLE_NAME(),  ballast_mfc_type);
-		p_variable->Change__DIGITAL_LIST(dCH__CFG_TRANSFER_BALLAST_GAS->Get__VARIABLE_NAME(), ballast_mfc_type);
+		p_variable->Change__DIGITAL_LIST(dCH__CFG_CHAMBER_BALLAST_GAS_ID->Get__VARIABLE_NAME(),  l_ballast_mfc_type);
+		p_variable->Change__DIGITAL_LIST(dCH__CFG_TRANSFER_BALLAST_GAS_ID->Get__VARIABLE_NAME(), l_ballast_mfc_type);
 	}
 
 	// ...

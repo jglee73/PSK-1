@@ -640,6 +640,8 @@ Mon__ESC_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_ala
 		double cur__esc_setpoint;
 		double *p_pre__esc_setpoint;
 
+		bool active__esc_voltage = false;
+
 		int i_limit = DEF__ESC_SIZE;
 		int i;
 
@@ -659,6 +661,17 @@ Mon__ESC_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_ala
 					p_timer__esc_change_delay = x_timer__esc_change_delay__center.Get__PTR();
 					p_timer__esc_check_delay  = x_timer__esc_check_delay__center.Get__PTR();
 					p_timer__esc_stable_delay = x_timer__esc_stable_delay__center.Get__PTR();
+
+					//
+					if((cur__esc_setpoint > 0.1) || (cur__esc_setpoint < -0.1))
+					{
+						active__esc_voltage = true;
+						dCH__MON_CENTER_ESC_VOLTAGE_STATE->Set__DATA(STR__ON);
+					}
+					else
+					{
+						dCH__MON_CENTER_ESC_VOLTAGE_STATE->Set__DATA(STR__OFF);
+					}
 				}
 				else
 				{
@@ -679,6 +692,17 @@ Mon__ESC_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_ala
 					p_timer__esc_change_delay = x_timer__esc_change_delay__edge.Get__PTR();
 					p_timer__esc_check_delay  = x_timer__esc_check_delay__edge.Get__PTR();
 					p_timer__esc_stable_delay = x_timer__esc_stable_delay__edge.Get__PTR();
+
+					//
+					if((cur__esc_setpoint > 0.1) || (cur__esc_setpoint < -0.1))
+					{
+						active__esc_voltage = true;
+						dCH__MON_EDGE_ESC_VOLTAGE_STATE->Set__DATA(STR__ON);
+					}
+					else
+					{
+						dCH__MON_EDGE_ESC_VOLTAGE_STATE->Set__DATA(STR__OFF);
+					}
 				}
 				else
 				{
@@ -803,6 +827,9 @@ Mon__ESC_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_ala
 
 			// ...
 		}
+
+		if(active__esc_voltage)			dCH__MON_ESC_VOLTAGE_STATE->Set__DATA(STR__ON);
+		else							dCH__MON_ESC_VOLTAGE_STATE->Set__DATA(STR__OFF);
 
 		// ...
 		{			

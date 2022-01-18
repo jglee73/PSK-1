@@ -137,6 +137,11 @@ int CObj__RF_STD::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "MON.IO.REFLECT.POWER"; 
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_IO_REFLECT_POWER, str_name);
+
+		//
+		str_name = "MON.IO.POWER.STATE";
+		STD__ADD_DIGITAL(str_name, "OFF ON", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__MON_IO_POWER_STATE, str_name);
 	}
 
 	// MON : STABLE  ...

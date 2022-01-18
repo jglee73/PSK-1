@@ -67,6 +67,10 @@ int CObj__TMP_IO::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "OBJ.STATUS";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_STATUS, str_name);
+
+		str_name = "OBJ.TIMER";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__OBJ_TIMER, str_name);
 	}
 
 	// MON ...
@@ -94,10 +98,20 @@ int CObj__TMP_IO::__DEFINE__VARIABLE_STD(p_variable)
 
 	// CFG ...
 	{
-		str_name = "CFG.STOP.ERR.DELAY";	
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, -1, 60*60, "");
-		LINK__VAR_ANALOG_CTRL(aCH__CFG_STOP_ERR_DELAY,str_name);
+		str_name = "CFG.VAT_OPEN_DELAY.SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 1, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_VAT_OPEN_DELAY_SEC, str_name);
 
+		//
+		str_name = "CFG.DI_FORELINE_ERR_CHECK.SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_DI_FORELINE_ERR_CHECK_SEC, str_name);
+
+		str_name = "CFG.DI_PCW_ERR_CHECK.SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_DI_PCW_ERR_CHECK_SEC, str_name);
+
+		//
 		str_name = "CFG.TURBO.EXHAUST.VALVE.CLOSE.DELAY";
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 500, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_TURBO_EXHAUST_VALVE_CLOSE_DELAY, str_name);
@@ -137,6 +151,23 @@ int CObj__TMP_IO::__DEFINE__ALARM(p_alarm)
 		alarm_msg  = "Forline Pressure Unstable Status\n";
 		alarm_msg += "Check the Forline Vac Switch and Dry Pump On Status!\n";
 		alarm_msg += "Now... Turbo Pump will be off..";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CHECK);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__PCW_UNSTABLE_ALARM;
+
+		alarm_title  = title;
+		alarm_title += "PCW Unstable Alarm !";
+
+		alarm_msg  = "PCW Unstable Status \n";
+		alarm_msg += "Check the state of PCW ! \n";
+		alarm_msg += "Now, Turbo Pump will be off..";
 
 		l_act.RemoveAll();
 		l_act.Add(ACT__CHECK);
@@ -211,36 +242,36 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CCommon_Utility x_utility;
 	bool def_check;
 
-	// TMP.OBJ  ...
+	// Init ...
 	{
-		def_name = "OBJ__TMP";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+		bActive__TMP_DI_COMM_STATE  = false;
+		bActive__TMP_DI_PUMP_STATE  = false;
+		bActive__TMP_DI_ERROR_STATE = false;
+		bActive__TMP_AI_ROT_RPM     = false;
 
-		pOBJ_CTRL__TMP = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		bActive__GV_USE  = false;
+	    bActive__VAT_USE = false;
 
-		//
-		def_name = "TMP_MODE.START";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
-
-		sTMP_MODE__START = def_data;
-		
-		//
-		def_name = "TMP_MODE.STOP";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
-		
-		sTMP_MODE__STOP = def_data;
-
-		//
-		def_name = "TMP_MODE.STOP_NO_WAIT";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
-
-		sTMP_MODE__STOP_NO_WAIT = def_data;
+		bActive__DI_FORELINE_VAC_SNS  = false;
+		bActive__DI_BACKING_PUMP_ON   = false;
+		bActive__DO_TMP_EXHAUST_VALVE = false;
+		bActive__DO_TMP_PURGE_VALVE   = false;
 	}
-	// TMP.IO ...
+
+	// DATA.TMP_TYPE ...
+	{
+		def_name = "DATA.TMP_TYPE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if(def_data.CompareNoCase("IO") == 0)			iDATA__TMP_TYPE = _TMP_TYPE__IO;
+		else											iDATA__TMP_TYPE = _TMP_TYPE__OBJ;
+	}
+
+	// TMP.IO INFO ...
 	{
 		// DI.COMM_STATE ...
 		{
-			def_name = "CH__TMP_DI_COMM_STATE";
+			def_name = "LINK_TMP.DI_COMM_STATE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			def_check = x_utility.Check__Link(ch_name);
@@ -252,9 +283,10 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__TMP_DI_COMM_STATE, obj_name,var_name);
 			}
 		}
+
 		// DI.PUMP_STATE ...
 		{
-			def_name = "CH__TMP_DI_PUMP_STATE";
+			def_name = "LINK_TMP.DI_PUMP_STATE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			def_check = x_utility.Check__Link(ch_name);
@@ -268,7 +300,7 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 		// DI.ERROR_STATE ...
 		{
-			def_name = "CH__TMP_DI_ERROR_STATE";
+			def_name = "LINK_TMP.DI_ERROR_STATE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			def_check = x_utility.Check__Link(ch_name);
@@ -283,7 +315,7 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		// AI.ROT_RPM ...
 		{
-			def_name = "CH__TMP_AI_ROT_RPM";
+			def_name = "LINK_TMP.AI_ROT_RPM";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			def_check = x_utility.Check__Link(ch_name);
@@ -296,20 +328,100 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			}
 		}
 	}
-
-	// OBJ : VAT ...
+	// TMP.OBJ INFO ...
+	if(iDATA__TMP_TYPE == _TMP_TYPE__OBJ)
 	{
-		def_name = "OBJ__VAT";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+		// OBJ.LINK ...
+		{
+			def_name = "OBJ__TMP";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-		pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+			pOBJ_CTRL__TMP = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		}
+
+		// OBJ.MODE ...
+		{
+			def_name = "TMP_MODE.START";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			sTMP_MODE__START = def_data;
+		
+			//
+			def_name = "TMP_MODE.STOP";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+		
+			sTMP_MODE__STOP = def_data;
+
+			//
+			def_name = "TMP_MODE.STOP_NO_WAIT";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			sTMP_MODE__STOP_NO_WAIT = def_data;
+		}
 	}
 
-	// LINK : IO ...
+	// GV.IO INFO ...
+	{
+		// USE ...
+		{
+			def_name = "DATA.GV_USE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__GV_USE = def_check;
+		}
+
+		if(bActive__GV_USE)
+		{
+			def_name = "LINK_GV.DO_OPEN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__GV_DO_OPEN, obj_name,var_name);
+
+			def_name = "LINK_GV.DO_CLOSE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__GV_DO_CLOSE, obj_name,var_name);
+			
+			//
+			def_name = "LINK_GV.DI_OPEN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__GV_DI_OPEN, obj_name,var_name);
+
+			def_name = "LINK_GV.DI_CLOSE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__GV_DI_CLOSE, obj_name,var_name);
+		}
+	}
+
+	// VAT.OBJ INFO ...
+	{
+		// USE ...
+		{
+			def_name = "DATA.VAT_USE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__VAT_USE = def_check;			
+		}
+
+		// VAT.OBJ ...
+		if(bActive__VAT_USE)
+		{
+			def_name = "OBJ__VAT";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+			pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		}
+	}
+
+	// LINK.IO INFO ...
 	{
 		// DI.FORELINE_VAC_SNS ...
 		{
-			def_name = "CH__DI_FORELINE_VAC_SNS";
+			def_name = "LINK_IO.DI_FORELINE_VAC_SNS";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			def_check = x_utility.Check__Link(ch_name);
@@ -323,22 +435,51 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 		// DI.DRY_PUMP_ON ...
 		{
-			def_name = "CH__DI_DRY_PUMP_ON";
+			def_name = "LINK_IO.DI_BACKING_PUMP_ON";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 		
 			def_check = x_utility.Check__Link(ch_name);
-			bActive__DI_DRY_PUMP_ON = def_check;
+			bActive__DI_BACKING_PUMP_ON = def_check;
 
 			if(def_check)
 			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_DRY_PUMP_ON, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_BACKING_PUMP_ON, obj_name,var_name);
+			}
+		}
+
+		// DI.PCW_ALARM ...
+		{
+			def_name = "LINK_IO.DI_PCW_ALARM";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			def_check = x_utility.Check__Link(ch_name);
+			bActive__DI_PCW_ALARM = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_PCW_ALARM, obj_name,var_name);
+			}
+		}
+		// DI.PCW_WATER_LEAK ...
+		{
+			def_name = "LINK_IO.DI_PCW_WATER_LEAK";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			def_check = x_utility.Check__Link(ch_name);
+			bActive__DI_PCW_WATER_LEAK = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_PCW_WATER_LEAK, obj_name,var_name);
 			}
 		}
 
 		// DO.TMP_EXHAUST_VALVE ...
 		{
-			def_name = "CH__DO_TMP_EXHAUST_VALVE";
+			def_name = "LINK_IO.DO_TMP_EXHAUST_VALVE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			def_check = x_utility.Check__Link(ch_name);
@@ -350,20 +491,27 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_TMP_EXHAUST_VALVE, obj_name,var_name);
 			}
 		}
-		// DO.TMP_N2_VALVE ...
+		// DO.TMP_PURGE_VALVE ...
 		{
-			def_name = "CH__DO_TMP_N2_VALVE";
+			def_name = "LINK_IO.DO_TMP_PURGE_VALVE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			def_check = x_utility.Check__Link(ch_name);
-			bActive__DO_TMP_N2_VALVE = def_check;
+			bActive__DO_TMP_PURGE_VALVE = def_check;
 
 			if(def_check)
 			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_TMP_N2_VALVE, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_TMP_PURGE_VALVE, obj_name,var_name);
 			}
 		}
+	}
+
+	// ...
+	{
+		SCX__SEQ_INFO x_seq_info;
+
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 
 	// ...

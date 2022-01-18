@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Interface_Code.h"
+
 #include "CCommon_Error.h"
+#include "CCommon_Def.h"
 
 
 class CObj__PMC_OPR : public __IOBJ__STD_TYPE
@@ -172,9 +174,6 @@ private:
 	// ...
 	int Fnc__TRANSFER_READY(CII_OBJECT__VARIABLE *p_variable);
 	int Fnc__TRANSFER_COMPLETE(CII_OBJECT__VARIABLE *p_variable);
-
-	void Fnc__WRITE_LOG(CString msg);
-	void Fnc__WRITE_COMMON_LOG(CString msg);
 	//
 
 

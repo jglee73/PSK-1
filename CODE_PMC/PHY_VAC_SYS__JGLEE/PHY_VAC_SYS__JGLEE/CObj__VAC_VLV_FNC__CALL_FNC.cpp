@@ -67,13 +67,20 @@ int CObj__VAC_VLV_FNC::Call__APC_OPEN(CII_OBJECT__VARIABLE *p_variable)
 	pOBJ_CTRL__APC_VLV->Call__OBJECT(APC_CMMD__OPEN);
 	return 1;
 }
-
 int CObj__VAC_VLV_FNC::Call__APC_CLOSE(CII_OBJECT__VARIABLE *p_variable)
 {
 	pOBJ_CTRL__APC_VLV->Call__OBJECT(APC_CMMD__CLOSE);
 	return 1;
 }
+int CObj__VAC_VLV_FNC::Call__APC_POSITION(CII_OBJECT__VARIABLE *p_variable)
+{
+	double para__apc_pos = aCH__PARA_APC_POSITION->Get__VALUE();
+	aEXT_CH__APC_VLV__PARA_POSITION->Set__VALUE(para__apc_pos);
 
+	return pOBJ_CTRL__APC_VLV->Call__OBJECT(APC_CMMD__POSITION);
+}
+
+// ...
 int CObj__VAC_VLV_FNC::Call__APC_BALLAST_CTRL(CII_OBJECT__VARIABLE *p_variable)
 {
 	CString	ch_data;

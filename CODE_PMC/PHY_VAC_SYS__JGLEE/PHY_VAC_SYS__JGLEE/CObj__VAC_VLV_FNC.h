@@ -24,11 +24,16 @@ private:
 	//------------------------------------------------------------
 	// INTERNAL PROPERTY
 
-	// ...
+	// OBJ ...
 	CX__VAR_STRING_CTRL  sCH__OBJ_MSG;
 
+	// PARA ...
+	CX__VAR_ANALOG_CTRL  aCH__PARA_APC_POSITION;
+
+	// MON ...
 	CX__VAR_STRING_CTRL  sCH__MON_PUMPING_STATE;
 
+	// 
 	CX__VAR_DIGITAL_CTRL dCH__APC_BALLAST_MODE;	
 	CX__VAR_STRING_CTRL  sCH__PARA_XFER_BALLAST_WAIT_SKIP_FLAG;
 	//
@@ -87,12 +92,18 @@ private:
 	CString sMODE__APC_CLOSE;
 	int Call__APC_CLOSE(CII_OBJECT__VARIABLE *p_variable);
 
+	CString sMODE__APC_POSITION;
+	int Call__APC_POSITION(CII_OBJECT__VARIABLE *p_variable);
+
+	// ...
 	CString sMODE__APC_BALLAST_CTRL;
 	int Call__APC_BALLAST_CTRL(CII_OBJECT__VARIABLE *p_variable);
 
 	CString sMODE__APC_BALLAST_POS;
 	int Call__APC_BALLAST_POS(CII_OBJECT__VARIABLE *p_variable);
+	//
 
+	//------------------------------------------------------------
 	// ...
 	int Mon__STATE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 	//

@@ -31,45 +31,70 @@ int CObj__CHM_FNC
 
 // ...
 int CObj__CHM_FNC
-::Call__LOW_VAC_PUMP(CII_OBJECT__VARIABLE *p_variable,
-					 CII_OBJECT__ALARM *p_alarm)
+::Call__LOW_VAC_PUMP(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 {
-	if(iActive__SIM_MODE > 0)
-	{
-		dEXT_CH__CHM_VAC_SNS->Set__DATA(STR__ON);
-		dEXT_CH__PMC_SLIT_VLV_STS->Set__DATA(STR__CLOSE);
-	}
-
-	// ...
 	int flag = Fnc__LOW_VAC_PUMP(p_variable,p_alarm, -1, -1);
 
 	if(flag < 0)
 	{
 		CString log_msg;
 
-		log_msg.Format("Call__LOW_VAC_PUMP() : Failed [%d] ...", flag);	
+		log_msg.Format("Fnc__LOW_VAC_PUMP() : Failed [%d] ...", flag);	
 		xLOG_CTRL->WRITE__LOG(log_msg);
 	}
 	return flag;
 }
 
-// ...
 int CObj__CHM_FNC
-::Call__CLOSE_VAC_LINE(CII_OBJECT__VARIABLE *p_variable,
-					   CII_OBJECT__ALARM *p_alarm)
+::Call__HIGH_VAC_PUMP(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 {
-	sCH__OBJ_MSG->Set__DATA("VAC_Line All Close ...");
+	CString log_msg;
 
-	pOBJ_CTRL__VAC_VALVE->Call__OBJECT(CMMD_VAC__ALL_CLOSE);
+	// LOW_VAC.PUMPING ...
+	{
+		int flag = Fnc__LOW_VAC_PUMP(p_variable,p_alarm, -1, -1);
 
-	sCH__OBJ_MSG->Set__DATA("");
+		if(flag < 0)
+		{
+			log_msg.Format("Fnc__LOW_VAC_PUMP() : Failed [%d] ...", flag);	
+			xLOG_CTRL->WRITE__LOG(log_msg);
+			return flag;
+		}
+	}
+
+	// HIGH_VAC.PUMPING ...
+	{
+		int flag = Fnc__HIGH_VAC_PUMP(p_variable,p_alarm);
+
+		// Gas-Valve <- Proc_Ready
+		{
+			pOBJ_CTRL__GAS_VLV->Call__OBJECT(CMMD_GAS__PROC_READY);
+		}
+
+		if(flag < 0)
+		{
+			log_msg.Format("Fnc__HIGH_VAC_PUMP() : Failed [%d] ...", flag);	
+			xLOG_CTRL->WRITE__LOG(log_msg);
+			return flag;
+		}
+	}
 	return 1;
 }
 
 // ...
 int CObj__CHM_FNC
-::Call__VENT(CII_OBJECT__VARIABLE *p_variable,
-			 CII_OBJECT__ALARM *p_alarm)
+::Call__CLOSE_VAC_LINE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	sCH__OBJ_MSG->Set__DATA("VAC_Line All Close ...");
+
+	Call__VAC_VLV__ALL_CLOSE(p_variable, p_alarm);
+
+	sCH__OBJ_MSG->Set__DATA("");
+	return 1;
+}
+
+int CObj__CHM_FNC
+::Call__VENT(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
 	CString log_msg;
 	CString log_bff;
@@ -105,7 +130,7 @@ int CObj__CHM_FNC
 			xLOG_CTRL->WRITE__LOG(log_msg);
 		}
 
-		if(pOBJ_CTRL__ESC->Call__OBJECT(CMMD__ESC_VENT_READY) < 0)
+		if(pOBJ_CTRL__ESC->Call__OBJECT(_ESC_CMMD__VENT_READY) < 0)
 		{
 			return -11;
 		}
@@ -138,24 +163,26 @@ int CObj__CHM_FNC
 	}
 
 	// 3. Vent Sequence ...
-	flag = Fnc__VENT(p_variable, p_alarm, -1);
-	Fnc__ALL_GAS_LINE_CLOSE(p_variable, p_alarm);
-
-	if(flag < 0)
 	{
-		log_msg.Format("Call__VENT : Fnc__VENT is Failed [%d] ...", flag);	
+		flag = Fnc__VENT(p_variable, p_alarm, -1);
 
-		xLOG_CTRL->WRITE__LOG(log_msg);
+		Fnc__ALL_GAS_LINE_CLOSE(p_variable, p_alarm);
+
+		if(flag < 0)
+		{
+			log_msg.Format("Call__VENT : Fnc__VENT is Failed [%d] ...", flag);	
+
+			xLOG_CTRL->WRITE__LOG(log_msg);
+			return -31;
+		}
 	}
 
-	return flag;
+	return 1;
 }
-
 
 // ...
 int CObj__CHM_FNC
-::Call__LEAK_CHECK(CII_OBJECT__VARIABLE *p_variable,
-				   CII_OBJECT__ALARM *p_alarm)
+::Call__LEAK_CHECK(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
 	CString log_msg;
 	CString log_bff;
@@ -164,27 +191,22 @@ int CObj__CHM_FNC
 	{
 		CString sub_dir;
 
-		// ...
-		{
-			CString str_date;
-			CString str_time;
+		CString str_date;
+		CString str_time;
 
-			Macro__Get_Date(str_date, str_time);
+		Macro__Get_Date(str_date, str_time);
 
-			sub_dir.Format("%s\\%s\\", str_date,"LEAK_CHECK");
-			xEXT_CH__PMC_LOG__SUB_DIR->Set__DATA(sub_dir);
+		sub_dir.Format("%s\\%s\\", str_date,"LEAK_CHECK");
+		xEXT_CH__PMC_LOG__SUB_DIR->Set__DATA(sub_dir);
 
-			xEXT_CH__PMC_LOG__FILE_NAME->Set__DATA("");
-		}
+		//
+		xEXT_CH__PMC_LOG__FILE_NAME->Set__DATA("");
 
-		// ...
-		{
-			sCH__LEAK_CHECK__LOG_START_PRESSURE_mTORR->Set__DATA("");
-			sCH__LEAK_CHECK__LOG_START_PRESSURE_mTORR->Set__DATA("");	
+		sCH__LEAK_CHECK__LOG_START_PRESSURE_mTORR->Set__DATA("");
+		sCH__LEAK_CHECK__LOG_START_PRESSURE_mTORR->Set__DATA("");	
 
-			sCH__LEAK_CHECK__LOG_RATE_mTORR_Per_MIN->Set__DATA("");
-			sCH__LEAK_CHECK__LOG_RESULT_mTORR_Per_MIN->Set__DATA("");
-		}
+		sCH__LEAK_CHECK__LOG_RATE_mTORR_Per_MIN->Set__DATA("");
+		sCH__LEAK_CHECK__LOG_RESULT_mTORR_Per_MIN->Set__DATA("");
 	}
 
 	// ...
@@ -198,7 +220,7 @@ int CObj__CHM_FNC
 
 	if(flag > 0)
 	{
-		if(dCH__LEAK_CHECK__VAT_VLV_POS_MOVING->Check__DATA(STR__ENABLE) > 0)
+		if(dCH__LEAK_CHECK__CFG_VAT_VLV_POS_MOVING->Check__DATA(STR__ENABLE) > 0)
 		{
 			flag = Fnc__LEAK_CHECK__VAT_VLV_POS_MOVE(p_variable,p_alarm);
 
@@ -241,7 +263,8 @@ int CObj__CHM_FNC
 
 		if(p_variable->Check__CTRL_ABORT() < 0)
 		{
-			Call__LOW_VAC_PUMP(p_variable,p_alarm);
+			if(bActive__OBJ_CTRL__TURBO_PUMP)		Call__HIGH_VAC_PUMP(p_variable,p_alarm);
+			else									Call__LOW_VAC_PUMP(p_variable,p_alarm);
 		}
 	}
 
@@ -343,8 +366,7 @@ int CObj__CHM_FNC
 
 //
 int CObj__CHM_FNC
-::Call__CHM_BALLAST_START(CII_OBJECT__VARIABLE *p_variable,
-						  CII_OBJECT__ALARM *p_alarm)
+::Call__CHM_BALLAST_START(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
 	int flag = Fnc__CHM_BALLAST_START(p_variable, p_alarm);
 
@@ -358,8 +380,7 @@ int CObj__CHM_FNC
 	return flag;
 }
 int CObj__CHM_FNC
-::Call__TRANS_BALLAST_START(CII_OBJECT__VARIABLE *p_variable,
-							CII_OBJECT__ALARM *p_alarm)
+::Call__TRANS_BALLAST_START(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
 	int flag = Fnc__TRANS_BALLAST_START(p_variable, p_alarm);
 
@@ -374,8 +395,7 @@ int CObj__CHM_FNC
 }
 
 int CObj__CHM_FNC
-::Call__BALLAST_END(CII_OBJECT__VARIABLE *p_variable,
-					CII_OBJECT__ALARM *p_alarm)
+::Call__BALLAST_END(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
 	CString log_msg;
 
@@ -390,8 +410,7 @@ int CObj__CHM_FNC
 }
 
 int CObj__CHM_FNC
-::Call__APC_AUTO_LEARN(CII_OBJECT__VARIABLE *p_variable,
-					   CII_OBJECT__ALARM *p_alarm)
+::Call__APC_AUTO_LEARN(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
 	CString log_msg;
 
@@ -409,7 +428,7 @@ int CObj__CHM_FNC
 
 		if(Call__LOW_VAC_PUMP(p_variable, p_alarm) < 0)
 		{
-			return OBJ_ABORT;
+			return -11;
 		}
 	}
 
@@ -421,14 +440,12 @@ int CObj__CHM_FNC
 			xLOG_CTRL->WRITE__LOG(log_msg);
 		}
 
-		if(pOBJ_CTRL__GAS_VALVE->Call__OBJECT(CMMD__CHM_BALLAST_FLOW) < 0)
+		if(pOBJ_CTRL__GAS_VLV->Call__OBJECT(CMMD__CHM_BALLAST_FLOW) < 0)
 		{
-			// ...
-			{
-				log_msg.Format("Fnc__CHM_BALLAST_START : MFC Ballast Flow is Failed...");
-				xLOG_CTRL->WRITE__LOG(log_msg);
-			}
-			return OBJ_ABORT;
+			log_msg.Format("Fnc__CHM_BALLAST_START : MFC Ballast Flow is Failed...");
+			xLOG_CTRL->WRITE__LOG(log_msg);
+
+			return -21;
 		}
 	}
 
@@ -440,13 +457,11 @@ int CObj__CHM_FNC
 			xLOG_CTRL->WRITE__LOG(log_msg);
 		}
 
-		// ...
-		CString str_cfg_data;
-
-		aCH__CFG_BEFORE_AUTO_LEARNING_DELAY_TIME->Get__DATA(str_cfg_data);
-		if(xtimer_ctrl->WAIT(atof(str_cfg_data)) < 0)
+		double cfg__delay_sec = aCH__CFG_BEFORE_AUTO_LEARNING_DELAY_TIME->Get__VALUE();
+		
+		if(xtimer_ctrl->WAIT(cfg__delay_sec) < 0)
 		{
-			return OBJ_ABORT;
+			return -31;
 		}
 	}
 
@@ -481,14 +496,12 @@ int CObj__CHM_FNC
 			xLOG_CTRL->WRITE__LOG(log_msg);
 		}
 
-		if(pOBJ_CTRL__GAS_VALVE->Call__OBJECT(CMMD__BALLAST_CLOSE) < 0)
+		if(pOBJ_CTRL__GAS_VLV->Call__OBJECT(CMMD__BALLAST_CLOSE) < 0)
 		{
-			// ...
-			{
-				log_msg.Format("Fnc__CHM_BALLAST_END : MFC Ballast End is Failed ...");
-				xLOG_CTRL->WRITE__LOG(log_msg);
-			}
-			return OBJ_ABORT;
+			log_msg.Format("Fnc__CHM_BALLAST_END : MFC Ballast End is Failed ...");
+			xLOG_CTRL->WRITE__LOG(log_msg);
+
+			return -51;
 		}
 	}
 

@@ -3,6 +3,8 @@
 #include "Interface_Code.h"
 #include "CCommon_Error.h"
 
+#include "CObj__CHM_IO__DEF.h"
+
 
 class CObj__CHM_IO : public __IOBJ__STD_TYPE
 {
@@ -10,13 +12,19 @@ private:
 	//-------------------------------------------------------------------------
 	CString	sObject_Name;
 
+	// ...
 	SCX__USER_LOG_CTRL xI_LOG_CTRL;
-	int iSIM_MODE;
+	int iActive__SIM_MODE;
+	//
 
 
 	//-------------------------------------------------------------------------
+	// OBJ ..
 	CX__VAR_STRING_CTRL   sCH__OBJ_MSG;
 	CX__VAR_STRING_CTRL   sCH__OBJ_STATUS;
+
+	// CFG ...
+	CX__VAR_ANALOG_CTRL   aCH__CFG_PROCESS_MANOMETER_MAX_PRESSURE_mTORR_X[_CFG__PRC_GAUGE_SIZE];
 
 
 	//-------------------------------------------------------------------------
@@ -32,24 +40,25 @@ private:
 	CX__VAR_STRING_CTRL   sEXT_CH__PMP_VAC_SNS;
 
 	// OBJ : DB_SYS
+	CX__VAR_STRING_CTRL   sEXT_CH__SIM_PRESSURE_TORR;
+
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__CFG_INTERLOCK_USE_MODE;
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__CFG_INTERLOCK_USE__CHM_MANOMETER_ISO;
 
-	CX__VAR_STRING_CTRL   sEXT_CH__SIM_PRESSURE_TORR;
-
 	CX__VAR_STRING_CTRL   sEXT_CH__SYSTEM_SETUP_REQ;
-
-	CX__VAR_ANALOG_CTRL   aEXT_CH__CFG_PROCESS_MANOMETER_MAX_PRESSURE_mTORR;
-	CX__VAR_ANALOG_CTRL   aEXT_CH__CFG_PROCESS_MANOMETER_ISO_PRESSURE_mTORR;
 
 	// LINK : IO Channel 
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__DI_VAC_SNS;
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__DI_ATM_SNS;
 
-	CX__VAR_DIGITAL_CTRL  dEXT_CH__DO_MANOMETER_ISO_VLV;
-	CX__VAR_ANALOG_CTRL   aEXT_CH__AI_MANOMETER_TORR;
-	CX__VAR_ANALOG_CTRL   aEXT_CH__AI_FORELINE_PRESSURE_TORR;
+	int iSIZE__PRC_GUAGE;
+	CX__VAR_DIGITAL_CTRL  dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[_CFG__PRC_GAUGE_SIZE];
+	CX__VAR_ANALOG_CTRL   aEXT_CH__AI_PRC_GAUGE_TORR_X[_CFG__PRC_GAUGE_SIZE];
+
+	CX__VAR_ANALOG_CTRL   aEXT_CH__AI_CHM_GAUGE_TORR;
+	CX__VAR_ANALOG_CTRL   aEXT_CH__AI_FORELINE_GAUGE_TORR;
 	
+	/*
 	// LINK : State Channel 
 	CX__VAR_STRING_CTRL   sEXT_CH__PROC_STATE;
 
@@ -57,6 +66,7 @@ private:
 	CX__VAR_ANALOG_CTRL   aEXT_CH__HF_RF_POWER;
 	CX__VAR_ANALOG_CTRL   aEXT_CH__LF_RF_POWER;
 	CX__VAR_ANALOG_CTRL   aEXT_CH__BIAS_RF_POWER;
+	*/
 
 
 	//-------------------------------------------------------------------------

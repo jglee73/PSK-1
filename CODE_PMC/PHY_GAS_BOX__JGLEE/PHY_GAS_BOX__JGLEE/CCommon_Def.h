@@ -37,3 +37,6 @@
 
 #define  STR__NoChange          "NoChange"
 
+// ...
+#define  STR__N2_Ballast		"N2.Ballast"
+

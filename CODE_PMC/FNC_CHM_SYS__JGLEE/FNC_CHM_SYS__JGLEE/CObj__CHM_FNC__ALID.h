@@ -2,6 +2,12 @@
 
 
 // ...
+#define  ACT__RETRY							"RETRY"
+#define  ACT__ABORT							"ABORT"
+#define  ACT__IGNORE						"IGNORE"
+
+
+// ...
 #define  ALID__ATM_TIMEOUT													1
 #define  ALID__SOFT_VENT_TIMEOUT											2
 #define  ALID__SOFT_PUMP_TIMEOUT											3

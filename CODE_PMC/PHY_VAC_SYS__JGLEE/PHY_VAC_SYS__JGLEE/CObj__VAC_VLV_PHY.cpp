@@ -310,7 +310,7 @@ int CObj__VAC_VLV_PHY::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	// CH__DI_DRY_PUMP_POWER_SENSOR ...
 	{
 		def_name = "CH__DI_DRY_PUMP_POWER_SENSOR";
-		p_variable->Get__DEF_CONST_DATA(def_name, ch_name);
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_DRY_PMP_PWR_SNS, obj_name,var_name);
 	}

@@ -272,11 +272,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__CHM_FNC__CALL_TRANSFER.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__CHM_FNC__DEF.h"
 					>
 				</File>
 				<File
 					RelativePath=".\CObj__CHM_FNC__MON_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__CHM_FNC__OBJ_VAC_VLV.cpp"
 					>
 				</File>
 				<File
@@ -349,6 +357,30 @@
 				>
 				<File
 					RelativePath=".\CCommon_Def.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CObj__TRANSFER_FNC"
+				>
+				<File
+					RelativePath=".\CObj__TRANSFER_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__TRANSFER_FNC.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__TRANSFER_FNC__ALID.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__TRANSFER_FNC__CALL_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__TRANSFER_FNC__DEF.h"
 					>
 				</File>
 			</Filter>

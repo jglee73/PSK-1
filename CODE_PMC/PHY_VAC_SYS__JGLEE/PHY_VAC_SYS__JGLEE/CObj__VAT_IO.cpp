@@ -29,6 +29,9 @@ int CObj__VAT_IO::__DEFINE__CONTROL_MODE(obj,l_mode)
 
 		ADD__CTRL_VAR(sMODE__PRESSURE, "PRESSURE");
 		ADD__CTRL_VAR(sMODE__POSITION, "POSITION");
+
+		ADD__CTRL_VAR(sMODE__BALLAST_TRANSFER, "BALLAST.TRANSFER");
+		ADD__CTRL_VAR(sMODE__BALLAST_CHAMBER,  "BALLAST.CHAMBER");
 	}
 	return 1;
 }
@@ -83,9 +86,13 @@ int CObj__VAT_IO::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_SET_PRESSURE, str_name);
 
-		str_name = "MON.PRESSURE";
+		str_name = "MON.PRESSURE.TORR";
 		STD__ADD_STRING_WITH_OPTION(str_name, -1, "L", "");
-		LINK__VAR_STRING_CTRL(sCH__MON_PRESSURE, str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_PRESSURE_TORR, str_name);
+
+		str_name = "MON.PRESSURE.mTORR";
+		STD__ADD_STRING_WITH_OPTION(str_name, -1, "L", "");
+		LINK__VAR_STRING_CTRL(sCH__MON_PRESSURE_mTORR, str_name);
 	}
 	// MON.POSITION ...
 	{
@@ -244,6 +251,59 @@ int CObj__VAT_IO::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_OPEN_INTERLOCK_OVER_PRESSURE, str_name);
 	}
 
+	// Transfer.Ballast Config ...
+	{
+		str_name = "CFG.TRANSFER.BALLAST.CTRL_MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "POSITION  PRESSURE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_TRANSFER_BALLAST_CTRL_MODE, str_name);
+
+		str_name = "CFG.TRANSFER.BALLAST.POSITION";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "%", 1, 0, 100, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_TRANSFER_BALLAST_POSITION, str_name);
+
+		str_name = "CFG.TRANSFER.BALLAST.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 1, 0, 1000, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_TRANSFER_BALLAST_PRESSURE, str_name);
+
+		str_name = "CFG.TRANSFER.BALLAST.TOL.PRESSURE.MIN";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 1, 0, 1000, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_TRANSFER_BALLAST_TOL_PRESSURE_MIN, str_name);
+
+		str_name = "CFG.TRANSFER.BALLAST.TOL.PRESSURE.MAX";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 1, 1, 1000, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_TRANSFER_BALLAST_TOL_PRESSURE_MAX, str_name);
+
+		str_name = "CFG.TRANSFER.BALLAST.TOL.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0.1, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_TRANSFER_BALLAST_TOL_TIMEOUT, str_name);
+	}
+	// Chamber.Ballast Config ...
+	{
+		str_name = "CFG.CHAMBER.BALLAST.CTRL_MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "POSITION  PRESSURE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_CHAMBER_BALLAST_CTRL_MODE, str_name);
+
+		str_name = "CFG.CHAMBER.BALLAST.POSITION";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "%", 1, 0, 100, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_CHAMBER_BALLAST_POSITION, str_name);
+
+		str_name = "CFG.CHAMBER.BALLAST.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 0, 0, 1000, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_CHAMBER_BALLAST_PRESSURE, str_name);
+
+		str_name = "CFG.CHAMBER.BALLAST.TOL.PRESSURE.MIN";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 1, 0, 1000, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_CHAMBER_BALLAST_TOL_PRESSURE_MIN, str_name);
+
+		str_name = "CFG.CHAMBER.BALLAST.TOL.PRESSURE.MAX";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mtorr", 1, 1, 1000, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_CHAMBER_BALLAST_TOL_PRESSURE_MAX, str_name);
+
+		str_name = "CFG.CHAMBER.BALLAST.TOL.TIMEOUT";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0.1, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_CHAMBER_BALLAST_TOL_TIMEOUT, str_name);
+	}
+
 	// ...
 	{
 		p_variable->Add__MONITORING_PROC(1.0, MON_ID__STATE_CHECK);
@@ -321,6 +381,64 @@ int CObj__VAT_IO::__DEFINE__ALARM(p_alarm)
 
 		l_act.RemoveAll();
 		l_act.Add(ACT__CLEAR);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__TRANSFER_BALLAST_PRESSURE_WAIT;
+
+		alarm_title  = title;
+		alarm_title += "\"Transfer ballast pressure wait\" occurred !";
+
+		alarm_msg = "Please, check Ballast valve or N2 valve.\n";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CHECK);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__TRANSFER_BALLAST_OVER_PRESSURE;
+
+		alarm_title  = title;
+		alarm_title += "\"Transfer ballast over pressure\" occurred !";
+
+		alarm_msg = "Please, check Ballast valve or N2 valve.\n";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CHECK);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__CHAMBER_BALLAST_PRESSURE_WAIT;
+
+		alarm_title  = title;
+		alarm_title += "\"Chamber ballast pressure wait\" occurred !";
+
+		alarm_msg = "Please, check Ballast valve or N2 valve.\n";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CHECK);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__CHAMBER_BALLAST_OVER_PRESSURE;
+
+		alarm_title  = title;
+		alarm_title += "\"Chamber ballast over pressure\" occurred !";
+
+		alarm_msg = "Please, check Ballast valve or N2 valve.\n";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CHECK);
 
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
@@ -484,6 +602,10 @@ int CObj__VAT_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		def_name = "OBJ__DB_SYS";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		//
+		var_name = "SIM.PRESSURE.TORR";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SIM_PRESSURE_TORR, obj_name,var_name);
 
 		//
 		var_name = "MON.SYSTEM.PROCESS.ACTIVE";
@@ -682,6 +804,14 @@ int CObj__VAT_IO::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 			flag = Call__PRESSURE(p_variable, p_alarm);
 
 			dCH__MON_PRESSURE_CHECK_ACTIVE->Set__DATA(STR__READY);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__BALLAST_TRANSFER)
+		{
+			flag = Call__BALLAST_TRANSFER(p_variable, p_alarm);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__BALLAST_CHAMBER)
+		{
+			flag = Call__BALLAST_CHAMBER(p_variable, p_alarm);
 		}
 	}
 
