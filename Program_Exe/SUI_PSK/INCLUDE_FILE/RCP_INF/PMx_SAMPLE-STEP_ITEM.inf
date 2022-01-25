@@ -906,7 +906,7 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.DPC.CENTER
+#CHANNEL           FNC_STEP+RCP.DPC.CENTER.PRESSURE
 #TITLE             2._He_Pressure(Torr)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
@@ -967,7 +967,7 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.LOOP_START
+#CHANNEL           FNC_PROC+RCP.LOOP_START
 #TITLE             15._Loop Start
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM   
@@ -981,8 +981,8 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.LOOP_REPEAT
-#TITLE             15._Loop Repeat
+#CHANNEL           FNC_PROC+RCP.LOOP_REPEAT
+#TITLE             16._Loop Repeat
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM   
 #LIST              
