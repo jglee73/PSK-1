@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "CObj__PROC_FNC.h"
+
 #include "CObj__PROC_FNC__ALID.h"
 #include "CObj__PROC_FNC__DEF.h"
 
@@ -332,13 +333,13 @@ int CObj__PROC_FNC::__DEFINE__ALARM(p_alarm)
 		alarm_msg = "Please, check [Plasma Dechuck] recipe file.\n";
 
 		l_act.RemoveAll();
-		l_act.Add("ABORT");
-		l_act.Add("RETRY");
+		l_act.Add(STR__RETRY);
+		l_act.Add(STR__ABORT);
 	
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	// Plasma Dechuck Process Failed ...
+	// Plasma.Dechuck Process Failed ...
 	{
 		CString str_temp;
 
@@ -352,7 +353,7 @@ int CObj__PROC_FNC::__DEFINE__ALARM(p_alarm)
 		alarm_msg = str_temp;
 
 		l_act.RemoveAll();
-		l_act.Add("CHECK");
+		l_act.Add("CLEAR");
 			
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
@@ -368,7 +369,7 @@ int CObj__PROC_FNC::__DEFINE__ALARM(p_alarm)
 		alarm_msg += "Please, wait or recipe file. \n";
 
 		l_act.RemoveAll();
-		l_act.Add("CHECK");
+		l_act.Add("CLEAR");
 
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}

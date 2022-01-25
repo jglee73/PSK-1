@@ -132,6 +132,17 @@ int CObj__CHM_FNC::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__ACTIVE_VENTING_STATE, str_name);
 	}
 
+	// REFERENCE PRESSURE ...
+	{
+		str_name = "CFG.ATM.REF.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 0, 600, 800, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_ATM_REF_PRESSURE, str_name);
+		
+		str_name = "CFG.VAC.REF.PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 3, 0.1, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_VAC_REF_PRESSURE, str_name);
+	}
+
 	// FAST-VENTING PARAMETER ...
 	{
 		str_name = "CFG.FAST_VENT.PRESSURE";

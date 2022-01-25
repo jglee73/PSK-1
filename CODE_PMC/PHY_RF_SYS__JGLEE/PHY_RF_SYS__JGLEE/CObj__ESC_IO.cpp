@@ -1794,6 +1794,11 @@ int CObj__ESC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
+
+	if(iActive__SIM_MODE > 0)
+	{
+		dCH__MON_CHUCK_STATUS->Set__DATA(STR__DECHUCKED);
+	}
 	return 1;
 }
 

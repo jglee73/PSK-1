@@ -1,0 +1,6 @@
+; FNC_STEP__PSK.def : Declares the module parameters for the DLL.
+
+LIBRARY      "FNC_STEP__PSK"
+
+EXPORTS
+    ; Explicit exports can go here

@@ -15,23 +15,24 @@ private:
 	//-------------------------------------------------------------------------
 	CString sObject_Name;
 
-	SCX__USER_LOG_CTRL  xLOG_CTRL;
+	SCX__USER_LOG_CTRL xLOG_CTRL;
 	//
 
 
 	//-------------------------------------------------------------------------
 	//  INTERNAL PROPERTY
 
-	// ...
+	// OBJ ...
 	CX__VAR_STRING_CTRL	 sCH__OBJ_MSG;
 
-	CX__VAR_ANALOG_CTRL  aCH__AGING_TEST;
-	CX__VAR_STRING_CTRL  sCH__AGING_TRG;
-	CX__VAR_STRING_CTRL  sCH__AGING_CUR;
+	// PARA ...
+	CX__VAR_STRING_CTRL  sCH__PARA_RECIPE_NAME;
 
-	CX__VAR_STRING_CTRL  sCH__SEL_RECIPE_NAME;
+	// CFG ...
+	CX__VAR_ANALOG_CTRL  aCH__CFG_AGING_COUNT;
+	CX__VAR_STRING_CTRL  sCH__CUR_AGING_COUNT;
 
-	CX__VAR_DIGITAL_CTRL dCH__CFG_NEXT_STEP_CTRL_MODE;
+	CX__VAR_DIGITAL_CTRL dCH__CFG_MANUAL_STEP_CTRL;
 	//
 
 
@@ -49,16 +50,17 @@ private:
 	// ...
 	CII_EXT_OBJECT__CTRL *pOBJ_CTRL__PROC;
 
-	CX__VAR_STRING_CTRL  sEXT_CH__NEXT_STEP_CTRL_FLAG;
-	CX__VAR_STRING_CTRL  sEXT_CH__NEXT_STEP_CTRL_REQ;
+	CX__VAR_DIGITAL_CTRL dEXT_CH__PARA_MANUAL_STEP_CTRL_ACTIVE;
+	CX__VAR_STRING_CTRL  sEXT_CH__PARA_MANUAL_STEP_CTRL_REQ;
 
-	CX__VAR_STRING_CTRL  sEXT_CH__PARA_PROCESS_TYPE;
+	CX__VAR_DIGITAL_CTRL dEXT_CH__PARA_MANUAL_PROCESS_DECHUCK_ACTIVE;
 	//
 
 
 	//-------------------------------------------------------------------------
 	CString sMODE__MANUAL_PROCESS;
 	int Call__MANUAL_PROCESS(CII_OBJECT__VARIABLE* p_variable);
+	int Fnc__MANUAL_PROCESS(CII_OBJECT__VARIABLE* p_variable);
 
 	CString sMODE__ABORT_DECHUCK;
 	int Call__ABORTL_DECHUCK(CII_OBJECT__VARIABLE* p_variable);

@@ -40,8 +40,8 @@ Mon__PRESSURE_STATUS(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alar
 
 		// ...
 		{
-			ref_atm_press = aCH__CFG_FAST_VENT_PRESSURE->Get__VALUE();
-			ref_vac_press = aCH__CFG_FAST_PUMP_PRESSURE->Get__VALUE();
+			ref_atm_press = aCH__CFG_ATM_REF_PRESSURE->Get__VALUE();
+			ref_vac_press = aCH__CFG_VAC_REF_PRESSURE->Get__VALUE();
 
 			cur_chm_press = aEXT_CH__CHM_PRESSURE_TORR->Get__VALUE();
 

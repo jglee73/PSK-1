@@ -364,11 +364,17 @@ int CObj__NAVII_SERIAL
 			{
 				para_id = 1;
 				para_pos = (int) (100.0 * aCH__PARA_LOAD_POS_CH1->Get__VALUE());
+
+				ch_data.Format("%1d", para_pos);
+				sCH__CUR_LOAD_POS_CH1->Set__DATA(ch_data);
 			}
 			else if(doCH__LOAD_POS_CH2->Check__VARIABLE_NAME(var_name) > 0)
 			{
 				para_id = 2;
 				para_pos = (int) (100.0 * aCH__PARA_LOAD_POS_CH2->Get__VALUE());
+
+				ch_data.Format("%1d", para_pos);
+				sCH__CUR_LOAD_POS_CH2->Set__DATA(ch_data);
 			}
 		}
 		else if((doCH__TUNE_POS_CH1->Check__VARIABLE_NAME(var_name) > 0)
@@ -380,11 +386,17 @@ int CObj__NAVII_SERIAL
 			{
 				para_id = 1;
 				para_pos = (int) (100.0 * aCH__PARA_TUNE_POS_CH1->Get__VALUE());
+
+				ch_data.Format("%1d", para_pos);
+				sCH__CUR_TUNE_POS_CH1->Set__DATA(ch_data);
 			}
 			else if(doCH__TUNE_POS_CH2->Check__VARIABLE_NAME(var_name) > 0)
 			{
 				para_id = 2;
 				para_pos = (int) (100.0 * aCH__PARA_TUNE_POS_CH2->Get__VALUE());
+
+				ch_data.Format("%1d", para_pos);
+				sCH__CUR_TUNE_POS_CH2->Set__DATA(ch_data);
 			}
 		}
 		else
@@ -428,12 +440,24 @@ int CObj__NAVII_SERIAL
 			para_id = 1;
 			para_load_pos = (int) (100.0 * aCH__PARA_LOAD_POS_CH1->Get__VALUE());
 			para_tune_pos = (int) (100.0 * aCH__PARA_TUNE_POS_CH1->Get__VALUE());
+
+			ch_data.Format("%1d", para_load_pos);
+			sCH__CUR_LOAD_POS_CH1->Set__DATA(ch_data);
+
+			ch_data.Format("%1d", para_tune_pos);
+			sCH__CUR_TUNE_POS_CH1->Set__DATA(ch_data);
 		}
 		else if(doCH__CAPACITOR_MOTOR_POS_CH2->Check__VARIABLE_NAME(var_name) > 0)
 		{
 			para_id = 2;
 			para_load_pos = (int) (100.0 * aCH__PARA_LOAD_POS_CH2->Get__VALUE());
 			para_tune_pos = (int) (100.0 * aCH__PARA_TUNE_POS_CH2->Get__VALUE());
+
+			ch_data.Format("%1d", para_load_pos);
+			sCH__CUR_LOAD_POS_CH2->Set__DATA(ch_data);
+
+			ch_data.Format("%1d", para_tune_pos);
+			sCH__CUR_TUNE_POS_CH2->Set__DATA(ch_data);
 		}
 		else
 		{

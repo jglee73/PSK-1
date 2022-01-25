@@ -2,6 +2,10 @@
 #ID=2	5102	LIGHT	PHY_VAT - VAT Control Abort Range Alarm.
 #ID=3	5103	LIGHT	PHY_VAT - During Idle, VAT Control Warning Range Alarm.
 #ID=4	5104	LIGHT	PHY_VAT - During Idle, VAT Control Abort Range Alarm.
+#ID=5	5105	LIGHT	PHY_VAT - "Transfer ballast pressure wait" occurred !
+#ID=6	5106	LIGHT	PHY_VAT - "Transfer ballast over pressure" occurred !
+#ID=7	5107	LIGHT	PHY_VAT - "Chamber ballast pressure wait" occurred !
+#ID=8	5108	LIGHT	PHY_VAT - "Chamber ballast over pressure" occurred !
 #ID=11	5111	LIGHT	PHY_VAT - VAT Control Aborted !.
 #ID=12	5112	LIGHT	PHY_VAT - In VAT config page, VAT's use is selected to "NOT USE".
 #ID=13	5113	LIGHT	PHY_VAT - TV Interlock 관련 Digital Output이 "ON" 되어 있습니다.

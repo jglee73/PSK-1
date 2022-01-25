@@ -41,35 +41,33 @@ int CObj__MANUAL_PROC::__DEFINE__VARIABLE_STD(p_variable)
 	// ...
 	CString str_name;
 
-	// ...
+	// OBJ ...
 	{
-		str_name.Format("OBJ.MSG");
+		str_name = "OBJ.MSG";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_MSG, str_name);
 	}
 
-	// ...
+	// PARA ...
 	{
-		str_name = "AGING.TEST";
-		STD__ADD_ANALOG(str_name,"num",0,1,9999);
-		LINK__VAR_ANALOG_CTRL(aCH__AGING_TEST, str_name);
-
-		str_name = "AGING.TRG";
-		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__AGING_TRG, str_name);
-
-		str_name = "AGING.CUR";
-		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__AGING_CUR, str_name);
-
-		//
-		str_name = "SEL.RECIPE.NAME";
+		str_name = "PARA.RECIPE.NAME";
 		STD__ADD_STRING_WITH_X_OPTION(str_name, "");
-		LINK__VAR_STRING_CTRL(sCH__SEL_RECIPE_NAME, str_name);
+		LINK__VAR_STRING_CTRL(sCH__PARA_RECIPE_NAME, str_name);
 
-		str_name = "CFG.NEXT_STEP_CTRL.MODE";
-		STD__ADD_DIGITAL(str_name, "DISABLE ENABLE");
-		LINK__VAR_DIGITAL_CTRL(dCH__CFG_NEXT_STEP_CTRL_MODE, str_name);
+		str_name = "CFG.MANUAL.STEP.CTRL";
+		STD__ADD_DIGITAL(str_name, "DISABLE  ENABLE");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_MANUAL_STEP_CTRL, str_name);
+	}
+	
+	// CFG ...
+	{
+		str_name = "CFG.AGING.COUNT";
+		STD__ADD_ANALOG(str_name, "num", 0, 1, 9999);
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_AGING_COUNT, str_name);
+
+		str_name = "CUR.AGING.COUNT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CUR_AGING_COUNT, str_name);
 	}
 
 	return 1;
@@ -142,7 +140,7 @@ int CObj__MANUAL_PROC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		xLOG_CTRL->WRITE__LOG("   START   \n");
 	}
 
-	// ...
+	// OBJ - DB_SYS ...
 	{
 		def_name = "OBJ__DB_SYS";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
@@ -181,26 +179,16 @@ int CObj__MANUAL_PROC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		pOBJ_CTRL__PROC = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
 		//
-		str_name = "NEXT_STEP_CTRL.FLAG";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__NEXT_STEP_CTRL_FLAG, obj_name,str_name);
+		str_name = "PARA.MANUAL.STEP.CTRL.ACTIVE";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PARA_MANUAL_STEP_CTRL_ACTIVE, obj_name,str_name);
 		
-		str_name = "NEXT_STEP_CTRL.REQ";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__NEXT_STEP_CTRL_REQ, obj_name,str_name);
+		str_name = "PARA.MANUAL.STEP.CTRL.REQ";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PARA_MANUAL_STEP_CTRL_REQ, obj_name,str_name);
 
 		//
-		str_name = "PARA.PROCESS.TYPE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PARA_PROCESS_TYPE, obj_name,str_name);
+		str_name = "PARA.MANUAL.PROCESS.DECHUCK.ACTIVE";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PARA_MANUAL_PROCESS_DECHUCK_ACTIVE, obj_name,str_name);
 	}
-
-	/*
-	// OBJ CHM .....
-	{
-		def_name = "OBJ__CHM";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
-
-		pOBJ_CTRL__CHM = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
-	}
-	*/
 
 	return 1;
 }
@@ -211,7 +199,7 @@ int CObj__MANUAL_PROC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	// ...
 	{
 		CString log_msg;
-		log_msg.Format("Start ... :  [%s]", mode);
+		log_msg.Format("[%s] Start", mode);
 
 		xLOG_CTRL->WRITE__LOG(log_msg);
 		sCH__OBJ_MSG->Set__DATA(log_msg);
@@ -223,68 +211,33 @@ int CObj__MANUAL_PROC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	{
 		IF__CTRL_MODE(sMODE__MANUAL_PROCESS)
 		{
-			sEXT_CH__PARA_PROCESS_TYPE->Set__DATA("MAINT");
+			dEXT_CH__PARA_MANUAL_PROCESS_DECHUCK_ACTIVE->Set__DATA(STR__OFF);
 
-			// ...
-			CString var_data;
-
-			aCH__AGING_TEST->Get__DATA(var_data);
-			aCH__AGING_TEST->Set__DATA("1");
-			
-			sCH__AGING_TRG->Set__DATA(var_data);
-			sCH__AGING_CUR->Set__DATA("");
-
-			int trg_count = atoi(var_data);
-			int cur_count = 0;
-
-			while(1)
-			{
-				// ...
-				{
-					cur_count++;
-					var_data.Format("%1d", cur_count);
-					sCH__AGING_CUR->Set__DATA(var_data);
-				}
-
-				sEXT_CH__SYSTEM_MSG->Set__DATA("Manual Process Start ...");
-				sEXT_CH__FNC_MSG->Set__DATA("");
-
-				if(dCH__CFG_NEXT_STEP_CTRL_MODE->Check__DATA(STR__ENABLE) > 0)
-				{
-					sEXT_CH__NEXT_STEP_CTRL_FLAG->Set__DATA(STR__YES);
-				}
-				else
-				{
-					sEXT_CH__NEXT_STEP_CTRL_FLAG->Set__DATA("");
-				}
-
-				flag = Call__MANUAL_PROCESS(p_variable);
-
-				dCH__CFG_NEXT_STEP_CTRL_MODE->Set__DATA(STR__DISABLE);
-				sEXT_CH__NEXT_STEP_CTRL_FLAG->Set__DATA("");
-
-				if(flag < 0)
-				{
-					break;
-				}
-				if(cur_count >= trg_count)
-				{
-					break;
-				}
-			}
+			flag = Call__MANUAL_PROCESS(p_variable);
 		}
 		ELSE_IF__CTRL_MODE(sMODE__ABORT_DECHUCK)
 		{
-			sEXT_CH__PARA_PROCESS_TYPE->Set__DATA("DECHUCK");
+			dEXT_CH__PARA_MANUAL_PROCESS_DECHUCK_ACTIVE->Set__DATA(STR__ON);
 
 			flag = Call__ABORTL_DECHUCK(p_variable);
 		}
 	}
 
+	// ...
+	{
+		dCH__CFG_MANUAL_STEP_CTRL->Set__DATA(STR__DISABLE);
+		
+		dEXT_CH__PARA_MANUAL_STEP_CTRL_ACTIVE->Set__DATA(STR__OFF);
+		sEXT_CH__PARA_MANUAL_STEP_CTRL_REQ->Set__DATA("");
+
+		dEXT_CH__PARA_MANUAL_PROCESS_DECHUCK_ACTIVE->Set__DATA(STR__OFF);
+		sEXT_CH__SYSTEM_MSG->Set__DATA("");
+	}
+
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))
 	{
 		CString log_msg;
-		log_msg.Format("Aborted ... :  [%s]",mode);
+		log_msg.Format("[%s] Aborted", mode);
 		
 		xLOG_CTRL->WRITE__LOG(log_msg);
 		sCH__OBJ_MSG->Set__DATA(log_msg);
@@ -292,14 +245,11 @@ int CObj__MANUAL_PROC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	else
 	{
 		CString log_msg;
-		log_msg.Format("Completed ... :  [%s]",mode);
+		log_msg.Format("[%s] Completed", mode);
 		
 		xLOG_CTRL->WRITE__LOG(log_msg);
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 	}
-	
-	sEXT_CH__PARA_PROCESS_TYPE->Set__DATA("");
-	sEXT_CH__SYSTEM_MSG->Set__DATA("");
 	return flag;
 }
 

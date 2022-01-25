@@ -28,11 +28,11 @@
 #OBJECT_STD     FNC_CHM_SYS__JGLEE          TRANSFER.FNC            FNC_TRANSFER
 
 ===========================================================================
-#OBJECT_STD     EQP__STD_OBJ                PM_Datalog_Ex           FNC_PM_DATALOG
+#OBJECT_STD     EQP__STD_OBJ                PM_Datalog_Ex           FNC_PROC_LOG
 
 #OBJECT_STD     FNC_PROC_SYS__JGLEE         MANUAL.PROC             MNT_PROCESS
-#OBJECT_STD     FNC_PROC_SYS__JGLEE         PROC.FNC                FNC_PROC
-#OBJECT_STD     FNC_PROC_SYS__JGLEE         STEP.FNC                FNC_STEP
+#OBJECT_STD     FNC_PROC_SYS__JGLEE         PROC.STD                FNC_PROC
+#OBJECT_STD     FNC_STEP__PSK               STEP.STD                FNC_STEP
 
 
 ===========================================================================

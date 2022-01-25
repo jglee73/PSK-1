@@ -37,6 +37,7 @@
 // Object Define Info ... 
 
 "__EQP" Object not defined ! 
+"FNC_PROC_LOG" Object not defined ! 
 
 
 //==================================================================================== 
@@ -621,8 +622,8 @@ OBJECT_NAME : FNC_PM_DATALOG   (OffsetID:700) (ToolID:) (UnitID:)
 //------------------------------------------------------------
 OBJECT_NAME : FNC_PROC   (OffsetID:800) (ToolID:) (UnitID:) 
 
-#INTERNAL_ID   11 
-#EXTERNAL_ID   811 
+#INTERNAL_ID   1 
+#EXTERNAL_ID   801 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -637,8 +638,8 @@ OBJECT_NAME : FNC_PROC   (OffsetID:800) (ToolID:) (UnitID:)
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   12 
-#EXTERNAL_ID   812 
+#INTERNAL_ID   2 
+#EXTERNAL_ID   802 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -661,8 +662,8 @@ If you select [END_WITH_PLASMA_DECHUCK],       With Plasma Dechuck recipe will b
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   13 
-#EXTERNAL_ID   813 
+#INTERNAL_ID   3 
+#EXTERNAL_ID   803 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -671,14 +672,14 @@ If you select [END_WITH_PLASMA_DECHUCK],       With Plasma Dechuck recipe will b
 "Please, check [Plasma Dechuck] recipe file.
 "
 #RECOVERY_ACTION 
-     ABORT   ""
      RETRY   ""
+     ABORT   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   14 
-#EXTERNAL_ID   814 
+#INTERNAL_ID   4 
+#EXTERNAL_ID   804 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -689,13 +690,13 @@ If you select [END_WITH_PLASMA_DECHUCK],       With Plasma Dechuck recipe will b
 If you don't, Wafer may be broken in the chamber. 
 "
 #RECOVERY_ACTION 
-     CHECK   ""
+     CLEAR   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   15 
-#EXTERNAL_ID   815 
+#INTERNAL_ID   5 
+#EXTERNAL_ID   805 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -706,13 +707,13 @@ If you don't, Wafer may be broken in the chamber.
 Please, wait or recipe file. 
 "
 #RECOVERY_ACTION 
-     CHECK   ""
+     CLEAR   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   16 
-#EXTERNAL_ID   816 
+#INTERNAL_ID   6 
+#EXTERNAL_ID   806 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -729,8 +730,8 @@ If you click "NO",  the status of wafer will be not changed.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   17 
-#EXTERNAL_ID   817 
+#INTERNAL_ID   7 
+#EXTERNAL_ID   807 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -746,8 +747,8 @@ If you click "NO",  the process will be aborted.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   18 
-#EXTERNAL_ID   818 
+#INTERNAL_ID   8 
+#EXTERNAL_ID   808 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -761,14 +762,14 @@ If you click "NO",  the process will be aborted.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   19 
-#EXTERNAL_ID   819 
+#INTERNAL_ID   9 
+#EXTERNAL_ID   809 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
 "FNC_PROC - Process를 진행할 상태가 아닙니다."
 #MESSAGE 
-"Lift_Pin은 Dwon 상태이어야 합니다. 
+"Lift_Pin은 Down 상태이어야 합니다. 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -781,1056 +782,32 @@ If you click "NO",  the process will be aborted.
 //------------------------------------------------------------
 OBJECT_NAME : FNC_STEP   (OffsetID:900) (ToolID:) (UnitID:) 
 
+#INTERNAL_ID   1 
+#EXTERNAL_ID   901 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"FNC_STEP - STEP OVERTIME ALARM."
+#MESSAGE 
+"Process Step Time-Over Alarm Message.
+Check Process Step time and Control time."
+#RECOVERY_ACTION 
+     CLEAR   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
 #INTERNAL_ID   2 
 #EXTERNAL_ID   902 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"FNC_STEP :  SYSTEM - PROCESS STEP OVERTIME ALARM."
+"FNC_STEP - STABLE OVERTIME ALARM."
 #MESSAGE 
-"Process Step Time-Over Alarm Message.
-Check Process Step time and Control time."
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   3 
-#EXTERNAL_ID   903 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP :  SYSTEM - PROCESS STEP STABLE OVERTIME ALARM."
-#MESSAGE 
-"Process Stable Step Timeover Alarm Message.
+"Process Stable Step Time-over Alarm Message.
 Check Process Stable Step time and Control time."
 #RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   4 
-#EXTERNAL_ID   904 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP :  SYSTEM - OVERETCH OVERTIME ALARM."
-#MESSAGE 
-"Process OverEtch Step Timeover Alarm Message.
-Check Process OverEtch time and Step time."
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   5 
-#EXTERNAL_ID   905 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP :  SYSTEM - PROCESS INTERLOCK CHANNEL ALARM."
-#MESSAGE 
-"Process Interlock Channel Alarm Message.
-Check Interlock Switch Status."
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   6 
-#EXTERNAL_ID   906 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP :  SYSTEM - RECIPE OES DATA NULL ERROR."
-#MESSAGE 
-"Recipe Oes Data Item has no data.
-Please, check oes recipe item's data."
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   7 
-#EXTERNAL_ID   907 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP :  SYSTEM - Interlock Sensor Error !"
-#MESSAGE 
-"Please, check interlock sensor. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   8 
-#EXTERNAL_ID   908 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP :  - MFC Interlock Close Error !"
-#MESSAGE 
-"Please, check mfc interlock page. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   9 
-#EXTERNAL_ID   909 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Process recipe file is being changed, now. 
-"
-#MESSAGE 
-"The process will run after recipe file save. 
-Please, wait or recipe file. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   51 
-#EXTERNAL_ID   951 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Chamber Pressure Tolerance Warning !"
-#MESSAGE 
-"During process run, chamber pressure tolerance warning occurred !
-Please, check chamber pressure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   52 
-#EXTERNAL_ID   952 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Chamber Pressure Tolerance Fault !"
-#MESSAGE 
-"During process run, chamber pressure tolerance fault occurred !
-Please, check chamber pressure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   55 
-#EXTERNAL_ID   955 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : RF_BIAS Power Tolerance Warning !"
-#MESSAGE 
-"During process run, RF_BIAS power tolerance warning occurred !
-Please, check RF_BIAS power.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   56 
-#EXTERNAL_ID   956 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : RF_BIAS Power Tolerance Fault !"
-#MESSAGE 
-"During process run, RF_BIAS power tolerance fault occurred !
-Please, check RF_BIAS power.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   68 
-#EXTERNAL_ID   968 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Middle-Pin Up Timeout !"
-#MESSAGE 
-"Please, check recipe step about middle-pin, or pin sensor. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   69 
-#EXTERNAL_ID   969 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - All temperature are checked ..."
-#MESSAGE 
-"Header recipe is running ...
-During process run, all temperature are checked ...
-Please, wait until all temperature are ready.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   70 
-#EXTERNAL_ID   970 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - All temperature are ready ..."
-#MESSAGE 
-"Process will start ...
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   71 
-#EXTERNAL_ID   971 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Top Temperature Tolerance Warning !"
-#MESSAGE 
-"During process run, top temperature (TCU) tolerance warning occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   72 
-#EXTERNAL_ID   972 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Top Temperature Tolerance Fault !"
-#MESSAGE 
-"During process run, top temperature (TCU) tolerance fault occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   81 
-#EXTERNAL_ID   981 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Top Temperature Low-Limit !"
-#MESSAGE 
-"During process run, top temperature (TCU) low-limit occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   82 
-#EXTERNAL_ID   982 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Top Temperature High-Limit !"
-#MESSAGE 
-"During process run, top temperature (TCU) High-limit occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   73 
-#EXTERNAL_ID   973 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Bottom Temperature Tolerance Warning !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) tolerance warning occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   74 
-#EXTERNAL_ID   974 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Bottom Temperature Tolerance Fault !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) tolerance fault occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   83 
-#EXTERNAL_ID   983 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Bottom Temperature Low-Limit !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) low-limit occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   84 
-#EXTERNAL_ID   984 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Bottom Temperature High-Limit !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) high-limit occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   75 
-#EXTERNAL_ID   975 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - Top Plate Temperature Tolerance Warning !"
-#MESSAGE 
-"During process run, "top plate" temperature tolerance warning occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   76 
-#EXTERNAL_ID   976 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - "Top Plate" Temperature Tolerance Fault !"
-#MESSAGE 
-"During process run, "top plate" temperature tolerance fault occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   85 
-#EXTERNAL_ID   985 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - "Top Plate" Temperature Low-Limit !"
-#MESSAGE 
-"During process run, "top plate" temperature low-limit occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   86 
-#EXTERNAL_ID   986 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Header Ctrl - "Top Plate" Temperature High-Limit !"
-#MESSAGE 
-"During process run, "top plate" temperature high-limit occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   87 
-#EXTERNAL_ID   987 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : The error sensor of TCU is detected !"
-#MESSAGE 
-"If chamber's status is "processing", process will be aborted. 
-If chmaber's status is "idle", chamber's status will be "maint". 
-Please, check TCU's status. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   88 
-#EXTERNAL_ID   988 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : The warning sensor of TCU is detected !"
-#MESSAGE 
-"Please, check TCU's status. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   89 
-#EXTERNAL_ID   989 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : The door of gas box is not closed !"
-#MESSAGE 
-"If chamber's status is "processing", process will be aborted. 
-If chamber's status is "idle", chamber's status will be "maint". 
-Please, check the status of gas box. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   101 
-#EXTERNAL_ID   1001 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - All temperature are checked ..."
-#MESSAGE 
-"Header recipe is running ...
-During process run, all temperature are checked ...
-Please, wait until all temperature are ready.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   102 
-#EXTERNAL_ID   1002 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - All temperature are ready ..."
-#MESSAGE 
-"Process will start ...
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   103 
-#EXTERNAL_ID   1003 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Top Temperature Tolerance Warning !"
-#MESSAGE 
-"During process run, top temperature (TCU) tolerance warning occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   104 
-#EXTERNAL_ID   1004 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Top Temperature Tolerance Fault !"
-#MESSAGE 
-"During process run, top temperature (TCU) tolerance fault occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   110 
-#EXTERNAL_ID   1010 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Top Temperature Low-Limit !"
-#MESSAGE 
-"During process run, top temperature (TCU) low-limit occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   111 
-#EXTERNAL_ID   1011 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Top Temperature High-Limit !"
-#MESSAGE 
-"During process run, top temperature (TCU) High-limit occurred !
-Please, check Top Chiller (TCU).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   105 
-#EXTERNAL_ID   1005 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Bottom Temperature Tolerance Warning !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) tolerance warning occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   106 
-#EXTERNAL_ID   1006 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Bottom Temperature Tolerance Fault !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) tolerance fault occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   112 
-#EXTERNAL_ID   1012 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Bottom Temperature Low-Limit !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) low-limit occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   113 
-#EXTERNAL_ID   1013 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Bottom Temperature High-Limit !"
-#MESSAGE 
-"During process run, bottom temperature (ESC) high-limit occurred !
-Please, check Top Chiller (ESC).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   107 
-#EXTERNAL_ID   1007 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Top Plate Temperature Tolerance Warning !"
-#MESSAGE 
-"During process run, "top plate" temperature tolerance warning occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   108 
-#EXTERNAL_ID   1008 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - "Top Plate" Temperature Tolerance Fault !"
-#MESSAGE 
-"During process run, "top plate" temperature tolerance fault occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   114 
-#EXTERNAL_ID   1014 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - "Top Plate" Temperature Low-Limit !"
-#MESSAGE 
-"During process run, "top plate" temperature low-limit occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   115 
-#EXTERNAL_ID   1015 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - "Top Plate" Temperature High-Limit !"
-#MESSAGE 
-"During process run, "top plate" temperature high-limit occurred !
-Please, check "Top Plate Heater".
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   116 
-#EXTERNAL_ID   1016 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Step Ctrl - Aborted !"
-#MESSAGE 
-""
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   121 
-#EXTERNAL_ID   1021 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : "Restart" Recovery Action : System Init Error"
-#MESSAGE 
-""
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   122 
-#EXTERNAL_ID   1022 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : WAP Moving Complete Timeout Error"
-#MESSAGE 
-"Please, check the status of C-Ring control board."
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   91 
-#EXTERNAL_ID   991 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : "He Dechuck" Timeout !"
-#MESSAGE 
-"Please, don't let lift-pin up. 
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   92 
-#EXTERNAL_ID   992 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : "He Dechuck" Initial Error !"
-#MESSAGE 
-"Please, don't let lift-pin up. 
-If you click [ABORT],  Init sequence will be aborted. 
-If you click [IGNORE], Init sequence will be completed. 
-"
-#RECOVERY_ACTION 
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   93 
-#EXTERNAL_ID   993 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : "WAP Conductance" is not checked !"
-#MESSAGE 
-"You must execute "WAP Conductance", after Chamber was open. 
-Please, execute "WAP Conductance" in utility page. 
-
-If you click [ABORT],  Init sequence will be aborted. 
-If you click [IGNORE], Init sequence will be completed. 
-"
-#RECOVERY_ACTION 
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   94 
-#EXTERNAL_ID   994 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : "Chamber's lid is not close !"
-#MESSAGE 
-"After chamber PM, you must check "WAP Conductance". 
-
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   100 
-#EXTERNAL_ID   1000 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : System interlock occurred !"
-#MESSAGE 
-""
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   911 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas01's Flow Tolerance Warning !"
-#MESSAGE 
-"During process run, Gas01's flow tolerance warning occurred !
-Please, check Gas01's flow.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   912 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas02's Flow Tolerance Warning !"
-#MESSAGE 
-"During process run, Gas02's flow tolerance warning occurred !
-Please, check Gas02's flow.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   913 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas03's Flow Tolerance Warning !"
-#MESSAGE 
-"During process run, Gas03's flow tolerance warning occurred !
-Please, check Gas03's flow.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   14 
-#EXTERNAL_ID   914 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas04's Flow Tolerance Warning !"
-#MESSAGE 
-"During process run, Gas04's flow tolerance warning occurred !
-Please, check Gas04's flow.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   15 
-#EXTERNAL_ID   915 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas05's Flow Tolerance Warning !"
-#MESSAGE 
-"During process run, Gas05's flow tolerance warning occurred !
-Please, check Gas05's flow.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   16 
-#EXTERNAL_ID   916 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas06's Flow Tolerance Warning !"
-#MESSAGE 
-"During process run, Gas06's flow tolerance warning occurred !
-Please, check Gas06's flow.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   17 
-#EXTERNAL_ID   917 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas07's Flow Tolerance Warning !"
-#MESSAGE 
-"During process run, Gas07's flow tolerance warning occurred !
-Please, check Gas07's flow.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   931 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas01's Flow Tolerance Fault !"
-#MESSAGE 
-"During process run, Gas01's flow tolerance fault occurred !
-Please, check Gas01's flow.
-Process will be aborted.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   932 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas02's Flow Tolerance Fault !"
-#MESSAGE 
-"During process run, Gas02's flow tolerance fault occurred !
-Please, check Gas02's flow.
-Process will be aborted.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   933 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas03's Flow Tolerance Fault !"
-#MESSAGE 
-"During process run, Gas03's flow tolerance fault occurred !
-Please, check Gas03's flow.
-Process will be aborted.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   934 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas04's Flow Tolerance Fault !"
-#MESSAGE 
-"During process run, Gas04's flow tolerance fault occurred !
-Please, check Gas04's flow.
-Process will be aborted.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   935 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas05's Flow Tolerance Fault !"
-#MESSAGE 
-"During process run, Gas05's flow tolerance fault occurred !
-Please, check Gas05's flow.
-Process will be aborted.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   36 
-#EXTERNAL_ID   936 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas06's Flow Tolerance Fault !"
-#MESSAGE 
-"During process run, Gas06's flow tolerance fault occurred !
-Please, check Gas06's flow.
-Process will be aborted.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   37 
-#EXTERNAL_ID   937 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"FNC_STEP : Gas07's Flow Tolerance Fault !"
-#MESSAGE 
-"During process run, Gas07's flow tolerance fault occurred !
-Please, check Gas07's flow.
-Process will be aborted.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
+     CLEAR   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -3129,7 +2106,8 @@ OBJECT_NAME : PHY_ESC   (OffsetID:3200) (ToolID:) (UnitID:)
 #TITLE 
 "PHY_ESC - Wafer가 Dechuck된 상태가 아닙니다 !"
 #MESSAGE 
-"Wafer Minimum Leak Error !Please, check He flow! 
+"Wafer Minimum Leak Error ! 
+Please, check He flow! 
 "
 #RECOVERY_ACTION 
      CLEAR   ""
@@ -3208,7 +2186,8 @@ Helium center flow config condition is as followings :
 #TITLE 
 "PHY_ESC - Helium setting error !"
 #MESSAGE 
-"Process 중에 Helium 설정 값을 변경하는 작업을 할 수 없습니다.ESC 상태가 "Chucked"인 상태에서만 가능합니다. 
+"Process 중에 Helium 설정 값을 변경하는 작업을 할 수 없습니다. 
+ESC 상태가 "Chucked"인 상태에서만 가능합니다. 
 "
 #RECOVERY_ACTION 
      CLEAR   ""
@@ -4034,6 +3013,66 @@ For Safety, VAT will be stopped !!
 "
 #RECOVERY_ACTION 
      CLEAR   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   5 
+#EXTERNAL_ID   5105 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_VAT - "Transfer ballast pressure wait" occurred !"
+#MESSAGE 
+"Please, check Ballast valve or N2 valve.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   5106 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_VAT - "Transfer ballast over pressure" occurred !"
+#MESSAGE 
+"Please, check Ballast valve or N2 valve.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   5107 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_VAT - "Chamber ballast pressure wait" occurred !"
+#MESSAGE 
+"Please, check Ballast valve or N2 valve.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   8 
+#EXTERNAL_ID   5108 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_VAT - "Chamber ballast over pressure" occurred !"
+#MESSAGE 
+"Please, check Ballast valve or N2 valve.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -6219,6 +5258,41 @@ OBJECT_NAME : DI_RF_SYS   (OffsetID:0) (ToolID:) (UnitID:)
 
 
 //------------------------------------------------------------
+OBJECT_NAME : FNC_TRANSFER   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"FNC_TRANSFER - RF POWER STATUS ALARM"
+#MESSAGE 
+"RF Power Status Error."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"FNC_TRANSFER - ESC POWER STATUS ALARM"
+#MESSAGE 
+"ESC Power Status Error.
+Please Check ESC Power Status."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
 OBJECT_NAME : MNG_GAUGE_CHECK   (OffsetID:0) (ToolID:) (UnitID:) 
 
 #INTERNAL_ID   1 
@@ -8220,14 +7294,14 @@ OBJECT_NAME : PHY_PM_SLOT   (OffsetID:0) (ToolID:) (UnitID:)
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_PM_SLOT : Slot.Door Open-Timeout !"
+"PHY_PM_SLOT - Slot.Door Open-Timeout !"
 #MESSAGE 
 "PM Slot Door가 Open 되지 않았습니다.
 PM Slot 관련 Sensor를 확인 바랍니다.
 "
 #RECOVERY_ACTION 
-     ABORT   ""
      RETRY   ""
+     ABORT   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -8237,14 +7311,29 @@ PM Slot 관련 Sensor를 확인 바랍니다.
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_PM_SLOT : Slot.Door Close-Timeout !"
+"PHY_PM_SLOT - Slot.Door Close-Timeout !"
 #MESSAGE 
 "PM Slot Door가 Close 되지 않았습니다.
 PM Slot 관련 Sensor를 확인 바랍니다.
 "
 #RECOVERY_ACTION 
-     ABORT   ""
      RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_PM_SLOT - RF POWER STATUS ALARM"
+#MESSAGE 
+"RF Power Status Error."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -9365,8 +8454,8 @@ Interlock Sensor를 확인 바랍니다.
 //------------------------------------------------------------
 OBJECT_NAME : PHY_TMP   (OffsetID:0) (ToolID:) (UnitID:) 
 
-#INTERNAL_ID   1 
-#EXTERNAL_ID   1 
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -9381,8 +8470,24 @@ Now... Turbo Pump will be off.."
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   2 
-#EXTERNAL_ID   2 
+#INTERNAL_ID   4 
+#EXTERNAL_ID   4 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_TMP - PCW Unstable Alarm !"
+#MESSAGE 
+"PCW Unstable Status 
+Check the state of PCW ! 
+Now, Turbo Pump will be off.."
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -9396,8 +8501,8 @@ Now... Turbo Pump will be off.."
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   3 
-#EXTERNAL_ID   3 
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 

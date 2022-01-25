@@ -67,7 +67,7 @@ int CObj__PMC_OPR::__DEFINE__VERSION_HISTORY(version)
 #define MON_ID__STATUS							1
 
 #define APP_DSP__DISABLE_ENABLE					\
-	"DISABLE ENABLE"
+"DISABLE ENABLE"
 
 
 int CObj__PMC_OPR::__DEFINE__VARIABLE_STD(p_variable)

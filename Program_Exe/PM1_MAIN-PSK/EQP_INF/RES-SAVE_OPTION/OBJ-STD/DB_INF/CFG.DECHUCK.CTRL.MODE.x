@@ -1,1 +1,1 @@
-RECIPE
+CONFIG

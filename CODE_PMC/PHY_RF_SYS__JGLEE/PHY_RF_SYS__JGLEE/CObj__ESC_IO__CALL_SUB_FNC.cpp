@@ -1520,6 +1520,7 @@ Fnc__HV_ERROR_CHECK(CII_OBJECT__ALARM* p_alarm,
 	}
 
 	// Center ...
+	if(bActive__CENTER_USE)
 	{
 		aCH__CFG_ESC_CENTER_CHUCKING_VOLTAGE_WARNING->Get__DATA(var_data);
 		cfg_warning__vol_per = atof(var_data);
@@ -1649,6 +1650,7 @@ Fnc__HV_ERROR_CHECK(CII_OBJECT__ALARM* p_alarm,
 		}
 	}
 	// Edge ...
+	if(bActive__EDGE_USE)
 	{
 		aCH__CFG_ESC_EDGE_CHUCKING_VOLTAGE_WARNING->Get__DATA(var_data);
 		cfg_warning__vol_per = atof(var_data);
@@ -1791,7 +1793,7 @@ Fnc__HE_ERROR_CHECK(CII_OBJECT__ALARM* p_alarm,
 					const int alm_report)
 {
 	double check_pressure = 0.0;
-	double check_flow   = 0.0;
+	double check_flow = 0.0;
 
 	double set_pressure = 0.0;
 	
@@ -1854,25 +1856,35 @@ Fnc__HE_ERROR_CHECK(CII_OBJECT__ALARM* p_alarm,
 			return 1;
 		}
 
-		// sCH__TEST_HE_CENTER_PRESSURE_SETPOINT_START->Get__DATA(var_data);
-		aoEXT_CH__He_Pressure_CENTER->Get__DATA(var_data);
-		set_pressure = atof(var_data);
+		// ...
+		{
+			aoEXT_CH__He_Pressure_CENTER->Get__DATA(var_data);
+			set_pressure = atof(var_data);
 
-		aCH__CFG_HE_CENTER_PRESSURE_WARNING->Get__DATA(var_data);
-		cfg__pressure_warning = atof(var_data);
-		ref_warning__pressure_min = set_pressure * (1.0 - (cfg__pressure_warning / 100.0));
-		ref_warning__pressure_max = set_pressure * (1.0 + (cfg__pressure_warning / 100.0));
+			aCH__CFG_HE_CENTER_PRESSURE_WARNING->Get__DATA(var_data);
+			cfg__pressure_warning = atof(var_data);
+			ref_warning__pressure_min = set_pressure * (1.0 - (cfg__pressure_warning / 100.0));
+			ref_warning__pressure_max = set_pressure * (1.0 + (cfg__pressure_warning / 100.0));
 
-		aCH__CFG_HE_CENTER_PRESSURE_FAULT->Get__DATA(var_data);
-		cfg__pressure_fault = atof(var_data);
-		ref_fault__pressure_min = set_pressure * (1.0 - (cfg__pressure_fault / 100.0));
-		ref_fault__pressure_max = set_pressure * (1.0 + (cfg__pressure_fault / 100.0));
+			aCH__CFG_HE_CENTER_PRESSURE_FAULT->Get__DATA(var_data);
+			cfg__pressure_fault = atof(var_data);
+			ref_fault__pressure_min = set_pressure * (1.0 - (cfg__pressure_fault / 100.0));
+			ref_fault__pressure_max = set_pressure * (1.0 + (cfg__pressure_fault / 100.0));
 
-		aCH__MON_HE_CENTER_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
-		cfg__flow_min = atof(var_data);
+			aCH__MON_HE_CENTER_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
+			cfg__flow_min = atof(var_data);
 
-		aCH__MON_HE_CENTER_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
-		cfg__flow_max = atof(var_data);
+			aCH__MON_HE_CENTER_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
+			cfg__flow_max = atof(var_data);
+		}
+
+		if(iActive__SIM_MODE > 0)
+		{
+			check_flow = (cfg__flow_min + cfg__flow_max) * 0.5;
+
+			var_data.Format("%.1f", check_flow);
+			sCH__MON_He_Flow_CENTER->Set__DATA(var_data);
+		}
 	}
 	else if(he_type == HE_TYPE__EDGE)
 	{
@@ -1911,24 +1923,35 @@ Fnc__HE_ERROR_CHECK(CII_OBJECT__ALARM* p_alarm,
 			return 1;
 		}
 
-		aoEXT_CH__He_Pressure_EDGE->Get__DATA(var_data);
-		set_pressure = atof(var_data);
+		// ...
+		{
+			aoEXT_CH__He_Pressure_EDGE->Get__DATA(var_data);
+			set_pressure = atof(var_data);
 
-		aCH__CFG_HE_EDGE_PRESSURE_WARNING->Get__DATA(var_data);
-		cfg__pressure_warning = atof(var_data);
-		ref_warning__pressure_min = set_pressure * (1.0 - (cfg__pressure_warning / 100.0));
-		ref_warning__pressure_max = set_pressure * (1.0 + (cfg__pressure_warning / 100.0));
+			aCH__CFG_HE_EDGE_PRESSURE_WARNING->Get__DATA(var_data);
+			cfg__pressure_warning = atof(var_data);
+			ref_warning__pressure_min = set_pressure * (1.0 - (cfg__pressure_warning / 100.0));
+			ref_warning__pressure_max = set_pressure * (1.0 + (cfg__pressure_warning / 100.0));
 
-		aCH__CFG_HE_EDGE_PRESSURE_FAULT->Get__DATA(var_data);
-		cfg__pressure_fault = atof(var_data);
-		ref_fault__pressure_min = set_pressure * (1.0 - (cfg__pressure_fault / 100.0));
-		ref_fault__pressure_max = set_pressure * (1.0 + (cfg__pressure_fault / 100.0));
+			aCH__CFG_HE_EDGE_PRESSURE_FAULT->Get__DATA(var_data);
+			cfg__pressure_fault = atof(var_data);
+			ref_fault__pressure_min = set_pressure * (1.0 - (cfg__pressure_fault / 100.0));
+			ref_fault__pressure_max = set_pressure * (1.0 + (cfg__pressure_fault / 100.0));
 
-		aCH__MON_HE_EDGE_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
-		cfg__flow_min = atof(var_data);
+			aCH__MON_HE_EDGE_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
+			cfg__flow_min = atof(var_data);
 
-		aCH__MON_HE_EDGE_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
-		cfg__flow_max = atof(var_data);
+			aCH__MON_HE_EDGE_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
+			cfg__flow_max = atof(var_data);
+		}
+
+		if(iActive__SIM_MODE > 0)
+		{
+			check_flow = (cfg__flow_min + cfg__flow_max) * 0.5;
+
+			var_data.Format("%.1f", check_flow);
+			sCH__MON_He_Flow_EDGE->Set__DATA(var_data);
+		}
 	}
 	else
 	{

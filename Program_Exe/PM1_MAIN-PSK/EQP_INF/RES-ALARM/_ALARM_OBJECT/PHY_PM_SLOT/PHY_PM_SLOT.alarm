@@ -1,2 +1,3 @@
-#ID=1	1	LIGHT	PHY_PM_SLOT : Slot.Door Open-Timeout !
-#ID=2	2	LIGHT	PHY_PM_SLOT : Slot.Door Close-Timeout !
+#ID=1	1	LIGHT	PHY_PM_SLOT - Slot.Door Open-Timeout !
+#ID=2	2	LIGHT	PHY_PM_SLOT - Slot.Door Close-Timeout !
+#ID=3	3	LIGHT	PHY_PM_SLOT - RF POWER STATUS ALARM

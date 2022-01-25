@@ -1,5 +1,6 @@
 
 #DEFINE   ##MFC_SIZE           9
+#DEFINE   ##PT_SIZE            10
 
 
 #INCLUDE  "_METADATA__IO_INTERLOCK.inf"

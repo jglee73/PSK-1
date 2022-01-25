@@ -24,6 +24,14 @@ int CObj__NAVII_SERIAL::__DEFINE__CONTROL_MODE(obj, l_mode)
 	{
 		ADD__CTRL_VAR(sMODE__INIT,	"INIT");
 
+		//
+		ADD__CTRL_VAR(sMODE__AUTO_ALL, "AUTO.ALL");
+		ADD__CTRL_VAR(sMODE__AUTO_CH,  "AUTO.CH");
+
+		ADD__CTRL_VAR(sMODE__MANUAL_ALL, "MANUAL.ALL");
+		ADD__CTRL_VAR(sMODE__MANUAL_CH,  "MANUAL.CH");
+
+		//
 		ADD__CTRL_VAR(sMODE__CTRL_MODE_ALL, "CTRL_MODE.ALL");
 		ADD__CTRL_VAR(sMODE__CTRL_MODE_CH1, "CTRL_MODE.CH1");
 		ADD__CTRL_VAR(sMODE__CTRL_MODE_CH2, "CTRL_MODE.CH2");
@@ -43,6 +51,9 @@ int CObj__NAVII_SERIAL::__DEFINE__CONTROL_MODE(obj, l_mode)
 		ADD__CTRL_VAR(sMODE__CAP_MOTOR_ALL, "CAP_MOTOR.ALL");
 		ADD__CTRL_VAR(sMODE__CAP_MOTOR_CH1, "CAP_MOTOR.CH1");
 		ADD__CTRL_VAR(sMODE__CAP_MOTOR_CH2, "CAP_MOTOR.CH2");
+
+		//
+		ADD__CTRL_VAR(sMODE__PROC_CTRL, "PROC.CTRL");
 	}
 	return 1;
 }
@@ -75,7 +86,7 @@ int CObj__NAVII_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 	CString str_name;
 	CString str_list;
 
-	// ...
+	// OBJ ...
 	{
 		str_name = "OBJ.MSG";
 		STD__ADD_STRING(str_name);
@@ -84,6 +95,15 @@ int CObj__NAVII_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 
 	// PARA ...
 	{
+		str_name = "PARA.SEL.CH";		
+		STD__ADD_DIGITAL(str_name, "1  2");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARA_SEL_CH, str_name);
+
+		str_name = "CUR.SEL.CH";		
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CUR_SEL_CH, str_name);
+
+		//
 		str_name = "PARA.CONTROL_MODE.CH1";		
 		STD__ADD_DIGITAL(str_name, APP_DSP__CONTROL_MODE);
 		LINK__VAR_DIGITAL_CTRL(dCH__PARA_CONTROL_MODE_CH1, str_name);
@@ -101,23 +121,63 @@ int CObj__NAVII_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_ANALOG(str_name, "__", 0, 1, 10);
 		LINK__VAR_ANALOG_CTRL(aCH__PARA_ACTIVE_PRESET_CH2, str_name);
 
-		//
-		str_name = "PARA.LOAD_POS.CH1";
-		STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
-		LINK__VAR_ANALOG_CTRL(aCH__PARA_LOAD_POS_CH1, str_name);
+		// LOAD.POS ...
+		{
+			str_name = "PARA.LOAD_POS.CH1";
+			STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_LOAD_POS_CH1, str_name);
 
-		str_name = "PARA.LOAD_POS.CH2";
-		STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
-		LINK__VAR_ANALOG_CTRL(aCH__PARA_LOAD_POS_CH2, str_name);
+			str_name = "PARA.LOAD_POS.CH2";
+			STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_LOAD_POS_CH2, str_name);
 
-		//
-		str_name = "PARA.TUNE_POS.CH1";
-		STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
-		LINK__VAR_ANALOG_CTRL(aCH__PARA_TUNE_POS_CH1, str_name);
+			//
+			str_name = "CUR.LOAD_POS.CH1";
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__CUR_LOAD_POS_CH1, str_name);
+
+			str_name = "CUR.LOAD_POS.CH2";
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__CUR_LOAD_POS_CH2, str_name);
+		}
+		// TUNE.POS ...
+		{
+			str_name = "PARA.TUNE_POS.CH1";
+			STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_TUNE_POS_CH1, str_name);
 		
-		str_name = "PARA.TUNE_POS.CH2";
-		STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
-		LINK__VAR_ANALOG_CTRL(aCH__PARA_TUNE_POS_CH2, str_name);
+			str_name = "PARA.TUNE_POS.CH2";
+			STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_TUNE_POS_CH2, str_name);
+
+			//
+			str_name = "CUR.TUNE_POS.CH1";
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__CUR_TUNE_POS_CH1, str_name);
+
+			str_name = "CUR.TUNE_POS.CH2";
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__CUR_TUNE_POS_CH2, str_name);
+		}
+		// CAP.POS ...
+		{
+			str_name = "PARA.CAP_POS.CH1";
+			STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_CAP_POS_CH1, str_name);
+
+			str_name = "PARA.CAP_POS.CH2";
+			STD__ADD_ANALOG(str_name, "%", 2, 0.0, 100.0);
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_CAP_POS_CH2, str_name);
+
+			//
+			str_name = "CUR.CAP_POS.CH1";
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__CUR_CAP_POS_CH1, str_name);
+
+			str_name = "CUR.CAP_POS.CH2";
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__CUR_CAP_POS_CH2, str_name);
+		}
 	}
 
 	// MON ...
@@ -154,6 +214,42 @@ int CObj__NAVII_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "INFO.TUNE_POS.CH2";	  
 		STD__ADD_STRING(str_name);	
 		LINK__VAR_STRING_CTRL(sCH__INFO_TUNE_POS_CH2, str_name);
+
+		//
+		str_name = "INFO.CAP_POS.CH1";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_CAP_POS_CH1, str_name);
+
+		str_name = "INFO.CAP_POS.CH2";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_CAP_POS_CH2, str_name);
+
+		//
+		str_name = "INFO.CAP_CURRENT.CH1";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_CAP_CURRENT_CH1, str_name);
+
+		str_name = "INFO.CAP_CURRENT.CH2";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_CAP_CURRENT_CH2, str_name);
+
+		//
+		str_name = "INFO.R_SENSOR.CH1";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_R_SENSOR_CH1, str_name);
+
+		str_name = "INFO.R_SENSOR.CH2";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_R_SENSOR_CH2, str_name);
+
+		//
+		str_name = "INFO.X_SENSOR.CH1";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_X_SENSOR_CH1, str_name);
+
+		str_name = "INFO.X_SENSOR.CH2";	  
+		STD__ADD_STRING(str_name);	
+		LINK__VAR_STRING_CTRL(sCH__INFO_X_SENSOR_CH2, str_name);
 
 		//
 		str_name = "INFO.CSR.HEXA";
@@ -456,8 +552,14 @@ int CObj__NAVII_SERIAL::__INITIALIZE__IO(p_io_para)
 		sPROTOCOL_INFO += "Terminal String : [CR] \n";							  
 	}
 
-	mX_Serial->INIT__COMPORT(com_port, nRate, nByte, nStop, nParity);
-
+	if(iActive_SIM > 0)
+	{
+		return -1;
+	}
+	else
+	{
+		mX_Serial->INIT__COMPORT(com_port, nRate, nByte, nStop, nParity);
+	}
 	return 1;
 }
 
@@ -480,6 +582,12 @@ int CObj__NAVII_SERIAL::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm)
 	{
 			 IF__CTRL_MODE(sMODE__INIT)					flag = Call__INIT(p_variable, p_alarm);
 
+		ELSE_IF__CTRL_MODE(sMODE__AUTO_ALL)				flag = Call__AUTO_CH_X(p_variable,p_alarm, true);
+		ELSE_IF__CTRL_MODE(sMODE__AUTO_CH)				flag = Call__AUTO_CH_X(p_variable,p_alarm, false);
+		
+		ELSE_IF__CTRL_MODE(sMODE__MANUAL_ALL)			flag = Call__MANUAL_CH_X(p_variable,p_alarm, true);
+		ELSE_IF__CTRL_MODE(sMODE__MANUAL_CH)			flag = Call__MANUAL_CH_X(p_variable,p_alarm, false);
+
 		ELSE_IF__CTRL_MODE(sMODE__CTRL_MODE_ALL)		flag = Call__CTRL_MODE_CH_X(p_variable,p_alarm, 0);
 		ELSE_IF__CTRL_MODE(sMODE__CTRL_MODE_CH1)		flag = Call__CTRL_MODE_CH_X(p_variable,p_alarm, 1);
 		ELSE_IF__CTRL_MODE(sMODE__CTRL_MODE_CH2)		flag = Call__CTRL_MODE_CH_X(p_variable,p_alarm, 2);
@@ -499,6 +607,8 @@ int CObj__NAVII_SERIAL::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__CAP_MOTOR_ALL)		flag = Call__CAP_MOTOR_CH_X(p_variable,p_alarm, 0);
 		ELSE_IF__CTRL_MODE(sMODE__CAP_MOTOR_CH1)		flag = Call__CAP_MOTOR_CH_X(p_variable,p_alarm, 1);
 		ELSE_IF__CTRL_MODE(sMODE__CAP_MOTOR_CH2)		flag = Call__CAP_MOTOR_CH_X(p_variable,p_alarm, 2);
+
+		ELSE_IF__CTRL_MODE(sMODE__PROC_CTRL)			flag = Call__PROC_CTRL(p_variable,p_alarm);
 	}
 
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))

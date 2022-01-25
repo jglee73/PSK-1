@@ -78,14 +78,14 @@
 #FNC_MODE     OBJ_MODE__LEAK_CHECK						          FNC_CHM			    LEAK_CHECK
 #FNC_MODE     OBJ_MODE__PURGE								            FNC_CHM			    PURGE
 
-#FNC_MODE     OBJ_MODE__PRO_READY						            FNC_PROC		    PROC_READY
-#FNC_MODE     OBJ_MODE__PRO_START						            FNC_PROC		    PROC_START
-#FNC_MODE     OBJ_MODE__CLN_READY						            FNC_PROC		    CLN_READY
-#FNC_MODE     OBJ_MODE__CLN_START							          FNC_PROC		    CLN_START
-#FNC_MODE     OBJ_MODE__MNT_READY						            FNC_PROC		    MNT_READY
-#FNC_MODE     OBJ_MODE__MNT_START						            FNC_PROC		    MNT_START
-#FNC_MODE     OBJ_MODE__JOB_START_READY				          FNC_PROC		    JOB_START_READY
-#FNC_MODE     OBJ_MODE__JOB_END_READY				            FNC_PROC		    JOB_END_READY
+#FNC_MODE     OBJ_MODE__PRO_READY						            FNC_PROC		    MAIN.READY
+#FNC_MODE     OBJ_MODE__PRO_START						            FNC_PROC		    MAIN.START
+#FNC_MODE     OBJ_MODE__CLN_READY						            FNC_PROC		    POST.READY
+#FNC_MODE     OBJ_MODE__CLN_START							          FNC_PROC		    POST.START
+#FNC_MODE     OBJ_MODE__MNT_READY						            FNC_PROC		    MANUAL.READY
+#FNC_MODE     OBJ_MODE__MNT_START						            FNC_PROC		    MANUAL.START
+#FNC_MODE     OBJ_MODE__JOB_START_READY				          FNC_PROC		    JOB_START.READY
+#FNC_MODE     OBJ_MODE__JOB_END_READY				            FNC_PROC		    JOB_END.READY
 
 
 //------------------------------------------------
@@ -135,7 +135,7 @@
 #DEFINE_CONSTANT    OBJ__DB_SYS							            DB_SYS
 #DEFINE_CONSTANT    OBJ__DB_INF							            DB_INF
 
-#DEFINE_CONSTANT    OBJ__PMC_LOG                        FNC_PM_DATALOG
+#DEFINE_CONSTANT    OBJ__PMC_LOG                        FNC_PROC_LOG
 
 #DEFINE_CONSTANT    OBJ__TRANSFER                       FNC_TRANSFER
 
@@ -150,7 +150,6 @@
 #DEFINE_CONSTANT    OBJ__ESC                            PHY_ESC
 
 #DEFINE_CONSTANT    CH__CHM_SHUTTER_STATE               NULL
-// #DEFINE_CONSTANT    CH__CHM_SHUTTER_STATE               DB_INF+SHUTTER.STATUS
 
 #DEFINE_CONSTANT    CH__CHM_VAC_SNS                     IO+di.CHM.VAC.Sts
 #DEFINE_CONSTANT    CH__CHM_ATM_SNS                     IO+di.CHM.ATM.Sts
