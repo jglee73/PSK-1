@@ -1,0 +1,7 @@
+Move : [LP1][5] -> [PM6][1]
+Move : [PM6][1] -> [VAC_RB1_B][B]
+Move : [VAC_RB1_B][B] -> [PM5][1]
+Move : [PM5][1] -> [VAC_RB1_B][B]
+Move : [VAC_RB1_B][B] -> [PM6][1]
+Repeat[10] : [2] -> [5]
+TOOL_CLEAR
