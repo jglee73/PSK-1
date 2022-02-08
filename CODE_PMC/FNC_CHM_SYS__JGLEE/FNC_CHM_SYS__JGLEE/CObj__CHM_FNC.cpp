@@ -1023,12 +1023,18 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		def_name = "OBJ__PMC_LOG";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-		pOBJ_CTRL__PMC_LOG = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		bool def_check = x_utility.Check__Link(obj_name);
+		bActive__PMC_LOG = def_check;
 
-		//
-		LINK__EXT_VAR_STRING_CTRL(xEXT_CH__PMC_LOG__SUB_DIR,         obj_name,"sVAR.SUB_DIR");
-		LINK__EXT_VAR_STRING_CTRL(xEXT_CH__PMC_LOG__FILE_NAME,       obj_name,"sVAR.FILE_NAME");
-		LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__PMC_LOG__SAMPLING_PERIOD, obj_name,"LOG.SAMPLING.PERIOD");
+		if(def_check)
+		{
+			pOBJ_CTRL__PMC_LOG = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			//
+			LINK__EXT_VAR_STRING_CTRL(xEXT_CH__PMC_LOG__SUB_DIR,         obj_name,"sVAR.SUB_DIR");
+			LINK__EXT_VAR_STRING_CTRL(xEXT_CH__PMC_LOG__FILE_NAME,       obj_name,"sVAR.FILE_NAME");
+			LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__PMC_LOG__SAMPLING_PERIOD, obj_name,"LOG.SAMPLING.PERIOD");
+		}
 	}
 
 	// OBJ : TRANSFER ...
@@ -1050,11 +1056,17 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		def_name = "OBJ__VAC_VALVE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-		pOBJ_CTRL__PHY_VAC_VLV = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		bool def_check = x_utility.Check__Link(obj_name);
+		bActive__PHY_VAC_VLV = def_check;
 
-		//
-		var_name = "MON.PUMPING.STATE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__VAC_VLV__MON_PUMPING_STATE, obj_name,var_name);
+		if(def_check)
+		{
+			pOBJ_CTRL__PHY_VAC_VLV = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			//
+			var_name = "MON.PUMPING.STATE";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__VAC_VLV__MON_PUMPING_STATE, obj_name,var_name);
+		}
 	}
 	// OBJ : VAT ...
 	{
@@ -1074,6 +1086,10 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 			var_name = "PARA.PRESSURE";
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__VAT_PARA_PRESSURE, obj_name,var_name);
+
+			//
+			var_name = "MON.POSITION";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__VAT_CUR_POSITION, obj_name,var_name);
 		}
 	}
 
@@ -1126,11 +1142,17 @@ int CObj__CHM_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		def_name = "OBJ__DRY_PUMP";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-		pOBJ_CTRL__DRY_PUMP = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		bool def_check = x_utility.Check__Link(obj_name);
+		bActive__DRY_PUMP = def_check;
 
-		//
-		var_name = "MON.PUMP.POWER.SNS";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DRY_PUMP__POWER_SNS, obj_name,var_name);
+		if(def_check)
+		{
+			pOBJ_CTRL__DRY_PUMP = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			//
+			var_name = "MON.PUMP.POWER.SNS";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DRY_PUMP__POWER_SNS, obj_name,var_name);
+		}
 	}
 
 	// CHM.SHUTTER ...
@@ -1327,7 +1349,7 @@ int CObj__CHM_FNC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		     IF__CTRL_MODE(sMODE__INIT)						flag = Call__INIT(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__MAINT)					flag = Call__MAINTMODE(p_variable,p_alarm);
 		
-		ELSE_IF__CTRL_MODE(sMODE__PUMPING)					flag = Call__LOW_VAC_PUMP(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PUMPING)					flag = Call__HIGH_VAC_PUMP(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__LOW_VAC_PUMP)				flag = Call__LOW_VAC_PUMP(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__HIGH_VAC_PUMP)			flag = Call__HIGH_VAC_PUMP(p_variable,p_alarm);
 

@@ -1,6 +1,7 @@
 #include "StdAfx.h"
-#include "CObj__TRANSFER_FNC.h"
+#include "CCommon_Utility.h"
 
+#include "CObj__TRANSFER_FNC.h"
 #include "CObj__TRANSFER_FNC__ALID.h"
 #include "CObj__TRANSFER_FNC__DEF.h"
 
@@ -144,6 +145,10 @@ int CObj__TRANSFER_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString var_name;
 	int i;
 
+	// ...
+	CCommon_Utility x_utility;
+	bool def_check;
+
 	// OBJ : RFx ...
 	{
 		def_name = "DATA.RF_SIZE";
@@ -171,8 +176,15 @@ int CObj__TRANSFER_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		def_name = "CH__ESC_ON_STS";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ESC_ON_STS, obj_name,var_name);
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__ESC_ON_STS = def_check;
+
+		if(def_check)
+		{
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ESC_ON_STS, obj_name,var_name);
+		}
 	}
 
 	return 1;

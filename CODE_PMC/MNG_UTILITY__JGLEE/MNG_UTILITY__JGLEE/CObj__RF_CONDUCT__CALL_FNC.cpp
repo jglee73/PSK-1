@@ -32,12 +32,6 @@ Call__RF_CHECK(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 	CString msg;
 	int flag = 1;
 
-	// VAC Sensor Check ...
-	if(flag > 0)
-	{
-
-	}
-
 	// RF CAL ...
 	if(flag > 0)
 	{

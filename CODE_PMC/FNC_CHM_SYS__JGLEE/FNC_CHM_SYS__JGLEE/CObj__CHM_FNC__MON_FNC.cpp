@@ -20,13 +20,18 @@ Mon__PRESSURE_STATUS(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alar
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.1);	
 
-		// ...
+
+		if(bActive__VAT_OBJ)
 		{
 			int active_pumping = -1;
 
-			double cur_pos = aEXT_CH__VAT_PARA_POSITION->Get__VALUE();
+			double cur_pos = aEXT_CH__VAT_CUR_POSITION->Get__VALUE();
 
-			if(cur_pos > 90)
+			if(cur_pos >= 50)
+			{
+				active_pumping = 1;
+			}
+			if(bActive__PHY_VAC_VLV)
 			{
 				if(sEXT_CH__VAC_VLV__MON_PUMPING_STATE->Check__DATA(STR__PUMPING) > 0)
 				{

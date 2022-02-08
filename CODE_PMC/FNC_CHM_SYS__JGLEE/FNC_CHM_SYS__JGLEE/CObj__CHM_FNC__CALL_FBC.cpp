@@ -240,19 +240,22 @@ int CObj__CHM_FNC
 			sCH__LEAK_CHECK__LOG_MESSAGE->Set__DATA(log_msg);
 		}
 
-		int log_flag = pOBJ_CTRL__PMC_LOG->Call__OBJECT(CMMD__LOG_DISABLE);
-
-		// ...
+		if(bActive__PMC_LOG)
 		{
-			log_msg = "\n";
+			int log_flag = pOBJ_CTRL__PMC_LOG->Call__OBJECT(CMMD__LOG_DISABLE);
 
-			log_bff  = "** Logging End ... \n";
-			log_msg += log_bff;
+			// ...
+			{
+				log_msg = "\n";
 
-			log_bff.Format("   1. Log Flag : [%1d] \n", log_flag);
-			log_msg += log_bff;
+				log_bff  = "** Logging End ... \n";
+				log_msg += log_bff;
 
-			xLOG_CTRL->WRITE__LOG(log_msg);
+				log_bff.Format("   1. Log Flag : [%1d] \n", log_flag);
+				log_msg += log_bff;
+
+				xLOG_CTRL->WRITE__LOG(log_msg);
+			}
 		}
 
 		// ...

@@ -227,54 +227,58 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="CObj__STEP_STD"
+				Name="CObj__STEP_METAL"
 				>
 				<File
-					RelativePath=".\CObj__STEP_STD.cpp"
+					RelativePath=".\CObj__STEP_METAL.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD.h"
+					RelativePath=".\CObj__STEP_METAL.h"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__ALID.h"
+					RelativePath=".\CObj__STEP_METAL__ALID.h"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__CALL_FNC.cpp"
+					RelativePath=".\CObj__STEP_METAL__CALL_FNC.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__DEF.h"
+					RelativePath=".\CObj__STEP_METAL__CALL_PROC.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__OBJ_ESC.cpp"
+					RelativePath=".\CObj__STEP_METAL__DEF.h"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__OBJ_LIFT_PIN.cpp"
+					RelativePath=".\CObj__STEP_METAL__OBJ_APC.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__OBJ_MATCHER.cpp"
+					RelativePath=".\CObj__STEP_METAL__OBJ_ESC.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__OBJ_MFC.cpp"
+					RelativePath=".\CObj__STEP_METAL__OBJ_LIFT_PIN.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__OBJ_PT.cpp"
+					RelativePath=".\CObj__STEP_METAL__OBJ_MATCHER.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__OBJ_RF.cpp"
+					RelativePath=".\CObj__STEP_METAL__OBJ_MFC.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STEP_STD__OBJ_VAT.cpp"
+					RelativePath=".\CObj__STEP_METAL__OBJ_PT.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_METAL__OBJ_RF.cpp"
 					>
 				</File>
 			</Filter>
@@ -299,6 +303,62 @@
 				</File>
 				<File
 					RelativePath="..\..\CCommon_Utility\CCommon_Utility.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CObj__STEP_STRIP"
+				>
+				<File
+					RelativePath=".\CObj__STEP_STRIP.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__ALID.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__CALL_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__CALL_PROC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__DEF.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_APC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_LFC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_LIFT_PIN.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_MATCHER.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_MFC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_PT.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_RF.cpp"
 					>
 				</File>
 			</Filter>

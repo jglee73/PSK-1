@@ -8,17 +8,28 @@ int CObj__PROC_STD
 {
 	CString log_msg;
 
-	log_msg = "Process End - Start ...";
-	sCH__OBJ_MSG->Set__DATA(log_msg);
-
-	if(dEXT_CH__OBJ_CTRL->Check__DATA("ABORT") > 0)
+	// ...
 	{
-		dEXT_CH__OBJ_CTRL->Set__DATA("ABORTED");
+		log_msg = "Process End - Start ...";
+		sCH__OBJ_MSG->Set__DATA(log_msg);
+	}
+
+	// Step.End ...
+	{
+		pOBJ_CTRL__STEP->Dislink__UPPER_OBJECT();
+
+		pOBJ_CTRL__STEP->Call__OBJECT(_STEP_CMD__END);
+
+		pOBJ_CTRL__STEP->Link__UPPER_OBJECT();
 	}
 
 	// Chamber.Pumping ...
 	{
+		pOBJ_CTRL__CHM->Dislink__UPPER_OBJECT();
 
+		pOBJ_CTRL__CHM->Call__OBJECT(_CHM_CMD__HIGH_VAC_PUMP);
+
+		pOBJ_CTRL__CHM->Link__UPPER_OBJECT();
 	}
 	return 1;
 }

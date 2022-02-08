@@ -30,10 +30,11 @@ RETRY_ACTION:
 
 	// ...
 	{
-		dEXT_CH__DO_PIN_DOWN->Set__DATA(STR__OFF);		
-		dEXT_CH__DO_PIN_MIDDLE->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_UP->Set__DATA(STR__ON);		
+		dEXT_CH__DO_TRANSFER_PIN_DOWN->Set__DATA(STR__OFF);		
 
-		dEXT_CH__DO_PIN_UP->Set__DATA(STR__ON);		
+		if(bActive__DO_MIDDLE_PIN_UP)			dEXT_CH__DO_MIDDLE_PIN_UP->Set__DATA(STR__OFF);
+		if(bActive__DO_MIDDLE_PIN_DOWN)			dEXT_CH__DO_MIDDLE_PIN_DOWN->Set__DATA(STR__OFF);
 	}
 
 	if(iActive__SIM_MODE > 0)
@@ -92,7 +93,7 @@ RETRY_ACTION:
 }
 
 int CObj__LIFT_PIN_IO
-::Call__MIDDLE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
+::Call__MIDDLE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm, const bool active__middle_up)
 {
 RETRY_ACTION:
 
@@ -106,15 +107,25 @@ RETRY_ACTION:
 
 	// ...
 	{
-		dEXT_CH__DO_PIN_UP->Set__DATA(STR__OFF);		
-		dEXT_CH__DO_PIN_DOWN->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_UP->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_DOWN->Set__DATA(STR__OFF);		
 
-		dEXT_CH__DO_PIN_MIDDLE->Set__DATA(STR__ON);
+		if(active__middle_up)
+		{
+			if(bActive__DO_MIDDLE_PIN_UP)		dEXT_CH__DO_MIDDLE_PIN_UP->Set__DATA(STR__ON);
+			if(bActive__DO_MIDDLE_PIN_DOWN)		dEXT_CH__DO_MIDDLE_PIN_DOWN->Set__DATA(STR__OFF);
+		}
+		else
+		{
+			if(bActive__DO_MIDDLE_PIN_UP)		dEXT_CH__DO_MIDDLE_PIN_UP->Set__DATA(STR__OFF);
+			if(bActive__DO_MIDDLE_PIN_DOWN)		dEXT_CH__DO_MIDDLE_PIN_DOWN->Set__DATA(STR__ON);
+		}
 	}
 
 	if(iActive__SIM_MODE > 0)
 	{
-		_Fnc__SIM_PIN_POD(false, false, true);
+		if(active__middle_up)		_Fnc__SIM_PIN_POD(false, false, true);
+		else						_Fnc__SIM_PIN_POD(false, true,  false);	
 	}
 
 	// ...
@@ -176,17 +187,18 @@ RETRY_ACTION:
 
 	if(Fnc__CHECK_CHUCKING(p_variable, p_alarm) < 0)
 	{
-		return OBJ_ABORT;
+		return -11;
 	}
 
 	sCH__MON_ACT_NAME->Set__DATA(" -> TRANSFER.UP");
 
 	// ...
 	{
-		dEXT_CH__DO_PIN_DOWN->Set__DATA(STR__OFF);		
-		dEXT_CH__DO_PIN_MIDDLE->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_UP->Set__DATA(STR__ON);		
+		dEXT_CH__DO_TRANSFER_PIN_DOWN->Set__DATA(STR__OFF);		
 
-		dEXT_CH__DO_PIN_UP->Set__DATA(STR__ON);		
+		if(bActive__DO_MIDDLE_PIN_UP)			dEXT_CH__DO_MIDDLE_PIN_UP->Set__DATA(STR__OFF);
+		if(bActive__DO_MIDDLE_PIN_DOWN)			dEXT_CH__DO_MIDDLE_PIN_DOWN->Set__DATA(STR__OFF);
 	}
 
 	if(iActive__SIM_MODE > 0)
@@ -242,10 +254,10 @@ RETRY_ACTION:
 				}
 			}
 		}
-		return OBJ_ABORT;
+		return -21;
 	}
 
-	return OBJ_AVAILABLE;
+	return 1;
 }
 
 int CObj__LIFT_PIN_IO
@@ -258,10 +270,11 @@ RETRY_ACTION:
 
 	// ...
 	{
-		dEXT_CH__DO_PIN_UP->Set__DATA(STR__OFF);		
-		dEXT_CH__DO_PIN_MIDDLE->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_UP->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_DOWN->Set__DATA(STR__ON);
 
-		dEXT_CH__DO_PIN_DOWN->Set__DATA(STR__ON);
+		if(bActive__DO_MIDDLE_PIN_UP)			dEXT_CH__DO_MIDDLE_PIN_UP->Set__DATA(STR__OFF);
+		if(bActive__DO_MIDDLE_PIN_DOWN)			dEXT_CH__DO_MIDDLE_PIN_DOWN->Set__DATA(STR__OFF);
 	}	
 	
 	if(iActive__SIM_MODE > 0)
@@ -317,10 +330,11 @@ RETRY_ACTION:
 
 	// ...
 	{
-		dEXT_CH__DO_PIN_UP->Set__DATA(STR__OFF);		
-		dEXT_CH__DO_PIN_MIDDLE->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_UP->Set__DATA(STR__OFF);		
+		dEXT_CH__DO_TRANSFER_PIN_DOWN->Set__DATA(STR__ON);		
 
-		dEXT_CH__DO_PIN_DOWN->Set__DATA(STR__ON);		
+		if(bActive__DO_MIDDLE_PIN_UP)			dEXT_CH__DO_MIDDLE_PIN_UP->Set__DATA(STR__OFF);
+		if(bActive__DO_MIDDLE_PIN_DOWN)			dEXT_CH__DO_MIDDLE_PIN_DOWN->Set__DATA(STR__OFF);
 	}
 
 	if(iActive__SIM_MODE > 0)
@@ -371,12 +385,20 @@ RETRY_ACTION:
 				goto RETRY_ACTION;
 			}
 		}
-		return OBJ_ABORT;
+		return -11;
 	}
 
-	return OBJ_AVAILABLE;
+	return 1;
 }
 
+int CObj__LIFT_PIN_IO::Call__MIDDLE_UP(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	return Call__MIDDLE(p_variable,p_alarm, true);
+}
+int CObj__LIFT_PIN_IO::Call__MIDDLE_DOWN(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	return Call__MIDDLE(p_variable,p_alarm, false);
+}
 
 // ...
 CString CObj__LIFT_PIN_IO

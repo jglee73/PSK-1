@@ -6,6 +6,7 @@
 #include "CObj__APC_POS_CONDUCT.h"
 #include "CObj__FRC_CHECK.h"
 #include "CObj__GAUGE_CHECK.h"
+#include "CObj__DGF_CHECK.h"
 
 #include "CObj__AUTO_PM.h"
 
@@ -29,6 +30,7 @@ DECLARE_END__DLL_STD_OBJ__GET_VERSION
 #define CLS__APC_POS_CONDUCT					"APC.POS.CONDUCT"
 #define CLS__FRC_CHECK							"FRC.CHECK"
 #define CLS__GAUGE_CHECK						"GAUGE.CHECK"
+#define CLS__DGF_CHECK							"DGF.CHECK"
 
 #define CLS__AUTO_PM							"AUTO.PM"
 
@@ -40,6 +42,7 @@ ADD__OBJ_CLS(CLS__RF_CONDUCT)
 ADD__OBJ_CLS(CLS__APC_POS_CONDUCT)
 ADD__OBJ_CLS(CLS__FRC_CHECK)
 ADD__OBJ_CLS(CLS__GAUGE_CHECK)
+ADD__OBJ_CLS(CLS__DGF_CHECK)
 
 ADD__OBJ_CLS(CLS__AUTO_PM)
 
@@ -53,7 +56,9 @@ IF__OBJ_CLS(CLS__RF_CONDUCT)					return (new CObj__RF_CONDUCT);
 IF__OBJ_CLS(CLS__APC_POS_CONDUCT)				return (new CObj__APC_POS_CONDUCT);
 IF__OBJ_CLS(CLS__FRC_CHECK)						return (new CObj__FRC_CHECK);
 IF__OBJ_CLS(CLS__GAUGE_CHECK)					return (new CObj__GAUGE_CHECK);
+IF__OBJ_CLS(CLS__DGF_CHECK)						return (new CObj__DGF_CHECK);
 
 IF__OBJ_CLS(CLS__AUTO_PM)						return (new CObj__AUTO_PM);
 
 DECLARE_END__DLL_STD_OBJ__CREATE_LINK
+

@@ -19,11 +19,11 @@ private:
 	//-------------------------------------------------------------------------
 	CString sObject_Name;
 
-	SCX__SEQ_INFO xSEQ_INFO;
+	// ...
 	SCX__USER_LOG_CTRL xLOG_CTRL;
 
-	int	m_nMFC_NUM;
 	int iActive__SIM_MODE;
+	//
 
 
 	//-------------------------------------------------------------------------
@@ -162,7 +162,9 @@ private:
 	bool bActive__VLV_PURGE;
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__IO_VLV_PURGE;
 
+	bool bActive__VLV_IN;
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__IO_VLV_IN;
+
 	CX__VAR_DIGITAL_CTRL  dEXT_CH__IO_VLV_OUT;
 	//
 
@@ -181,7 +183,7 @@ private:
 
 	CString sMODE__CONTROL;
 	int  Call__CONTROL(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
-	int  Fnc__CONTROL(const double set_flow, const int open_mode, const double cfg_max);
+	int  Fnc__CONTROL(const double set_flow, const int open_mode, const double cfg_max, const bool active__purge_vlv = false);
 
 	CString sMODE__RAMP_CTRL;
 	int  Call__RAMP_CTRL(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
@@ -190,6 +192,9 @@ private:
 	CString sMODE__SET_FLOW;
 	int  Call__SET_FLOW(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
 	int  Fnc__SET_FLOW(const double set_flow);
+
+	CString sMODE__PURGE;
+	int  Call__PURGE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
 	//
 
 	// ...

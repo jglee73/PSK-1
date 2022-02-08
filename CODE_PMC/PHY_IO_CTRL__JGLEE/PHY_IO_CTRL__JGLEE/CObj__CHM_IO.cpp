@@ -243,6 +243,29 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_FORELINE_GAUGE_TORR, obj_name,var_name);
 	}
 
+	// RF INFO ...
+	{
+		def_name = "CH__RF_TOTAL_ON_STATE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RF_TOTAL_ON_STATE, obj_name,var_name);
+
+		//
+		def_name = "DATA.RF_SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+		iDATA__RF_SIZE = atoi(def_data);
+
+		if(iDATA__RF_SIZE > _CFG__RF_SIZE)			iDATA__RF_SIZE = _CFG__RF_SIZE;
+
+		for(i=0; i<iDATA__RF_SIZE; i++)
+		{
+			def_name.Format("CH__RF_ON_STATE.%1d", i+1);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RF_ON_STATE_X[i], obj_name,var_name);
+		}
+	}
+
 	/*
 	// LINK : State Channel
 	{
@@ -250,27 +273,6 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PROC_STATE, obj_name,var_name);
-
-		//
-		def_name = "CH__RF_ON_STATE";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RF_ON_STATE, obj_name,var_name);
-
-		def_name = "CH__HF_RF_POWER";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HF_RF_POWER, obj_name,var_name);
-
-		def_name = "CH__LF_RF_POWER";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__LF_RF_POWER, obj_name,var_name);
-
-		def_name = "CH__BIAS_RF_POWER";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__BIAS_RF_POWER, obj_name,var_name);
 	}
 	*/
 

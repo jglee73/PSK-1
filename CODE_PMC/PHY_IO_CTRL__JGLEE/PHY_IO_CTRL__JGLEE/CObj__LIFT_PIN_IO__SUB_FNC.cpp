@@ -38,47 +38,66 @@ int CObj__LIFT_PIN_IO
 ::Fnc__CHECK_CHUCKING(CII_OBJECT__VARIABLE *p_variable,
 					  CII_OBJECT__ALARM *p_alarm)
 {
-	CString str_data;
-	CString msg;
+	CString ch_data;
 
-	int nCfg_Esc_Pin_Up_Volt = 0;
-	int nCur_Esc_Voltage = 0;
-
-	// ESC Voltage Check (User Config) ...
-	aCH__CFG_ESC_VOLTAGE_PIN_UP_THRESHOLD->Get__DATA(str_data);
-	nCfg_Esc_Pin_Up_Volt = atoi(str_data);
-
-	nCur_Esc_Voltage = (int) aEXT_CH__AI_ESC_VOLTAGE->Get__VALUE();
-	nCur_Esc_Voltage = abs(nCur_Esc_Voltage);
-
-	if(nCur_Esc_Voltage > nCfg_Esc_Pin_Up_Volt)
+	// ESC.AI_Voltage : Check ...
 	{
-		// Alarm Posting
-		int alarm_id = ALID__CHUCKING_STATUS_ALARM;
+		double cfg__esc_pin_up_volt = aCH__CFG_ESC_VOLTAGE_PIN_UP_THRESHOLD->Get__VALUE();
+		double cur__ai_esc_voltage = 0;
 
-		msg.Format("ESC Current Voltage: %d, PIN UP Threshold: %d",
-			nCur_Esc_Voltage, nCfg_Esc_Pin_Up_Volt);
+		bool active__esc_voltage = false;
 
-		Alarm__POST_CHECK(p_alarm, msg, alarm_id);
-		return OBJ_ABORT;
+		if(cfg__esc_pin_up_volt > 0.1)
+		{
+			for(int i=0; i<iDATA__ESC_CH_SIZE; i++)
+			{
+				cur__ai_esc_voltage = aEXT_CH__ESC_AI_VOLTAGE_X[i]->Get__VALUE();
+				if(cur__ai_esc_voltage < cfg__esc_pin_up_volt)		continue;
+	
+				active__esc_voltage = true;
+				break;
+			}
+		}
+
+		if(active__esc_voltage)
+		{
+			int alm_id = ALID__CHUCKING_STATUS_ALARM;
+			CString alm_msg;
+			CString alm_bff;
+
+			alm_bff.Format("ESC current voltage : %d \n", cur__ai_esc_voltage);
+			alm_msg += alm_bff;
+
+			alm_bff.Format("PIN-UP threshold voltage : %d \n", cfg__esc_pin_up_volt);
+			alm_msg += alm_bff;
+
+			Alarm__POST_CHECK(p_alarm, alm_msg, alm_id);
+			return -11;
+		}
 	}
 
-	// ESC Status Check ...
-	if(sEXT_CH__CHUCK_STATE->Check__DATA("DECHUCKED") > 0)
+	// ESC.Chuck_State Check ...
+	if(bActive__ESC_CHUCK_STATE)
 	{
-		return OBJ_AVAILABLE;
+		if(sEXT_CH__ESC_CHUCK_STATE->Check__DATA("DECHUCKED") > 0)
+		{
+			return 1;
+		}
+
+		// ...
+		{
+			int alm_id = ALID__CHUCKING_STATUS_ALARM;
+			CString alm_msg;
+
+			sEXT_CH__ESC_CHUCK_STATE->Get__DATA(ch_data);
+			alm_msg.Format("Chuck-State : %s ", ch_data);
+
+			Alarm__POST_CHECK(p_alarm, alm_msg, alm_id);
+		}
+		return -1;
 	}
 
-	// ...
-	{
-		int alarm_id = ALID__CHUCKING_STATUS_ALARM;
-
-		sEXT_CH__CHUCK_STATE->Get__DATA(str_data);
-		msg.Format("Chuck Status:[%s]", str_data);
-
-		Alarm__POST_CHECK(p_alarm, msg, alarm_id);
-	}
-	return OBJ_ABORT;
+	return 1;
 }
 
 void CObj__LIFT_PIN_IO
@@ -86,34 +105,46 @@ void CObj__LIFT_PIN_IO
 {
 	Sleep(1000);
 
-	// ...
-	double cfg__up_min = 0.0;
-	double cfg__up_max = 0.0;
-	int i;
-
-	for(i=0; i<iPIN__SIZE; i++)
+	if(iDATA__PIN_SNS_TYPE == _PIN_TYPE__DI_SNS)
 	{
-		if(active_up)
-		{
-			cfg__up_min = aCH__CFG_UP_POS_MIN__PIN_X[i]->Get__VALUE();
-			cfg__up_max = aCH__CFG_UP_POS_MAX__PIN_X[i]->Get__VALUE();
-		}
-		else if(active_down)
-		{
-			cfg__up_min = aCH__CFG_DOWN_POS_MIN__PIN_X[i]->Get__VALUE();
-			cfg__up_max = aCH__CFG_DOWN_POS_MAX__PIN_X[i]->Get__VALUE();
-		}
-		else if(active_middle)
-		{
-			cfg__up_min = aCH__CFG_MIDDLE_POS_MIN__PIN_X[i]->Get__VALUE();
-			cfg__up_max = aCH__CFG_MIDDLE_POS_MAX__PIN_X[i]->Get__VALUE();
-		}
-		else
-		{
-			continue;
-		}
+		dEXT_CH__DI_PIN_UP->Set__DATA(STR__OFF);
+		dEXT_CH__DI_PIN_DOWN->Set__DATA(STR__OFF);
+		dEXT_CH__DI_PIN_MIDDLE->Set__DATA(STR__OFF);
 
-		double ref__pin_pos = (cfg__up_min + cfg__up_max) * 0.5;
-		aEXT_CH__AI_PIN_POS_X[i]->Set__VALUE(ref__pin_pos);
+		if(active_up)			dEXT_CH__DI_PIN_UP->Set__DATA(STR__ON);
+		if(active_down)			dEXT_CH__DI_PIN_DOWN->Set__DATA(STR__ON);
+		if(active_middle)		dEXT_CH__DI_PIN_MIDDLE->Set__DATA(STR__ON);
+	}
+	else
+	{
+		double cfg__up_min = 0.0;
+		double cfg__up_max = 0.0;
+		int i;
+
+		for(i=0; i<iSIZE__AI_PIN__POS; i++)
+		{
+			if(active_up)
+			{
+				cfg__up_min = aCH__CFG_UP_POS_MIN__PIN_X[i]->Get__VALUE();
+				cfg__up_max = aCH__CFG_UP_POS_MAX__PIN_X[i]->Get__VALUE();
+			}
+			else if(active_down)
+			{
+				cfg__up_min = aCH__CFG_DOWN_POS_MIN__PIN_X[i]->Get__VALUE();
+				cfg__up_max = aCH__CFG_DOWN_POS_MAX__PIN_X[i]->Get__VALUE();
+			}
+			else if(active_middle)
+			{
+				cfg__up_min = aCH__CFG_MIDDLE_POS_MIN__PIN_X[i]->Get__VALUE();
+				cfg__up_max = aCH__CFG_MIDDLE_POS_MAX__PIN_X[i]->Get__VALUE();
+			}
+			else
+			{
+				continue;
+			}
+
+			double ref__pin_pos = (cfg__up_min + cfg__up_max) * 0.5;
+			aEXT_CH__AI_PIN_POS_X[i]->Set__VALUE(ref__pin_pos);
+		}
 	}
 }

@@ -198,6 +198,14 @@ int CObj__PROC_STD
 int CObj__PROC_STD
 ::_Check__ALARM_RECOVERY(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
+	// Step.Abort ...
+	{
+		pOBJ_CTRL__STEP->Dislink__UPPER_OBJECT();
+
+		pOBJ_CTRL__STEP->Call__OBJECT(_STEP_CMD__ABORT);
+
+		pOBJ_CTRL__STEP->Link__UPPER_OBJECT();
+	}
 
 	// ...
 	{

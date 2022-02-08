@@ -434,6 +434,34 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="CObj__DGF_CHECK"
+				>
+				<File
+					RelativePath=".\CObj__DGF_CHECK.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__DGF_CHECK.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__DGF_CHECK__ALID.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__DGF_CHECK__CALL_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__DGF_CHECK__DEF.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__DGF_CHECK__MON_FNC.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="헤더 파일"

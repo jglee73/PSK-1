@@ -168,34 +168,37 @@ int CObj__RF_STD
 {
 	CString str_data;
 
-	// 1. RF Ramp SET (msec)
+	if(bActive__RF_FREQ_MODE)
 	{
-		aCH__CFG_DEFAULT_RAMP_TIME->Get__DATA(str_data);				
+		// 1. RF Ramp SET (msec)
+		{
+			aCH__CFG_DEFAULT_RAMP_TIME->Get__DATA(str_data);				
 
-		aCH__PARA_RAMP_UP_TIME->Set__DATA(str_data);					
-		aEXT_CH__RF_PARA_RAMP_UP_TIME->Set__DATA(str_data);				
+			aCH__PARA_RAMP_UP_TIME->Set__DATA(str_data);					
+			aEXT_CH__RF_PARA_RAMP_UP_TIME->Set__DATA(str_data);				
 
-		aCH__PARA_RAMP_DOWN_TIME->Set__DATA(str_data);					
-		aEXT_CH__RF_PARA_RAMP_DOWN_TIME->Set__DATA(str_data);			
+			aCH__PARA_RAMP_DOWN_TIME->Set__DATA(str_data);					
+			aEXT_CH__RF_PARA_RAMP_DOWN_TIME->Set__DATA(str_data);			
+		}
+
+		// 2. RF Frequency SET (kHz)
+		{
+			aCH__CFG_DEFAULT_FREQUENCY->Get__DATA(str_data);	
+
+			aCH__PARA_FREQ_PRESET->Set__DATA(str_data);				
+			aEXT_CH__RF_PARA_START_FREQUENCY->Set__DATA(str_data);
+		}
+
+		// 3. RF Tune Delay Time SET (msec)
+		{
+			aCH__CFG_DEFAULT_TUNE_DELAY->Get__DATA(str_data);	
+
+			aCH__PARA_FREQ_TUNE_DELAY->Set__DATA(str_data);			
+			aEXT_CH__RF_PARA_TUNE_DELAY->Set__DATA(str_data);	
+		}
 	}
 
-	// 2. RF Frequency SET (kHz)
-	{
-		aCH__CFG_DEFAULT_FREQUENCY->Get__DATA(str_data);	
-
-		aCH__PARA_FREQ_PRESET->Set__DATA(str_data);				
-		aEXT_CH__RF_PARA_START_FREQUENCY->Set__DATA(str_data);
-	}
-
-	// 3. RF Tune Delay Time SET (msec)
-	{
-		aCH__CFG_DEFAULT_TUNE_DELAY->Get__DATA(str_data);	
-
-		aCH__PARA_FREQ_TUNE_DELAY->Set__DATA(str_data);			
-		aEXT_CH__RF_PARA_TUNE_DELAY->Set__DATA(str_data);	
-	}
-
-	return OBJ_AVAILABLE;
+	return 1;
 }
 int CObj__RF_STD
 ::Fnc__RECIPE_CONTROL_SET(CII_OBJECT__VARIABLE *p_variable, 
@@ -203,32 +206,35 @@ int CObj__RF_STD
 {
 	CString str_data;
 
-	// 1. RF Ramp SET (msec)
+	if(bActive__RF_FREQ_MODE)
 	{
-		aCH__PARA_RAMP_UP_TIME->Get__DATA(str_data);		
-		aEXT_CH__RF_PARA_RAMP_UP_TIME->Set__DATA(str_data);	
+		// 1. RF Ramp SET (msec)
+		{
+			aCH__PARA_RAMP_UP_TIME->Get__DATA(str_data);		
+			aEXT_CH__RF_PARA_RAMP_UP_TIME->Set__DATA(str_data);	
 
-		aCH__PARA_RAMP_DOWN_TIME->Get__DATA(str_data);			
-		aEXT_CH__RF_PARA_RAMP_DOWN_TIME->Set__DATA(str_data);	
+			aCH__PARA_RAMP_DOWN_TIME->Get__DATA(str_data);			
+			aEXT_CH__RF_PARA_RAMP_DOWN_TIME->Set__DATA(str_data);	
+		}
+
+		// 2. RF Frequency SET (kHz)
+		{
+			aCH__PARA_FREQ_PRESET->Get__DATA(str_data);					
+			aEXT_CH__RF_PARA_START_FREQUENCY->Set__DATA(str_data);	
+		}
+
+		// 3. RF Frequency Output Power SET (kHz)
+		{
+			aCH__PARA_FREQ_OUTPUT->Get__DATA(str_data);			
+			aEXT_CH__RF_PARA_OUTPUT_FREQUENCY->Set__DATA(str_data);	
+		}
+
+		// 4. RF Tune Delay Time SET (msec)
+		{
+			aCH__PARA_FREQ_TUNE_DELAY->Get__DATA(str_data);	
+			aEXT_CH__RF_PARA_TUNE_DELAY->Set__DATA(str_data);
+		}
 	}
 
-	// 2. RF Frequency SET (kHz)
-	{
-		aCH__PARA_FREQ_PRESET->Get__DATA(str_data);					
-		aEXT_CH__RF_PARA_START_FREQUENCY->Set__DATA(str_data);	
-	}
-
-	// 3. RF Frequency Output Power SET (kHz)
-	{
-		aCH__PARA_FREQ_OUTPUT->Get__DATA(str_data);			
-		aEXT_CH__RF_PARA_OUTPUT_FREQUENCY->Set__DATA(str_data);	
-	}
-
-	// 4. RF Tune Delay Time SET (msec)
-	{
-		aCH__PARA_FREQ_TUNE_DELAY->Get__DATA(str_data);	
-		aEXT_CH__RF_PARA_TUNE_DELAY->Set__DATA(str_data);
-	}
-
-	return OBJ_AVAILABLE;
+	return 1;
 }

@@ -274,6 +274,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__VAT_IO__DEF.h"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__VAT_IO__MON_ERROR_CHECK.cpp"
 					>
 				</File>
@@ -339,30 +343,6 @@
 				>
 				<File
 					RelativePath=".\CCommon_Def.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="CObj__VAC_VLV_FNC"
-				>
-				<File
-					RelativePath=".\CObj__VAC_VLV_FNC.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__VAC_VLV_FNC.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__VAC_VLV_FNC__CALL_FNC.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__VAC_VLV_FNC__DEF.h"
-					>
-				</File>
-				<File
-					RelativePath=".\CObj__VAC_VLV_FNC__MON_STATE_CHECK.cpp"
 					>
 				</File>
 			</Filter>

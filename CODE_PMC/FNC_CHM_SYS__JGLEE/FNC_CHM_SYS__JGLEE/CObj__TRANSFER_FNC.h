@@ -33,6 +33,7 @@ private:
 	CX__VAR_DIGITAL_CTRL dEXT_CH__RFx_ON_STS[_CFG__RF_SIZE];
 
 	// OBJ : ESC ...
+	bool bActive__ESC_ON_STS;
 	CX__VAR_DIGITAL_CTRL dEXT_CH__ESC_ON_STS;
 	//
 

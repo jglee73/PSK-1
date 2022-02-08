@@ -56,22 +56,41 @@ int  CObj__ESC_IO
 
 	// Setting ...
 	{
-		aCH__CFG_ESC_CENTER_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
-		sCH__PARA_ESC_CENTER_SET_VOLTAGE->Set__DATA(var_data);
+		// Center.Cfg ...
+		{
+			aCH__CFG_ESC_CENTER_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
+			sCH__PARA_ESC_CENTER_SET_VOLTAGE->Set__DATA(var_data);
 
-		aCH__CFG_HE_CENTER_PRESSURE_SETPOINT->Get__DATA(var_data);
-		sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+			aCH__CFG_HE_CENTER_PRESSURE_SETPOINT->Get__DATA(var_data);
+			sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+		}
+		// Edge.Cfg ...
+		{
+			aCH__CFG_ESC_EDGE_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
+			sCH__PARA_ESC_EDGE_SET_VOLTAGE->Set__DATA(var_data);
+
+			aCH__CFG_HE_EDGE_PRESSURE_SETPOINT->Get__DATA(var_data);
+			sCH__PARA_He_SET_PRESSURE_EDGE->Set__DATA(var_data);
+		}
 	}
 
 	// Monitoring ...
 	{
-		// Center Flow ...
+		// Center.Flow ...
 		{
 			aCH__CFG_HE_CENTER_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
 			aCH__MON_HE_CENTER_FLOW_MIN_THRESHOLD->Set__DATA(var_data);
 
 			aCH__CFG_HE_CENTER_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
 			aCH__MON_HE_CENTER_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
+		}
+		// Edge.Flow ...
+		{
+			aCH__CFG_HE_EDGE_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
+			aCH__MON_HE_EDGE_FLOW_MIN_THRESHOLD->Set__DATA(var_data);
+
+			aCH__CFG_HE_EDGE_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
+			aCH__MON_HE_EDGE_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
 		}
 	}
 
@@ -91,17 +110,27 @@ int  CObj__ESC_IO
 
 		// Setting ...
 		{
-			aCH__CFG_ESC_CENTER_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
-			sCH__PARA_ESC_CENTER_SET_VOLTAGE->Set__DATA(var_data);
+			// Center.Cfg ...
+			{
+				aCH__CFG_ESC_CENTER_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
+				sCH__PARA_ESC_CENTER_SET_VOLTAGE->Set__DATA(var_data);
 
-			//
-			var_data = sCH__RCP_He_CENTER_PRESSURE_SETPOINT_TORR->Get__STRING();
-			sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+				var_data = sCH__RCP_He_CENTER_PRESSURE_SETPOINT_TORR->Get__STRING();
+				sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+			}
+			// Edge.Cfg ...
+			{
+				aCH__CFG_ESC_EDGE_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
+				sCH__PARA_ESC_EDGE_SET_VOLTAGE->Set__DATA(var_data);
+
+				var_data = sCH__RCP_He_EDGE_PRESSURE_SETPOINT_TORR->Get__STRING();
+				sCH__PARA_He_SET_PRESSURE_EDGE->Set__DATA(var_data);
+			}
 		}
 
 		// Monitoring ...
 		{
-			// Center Flow ...
+			// Center.Flow ...
 			{
 				var_data = sCH__RCP_He_CENTER_FLOW_MIN_THRESHOLD->Get__STRING();
 				double rcp_min = atof(var_data);
@@ -116,6 +145,21 @@ int  CObj__ESC_IO
 				if(rcp_max < 0.001)		aCH__CFG_HE_CENTER_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
 				aCH__MON_HE_CENTER_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
 			}
+			// Edge.Flow ...
+			{
+				var_data = sCH__RCP_He_EDGE_FLOW_MIN_THRESHOLD->Get__STRING();
+				double rcp_min = atof(var_data);
+
+				if(rcp_min < 0.001)		aCH__CFG_HE_EDGE_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
+				aCH__MON_HE_EDGE_FLOW_MIN_THRESHOLD->Set__DATA(var_data);
+
+				//
+				var_data = sCH__RCP_He_EDGE_FLOW_MAX_THRESHOLD->Get__STRING();
+				double rcp_max = atof(var_data);
+
+				if(rcp_max < 0.001)		aCH__CFG_HE_EDGE_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
+				aCH__MON_HE_EDGE_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
+			}
 		}
 	}
 	else
@@ -124,22 +168,41 @@ int  CObj__ESC_IO
 
 		// Setting ...
 		{
-			aCH__CFG_ESC_CENTER_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
-			sCH__PARA_ESC_CENTER_SET_VOLTAGE->Set__DATA(var_data);
+			// Center.Cfg ...
+			{
+				aCH__CFG_ESC_CENTER_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
+				sCH__PARA_ESC_CENTER_SET_VOLTAGE->Set__DATA(var_data);
 
-			aCH__TEST_PARA_He_SET_PRESSURE_CENTER->Get__DATA(var_data);
-			sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+				aCH__TEST_PARA_He_SET_PRESSURE_CENTER->Get__DATA(var_data);
+				sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+			}
+			// Edge.Cfg ...
+			{
+				aCH__CFG_ESC_EDGE_CHUCKING_VOLTAGE_SETPOINT->Get__DATA(var_data);
+				sCH__PARA_ESC_EDGE_SET_VOLTAGE->Set__DATA(var_data);
+
+				aCH__TEST_PARA_He_SET_PRESSURE_EDGE->Get__DATA(var_data);
+				sCH__PARA_He_SET_PRESSURE_EDGE->Set__DATA(var_data);
+			}
 		}
 
 		// Monitoring ...
 		{
-			// Center Flow ...
+			// Center.Flow ...
 			{
 				aCH__CFG_HE_CENTER_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
 				aCH__MON_HE_CENTER_FLOW_MIN_THRESHOLD->Set__DATA(var_data);
 
 				aCH__CFG_HE_CENTER_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
 				aCH__MON_HE_CENTER_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
+			}
+			// Edge.Flow ...
+			{
+				aCH__CFG_HE_EDGE_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
+				aCH__MON_HE_EDGE_FLOW_MIN_THRESHOLD->Set__DATA(var_data);
+
+				aCH__CFG_HE_EDGE_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
+				aCH__MON_HE_EDGE_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
 			}
 		}
 	}
@@ -154,8 +217,16 @@ int  CObj__ESC_IO
 
 	// Setting ...
 	{
-		var_data = sCH__RCP_He_CENTER_PRESSURE_SETPOINT_TORR->Get__STRING();
-		sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+		// Center.RCP ...
+		{
+			var_data = sCH__RCP_He_CENTER_PRESSURE_SETPOINT_TORR->Get__STRING();
+			sCH__PARA_He_SET_PRESSURE_CENTER->Set__DATA(var_data);
+		}
+		// Edge.RCP ...
+		{
+			var_data = sCH__RCP_He_EDGE_PRESSURE_SETPOINT_TORR->Get__STRING();
+			sCH__PARA_He_SET_PRESSURE_EDGE->Set__DATA(var_data);
+		}
 	}
 
 	int r_flag = Fnc__HE_SET_OF_PROC(p_variable, p_alarm);
@@ -163,7 +234,7 @@ int  CObj__ESC_IO
 	// Monitoring ...
 	if(r_flag > 0)
 	{
-		// Center Flow ...
+		// Center.Flow ...
 		{
 			var_data = sCH__RCP_He_CENTER_FLOW_MIN_THRESHOLD->Get__STRING();
 			double rcp_min = atof(var_data);
@@ -178,6 +249,21 @@ int  CObj__ESC_IO
 			if(rcp_max < 0.001)		aCH__CFG_HE_CENTER_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
 			aCH__MON_HE_CENTER_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
 		}
+		// Edge.Flow ...
+		{
+			var_data = sCH__RCP_He_EDGE_FLOW_MIN_THRESHOLD->Get__STRING();
+			double rcp_min = atof(var_data);
+
+			if(rcp_min < 0.001)		aCH__CFG_HE_EDGE_FLOW_MIN_THRESHOLD->Get__DATA(var_data);
+			aCH__MON_HE_EDGE_FLOW_MIN_THRESHOLD->Set__DATA(var_data);
+
+			//
+			var_data = sCH__RCP_He_EDGE_FLOW_MAX_THRESHOLD->Get__STRING();
+			double rcp_max = atof(var_data);
+
+			if(rcp_max < 0.001)		aCH__CFG_HE_EDGE_FLOW_MAX_THRESHOLD->Get__DATA(var_data);
+			aCH__MON_HE_EDGE_FLOW_MAX_THRESHOLD->Set__DATA(var_data);
+		}
 	}
 
 	return r_flag;
@@ -191,6 +277,5 @@ int  CObj__ESC_IO
 	int r_flag = Fnc__DECHUCK(p_variable, p_alarm, dechuck_mode);
 
 	doEXT_CH__ESC_All_Voltage->Set__DATA(STR__Off);
-
 	return r_flag;
 }

@@ -11,7 +11,8 @@
 #define  ALID__ESC_EDGE_CHUCK_VOLTAGE__MIN_ERROR					6
 #define  ALID__ESC_EDGE_CHUCK_VOLTAGE__MAX_ERROR					7
 
-#define  ALID__ESC_CHUCK_SHUTTER_NOT_CLOSE							8
+#define  ALID__SHUTTER_NOT_CLOSE							        8
+#define  ALID__SLOT_VALVE_NOT_CLOSE			  				        9
 
 // ...
 #define  ALID__HE_PRESSURE__MAX_ERROR								11

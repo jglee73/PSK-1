@@ -24,7 +24,7 @@
 
 
 // ...
-#define CFG__MFC_SIZE								11
+#define CFG__MFC_SIZE								17
 #define CFG__GAS_FLOW_LIST							10
 #define CFG__GAS_FLOW_EVEN_LIST						5
 

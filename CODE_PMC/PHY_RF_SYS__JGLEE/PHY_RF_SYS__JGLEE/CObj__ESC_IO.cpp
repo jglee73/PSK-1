@@ -1039,6 +1039,10 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_STRING(var_name);
 		LINK__VAR_STRING_CTRL(sCH__RCP_He_CENTER_PRESSURE_SETPOINT_TORR, var_name);
 
+		var_name = "RCP.He_EDGE.PRESSURE_SETPOINT.TORR";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__RCP_He_EDGE_PRESSURE_SETPOINT_TORR, var_name);
+
 		//
 		var_name = "RCP.He_CENTER.ZONE.FLOW.MAX.THRESHOLD";
 		STD__ADD_STRING(var_name);
@@ -1047,6 +1051,15 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		var_name = "RCP.He_CENTER.ZONE.FLOW.MIN.THRESHOLD";
 		STD__ADD_STRING(var_name);
 		LINK__VAR_STRING_CTRL(sCH__RCP_He_CENTER_FLOW_MIN_THRESHOLD, var_name);
+
+		//
+		var_name = "RCP.He_EDGE.ZONE.FLOW.MAX.THRESHOLD";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__RCP_He_EDGE_FLOW_MAX_THRESHOLD, var_name);
+
+		var_name = "RCP.He_EDGE.ZONE.FLOW.MIN.THRESHOLD";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__RCP_He_EDGE_FLOW_MIN_THRESHOLD, var_name);
 	}
 
 	// ...
@@ -1470,13 +1483,27 @@ int CObj__ESC_IO::__DEFINE__ALARM(p_alarm)
 
 	// ...
 	{
-		alarm_id = ALID__ESC_CHUCK_SHUTTER_NOT_CLOSE;
+		alarm_id = ALID__SHUTTER_NOT_CLOSE;
 
 		alarm_title  = title;
 		alarm_title += "Shutter not close !";
 
 		alarm_msg  = "";
 		alarm_msg += "Shutter가 닫힌 상태인지? 확인 바랍니다 ! \n";
+
+		ACT__CLEAR;
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__SLOT_VALVE_NOT_CLOSE;
+
+		alarm_title  = title;
+		alarm_title += "Slot-Valve not close !";
+
+		alarm_msg  = "";
+		alarm_msg += "Slot-Valve가 닫힌 상태인지? 확인 바랍니다 ! \n";
 
 		ACT__CLEAR;
 
@@ -1565,11 +1592,39 @@ int CObj__ESC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			var_name = "SLOT01.STATUS";
 			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__WAFER_STATUS, obj_name,var_name);
 
-			var_name = "SHUTTER.STATUS";
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SHUTTER_STATUS, obj_name,var_name);
-
 			var_name = "CFG.DECHUCK.CTRL.MODE";
 			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DECHUCK_CTRL_MODE, obj_name,var_name);
+		}
+	}
+
+	// LInk.Shutter_State ...
+	{
+		def_name = "CH__SHUTTER_STATE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__SHUTTER_STATUS = def_check;
+
+		if(def_check)
+		{
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SHUTTER_STATUS, obj_name,var_name);
+		}
+	}
+	// Link.Slot_Valve_State ...
+	{
+		def_name = "CH__SLOT_VALVE_STATE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__SLOT_VALVE_STATE = def_check;
+
+		if(def_check)
+		{
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SLOT_VALVE_STATE, obj_name,var_name);
 		}
 	}
 
@@ -1589,7 +1644,17 @@ int CObj__ESC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			
 			def_check = x_utility.Check__Link(def_data);
-			bActive__CENTER_USE = def_check;
+			bActive__CENTER_USE      = def_check;
+			bActive__CENTER_3WAY_VLV = def_check; 
+
+			if(bActive__CENTER_USE)
+			{
+				def_name = "DATA__CENTER_3WAY_VALVE";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			
+				def_check = x_utility.Check__Link(def_data);
+				bActive__CENTER_3WAY_VLV = def_check;
+			}
 		}
 		// EDGE.USE ...
 		{
@@ -1597,7 +1662,17 @@ int CObj__ESC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
 			def_check = x_utility.Check__Link(def_data);
-			bActive__EDGE_USE = def_check;
+			bActive__EDGE_USE      = def_check;
+			bActive__EDGE_3WAY_VLV = def_check; 
+
+			if(bActive__EDGE_USE)
+			{
+				def_name = "DATA__EDGE_3WAY_VALVE";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+				def_check = x_utility.Check__Link(def_data);
+				bActive__EDGE_3WAY_VLV = def_check;
+			}
 		}
 
 		// ESC IO ...
@@ -1659,11 +1734,6 @@ int CObj__ESC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__He_Side_Supply_Vlv, obj_name,var_name);
 
-				def_name = "CH__DO_HE_SIDE_DUMP_VLV";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__He_Side_Dump_Vlv, obj_name,var_name);
-
 				def_name = "CH__DO_HE_EXHAUST_VLV";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
@@ -1682,6 +1752,11 @@ int CObj__ESC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__He_Final_Dump_Vlv_CENTER, obj_name,var_name);			
+
+				def_name = "CH__DO_HE_SIDE_DUMP_VLV.CENTER";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__He_Side_Dump_Vlv_CENTER, obj_name,var_name);
 			}
 			// Edge ...
 			if(bActive__EDGE_USE)
@@ -1695,6 +1770,11 @@ int CObj__ESC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__He_Final_Dump_Vlv_EDGE, obj_name,var_name);			
+
+				def_name = "CH__DO_HE_SIDE_DUMP_VLV.EDGE";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__He_Side_Dump_Vlv_EDGE, obj_name,var_name);
 			}
 		}
 

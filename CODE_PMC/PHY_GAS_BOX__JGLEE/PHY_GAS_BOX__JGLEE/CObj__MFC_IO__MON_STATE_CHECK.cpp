@@ -63,8 +63,19 @@ int  CObj__MFC_IO
 		}
 		else
 		{
-			sCH__MON_MFC_FLOW_PERCENT->Set__DATA("???");
-			aCH__MON_MFC_READ_FLOW->Set__VALUE(0);
+			ch_data = sEXT_CH__IO_MFC_READ->Get__STRING();
+			double cur__io_flow = atof(ch_data);
+
+			double cfg__flow_max = aCH__CFG_MFC_MAX_VALUE->Get__VALUE();
+			double cur__flow_per = 0.0;
+
+			if(cfg__flow_max > 0.01)			cur__flow_per = cur__io_flow / cfg__flow_max;
+			else								cur__flow_per = 0.0;
+
+			ch_data.Format("%.1f", cur__flow_per*100.0);
+			sCH__MON_MFC_FLOW_PERCENT->Set__DATA(ch_data);
+
+			aCH__MON_MFC_READ_FLOW->Set__VALUE(cur__io_flow);
 		}
 
 		// Status ...
@@ -107,8 +118,8 @@ int  CObj__MFC_IO
 				ch_data = sEXT_CH__IO_MFC_VALVE_VOLTAGE->Get__STRING();
 				m_value.uiDATA = atoi(ch_data);
 
-				if(m_value.uiDATA <= 0x7FFF)		cur_percent =  m_value.uiDATA / (double) 0x6000;
-				else								cur_percent = (m_value.uiDATA - 0xFFFF) / (double) 0x6000;
+				if(m_value.uiDATA <= 0x7FFF)		cur_percent =  m_value.uiDATA / (double) iLINK_DATA__MAX_DEFAULT;
+				else								cur_percent = (m_value.uiDATA - 0xFFFF) / (double) iLINK_DATA__MAX_DEFAULT;
 
 				double cfg_max = 100.0;
 				int i_dec = 1;
@@ -150,8 +161,8 @@ int  CObj__MFC_IO
 					ch_data = sEXT_CH__IO_MFC_PRESSURE->Get__STRING();
 					m_value.uiDATA = atoi(ch_data);
 
-					if(m_value.uiDATA <= 0x7FFF)		cur_percent =  m_value.uiDATA / (double) 0x6000;
-					else								cur_percent = (m_value.uiDATA - 0xFFFF) / (double) 0x6000;
+					if(m_value.uiDATA <= 0x7FFF)		cur_percent =  m_value.uiDATA / (double) iLINK_DATA__MAX_DEFAULT;
+					else								cur_percent = (m_value.uiDATA - 0xFFFF) / (double) iLINK_DATA__MAX_DEFAULT;
 
 					double cfg_max = aCH__CFG_RANGE_MAX_PRESSURE->Get__VALUE();
 					int i_dec = (int) aCH__CFG_RANGE_DEC_PRESSURE->Get__VALUE();
@@ -190,8 +201,8 @@ int  CObj__MFC_IO
 				ch_data = sEXT_CH__IO_MFC_TEMPERATURE->Get__STRING();
 				m_value.uiDATA = atoi(ch_data);
 
-				if(m_value.uiDATA <= 0x7FFF)		cur_percent =  m_value.uiDATA / (double) 0x6000;
-				else								cur_percent = (m_value.uiDATA - 0xFFFF) / (double) 0x6000;
+				if(m_value.uiDATA <= 0x7FFF)		cur_percent =  m_value.uiDATA / (double) iLINK_DATA__MAX_DEFAULT;
+				else								cur_percent = (m_value.uiDATA - 0xFFFF) / (double) iLINK_DATA__MAX_DEFAULT;
 
 				double cfg_max = aCH__CFG_RANGE_MAX_TEMPERATURE->Get__VALUE();
 				int i_dec = (int) aCH__CFG_RANGE_DEC_TEMPERATURE->Get__VALUE();

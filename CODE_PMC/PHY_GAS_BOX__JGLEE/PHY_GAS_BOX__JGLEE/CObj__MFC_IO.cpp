@@ -21,10 +21,11 @@ int CObj__MFC_IO::__DEFINE__CONTROL_MODE(obj,l_mode)
 
 	// ...
 	{
-		ADD__CTRL_VAR(sMODE__INIT,    "INIT");
+		ADD__CTRL_VAR(sMODE__INIT,  "INIT");
 
-		ADD__CTRL_VAR(sMODE__OPEN,	  "OPEN");
-		ADD__CTRL_VAR(sMODE__CLOSE,	  "CLOSE");
+		ADD__CTRL_VAR(sMODE__OPEN,	"OPEN");
+		ADD__CTRL_VAR(sMODE__CLOSE,	"CLOSE");
+		ADD__CTRL_VAR(sMODE__PURGE, "PURGE");
 
 		ADD__CTRL_VAR(sMODE__CONTROL,   "CONTROL");
 		ADD__CTRL_VAR(sMODE__RAMP_CTRL, "RAMP.CTRL");
@@ -502,6 +503,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	CCommon_Utility m_fnc;	
+	bool def_check;
 
 	// DB_SYS ...
 	{
@@ -556,6 +558,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 		
 		// MAX.FLOW ...
+		if(iLINK_DATA__TYPE == _DATA_TYPE__HEXA)
 		{
 			def_name = "LINK_DATA__MAX_FLOW";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
@@ -575,6 +578,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			sCH__INFO_LINK_DATA__MAX_FLOW->Set__DATA(ch_data);
 		}
 		// MAX.DEFAULT ...
+		if(iLINK_DATA__TYPE == _DATA_TYPE__HEXA)
 		{
 			def_name = "LINK_DATA__MAX_DEFAULT";	
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
@@ -611,7 +615,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				def_name = "CH__IO_MFC_STATE";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
-				bool def_check = m_fnc.Check__Link(ch_name);
+				def_check = m_fnc.Check__Link(ch_name);
 				bActive__MFC_STATE = def_check;
 
 				if(def_check)
@@ -626,7 +630,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				def_name = "CH__IO_MFC_VALVE_VOLTAGE";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
-				bool def_check = m_fnc.Check__Link(ch_name);
+				def_check = m_fnc.Check__Link(ch_name);
 				bActive__MFC_VALVE_VOLTAGE = def_check;
 
 				if(def_check)
@@ -641,7 +645,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				def_name = "CH__IO_MFC_PRESSURE";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
-				bool def_check = m_fnc.Check__Link(ch_name);
+				def_check = m_fnc.Check__Link(ch_name);
 				bActive__MFC_PRESSURE = def_check;
 
 				if(def_check)
@@ -656,7 +660,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				def_name = "CH__IO_MFC_TEMPERATURE";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
-				bool def_check = m_fnc.Check__Link(ch_name);
+				def_check = m_fnc.Check__Link(ch_name);
 				bActive__MFC_TEMPERATURE = def_check;
 
 				if(def_check)
@@ -672,7 +676,7 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			def_name = "CH__IO_VLV_PURGE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
-			bool def_check = m_fnc.Check__Link(ch_name);
+			def_check = m_fnc.Check__Link(ch_name);
 			bActive__VLV_PURGE = def_check;
 
 			if(def_check)
@@ -684,9 +688,17 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			//
 			def_name = "CH__IO_VLV_IN";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__IO_VLV_IN, obj_name,var_name);
 
+			def_check = m_fnc.Check__Link(ch_name);
+			bActive__VLV_IN = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__IO_VLV_IN, obj_name,var_name);
+			}
+
+			//
 			def_name = "CH__IO_VLV_OUT";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
@@ -835,6 +847,12 @@ int CObj__MFC_IO::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__OPEN)
 		{
 			flag = Call__OPEN(p_variable,p_alarm);
+
+			sCH__MON_MFC_STATE->Set__DATA(STR__OPEN);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__PURGE)
+		{
+			flag = Call__PURGE(p_variable,p_alarm);
 
 			sCH__MON_MFC_STATE->Set__DATA(STR__OPEN);
 		}

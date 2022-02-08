@@ -3,6 +3,7 @@
 
 // ...
 #define  _CFG__PIN_SIZE							3
+#define  _CFG__ESC_CH_SIZE                      3
 
 
 // ...
@@ -21,3 +22,8 @@
 // ...
 #define  CYCLE_MODE__UpToDown					1
 #define  CYCLE_MODE__MiddleToDown				2
+
+// ...
+#define  _PIN_TYPE__DI_SNS						1
+#define  _PIN_TYPE__AI_SNS						2
+

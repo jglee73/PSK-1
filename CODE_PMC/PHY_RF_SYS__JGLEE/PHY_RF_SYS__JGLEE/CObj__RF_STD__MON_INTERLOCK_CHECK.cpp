@@ -138,17 +138,20 @@ int CObj__RF_STD
 			{
 				count__di_shutter = 0;
 
-				// ...
+				if(dCH__MON_IO_POWER_STATE->Check__DATA(STR__ON) > 0)
 				{
-					int alarm_id = ALID__CHAMBER_SHUTTER_NOT_CLOSE;
-					CString r_act;
+					// ...
+					{
+						int alarm_id = ALID__CHAMBER_SHUTTER_NOT_CLOSE;
+						CString r_act;
 
-					p_alarm->Check__ALARM(alarm_id,r_act);
-					p_alarm->Post__ALARM(alarm_id);
+						p_alarm->Check__ALARM(alarm_id,r_act);
+						p_alarm->Post__ALARM(alarm_id);
+					}
+
+					dCH__RF_ABORT_FLAG->Set__DATA("ON");
+					Call__OFF(p_variable, p_alarm);
 				}
-
-				dCH__RF_ABORT_FLAG->Set__DATA("ON");
-				Call__OFF(p_variable, p_alarm);
 			}
 		}
 		else

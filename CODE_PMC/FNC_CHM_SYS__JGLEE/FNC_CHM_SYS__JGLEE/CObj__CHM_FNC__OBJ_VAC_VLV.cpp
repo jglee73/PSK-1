@@ -12,11 +12,14 @@ int CObj__CHM_FNC
 {
 	int r_flag = 1;
 
-	if(pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD_VAC__ALL_CLOSE) < 0)		r_flag = -11;
-	
+	if(bActive__PHY_VAC_VLV)
+	{
+		if(pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD_VAC__ALL_CLOSE) < 0)		r_flag = -11;
+	}
+
 	if(bActive__VAT_OBJ)
 	{
-		if(pOBJ_CTRL__VAT->Call__OBJECT(_APC_CMMD__CLOSE) < 0)				r_flag = -21;
+		if(pOBJ_CTRL__VAT->Call__OBJECT(_APC_CMMD__CLOSE) < 0)					r_flag = -21;
 	}
 
 	return r_flag;
@@ -42,7 +45,10 @@ int CObj__CHM_FNC
 		}
 	}
 
-	if(pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD_VAC__SR_OPEN) < 0)			r_flag = -21;
+	if(bActive__PHY_VAC_VLV)
+	{
+		if(pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD_VAC__SR_OPEN) < 0)		r_flag = -21;
+	}
 
 	return r_flag;
 }
@@ -66,7 +72,10 @@ int CObj__CHM_FNC
 		}
 	}
 
-	if(pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD_VAC__FR_OPEN) < 0)			r_flag = -21;
+	if(bActive__PHY_VAC_VLV)
+	{
+		if(pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD_VAC__FR_OPEN) < 0)		r_flag = -21;
+	}
 
 	return r_flag;
 }
@@ -74,12 +83,22 @@ int CObj__CHM_FNC
 int CObj__CHM_FNC
 ::Call__VAC_VLV__EXHAUST_OPEN(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 {
-	return pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD__EXHAUST_OPEN);
+	if(bActive__PHY_VAC_VLV)
+	{
+		return pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD__EXHAUST_OPEN);
+	}
+
+	return -11;
 }
 int CObj__CHM_FNC
 ::Call__VAC_VLV__EXHAUST_CLOSE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 {
-	return pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD__EXHAUST_CLOSE);
+	if(bActive__PHY_VAC_VLV)
+	{
+		return pOBJ_CTRL__PHY_VAC_VLV->Call__OBJECT(CMMD__EXHAUST_CLOSE);
+	}
+
+	return -11;
 }
 
 int CObj__CHM_FNC

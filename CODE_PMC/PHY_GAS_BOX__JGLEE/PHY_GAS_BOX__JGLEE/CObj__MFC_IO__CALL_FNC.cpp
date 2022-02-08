@@ -6,16 +6,14 @@
 
 //----------------------------------------------------------------------------------------------------
 int  CObj__MFC_IO::
-Call__INIT(CII_OBJECT__VARIABLE* p_variable,
-		   CII_OBJECT__ALARM*    p_alarm)
+Call__INIT(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 
 	return 1;
 }
 
 int  CObj__MFC_IO::
-Call__OPEN(CII_OBJECT__VARIABLE* p_variable,
-		   CII_OBJECT__ALARM*    p_alarm)
+Call__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 	double min_value;
 	double max_value;
@@ -26,6 +24,19 @@ Call__OPEN(CII_OBJECT__VARIABLE* p_variable,
 	double set_flow = max_value;
 
 	return Fnc__CONTROL(set_flow, 1, max_value);
+}
+int  CObj__MFC_IO::
+Call__PURGE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+{
+	double min_value;
+	double max_value;
+	int i_dec;
+
+	aCH__MON_MFC_SET_FLOW->Get__MIN_MAX_DEC(min_value,max_value,i_dec);
+
+	double set_flow = max_value;
+
+	return Fnc__CONTROL(set_flow, 1, max_value, true);
 }
 int  CObj__MFC_IO::
 Call__CLOSE(CII_OBJECT__VARIABLE* p_variable,
@@ -56,24 +67,38 @@ int  CObj__MFC_IO
 	return Fnc__CONTROL(set_flow, 1, max_value);
 }
 int  CObj__MFC_IO
-::Fnc__CONTROL(const double set_flow, const int open_mode, const double cfg_max)
+::Fnc__CONTROL(const double set_flow, const int open_mode, const double cfg_max, const bool active__purge_vlv)
 {
 	int set_hexa = 0;
 
-	if(bActive__VLV_PURGE)
+	if(active__purge_vlv)
 	{
-		dEXT_CH__IO_VLV_PURGE->Set__DATA(STR__CLOSE);
-	}
+		if(bActive__VLV_IN)				dEXT_CH__IO_VLV_IN->Set__DATA(STR__CLOSE);
 
-	if(open_mode > 0)
-	{
 		dEXT_CH__IO_VLV_OUT->Set__DATA(STR__OPEN);
-		dEXT_CH__IO_VLV_IN->Set__DATA(STR__OPEN);
+
+		if(bActive__VLV_PURGE)			dEXT_CH__IO_VLV_PURGE->Set__DATA(STR__OPEN);
+		else							return -11;
 	}
 	else
 	{
-		dEXT_CH__IO_VLV_IN->Set__DATA(STR__CLOSE);
-		dEXT_CH__IO_VLV_OUT->Set__DATA(STR__CLOSE);
+		if(bActive__VLV_PURGE)
+		{
+			dEXT_CH__IO_VLV_PURGE->Set__DATA(STR__CLOSE);
+		}		
+
+		if(open_mode > 0)
+		{
+			dEXT_CH__IO_VLV_OUT->Set__DATA(STR__OPEN);
+
+			if(bActive__VLV_IN)			dEXT_CH__IO_VLV_IN->Set__DATA(STR__OPEN);
+		}
+		else
+		{
+			if(bActive__VLV_IN)			dEXT_CH__IO_VLV_IN->Set__DATA(STR__CLOSE);
+
+			dEXT_CH__IO_VLV_OUT->Set__DATA(STR__CLOSE);
+		}
 	}
 
 	Fnc__SET_FLOW(set_flow);
@@ -106,11 +131,13 @@ int  CObj__MFC_IO
 	if(open_mode > 0)
 	{
 		dEXT_CH__IO_VLV_OUT->Set__DATA(STR__OPEN);
-		dEXT_CH__IO_VLV_IN->Set__DATA(STR__OPEN);
+		
+		if(bActive__VLV_IN)			dEXT_CH__IO_VLV_IN->Set__DATA(STR__OPEN);
 	}
 	else
 	{
-		dEXT_CH__IO_VLV_IN->Set__DATA(STR__CLOSE);
+		if(bActive__VLV_IN)			dEXT_CH__IO_VLV_IN->Set__DATA(STR__CLOSE);
+
 		dEXT_CH__IO_VLV_OUT->Set__DATA(STR__CLOSE);
 	}
 

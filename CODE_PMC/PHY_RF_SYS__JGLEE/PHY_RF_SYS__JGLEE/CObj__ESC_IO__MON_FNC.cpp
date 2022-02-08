@@ -19,7 +19,7 @@ Mon__REQ_CTRL(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 
 		
 		// REQ : 3WAY.VLV - CENTER ...
-		if(bActive__CENTER_USE)
+		if(bActive__CENTER_3WAY_VLV)
 		{
 			// SET.VLV ...
 			cur_req = sCH__REQ_HE_FINAL_CENTER__3WAY_VLV->Get__STRING();
@@ -66,7 +66,7 @@ Mon__REQ_CTRL(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 			sCH__MON_HE_FINAL_CENTER__3WAY_VLV->Set__DATA(cur_sts);
 		}
 		// REQ : 3WAY.VLV - EDGE ...
-		if(bActive__EDGE_USE)
+		if(bActive__EDGE_3WAY_VLV)
 		{
 			// SET.VLV ...
 			cur_req = sCH__REQ_HE_FINAL_EDGE__3WAY_VLV->Get__STRING();
@@ -831,10 +831,28 @@ Mon__ESC_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_ala
 		if(active__esc_voltage)			dCH__MON_ESC_VOLTAGE_STATE->Set__DATA(STR__ON);
 		else							dCH__MON_ESC_VOLTAGE_STATE->Set__DATA(STR__OFF);
 
-		// ...
-		{			
-			if((sCH__MON_CENTER_STABLE_ESC_STATE->Check__DATA(STR__YES) > 0)
-			&& (sCH__MON_STABLE_HE_CENTER_STATE->Check__DATA(STR__YES)  > 0))
+		//  STABLE.CHECK ...
+		{
+			bool active__stable_check = true;
+
+			if(bActive__CENTER_USE)
+			{
+				if((sCH__MON_CENTER_STABLE_ESC_STATE->Check__DATA(STR__YES) < 0)
+				|| (sCH__MON_STABLE_HE_CENTER_STATE->Check__DATA(STR__YES)  < 0))
+				{
+					active__stable_check = false;
+				}
+			}
+			if(bActive__EDGE_USE)
+			{
+				if((sCH__MON_EDGE_STABLE_ESC_STATE->Check__DATA(STR__YES) < 0)
+				|| (sCH__MON_STABLE_HE_EDGE_STATE->Check__DATA(STR__YES)  < 0))
+				{
+					active__stable_check = false;
+				}
+			}
+
+			if(active__stable_check)
 			{
 				sCH__MON_STABLE_FLAG->Set__DATA(STR__ON);
 			}
@@ -842,9 +860,29 @@ Mon__ESC_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_ala
 			{
 				sCH__MON_STABLE_FLAG->Set__DATA("");
 			}
+		}
+		// FAULT.CHECK ...
+		{
+			bool active__fault_check = false;
 
-			if((sCH__MON_CENTER_FAULT_ESC_STATE->Check__DATA(STR__YES) > 0)
-			|| (sCH__MON_FAULT_HE_CENTER_STATE->Check__DATA(STR__YES)  > 0))
+			if(bActive__CENTER_USE)
+			{
+				if((sCH__MON_CENTER_FAULT_ESC_STATE->Check__DATA(STR__YES) > 0)
+				|| (sCH__MON_FAULT_HE_CENTER_STATE->Check__DATA(STR__YES)  > 0))
+				{
+					active__fault_check = true;
+				}
+			}
+			if(bActive__EDGE_USE)
+			{
+				if((sCH__MON_EDGE_FAULT_ESC_STATE->Check__DATA(STR__YES) > 0)
+				|| (sCH__MON_FAULT_HE_EDGE_STATE->Check__DATA(STR__YES)  > 0))
+				{
+					active__fault_check = true;
+				}
+			}
+			
+			if(active__fault_check)
 			{
 				sCH__MON_FAULT_FLAG->Set__DATA(STR__ON);
 			}
@@ -947,7 +985,7 @@ Mon__HELIUM_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_
 						continue;
 					}
 				}
-				else if(i == 11)
+				else if(i == 1)
 				{
 					if(bActive__EDGE_USE)
 					{
@@ -1018,7 +1056,7 @@ Mon__HELIUM_STABLE_CHECK(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_
 					p_ch__fault->Set__DATA("");
 
 					p_timer__stable_delay->STOP_ZERO();
-					p_ch__stable->Set__DATA("YES");
+					p_ch__stable->Set__DATA(STR__YES);
 
 					continue;
 				}

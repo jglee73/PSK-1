@@ -24,7 +24,7 @@
 // ...
 #define _LINK_OBJ__MAX						20
 
-#define _RF_SYS__GEN_SIZE					3
+#define _RF_SYS__GEN_SIZE					4
 #define _RF_SYS__MAT_SIZE					3
 
 #define _HTR_SYS__PART_SIZE					5

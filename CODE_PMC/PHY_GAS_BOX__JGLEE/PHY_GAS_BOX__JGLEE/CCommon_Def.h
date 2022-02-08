@@ -9,6 +9,7 @@
 #define  STR__YES				"YES"
 #define  STR__NO				"NO"
 #define  STR__NONE				"NONE"
+#define  STR__IDLE				"IDLE"
 
 
 // ...
@@ -17,6 +18,8 @@
 #define  STR__CLOSE				"CLOSE"
 #define  STR__CONTROL			"CONTROL"
 #define  STR__SET_FLOW			"SET.FLOW"
+
+#define  STR__DUMP				"DUMP"
 
 // ...
 #define  STR__ENABLE			"ENABLE"

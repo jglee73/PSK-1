@@ -3,6 +3,7 @@
 
 // ...
 #define _CFG__PRC_GAUGE_SIZE		3
+#define _CFG__RF_SIZE				3
 
 
 // ...

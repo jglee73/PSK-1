@@ -134,9 +134,17 @@ int CObj__MINI8_IO
 				{
 					double cfg_max = aCH__CFG_MAX_VALUE__LOOP_X[i]->Get__VALUE();
 					double cur_sp  = aCH__MON_IO_SET_SP__LOOP_X[i]->Get__VALUE();
-					double cur_per = (cur_sp / cfg_max) * 100.0;
 
-					ch_data.Format("%.1f", cur_per);
+					if(cfg_max > 0.1)
+					{
+						double cur_per = (cur_sp / cfg_max) * 100.0;
+						ch_data.Format("%.1f", cur_per);
+					}
+					else
+					{
+						ch_data = "!!!";
+					}
+	
 					sCH__MON_IO_GET_WORKING_OP__LOOP_X[i]->Set__DATA(ch_data);
 				}
 				else

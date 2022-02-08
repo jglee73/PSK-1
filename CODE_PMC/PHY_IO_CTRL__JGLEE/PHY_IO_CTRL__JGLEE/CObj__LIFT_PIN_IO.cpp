@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "CObj__LIFT_PIN_IO.h"
 
+#include "CCommon_Utility.h"
 
 
 //-------------------------------------------------------------------------
@@ -28,8 +29,12 @@ int CObj__LIFT_PIN_IO::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__DOWN,   "DOWN");
 		ADD__CTRL_VAR(sMODE__MIDDLE, "MIDDLE");
 
+		//
 		ADD__CTRL_VAR(sMODE__TRANSFER_UP,   "TRANSFER_UP");
 		ADD__CTRL_VAR(sMODE__TRANSFER_DOWN, "TRANSFER_DOWN");
+
+		ADD__CTRL_VAR(sMODE__MIDDLE_UP,   "MIDDLE_UP");
+		ADD__CTRL_VAR(sMODE__MIDDLE_DOWN, "MIDDLE_DOWN");
 
 		//
 		ADD__CTRL_VAR(sMODE__CYCLE_UpToDown,	 "CYCLE_UpToDown");
@@ -296,8 +301,8 @@ int CObj__LIFT_PIN_IO::__DEFINE__ALARM(p_alarm)
 		alarm_title  = title;
 		alarm_title += " PIN LIFTER - Action Timeout ALARM.";
 
-		alarm_msg = "Did not complete lifter pin action.\n";
-		alarm_msg = "Please Check the I/O Module & PIN Lifter.";
+		alarm_msg = "Lifter pin action does not completed ! \n";
+		alarm_msg = "Please, Check the I/O Module & PIN Lifter.";
 
 		l_act.RemoveAll();
 		l_act.Add("CHECK");
@@ -312,8 +317,8 @@ int CObj__LIFT_PIN_IO::__DEFINE__ALARM(p_alarm)
 		alarm_title  = title;
 		alarm_title += " PIN LIFTER - Action Timeout ALARM.";
 
-		alarm_msg = "Did not complete lifter pin action.\n";
-		alarm_msg = "Please Check the I/O Module & PIN Lifter.";
+		alarm_msg = "Lifter pin action does not completed ! \n";
+		alarm_msg = "Please, Check the I/O Module & PIN Lifter.";
 
 		l_act.RemoveAll();
 		l_act.Add("RETRY");
@@ -329,8 +334,8 @@ int CObj__LIFT_PIN_IO::__DEFINE__ALARM(p_alarm)
 		alarm_title  = title;
 		alarm_title += " PIN LIFTER - Chuck Status ALARM.";
 
-		alarm_msg = "Can not Operation Pin Lifter.\n";
-		alarm_msg = "Please Check the Chucking Status.";
+		alarm_msg = "Pin Lifter can not pperate.\n";
+		alarm_msg = "Please, Check the Chucking Status.";
 
 		l_act.RemoveAll();
 		l_act.Add("CHECK");
@@ -344,8 +349,8 @@ int CObj__LIFT_PIN_IO::__DEFINE__ALARM(p_alarm)
 		alarm_title  = title;
 		alarm_title += " PIN LIFTER - ESC VOLTAGE PIN UP THRESHOLD ALARM.";
 
-		alarm_msg = "Can not Operation Pin Lifter.\n";
-		alarm_msg = "Please Check ESC Voltage.";
+		alarm_msg = "Pin Lifter can not pperate.\n";
+		alarm_msg = "Please, Check ESC Voltage.";
 
 		l_act.RemoveAll();
 		l_act.Add("CHECK");
@@ -381,68 +386,156 @@ int CObj__LIFT_PIN_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	}
 
 	// ...
-	CString str_name;
 	CString def_name;
-	CString def_value;
+	CString def_data;
+	CString ch_name;
 	CString obj_name;
 	CString var_name;
 	int i;
 
-	// Channel Link ...
+	// ...
+	CCommon_Utility x_utility;
+	bool def_check;
+
+	// IO LINK ...
 	{
-		def_name = "CH__LIFT_PIN_STATE";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_value, obj_name, var_name);
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LIFT_PIN_STATE, obj_name, var_name);
-
-		//
-		def_name = "CH__CHUCK_STATE";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_value, obj_name, var_name);
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CHUCK_STATE, obj_name, var_name);
-
-		def_name = "CH__AI_ESC_VOLTAGE";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_value, obj_name, var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_ESC_VOLTAGE, obj_name, var_name);
-
-		//
-		def_name = "CH__DO_PIN_UP";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_value, obj_name, var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_PIN_UP, obj_name, var_name);
-
-		def_name = "CH__DO_PIN_DOWN";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_value, obj_name, var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_PIN_DOWN, obj_name, var_name);
-
-		def_name = "CH__DO_PIN_MIDDLE";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_value, obj_name, var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_PIN_MIDDLE, obj_name, var_name);
-
-		//
-		def_name = "DATA__PIN_SIZE";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-		
-		iPIN__SIZE = atoi(def_value);
-		if(iPIN__SIZE > _CFG__PIN_SIZE)			iPIN__SIZE = _CFG__PIN_SIZE;
-
-		for(i=0; i<iPIN__SIZE; i++)
+		// PIN.STATE ...
 		{
-			int id = i + 1;
+			def_name = "CH__LIFT_PIN_STATE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LIFT_PIN_STATE, obj_name,var_name);
+		}
 
-			def_name.Format("CH__AI_PIN_POS.%1d", id);
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_value);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_value, obj_name, var_name);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_PIN_POS_X[i], obj_name, var_name);
+		// ESC.CHUCK_STATE ...
+		{
+			def_name = "CH__ESC_CHUCK_STATE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			def_check = x_utility.Check__Link(ch_name);
+			bActive__ESC_CHUCK_STATE = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__ESC_CHUCK_STATE, obj_name,var_name);
+			}
+		}
+		// ESC.AI_VOLTAGE ...
+		{
+			def_name = "DATA__ESC_CH_SIZE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			iDATA__ESC_CH_SIZE = atoi(def_data);
+			if(iDATA__ESC_CH_SIZE > _CFG__ESC_CH_SIZE)			iDATA__ESC_CH_SIZE = _CFG__ESC_CH_SIZE;
+
+			for(i=0; i<iDATA__ESC_CH_SIZE; i++)
+			{
+				def_name.Format("CH__ESC_AI_VOLTAGE.%1d", i+1);
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__ESC_AI_VOLTAGE_X[i], obj_name,var_name);
+			}
+		}
+	}
+
+	// DO_PIN ...
+	{
+		// TRANSFER.PIN_UP ...
+		{
+			def_name = "CH__DO_TRANSFER_PIN_UP";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_TRANSFER_PIN_UP, obj_name,var_name);
+		}
+		// TRANSFER.PIN_DOWN ...
+		{
+			def_name = "CH__DO_TRANSFER_PIN_DOWN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_TRANSFER_PIN_DOWN, obj_name,var_name);
+		}
+
+		// MIDDLE.PUN_UP ...
+		{
+			def_name = "CH__DO_MIDDLE_PIN_UP";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			def_check = x_utility.Check__Link(ch_name);
+			bActive__DO_MIDDLE_PIN_UP = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);	
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_MIDDLE_PIN_UP, obj_name, var_name);
+			}
+		}
+		// MIDDLE.PIN_DOWN ...
+		{
+			def_name = "CH__DO_MIDDLE_PIN_DOWN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			def_check = x_utility.Check__Link(ch_name);
+			bActive__DO_MIDDLE_PIN_DOWN = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);	
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_MIDDLE_PIN_DOWN, obj_name, var_name);
+			}
+		}
+	}
+
+	// PIN.SENSOR ...
+	{
+		def_name = "DATA__DI_PIN_SENSOR";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if(def_data.CompareNoCase(STR__YES) == 0)			iDATA__PIN_SNS_TYPE = _PIN_TYPE__DI_SNS;
+		else												iDATA__PIN_SNS_TYPE = _PIN_TYPE__AI_SNS;
+
+		// DI.SNS ...
+		if(iDATA__PIN_SNS_TYPE == _PIN_TYPE__DI_SNS)
+		{
+			def_name = "CH__DI_PIN_UP";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_PIN_UP, obj_name,var_name);
+
+			def_name = "CH__DI_PIN_MIDDLE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_PIN_MIDDLE, obj_name,var_name);
+
+			def_name = "CH__DI_PIN_DOWN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_PIN_DOWN, obj_name,var_name);
+		}
+		else	// POS_PIN ...
+		{
+			def_name = "DATA__PIN_SIZE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			
+			iSIZE__AI_PIN__POS = atoi(def_data);
+			if(iSIZE__AI_PIN__POS > _CFG__PIN_SIZE)			iSIZE__AI_PIN__POS = _CFG__PIN_SIZE;
+
+			for(i=0; i<iSIZE__AI_PIN__POS; i++)
+			{
+				int id = i + 1;
+
+				def_name.Format("CH__AI_PIN_POS.%1d", id);
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_PIN_POS_X[i], obj_name,var_name);
+			}
 		}
 	}
 
 	// ...
 	{
 		SCX__SEQ_INFO x_seq_info;
+
 		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 
@@ -469,18 +562,24 @@ int CObj__LIFT_PIN_IO::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	}
 
 	// ...
-	{
-		SCX__ASYNC_TIMER_CTRL x_timer_ctrl;
-		x_timer_ctrl->REGISTER__COUNT_CHANNEL_NAME(sCH__OBJ_TIMER->Get__CHANNEL_NAME());
-		x_timer_ctrl->START__COUNT_UP(9999);
+	SCX__ASYNC_TIMER_CTRL x_timer_ctrl;
 
+	x_timer_ctrl->REGISTER__COUNT_CHANNEL_NAME(sCH__OBJ_TIMER->Get__CHANNEL_NAME());
+	x_timer_ctrl->START__COUNT_UP(9999);
+
+	// ...
+	{
 		     IF__CTRL_MODE(sMODE__INIT)							flag = Call__INIT(p_variable, p_alarm);
+
 		ELSE_IF__CTRL_MODE(sMODE__UP)							flag = Call__UP(p_variable, p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__DOWN)							flag = Call__DOWN(p_variable, p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__MIDDLE)						flag = Call__MIDDLE(p_variable, p_alarm);
 
 		ELSE_IF__CTRL_MODE(sMODE__TRANSFER_UP)					flag = Call__TRANSFER_UP(p_variable, p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__TRANSFER_DOWN)				flag = Call__TRANSFER_DOWN(p_variable, p_alarm);
+
+		ELSE_IF__CTRL_MODE(sMODE__MIDDLE_UP)					flag = Call__MIDDLE_UP(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__MIDDLE_DOWN)					flag = Call__MIDDLE_DOWN(p_variable, p_alarm);
 
 		ELSE_IF__CTRL_MODE(sMODE__CYCLE_UpToDown)				flag = Call__CYCLE_UpToDown(p_variable, p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__CYCLE_MiddleToDown)			flag = Call__CYCLE_MiddleToDown(p_variable, p_alarm);

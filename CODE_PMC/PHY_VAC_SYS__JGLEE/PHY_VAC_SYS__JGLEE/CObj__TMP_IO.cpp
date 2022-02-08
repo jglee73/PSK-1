@@ -398,21 +398,14 @@ int CObj__TMP_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// VAT.OBJ INFO ...
 	{
-		// USE ...
+		def_name = "OBJ__VAT";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		def_check = x_utility.Check__Link(obj_name);
+		bActive__VAT_USE = def_check;			
+
+		if(def_check)
 		{
-			def_name = "DATA.VAT_USE";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
-
-			def_check = x_utility.Check__Link(def_data);
-			bActive__VAT_USE = def_check;			
-		}
-
-		// VAT.OBJ ...
-		if(bActive__VAT_USE)
-		{
-			def_name = "OBJ__VAT";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
-
 			pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 		}
 	}

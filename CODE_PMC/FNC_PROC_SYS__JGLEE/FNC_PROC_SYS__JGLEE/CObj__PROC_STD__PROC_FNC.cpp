@@ -71,6 +71,9 @@ int CObj__PROC_STD
 int CObj__PROC_STD
 ::Fnc__PROC_START(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
+	dCH__MON_EXCEPTION_ACT->Set__DATA(_ACT_CMD__START);
+	sEXT_CH__MON_STEP_EXCEPTION_ACT->Set__DATA("");
+
 	if(dCH__CUR_PROCESS_TYPE->Check__DATA(STR__MANUAL) > 0)
 	{
 		if(dCH__PARA_MANUAL_PROCESS_DECHUCK_ACTIVE->Check__DATA(STR__ON) > 0)
@@ -102,6 +105,10 @@ int CObj__PROC_STD
 
 		aCH__STEP_CUR_NUM->Set__DATA("-1");		
 	}
+
+	Sub__PROC_END(p_variable, p_alarm);
+
+	dCH__MON_EXCEPTION_ACT->Set__DATA(_ACT_CMD__END);
 	return r_flag;
 }
 int CObj__PROC_STD
@@ -122,9 +129,8 @@ int CObj__PROC_STD
 		r_flag = Sub__PROC_CTRL(p_variable, p_alarm);
 		if(r_flag < 0)		return r_flag;
 	}
+	return 1;
 
-	Sub__PROC_END(p_variable, p_alarm);
-	return r_flag;
 }
 
 int CObj__PROC_STD::

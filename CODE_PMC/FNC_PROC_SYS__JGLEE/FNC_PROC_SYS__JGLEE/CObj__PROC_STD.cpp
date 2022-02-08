@@ -616,19 +616,8 @@ int CObj__PROC_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__POST_READY)			flag = Call__POST_READY(p_variable, p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__POST_START)			flag = Call__POST_START(p_variable, p_alarm);
 
-		ELSE_IF__CTRL_MODE(sMODE__MANUAL_READY)	
-		{
-			flag = Call__MANUAL_READY(p_variable, p_alarm);
-		}
-		ELSE_IF__CTRL_MODE(sMODE__MANUAL_START)
-		{
-			dCH__MON_EXCEPTION_ACT->Set__DATA(_ACT_CMD__START);
-			sEXT_CH__MON_STEP_EXCEPTION_ACT->Set__DATA("");
-
-			flag = Call__MANUAL_START(p_variable, p_alarm);
-
-			dCH__MON_EXCEPTION_ACT->Set__DATA(_ACT_CMD__IDLE);
-		}
+		ELSE_IF__CTRL_MODE(sMODE__MANUAL_READY)			flag = Call__MANUAL_READY(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__MANUAL_START)			flag = Call__MANUAL_START(p_variable, p_alarm);
 
 		ELSE_IF__CTRL_MODE(sMODE__JOB_STRT_READY)		flag = Call__JOB_START_READY(p_variable, p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__JOB_END_READY)		flag = Call__JOB_END_READY(p_variable, p_alarm);

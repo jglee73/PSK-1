@@ -60,7 +60,6 @@ int  CObj__ESC_IO
 		if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(0.0);
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Close);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Close);
 
 		if(bActive__CENTER_USE)
 		{
@@ -68,6 +67,7 @@ int  CObj__ESC_IO
 
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Close);
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 		}
 		if(bActive__EDGE_USE)
 		{
@@ -75,6 +75,7 @@ int  CObj__ESC_IO
 
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Close);
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Close);
 		}
 
 		if((center__delay_check__final_vlv > 0)
@@ -110,11 +111,15 @@ int  CObj__ESC_IO
 
 		if(bActive__CENTER_USE)
 		{
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
+			
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 		}
 		if(bActive__EDGE_USE)
 		{
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
+
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 		}
@@ -125,7 +130,6 @@ int  CObj__ESC_IO
 		if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(cfg__edge_pressure);
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 
 		if(iActive__SIM_MODE > 0)
 		{
@@ -209,17 +213,20 @@ int  CObj__ESC_IO
 
 		if(bActive__CENTER_USE)
 		{
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
+
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);	
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);	
 		}
 		if(bActive__EDGE_USE)
 		{
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
+
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);	
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);	
 		}
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 
 		if(bActive__CENTER_USE)			aoEXT_CH__He_Pressure_CENTER->Set__VALUE(0.0);
 		if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(0.0);
@@ -289,13 +296,24 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 
 	// Chuck Step - Parameter ...
 	{
-		// control setting ...
+		// Control Setting ...
 		{
-			sCH__PARA_ESC_CENTER_SET_VOLTAGE->Get__DATA(var_data);
-			para__set_volt_center = atof(var_data);
+			if(bActive__CENTER_USE)
+			{
+				sCH__PARA_ESC_CENTER_SET_VOLTAGE->Get__DATA(var_data);
+				para__set_volt_center = atof(var_data);
 
-			sCH__PARA_He_SET_PRESSURE_CENTER->Get__DATA(var_data);
-			para__set_press_center = atof(var_data);
+				sCH__PARA_He_SET_PRESSURE_CENTER->Get__DATA(var_data);
+				para__set_press_center = atof(var_data);
+			}
+			if(bActive__EDGE_USE)
+			{
+				sCH__PARA_ESC_EDGE_SET_VOLTAGE->Get__DATA(var_data);
+				para__set_volt_edge = atof(var_data);
+
+				sCH__PARA_He_SET_PRESSURE_EDGE->Get__DATA(var_data);
+				para__set_press_edge = atof(var_data);
+			}
 		}
 
 		// time (sec) ...
@@ -311,13 +329,16 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 
 		// chucking interlock ...
 		{
-			// Center ...
-			cfg__max_volt__center = aCH__CFG_ESC_CENTER_VOLTAGE_MAX_SETPOINT_FOR_CHUCKING->Get__VALUE();
-			cfg__min_volt__center = aCH__CFG_ESC_CENTER_VOLTAGE_MIN_SETPOINT_FOR_CHUCKING->Get__VALUE();
-
-			// Edge ...
-			cfg__max_volt__edge = aCH__CFG_ESC_EDGE_VOLTAGE_MAX_SETPOINT_FOR_CHUCKING->Get__VALUE();
-			cfg__min_volt__edge = aCH__CFG_ESC_EDGE_VOLTAGE_MIN_SETPOINT_FOR_CHUCKING->Get__VALUE();
+			if(bActive__CENTER_USE)
+			{
+				cfg__max_volt__center = aCH__CFG_ESC_CENTER_VOLTAGE_MAX_SETPOINT_FOR_CHUCKING->Get__VALUE();
+				cfg__min_volt__center = aCH__CFG_ESC_CENTER_VOLTAGE_MIN_SETPOINT_FOR_CHUCKING->Get__VALUE();
+			}
+			if(bActive__EDGE_USE)
+			{
+				cfg__max_volt__edge = aCH__CFG_ESC_EDGE_VOLTAGE_MAX_SETPOINT_FOR_CHUCKING->Get__VALUE();
+				cfg__min_volt__edge = aCH__CFG_ESC_EDGE_VOLTAGE_MIN_SETPOINT_FOR_CHUCKING->Get__VALUE();
+			}
 		}
 
 		// ...
@@ -391,7 +412,7 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 			{
 				err_check = 1;
 			}
-			if(Fnc__HV_SETPOINT_INTERLOCK_CHECK(p_alarm, para__set_volt_center) < 0)
+			if(Fnc__HV_SETPOINT_INTERLOCK_CHECK(p_alarm, para__set_volt_center,para__set_volt_edge) < 0)
 			{
 				err_check = 1;
 			}
@@ -404,7 +425,7 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 
 		// He Pressure : Interlock Check ...
 		{
-			if(Fnc__HE_SETPOINT_INTERLOCK_CHECK(p_alarm, para__set_press_center) < 0)
+			if(Fnc__HE_SETPOINT_INTERLOCK_CHECK(p_alarm, para__set_press_center,para__set_press_edge) < 0)
 			{
 				return -12;
 			}
@@ -542,6 +563,7 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 				if(doEXT_CH__He_Final_Out_Vlv_CENTER->Check__DATA(STR__Close) < 0)	
 					delay_check = 1;
 			
+				doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 			}
@@ -550,12 +572,11 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 				if(doEXT_CH__He_Final_Out_Vlv_EDGE->Check__DATA(STR__Close) < 0)	
 					delay_check = 1;
 
+				doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 			}
 			
-			doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
-
 			if(doEXT_CH__He_Side_Supply_Vlv->Check__DATA(STR__Open) < 0)
 			{
 				doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
@@ -854,17 +875,18 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 		{
 			if(bActive__CENTER_USE)
 			{
+				doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 			}
 			if(bActive__EDGE_USE)
 			{
+				doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Close);
 			}
 
-			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-			doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
+			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);			
 
 			if(bActive__CENTER_USE)			aoEXT_CH__He_Pressure_CENTER->Set__VALUE(para__set_press_center);
 			if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(para__set_press_edge);
@@ -1069,30 +1091,69 @@ Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable,
 		{
 			sCH__MON_CENTER_STABLE_ESC_STATE->Set__DATA("");
 			sCH__MON_STABLE_HE_CENTER_STATE->Set__DATA("");
+			
+			sCH__MON_EDGE_STABLE_ESC_STATE->Set__DATA("");
+			sCH__MON_STABLE_HE_EDGE_STATE->Set__DATA("");
 		}
 
 		while(1)
 		{
 			Sleep(10);
 
-			if((sCH__MON_CENTER_STABLE_ESC_STATE->Check__DATA(STR__YES) > 0)
-			&& (sCH__MON_STABLE_HE_CENTER_STATE->Check__DATA(STR__YES)  > 0))
+			// ...
+			bool active__stable_check = true;
+
+			if(bActive__CENTER_USE)
+			{
+				if((sCH__MON_CENTER_STABLE_ESC_STATE->Check__DATA(STR__YES) < 0)
+				|| (sCH__MON_STABLE_HE_CENTER_STATE->Check__DATA(STR__YES)  < 0))
+				{
+					active__stable_check = false;
+				}
+			}
+			if(bActive__EDGE_USE)
+			{
+				if((sCH__MON_EDGE_STABLE_ESC_STATE->Check__DATA(STR__YES) < 0)
+				|| (sCH__MON_STABLE_HE_EDGE_STATE->Check__DATA(STR__YES)  < 0))
+				{
+					active__stable_check = false;
+				}
+			}
+
+			if(active__stable_check)
 			{
 				break;
 			}
 
 			if(p_variable->Check__CTRL_ABORT() > 0)
 			{
+				CString log_bff;
+
 				log_msg = "Fnc__CHUCK : Aborted By Upper Object ... \n";
 
-				if(sCH__MON_CENTER_STABLE_ESC_STATE->Check__DATA(STR__YES) < 0)
+				if(bActive__CENTER_USE)
 				{
-					log_msg += "   ESC Center Voltage Stable : Not YES. \n";
-				}
+					log_bff.Format(" * %s <- %s \n", 
+								   sCH__MON_CENTER_STABLE_ESC_STATE->Get__CHANNEL_NAME(),
+								   sCH__MON_CENTER_STABLE_ESC_STATE->Get__STRING());
+					log_msg += log_bff;
 
-				if(sCH__MON_STABLE_HE_CENTER_STATE->Check__DATA(STR__YES) < 0)
+					log_bff.Format(" * %s <- %s \n", 
+									sCH__MON_STABLE_HE_CENTER_STATE->Get__CHANNEL_NAME(),
+									sCH__MON_STABLE_HE_CENTER_STATE->Get__STRING());
+					log_msg += log_bff;
+				}
+				if(bActive__EDGE_USE)
 				{
-					log_msg += "   He Center Stable : Not YES. \n";
+					log_bff.Format(" * %s <- %s \n", 
+									sCH__MON_EDGE_STABLE_ESC_STATE->Get__CHANNEL_NAME(),
+									sCH__MON_EDGE_STABLE_ESC_STATE->Get__STRING());
+					log_msg += log_bff;
+
+					log_bff.Format(" * %s <- %s \n", 
+									sCH__MON_STABLE_HE_EDGE_STATE->Get__CHANNEL_NAME(),
+									sCH__MON_STABLE_HE_EDGE_STATE->Get__STRING());
+					log_msg += log_bff;
 				}
 
 				xLOG_CTRL->WRITE__LOG(log_msg);	
@@ -1165,7 +1226,7 @@ Fnc__HE_SET_OF_PROC(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm
 	if((dCH__MON_CHUCK_STATUS->Check__DATA(STR__CHUCKED)  > 0)
 	|| (dCH__MON_CHUCK_STATUS->Check__DATA(STR__CHUCKING) > 0))
 	{
-		if(Fnc__HE_SETPOINT_INTERLOCK_CHECK(p_alarm, para__set_press_center) < 0)
+		if(Fnc__HE_SETPOINT_INTERLOCK_CHECK(p_alarm, para__set_press_center,para__set_press_edge) < 0)
 		{
 			return -1;
 		}
@@ -1181,6 +1242,7 @@ Fnc__HE_SET_OF_PROC(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm
 		{
 			aoEXT_CH__He_Pressure_CENTER->Set__VALUE(para__set_press_center);				
 
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 		}
@@ -1188,12 +1250,12 @@ Fnc__HE_SET_OF_PROC(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm
 		{
 			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(para__set_press_edge);				
 
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Close);
 		}
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 	}
 	else
 	{
@@ -1211,6 +1273,7 @@ Fnc__HE_SET_OF_PROC(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm
 			if(doEXT_CH__He_Final_Out_Vlv_CENTER->Check__DATA(STR__Close) < 0)
 				active__close_delay = true;
 
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Close);		
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 		}
@@ -1219,6 +1282,7 @@ Fnc__HE_SET_OF_PROC(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm
 			if(doEXT_CH__He_Final_Out_Vlv_EDGE->Check__DATA(STR__Close) < 0)
 				active__close_delay = true;
 
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Close);		
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 		}
@@ -1230,13 +1294,11 @@ Fnc__HE_SET_OF_PROC(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm
 
 		if(para__set_press_center > 0.001)
 		{
-			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-			doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
+			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);			
 		}
 		else
 		{
 			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Close);		
-			doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Close);		
 		}
 
 		// He Setting - Parameter ...
@@ -1305,11 +1367,12 @@ Fnc__HV_SENSOR_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm)
 	return 1;
 }
 int  CObj__ESC_IO::
-Fnc__HV_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double set_volt_center)
+Fnc__HV_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double set_volt_center,const double set_volt_edge)
 {
 	int err_check = -1;
 
 	// ESC Center ...
+	if(bActive__CENTER_USE)
 	{
 		double cfg__max_volt = aCH__CFG_ESC_CENTER_VOLTAGE_MAX_SETPOINT_FOR_CHUCKING->Get__VALUE();
 		double cfg__min_volt = aCH__CFG_ESC_CENTER_VOLTAGE_MIN_SETPOINT_FOR_CHUCKING->Get__VALUE();
@@ -1355,21 +1418,114 @@ Fnc__HV_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double set_vo
 			}
 		}
 	}
+	// ESC Edge ...
+	if(bActive__EDGE_USE)
+	{
+		double cfg__max_volt = aCH__CFG_ESC_EDGE_VOLTAGE_MAX_SETPOINT_FOR_CHUCKING->Get__VALUE();
+		double cfg__min_volt = aCH__CFG_ESC_EDGE_VOLTAGE_MIN_SETPOINT_FOR_CHUCKING->Get__VALUE();
+
+		if(set_volt_edge > cfg__max_volt)
+		{
+			err_check = 1;
+
+			// Alarm ...
+			{
+				int alm_id = ALID__ESC_EDGE_CHUCK_VOLTAGE__MAX_ERROR;
+				CString alm_msg;
+				CString alm_bff;
+				CString r_act;
+
+				alm_bff.Format("ESC Edge Voltage Set <- %.1f V \n", set_volt_edge);
+				alm_msg += alm_bff;
+				alm_bff.Format("Config Max. Voltage    <- %.1f V \n", cfg__max_volt);
+				alm_msg += alm_bff;
+
+				p_alarm->Check__ALARM(alm_id,r_act);
+				p_alarm->Post__ALARM_With_MESSAGE(alm_id,alm_msg);
+			}
+		}
+		if(set_volt_edge < cfg__min_volt)
+		{
+			err_check = 1;
+
+			// Alarm ...
+			{
+				int alm_id = ALID__ESC_EDGE_CHUCK_VOLTAGE__MIN_ERROR;;
+				CString alm_msg;
+				CString alm_bff;
+				CString r_act;
+
+				alm_bff.Format("ESC Edge Voltage Set <- %.1f V \n", set_volt_edge);
+				alm_msg += alm_bff;
+				alm_bff.Format("Config Min. Voltage    <- %.1f V \n", cfg__min_volt);
+				alm_msg += alm_bff;
+
+				p_alarm->Check__ALARM(alm_id,r_act);
+				p_alarm->Post__ALARM_With_MESSAGE(alm_id,alm_msg);
+			}
+		}
+	}
 
 	// Shutter Close Check ...
-	if(sEXT_CH__SHUTTER_STATUS->Check__DATA(STR__Close) < 0)
+	bool active__shutter_error  = false;
+	bool active__slot_vlv_error = false;
+	
+	if(bActive__SHUTTER_STATUS)
+	{
+		if(sEXT_CH__SHUTTER_STATUS->Check__DATA(STR__Close) < 0)			active__shutter_error = true;
+	}
+	if(bActive__SHUTTER_STATUS)
+	{
+		if(sEXT_CH__SLOT_VALVE_STATE->Check__DATA(STR__Close) < 0)			active__slot_vlv_error = true;
+	}
+
+	if(active__slot_vlv_error)
 	{
 		err_check = 1;
 
-		// Alarm ...
+		// ...
 		{
-			int alm_id = ALID__ESC_CHUCK_SHUTTER_NOT_CLOSE;
+			int alm_id = ALID__SHUTTER_NOT_CLOSE;
 			CString alm_msg;
 			CString alm_bff;
 			CString r_act;
 
-			alm_bff.Format("ESC Center에 Voltage(%.1f V)를 인가 할 수 없습니다.\n", set_volt_center);
-			alm_msg += alm_bff;
+			if(bActive__CENTER_USE)
+			{
+				alm_bff.Format("ESC Center에 Voltage(%.1f V)를 인가 할 수 없습니다.\n", set_volt_center);
+				alm_msg += alm_bff;
+			}
+			if(bActive__EDGE_USE)
+			{
+				alm_bff.Format("ESC Edge에 Voltage(%.1f V)를 인가 할 수 없습니다.\n", set_volt_edge);
+				alm_msg += alm_bff;
+			}
+
+			p_alarm->Check__ALARM(alm_id,r_act);
+			p_alarm->Post__ALARM_With_MESSAGE(alm_id,alm_msg);
+		}
+	}
+	if(active__slot_vlv_error)
+	{
+		err_check = 1;
+
+		// ...
+		{
+			int alm_id = ALID__SLOT_VALVE_NOT_CLOSE;
+			CString alm_msg;
+			CString alm_bff;
+			CString r_act;
+
+			if(bActive__CENTER_USE)
+			{
+				alm_bff.Format("ESC Center에 Voltage(%.1f V)를 인가 할 수 없습니다.\n", set_volt_center);
+				alm_msg += alm_bff;
+			}
+			if(bActive__EDGE_USE)
+			{
+				alm_bff.Format("ESC Edge에 Voltage(%.1f V)를 인가 할 수 없습니다.\n", set_volt_edge);
+				alm_msg += alm_bff;
+			}
 
 			p_alarm->Check__ALARM(alm_id,r_act);
 			p_alarm->Post__ALARM_With_MESSAGE(alm_id,alm_msg);
@@ -1384,21 +1540,43 @@ Fnc__HV_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double set_vo
 }
 
 int  CObj__ESC_IO::
-Fnc__HE_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double center_pressure)
+Fnc__HE_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double center_pressure,const double edge_pressure)
 {
+	bool active__pressure_error = false;
+
 	double cfg__pressure_max = aCH__CFG_He_PRESSURE_MAX_SETPOINT->Get__VALUE();
 
-	if(center_pressure > cfg__pressure_max)
+	if(bActive__CENTER_USE)
+	{
+		if(center_pressure > cfg__pressure_max)		active__pressure_error = true;
+	}
+	if(bActive__EDGE_USE)
+	{
+		if(edge_pressure > cfg__pressure_max)		active__pressure_error = true;
+	}
+
+	if(active__pressure_error)
 	{
 		int alm_id = ALID__HE_PRESSURE__MAX_ERROR;
 		CString alm_msg;
 		CString alm_bff;
 		CString r_act;
 
-		if(center_pressure > cfg__pressure_max)
+		if(bActive__CENTER_USE)
 		{
-			alm_bff.Format("current he center pressure <- %.1f (tprr) \n", center_pressure);
-			alm_msg += alm_bff;
+			if(center_pressure > cfg__pressure_max)
+			{
+				alm_bff.Format("current he center pressure <- %.1f (tprr) \n", center_pressure);
+				alm_msg += alm_bff;
+			}
+		}
+		if(bActive__EDGE_USE)
+		{
+			if(edge_pressure > cfg__pressure_max)
+			{
+				alm_bff.Format("current he edge pressure <- %.1f (tprr) \n", edge_pressure);
+				alm_msg += alm_bff;
+			}
 		}
 
 		alm_bff.Format("config he max. pressure <- %.1f (torr) \n", cfg__pressure_max);
@@ -2105,15 +2283,16 @@ Fnc__DECHUCK(CII_OBJECT__VARIABLE* p_variable,
 		{
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 		}
 		if(bActive__EDGE_USE)
 		{
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Close);
 		}
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Close);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Close);
 
 		if(bActive__CENTER_USE)				aoEXT_CH__He_Pressure_CENTER->Set__VALUE(0.0);
 		if(bActive__EDGE_USE)				aoEXT_CH__He_Pressure_EDGE->Set__VALUE(0.0);
@@ -2125,15 +2304,16 @@ Fnc__DECHUCK(CII_OBJECT__VARIABLE* p_variable,
 		// ...
 		{
 			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Close);
-			doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Close);
 
 			if(bActive__CENTER_USE)
 			{
+				doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 			}
 			if(bActive__EDGE_USE)
 			{
+				doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 			}
@@ -2378,15 +2558,16 @@ Fnc__DECHUCK(CII_OBJECT__VARIABLE* p_variable,
 			{
 				doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
+				doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 			}
 			if(bActive__EDGE_USE)
 			{
 				doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
+				doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Close);
 			}
 
 			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Close);
-			doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Close);
 
 			if(bActive__CENTER_USE)			aoEXT_CH__He_Pressure_CENTER->Set__VALUE(0.0);
 			if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(0.0);
@@ -2411,11 +2592,13 @@ int  CObj__ESC_IO
 		{
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 		}
 		if(bActive__EDGE_USE)
 		{
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 		}
 
 		Sleep(900);
@@ -2424,7 +2607,6 @@ int  CObj__ESC_IO
 		if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(cfg__edge_pressure);
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 
 		if(iActive__SIM_MODE > 0)
 		{
@@ -2468,15 +2650,16 @@ int  CObj__ESC_IO
 		{
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Close);
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 		}
 		if(bActive__EDGE_USE)
 		{
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Close);
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 		}
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 
 		if(iActive__SIM_MODE > 0)
 		{
@@ -2588,17 +2771,18 @@ int  CObj__ESC_IO
 
 		if(bActive__CENTER_USE)
 		{
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 		}
 		if(bActive__EDGE_USE)
 		{
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 		}
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 
 		if(bActive__CENTER_USE)			aoEXT_CH__He_Pressure_CENTER->Set__VALUE(0.0);
 		if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(0.0);
@@ -2675,15 +2859,16 @@ Fnc__ESC_ABORT(CII_OBJECT__VARIABLE *p_variable,
 		// ...
 		{
 			doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-			doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 
 			if(bActive__CENTER_USE)
 			{
+				doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 			}
 			if(bActive__EDGE_USE)
 			{
+				doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 				doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);
 				doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 			}
@@ -2752,6 +2937,7 @@ He_REQ_Fnc__Init(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 		{
 			aoEXT_CH__He_Pressure_CENTER->Set__DATA("0.0");
 
+			doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);		
 			doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);		
 		}
@@ -2759,31 +2945,43 @@ He_REQ_Fnc__Init(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 		{
 			aoEXT_CH__He_Pressure_EDGE->Set__DATA("0.0");
 
+			doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
 			doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);		
 			doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);		
 		}
 
 		doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-		doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
 	}
 	return 1;
 }
 int CObj__ESC_IO::
 He_REQ_Fnc__Open_Supply(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm, const double set_press)
 {
-	if(bActive__CENTER_USE)			aoEXT_CH__He_Pressure_CENTER->Set__VALUE(set_press);
-	if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__VALUE(set_press);
+	if(bActive__CENTER_USE)	
+	{
+		doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Open);
+		aoEXT_CH__He_Pressure_CENTER->Set__VALUE(set_press);
+	}
+	if(bActive__EDGE_USE)
+	{
+		doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Open);
+		aoEXT_CH__He_Pressure_EDGE->Set__VALUE(set_press);
+	}
 
 	doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Open);
-	doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Open);
-
 	return 1;
 }
 int CObj__ESC_IO::
 He_REQ_Fnc__Close_Supply(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
-	if(bActive__CENTER_USE)			aoEXT_CH__He_Pressure_CENTER->Set__DATA("0.0");
-	if(bActive__EDGE_USE)			aoEXT_CH__He_Pressure_EDGE->Set__DATA("0.0");
+	if(bActive__CENTER_USE)
+	{
+		aoEXT_CH__He_Pressure_CENTER->Set__DATA("0.0");
+	}
+	if(bActive__EDGE_USE)
+	{
+		aoEXT_CH__He_Pressure_EDGE->Set__DATA("0.0");
+	}
 
 	if(doEXT_CH__He_Side_Supply_Vlv->Check__DATA(STR__Close) < 0)
 	{
@@ -2792,15 +2990,16 @@ He_REQ_Fnc__Close_Supply(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_a
 	}
 
 	doEXT_CH__He_Side_Supply_Vlv->Set__DATA(STR__Close);
-	doEXT_CH__He_Side_Dump_Vlv->Set__DATA(STR__Close);
 
 	if(bActive__CENTER_USE)
 	{
+		doEXT_CH__He_Side_Dump_Vlv_CENTER->Set__DATA(STR__Close);
 		doEXT_CH__He_Final_Out_Vlv_CENTER->Set__DATA(STR__Close);		
 		doEXT_CH__He_Final_Dump_Vlv_CENTER->Set__DATA(STR__Open);		
 	}
 	if(bActive__EDGE_USE)
 	{
+		doEXT_CH__He_Side_Dump_Vlv_EDGE->Set__DATA(STR__Close);
 		doEXT_CH__He_Final_Out_Vlv_EDGE->Set__DATA(STR__Close);		
 		doEXT_CH__He_Final_Dump_Vlv_EDGE->Set__DATA(STR__Open);		
 	}

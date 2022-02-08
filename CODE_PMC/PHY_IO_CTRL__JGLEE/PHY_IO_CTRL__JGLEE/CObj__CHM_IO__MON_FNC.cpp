@@ -169,19 +169,28 @@ int CObj__CHM_IO
 			else								sEXT_CH__PMP_VAC_SNS->Set__DATA(STR__OFF);
 		}
 
-		/*
-		// ...
+		// RF INFO ...
+		if(iDATA__RF_SIZE > 0)
 		{
-			double cur_ppwer = 0.0;
+			bool active__rf_on = false;
 
-			cur_ppwer += aEXT_CH__HF_RF_POWER->Get__VALUE();
-			cur_ppwer += aEXT_CH__LF_RF_POWER->Get__VALUE();
-			cur_ppwer += aEXT_CH__BIAS_RF_POWER->Get__VALUE();
+			for(i=0; i<iDATA__RF_SIZE; i++)
+			{
+				if(dEXT_CH__RF_ON_STATE_X[i]->Check__DATA(STR__ON) < 0)			continue;
+					
+				active__rf_on = true;
+				break;
+			}
 
-			if(cur_ppwer > 0.1)		sEXT_CH__RF_ON_STATE->Set__DATA(STR__ON);
-			else					sEXT_CH__RF_ON_STATE->Set__DATA(STR__OFF);
+			if(active__rf_on)			sEXT_CH__RF_TOTAL_ON_STATE->Set__DATA(STR__ON);
+			else						sEXT_CH__RF_TOTAL_ON_STATE->Set__DATA(STR__OFF);
 		}
-		*/
+		else
+		{
+			sEXT_CH__RF_TOTAL_ON_STATE->Set__DATA(STR__OFF);
+		}
+
+		// ...
 	}
 
 	return 1;

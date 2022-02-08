@@ -341,16 +341,15 @@ int CObj__RF_STD::__DEFINE__VARIABLE_STD(p_variable)
 	}
 
 	// ...
-	str_name.Format("RF.ABORT.FLAG");
-	item_list.Format("OFF ON");
-	STD__ADD_DIGITAL(str_name, item_list);
-	LINK__VAR_DIGITAL_CTRL(dCH__RF_ABORT_FLAG, str_name);
+	{
+		str_name = "RF.ABORT.FLAG";		
+		STD__ADD_DIGITAL(str_name, "OFF ON");
+		LINK__VAR_DIGITAL_CTRL(dCH__RF_ABORT_FLAG, str_name);
 
-	str_name.Format("RF.STABLE.FLAG");
-	item_list.Format("OFF ON");
-	STD__ADD_DIGITAL(str_name, item_list);
-	LINK__VAR_DIGITAL_CTRL(dCH__RF_STABLE_FLAG, str_name);
-
+		str_name = "RF.STABLE.FLAG";
+		STD__ADD_DIGITAL(str_name, "OFF ON");
+		LINK__VAR_DIGITAL_CTRL(dCH__RF_STABLE_FLAG, str_name);
+	}
 
 	// User Config Item ...
 	{
@@ -739,8 +738,14 @@ int CObj__RF_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// Object Link ...
 	{
+		def_name = "DATA.RF_FREQUENCY.ACTIVE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if(def_data.CompareNoCase("YES") == 0)		bActive__RF_FREQ_MODE = true;
+		else										bActive__RF_FREQ_MODE = false;
+
 		def_name = "OBJ__IO_RF";
-		p_variable->Get__DEF_CONST_DATA(def_name, obj_name);
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
 		pOBJ_CTRL__IO_RF = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
@@ -749,48 +754,50 @@ int CObj__RF_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			var_name = "PARA.SET.POWER";
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_SET_POWER, obj_name,var_name);
 
-			//
-			var_name = "PARA.TUNE.USE";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RF_PARA_TUNE_USE, obj_name,var_name);
+			if(bActive__RF_FREQ_MODE)
+			{
+				var_name = "PARA.TUNE.USE";
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RF_PARA_TUNE_USE, obj_name,var_name);
 
-			var_name = "PARA.TUNE.DELAY";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_TUNE_DELAY, obj_name,var_name);
+				var_name = "PARA.TUNE.DELAY";
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_TUNE_DELAY, obj_name,var_name);
 
-			//
-			var_name = "PARA.START.FREQUENCY";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_START_FREQUENCY, obj_name,var_name);
+				//
+				var_name = "PARA.START.FREQUENCY";
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_START_FREQUENCY, obj_name,var_name);
 
-			var_name = "PARA.OUTPUT.FREQUENCY";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_OUTPUT_FREQUENCY, obj_name,var_name);
+				var_name = "PARA.OUTPUT.FREQUENCY";
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_OUTPUT_FREQUENCY, obj_name,var_name);
 
-			//
-			var_name = "PARA.RAMP.UP.TIME";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_RAMP_UP_TIME, obj_name,var_name);
+				//
+				var_name = "PARA.RAMP.UP.TIME";
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_RAMP_UP_TIME, obj_name,var_name);
 
-			var_name = "PARA.RAMP.DOWN.TIME";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_RAMP_DOWN_TIME, obj_name,var_name);
+				var_name = "PARA.RAMP.DOWN.TIME";
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_PARA_RAMP_DOWN_TIME, obj_name,var_name);
+			}
 		}
 
 		// LINK_MODE ...
 		{
 			def_name = "LINK_MODE__INIT";
-			p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			sLINK__RF_MODE__INIT = def_data;
 
 			def_name = "LINK_MODE__LOCAL";
-			p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			sLINK__RF_MODE__LOCAL = def_data;
 
 			def_name = "LINK_MODE__REMOTE";
-			p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			sLINK__RF_MODE__REMOTE = def_data;
 
 			def_name = "LINK_MODE__SET_POWER";
-			p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			sLINK__RF_MODE__SET_POWER = def_data;
 
 			def_name = "LINK_MODE__OFF";
-			p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			sLINK__RF_MODE__OFF = def_data;
 		}
 		// LINK_VAR ...
@@ -948,6 +955,7 @@ int CObj__RF_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	}
 
 	sCH__PARA_STEP_TIME->Set__DATA("");
+	dCH__PARA_RCP_CTRL_ACTIVE->Set__DATA(STR__OFF);
 
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))
 	{

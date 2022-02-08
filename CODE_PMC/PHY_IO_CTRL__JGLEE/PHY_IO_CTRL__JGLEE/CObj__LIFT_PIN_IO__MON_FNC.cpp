@@ -16,54 +16,64 @@ int CObj__LIFT_PIN_IO
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.1);
 
-		// CHECK.POS ...
+		// PIN.STATE  ...
 		{
 			bool active__up_pos      = false;
 			bool active__down_pos    = false;
 			bool active__middle_pos  = false;
 			bool active__unknown_pos = false;
-	
-			for(int i=0; i<iPIN__SIZE; i++)
+
+			// DI.SNS ...
+			if(iDATA__PIN_SNS_TYPE == _PIN_TYPE__DI_SNS)
 			{
-				double ref__down_min = aCH__CFG_DOWN_POS_MIN__PIN_X[i]->Get__VALUE();
-				double ref__down_max = aCH__CFG_DOWN_POS_MAX__PIN_X[i]->Get__VALUE();
-
-				double ref__up_min = aCH__CFG_UP_POS_MIN__PIN_X[i]->Get__VALUE();
-				double ref__up_max = aCH__CFG_UP_POS_MAX__PIN_X[i]->Get__VALUE();
-
-				double ref__middle_min = aCH__CFG_MIDDLE_POS_MIN__PIN_X[i]->Get__VALUE();
-				double ref__middle_max = aCH__CFG_MIDDLE_POS_MAX__PIN_X[i]->Get__VALUE();
-
-				double cur__pos = aEXT_CH__AI_PIN_POS_X[i]->Get__VALUE();
-
-				if((cur__pos >= ref__down_min)
-				&& (cur__pos <= ref__down_max))
+				if(dEXT_CH__DI_PIN_UP->Check__DATA(STR__ON)     > 0)		active__up_pos     = true;		
+				if(dEXT_CH__DI_PIN_DOWN->Check__DATA(STR__ON)   > 0)		active__down_pos   = true;		
+				if(dEXT_CH__DI_PIN_MIDDLE->Check__DATA(STR__ON) > 0)		active__middle_pos = true;		
+			}
+			else   // CHECK.POS ...
+			{
+				for(int i=0; i<iSIZE__AI_PIN__POS; i++)
 				{
-					active__down_pos = true;
-				}
-				else if((cur__pos >= ref__up_min)
-					 && (cur__pos <= ref__up_max))
-				{
-					active__up_pos = true;
-				}
-				else if((cur__pos >= ref__middle_min)
-					 && (cur__pos <= ref__middle_max))
-				{
-					active__middle_pos = true;
-				}
-				else
-				{
-					active__unknown_pos = true;
-				}
+					double ref__down_min = aCH__CFG_DOWN_POS_MIN__PIN_X[i]->Get__VALUE();
+					double ref__down_max = aCH__CFG_DOWN_POS_MAX__PIN_X[i]->Get__VALUE();
 
-				if(active__down_pos)		sCH__MON_POS_DOWN_ACTIVE_PIN_X[i]->Set__DATA(STR__ON);
-				else						sCH__MON_POS_DOWN_ACTIVE_PIN_X[i]->Set__DATA(STR__OFF);
+					double ref__up_min = aCH__CFG_UP_POS_MIN__PIN_X[i]->Get__VALUE();
+					double ref__up_max = aCH__CFG_UP_POS_MAX__PIN_X[i]->Get__VALUE();
 
-				if(active__up_pos)			sCH__MON_POS_UP_ACTIVE_PIN_X[i]->Set__DATA(STR__ON);
-				else						sCH__MON_POS_UP_ACTIVE_PIN_X[i]->Set__DATA(STR__OFF);
+					double ref__middle_min = aCH__CFG_MIDDLE_POS_MIN__PIN_X[i]->Get__VALUE();
+					double ref__middle_max = aCH__CFG_MIDDLE_POS_MAX__PIN_X[i]->Get__VALUE();
 
-				if(active__middle_pos)		sCH__MON_POS_MIDDLE_ACTIVE_PIN_X[i]->Set__DATA(STR__ON);
-				else						sCH__MON_POS_MIDDLE_ACTIVE_PIN_X[i]->Set__DATA(STR__OFF);
+					double cur__pos = aEXT_CH__AI_PIN_POS_X[i]->Get__VALUE();
+
+					if((cur__pos >= ref__down_min)
+					&& (cur__pos <= ref__down_max))
+					{
+						active__down_pos = true;
+					}
+					else if((cur__pos >= ref__up_min)
+						 && (cur__pos <= ref__up_max))
+					{
+						active__up_pos = true;
+					}
+					else if((cur__pos >= ref__middle_min)
+						 && (cur__pos <= ref__middle_max))
+					{
+						active__middle_pos = true;
+					}
+					else
+					{
+						active__unknown_pos = true;
+					}
+
+					if(active__down_pos)		sCH__MON_POS_DOWN_ACTIVE_PIN_X[i]->Set__DATA(STR__ON);
+					else						sCH__MON_POS_DOWN_ACTIVE_PIN_X[i]->Set__DATA(STR__OFF);
+
+					if(active__up_pos)			sCH__MON_POS_UP_ACTIVE_PIN_X[i]->Set__DATA(STR__ON);
+					else						sCH__MON_POS_UP_ACTIVE_PIN_X[i]->Set__DATA(STR__OFF);
+
+					if(active__middle_pos)		sCH__MON_POS_MIDDLE_ACTIVE_PIN_X[i]->Set__DATA(STR__ON);
+					else						sCH__MON_POS_MIDDLE_ACTIVE_PIN_X[i]->Set__DATA(STR__OFF);
+				}
 			}
 
 			if(active__unknown_pos)

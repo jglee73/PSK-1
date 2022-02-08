@@ -148,34 +148,41 @@ int CObj__TRANSFER_FNC
 {
 	while (1)
 	{
-		if(dEXT_CH__ESC_ON_STS->Check__DATA(STR__OFF) < 0)
+		if(bActive__ESC_ON_STS)
 		{
-			int alarm_id = ALID__ESC_POWER_STS;
-
-			CString r_act;
-
-			p_alarm->Check__ALARM(alarm_id,r_act);
-			p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, "", r_act);
-
-			if(r_act.CompareNoCase(ACT__RETRY) != 0)
+			if(dEXT_CH__ESC_ON_STS->Check__DATA(STR__OFF) < 0)
 			{
-				CString log_msg;
-				CString log_bff;
+				int alarm_id = ALID__ESC_POWER_STS;
 
-				log_msg = "ESC Power Status Error !";
+				CString r_act;
+	
+				p_alarm->Check__ALARM(alarm_id,r_act);
+				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, "", r_act);
 
-				log_bff.Format(" * %s <- %s \n",
-								dEXT_CH__ESC_ON_STS->Get__CHANNEL_NAME(),
-								dEXT_CH__ESC_ON_STS->Get__STRING());
-				log_msg += log_bff;
+				if(r_act.CompareNoCase(ACT__RETRY) != 0)
+				{
+					CString log_msg;
+					CString log_bff;
 
-				xI_LOG_CTRL->WRITE__LOG(log_msg);
-				return -1;
-			}	
+					log_msg = "ESC Power Status Error !";
+
+					log_bff.Format(" * %s <- %s \n",
+									dEXT_CH__ESC_ON_STS->Get__CHANNEL_NAME(),
+									dEXT_CH__ESC_ON_STS->Get__STRING());
+					log_msg += log_bff;
+	
+					xI_LOG_CTRL->WRITE__LOG(log_msg);
+					return -1;
+				}	
+			}
+			else
+			{
+				return 1;
+			}
 		}
 		else
 		{
-			return 1;
+			return 11;
 		}
 
 		Sleep(500);

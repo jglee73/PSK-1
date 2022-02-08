@@ -321,9 +321,13 @@ private:
 	CX__VAR_STRING_CTRL  sCH__RCP_STABLE_CHECK_COUNT;
 
 	CX__VAR_STRING_CTRL  sCH__RCP_He_CENTER_PRESSURE_SETPOINT_TORR;
+	CX__VAR_STRING_CTRL  sCH__RCP_He_EDGE_PRESSURE_SETPOINT_TORR;
 
 	CX__VAR_STRING_CTRL  sCH__RCP_He_CENTER_FLOW_MAX_THRESHOLD;
 	CX__VAR_STRING_CTRL  sCH__RCP_He_CENTER_FLOW_MIN_THRESHOLD;
+
+	CX__VAR_STRING_CTRL  sCH__RCP_He_EDGE_FLOW_MAX_THRESHOLD;
+	CX__VAR_STRING_CTRL  sCH__RCP_He_EDGE_FLOW_MIN_THRESHOLD;
 	//
 
 
@@ -333,8 +337,13 @@ private:
 	// DB OBJ ...
 	CX__VAR_STRING_CTRL  sEXT_CH__CHM_PRESSURE_STATUS;
 	CX__VAR_DIGITAL_CTRL dEXT_CH__WAFER_STATUS;
-	CX__VAR_STRING_CTRL  sEXT_CH__SHUTTER_STATUS;
 	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_DECHUCK_CTRL_MODE;
+
+	bool bActive__SHUTTER_STATUS;
+	CX__VAR_STRING_CTRL  sEXT_CH__SHUTTER_STATUS;
+
+	bool bActive__SLOT_VALVE_STATE;
+	CX__VAR_STRING_CTRL  sEXT_CH__SLOT_VALVE_STATE;
 
 	// LINK Channel ...
 	CX__VAR_DIGITAL_CTRL dEXT_CH__CONFIG_SAVE;
@@ -345,7 +354,10 @@ private:
 
 	// Center & Edge Use ...
 	bool bActive__CENTER_USE;
+	bool bActive__CENTER_3WAY_VLV;
+
 	bool bActive__EDGE_USE;
+	bool bActive__EDGE_3WAY_VLV;
 
 	// ECS Center ...
 	CX__VAR_ANALOG_CTRL  aoEXT_CH__ESC_Voltage_CENTER;
@@ -359,17 +371,17 @@ private:
 
 	// Helium ...
 	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Side_Supply_Vlv;
-	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Side_Dump_Vlv;
+	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Exhaust_Vlv;
 
 	// He.Center.Vlv 
 	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Final_Out_Vlv_CENTER;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Final_Dump_Vlv_CENTER;
+	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Side_Dump_Vlv_CENTER;
 
 	// He.Edge.Vlv
 	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Final_Out_Vlv_EDGE;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Final_Dump_Vlv_EDGE;
-
-	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Exhaust_Vlv;
+	CX__VAR_DIGITAL_CTRL doEXT_CH__He_Side_Dump_Vlv_EDGE;
 
 	// He.Center.PRessure
 	CX__VAR_ANALOG_CTRL  aoEXT_CH__He_Pressure_CENTER;
@@ -445,8 +457,8 @@ private:
 	int  Fnc__CHUCK(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const int chuck_mode);
 
 	int  Fnc__HV_SENSOR_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm);
-	int  Fnc__HV_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double set_volt_center);
-	int  Fnc__HE_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double center_pressure);
+	int  Fnc__HV_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double set_volt_center,const double set_volt_edge);
+	int  Fnc__HE_SETPOINT_INTERLOCK_CHECK(CII_OBJECT__ALARM* p_alarm, const double center_pressure,const double edge_pressure);
 
 	int  Fnc__HV_ERROR_CHECK(CII_OBJECT__ALARM* p_alarm, const int check_point, const int alm_report = 1);
 	int  Fnc__HE_ERROR_CHECK(CII_OBJECT__ALARM* p_alarm, const int he_type,const int check_point, const int alm_report = 1);

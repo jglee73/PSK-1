@@ -34,8 +34,9 @@ int CObj__RF_STD
 	}
 
 	if(bActive__RF_DO_POWER_CTRL)	
+	{
 		dEXT_CH__RF_DO_POWER_CTRL->Set__DATA(STR__OFF);
-	
+	}	
 	return 1;
 }
 
@@ -160,37 +161,40 @@ int CObj__RF_STD
 		aEXT_CH__RF_PARA_SET_POWER->Set__VALUE(set_power);
 	}
 
-	// 3. RF Ramp SET
+	if(bActive__RF_FREQ_MODE)
 	{
-		aCH__PARA_RAMP_UP_TIME->Get__DATA(str_data);
-		aEXT_CH__RF_PARA_RAMP_UP_TIME->Set__DATA(str_data);
+		// 3. RF Ramp SET
+		{
+			aCH__PARA_RAMP_UP_TIME->Get__DATA(str_data);
+			aEXT_CH__RF_PARA_RAMP_UP_TIME->Set__DATA(str_data);
 
-		aCH__PARA_RAMP_DOWN_TIME->Get__DATA(str_data);
-		aEXT_CH__RF_PARA_RAMP_DOWN_TIME->Set__DATA(str_data);
-	}
+			aCH__PARA_RAMP_DOWN_TIME->Get__DATA(str_data);
+			aEXT_CH__RF_PARA_RAMP_DOWN_TIME->Set__DATA(str_data);
+		}
 
-	// 4. RF Frequency Use SET
-	{
-		dCH__PARA_FREQ_TUNE_USE->Get__DATA(str_data);
-		dEXT_CH__RF_PARA_TUNE_USE->Set__DATA(str_data);
-	}
+		// 4. RF Frequency Use SET
+		{
+			dCH__PARA_FREQ_TUNE_USE->Get__DATA(str_data);
+			dEXT_CH__RF_PARA_TUNE_USE->Set__DATA(str_data);
+		}
 
-	// 5. RF Frequency SET
-	{
-		aCH__PARA_FREQ_PRESET->Get__DATA(str_data);					// KHZ
-		aEXT_CH__RF_PARA_START_FREQUENCY->Set__DATA(str_data);		// KHz
-	}
+		// 5. RF Frequency SET
+		{
+			aCH__PARA_FREQ_PRESET->Get__DATA(str_data);					// KHZ
+			aEXT_CH__RF_PARA_START_FREQUENCY->Set__DATA(str_data);		// KHz
+		}
 
-	// 6. RF Frequency Output Power SET
-	{
-		aCH__PARA_FREQ_OUTPUT->Get__DATA(str_data);
-		aEXT_CH__RF_PARA_OUTPUT_FREQUENCY->Set__DATA(str_data);
-	}
+		// 6. RF Frequency Output Power SET
+		{
+			aCH__PARA_FREQ_OUTPUT->Get__DATA(str_data);
+			aEXT_CH__RF_PARA_OUTPUT_FREQUENCY->Set__DATA(str_data);
+		}
 
-	// 7. RF Tune Delay Time SET
-	{
-		aCH__PARA_FREQ_TUNE_DELAY->Get__DATA(str_data);				// msec
-		aEXT_CH__RF_PARA_TUNE_DELAY->Set__DATA(str_data);			// msec
+		// 7. RF Tune Delay Time SET
+		{
+			aCH__PARA_FREQ_TUNE_DELAY->Get__DATA(str_data);				// msec
+			aEXT_CH__RF_PARA_TUNE_DELAY->Set__DATA(str_data);			// msec
+		}
 	}
 
 	// 8. RF Control START ...
@@ -204,8 +208,9 @@ int CObj__RF_STD
 	}
 
 	if(bActive__RF_DO_POWER_CTRL)	
+	{
 		dEXT_CH__RF_DO_POWER_CTRL->Set__DATA(STR__ON);
-	
+	}	
 	return 1;
 }
 

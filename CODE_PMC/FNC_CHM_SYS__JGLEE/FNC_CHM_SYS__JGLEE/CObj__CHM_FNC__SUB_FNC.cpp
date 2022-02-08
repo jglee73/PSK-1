@@ -141,6 +141,7 @@ int CObj__CHM_FNC
 	}
 
 	// Dry_Pump On Check 
+	if(bActive__DRY_PUMP)
 	{
 		// ...
 		{
@@ -539,9 +540,12 @@ int CObj__CHM_FNC
 		return -102;
 	}
 
-	if(dEXT_CH__DRY_PUMP__POWER_SNS->Check__DATA(STR__ON) > 0)
+	if(bActive__DRY_PUMP)
 	{
-		return OBJ_AVAILABLE;
+		if(dEXT_CH__DRY_PUMP__POWER_SNS->Check__DATA(STR__ON) > 0)
+		{
+			return 11;
+		}
 	}
 
 	if(Fnc__PUMP_CTRL(p_variable, p_alarm, MODE__DRY_PUMP_ON) < 0)
@@ -549,7 +553,7 @@ int CObj__CHM_FNC
 		return -104;
 	}
 
-	return OBJ_AVAILABLE;
+	return 1;
 }
 
 int CObj__CHM_FNC
@@ -717,27 +721,33 @@ int CObj__CHM_FNC
 	{
 		// Dry-Pump ...
 		case MODE__DRY_PUMP_ON:
-			if(dEXT_CH__DRY_PUMP__POWER_SNS->Check__DATA(STR__ON) < 0)
+			if(bActive__DRY_PUMP)
 			{
-				if(pOBJ_CTRL__DRY_PUMP->Call__OBJECT(CMMD_TMP__PUMP_ON) < 0)
+				if(dEXT_CH__DRY_PUMP__POWER_SNS->Check__DATA(STR__ON) < 0)
 				{
-					log_msg.Format("Fnc__PUMP_CTRL - Dry Pump On Failed");
-					xLOG_CTRL->WRITE__LOG(log_msg);
+					if(pOBJ_CTRL__DRY_PUMP->Call__OBJECT(CMMD_TMP__PUMP_ON) < 0)
+					{
+						log_msg.Format("Fnc__PUMP_CTRL - Dry Pump On Failed");
+						xLOG_CTRL->WRITE__LOG(log_msg);
 
-					return -111;
+						return -111;
+					}
 				}
 			}
 			break;
 
 		case MODE__DRY_PUMP_OFF:
-			if(dEXT_CH__DRY_PUMP__POWER_SNS->Check__DATA(STR__OFF) < 0)
+			if(bActive__DRY_PUMP)
 			{
-				if(pOBJ_CTRL__DRY_PUMP->Call__OBJECT(CMMD_TMP__PUMP_OFF) < 0)
+				if(dEXT_CH__DRY_PUMP__POWER_SNS->Check__DATA(STR__OFF) < 0)
 				{
-					log_msg.Format("Fnc__PUMP_CTRL - Dry Pump Off Failed");
-					xLOG_CTRL->WRITE__LOG(log_msg);
+					if(pOBJ_CTRL__DRY_PUMP->Call__OBJECT(CMMD_TMP__PUMP_OFF) < 0)
+					{
+						log_msg.Format("Fnc__PUMP_CTRL - Dry Pump Off Failed");
+						xLOG_CTRL->WRITE__LOG(log_msg);
 
-					return -112;
+						return -112;
+					}
 				}
 			}
 			break;
@@ -1568,7 +1578,7 @@ int CObj__CHM_FNC
 			sCH__LEAK_CHECK__CUR_TIME_COUNT->Set__DATA("0");
 		}
 
-		// ...
+		if(bActive__PMC_LOG)
 		{
 			xEXT_CH__PMC_LOG__SAMPLING_PERIOD->Set__DATA("10.0");
 			
@@ -1622,7 +1632,7 @@ int CObj__CHM_FNC
 
 			for(i=0; i<i_limit; i++)
 			{
-				// ...
+				if(bActive__PMC_LOG)
 				{
 					int log_flag = pOBJ_CTRL__PMC_LOG->Call__OBJECT(CMMD__LOG_STEP_START);
 
@@ -1726,7 +1736,7 @@ int CObj__CHM_FNC
 					sCH__LEAK_CHECK__LOG_MESSAGE->Set__DATA(log_msg);
 				}
 
-				// ...
+				if(bActive__PMC_LOG)
 				{
 					int log_flag = pOBJ_CTRL__PMC_LOG->Call__OBJECT(CMMD__LOG_STEP_END);
 
@@ -1760,7 +1770,7 @@ int CObj__CHM_FNC
 			}
 		}
 
-		// ...
+		if(bActive__PMC_LOG)
 		{
 			int log_flag = pOBJ_CTRL__PMC_LOG->Call__OBJECT(CMMD__LOG_DISABLE);
 
