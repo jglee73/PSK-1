@@ -1,0 +1,1055 @@
+
+<<<----  [OUT]
+2021/10/25 14:03:03:908
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2021/10/25 14:03:03:925
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2021/10/25 14:03:04:526
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2021/10/25 14:03:04:617
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2021/10/25 14:03:04:617
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2021/10/25 14:03:04:634
+
+Socket Open Started...
+
+<<<----  [OUT]
+2021/10/25 14:03:04:634
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2021/10/25 14:03:04:634
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:03:04:707
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2021/10/25 14:03:25:676
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:03:28:165
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:03:49:192
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:03:51:680
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:04:12:735
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:04:15:212
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:04:36:245
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:04:38:727
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:04:59:779
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:05:02:258
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:05:23:292
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:05:25:774
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:05:46:799
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:05:49:288
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:06:10:322
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:06:12:805
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:06:33:830
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:06:36:321
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:06:57:348
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:06:59:835
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:07:20:860
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:07:23:352
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:07:44:402
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:07:46:884
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:08:07:936
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:08:10:415
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:08:31:443
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:08:33:929
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:11:17:170
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2021/10/25 14:11:17:180
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2021/10/25 14:11:17:781
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2021/10/25 14:11:17:872
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2021/10/25 14:11:17:872
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2021/10/25 14:11:17:896
+
+Socket Open Started...
+
+<<<----  [OUT]
+2021/10/25 14:11:17:896
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2021/10/25 14:11:17:896
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:11:17:963
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2021/10/25 14:11:38:948
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:11:41:431
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:12:02:469
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:12:04:945
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:12:26:000
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:12:28:478
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:12:49:512
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:12:51:992
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:13:13:036
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:13:15:523
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:13:36:567
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:13:39:055
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:14:00:094
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:14:02:587
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:14:23:619
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:14:26:102
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:14:47:137
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:14:49:618
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:15:10:659
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:15:13:148
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:15:34:182
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:15:36:664
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:15:57:697
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:16:00:179
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:16:21:228
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:16:23:711
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:16:44:745
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:16:47:226
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:17:08:255
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:17:10:742
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:17:31:772
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:17:34:259
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:17:55:312
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:17:57:789
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:18:18:831
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:18:21:321
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:18:42:356
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:18:44:837
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:19:05:901
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:19:08:383
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:19:29:416
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:19:31:899
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:19:52:936
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:19:55:414
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:20:16:462
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:20:18:946
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:20:39:970
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:20:42:461
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:21:15:422
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2021/10/25 14:21:15:439
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2021/10/25 14:21:16:042
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2021/10/25 14:21:16:132
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2021/10/25 14:21:16:132
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2021/10/25 14:21:16:148
+
+Socket Open Started...
+
+<<<----  [OUT]
+2021/10/25 14:21:16:148
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2021/10/25 14:21:16:148
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:21:16:223
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2021/10/25 14:21:37:177
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:21:39:663
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:22:00:726
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:22:03:211
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:22:24:240
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:22:26:726
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:22:47:772
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:22:50:258
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:23:11:302
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:23:13:790
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:23:34:830
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:23:37:321
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:23:58:363
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:24:00:851
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:24:21:897
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:24:24:382
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:28:42:906
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2021/10/25 14:28:42:916
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2021/10/25 14:28:43:517
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2021/10/25 14:28:43:608
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2021/10/25 14:28:43:608
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2021/10/25 14:28:43:633
+
+Socket Open Started...
+
+<<<----  [OUT]
+2021/10/25 14:28:43:633
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2021/10/25 14:28:43:633
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:28:43:699
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2021/10/25 14:29:04:683
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:29:07:163
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:29:28:217
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:29:30:694
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:29:51:728
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:29:54:212
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:30:15:245
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:30:17:727
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:30:38:752
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:30:41:242
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:31:02:289
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:31:04:773
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:31:25:807
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:31:28:290
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:31:49:309
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:31:51:788
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:32:12:857
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:32:15:335
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:32:36:379
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:32:38:867
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:32:59:912
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:33:02:398
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:33:23:452
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:33:25:930
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:33:46:971
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:33:49:461
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:34:10:506
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:34:12:991
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:34:34:010
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:34:36:493
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:34:57:537
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:35:00:023
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:35:49:837
+
+---------------------------------------------------------------------
+// FA : Start Log ...
+
+
+<<<----  [OUT]
+2021/10/25 14:35:49:860
+
+//-------------------------------------------------------------
+Property Information
+
+   Driver Type [HSMS]
+   Driver Mode [ACTIVE]
+   IP    [192.168.100.113]
+   Port  [5000]
+//-------------------------------------------------------------
+
+
+<<<----  [OUT]
+2021/10/25 14:35:50:461
+
+Auto-Start Started ... (Active)
+
+<<<----  [OUT]
+2021/10/25 14:35:50:552
+
+Auto-Start Started ...  Waiting Stop-Connection.
+
+<<<----  [OUT]
+2021/10/25 14:35:50:552
+
+Auto-Start Started ...  Waiting Open-Socket.
+
+<<<----  [OUT]
+2021/10/25 14:35:50:565
+
+Socket Open Started...
+
+<<<----  [OUT]
+2021/10/25 14:35:50:565
+
+Socket Open Completed...
+
+<<<----  [OUT]
+2021/10/25 14:35:50:565
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:35:50:643
+
+Auto-Start Completed ...  (Active)
+
+<<<----  [OUT]
+2021/10/25 14:36:11:602
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:36:14:085
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:36:35:137
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:36:37:618
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:36:58:669
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:37:01:149
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:37:22:181
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:37:24:664
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:37:45:724
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:37:48:211
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:38:09:244
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:38:11:727
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:38:32:769
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:38:35:257
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:38:56:297
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:38:58:773
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:39:19:815
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:39:22:304
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:39:43:334
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:39:45:821
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:40:06:883
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:40:09:368
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:40:30:403
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:40:32:882
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:40:53:918
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:40:56:399
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:41:17:462
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:41:19:945
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:41:40:986
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:41:43:476
+
+Connecting Started...
+
+<<<----  [OUT]
+2021/10/25 14:42:04:512
+
+I can't connect with the passive [192.168.100.113/5000] error_code:10060 !
+
+<<<----  [OUT]
+2021/10/25 14:42:06:991
+
+Connecting Started...

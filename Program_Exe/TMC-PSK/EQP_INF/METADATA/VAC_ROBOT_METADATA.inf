@@ -77,11 +77,9 @@
 #OBJECT_IO_PARA     PORT      5000
 
 #DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
-#DEFINE_CONSTANT    VAR__IO_A_ARM_RNE_SNS		            IO+di.VTM_Robot.Arm_A.Retract
-#DEFINE_CONSTANT    VAR__IO_B_ARM_RNE_SNS		            IO+di.VTM_Robot.Arm_B.Retract
 
-#DEFINE_CONSTANT    LLx.MULTI_SLOT_VALVE                YES
-#DEFINE_CONSTANT    LLx.SLOT_SIZE                       2
+#DEFINE_CONSTANT    LL_SIZE                             ##LL_LIMIT
+#DEFINE_CONSTANT    PM_SIZE     	                      ##PM_LIMIT
 
 
 //------------------------------------------------

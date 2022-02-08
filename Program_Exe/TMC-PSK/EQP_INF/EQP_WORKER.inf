@@ -15,6 +15,9 @@
 #OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__LBA
 #OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__LBB
 
+#OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__LBA_VLV
+#OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__LBB_VLV
+
 #OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__TMC_LEAK
 #OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__LBA_LEAK
 #OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__LBB_LEAK
@@ -49,8 +52,7 @@
 #OBJECT_STD    TMC__Phy_PMC                  PMC.SIMPLE               PHY__PMx
 #OBJECT_STD    TMC__Active_HandOff           PMC.EX                   OPR__PMx_HANDOFF
 
-#OBJECT_IO     Phy_IO__BROOKS_ROBOT          VacRobot.WAVEII          PHY_IO__VAC_ROBOT
-// #OBJECT_IO     Phy_IO__CYMECHS_ROBOT         PERSIMMON.NET            PHY_IO__VAC_ROBOT
+#OBJECT_IO     Phy_IO__BROOKS_ROBOT          VacRobot.PSK             PHY_IO__VAC_ROBOT
 
 
 ===========================================================================

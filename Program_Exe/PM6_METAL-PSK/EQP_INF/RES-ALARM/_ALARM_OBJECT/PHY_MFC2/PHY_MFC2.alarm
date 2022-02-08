@@ -1,0 +1,6 @@
+#ID=2	3802	LIGHT	PHY_MFC2 - In MFC config page, MFC's use is selected to "YES".
+#ID=1	3801	LIGHT	PHY_MFC2 - MFC Flow Control Aborted !.
+#ID=3	3803	LIGHT	PHY_MFC2 - MFC Flow Control Warning Range Alarm.
+#ID=4	3804	LIGHT	PHY_MFC2 - MFC Flow Control Abort Range Alarm.
+#ID=5	3805	LIGHT	PHY_MFC2 - During Idle, MFC Flow Control Warning Range Alarm.
+#ID=6	3806	LIGHT	PHY_MFC2 - During Idle, MFC Flow Control Abort Range Alarm.

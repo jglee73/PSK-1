@@ -32,6 +32,35 @@
 #FNC_MODE           CYCLE_PURGE            FNC__LBB              CYCLE_PURGE 
 
 
+//------------------------------------------------
+#OBJECT_PROPERTY    PAGE__LBA_VLV            
+
+#DEFINE_CONSTANT    CH.CATEGORY.LOCK       DB_CFG+CUR.UTILITY.CATEGORY
+#DEFINE_CONSTANT    DATA.CATEGORY.LOCK     VAC.AREA
+
+#DEFINE_CONSTANT    CH.FNC.LOCK            DB_CFG+CUR.UTILITY.FNC.NAME
+#DEFINE_CONSTANT    DATA.FNC.LOCK          LL1.FNC
+
+#FNC_MODE           DV_CLOSE               FNC__LBA              DV_CLOSE 
+#FNC_MODE           DV_OPEN                FNC__LBA              DV_OPEN 
+#FNC_MODE           SV_CLOSE               FNC__LBA              SV_CLOSE 
+#FNC_MODE           SV_OPEN                FNC__LBA              SV_OPEN 
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PAGE__LBB_VLV            
+
+#DEFINE_CONSTANT    CH.CATEGORY.LOCK       DB_CFG+CUR.UTILITY.CATEGORY
+#DEFINE_CONSTANT    DATA.CATEGORY.LOCK     VAC.AREA
+
+#DEFINE_CONSTANT    CH.FNC.LOCK            DB_CFG+CUR.UTILITY.FNC.NAME
+#DEFINE_CONSTANT    DATA.FNC.LOCK          LL2.FNC
+
+#FNC_MODE           DV_CLOSE               FNC__LBB              DV_CLOSE 
+#FNC_MODE           DV_OPEN                FNC__LBB              DV_OPEN 
+#FNC_MODE           SV_CLOSE               FNC__LBB              SV_CLOSE 
+#FNC_MODE           SV_OPEN                FNC__LBB              SV_OPEN 
+
+
 //------------------------------------------------               
 #OBJECT_PROPERTY    PAGE__LBA_LEAK                                   
 

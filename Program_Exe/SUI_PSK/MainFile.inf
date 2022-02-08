@@ -7,8 +7,9 @@
 // #TOTAL_ALARM_POPUP_BOX_ENABLE
 #MODULE_WINDOW_HIDE		     // Show (Default)
 
-// #SINGLE_LOCAL               0
-#SINGLE_LOCAL               2
+// #SINGLE_LOCAL               1
+// #SINGLE_LOCAL               5
+// #SINGLE_LOCAL               7
 // #SINGLE_REMOTE              2
 
 #SYSTEM_USER_LEVEL          OEM     // MAINT  
@@ -40,12 +41,12 @@
 #DEFINE  ##CTC_DIR_ROOT     "D:\WORK_PSK\Program_Exe\CTC-PSK"
 #DEFINE  ##TMC_DIR_ROOT     "D:\WORK_PSK\Program_Exe\TMC-PSK"
 
-#DEFINE  ##PM1_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM1_MAIN-PSK"
+#DEFINE  ##PM1_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM1-SAMPLE"
 #DEFINE  ##PM2_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM2-SAMPLE"
-#DEFINE  ##PM3_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM3-SAMPLE"
-#DEFINE  ##PM4_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM4-SAMPLE"
-#DEFINE  ##PM5_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM5-SAMPLE"
-#DEFINE  ##PM6_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM6-SAMPLE"
+#DEFINE  ##PM3_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM3_STRIP-PSK"
+#DEFINE  ##PM4_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM4_STRIP-PSK"
+#DEFINE  ##PM5_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM5_METAL-PSK"
+#DEFINE  ##PM6_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM6_METAL-PSK"
 
 
 #DIR_ROOT.CTC               ##CTC_DIR_ROOT
@@ -61,15 +62,11 @@
 #DEFINE  ##TMC_SCR_FILE     TMC_WIN-PSK.sct
 #DEFINE  ##TMC_SCR_CTRL     TMC_WIN-PSK.ctrl
 
-/*
-#DEFINE  ##PMC_SCR_FILE     PMC_WIN-SAMPLE.sct
-#DEFINE  ##PMC_SCR_CTRL     PMC_WIN-SAMPLE.ctrl
+#DEFINE  ##PMC_SCT.METAL    PMC_WIN-METAL_PSK.sct
+#DEFINE  ##PMC_CTL.METAL    PMC_WIN-METAL_PSK.ctrl
 
-#DEFINE  ##PMC_SCR_FILE     PMC_WIN-TRAINING.sct
-#DEFINE  ##PMC_SCR_CTRL     PMC_WIN-TRAINING.ctrl
-*/
-#DEFINE  ##PMC_SCR_FILE     PMC_WIN-MAIN_PSK.sct
-#DEFINE  ##PMC_SCR_CTRL     PMC_WIN-MAIN_PSK.ctrl
+#DEFINE  ##PMC_SCT.STRIP    PMC_WIN-STRIP_PSK.sct
+#DEFINE  ##PMC_CTL.STRIP    PMC_WIN-STRIP_PSK.ctrl
 
 #DEFINE  ##NULL_SCR_FILE    WIN-NULL.sct
 #DEFINE  ##NULL_SCR_CTRL    WIN-NULL.ctrl
@@ -97,25 +94,25 @@
 #DIR_SEQ_ROOT          ##TMC_DIR_ROOT
 }
 
+/*
 // PM1
 #PM1_DATA
 {
 #SEQ_NAME              PM1
 
-#SCREEN_FILE           ##PMC_SCR_FILE
-#SCREEN_CTRL	         ##PMC_SCR_CTRL
+#SCREEN_FILE           ##PMC_SCT.METAL
+#SCREEN_CTRL	         ##PMC_CTL.METAL
 
 #DIR_SEQ_ROOT          ##PM1_DIR_ROOT
 }
 
-/*
 // PM2
 #PM2_DATA
 {
 #SEQ_NAME              PM2
 
-#SCREEN_FILE           ##PMC_SCR_FILE
-#SCREEN_CTRL	         ##PMC_SCR_CTRL
+#SCREEN_FILE           ##PMC_SCT.METAL
+#SCREEN_CTRL	         ##PMC_CTL.METAL
 
 #DIR_SEQ_ROOT          ##PM2_DIR_ROOT
 }
@@ -127,20 +124,44 @@
 {
 #SEQ_NAME              PM3
 
-#SCREEN_FILE           ##PMC_SCR_FILE
-#SCREEN_CTRL	         ##PMC_SCR_CTRL
+#SCREEN_FILE           ##PMC_SCT.STRIP
+#SCREEN_CTRL	         ##PMC_CTL.STRIP
 
 #DIR_SEQ_ROOT          ##PM3_DIR_ROOT
 }
+*/
 
 // PM4
 #PM4_DATA
 {
 #SEQ_NAME              PM4
 
-#SCREEN_FILE           ##PMC_SCR_FILE
-#SCREEN_CTRL	         ##PMC_SCR_CTRL
+#SCREEN_FILE           ##PMC_SCT.STRIP
+#SCREEN_CTRL	         ##PMC_CTL.STRIP
 
 #DIR_SEQ_ROOT          ##PM4_DIR_ROOT
 }
+
+/*
+// PM5
+#PM5_DATA
+{
+#SEQ_NAME              PM5
+
+#SCREEN_FILE           ##PMC_SCT.METAL
+#SCREEN_CTRL	         ##PMC_CTL.METAL
+
+#DIR_SEQ_ROOT          ##PM5_DIR_ROOT
+}
 */
+
+// PM6
+#PM6_DATA
+{
+#SEQ_NAME              PM6
+
+#SCREEN_FILE           ##PMC_SCT.METAL
+#SCREEN_CTRL	         ##PMC_CTL.METAL
+
+#DIR_SEQ_ROOT          ##PM6_DIR_ROOT
+}

@@ -38,7 +38,9 @@
 
 "__EQP" Object not defined ! 
 "PAGE__LBA_LEAK" Object not defined ! 
+"PAGE__LBA_VLV" Object not defined ! 
 "PAGE__LBB_LEAK" Object not defined ! 
+"PAGE__LBB_VLV" Object not defined ! 
 "PAGE__LBx_TEST" Object not defined ! 
 "PAGE__MANIFOLD_TEST" Object not defined ! 
 "PAGE__SYS_CTRL" Object not defined ! 
@@ -179,8 +181,9 @@ OBJECT_NAME : FNC__VAC_ROBOT   (OffsetID:21400) (ToolID:) (UnitID:)
 "Please, check material on Robot's A-Arm.
 PHY_VAC_ROBOT+OTR.OUT.MON.dARM_A.MATERIAL.STATUS"
 #RECOVERY_ACTION 
-     RETRY   ""
      ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -196,8 +199,9 @@ PHY_VAC_ROBOT+OTR.OUT.MON.dARM_A.MATERIAL.STATUS"
 "Please, check material on Robot's B-Arm.
 PHY_VAC_ROBOT+OTR.OUT.MON.dARM_B.MATERIAL.STATUS"
 #RECOVERY_ACTION 
-     RETRY   ""
      ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -244,8 +248,9 @@ PHY_VAC_ROBOT+OTR.OUT.MON.dARM_B.MATERIAL.STATUS"
 "Please, check material in PMC.
 "
 #RECOVERY_ACTION 
-     RETRY   ""
      ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -408,8 +413,9 @@ OBJECT_NAME : PHY__VAC_ROBOT   (OffsetID:21500) (ToolID:) (UnitID:)
 "Please, check material on Robot's A-Arm.
 "
 #RECOVERY_ACTION 
-     RETRY   ""
      ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -424,8 +430,9 @@ OBJECT_NAME : PHY__VAC_ROBOT   (OffsetID:21500) (ToolID:) (UnitID:)
 "Please, check material on Robot's B-Arm.
 "
 #RECOVERY_ACTION 
-     RETRY   ""
      ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -440,8 +447,9 @@ OBJECT_NAME : PHY__VAC_ROBOT   (OffsetID:21500) (ToolID:) (UnitID:)
 "Please, check material in LLx.
 "
 #RECOVERY_ACTION 
-     RETRY   ""
      ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -456,8 +464,9 @@ OBJECT_NAME : PHY__VAC_ROBOT   (OffsetID:21500) (ToolID:) (UnitID:)
 "Please, check material in PMx.
 "
 #RECOVERY_ACTION 
-     RETRY   ""
      ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    

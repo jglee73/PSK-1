@@ -1,4 +1,10 @@
 Error List ... 
+   Error : [DB_CFG+SYS_INFO.PM1_PROCESS] (2,-1,-1) 
+   Error : [DB_CFG+SYS_INFO.PM2_PROCESS] (2,-1,-1) 
+   Error : [DB_CFG+SYS_INFO.PM3_PROCESS] (2,-1,-1) 
+   Error : [DB_CFG+SYS_INFO.PM4_PROCESS] (2,-1,-1) 
+   Error : [DB_CFG+SYS_INFO.PM5_PROCESS] (2,-1,-1) 
+   Error : [DB_CFG+SYS_INFO.PM6_PROCESS] (2,-1,-1) 
    Error : [LINK_PM1_LOG+DB_ETCHER@SYS.CTRL.LOCK] (-1,-1,-1) 
    Error : [LINK_PM1_LOG+DB_GUI@GUI.PMC.APC.POPUP] (-1,-1,-1) 
    Error : [LINK_PM1_LOG+DB_GUI@GUI.PMC.ESC.POPUP] (-1,-1,-1) 
