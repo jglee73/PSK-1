@@ -35,24 +35,21 @@ int CObj__PROC_STD
 {
 	CString log_msg;
 
-	/*
 	// PARA.INIT ...
 	{
-		xCH__PRC_TOTAL_TIME_TO_CTC->Set__DATA("");
-		sEXT_CH__PRC_TOTAL_TIME_TO_CTC->Set__DATA("");
-
-		xCH__PRC_CHANGE_TIME_TO_CTC->Set__DATA("");
+		sCH__PRC_TOTAL_TIME_TO_CTC->Set__DATA("");
 		sEXT_CH__PRC_CHANGE_TIME_TO_CTC->Set__DATA("");
 
-		//
-		xCH__PRC_TOTAL_TIME->Set__DATA("");
-		xCH__PRC_CUR_TIME->Set__DATA("");
-		xCH__STEP_TOTAL_NUM->Set__DATA("");
-		xCH__STEP_CUR_NUM->Set__DATA("-1");
+		sCH__PRC_CHANGE_TIME_TO_CTC->Set__DATA("");
+		sEXT_CH__PRC_CHANGE_TIME_TO_CTC->Set__DATA("");
 
-		xCH__PRC_STS->Set__DATA("IDLE");
+		sCH__PRC_TOTAL_TIME->Set__DATA("");
+		sCH__PRC_CUR_TIME->Set__DATA("");
+
+		//
+		aCH__STEP_TOTAL_NUM->Set__DATA("0");
+		aCH__STEP_CUR_NUM->Set__DATA("-1");
 	}
-	*/
 
 	// CHM : HIGH_VAC ...
 	{

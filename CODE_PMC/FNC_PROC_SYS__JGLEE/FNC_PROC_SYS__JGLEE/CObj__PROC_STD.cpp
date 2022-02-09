@@ -71,6 +71,17 @@ int CObj__PROC_STD::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__OBJ_TIMER, var_name);
 	}
 
+	// CTC REPORT ...
+	{
+		var_name = "sPRC.TOTAL.TIME.TO.CTC";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__PRC_TOTAL_TIME_TO_CTC, var_name);
+
+		var_name = "sPRC.CHANGE.TIME.TO.CTC";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__PRC_CHANGE_TIME_TO_CTC, var_name);
+	}
+
 	// PARA ...
 	{
 		var_name = "PARA.MANUAL.PROCESS.DECHUCK.ACTIVE";
