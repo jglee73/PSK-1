@@ -774,7 +774,7 @@
 
    #DEFINE_CONSTANT     OBJ__DB_SYS                        DB_SYS 
    #DEFINE_CONSTANT     OBJ__DB_INF                        DB_INF 
-   #DEFINE_CONSTANT     OBJ__PMC_LOG                       FNC_PROC_LOG 
+   #DEFINE_CONSTANT     OBJ__PMC_LOG                       FNC_PM_DATALOG 
    #DEFINE_CONSTANT     OBJ__TRANSFER                      FNC_TRANSFER 
    #DEFINE_CONSTANT     OBJ__GAS_VALVE                     FNC_GAS_VLV_CTRL 
    #DEFINE_CONSTANT     OBJ__VAT                           PHY_VAT 
@@ -823,7 +823,7 @@
    #DEFINE_CONSTANT     CH__SYSTEM_OBJ_STATUS              OPR_PMC+OBJ.STATUS 
    #DEFINE_CONSTANT     OBJ__CHM                           FNC_CHM 
    #DEFINE_CONSTANT     OBJ__STEP                          FNC_STEP 
-   #DEFINE_CONSTANT     OBJ__PROC_LOG                      FNC_PROC_LOG 
+   #DEFINE_CONSTANT     OBJ__PROC_LOG                      FNC_PM_DATALOG 
    #DEFINE_CONSTANT     CH__STEP_TIME                      FNC_STEP+RCP.STEP.TIME 
    #DEFINE_CONSTANT     CH__STEP_EXCEPTION_COMMAND         FNC_STEP+EXCEPTION.COMMAND 
    #DEFINE_CONSTANT     CH__SLOT_TITLE                     DB_INF+SLOT01.TITLE 

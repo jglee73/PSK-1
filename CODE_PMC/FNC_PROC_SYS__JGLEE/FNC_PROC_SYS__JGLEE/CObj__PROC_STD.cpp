@@ -96,6 +96,11 @@ int CObj__PROC_STD::__DEFINE__VARIABLE_STD(p_variable)
 		var_name = "PARA.MANUAL.STEP.CTRL.REQ";
 		STD__ADD_STRING(var_name);
 		LINK__VAR_STRING_CTRL(sCH__PARA_MANUAL_STEP_CTRL_REQ, var_name);
+
+		// Recovery.Restart ...
+		var_name = "ACT_RECOVERY.RESTART_FLAG";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__ACT_RECOVERY_RESTART_FLAG, var_name);
 	}
 
 	// WIN.JUMP_STEP ...

@@ -40,6 +40,7 @@
 #ALARM   601   85   "FNC_GAS_VLV_CTRL - Chamber가 Pumping 상태가 아닙니다. 
 "
 
+
 #ALARM   801   85   "FNC_PROC - Process recipe does not exist."
 #ALARM   802   85   "FNC_PROC - Check Process Recovery Action !"
 #ALARM   803   85   "FNC_PROC - Process [Plasma Dechuck] recipe does not exist."

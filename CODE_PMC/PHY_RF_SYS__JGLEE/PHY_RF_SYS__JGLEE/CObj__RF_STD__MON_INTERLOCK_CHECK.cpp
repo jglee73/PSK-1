@@ -23,7 +23,6 @@ int CObj__RF_STD
 		dEXT_CH__DI_VAC_SNS->Set__DATA(STR__ON);
 		dEXT_CH__DI_ATM_SNS->Set__DATA(STR__OFF);
 
-		dEXT_CH__DI_CHM_LID_CLOSE_SNS->Set__DATA(STR__ON);
 		dEXT_CH__CHM_SHUTTER_STATE->Set__DATA(STR__CLOSE);
 	}
 
@@ -99,7 +98,18 @@ int CObj__RF_STD
 		}
 
 		// DI LID_CLOSE.SNS ...
-		if(dEXT_CH__DI_CHM_LID_CLOSE_SNS->Check__DATA(STR__ON) < 0)
+		bool active__chm_lid_open = false;
+
+		if(bActive__DI_CHM_LID_CLOSE_SNS)
+		{
+			if(dEXT_CH__DI_CHM_LID_CLOSE_SNS->Check__DATA(STR__ON) < 0)			active__chm_lid_open = true;
+		}
+		if(bActive__DI_CHM_LID_OPEN_SNS)
+		{
+			if(dEXT_CH__DI_CHM_LID_OPEN_SNS->Check__DATA(STR__OFF) < 0)			active__chm_lid_open = true;
+		}
+
+		if(active__chm_lid_open)
 		{
 			if(count__di_lid_close < 5)
 			{

@@ -37,7 +37,6 @@
 // Object Define Info ... 
 
 "__EQP" Object not defined ! 
-"FNC_PROC_LOG" Object not defined ! 
 
 
 //==================================================================================== 
@@ -3156,6 +3155,1818 @@ OBJECT_NAME : __SYS   (OffsetID:0) (ToolID:) (UnitID:)
 
 
 //------------------------------------------------------------
+OBJECT_NAME : DI_CHM   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   21 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   22 
+#EXTERNAL_ID   22 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   23 
+#EXTERNAL_ID   23 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   4 
+#EXTERNAL_ID   4 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   24 
+#EXTERNAL_ID   24 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   5 
+#EXTERNAL_ID   5 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   25 
+#EXTERNAL_ID   25 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   6 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   26 
+#EXTERNAL_ID   26 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   7 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   27 
+#EXTERNAL_ID   27 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   8 
+#EXTERNAL_ID   8 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   28 
+#EXTERNAL_ID   28 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   9 
+#EXTERNAL_ID   9 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   29 
+#EXTERNAL_ID   29 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   10 
+#EXTERNAL_ID   10 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   30 
+#EXTERNAL_ID   30 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   31 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   32 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   33 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   34 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   15 
+#EXTERNAL_ID   15 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   35 
+#EXTERNAL_ID   35 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   16 
+#EXTERNAL_ID   16 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   36 
+#EXTERNAL_ID   36 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   17 
+#EXTERNAL_ID   17 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   37 
+#EXTERNAL_ID   37 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   18 
+#EXTERNAL_ID   18 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   38 
+#EXTERNAL_ID   38 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   19 
+#EXTERNAL_ID   19 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   39 
+#EXTERNAL_ID   39 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   20 
+#EXTERNAL_ID   20 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   40 
+#EXTERNAL_ID   40 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_CHM - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : DI_GAS_BOX   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   21 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   22 
+#EXTERNAL_ID   22 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   23 
+#EXTERNAL_ID   23 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   4 
+#EXTERNAL_ID   4 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   24 
+#EXTERNAL_ID   24 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   5 
+#EXTERNAL_ID   5 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   25 
+#EXTERNAL_ID   25 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   6 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   26 
+#EXTERNAL_ID   26 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   7 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   27 
+#EXTERNAL_ID   27 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   8 
+#EXTERNAL_ID   8 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   28 
+#EXTERNAL_ID   28 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   9 
+#EXTERNAL_ID   9 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   29 
+#EXTERNAL_ID   29 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   10 
+#EXTERNAL_ID   10 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   30 
+#EXTERNAL_ID   30 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   31 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   32 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   33 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   34 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   15 
+#EXTERNAL_ID   15 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   35 
+#EXTERNAL_ID   35 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   16 
+#EXTERNAL_ID   16 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   36 
+#EXTERNAL_ID   36 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   17 
+#EXTERNAL_ID   17 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   37 
+#EXTERNAL_ID   37 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   18 
+#EXTERNAL_ID   18 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   38 
+#EXTERNAL_ID   38 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   19 
+#EXTERNAL_ID   19 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   39 
+#EXTERNAL_ID   39 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   20 
+#EXTERNAL_ID   20 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   40 
+#EXTERNAL_ID   40 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_GAS_BOX - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : DI_RF_SYS   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   21 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   22 
+#EXTERNAL_ID   22 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   23 
+#EXTERNAL_ID   23 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   4 
+#EXTERNAL_ID   4 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   24 
+#EXTERNAL_ID   24 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   5 
+#EXTERNAL_ID   5 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   25 
+#EXTERNAL_ID   25 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   6 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   26 
+#EXTERNAL_ID   26 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   7 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   27 
+#EXTERNAL_ID   27 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   8 
+#EXTERNAL_ID   8 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   28 
+#EXTERNAL_ID   28 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   9 
+#EXTERNAL_ID   9 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   29 
+#EXTERNAL_ID   29 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   10 
+#EXTERNAL_ID   10 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   30 
+#EXTERNAL_ID   30 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   31 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   32 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   33 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   34 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   15 
+#EXTERNAL_ID   15 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   35 
+#EXTERNAL_ID   35 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   16 
+#EXTERNAL_ID   16 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   36 
+#EXTERNAL_ID   36 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   17 
+#EXTERNAL_ID   17 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   37 
+#EXTERNAL_ID   37 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   18 
+#EXTERNAL_ID   18 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   38 
+#EXTERNAL_ID   38 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   19 
+#EXTERNAL_ID   19 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   39 
+#EXTERNAL_ID   39 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   20 
+#EXTERNAL_ID   20 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Heavy Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   40 
+#EXTERNAL_ID   40 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"DI_RF_SYS - Light Interlock Sensor Active !"
+#MESSAGE 
+"Interlock Sensor 상태를 확인 바랍니다.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
 OBJECT_NAME : FNC_TRANSFER   (OffsetID:0) (ToolID:) (UnitID:) 
 
 #INTERNAL_ID   1 
@@ -5583,39 +7394,6 @@ OBJECT_NAME : PHY_IO__MATCHER   (OffsetID:0) (ToolID:) (UnitID:)
 #HOST_REPORT   YES
 #TITLE 
 "PHY_IO__MATCHER - Generator Communication Retry Over"
-#MESSAGE 
-"Generator Communication Retry Over"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-
-//------------------------------------------------------------
-OBJECT_NAME : PHY_IO__RF_TOP   (OffsetID:0) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   11 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__RF_TOP - Generator Offline"
-#MESSAGE 
-"Generator Offline."
-#RECOVERY_ACTION 
-     RETRY   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   12 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__RF_TOP - Generator Communication Retry Over"
 #MESSAGE 
 "Generator Communication Retry Over"
 #RECOVERY_ACTION 

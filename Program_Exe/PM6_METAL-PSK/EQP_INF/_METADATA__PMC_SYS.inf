@@ -192,7 +192,7 @@
 #DEFINE_CONSTANT    OBJ__DB_SYS							            DB_SYS
 #DEFINE_CONSTANT    OBJ__DB_INF							            DB_INF
 
-#DEFINE_CONSTANT    OBJ__PMC_LOG                        FNC_PROC_LOG
+#DEFINE_CONSTANT    OBJ__PMC_LOG                        FNC_PM_DATALOG
 
 #DEFINE_CONSTANT    OBJ__TRANSFER                       FNC_TRANSFER
 

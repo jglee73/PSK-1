@@ -45,6 +45,8 @@ OK,533,FNC_CHM - Current PMC's status is "ATM MAINT".,Please	 convert "ATM Maint
 OBJECT_NAME : FNC_GAS_VLV_CTRL,
 OK,601,FNC_GAS_VLV_CTRL - Chamber가 Pumping 상태가 아닙니다. <\n>,Chamber Pumping 후에 작업을 진행하시기 바랍니다.<\n>,RETRY	ABORT	,
 
+OBJECT_NAME : FNC_PM_DATALOG,
+
 OBJECT_NAME : FNC_PROC,
 OK,801,FNC_PROC - Process recipe does not exist.,Please	 check process recipe file.<\n>,ABORT	RETRY	,
 OK,802,FNC_PROC - Check Process Recovery Action !,Please	 check process recovery action.<\n>If you select [RESTART]					the process will restart after system initialize.<\n>If you select [ABORT]					the process will be aborted.<\n>If you select [JUMP]						the step that you select will be executed.<\n>If you select [END]						Without Plasma Dechuck.. the process will be normally completed.<\n>If you select [END_WITH_PLASMA_DECHUCK]	       With Plasma Dechuck recipe will be executed.<\n>,RESTART	ABORT	JUMP	END	PLASMA_DECHUCK	,

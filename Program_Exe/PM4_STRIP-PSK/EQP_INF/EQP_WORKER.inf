@@ -31,7 +31,7 @@
 #OBJECT_STD     FNC_CHM_SYS__JGLEE          TRANSFER.FNC            FNC_TRANSFER
 
 ===========================================================================
-#OBJECT_STD     EQP__STD_OBJ                PM_Datalog_Ex           FNC_PROC_LOG
+#OBJECT_STD     EQP__STD_OBJ                PM_Datalog_Ex           FNC_PM_DATALOG
 
 #OBJECT_STD     FNC_PROC_SYS__JGLEE         MANUAL.PROC             MNT_PROCESS
 #OBJECT_STD     FNC_PROC_SYS__JGLEE         PROC.STD                FNC_PROC
@@ -43,11 +43,9 @@
 #OBJECT_STD     PHY_IO_CTRL__JGLEE          PM_SLOT.IO              PHY_PM_SLOT
 #OBJECT_STD     PHY_IO_CTRL__JGLEE          LIFT_PIN.IO             PHY_LIFT_PIN
 
-/*
 #OBJECT_STD     PHY_IO_CTRL__JGLEE          INTERLOCK.IO            DI_GAS_BOX
 #OBJECT_STD     PHY_IO_CTRL__JGLEE          INTERLOCK.IO            DI_CHM
 #OBJECT_STD     PHY_IO_CTRL__JGLEE          INTERLOCK.IO            DI_RF_SYS
-*/
 
 
 ===========================================================================
@@ -75,7 +73,7 @@
 ===========================================================================
 #OBJECT_STD     PHY_RF_SYS__JGLEE          	RF.STD                  PHY_RF_TOP
 
-#OBJECT_IO      PHY_RS232__RF_AE            PARAMOUNT.HF            PHY_IO__RF_TOP
+// #OBJECT_IO      PHY_RS232__RF_AE            PARAMOUNT.HF            PHY_IO__RF_TOP
 #OBJECT_IO      PHY_IO__MATCHER_AE          NAVII.SERIAL            PHY_IO__MATCHER
 
 
