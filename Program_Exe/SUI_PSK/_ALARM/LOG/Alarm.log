@@ -1,0 +1,93 @@
+@LINE	
+STATUS	
+GUI-100	
+-1	
+2022.02.15 13:55:51:247	
+POST	
+START	
+	
+@LINE	
+STATUS	
+GUI-100	
+-1	
+2022.02.15 13:56:14:339	
+POST	
+STOP	
+	
+@LINE	
+STATUS	
+GUI-100	
+-1	
+2022.02.15 13:56:36:128	
+POST	
+START	
+	
+@LINE	
+STATUS	
+GUI-100	
+-1	
+2022.02.15 13:57:14:006	
+POST	
+STOP	
+	
+@LINE	
+STATUS	
+GUI-100	
+-1	
+2022.02.15 13:57:57:471	
+POST	
+START	
+	
+#LINE=START	
+#TYPE=ALARM	
+#LEVEL=LIGHT	
+#MODULE=PM6	
+#ID=401	
+#TIME=2022.02.15 13:29:11:235	
+#RESULT=POST	
+#TITLE=DB_SYS - Simulation mode is active !	
+#MSG=START	
+	
+#MSG=END	
+#LINE=END	
+
+#LINE=START	
+#TYPE=ALARM	
+#LEVEL=LIGHT	
+#MODULE=PM6	
+#ID=6042	
+#TIME=2022.02.15 13:35:24:004	
+#RESULT=POST	
+#TITLE=Interlock: MFC2's Secondary Valve Open	
+#MSG=START	
+MFC1's Secondary Valve is not "Close". 
+
+Can not open MFC2's secondary valve. 
+	
+#MSG=END	
+#LINE=END	
+
+#LINE=START	
+#TYPE=ALARM	
+#LEVEL=LIGHT	
+#MODULE=PM6	
+#ID=6022	
+#TIME=2022.02.15 13:35:24:004	
+#RESULT=POST	
+#TITLE=Interlock: MFC2's Primary Valve Open	
+#MSG=START	
+MFC1's Secondary Valve is not "Close". 
+
+MFC2의 primary-valve를 Open 할 수 없습니다. 
+	
+#MSG=END	
+#LINE=END	
+
+@LINE	
+STATUS	
+GUI-100	
+-1	
+2022.02.15 13:58:19:594	
+POST	
+STOP	
+	
