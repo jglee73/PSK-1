@@ -9,7 +9,7 @@
 
 // #SINGLE_LOCAL               0
 // #SINGLE_LOCAL               5
-#SINGLE_LOCAL               7
+// #SINGLE_LOCAL               7
 // #SINGLE_REMOTE              2
 
 #SYSTEM_USER_LEVEL          OEM     // MAINT  
@@ -38,14 +38,14 @@
 #SYSTEM_DEFINE_FILE    SYS_DEF.inf
 
 
-#DEFINE  ##CTC_DIR_ROOT     "D:\WORK_PSK\Program_Exe\CTC-PSK"
-#DEFINE  ##TMC_DIR_ROOT     "D:\WORK_PSK\Program_Exe\TMC-PSK"
+#DEFINE  ##CTC_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\CTC-PSK"
+#DEFINE  ##TMC_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\TMC-PSK"
 
-#DEFINE  ##PM1_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM1-SAMPLE"
-#DEFINE  ##PM2_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM2-SAMPLE"
-#DEFINE  ##PM3_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM3_STRIP-PSK"
-#DEFINE  ##PM4_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM4_STRIP-PSK"
-#DEFINE  ##PM5_DIR_ROOT     "D:\WORK_PSK\Program_Exe\PM5_METAL-PSK"
+#DEFINE  ##PM1_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\PM1-SAMPLE"
+#DEFINE  ##PM2_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\PM2-SAMPLE"
+#DEFINE  ##PM3_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\PM3_STRIP-PSK"
+#DEFINE  ##PM4_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\PM4_STRIP-PSK"
+#DEFINE  ##PM5_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\PM5_METAL-PSK"
 #DEFINE  ##PM6_DIR_ROOT     "D:\WORK_GITHUB\PSK\Program_Exe\PM6_METAL-PSK"
 
 
@@ -83,7 +83,6 @@
 #DIR_SEQ_ROOT          ##CTC_DIR_ROOT
 }
 
-/*
 // TMC
 #PM0_DATA
 {
@@ -94,7 +93,6 @@
 
 #DIR_SEQ_ROOT          ##TMC_DIR_ROOT
 }
-*/
 
 /*
 // PM1

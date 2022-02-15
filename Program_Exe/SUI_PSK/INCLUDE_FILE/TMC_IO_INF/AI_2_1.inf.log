@@ -1,0 +1,8 @@
+00)   IO+ai.GN2.Pressure.Switch
+01)   IO+ai.CDA1.PM.Pressure.Switch
+02)   IO+ai.CDA2.PM.Pressure.Switch
+03)   IO+ai.CDA2.TM_LL.Pressure.Switch
+04)   IO+ai.PCW.Flow.Meter
+05)   IO+ai.UPC.Gauge
+06)   IO+ai.DI.Pressure.Switch
+07)   IO+ai.Node2.Block1.Spare
