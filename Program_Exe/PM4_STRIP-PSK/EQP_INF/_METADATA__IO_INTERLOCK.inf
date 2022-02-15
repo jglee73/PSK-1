@@ -182,3 +182,35 @@
 #DEFINE_CONSTANT    DATA.ERROR_MSG.7                    "RF Generator의 Cover가 Open된 상태입니다."
 #DEFINE_CONSTANT    DATA.ERROR_LEVEL.7                  HEAVY
 
+
+//------------------------------------------------
+#OBJECT_PROPERTY    INTERLOCK_MFC
+
+#DEFINE_CONSTANT    OBJ__DB_SYS                         DB_SYS
+
+#DEFINE_CONSTANT    CH__GAS_BOX_COVER.DI_CHANNEL        IO+di.Gas_Box.Door.Open
+#DEFINE_CONSTANT    DATA__GAS_BOX_COVER.NORMAL_STATE    Off
+
+#DEFINE_CONSTANT    OBJ.MFC_SIZE                        ##MFC_SIZE
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.1                     NULL
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.1                    IO+do.PV2
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.1                  IO+do.PV1_1
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.2                     NULL
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.2                    IO+do.PV3
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.2                  IO+do.PV2_1
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.3                     NULL
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.3                    IO+do.PV4
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.3                  NULL
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.4                     NULL
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.4                    IO+do.PV5
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.4                  NULL
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.5                     NULL
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.5                    IO+do.PV6
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.5                  NULL
+
+

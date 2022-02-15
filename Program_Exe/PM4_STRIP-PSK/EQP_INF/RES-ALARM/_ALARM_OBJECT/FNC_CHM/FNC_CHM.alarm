@@ -29,3 +29,5 @@
 #ID=29	529	LIGHT	FNC_CHM - The state of Dry-Pump is not On !
 #ID=32	532	LIGHT	FNC_CHM - Top Plate Temperature must be less than 60 C.
 #ID=33	533	LIGHT	FNC_CHM - Current PMC's status is "ATM MAINT".
+#ID=41	541	LIGHT	FNC_CHM - The slot-valve of chamber is not closed !
+#ID=42	542	LIGHT	FNC_CHM - The lid of chamber is not closed !

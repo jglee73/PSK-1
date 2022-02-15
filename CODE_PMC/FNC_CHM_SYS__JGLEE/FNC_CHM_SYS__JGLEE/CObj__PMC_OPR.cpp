@@ -319,7 +319,7 @@ int CObj__PMC_OPR::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 			def_name = "LIFT_PIN.PROCESS_READY";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
-			sLINK_MODE__LIFT_PIN__PROCESS_READY;
+			sLINK_MODE__LIFT_PIN__PROCESS_READY = def_data;
 		}
 	}
 

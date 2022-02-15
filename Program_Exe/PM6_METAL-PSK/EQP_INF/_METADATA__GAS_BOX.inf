@@ -8,7 +8,7 @@
 #DEFINE_CONSTANT    OBJ__GAS_VLV                        PHY_GAS_VLV
 
 #DEFINE_CONSTANT    OBJ.FRC_SIZE                        0
-#DEFINE_CONSTANT    OBJ.FRC1                            ...
+#DEFINE_CONSTANT    OBJ__DGF_VLV                        NULL
 
 #DEFINE_CONSTANT   	OBJ.MFC_SIZE                        ##MFC_SIZE
 #DEFINE_CONSTANT    OBJ.MFC1                            PHY_MFC1
@@ -25,10 +25,13 @@
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_GAS_VLV
 
-#DEFINE_CONSTANT    DATA.N2.VLV_SUPPLY                  0
-#DEFINE_CONSTANT    CH.N2.VLV_SUPPLY.1                  NONE
+#DEFINE_CONSTANT    DATA.GAS_LINE.VLV_PURGE             0
+#DEFINE_CONSTANT    CH.GAS_LINE.VLV_PURGE.1             IO+do.PV103
 
-#DEFINE_CONSTANT    DATA.MFC.VLV_PURGE                  1
+#DEFINE_CONSTANT    DATA.CHM_LINE.VLV_PURGE             1
+#DEFINE_CONSTANT    CH.CHM_LINE.VLV_PURGE.1             IO+do.PV103
+
+#DEFINE_CONSTANT    DATA.MFC.VLV_PURGE                  0
 #DEFINE_CONSTANT    CH.MFC.VLV_PURGE.1                  IO+do.Purge_All_Vlv
 
 #DEFINE_CONSTANT    DATA.TOP_CHM.VLV_PROC               1
@@ -88,9 +91,20 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC01.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC01.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    IO+do.Purge_All_Vlv
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV20
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV22
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_IN.1               IO+do.Purge_All_Vlv
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV20
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV22
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV22
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC2
@@ -109,9 +123,20 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC02.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC02.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    IO+do.Purge_All_Vlv
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV30
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV32
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_IN.1               IO+do.Purge_All_Vlv
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV30
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV32
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV32
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC3
@@ -130,9 +155,20 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC03.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC03.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    IO+do.Purge_All_Vlv
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV40
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV42
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_IN.1               IO+do.Purge_All_Vlv
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV40
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV42
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV42
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC4
@@ -151,9 +187,19 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC04.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC04.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NONE
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV50
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV52
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV50
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV52
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV52
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC5
@@ -172,9 +218,19 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC05.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC05.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NONE
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV60
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV62
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV60
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV62
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV62
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC6
@@ -193,9 +249,19 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC06.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC06.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NONE
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV70
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV72
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV70
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV72
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV72
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC7
@@ -214,9 +280,19 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC07.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC07.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NONE
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV80
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV82
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV80
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV82
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV82
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC8
@@ -235,9 +311,19 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC08.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC08.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NONE
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV90
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV92
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV90
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV92
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV92
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC9
@@ -256,7 +342,17 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC09.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC09.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NONE
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       IO+do.PV100
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV102
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         1
+#DEFINE_CONSTANT    CH__IO_VLV_IN.1                     IO+do.PV100
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV102
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV102
 

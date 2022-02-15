@@ -7,8 +7,8 @@
 // #TOTAL_ALARM_POPUP_BOX_ENABLE
 #MODULE_WINDOW_HIDE		     // Show (Default)
 
-// #SINGLE_LOCAL               1
-// #SINGLE_LOCAL               5
+// #SINGLE_LOCAL               0
+#SINGLE_LOCAL               5
 // #SINGLE_LOCAL               7
 // #SINGLE_REMOTE              2
 
@@ -83,6 +83,7 @@
 #DIR_SEQ_ROOT          ##CTC_DIR_ROOT
 }
 
+/*
 // TMC
 #PM0_DATA
 {
@@ -93,6 +94,7 @@
 
 #DIR_SEQ_ROOT          ##TMC_DIR_ROOT
 }
+*/
 
 /*
 // PM1

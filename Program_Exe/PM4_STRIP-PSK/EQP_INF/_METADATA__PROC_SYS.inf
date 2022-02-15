@@ -1,6 +1,18 @@
 
 
 //------------------------------------------------
+#OBJECT_PROPERTY		PAGE_PROCESS
+
+#FNC_MODE		  MANUAL_PROCESS   	                MNT_PROCESS     MANUAL_PROCESS
+#FNC_MODE		  ABORT_DECHUCK                     MNT_PROCESS     ABORT_DECHUCK
+
+#DEFINE_CONSTANT    CH.CATEGORY.LOCK            DB_ETCHER+SYS.FNC.CATEGORY
+#DEFINE_CONSTANT    DATA.CATEGORY.LOCK          PROCESS
+                                                                 
+#DEFINE_CONSTANT    CH.FNC.LOCK         		    DB_ETCHER+SYS.FNC.LOCK
+#DEFINE_CONSTANT    DATA.FNC.LOCK     		      CHM
+
+//------------------------------------------------
 #OBJECT_PROPERTY		MNT_PROCESS
 
 #DEFINE_CONSTANT    OBJ__DB_SYS						      DB_SYS

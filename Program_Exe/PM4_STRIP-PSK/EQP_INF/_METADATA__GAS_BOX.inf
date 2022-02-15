@@ -8,7 +8,7 @@
 #DEFINE_CONSTANT    OBJ__GAS_VLV                        PHY_GAS_VLV
 
 #DEFINE_CONSTANT    OBJ.FRC_SIZE                        0
-#DEFINE_CONSTANT    OBJ.FRC1                            __
+#DEFINE_CONSTANT    OBJ__DGF_VLV                        NULL
 
 #DEFINE_CONSTANT   	OBJ.MFC_SIZE                        ##MFC_SIZE
 #DEFINE_CONSTANT    OBJ.MFC1                            PHY_MFC1
@@ -21,10 +21,13 @@
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_GAS_VLV
 
-#DEFINE_CONSTANT    DATA.N2.VLV_SUPPLY                  1
-#DEFINE_CONSTANT    CH.N2.VLV_SUPPLY.1                  IO+do.PV1
+#DEFINE_CONSTANT    DATA.GAS_LINE.VLV_PURGE             0
+#DEFINE_CONSTANT    CH.GAS_LINE.VLV_PURGE.1             __
 
-#DEFINE_CONSTANT    DATA.MFC.VLV_PURGE                  2
+#DEFINE_CONSTANT    DATA.CHM_LINE.VLV_PURGE             0
+#DEFINE_CONSTANT    CH.CHM_LINE.VLV_PURGE.1             __
+
+#DEFINE_CONSTANT    DATA.MFC.VLV_PURGE                  0
 #DEFINE_CONSTANT    CH.MFC.VLV_PURGE.1                  IO+do.PV1_1
 #DEFINE_CONSTANT    CH.MFC.VLV_PURGE.2                  IO+do.PV2_1
 
@@ -79,9 +82,19 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC01.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC01.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    IO+do.PV1_1
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       NULL
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV2
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_IN.1               IO+do.PV1_1
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         0
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV2
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV2
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC2
@@ -100,9 +113,19 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC02.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC02.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    IO+do.PV2_1
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       NULL
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV3
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_IN.1               IO+do.PV2_1
+
+#DEFINE_CONSTANT    DATA.VLV_IN                         0
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV3
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV3
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC3
@@ -121,9 +144,17 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC03.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC03.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NULL
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       NULL
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV4
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+#DEFINE_CONSTANT    DATA.VLV_IN                         0
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV4
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV4
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC4
@@ -142,9 +173,17 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC04.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC04.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NULL
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       NULL
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV5
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+#DEFINE_CONSTANT    DATA.VLV_IN                         0
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV5
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV5
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_MFC5
@@ -163,9 +202,17 @@
 #DEFINE_CONSTANT    CH__IO_MFC_PRESSURE						      IO+si.MFC05.PRESSURE
 #DEFINE_CONSTANT    CH__IO_MFC_TEMPERATURE					    IO+si.MFC05.TEMPERATURE
 
-#DEFINE_CONSTANT    CH__IO_VLV_PURGE                    NULL
-#DEFINE_CONSTANT    CH__IO_VLV_IN                       NULL
-#DEFINE_CONSTANT    CH__IO_VLV_OUT                      IO+do.PV6
+#DEFINE_CONSTANT    DATA.VLV_PURGE_IN                   0
+#DEFINE_CONSTANT    DATA.VLV_IN                         0
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_ALL                    1
+#DEFINE_CONSTANT    CH__IO_VLV_OUT_ALL.1                IO+do.PV6
+
+#DEFINE_CONSTANT    DATA.VLV_OUT_CENTER                 0
+#DEFINE_CONSTANT    DATA.VLV_OUT_EDGE                   0
+
+#DEFINE_CONSTANT    DATA.VLV_PURGE_OUT                  1
+#DEFINE_CONSTANT    CH__IO_VLV_PURGE_OUT.1              IO+do.PV6
 
 
 //------------------------------------------------
@@ -190,4 +237,5 @@
 #DEFINE_CONSTANT    DATA__3WAY_VALVE										YES
 #DEFINE_CONSTANT    CH__3WAY_VLV.FINAL									IO+do.Vapor.3Way.Supply.Vlv
 #DEFINE_CONSTANT    CH__3WAY_VLV.DUMP										IO+do.Vapor.3Way.Dump.Vlv
+#DEFINE_CONSTANT    3WAY_VLV.IDLE_STATE					        DUMP
 

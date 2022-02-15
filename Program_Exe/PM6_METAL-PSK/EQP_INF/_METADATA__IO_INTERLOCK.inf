@@ -212,3 +212,65 @@
 #DEFINE_CONSTANT    DATA.ERROR_MSG.11                   "ESC Noise Filter Fan에 Alarm이 발생 했습니다."
 #DEFINE_CONSTANT    DATA.ERROR_LEVEL.11                 HEAVY
 
+
+//------------------------------------------------
+#OBJECT_PROPERTY    INTERLOCK_MFC
+
+#DEFINE_CONSTANT    OBJ__DB_SYS                         DB_SYS
+
+#DEFINE_CONSTANT    CH__GAS_BOX_COVER.DI_CHANNEL        IO+di.Gas_Box.Door.Open
+#DEFINE_CONSTANT    DATA__GAS_BOX_COVER.NORMAL_STATE    Off
+
+#DEFINE_CONSTANT    OBJ.MFC_SIZE                        ##MFC_SIZE
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.1                     IO+do.PV20
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.1                    IO+do.PV22
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.1                  IO+do.Purge_All_Vlv
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.2                     IO+do.PV30
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.2                    IO+do.PV32
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.2                  IO+do.Purge_All_Vlv
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.3                     IO+do.PV40
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.3                    IO+do.PV42
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.3                  IO+do.Purge_All_Vlv
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.4                     IO+do.PV50
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.4                    IO+do.PV52
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.4                  NULL
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.5                     IO+do.PV60
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.5                    IO+do.PV62
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.5                  NULL
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.6                     IO+do.PV70
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.6                    IO+do.PV72
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.6                  NULL
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.7                     IO+do.PV80
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.7                    IO+do.PV82
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.7                  NULL
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.8                     IO+do.PV90
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.8                    IO+do.PV92
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.8                  NULL
+
+#DEFINE_CONSTANT    CH__DO_VLV_IN.9                     IO+do.PV100
+#DEFINE_CONSTANT    CH__DO_VLV_OUT.9                    IO+do.PV102
+#DEFINE_CONSTANT    CH__DO_VLV_PURGE.9                  NULL
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    INTERLOCK_SYS
+
+#DEFINE_CONSTANT    CH__DO_ROUGH_FORELINE_VLV           IO+do.TMP.Vac.Vlv
+#DEFINE_CONSTANT    CH__DO_ROUGH_FAST_VLV               IO+do.Fast.Vac.Vlv
+#DEFINE_CONSTANT    CH__DO_ROUGH_SOFT_VLV               IO+do.Soft.Vac.Vlv
+#DEFINE_CONSTANT    CH__APC_VLV_CUR_POS                 PHY_VAT+MON.POSITION
+
+#DEFINE_CONSTANT    CH__IO_VAC_SNS                      IO+di.CHM.VAC.Sts
+#DEFINE_CONSTANT    DATA__VAC_SNS.ACTIVE_STATE          On
+
+#DEFINE_CONSTANT    CH__IO_ATM_SNS                      IO+di.CHM.ATM.Sts
+#DEFINE_CONSTANT    DATA__ATM_SNS.ACTIVE_STATE          On
+

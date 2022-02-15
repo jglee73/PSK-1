@@ -11,6 +11,7 @@
 #OBJECT_STD     EQP__Page_OBJ               LOCK.TYPE               PAGE_SYSTEM_INIT
 #OBJECT_STD     EQP__Page_OBJ               LOCK.TYPE               PAGE_SYSTEM_MAINT
 #OBJECT_STD     EQP__Page_OBJ               LOCK.TYPE               PAGE_CHM
+#OBJECT_STD     EQP__Page_OBJ               LOCK.TYPE               PAGE_PROCESS
 
 
 ===========================================================================
@@ -85,3 +86,9 @@
 
 ===========================================================================
 #OBJECT_IO      PMC__VIRTUAL_IO             IO.VIRTUAL              IO
+
+
+===========================================================================
+#OBJECT_INTERLOCK   PMC_INTERLOCK__JGLEE       MFC.IO               INTERLOCK_MFC
+// #OBJECT_INTERLOCK   PMC_INTERLOCK__JGLEE 		   SYS.IO               INTERLOCK_SYS
+

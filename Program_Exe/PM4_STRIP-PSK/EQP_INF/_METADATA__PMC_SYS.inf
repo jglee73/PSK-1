@@ -192,10 +192,13 @@
 
 #DEFINE_CONSTANT    OBJ__ESC                            NULL
 
-#DEFINE_CONSTANT    CH__CHM_SHUTTER_STATE               NULL
+#DEFINE_CONSTANT    CH__CHM_SHUTTER_STATE               DB_INF+PMC.SLOT.STATUS
 
 #DEFINE_CONSTANT    CH__CHM_VAC_SNS                     IO+di.CHM.VAC.Sts
 #DEFINE_CONSTANT    CH__CHM_ATM_SNS                     IO+di.CHM.ATM.Sts
+
+#DEFINE_CONSTANT    CH__CHM_LID_STATE                   IO+di.PM.Top_Lid.Open
+#DEFINE_CONSTANT    CHM_LID.CLOSE_STATE                 Off
 
 
 //------------------------------------------------
