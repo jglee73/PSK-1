@@ -133,23 +133,8 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.APC.PRESET.POS
-#TITLE             5._Preset_Position(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (0,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
 #CHANNEL           FNC_STEP+RCP.APC.HOLD.DELAY
-#TITLE             6._Hold_Delay(sec)
+#TITLE             5._Hold_Delay(sec)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -164,7 +149,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.APC.TOL.WARNING
-#TITLE             7._Warning(%)
+#TITLE             6._Warning(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
@@ -179,7 +164,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.APC.TOL.ALARM
-#TITLE             8._Alarm(%)
+#TITLE             7._Alarm(%)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST

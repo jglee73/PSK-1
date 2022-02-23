@@ -783,6 +783,10 @@ void CMsg_S02Fy::Recv__F33(CI_BRIDGE__INFO_CTRL *p_bridge_ctrl)
 		if(p_rptid_svid_ctrl->Load_RPTID(rptid) < 0)
 		{
 			err_flag = 3;
+
+			printf(" * CMsg_S02Fy::Recv__F33() ... \n");
+			printf("  * rptid <- %1d \n", rptid);
+			printf("  * errid <- %1d \n", err_flag);
 			break;
 		}
 
@@ -800,6 +804,11 @@ void CMsg_S02Fy::Recv__F33(CI_BRIDGE__INFO_CTRL *p_bridge_ctrl)
 			if(p_svid_ctrl->Is_SVID(svid) < 0)
 			{
 				err_flag = 4;
+
+				printf(" * CMsg_S02Fy::Recv__F33() ... \n");
+				printf("  * rptid <- %1d \n", rptid);
+				printf("  * svid  <- %1d \n", svid);
+				printf("  * errid <- %1d \n", err_flag);
 				break;
 			}
 
@@ -903,11 +912,19 @@ void CMsg_S02Fy::Recv__F35(CI_BRIDGE__INFO_CTRL *p_bridge_ctrl)
 		if(p_ceid_rptid_ctrl->Load_CEID(ceid) < 0)
 		{
 			err_flag = 3;
+
+			printf(" * CMsg_S02Fy::Recv__F35() ... \n");
+			printf("  * ceid  <- %1d \n", ceid);
+			printf("  * errid <- %1d \n", err_flag);
 			break;
 		}
 		if(p_ceid_ctrl->Check(ceid) < 0)
 		{
 			err_flag = 4;
+
+			printf(" * CMsg_S02Fy::Recv__F35() ... \n");
+			printf("  * ceid  <- %1d \n", ceid);
+			printf("  * errid <- %1d \n", err_flag);
 			break;
 		}
 
@@ -925,6 +942,11 @@ void CMsg_S02Fy::Recv__F35(CI_BRIDGE__INFO_CTRL *p_bridge_ctrl)
 			if(p_rptid_svid_ctrl->Is_RPTID(rptid) < 0)
 			{
 				err_flag = 5;
+
+				printf(" * CMsg_S02Fy::Recv__F35() ... \n");
+				printf("  * ceid  <- %1d \n", ceid);
+				printf("  * rptid <- %1d \n", rptid);
+				printf("  * errid <- %1d \n", err_flag);
 				break;
 			}
 
@@ -942,7 +964,6 @@ void CMsg_S02Fy::Recv__F35(CI_BRIDGE__INFO_CTRL *p_bridge_ctrl)
 		if(list_limit > 0)			p_ceid_rptid_ctrl->Change_Save();
 		else						p_ceid_rptid_ctrl->Save();
 
-		//.....
 		int t_limit = l_ceid.GetSize();
 		int t;
 

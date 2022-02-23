@@ -136,10 +136,6 @@ int CObj__STEP_METAL::__DEFINE__VARIABLE_STD(p_variable)
 			STD__ADD_STRING_WITH_OPTION(var_name, 0, "E", "");
 			LINK__VAR_STRING_CTRL(sCH__RCP_APC_LEARNED_POS, var_name);
 
-			var_name = "RCP.APC.PRESET.POS";
-			STD__ADD_STRING_WITH_OPTION(var_name, 0, "E", "");
-			LINK__VAR_STRING_CTRL(sCH__RCP_APC_PRESET_POS, var_name);
-
 			var_name = "RCP.APC.HOLD.DELAY";
 			STD__ADD_STRING_WITH_OPTION(var_name, 0, "E", "");
 			LINK__VAR_STRING_CTRL(sCH__RCP_APC_HOLD_DELAY, var_name);
