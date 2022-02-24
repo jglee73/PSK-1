@@ -2110,7 +2110,7 @@ int  CObj__DUAL_ARM_STD
 int  CObj__DUAL_ARM_STD
 ::AUTO_CTRL__AL_LBi__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
-	if(ATM_RB__Check_Empty__Arm_Type() > 0)
+	if(ATM_RB__Get_Occupied_Arm_Count() < 1)
 	{
 		if(SCH__CAN_PICK_LBo() > 0)
 		{
@@ -2214,7 +2214,7 @@ int  CObj__DUAL_ARM_STD
 			{
 				continue;
 			}
-
+			
 			if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) < 0)
 			{
 				continue;
@@ -2777,34 +2777,49 @@ int  CObj__DUAL_ARM_STD
 {
 	CString arm_type;
 
-	if(ATM_RB__Get_Occupied__Arm_Type(arm_type) < 0)	
+	for(int i=0; i<2; i++)
 	{
-		NEXT__LOOP;
-	}
+		if(i == 0)
+		{
+			if(ATM_RB__Check_Occupied__A_Arm() < 0)		continue;
 
-	// ...
-	IDS__SCH_MATERIAL_STATUS ds_info;
+			arm_type = ARM_A;
+		}
+		else if(i == 1)
+		{
+			if(ATM_RB__Check_Occupied__B_Arm() < 0)		continue;
 
-	if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type,ds_info) < 0)
-	{
-		NEXT__LOOP;
-	}
+			arm_type = ARM_B;
+		}
+		else
+		{
+			continue;
+		}
 
-	// ...
-	CString cur_sts = ds_info.sMATERIAL_STS;
-	
-	if((cur_sts.CompareNoCase("PROCESSED") == 0)
-	|| (cur_sts.CompareNoCase(STR__TO_LP)  == 0))
-	{
 		if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) > 0)
 		{
-			NEXT__LOOP;
+			continue;
+		}
+
+		// ...
+		IDS__SCH_MATERIAL_STATUS ds_info;
+
+		if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type, ds_info) < 0)
+		{
+			continue;
+		}
+
+		CString cur_sts = ds_info.sMATERIAL_STS;
+
+		if(cur_sts.CompareNoCase(STR__TO_LP) != 0)
+		{
+			continue;
 		}
 
 		// ATM_RB -> LPo
 		if(Fnc__PLACE_LPx(p_variable,p_alarm,arm_type) < 0)
 		{
-			return -1;
+			NEXT__LOOP;
 		}
 	}
 
@@ -2824,7 +2839,19 @@ int  CObj__DUAL_ARM_STD
 	{
 		CString arm_type;
 	
-		if(ATM_RB__Get_Occupied__Arm_Type(arm_type) < 0)	
+		if(i == 0)
+		{
+			if(ATM_RB__Check_Occupied__A_Arm() < 0)		continue;
+			
+			arm_type = ARM_A;
+		}
+		else if(i == 1)
+		{
+			if(ATM_RB__Check_Occupied__B_Arm() < 0)		continue;
+
+			arm_type = ARM_B;
+		}
+		else
 		{
 			continue;
 		}
@@ -2866,10 +2893,11 @@ int  CObj__DUAL_ARM_STD
 			{
 				IDS__SCH_MATERIAL_STATUS ds_info;
 
-				if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type,ds_info) < 0)
+				if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type, ds_info) < 0)
 				{
 					continue;;
 				}
+
 				if(ds_info.sMATERIAL_STS.CompareNoCase(STR__TO_LP) != 0)
 				{
 					continue;;
@@ -2884,6 +2912,7 @@ int  CObj__DUAL_ARM_STD
 			{
 				continue;
 			}
+
 			if(ds_info.sMATERIAL_STS.CompareNoCase(STR__TO_LP) != 0)
 			{
 				continue;
@@ -2896,7 +2925,7 @@ int  CObj__DUAL_ARM_STD
 		}
 
 		// ATM_RB -> LPo
-		if(Fnc__PLACE_LPx(p_variable,p_alarm,arm_type) < 0)
+		if(Fnc__PLACE_LPx(p_variable,p_alarm, arm_type) < 0)
 		{
 			NEXT__LOOP;
 		}
@@ -2909,6 +2938,63 @@ int  CObj__DUAL_ARM_STD
 ::AUTO_CTRL__BUFFERx_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
 	CString log_id = "AUTO_CTRL__BUFFERx_RB()";
+
+	// ...
+	if(dCH__ATM_RB__CFG_PICK_WAFER_CONDITION->Check__DATA(STR__ONLY_PROCESSED) > 0)
+	{
+		if(ATM_RB__Check_Occupied__A_Arm() > 0)
+		{
+			if(xCH__ATM_RB__SLOT01_STATUS->Check__DATA(STR__MAPPED) > 0)			NEXT__LOOP;
+		}
+		if(ATM_RB__Check_Occupied__B_Arm() > 0)
+		{
+			if(xCH__ATM_RB__SLOT02_STATUS->Check__DATA(STR__MAPPED) > 0)			NEXT__LOOP;
+		}
+	}
+
+	// Arm Check ...
+	{
+		CString arm_type;
+
+		if(ATM_RB__Check_Occupied__A_Arm() > 0)
+		{
+			NEXT__LOOP;
+
+			/*
+			arm_type = ARM_A;
+
+			if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) > 0)				NEXT__LOOP;
+
+			//
+			IDS__SCH_MATERIAL_STATUS ds_sts;
+			if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type, ds_sts) < 0)		NEXT__LOOP;
+
+			if(ds_sts.sMATERIAL_STS.CompareNoCase(STR__TO_LP) == 0)					NEXT__LOOP;
+			*/
+		}
+		if(ATM_RB__Check_Occupied__B_Arm() > 0)
+		{
+			NEXT__LOOP;
+
+			/*
+			arm_type = ARM_B;
+
+			if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) > 0)				NEXT__LOOP;
+
+			//
+			IDS__SCH_MATERIAL_STATUS ds_sts;
+			if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type, ds_sts) < 0)		NEXT__LOOP;
+
+			if(ds_sts.sMATERIAL_STS.CompareNoCase(STR__TO_LP) == 0)					NEXT__LOOP;
+			*/
+		}
+	}
+	/*
+	// LLx Check ...
+	{
+		if(_Check__LBo_To_BUFFERx__ONLY_MODE(p_variable, p_alarm) > 0)		NEXT__LOOP;
+	}
+	*/
 
 	// ...
 	int arm_count = 1;
@@ -3034,7 +3120,10 @@ int  CObj__DUAL_ARM_STD
 			NEXT__LOOP;
 		}
 
-		xSCH_MATERIAL_CTRL->Pick__From_MODULE(sch_module,arm_type);
+		if(ATM_RB__Check_Occupied__Arm_Type(arm_type) > 0)
+		{
+			xSCH_MATERIAL_CTRL->Pick__From_MODULE(sch_module, arm_type);
+		}
 	}
 
 	return 1;
@@ -3045,23 +3134,36 @@ int  CObj__DUAL_ARM_STD
 {
 	CString arm_type;
 	CString arm_lotid;
-	
-	// ...
+	int i;
+
+	for(i=0; i<2; i++)
 	{
-		if(ATM_RB__Get_Occupied__Arm_Type(arm_type) < 0)
+		if(i == 0)
 		{
-			NEXT__LOOP;
+			if(ATM_RB__Check_Occupied__A_Arm() < 0)			continue;
+
+			arm_type = ARM_A;
+		}
+		else if(i == 1)
+		{
+			if(ATM_RB__Check_Occupied__B_Arm() < 0)			continue;
+
+			arm_type = ARM_B;
+		}
+		else
+		{
+			continue;
 		}
 
 		if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) > 0)
 		{
-			NEXT__LOOP;
+			continue;
 		}
 
 		// ...
 		{
 			IDS__SCH_MATERIAL_STATUS ds_sts;
-			xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type,ds_sts);
+			xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type, ds_sts);
 
 			if(ds_sts.sMATERIAL_STS.CompareNoCase(STR__TO_LP) == 0)
 			{
@@ -3105,10 +3207,8 @@ int  CObj__DUAL_ARM_STD
 				}
 			}
 		}
-	}
 
-	// ...
-	{
+		// ...
 		int buffer_flag = -1;
 		CString bff_module;
 		int bff_slot_id;
@@ -3207,6 +3307,7 @@ int  CObj__DUAL_ARM_STD
 
 		Fnc__PLACE_BUFFERx(p_variable,p_alarm, arm_type, bff_module,bff_slot_id, arm_lotid);
 	}
+
 	return 1;
 }
 int  CObj__DUAL_ARM_STD
@@ -3302,7 +3403,7 @@ void CObj__DUAL_ARM_STD
 			l_para.Add(MODULE__AL1);
 			l_para.Add("1");
 				
-			pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__ROTATE,l_para);
+			Call__ROBOT_OBJ(ATM_CMMD__ROTATE, l_para);
 
 			iLBx_FRONT_FLAG = 1;
 			return;
@@ -3321,7 +3422,7 @@ void CObj__DUAL_ARM_STD
 			l_para.Add(next_module);
 			l_para.Add(next_slot);
 			
-			pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__ROTATE,l_para);
+			Call__ROBOT_OBJ(ATM_CMMD__ROTATE, l_para);
 			
 			iLBx_FRONT_FLAG = 1;
 			return;
@@ -3358,7 +3459,7 @@ void CObj__DUAL_ARM_STD
 							l_para.Add(ll_name);
 							l_para.Add(str_data);
 
-							pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__ROTATE,l_para);
+							Call__ROBOT_OBJ(ATM_CMMD__ROTATE, l_para);
 
 							iLBx_FRONT_FLAG = 1;
 							return;
@@ -3420,7 +3521,7 @@ void CObj__DUAL_ARM_STD
 						l_para.Add(ll_name);
 						l_para.Add(str_data);
 
-						pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__ROTATE, l_para);
+						Call__ROBOT_OBJ(ATM_CMMD__ROTATE, l_para);
 					}
 				}
 				else
@@ -4076,17 +4177,44 @@ void CObj__DUAL_ARM_STD
 					&& (LLx__Check_All_Empty(ll_i) < 0)
 					&& (LLx__Is_ATM(ll_i) > 0))
 					{
-						if(SCH_RUN__LLx_PUMP(ll_i, p_variable, log_id, "1") > 0)
+						bool active__ll_pump = false;
+
+						// ...
 						{
-							xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Set__DATA("OUT");
+							CUIntArray l_slot_id;
+							LLx__Get_Occupied__Slot_List(ll_i, l_slot_id);
+
+							int k_limit = l_slot_id.GetSize();
+							for(int k=0; k<k_limit; k++)
+							{
+								CString sch_name;
+								sch_name.Format("%s-%1d", Get__LLx_NAME(ll_i), l_slot_id[k]);
+
+								if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(sch_name) < 0)		continue;
+
+								active__ll_pump = true;
+								break;
+							}
+						}
+
+						if(active__ll_pump)
+						{
+							if(SCH_RUN__LLx_PUMP(ll_i, p_variable, log_id, "1") > 0)
+							{
+								xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Set__DATA("OUT");
+							}
 						}
 					}
 				}
+
+				// ...
 			}
 		}
+
+		// ...
 	}
 
-	// ...
+	//  ...
 }
 void CObj__DUAL_ARM_STD
 ::AUTO_CTRL__LBx_PUMP__ALL_MODE(CII_OBJECT__VARIABLE *p_variable)
@@ -5229,6 +5357,39 @@ Fnc__PLACE_LBi(CII_OBJECT__VARIABLE *p_variable,
 	CString para_slot;
 	int slot_id;
 
+	bool active__pm_odd  = false;
+	bool active__pm_even = false;
+
+	// PMx Check ...
+	{
+		CStringArray l__pm_name;
+		CStringArray l__pm_rcp;
+
+		xSCH_MATERIAL_CTRL->Get__CUR_PROCESS_INFO(arm_type, l__pm_name,l__pm_rcp);
+
+		//
+		int k_limit = l__pm_name.GetSize();
+
+		for(int k=0; k<k_limit; k++)
+		{
+			CString pmc_name = l__pm_name[k];
+
+			int pm_index = _Get__PM_INDEX(pmc_name);
+			if(pm_index < 0)		continue;
+
+			if(sCH__PMx__OBJ_VIRTUAL_STATUS[pm_index]->Check__DATA(STR__DISABLE) > 0)
+			{
+				continue;
+			}
+
+			int pm_id = pm_index + 1;
+			int pm_check = pm_id % 2;
+			
+				 if(pm_check == 1)		active__pm_odd  = true;
+			else if(pm_check == 0)		active__pm_even = true;
+		}
+	}
+
 	// LLx ...
 	if(sEXT_CH__SCH_MODE_LLx_IN->Check__DATA(_SCH_MODE__ROUTE) > 0)
 	{
@@ -5256,8 +5417,27 @@ Fnc__PLACE_LBi(CII_OBJECT__VARIABLE *p_variable,
 				continue;
 			}
 
-			if(LLx__Is_Available(ll_i) < 0)						continue;
-			if(LLx__Get_Empty__InSlot(ll_i, slot_id) < 0)		continue;
+			if(LLx__Is_Available(ll_i) < 0)
+			{
+				continue;
+			}
+
+			if((active__pm_odd) && (active__pm_even))
+			{
+				if(LLx__Get_Empty__InSlot(ll_i, slot_id) < 0)					continue;
+			}
+			else if(active__pm_odd)
+			{
+				if(LLx__Get_Empty__InSlot_Of_Odd_Type(ll_i, slot_id) < 0)		continue;
+			}
+			else if(active__pm_even)
+			{
+				if(LLx__Get_Empty__InSlot_Of_Even_Type(ll_i, slot_id) < 0)		continue;
+			}
+			else
+			{
+				continue;
+			}
 
 			if(LLx__Is_ATM(ll_i) < 0)
 			{
@@ -5268,11 +5448,10 @@ Fnc__PLACE_LBi(CII_OBJECT__VARIABLE *p_variable,
 				continue;
 			}
 
-			// ...
+			active__ll_only_input = 1;
+
 			para_module = Get__LLx_NAME(ll_i);
 			para_slot.Format("%1d", slot_id);
-
-			active__ll_only_input = 1;
 			break;
 		}
 
@@ -5290,31 +5469,28 @@ Fnc__PLACE_LBi(CII_OBJECT__VARIABLE *p_variable,
 
 		for(ll_i=0; ll_i<ll_limit; ll_i++)
 		{
-			if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_i]->Check__DATA(LBx_MODE__ONLY_INPUT) > 0)
+			if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_i]->Check__DATA(LBx_MODE__ONLY_INPUT) < 0)
 			{
-				if(LLx__Is_Available(ll_i) < 0)						continue;
-				if(LLx__Get_Empty__InSlot(ll_i, slot_id) < 0)		continue;
+				continue;
+			}
 
-				if(LLx__Is_ATM(ll_i) < 0)
+			if(LLx__Is_Available(ll_i) < 0)						continue;
+			if(LLx__Get_Empty__InSlot(ll_i, slot_id) < 0)		continue;
+
+			if(LLx__Is_ATM(ll_i) < 0)
+			{
+				if(xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Check__DATA("OUT") < 0)
 				{
-					if(xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Check__DATA("OUT") < 0)
-					{
-						SCH_RUN__LLx_VENT(ll_i, p_variable, log_id, "1");
-					}
-					continue;
+					SCH_RUN__LLx_VENT(ll_i, p_variable, log_id, "1");
 				}
-
-				// ...
-				active__ll_only_input = 1;
-
-				para_module = Get__LLx_NAME(ll_i);
-				para_slot.Format("%1d", slot_id);
+				continue;
 			}
 
-			if(active__ll_only_input > 0)
-			{
-				break;
-			}
+			active__ll_only_input = 1;
+
+			para_module = Get__LLx_NAME(ll_i);
+			para_slot.Format("%1d", slot_id);
+			break;
 		}
 
 		if(active__ll_only_input < 0)
@@ -5361,7 +5537,35 @@ Fnc__PLACE_LBi(CII_OBJECT__VARIABLE *p_variable,
 		return 1;
 	}
 
-	Fnc__PUMP_LBi(p_variable,para_module);
+	if((active__pm_odd) && (active__pm_even))
+	{
+		Fnc__PUMP_LBi(p_variable,para_module);
+	}
+	else if(active__pm_odd)
+	{
+		int ll_i = Get__LLx_INDEX(para_module);
+
+		if(LLx__Check_All_Occupied__InSlot_Of_Odd_Type(ll_i))
+		{
+			if(SCH_RUN__LLx_PUMP(ll_i, p_variable, log_id, "Odd") > 0)
+			{
+				xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Set__DATA("OUT");
+			}
+		}
+	}
+	else if(active__pm_even)
+	{
+		int ll_i = Get__LLx_INDEX(para_module);
+
+		if(LLx__Check_All_Occupied__InSlot_Of_Even_Type(ll_i))
+		{
+			if(SCH_RUN__LLx_PUMP(ll_i, p_variable, log_id, "Even") > 0)
+			{
+				xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Set__DATA("OUT");
+			}
+		}
+	}
+
 	return 1;
 }
 int CObj__DUAL_ARM_STD::
@@ -5384,8 +5588,40 @@ Fnc__PUMP_LBi(CII_OBJECT__VARIABLE *p_variable,
 		}
 		else
 		{
-			if((ATM_RB__Check_Empty__Arm_Type() > 0)
-			&& (AL1__Check_Empty__All_Slot()    > 0))
+			bool active__arm_wfr = false;
+
+			for(int i=0; i<2; i++)
+			{
+				CString arm_type;
+
+				if(i == 0)
+				{
+					if(ATM_RB__Check_Occupied__A_Arm() < 0)		continue;
+
+					arm_type = ARM_A;
+				}
+				else if(i == 1)
+				{
+					if(ATM_RB__Check_Occupied__B_Arm() < 0)		continue;
+
+					arm_type = ARM_B;
+				}
+				else
+				{
+					continue;
+				}
+
+				if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) < 0)	
+				{
+					continue;
+				}
+
+				active__arm_wfr = true;
+				break;
+			}
+
+			if((!active__arm_wfr)
+			&& (AL1__Check_Empty__All_Slot() > 0))
 			{
 				if(xSCH_MATERIAL_CTRL->Check__MATERIAL_TO_PROCESS() < 0)
 				{
@@ -5470,11 +5706,9 @@ Fnc__Seq_SWAP_ALx(CII_OBJECT__VARIABLE *p_variable,
 {
 	DECLARE__EXT_CTRL(p_variable);
 	
-
-	//.....
+	// ...
 	CStringArray l_para;
 
-	l_para.RemoveAll();
 	l_para.Add(para_module);
 	
 	l_para.Add(place_arm);
@@ -5482,9 +5716,8 @@ Fnc__Seq_SWAP_ALx(CII_OBJECT__VARIABLE *p_variable,
 
 	l_para.Add(pick_arm);
 	l_para.Add(pick_slot);
-	//
 
-	return pATM_RB__OBJ_CTRL->Call__OBJ_MODE("SWAP_ALx",l_para);
+	return Call__ROBOT_OBJ("SWAP_ALx", l_para);
 }
 
 int CObj__DUAL_ARM_STD::
@@ -5551,11 +5784,9 @@ Fnc__Seq_SWAP_LBx(CII_OBJECT__VARIABLE *p_variable,
 {
 	DECLARE__EXT_CTRL(p_variable);
 	
-
-	//.....
+	// ...
 	CStringArray l_para;
 
-	l_para.RemoveAll();
 	l_para.Add(para_module);
 	
 	l_para.Add(place_arm);
@@ -5563,9 +5794,8 @@ Fnc__Seq_SWAP_LBx(CII_OBJECT__VARIABLE *p_variable,
 
 	l_para.Add(pick_arm);
 	l_para.Add(pick_slot);
-	//
 
-	return pATM_RB__OBJ_CTRL->Call__OBJ_MODE("SWAP_LBx",l_para);
+	return Call__ROBOT_OBJ("SWAP_LBx", l_para);
 }
 
 int CObj__DUAL_ARM_STD::
@@ -6304,8 +6534,7 @@ Fnc__LBo_To_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 
 // LBo -> BUFFERx
 int CObj__DUAL_ARM_STD
-::Fnc__LBo_To_BUFFERx__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,
-							     CII_OBJECT__ALARM *p_alarm)
+::Fnc__LBo_To_BUFFERx__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
 {
 	DECLARE__EXT_CTRL(p_variable);
 
@@ -6316,6 +6545,19 @@ int CObj__DUAL_ARM_STD
 	bool active_log = false;
 
 	if(active_log)		printf("Fnc__LBo_To_BUFFERx__ONLY_MODE) ... \n");
+
+	// ...
+	if(dCH__ATM_RB__CFG_PICK_WAFER_CONDITION->Check__DATA(STR__ONLY_PROCESSED) > 0)
+	{
+		if(ATM_RB__Check_Occupied__A_Arm() > 0)
+		{
+			if(xCH__ATM_RB__SLOT01_STATUS->Check__DATA(STR__MAPPED) > 0)			NEXT__LOOP;
+		}
+		if(ATM_RB__Check_Occupied__B_Arm() > 0)
+		{
+			if(xCH__ATM_RB__SLOT02_STATUS->Check__DATA(STR__MAPPED) > 0)			NEXT__LOOP;
+		}
+	}
 
 	// ...
 	int arm_count = 1;
@@ -6595,6 +6837,172 @@ int CObj__DUAL_ARM_STD
 
 	NEXT__LOOP;
 }
+int CObj__DUAL_ARM_STD
+::_Check__LBo_To_BUFFERx__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	CString para_module;
+
+	// LLx ...
+	{
+		CString para_slot;
+		int slot_id;
+
+		//
+		int active__only_output = -1;
+
+		int ll_limit = iLLx_SIZE;
+		int ll_i;
+
+		for(ll_i=0; ll_i<ll_limit; ll_i++)
+		{
+			if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_i]->Check__DATA(LBx_MODE__ONLY_OUTPUT) > 0)
+			{
+				if(LLx__Is_Available(ll_i) < 0)			continue;
+				if(LLx__Is_ATM(ll_i) < 0)				continue;
+
+				if(xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Check__DATA("OUT") < 0)
+				{
+					continue;
+				}
+
+				// ...
+				int material_flag = -1;
+
+				int i_limit = iLLx_SLOT_MAX[ll_i];
+
+				for(int i=0; i<i_limit; i++)
+				{
+					if(LLx__Check_Occupied__OutSlot(ll_i, i) < 0)
+					{
+						continue;
+					}
+
+					para_module = Get__LLx_NAME(ll_i);
+					para_slot.Format("%1d", i+1);
+
+					material_flag = 1;
+					break;
+				}
+
+				if(material_flag < 0)
+				{
+					continue;
+				}
+
+				active__only_output = 1;
+				break;
+			}
+		}
+
+		if(active__only_output < 0)
+		{
+			return -1;
+		}
+	}
+
+	// ...
+	CStringArray l__ll_lot_id;
+	CStringArray l__ll_slot_id;
+	CUIntArray   l__st_check;
+
+	// LLx ...
+	{
+		int ll_i = Get__LLx_INDEX(para_module);
+
+		CUIntArray l_slot_id;
+		LLx__Get_Occupied__Only_Output(ll_i, l_slot_id);
+
+		int k_limit = l_slot_id.GetSize();
+		int k;
+
+		for(k=0; k<k_limit; k++)
+		{
+			int slot_id = l_slot_id[k];
+			int stx_check = -1;
+
+			//
+			CString sch_name;
+			CString sch_slot;
+
+			sch_slot.Format("%1d", slot_id);
+			sch_name.Format("%s-%s", para_module,sch_slot);
+
+			IDS__SCH_MATERIAL_INFO ds_info;
+			xSCH_MATERIAL_CTRL->Get__MATERIAL_INFO(sch_name,ds_info);
+
+			CString sch_lotid = ds_info.sLOT_ID;
+
+			int wfr__port_id = ds_info.iSRC__PTN;
+			int wfr__slot_id = ds_info.iSRC__STN;
+
+			if(Fnc__LPx_SideBuffer_Use_Flag_Check(wfr__port_id, wfr__slot_id) > 0)
+			{
+				stx_check =  1;
+			}
+
+			if(stx_check > 0)
+			{
+				if((dCH__SCH_DB_ST1_OUT_MODE_BUFFER_TO_LPo->Check__DATA(STR__LPx_OPTIMIZATION) > 0)
+				|| (dCH__SCH_DB_ST2_OUT_MODE_BUFFER_TO_LPo->Check__DATA(STR__LPx_OPTIMIZATION) > 0))
+				{
+					if(xSCH_MATERIAL_CTRL->Check__MATERIAL_TO_PROCESS_IN_LPx(wfr__port_id) < 0)
+					{
+						stx_check = -1;
+					}
+				}
+			}
+
+			l__ll_lot_id.Add(sch_lotid);
+			l__ll_slot_id.Add(sch_slot);
+			l__st_check.Add(stx_check);
+		}
+	}
+
+	// LLo -> RB
+	int t_limit = l__ll_lot_id.GetSize();
+	int t;
+
+	for(t=0; t<t_limit; t++)
+	{
+		CString para_slot = l__ll_slot_id[t];
+
+		// ...
+		CString bff_lotid;
+		CString bff_module;
+		int bff_slot_id;
+
+		int stx_check = -1;
+
+		// ...
+		{
+			CString para_lotid = "";
+
+			if(dCH__CFG_BUFFER_LOTID_CHECK->Check__DATA(STR__ENABLE) > 0)
+			{
+				stx_check  = l__st_check[t];
+				para_lotid = l__ll_lot_id[t];
+			}
+			else if(l__st_check.GetSize() > 0)
+			{
+				stx_check  = l__st_check[0];
+				para_lotid = _Get__STx_LotID();
+			}
+
+			if(stx_check > 0)
+			{
+				if(_Get__LPx_SideBuffer_Info_To_Use(para_lotid, bff_module,bff_slot_id) < 0)
+				{
+					return -1;
+				}
+
+				bff_lotid = para_lotid;
+			}
+		}
+	}
+
+	return 1;
+}
+
 int CObj__DUAL_ARM_STD::
 Fnc__LBo_To_BUFFERx__ALL_MODE(CII_OBJECT__VARIABLE *p_variable,
 							  CII_OBJECT__ALARM *p_alarm)

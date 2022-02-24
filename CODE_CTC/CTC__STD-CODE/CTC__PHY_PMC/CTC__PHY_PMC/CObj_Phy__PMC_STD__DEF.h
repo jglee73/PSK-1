@@ -35,6 +35,10 @@
 #define  STR__ABORTED							"ABORTED"
 #define  STR__COMPLETED							"COMPLETED"
 
+// ...
+#define  STR__OPEN								"OPEN"
+#define  STR__CLOSE								"CLOSE"
+
 
 // ...
 #define  STR__INTERVAL							"INTERVAL"

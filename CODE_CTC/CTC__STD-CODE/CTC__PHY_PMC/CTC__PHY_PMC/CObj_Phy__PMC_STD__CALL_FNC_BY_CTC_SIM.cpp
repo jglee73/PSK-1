@@ -155,7 +155,7 @@ LOOP_CHECK:
 
 		while(1)
 		{
-			if(p_variable->Check__VARIABLE_DATA(dVAR__SLIT_VLV_STS,"CLOSE") > 0)
+			if(dCH__SLIT_VLV_STS->Check__DATA("CLOSE") > 0)
 			{
 				check_flag = 1;
 				break;
@@ -1096,8 +1096,6 @@ int  CObj_Phy__PMC_STD
 			return -1;
 		}
 	}
-
-	xCH__X_PLACE_FLAG->Set__DATA(STR__YES);
 
 	if(xCH__NEXT_PROCESS->Check__DATA(STR__LEAK_CHECK) > 0)
 	{

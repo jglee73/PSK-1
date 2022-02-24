@@ -23,9 +23,13 @@
 #define  STR__MAINTMODE				"MAINTMODE"
 
 #define  STR__YES                   "YES"
+#define  STR__NO                    "NO"
 #define  STR__NONE                  "NONE"
 
 #define  STR__EXIST					"EXIST"
+
+#define  STR__OPEN					"OPEN"
+#define  STR__CLOSE					"CLOSE"
 
 
 // ...

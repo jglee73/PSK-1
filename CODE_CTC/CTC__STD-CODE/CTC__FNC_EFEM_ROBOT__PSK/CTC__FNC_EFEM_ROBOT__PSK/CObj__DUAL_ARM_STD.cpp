@@ -743,10 +743,7 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	// ...
 	CString def_name;
 	CString def_data;
-
 	CString db_name;
-	CString db_cfg_name;
-
 	CString str_name;
 	int i;
 	int j;
@@ -773,6 +770,8 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// DB_CFG ...
 	{
+		CString db_cfg_name;
+
 		def_name = "DB_CFG_NAME";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,db_cfg_name);
 
@@ -886,9 +885,13 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 					for(i=0; i<CFG_LLx__SLOT_MAXx; i++)
 					{
-						str_name.Format("SCH_DB.%s.SLOT%1d_STATUS", ll_name,i+1);
-						LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_i][i], db_cfg_name,str_name);
+						str_name.Format("%s.SLOT%1d_STATUS", ll_name,i+1);
+						LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_i][i], db_cfg_name,str_name);
 
+						str_name.Format("SCH_DB.%s.SLOT%1d_STATUS", ll_name,i+1);
+						LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_i][i], db_cfg_name,str_name);
+
+						//
 						str_name.Format("SCH_DB.%s.SLOT%1d_MODE", ll_name,i+1);
 						LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_i][i], db_cfg_name,str_name);
 					}
@@ -898,12 +901,12 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		str_name = "PRESSURE_CHECK.MODE";
 		LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__CFG__PRESSURE_CHECK_MODE, db_cfg_name,str_name);
-	}
 
-	for(i=0; i<CFG_LLx_LIMIT; i++)
-	{
-		str_name.Format("SCH.STS.ATM_RB_TO_LL%1d", i+1);
-		LINK__EXT_VAR_STRING_CTRL(xCH__ATM_RB__SCH_STS_TO_LLx[i], db_cfg_name,str_name);
+		for(i=0; i<CFG_LLx_LIMIT; i++)
+		{
+			str_name.Format("SCH.STS.ATM_RB_TO_LL%1d", i+1);
+			LINK__EXT_VAR_STRING_CTRL(xCH__ATM_RB__SCH_STS_TO_LLx[i], db_cfg_name,str_name);
+		}
 	}
 
 	// JOB CTRL ...
@@ -952,6 +955,21 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		//
 		LINK__EXT_VAR_DIGITAL_CTRL(xCH__ATM_RB__CFG_A_ARM_USE_MODE, db_name,"CFG.A.ARM.USE.FLAG");
 		LINK__EXT_VAR_DIGITAL_CTRL(xCH__ATM_RB__CFG_B_ARM_USE_MODE, db_name,"CFG.B.ARM.USE.FLAG");
+
+		// LLx : Scheduler - Dual Only Input & Output ...
+		str_name = "CFG.DUAL_ARM_MOVING_AT_THE_SAME_TIME";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__ATM_RB__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME, db_name,str_name);
+
+		// LLx : CONTRAINT ...
+		str_name = "CFG.LL.CONSTRAINT.1";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__ATM_RB__CFG_LL_CONSTRAINT_1, db_name,str_name);
+
+		str_name = "CFG.LL.CONSTRAINT.2";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__ATM_RB__CFG_LL_CONSTRAINT_2, db_name,str_name);
+
+		// CFG : WAFER PICK PARAMETER ...
+		str_name = "CFG.PICK_WAFER_CONDITION";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__ATM_RB__CFG_PICK_WAFER_CONDITION, db_name,str_name);
 	}
 
 	// OBJ : AL ...
@@ -1142,11 +1160,37 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
+	// OBJ : PMx ...
+	{
+		def_name = "PM_SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, db_name);
+
+		int pm_size = atoi(db_name);
+		if(pm_size > CFG_PM_LIMIT)		pm_size = CFG_PM_LIMIT;
+		iPMx_SIZE = pm_size;
+
+		for(i=0; i<pm_size; i++)
+		{
+			int pm_id = i + 1;
+
+			str_name.Format("OBJ__PM%1d", pm_id);
+			if(p_ext_obj_create->Get__DEF_CONST_DATA(str_name, db_name) < 0)
+			{
+				continue;
+			}
+
+			//
+			str_name = "OBJ.VIRTUAL.STATUS";
+			LINK__EXT_VAR_STRING_CTRL(sCH__PMx__OBJ_VIRTUAL_STATUS[i], db_name, str_name);
+		}
+	}
+
 	// ...
 	{
 		SCX__SEQ_INFO x_seq_info;
 
 		iActive_SIM = x_seq_info->Is__SIMULATION_MODE();
+
 		if(iActive_SIM > 0)
 		{
 			Call__WAFER_RESYNC_CLEAR_SYS();

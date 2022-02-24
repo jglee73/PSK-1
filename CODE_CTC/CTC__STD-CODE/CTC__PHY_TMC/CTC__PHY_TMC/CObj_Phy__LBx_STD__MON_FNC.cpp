@@ -13,10 +13,13 @@ void CObj_Phy__LBx_STD
 	int module_count = 0;
 
 	CString	ch_data;
+	int i;
+
 
 	while(1)
 	{
-		Sleep(100);
+		p_variable->Wait__SINGLE_OBJECT(0.1);
+
 
 		loop_count++;
 		if(loop_count >= 5)			loop_count = 0;
@@ -186,6 +189,20 @@ void CObj_Phy__LBx_STD
 			{
 				xCH__OBJ_STATUS->Get__DATA(var_data);
 				xCH__OBJ_VIRTUAL_STATUS->Set__DATA(var_data);				
+			}
+
+			// SLOT_X : VIRTUAL STATUS ...
+			for(i=0; i<CFG_LLx__SLOT_MAX; i++)
+			{
+				if(dEXT_CH__CFG_LL_SLOT_X_STATUS[i]->Check__DATA(STR__DISABLE) > 0)
+				{
+					xCH__SLOT_X_VIRTUAL_STATUS[i]->Set__DATA(STR__DISABLE);
+				}
+				else
+				{
+					ch_data = xCH__OBJ_VIRTUAL_STATUS->Get__STRING();
+					xCH__SLOT_X_VIRTUAL_STATUS[i]->Set__DATA(ch_data);
+				}
 			}
 
 			if((xCH__OBJ_VIRTUAL_STATUS->Check__DATA(STR__CTCINUSE) > 0)

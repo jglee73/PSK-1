@@ -290,6 +290,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__DUAL_ARM_STD__OBJ_CTRL.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__DUAL_ARM_STD__SCH_FNC.cpp"
 					>
 				</File>

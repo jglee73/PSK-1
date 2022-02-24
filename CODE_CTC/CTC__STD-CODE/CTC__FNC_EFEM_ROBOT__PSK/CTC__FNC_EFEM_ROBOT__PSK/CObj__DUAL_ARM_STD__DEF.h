@@ -37,6 +37,14 @@
 #define  STR__CTCINUSE				"CTCINUSE"
 
 //
+#define  STR__ALL					"ALL"
+#define  STR__ODD					"ODD"
+#define  STR__EVEN					"EVEN"
+
+#define  STR__ONLY_PROCESSED		"ONLY.PROCESSED"
+#define  STR__MAPPED				"MAPPED"
+
+//
 #define  STR__ENABLE				"ENABLE"
 #define  STR__DISABLE				"DISABLE"
 #define  STR__ALARM					"ALARM"

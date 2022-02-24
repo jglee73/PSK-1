@@ -83,42 +83,40 @@ void CObj__DUAL_ARM_STD::AUTO_CTRL__PMx_PUMP(CII_OBJECT__VARIABLE *p_variable)
 		{
 			if(PMx__Is_VAC(i) < 0)
 			{
-				pPMx__OBJ_CTRL[i]->Run__OBJECT(CMMD__PUMP);
+				Run__PMx_OBJ(i, CMMD__PUMP);
 			}
 		}
 		else
 		{
 			if(PMx__Is_ATM(i) < 0)
 			{
-				pPMx__OBJ_CTRL[i]->Run__OBJECT(CMMD__VENT);
+				Run__PMx_OBJ(i, CMMD__VENT);
 			}
 		}
 	}
 }
 void CObj__DUAL_ARM_STD::AUTO_CTRL__TMC_PUMP(CII_OBJECT__VARIABLE *p_variable)
 {
-
 	if(TMC_CHM__Is_Available() > 0)
 	{
 		if(xEXT_CH__CFG__TRANSFER_MODE->Check__DATA("VAC") > 0)
 		{
 			if(TMC_CHM__Is_VAC() < 0)
 			{
-				pTMC_CHM__OBJ_CTRL->Run__OBJECT(CMMD__PUMP);
+				Run__TMC_OBJ(CMMD__PUMP);
 			}
 		}
 		else
 		{
 			if(TMC_CHM__Is_ATM() < 0)
 			{
-				pTMC_CHM__OBJ_CTRL->Run__OBJECT(CMMD__VENT);
+				Run__TMC_OBJ(CMMD__VENT);
 			}
 		}
 	}
 }
 void CObj__DUAL_ARM_STD::AUTO_CTRL__LBo_PUMP(CII_OBJECT__VARIABLE *p_variable)
 {
-
 	if(xEXT_CH__CFG__TRANSFER_MODE->Check__DATA("ATM") > 0)
 	{
 		return;
@@ -139,4 +137,45 @@ void CObj__DUAL_ARM_STD::AUTO_CTRL__LBo_PUMP(CII_OBJECT__VARIABLE *p_variable)
 			}
 		}
 	}
+}
+
+int  CObj__DUAL_ARM_STD::_Get__MIN_PMx_INDEX_OF_PMx_IN_COUNT(const CStringArray& l__pm_name)
+{
+	CUIntArray l__pm_index;
+
+	int k_limit = l__pm_name.GetSize();
+	int k;
+
+	for(k=0; k<k_limit; k++)
+	{
+		int pm_index = Macro__Get_PMC_INDEX(l__pm_name[k]);
+		l__pm_index.Add(pm_index);
+	}
+
+	return _Get__MIN_PMx_INDEX_OF_PMx_IN_COUNT(l__pm_index);
+}
+int  CObj__DUAL_ARM_STD::_Get__MIN_PMx_INDEX_OF_PMx_IN_COUNT(const CUIntArray& l__pm_index)
+{
+	int cur__pm_index = -1;
+	int min__pm_count = -1;
+
+	int k_limit = l__pm_index.GetSize();
+	int k;
+
+	for(k=0; k<k_limit; k++)
+	{
+		int pm_index = l__pm_index[k];
+
+		CString ch_data = xCH__PMx__IN_COUNT[pm_index]->Get__STRING();
+		int cur__pm_count = atoi(ch_data);
+
+		if((min__pm_count < 0)
+		|| (cur__pm_count < min__pm_count))
+		{
+			min__pm_count = cur__pm_count;
+			cur__pm_index = pm_index;  
+		}
+	}
+
+	return cur__pm_index;
 }

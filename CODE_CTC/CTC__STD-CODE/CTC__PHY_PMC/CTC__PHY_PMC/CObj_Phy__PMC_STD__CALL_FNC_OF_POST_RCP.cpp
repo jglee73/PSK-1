@@ -353,8 +353,6 @@ int  CObj_Phy__PMC_STD
 		}
 	}
 
-	xCH__X_PLACE_FLAG->Set__DATA(STR__YES);
-
 	if(xCH__NEXT_PROCESS->Check__DATA(STR__LEAK_CHECK) > 0)
 	{
 		if(Call__LEAK_CHECK(p_variable) < 0)

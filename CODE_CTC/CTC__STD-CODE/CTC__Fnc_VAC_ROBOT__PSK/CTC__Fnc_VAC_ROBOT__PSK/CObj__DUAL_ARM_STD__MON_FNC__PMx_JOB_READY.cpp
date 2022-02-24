@@ -21,7 +21,8 @@ SCH__PMx_JOB_START_READY(const int check_pm_index, const CString& sch_name, cons
 	}
 
 	// ...
-	CString fnc_id = "SCH__PMx_JOB_START_READY() ...";
+	CString fnc_id;
+	fnc_id.Format("SCH__PMx_JOB_START_READY() : check_pm_index (%1d) ... \n", check_pm_index);
 
 	int lp_ptn = ds_info.iSRC__PTN;
 	int lp_stn = ds_info.iSRC__STN;
@@ -188,7 +189,7 @@ Run__PMx_JOB_START_READY(const int pm_index, const CString& port_id,const CStrin
 	sEXT_CH__PMx_REQ_INFO_JOB_START_READY_PORTID[pm_index]->Set__DATA(port_id);
 	sEXT_CH__PMx_REQ_INFO_JOB_START_READY_JOBID[pm_index]->Set__DATA(job_id);
 
-	pPMx__OBJ_CTRL[pm_index]->Run__OBJECT("JOB_START_READY");
+	Run__PMx_OBJ(pm_index, "JOB_START_READY");
 	return 1;
 }
 int  CObj__DUAL_ARM_STD::

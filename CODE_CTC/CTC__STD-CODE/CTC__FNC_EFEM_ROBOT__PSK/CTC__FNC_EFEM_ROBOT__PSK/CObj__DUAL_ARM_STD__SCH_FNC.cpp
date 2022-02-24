@@ -15,16 +15,15 @@ SCH__FRONT_MODULE(CII_OBJECT__VARIABLE *p_variable,
 
 	DECLARE__EXT_CTRL(p_variable);
 
-	//.....
+	// ...
 	{
 		CStringArray l_para;
 
-		l_para.RemoveAll();
 		l_para.Add("A");
 		l_para.Add(str_module);
 		l_para.Add(str_slot);
 
-		pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__ROTATE,l_para);
+		Call__ROBOT_OBJ(ATM_CMMD__ROTATE, l_para);
 	}
 	return 1;
 }
@@ -381,7 +380,7 @@ SEQ__MAP_BY_ATM_RB(CII_OBJECT__VARIABLE *p_variable,const CString& str_module)
 	l_para.RemoveAll();
 	l_para.Add(str_module);
 
-	return pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__LP_MAP,l_para);
+	return Call__ROBOT_OBJ(ATM_CMMD__LP_MAP, l_para);
 }
 int  CObj__DUAL_ARM_STD::
 SEQ__ATM_RB__HOME(const int run_call)
@@ -393,9 +392,9 @@ SEQ__ATM_RB__HOME(const int run_call)
 
 	if(run_call > 0)
 	{
-		return pATM_RB__OBJ_CTRL->Run__OBJECT(ATM_CMMD__HOME);
+		return Run__ROBOT_OBJ(ATM_CMMD__HOME);
 	}
-	return pATM_RB__OBJ_CTRL->Call__OBJECT(ATM_CMMD__HOME);
+	return Call__ROBOT_OBJ(ATM_CMMD__HOME);
 }
 
 
@@ -475,11 +474,11 @@ SCH__PICK_FROM(CII_OBJECT__VARIABLE *p_variable,
 
 	if(ex_flag == false)
 	{
-		flag = pATM_RB__OBJ_CTRL->Call__OBJ_MODE("PICK", l_para);
+		flag = Call__ROBOT_OBJ("PICK", l_para);
 	}
 	else
 	{
-		flag = pATM_RB__OBJ_CTRL->Call__OBJ_MODE("XPICK", l_para);
+		flag = Call__ROBOT_OBJ("XPICK", l_para);
 	}
 
 	if(flag < 0)
@@ -956,11 +955,11 @@ SCH__PLACE_TO(CII_OBJECT__VARIABLE *p_variable,
 
 	if(ex_flag == false)
 	{
-		flag = pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__PLACE,l_para);
+		flag = Call__ROBOT_OBJ(ATM_CMMD__PLACE, l_para);
 	}
 	else
 	{
-		flag = pATM_RB__OBJ_CTRL->Call__OBJ_MODE(ATM_CMMD__XPLACE,l_para);	
+		flag = Call__ROBOT_OBJ(ATM_CMMD__XPLACE, l_para);	
 	}
 
 	if(flag < 0)
@@ -2179,10 +2178,9 @@ SCH__LLx_PREPMATER(const int ll_index,const CString& str_slot)
 	// ...
 	CStringArray l_para;
 
-	l_para.RemoveAll();
 	l_para.Add(str_slot);
 
-	return pLLx__OBJ_CTRL[ll_index]->Call__OBJ_MODE("PREPMATER",l_para);
+	return Call__LLx_OBJ(ll_index, "PREPMATER", l_para);
 }
 
 int  CObj__DUAL_ARM_STD::
@@ -2205,10 +2203,9 @@ SCH__LLx_COMPMATER(const int ll_index,const CString& str_slot)
 	// ...
 	CStringArray l_para;
 
-	l_para.RemoveAll();
 	l_para.Add(str_slot);
 
-	return pLLx__OBJ_CTRL[ll_index]->Call__OBJ_MODE("COMPMATER",l_para);
+	return Call__LLx_OBJ(ll_index, "COMPMATER", l_para);
 }
 
 int  CObj__DUAL_ARM_STD
@@ -2265,7 +2262,7 @@ int  CObj__DUAL_ARM_STD
 		{
 			sEXT_CH__LLx__UPPER_OBJ_MSG[ll_i]->Set__DATA(log_id);
 
-			pLLx__OBJ_CTRL[ll_i]->Run__OBJECT(LL_CMMD__PUMP);
+			Run__LLx_OBJ(ll_i, LL_CMMD__PUMP);
 		}
 	}
 	else
@@ -2274,7 +2271,7 @@ int  CObj__DUAL_ARM_STD
 		{
 			sEXT_CH__LLx__UPPER_OBJ_MSG[ll_i]->Set__DATA(log_id);
 
-			pLLx__OBJ_CTRL[ll_i]->Run__OBJECT(LL_CMMD__VENT);
+			Run__LLx_OBJ(ll_i, LL_CMMD__VENT);
 		}
 	}
 	return 1;
@@ -2311,7 +2308,7 @@ int  CObj__DUAL_ARM_STD
 
 	if(LLx__Is_ATM(ll_i) < 0)
 	{
-		pLLx__OBJ_CTRL[ll_i]->Run__OBJECT(LL_CMMD__VENT);
+		Run__LLx_OBJ(ll_i, LL_CMMD__VENT);
 	}
 	return 1;
 }
@@ -2346,7 +2343,7 @@ int  CObj__DUAL_ARM_STD
 
 	if(LLx__Is_ATM(ll_i) < 0)
 	{
-		return pLLx__OBJ_CTRL[ll_i]->Call__OBJECT(LL_CMMD__VENT);
+		return Call__LLx_OBJ(ll_i, LL_CMMD__VENT);
 	}
 	return 1;
 }

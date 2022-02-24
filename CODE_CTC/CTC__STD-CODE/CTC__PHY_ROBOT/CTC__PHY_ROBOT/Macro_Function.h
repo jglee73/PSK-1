@@ -1,6 +1,10 @@
 #pragma once
 
 
+// ...
+extern int Macro__Get_PMx_INDEX(const CString& str_name);
+extern int Macro__Get_LLx_INDEX(const CString& str_name);
+
 extern int Macro__LLx_ID(const CString& ll_name);
 extern int Macro__LPx_ID(const CString& lp_name);
 extern int Macro__STx_ID(const CString& st_name);

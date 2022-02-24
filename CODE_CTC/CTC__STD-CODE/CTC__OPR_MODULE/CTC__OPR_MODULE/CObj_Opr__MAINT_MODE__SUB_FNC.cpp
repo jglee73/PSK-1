@@ -64,6 +64,11 @@ int CObj_Opr__MAINT_MODE
 	if(str_module.CompareNoCase(STR__LBC) == 0)			return _LLx_INDEX__LBC;
 	if(str_module.CompareNoCase(STR__LBD) == 0)			return _LLx_INDEX__LBD;
 
+	if(str_module.Find("LL1") == 0)						return _LLx_INDEX__LBA;
+	if(str_module.Find("LL2") == 0)						return _LLx_INDEX__LBB;
+	if(str_module.Find("LL3") == 0)						return _LLx_INDEX__LBC;
+	if(str_module.Find("LL4") == 0)						return _LLx_INDEX__LBD;
+
 	return -1;
 }
 CString CObj_Opr__MAINT_MODE

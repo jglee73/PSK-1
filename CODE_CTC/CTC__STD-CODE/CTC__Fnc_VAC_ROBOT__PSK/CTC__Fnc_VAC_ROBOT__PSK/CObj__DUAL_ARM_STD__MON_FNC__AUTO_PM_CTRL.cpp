@@ -135,7 +135,6 @@ Fnc__PMx_AUTO_PM_CTRL(CII_OBJECT__VARIABLE *p_variable,
 						// ...
 					}
 
-					// ...
 					xCH__PMx__NEXT_PROCESS[i]->Set__DATA(STR__AUTO_PM);
 
 					if(flag__run > 0)
@@ -144,7 +143,7 @@ Fnc__PMx_AUTO_PM_CTRL(CII_OBJECT__VARIABLE *p_variable,
 						{
 							xEXT_CH__PMx_AUTO_PM_FLAG[i]->Set__DATA("");
 
-							pPMx__OBJ_CTRL[i]->Run__OBJECT(STR__AUTO_PM);
+							Run__PMx_OBJ(i, STR__AUTO_PM);
 						}
 					}
 					break;
@@ -156,7 +155,7 @@ Fnc__PMx_AUTO_PM_CTRL(CII_OBJECT__VARIABLE *p_variable,
 				{
 					xEXT_CH__PMx_AUTO_PM_FLAG[i]->Set__DATA("");
 					
-					pPMx__OBJ_CTRL[i]->Run__OBJECT(STR__AUTO_PM);
+					Run__PMx_OBJ(i, STR__AUTO_PM);
 				}
 			}				
 		}
@@ -171,7 +170,7 @@ Fnc__PMx_AUTO_PM_CTRL(CII_OBJECT__VARIABLE *p_variable,
 			{
 				xEXT_CH__PMx_AUTO_PM_FLAG[i]->Set__DATA("");
 
-				pPMx__OBJ_CTRL[i]->Run__OBJECT(STR__AUTO_PM);
+				Run__PMx_OBJ(i, STR__AUTO_PM);
 			}
 		}
 	}

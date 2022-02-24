@@ -159,31 +159,12 @@ LOOP_RETRY:
 		return -1;
 	}
 
-	// ...
-	int pm_i = SCH__CHECK_PM_INDEX(para_module);
-
 	try
-	{
-		if(pm_i >= 0)
-		{
-			xCH__PMx__MOVE_FLAG[pm_i]->Set__DATA("YES");
-		}
-
-		int flag = _Seq__MAINT_PICK(p_variable,p_alarm,arm_type,para_module,para_slot);
-
-		if(pm_i >= 0)
-		{
-			xCH__PMx__MOVE_FLAG[pm_i]->Set__DATA("NO");
-		}
-
-		if(flag < 0)		return -1;
+	{	
+		return _Seq__MAINT_PICK(p_variable,p_alarm,arm_type,para_module,para_slot);
 	}
 	catch(const int err_flag)
 	{
-		if(pm_i >= 0)
-		{
-			xCH__PMx__MOVE_FLAG[pm_i]->Set__DATA("NO");
-		}
 		return -1;
 	}
 
@@ -200,17 +181,21 @@ _Seq__MAINT_PICK(CII_OBJECT__VARIABLE *p_variable,
 
 	bool ex_flag = false;
 
-	if(SCH__CHECK_PICK_MODULE__READY(p_variable,ex_flag,para_module,para_slot) < 0)
+	if(SCH__CHECK_PICK_MODULE__READY(p_variable,ex_flag, arm_type,para_module,para_slot) < 0)
 	{
 		return -1;
 	}
 
-	if(SCH__PICK_FROM(p_variable,p_alarm,ex_flag,arm_type,para_module,para_slot) < 0)
+	if(SCH__PICK_FROM(p_variable,p_alarm, "", ex_flag, arm_type,para_module,para_slot) < 0)
 	{
 		return -1;
 	}
 
-	if(SCH__CHECK_PICK_MODULE__COMPLETE(p_variable,p_alarm,ex_flag,para_module,para_slot,"") < 0)
+	// ...
+	CString sch_name;
+	sch_name.Format("%s-%s", para_module,para_slot);
+
+	if(SCH__CHECK_PICK_MODULE__COMPLETE(p_variable,p_alarm,ex_flag, arm_type,para_module,para_slot, sch_name) < 0)
 	{
 		return -1;
 	}
@@ -416,31 +401,12 @@ LOOP_RETRY:
 		para_slot.Format("%1d",out_slot);
 	}
 
-	// ...
-	int pm_i = SCH__CHECK_PM_INDEX(para_module);
-
 	try
 	{
-		if(pm_i >= 0)
-		{
-			xCH__PMx__MOVE_FLAG[pm_i]->Set__DATA("YES");
-		}
-
-		int flag = _Seq__MAINT_PLACE(p_variable,p_alarm,arm_type,para_module,para_slot);
-
-		if(pm_i >= 0)
-		{
-			xCH__PMx__MOVE_FLAG[pm_i]->Set__DATA("NO");
-		}
-
-		if(flag < 0)		return -1;
+		return _Seq__MAINT_PLACE(p_variable,p_alarm,arm_type,para_module,para_slot);
 	}
 	catch(const int err_flag)
 	{
-		if(pm_i >= 0)
-		{
-			xCH__PMx__MOVE_FLAG[pm_i]->Set__DATA("NO");
-		}
 		return -1;
 	}
 

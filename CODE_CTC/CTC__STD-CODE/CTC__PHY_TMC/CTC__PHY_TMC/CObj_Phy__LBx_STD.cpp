@@ -82,6 +82,10 @@ int CObj_Phy__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 	int i;
 
 	// ...
+	CString dsp__obj_sts;
+	p_variable->Get__STD_DESCRIPTION("STD_OBJ_STATUS", dsp__obj_sts);
+
+	// ...
 	{
 		CString dsp_item;
 		p_variable->Get__STD_DESCRIPTION("STD_OBJ_CTRL",dsp_item);
@@ -186,15 +190,12 @@ int CObj_Phy__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 
 	// ...
 	{
-		CString dsp_item;
-		p_variable->Get__STD_DESCRIPTION("STD_OBJ_STATUS", dsp_item);
-
 		str_name = "OBJ.VIRTUAL.STATUS";
-		STD__ADD_DIGITAL(str_name,dsp_item);
+		STD__ADD_DIGITAL(str_name, dsp__obj_sts);
 		LINK__VAR_DIGITAL_CTRL(xCH__OBJ_VIRTUAL_STATUS,str_name);
 
 		str_name = "OBJ.STATUS";
-		STD__ADD_DIGITAL(str_name,dsp_item);
+		STD__ADD_DIGITAL(str_name, dsp__obj_sts);
 		LINK__VAR_DIGITAL_CTRL(xCH__OBJ_STATUS,str_name);
 
 		//
@@ -303,8 +304,8 @@ int CObj_Phy__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 
 	// ...
 	{
-		CString dsp_slot_sts;
-		p_variable->Get__STD_DESCRIPTION("STD_SLOT_STATUS",dsp_slot_sts);
+		CString dsp__slot_sts;
+		p_variable->Get__STD_DESCRIPTION("STD_SLOT_STATUS",dsp__slot_sts);
 
 		CString str_slot_status;
 		CString str_slot_title;
@@ -317,15 +318,19 @@ int CObj_Phy__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		{
 			slot_id = i+1;
 
-			str_slot_status.Format("SLOT%002d.STATUS",slot_id);
-			str_slot_title.Format("SLOT%002d.TITLE",slot_id);
+			//
+			str_slot_status.Format("SLOT%002d.VIRTUAL_STATUS", slot_id);
+			STD__ADD_DIGITAL(str_slot_status, dsp__obj_sts);
+			LINK__VAR_DIGITAL_CTRL(xCH__SLOT_X_VIRTUAL_STATUS[i], str_slot_status);
+
+			str_slot_status.Format("SLOT%002d.STATUS", slot_id);
+			STD__ADD_DIGITAL(str_slot_status, dsp__slot_sts);
+			LINK__VAR_DIGITAL_CTRL(xCH__SLOT_STATUS[i], str_slot_status);
 
 			//
-			STD__ADD_DIGITAL(str_slot_status,dsp_slot_sts);
-			LINK__VAR_DIGITAL_CTRL(xCH__SLOT_STATUS[i],str_slot_status);
-
+			str_slot_title.Format("SLOT%002d.TITLE", slot_id);
 			STD__ADD_STRING(str_slot_title);
-			LINK__VAR_STRING_CTRL(xCH__SLOT_TITLE[i],str_slot_title);
+			LINK__VAR_STRING_CTRL(xCH__SLOT_TITLE[i], str_slot_title);
 		}
 
 		// ...
@@ -601,6 +606,7 @@ int CObj_Phy__LBx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString def_name;
 	CString def_data;
 	CString var_name;
+	int i;
 
 	// ...
 	{
@@ -626,6 +632,15 @@ int CObj_Phy__LBx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		aEXT_CH_CFG__REF_ATM_PRESSURE = p_ext_obj_create->Get__VAR_ANALOG_CTRL(cfg_db_name,"REF.ATM.PRESSURE");
 		aEXT_CH_CFG__REF_VAC_PRESSURE = p_ext_obj_create->Get__VAR_ANALOG_CTRL(cfg_db_name,"REF.VAC.PRESSURE");
+
+		//
+		for(i=0; i<CFG_LLx__SLOT_MAX; i++)
+		{
+			int id = i + 1;
+
+			var_name.Format("%s.SLOT%1d_STATUS", sSCH_NAME,id);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LL_SLOT_X_STATUS[i], cfg_db_name,var_name);
+		}
 	}
 
 	// ...

@@ -340,6 +340,7 @@ private:
 	void Fnc__MACRO_MOVE_CHANGE_INFO();
 	void Fnc__MACRO_MOVE_INIT_INFO();
 	void Fnc__MACRO_MOVE_EDITOR_CLEAR();
+	void Fnc__MACRO_MOVE_WAFER_RESET();
 
 	// ...
 	int  Fnc__ATM_RB__Manual_Move_To(CII_OBJECT__VARIABLE *p_variable,

@@ -11,10 +11,9 @@
 #define  CFG_CLx__SLOT_MAX			12
 
 #define  CFG_LLx_LIMIT				4
+#define  CFG_LLx__SLOT_MAX			2
 #define  CFG_LBA__SLOT_MAX			2
 #define  CFG_LBB__SLOT_MAX			2
-
-#define  CFG_LLx__SLOT_MAX			3
 
 #define  CFG_BUFF__SLOT_MAX			10
 #define  CFG_STG__SLOT_MAX			1

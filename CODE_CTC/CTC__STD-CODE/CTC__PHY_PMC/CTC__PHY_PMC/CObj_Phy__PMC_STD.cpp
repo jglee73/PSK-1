@@ -229,27 +229,33 @@ int CObj_Phy__PMC_STD::__DEFINE__VARIABLE_STD(p_variable)
 		CString dsp_item;
 		p_variable->Get__STD_DESCRIPTION("STD_VALVE_STATUS",dsp_item);
 	
-		dVAR__SLIT_VLV_STS = "SLIT.VLV.STS";
-		STD__ADD_DIGITAL(dVAR__SLIT_VLV_STS,dsp_item);
+		str_name = "SLIT.VLV.STS";
+		STD__ADD_DIGITAL(str_name, dsp_item);
+		LINK__VAR_DIGITAL_CTRL(dCH__SLIT_VLV_STS, str_name);
 
-		sVAR__LIFT_PIN_STS = "LIFT.PIN.STS";
-		STD__ADD_STRING(sVAR__LIFT_PIN_STS);
+		str_name = "LIFT.PIN.STS";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__LIFT_PIN_STS, str_name);
 
-		sVAR__CHUCK_STS = "CHUCK.STS";
-		STD__ADD_STRING(sVAR__CHUCK_STS);
+		str_name = "CHUCK.STS";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CHUCK_STS, str_name);
 
-		dVAR__PRC_STS = "PRC.STS";
-		STD__ADD_DIGITAL(dVAR__PRC_STS,DSP__PRC_STS);
+		str_name = "PRC.STS";
+		STD__ADD_DIGITAL(str_name, DSP__PRC_STS);
+		LINK__VAR_DIGITAL_CTRL(dCH__PRC_STS, str_name);
 
 		str_name = "VAC.SNS";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__VAC_SNS, str_name);
 
-		sVAR__RF_ON_STS = "RF.ON.STS";
-		STD__ADD_STRING(sVAR__RF_ON_STS);
+		str_name = "RF.ON.STS";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__RF_ON_STS, str_name);
 	
-		sVAR__WAP_CUR_POS_STS = "WAP.CUR.POS.STS";
-		STD__ADD_STRING(sVAR__WAP_CUR_POS_STS);
+		str_name = "WAP.CUR.POS.STS";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__WAP_CUR_POS_STS, str_name);
 	}
 
 	// ...

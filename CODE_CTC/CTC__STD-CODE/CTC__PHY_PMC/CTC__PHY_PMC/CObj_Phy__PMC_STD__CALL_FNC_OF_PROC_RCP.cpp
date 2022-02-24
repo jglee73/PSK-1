@@ -62,7 +62,7 @@ LOOP_CHECK:
 
 		while(1)
 		{
-			if(p_variable->Check__VARIABLE_DATA(dVAR__SLIT_VLV_STS,"CLOSE") > 0)
+			if(dCH__SLIT_VLV_STS->Check__DATA("CLOSE") > 0)
 			{
 				check_flag = 1;
 				break;
@@ -900,14 +900,36 @@ int  CObj_Phy__PMC_STD
 		xLOG_CTRL->WRITE__LOG(log_msg);
 	}
 
+	// Wafer.Check ...
+	{
+		bool active__wfr_exist = false;
+		int i;
+
+		for(i=0; i<iPMx_SLOT_MAX; i++)
+		{
+			if(xCH__SLOT_STATUS[i]->Check__DATA(STR__NONE) > 0)			continue;
+
+			active__wfr_exist = true;
+			break;;
+		}
+
+		if(active__wfr_exist)
+		{
+			if(Seq__PLACE_COMPLETE(p_variable) < 0)
+			{
+				return -11;
+			}
+		}
+	}
+
 	if(Seq__PRO_READY(p_variable,p_alarm) < 0)
 	{
-		return -11;
+		return -12;
 	}
 	
 	if(Seq__PRO_START(p_variable,p_alarm,1) < 0)
 	{
-		return -12;
+		return -13;
 	}
 
 	xCH__X_PICK_FLAG->Set__DATA("YES");

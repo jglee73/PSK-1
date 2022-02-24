@@ -55,6 +55,12 @@
 
 // ...
 #define  STR__ALL					"ALL"
+#define  STR__ODD					"ODD"
+#define  STR__EVEN					"EVEN"
+
+#define  STR__ONLY_PROCESSED		"ONLY.PROCESSED"
+#define  STR__MAPPED				"MAPPED"
+
 #define  STR__A						"A"
 #define  STR__B						"B"
 
@@ -91,4 +97,10 @@
 
 // ...
 #define _SCH_MODE__ROUTE			"ROUTE"
+
+
+// ...
+#define _ARM__AB					"AB"
+#define _ARM__A						"A"
+#define _ARM__B						"B"
 //

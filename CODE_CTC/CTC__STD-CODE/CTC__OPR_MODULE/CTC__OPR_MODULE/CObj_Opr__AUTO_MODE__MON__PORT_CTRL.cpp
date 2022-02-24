@@ -1067,6 +1067,12 @@ Check__SYSTEM_ERROR(CII_OBJECT__ALARM* p_alarm)
 					{
 						continue;
 					}
+
+					// jglee : 2021.11.11
+					if(dCH_CFG__LLx_STATE_CHECK_FOR_JOB_START->Check__DATA(STR__DISABLE) > 0)
+					{
+						continue;
+					}
 				}
 
 				l_err_module.Add(str_name);

@@ -55,7 +55,8 @@ void CObj__DUAL_ARM_STD
 
 				for(i=0; i<slot_max; i++)
 				{
-					if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_i][i]->Check__DATA(SLOT_STS__ENABLE) < 0)	
+					if((dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_i][i]->Check__DATA(SLOT_STS__ENABLE) < 0)	
+					|| (dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_i][i]->Check__DATA(SLOT_STS__ENABLE) < 0))
 					{
 						continue;
 					}

@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "CObj_Phy__ROBOT_VAC.h"
+#include "CObj_Phy__ROBOT_VAC__DEF.h"
 
 
 //-------------------------------------------------------------------------
@@ -134,6 +135,9 @@ LP1 LP2 LP3 LP4 VIS1 VIS1_BUF"
 
 #define  DSP__ENABLE_DISABLE							\
 "ENABLE  DISABLE"
+
+#define  DSP__DISABLE_ENABLE							\
+"DISABLE  ENABLE"
 
 
 int CObj_Phy__ROBOT_VAC::__DEFINE__VARIABLE_STD(p_variable)
@@ -343,6 +347,52 @@ int CObj_Phy__ROBOT_VAC::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_DIGITAL_CTRL(dCH__ANI_ARM_D_ACT, str_name);
 	}
 	
+	// LLx : Scheduler - Dual Only Input & Output ...
+	{
+		str_name = "CFG.LLx_CTRL.ONLY_INPUT_OUTPUT.MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "SINGLE DUAL", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE, str_name);
+
+		str_name = "CFG.DUAL_ARM_MOVING_AT_THE_SAME_TIME";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "DISABLE ENABLE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME, str_name);
+	}
+
+	// ARM-CONTRAINT ...
+	{
+		// A ARM ...
+		{
+			str_name = "CFG.A_ARM.CONSTRAINT.LL";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
+			LINK__VAR_DIGITAL_CTRL(dCH_CFG__A_ARM_CONSTRAINT_LL, str_name);
+
+			str_name = "CFG.A_ARM.CONSTRAINT.PM";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
+			LINK__VAR_DIGITAL_CTRL(dCH_CFG__A_ARM_CONSTRAINT_PM, str_name);
+		}
+		// B ARM ...
+		{
+			str_name = "CFG.B_ARM.CONSTRAINT.LL";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
+			LINK__VAR_DIGITAL_CTRL(dCH_CFG__B_ARM_CONSTRAINT_LL, str_name);
+
+			str_name = "CFG.B_ARM.CONSTRAINT.PM";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
+			LINK__VAR_DIGITAL_CTRL(dCH_CFG__B_ARM_CONSTRAINT_PM, str_name);
+		}
+	}
+
+	// CFG : WAFER PICK PARAMETER ...
+	{
+		str_name = "CFG.PICK_WAFER_CONDITION";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL  ONLY.PROCESSED", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_PICK_WAFER_CONDITION, str_name);
+
+		str_name = "CFG.PMx_PICK_WAIT_SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 1, 60, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_PMx_PICK_WAIT_SEC, str_name);
+	}
+
 	// CONFIG ...
 	{
 		dVAR__CFG_A_ARM_USE_FLAG = "CFG.A.ARM.USE.FLAG";
@@ -457,6 +507,26 @@ int CObj_Phy__ROBOT_VAC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	{
+		CString file_name;
+		CString log_msg;
+
+		file_name.Format("%s_App.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xI_LOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xI_LOG_CTRL->SET__PROPERTY(file_name,24*5,60);
+
+		xI_LOG_CTRL->DISABLE__TIME_LOG();
+		xI_LOG_CTRL->WRITE__LOG(log_msg);
+
+		xI_LOG_CTRL->ENABLE__TIME_LOG();
+		xI_LOG_CTRL->WRITE__LOG("   START   \n");
+	}
+
+	// ...
+	{
 		sSCH_NAME = "VAC_RB1";
 
 		def_name = "OBJ__SCH_NAME";
@@ -521,9 +591,14 @@ int CObj_Phy__ROBOT_VAC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 					var_name.Format("SLOT%02d.TITLE", id);
 					LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx_SLOTx_TITLE[ll_i][i], obj_name,var_name);
+
+					//
+					var_name = "MOVE.FLAG";
+					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LLx_MOVE_FLAG[ll_i], obj_name,var_name);
 				}
 			}
 		}
+
 		// OBJ_PMx ...
 		{
 			def_name = "PM_SIZE";
@@ -547,28 +622,18 @@ int CObj_Phy__ROBOT_VAC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 				var_name = "SLOT01.TITLE";
 				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx_SLOT_TITLE[i], obj_name,var_name);
+
+				//
+				var_name = "MOVE.FLAG";
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PMx_MOVE_FLAG[i],   obj_name,var_name);
+
+				var_name = "X_PICK.FLAG";
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx_X_PICK_FLAG[i],  obj_name,var_name);
+
+				var_name = "X_PLACE.FLAG";
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx_X_PLACE_FLAG[i], obj_name,var_name);
 			}
 		}
-	}
-
-	// ...
-	{
-		CString file_name;
-		CString log_msg;
-
-		file_name.Format("%s_App.log", sObject_Name);
-
-		log_msg  = "\n\n";
-		log_msg += "//------------------------------------------------------------------------";
-
-		xI_LOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-		xI_LOG_CTRL->SET__PROPERTY(file_name,24*5,60);
-
-		xI_LOG_CTRL->DISABLE__TIME_LOG();
-		xI_LOG_CTRL->WRITE__LOG(log_msg);
-
-		xI_LOG_CTRL->ENABLE__TIME_LOG();
-		xI_LOG_CTRL->WRITE__LOG("   START   \n");
 	}
 
 	// ...
@@ -865,7 +930,7 @@ int CObj_Phy__ROBOT_VAC
 								slot2_status,
 								slot2_title);
 		}
-		else if(sPara0__Arm_Type.CompareNoCase("AB") == 0)
+		else if(sPara0__Arm_Type.CompareNoCase(_ARM__AB) == 0)
 		{
 			log_string.Format("START : [%s] - (%s : %s : %s, %s) (%s : %s)(%s : %s)",
 								mode,
@@ -1013,8 +1078,8 @@ int CObj_Phy__ROBOT_VAC
 			xCH__SLOT_TITLE[1]->Get__DATA(slot2_title);
 		}
 
-		if(flag > 0)		log_string.Format("COMPLETE : [%s]",mode);
-		else				log_string.Format("ABORTED  : [%s]",mode);
+		if(flag > 0)		log_string.Format("COMPLETE : [%s]", mode);
+		else				log_string.Format("(%1d) ABORTED  : [%s]", flag,mode);
 
 		// ...
 		CString bff_log;

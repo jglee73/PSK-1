@@ -342,6 +342,12 @@ void CObj_Opr__MAINT_MODE
 
 		sCH__MACRO_MOVE__EDITOR_CHANGE_FLAG->Set__DATA("YES");
 	}
+	else if(cur_act.CompareNoCase("WAFER_RESET") == 0)
+	{
+		Fnc__MACRO_MOVE_WAFER_RESET();
+
+		sCH__MACRO_MOVE__EDITOR_CHANGE_FLAG->Set__DATA("YES");
+	}
 
 	if(cur_act.GetLength() > 0)
 	{
@@ -943,4 +949,86 @@ void CObj_Opr__MAINT_MODE
 	}
 
 	sCH__MACRO_MOVE__EDITOR_CUR_INDEX->Set__DATA("");
+}
+void CObj_Opr__MAINT_MODE
+::Fnc__MACRO_MOVE_WAFER_RESET()
+{
+	int i;
+	int k;
+	
+	// PMx ...
+	for(i=0; i<CFG_PM_LIMIT; i++)
+	{
+		sCH__MACRO_MOVE__PMC_SLOT_STATUS[i]->Set__DATA(STR__NONE);;
+		sCH__MACRO_MOVE__PMC_SLOT_TITLE[i]->Set__DATA("");
+	}
+
+	// VAC_RB ...
+	{
+		sCH__MACRO_MOVE__VAC_RB__A_ARM_SLOT_STATUS->Set__DATA(STR__NONE);
+		sCH__MACRO_MOVE__VAC_RB__A_ARM_SLOT_TITLE->Set__DATA("");
+		
+		sCH__MACRO_MOVE__VAC_RB__B_ARM_SLOT_STATUS->Set__DATA(STR__NONE);
+		sCH__MACRO_MOVE__VAC_RB__B_ARM_SLOT_TITLE->Set__DATA("");
+	}
+
+	// ATM_RB ...
+	{
+		sCH__MACRO_MOVE__ATM_RB__A_ARM_SLOT_STATUS->Set__DATA(STR__NONE);
+		sCH__MACRO_MOVE__ATM_RB__A_ARM_SLOT_TITLE->Set__DATA("");
+
+		sCH__MACRO_MOVE__ATM_RB__B_ARM_SLOT_STATUS->Set__DATA(STR__NONE);
+		sCH__MACRO_MOVE__ATM_RB__B_ARM_SLOT_TITLE->Set__DATA("");
+	}
+
+	// LLX ...
+	{
+		for(i=0; i<CFG_LLx_LIMIT; i++)
+		{
+			for(k=0; k<CFG_LLx__SLOT_MAX; k++)
+			{
+				sCH__MACRO_MOVE__LLx_SLOT_STATUS[i][k]->Set__DATA(STR__NONE);
+				sCH__MACRO_MOVE__LLx_SLOT_TITLE[i][k]->Set__DATA("");
+			}
+		}
+	}
+
+	// AL ...
+	{
+		for(i=0; i<CFG_AL__SLOT_MAX; i++)
+		{
+			sCH__MACRO_MOVE__AL_SLOT_STATUS[i]->Set__DATA(STR__NONE);
+			sCH__MACRO_MOVE__AL_SLOT_TITLE[i]->Set__DATA("");
+		}
+	}
+
+	// ST1 ...
+	{
+		for(i=0; i<CFG_BUFFER__SLOT_MAX; i++)
+		{
+			sCH__MACRO_MOVE__BUFFER1_SLOT_STATUS[i]->Set__DATA(STR__NONE);
+			sCH__MACRO_MOVE__BUFFER1_SLOT_TITLE[i]->Set__DATA("");
+		}
+	}
+	// ST2 ...
+	{
+		for(i=0; i<CFG_BUFFER__SLOT_MAX; i++)
+		{
+			sCH__MACRO_MOVE__BUFFER2_SLOT_STATUS[i]->Set__DATA(STR__NONE);
+			sCH__MACRO_MOVE__BUFFER2_SLOT_TITLE[i]->Set__DATA("");
+		}
+	}
+
+	// LPx ...
+	{
+		for(i=0; i<CFG_LP_LIMIT; i++)
+		{
+			for(k=0; k<CFG_LP__SLOT_MAX; k++)
+			{
+				sCH__MACRO_MOVE__LPx_SLOT_STATUS[i][k]->Set__DATA(STR__EXIST);
+			}
+		}
+	}
+
+	// ...
 }

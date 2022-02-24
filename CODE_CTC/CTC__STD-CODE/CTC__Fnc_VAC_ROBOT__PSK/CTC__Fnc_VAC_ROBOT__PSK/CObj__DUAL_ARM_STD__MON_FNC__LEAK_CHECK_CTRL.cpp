@@ -177,7 +177,7 @@ Fnc__PMx_LEAK_CHECK_CTRL(CII_OBJECT__VARIABLE *p_variable,
 					{
 						xEXT_CH__PMx_LEAK_CHECK_FLAG[i]->Set__DATA("");
 
-						pPMx__OBJ_CTRL[i]->Run__OBJECT(STR__LEAK_CHECK);
+						Run__PMx_OBJ(i, STR__LEAK_CHECK);
 					}
 				}
 				break;
@@ -188,7 +188,7 @@ Fnc__PMx_LEAK_CHECK_CTRL(CII_OBJECT__VARIABLE *p_variable,
 				{
 					xEXT_CH__PMx_LEAK_CHECK_FLAG[i]->Set__DATA("");
 					
-					pPMx__OBJ_CTRL[i]->Run__OBJECT(STR__LEAK_CHECK);
+					Run__PMx_OBJ(i, STR__LEAK_CHECK);
 				}
 			}				
 		}
@@ -203,7 +203,7 @@ Fnc__PMx_LEAK_CHECK_CTRL(CII_OBJECT__VARIABLE *p_variable,
 			{
 				xEXT_CH__PMx_LEAK_CHECK_FLAG[i]->Set__DATA("");
 
-				pPMx__OBJ_CTRL[i]->Run__OBJECT(STR__LEAK_CHECK);
+				Run__PMx_OBJ(i, STR__LEAK_CHECK);
 			}
 		}
 	}

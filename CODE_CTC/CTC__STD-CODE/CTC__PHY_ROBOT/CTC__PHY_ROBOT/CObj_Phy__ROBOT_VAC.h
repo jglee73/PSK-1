@@ -63,7 +63,6 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__PARA_SLOT;
 	CX__VAR_DIGITAL_CTRL dCH__PARA_POS;
 
-
 	// STATUS
 	CX__VAR_STRING_CTRL xCH__OBJ_STATUS;
 
@@ -97,29 +96,45 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__ANI_ARM_C_ACT;
 	CX__VAR_DIGITAL_CTRL dCH__ANI_ARM_D_ACT;
 
-	// CONFIG 
+	// LLx : Scheduler - Dual Only Input & Output ...
+	CX__VAR_DIGITAL_CTRL dCH__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME;
+	CX__VAR_DIGITAL_CTRL dCH__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE;
+
+	// ARM-CONTRAINT ...
+	// A ARM
+	CX__VAR_DIGITAL_CTRL dCH_CFG__A_ARM_CONSTRAINT_LL;
+	CX__VAR_DIGITAL_CTRL dCH_CFG__A_ARM_CONSTRAINT_PM;
+	// B ARM
+	CX__VAR_DIGITAL_CTRL dCH_CFG__B_ARM_CONSTRAINT_LL;
+	CX__VAR_DIGITAL_CTRL dCH_CFG__B_ARM_CONSTRAINT_PM;
+
+	// CFG : WAFER PICK PARAMETER ...
+	CX__VAR_DIGITAL_CTRL dCH__CFG_PICK_WAFER_CONDITION;
+	CX__VAR_ANALOG_CTRL  aCH__CFG_PMx_PICK_WAIT_SEC;
+
+	// CONFIG ...
 	CString dVAR__CFG_A_ARM_USE_FLAG;
 	CString dVAR__CFG_B_ARM_USE_FLAG;
 	CString dVAR__CFG_C_ARM_USE_FLAG;
 	CString dVAR__CFG_D_ARM_USE_FLAG;
 
 	// SIM CFG ...
-	CX__VAR_ANALOG_CTRL aCH__SCH_TEST_CFG_PICK_LLx_SEC;
-	CX__VAR_ANALOG_CTRL aCH__SCH_TEST_CFG_PICK_PMx_SEC;
+	CX__VAR_ANALOG_CTRL  aCH__SCH_TEST_CFG_PICK_LLx_SEC;
+	CX__VAR_ANALOG_CTRL  aCH__SCH_TEST_CFG_PICK_PMx_SEC;
 
-	CX__VAR_ANALOG_CTRL aCH__SCH_TEST_CFG_PLACE_LLx_SEC;
-	CX__VAR_ANALOG_CTRL aCH__SCH_TEST_CFG_PLACE_PMx_SEC;
+	CX__VAR_ANALOG_CTRL  aCH__SCH_TEST_CFG_PLACE_LLx_SEC;
+	CX__VAR_ANALOG_CTRL  aCH__SCH_TEST_CFG_PLACE_PMx_SEC;
 
-	CX__VAR_ANALOG_CTRL aCH__SCH_TEST_CFG_INIT_SEC;
-	CX__VAR_ANALOG_CTRL aCH__SCH_TEST_CFG_HOME_SEC;
+	CX__VAR_ANALOG_CTRL  aCH__SCH_TEST_CFG_INIT_SEC;
+	CX__VAR_ANALOG_CTRL  aCH__SCH_TEST_CFG_HOME_SEC;
 
 	// INFO 
-	CX__VAR_STRING_CTRL xCH__MODULE_TIME;
+	CX__VAR_STRING_CTRL  xCH__MODULE_TIME;
 
-	CX__VAR_STRING_CTRL sCH__TIME_ACT_START;
-	CX__VAR_STRING_CTRL sCH__TIME_ACT_END;
-	CX__VAR_STRING_CTRL sCH__TIME_ACT_TACK;
-	CX__VAR_STRING_CTRL sCH__TIME_ACT_RESULT;
+	CX__VAR_STRING_CTRL  sCH__TIME_ACT_START;
+	CX__VAR_STRING_CTRL  sCH__TIME_ACT_END;
+	CX__VAR_STRING_CTRL  sCH__TIME_ACT_TACK;
+	CX__VAR_STRING_CTRL  sCH__TIME_ACT_RESULT;
 
 	// ...
 	SCI__THREAD_SYNC_CTRL xI_Sync_Ctrl;
@@ -148,6 +163,8 @@ private:
 	CX__VAR_DIGITAL_CTRL dEXT_CH__LLx_SLOTx_STATUS[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAX];
 	CX__VAR_STRING_CTRL  sEXT_CH__LLx_SLOTx_TITLE[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAX];
 
+	CX__VAR_DIGITAL_CTRL dEXT_CH__LLx_MOVE_FLAG[CFG_LLx_LIMIT];
+
 	// OBJ_PMx ...
 	int iPM_SIZE;
 	CII_EXT_OBJECT__CTRL *pOBJ_CTRL__PMx[CFG_PM_LIMIT];
@@ -156,6 +173,10 @@ private:
 
 	CX__VAR_DIGITAL_CTRL dEXT_CH__PMx_SLOT_STATUS[CFG_PM_LIMIT];
 	CX__VAR_STRING_CTRL  sEXT_CH__PMx_SLOT_TITLE[CFG_PM_LIMIT];
+
+	CX__VAR_DIGITAL_CTRL dEXT_CH__PMx_MOVE_FLAG[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sEXT_CH__PMx_X_PICK_FLAG[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sEXT_CH__PMx_X_PLACE_FLAG[CFG_PM_LIMIT];
 	//
 
 
@@ -201,21 +222,29 @@ private:
 
 	// ...
 	int  Fnc__MODULE_OBJ(CII_OBJECT__VARIABLE* p_variable, const CString obj_mode);
+	int  _Fnc__MODULE_OBJ(CII_OBJECT__VARIABLE* p_variable, const CString obj_mode);
+
+	int  _Init__LLx_INFO(const CString& set_data);
+	int  _Init__PMx_INFO(const CString& set_data);
+
+	int  _Set__LLx_INFO(const int pm_index, const CString& obj_mode, const CString& set_data);
+	int  _Set__PMx_INFO(const int pm_index, const CString& obj_mode, const CString& set_data);
 
 	int  Sim__MODULE_OBJ(CII_OBJECT__VARIABLE* p_variable, const CString obj_mode);
 
 	int  Sim__PICK_MATERIAL(const bool act_start, const bool ex_mode);
-	int  _Sim__PICK_MATERIAL(const bool act_start, const bool ex_mode, const int arm_index, const int slot_offset);
+	int  _Sim__PICK_MATERIAL(const bool act_start,const bool ex_mode, const CString& arm_type,const CString& stn_name,const CString& stn_slot);
 	
 	int  Sim__PLACE_MATERIAL(const bool act_start, const bool ex_mode);
-	int  _Sim__PLACE_MATERIAL(const bool act_start, const bool ex_mode, const int arm_index, const int slot_offset);
+	int  _Sim__PLACE_MATERIAL(const bool act_start,const bool ex_mode, const CString& arm_type,const CString& stn_name,const CString& stn_slot);
+
+	int  _Set__ARM_ANI(const bool act_start, const CString& arm_type,const CString& stn_name,const CString& stn_slot);
 
 	int  Get__ARMx_INDEX(const CString& str_arm);
 	int  Get__ARMx_INDEX_LIST(const CString& str_arm, CUIntArray& l_arm_index);
 	int  Get__LLx_INDEX(const CString& str_module);
 	int  Get__PMx_INDEX(const CString& str_module);
 	//
-
 
 	// ...
 	void Mon__MODULE_STATUS(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
@@ -231,8 +260,15 @@ private:
 	// ...
 	void Update__MATERIAL_INFO();
 	void Report__MATERIAL_INFO(const CString& mode);
-	//
 
+	// ...
+	void _Get__ARM_INFO(const CString& arm_type,
+						const CString& stn_name,
+						const CString& stn_slot,
+						CStringArray& l__arm_type,
+						CStringArray& l__stn_name,
+						CStringArray& l__stn_slot);
+	//
 
 public:
 	CObj_Phy__ROBOT_VAC();

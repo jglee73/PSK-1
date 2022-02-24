@@ -392,6 +392,31 @@ int CObj_Phy__ROBOT_ATM::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_DIGITAL_CTRL(dCH__ANI_ARM_D_ACT, str_name);
 	}
 
+	// LLx : Scheduler - Dual Only Input & Output ...
+	{
+		str_name = "CFG.DUAL_ARM_MOVING_AT_THE_SAME_TIME";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "DISABLE ENABLE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME, str_name);
+	}
+
+	// LLx : CONTRAINT ...
+	{
+		str_name = "CFG.LL.CONSTRAINT.1";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_LL_CONSTRAINT_1, str_name);
+
+		str_name = "CFG.LL.CONSTRAINT.2";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_LL_CONSTRAINT_2, str_name);
+	}
+
+	// CFG : WAFER PICK PARAMETER ...
+	{
+		str_name = "CFG.PICK_WAFER_CONDITION";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL  ONLY.PROCESSED", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_PICK_WAFER_CONDITION, str_name);
+	}
+
 	// CONFIG ...
 	{
 		dVAR__CFG_A_ARM_USE_FLAG = "CFG.A.ARM.USE.FLAG";

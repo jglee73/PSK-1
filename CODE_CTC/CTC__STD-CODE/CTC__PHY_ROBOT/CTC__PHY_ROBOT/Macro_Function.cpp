@@ -1,8 +1,33 @@
 #include "StdAfx.h"
 #include "CCommon_System.h"
 
+#include "Macro_Function.h"
+
 
 // ...
+int  Macro__Get_PMx_INDEX(const CString& str_name)
+{
+	CString cmp_name;
+
+	int i_limit = CFG_PM_LIMIT;
+
+	for(int i=0; i<i_limit; i++)
+	{
+		cmp_name.Format("PM%1d", i+1);
+
+		if(str_name.CompareNoCase(cmp_name) == 0)		
+			return i;
+	}
+	return -1;
+}
+int  Macro__Get_LLx_INDEX(const CString& str_name)
+{
+	int ll_id = Macro__LLx_ID(str_name);
+	if(ll_id < 1)			return -1;
+
+	return (ll_id - 1);
+}
+
 int Macro__LLx_ID(const CString& ll_name)
 {
 	if(ll_name.CompareNoCase("LBA") == 0)		return 1;

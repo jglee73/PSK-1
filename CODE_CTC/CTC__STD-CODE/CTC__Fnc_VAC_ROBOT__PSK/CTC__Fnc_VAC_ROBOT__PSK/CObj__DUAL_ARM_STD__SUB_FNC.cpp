@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "CObj__DUAL_ARM_STD.h"
 
+#include "Macro_Function.h"
+
 
 //---------------------------------------------------------------------------------------
 MODULE__IS_AVAILABLE(CObj__DUAL_ARM_STD,VAC_RB,  xCH__VAC_RB__OBJ_STATUS,  xCH__VAC_RB__OBJ_CTRL );
@@ -243,6 +245,36 @@ int  CObj__DUAL_ARM_STD::VAC_RB__Check_B_Arm_Enable()
 	return 1;
 }
 
+int  CObj__DUAL_ARM_STD::VAC_RB__Check_Empty__Arm_Type(const CString& arm_type)
+{
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+		 if(arm_type.CompareNoCase(_ARM__A)  == 0)			active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM__B)  == 0)			active__arm_b = true;
+	else if(arm_type.CompareNoCase(_ARM__AB) == 0)
+	{
+		active__arm_a = true;
+		active__arm_b = true;
+	}
+
+	if(active__arm_a)
+	{
+		if(VAC_RB__Check_A_Arm_Enable() > 0)
+		{
+			if(xCH__VAC_RB__SLOT01_STATUS->Check__DATA(SLOT_STS__NONE) < 0)		return -1;
+		}
+	}
+	if(active__arm_b)
+	{
+		if(VAC_RB__Check_B_Arm_Enable() > 0)
+		{
+			if(xCH__VAC_RB__SLOT02_STATUS->Check__DATA(SLOT_STS__NONE) < 0)		return -1;
+		}
+	}
+
+	return 1;
+}
 int  CObj__DUAL_ARM_STD::VAC_RB__Check_Empty__Arm_Type()
 {
 	if(VAC_RB__Check_A_Arm_Enable() > 0)
@@ -276,6 +308,36 @@ int  CObj__DUAL_ARM_STD::VAC_RB__Check_Empty__B_Arm()
 
 	if(xCH__VAC_RB__SLOT02_STATUS->Check__DATA(SLOT_STS__NONE) > 0)		return 1;
 
+	return -1;
+}
+
+int  CObj__DUAL_ARM_STD::VAC_RB__Check_Occupied__Arm_Type()
+{
+	CString arm_type = _ARM__AB;
+
+	return VAC_RB__Check_Occupied__Arm_Type(arm_type);
+}
+int  CObj__DUAL_ARM_STD::VAC_RB__Check_Occupied__Arm_Type(const CString& arm_type)
+{
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+		 if(arm_type.CompareNoCase(_ARM__A)  == 0)			active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM__B)  == 0)			active__arm_b = true;
+	else if(arm_type.CompareNoCase(_ARM__AB) == 0)
+	{
+		active__arm_a = true;
+		active__arm_b = true;
+	}
+
+	if(active__arm_a)
+	{
+		if(VAC_RB__Check_Occupied__A_Arm() > 0)			return 1;
+	}
+	if(active__arm_b)
+	{
+		if(VAC_RB__Check_Occupied__B_Arm() > 0)			return 1;
+	}
 	return -1;
 }
 
@@ -425,6 +487,21 @@ int  CObj__DUAL_ARM_STD::VAC_RB__Get_Empty__Arm_Type_From_PMx(CString& arm_type)
 	return VAC_RB__Get_Empty__Arm_Type_From_All(arm_type);
 }
 
+int  CObj__DUAL_ARM_STD::VAC_RB__Get_Occupied__Arm_Count()
+{
+	int arm_count = 0;
+
+	if(VAC_RB__Check_A_Arm_Enable() > 0)
+	{
+		if(xCH__VAC_RB__SLOT01_STATUS->Check__DATA(SLOT_STS__NONE) < 0)				arm_count++;
+	}
+	if(VAC_RB__Check_B_Arm_Enable() > 0)
+	{
+		if(xCH__VAC_RB__SLOT02_STATUS->Check__DATA(SLOT_STS__NONE) < 0)				arm_count++;
+	}
+
+	return arm_count;
+}
 int  CObj__DUAL_ARM_STD::VAC_RB__Get_Occupied__Arm_Type(CString& arm_type)
 {
 	if(VAC_RB__Check_A_Arm_Enable() > 0)
@@ -505,6 +582,74 @@ int  CObj__DUAL_ARM_STD::VAC_RB__Check_Occupied__Dual_Arm()
 	return 1;
 }
 
+bool CObj__DUAL_ARM_STD::
+VAC_RB__Check_Empty__All_Type_Of_LL_Constraint(const CString& arm_type)
+{
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+	     if(arm_type.CompareNoCase(_ARM__A)  == 0)		active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM__B)  == 0)		active__arm_b = true;
+	else if(arm_type.CompareNoCase(_ARM__AB) == 0)
+	{
+		active__arm_a = true;
+		active__arm_b = true;
+	}
+
+	if(active__arm_a)
+	{
+		if(dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_LL->Check__DATA(STR__ALL) > 0)			return true;
+	}
+	if(active__arm_b)
+	{
+		if(dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_LL->Check__DATA(STR__ALL) > 0)			return true;
+	}
+	return false;
+}
+int  CObj__DUAL_ARM_STD::
+VAC_RB__Get_Empty__Arm_Type_With_LL_Constraint(CString& empty_arm, const int ll_slot_id)
+{
+	if(VAC_RB__Check_Empty__A_Arm() > 0)
+	{
+		empty_arm = _ARM__A;
+		
+		//
+		CString ch_data = dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_LL->Get__STRING();
+
+		int r_flag = _VAC_RB__Check_LL_Constraint(ch_data, ll_slot_id);
+		if(r_flag > 0)		return r_flag;
+	}
+	if(VAC_RB__Check_Empty__B_Arm() > 0)
+	{
+		empty_arm = _ARM__B;
+
+		//
+		CString ch_data = dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_LL->Get__STRING();
+
+		int r_flag = _VAC_RB__Check_LL_Constraint(ch_data, ll_slot_id);
+		if(r_flag > 0)		return r_flag;
+	}
+
+	return -1;
+}
+int  CObj__DUAL_ARM_STD::_VAC_RB__Check_LL_Constraint(const CString& ll_type, const int ll_slot_id)
+{
+	if(ll_type.CompareNoCase(STR__ALL) == 0)
+	{
+		return 1;	
+	}
+	else if(ll_type.CompareNoCase(STR__ODD) == 0)
+	{
+		if((ll_slot_id % 2) == 1)		return 1;
+	}
+	else if(ll_type.CompareNoCase(STR__EVEN) == 0)
+	{
+		if((ll_slot_id % 2) == 0)		return 1;
+	}
+	
+	return -1;
+}
+
 int  CObj__DUAL_ARM_STD::
 VAC_RB__Get_Empty__Arm_Type_With_PMx_Constraint(CString& empty_arm, 
 												const CString& pm_name)
@@ -520,151 +665,153 @@ VAC_RB__Get_Empty__Arm_Type_With_PMx_Constraint(CString& empty_arm,
 {
 	if(VAC_RB__Check_Empty__A_Arm() > 0)
 	{
-		CString ch_type = xCH_CFG__A_ARM_CONSTRAINT_PM->Get__STRING();
+		CString ch_type = dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_PM->Get__STRING();
 
-		if(ch_type.CompareNoCase("ODD") == 0)
+		if(ch_type.CompareNoCase(STR__ODD) == 0)
 		{
 			if(_Check__Odd_PMx(l_pm_name) > 0)
 			{
-				empty_arm = "A";
+				empty_arm = _ARM__A;
 				return 1;
 			}
 		}
-		else if(ch_type.CompareNoCase("EVEN") == 0)
+		else if(ch_type.CompareNoCase(STR__EVEN) == 0)
 		{
 			if(_Check__Even_PMx(l_pm_name) > 0)
 			{
-				empty_arm = "A";
+				empty_arm = _ARM__A;
 				return 1;
 			}
 		}
 		else
 		{
-			empty_arm = "A";
+			empty_arm = _ARM__A;
 			return 1;
 		}
 	}
 
 	if(VAC_RB__Check_Empty__B_Arm() > 0)
 	{
-		CString ch_type = xCH_CFG__B_ARM_CONSTRAINT_PM->Get__STRING();
+		CString ch_type = dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_PM->Get__STRING();
 
-		if(ch_type.CompareNoCase("ODD") == 0)
+		if(ch_type.CompareNoCase(STR__ODD) == 0)
 		{
 			if(_Check__Odd_PMx(l_pm_name) > 0)
 			{
-				empty_arm = "B";
+				empty_arm = _ARM__B;
 				return 1;
 			}
 		}
-		else if(ch_type.CompareNoCase("EVEN") == 0)
+		else if(ch_type.CompareNoCase(STR__EVEN) == 0)
 		{
 			if(_Check__Even_PMx(l_pm_name) > 0)
 			{
-				empty_arm = "B";
+				empty_arm = _ARM__B;
 				return 1;
 			}
 		}
 		else
 		{
-			empty_arm = "B";
+			empty_arm = _ARM__B;
 			return 1;
 		}
 	}
 
 	return -1;
 }
-int  CObj__DUAL_ARM_STD::
+
+bool CObj__DUAL_ARM_STD::
 VAC_RB__Check_Empty__Arm_Type_With_PMx_Constraint(const CString& empty_arm, 
-												  const CStringArray& l_pm_name)
+												  const CString& pm_name)
 {
-	if(empty_arm.CompareNoCase("A") != 0)
+	if(empty_arm.CompareNoCase(_ARM__A) == 0)
 	{
 		if(VAC_RB__Check_Empty__A_Arm() > 0)
 		{
-			CString ch_type = xCH_CFG__A_ARM_CONSTRAINT_PM->Get__STRING();
+			CString ch_type = dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_PM->Get__STRING();
 
-			if(ch_type.CompareNoCase("ODD") == 0)
+			if(ch_type.CompareNoCase(STR__ODD) == 0)
 			{
-				if(_Check__Odd_PMx(l_pm_name) > 0)			return 1;
+				if(_Check__Odd_PMx(pm_name))			return true;
 			}
-			else if(ch_type.CompareNoCase("EVEN") == 0)
+			else if(ch_type.CompareNoCase(STR__EVEN) == 0)
 			{
-				if(_Check__Even_PMx(l_pm_name) > 0)			return 1;
+				if(_Check__Even_PMx(pm_name))			return true;
 			}
 			else
 			{
-				return 1;
+				return true;
 			}
 		}
 	}
 
-	if(empty_arm.CompareNoCase("B") != 0)
+	if(empty_arm.CompareNoCase(_ARM__B) == 0)
 	{
 		if(VAC_RB__Check_Empty__B_Arm() > 0)
 		{
-			CString ch_type = xCH_CFG__B_ARM_CONSTRAINT_PM->Get__STRING();
+			CString ch_type = dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_PM->Get__STRING();
 
-			if(ch_type.CompareNoCase("ODD") == 0)
+			if(ch_type.CompareNoCase(STR__ODD) == 0)
 			{
-				if(_Check__Odd_PMx(l_pm_name) > 0)			return 1;
+				if(_Check__Odd_PMx(pm_name))			return true;
 			}
-			else if(ch_type.CompareNoCase("EVEN") == 0)
+			else if(ch_type.CompareNoCase(STR__EVEN) == 0)
 			{
-				if(_Check__Even_PMx(l_pm_name) > 0)			return 1;
+				if(_Check__Even_PMx(pm_name))			return true;
 			}
 			else
 			{
-				return 1;
+				return true;
 			}
 		}
 	}
 
-	return -1;
+	return false;
 }
-int	 CObj__DUAL_ARM_STD::
+bool CObj__DUAL_ARM_STD::
 VAC_RB__Check__Arm_Type_With_PMx_Constraint(const CString& arm_type, 
 											const CString& pm_name)
 {
-	if(arm_type.CompareNoCase("A") == 0)
+	if(arm_type.CompareNoCase(_ARM__A) == 0)
 	{
-		CString ch_type = xCH_CFG__A_ARM_CONSTRAINT_PM->Get__STRING();
+		CString ch_type = dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_PM->Get__STRING();
 
-		if(ch_type.CompareNoCase("ODD") == 0)
+		if(ch_type.CompareNoCase(STR__ODD) == 0)
 		{
-			if(_Check__Odd_PMx(pm_name) > 0)			return 1;
+			if(_Check__Odd_PMx(pm_name))		return true;
 		}
-		else if(ch_type.CompareNoCase("EVEN") == 0)
+		else if(ch_type.CompareNoCase(STR__EVEN) == 0)
 		{
-			if(_Check__Even_PMx(pm_name) > 0)			return 1;
+			if(_Check__Even_PMx(pm_name))		return true;
 		}
 		else
 		{
-			return 1;
+			return true;
 		}
 	}
 
-	if(arm_type.CompareNoCase("B") == 0)
+	if(arm_type.CompareNoCase(_ARM__B) == 0)
 	{
-		CString ch_type = xCH_CFG__B_ARM_CONSTRAINT_PM->Get__STRING();
+		CString ch_type = dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_PM->Get__STRING();
 
-		if(ch_type.CompareNoCase("ODD") == 0)
+		if(ch_type.CompareNoCase(STR__ODD) == 0)
 		{
-			if(_Check__Odd_PMx(pm_name) > 0)			return 1;
+			if(_Check__Odd_PMx(pm_name))		return true;
 		}
-		else if(ch_type.CompareNoCase("EVEN") == 0)
+		else if(ch_type.CompareNoCase(STR__EVEN) == 0)
 		{
-			if(_Check__Even_PMx(pm_name) > 0)			return 1;
+			if(_Check__Even_PMx(pm_name))		return true;
 		}
 		else
 		{
-			return 1;
+			return true;
 		}
 	}
 
-	return -1;
+	return false;
 }
-int	 CObj__DUAL_ARM_STD::
+
+bool CObj__DUAL_ARM_STD::
 _Check__Odd_PMx(const CStringArray& l_pm_name)
 {
 	int i_limit = l_pm_name.GetSize();
@@ -673,61 +820,64 @@ _Check__Odd_PMx(const CStringArray& l_pm_name)
 	{
 		CString pm_name = l_pm_name[i];
 
-		if(_Check__Odd_PMx(pm_name) > 0)			return 1;
+		if(_Check__Odd_PMx(pm_name))			return true;
 	}
-	return -1;
+	return false;
 }
-int	 CObj__DUAL_ARM_STD::
+bool CObj__DUAL_ARM_STD::
 _Check__Odd_PMx(const CString& pm_name)
 {
-	int k_limit = 10;
+	int k_limit = iPMx_SIZE;
 
-	for(int k=1; k<k_limit; k+=2)
+	for(int k=1; k<=k_limit; k+=2)
 	{
 		CString cmp_name;
 		cmp_name.Format("PM%1d", k);
 
-		if(pm_name.CompareNoCase(cmp_name) == 0)		return 1;
+		if(pm_name.CompareNoCase(cmp_name) == 0)		return true;
 	}
-	return -1;
+	return false;
 }
-int	 CObj__DUAL_ARM_STD::
+
+bool CObj__DUAL_ARM_STD::
 _Check__Even_PMx(const CStringArray& l_pm_name)
 {
 	int i_limit = l_pm_name.GetSize();
+
 	for(int i=0; i<i_limit; i++)
 	{
 		CString pm_name = l_pm_name[i];
 
-		if(_Check__Even_PMx(pm_name) > 0)			return 1;
+		if(_Check__Even_PMx(pm_name))					return true;
 	}
-	return -1;
+	return false;
 }
-int	 CObj__DUAL_ARM_STD::
+bool CObj__DUAL_ARM_STD::
 _Check__Even_PMx(const CString& pm_name)
 {
-	int k_limit = 10;
+	int k_limit = iPMx_SIZE;
 
 	for(int k=2; k<=k_limit; k+=2)
 	{
 		CString cmp_name;
 		cmp_name.Format("PM%1d", k);
 
-		if(pm_name.CompareNoCase(cmp_name) == 0)		return 1;
+		if(pm_name.CompareNoCase(cmp_name) == 0)		return true;
 	}
-	return -1;
+	return false;
 }
-int	 CObj__DUAL_ARM_STD::
+bool CObj__DUAL_ARM_STD::
 _Check__PM_Name(const CString& pm_name, const CStringArray& l_pm_name)
 {
 	int i_limit = l_pm_name.GetSize();
+
 	for(int i=0; i<i_limit; i++)
 	{
 		if(pm_name.CompareNoCase(l_pm_name[i]) != 0)	continue;
 
-		return 1;
+		return true;
 	}
-	return -1;
+	return false;
 }
 
 //---------------------------------------------------------------------------------------
@@ -735,13 +885,13 @@ int	 CObj__DUAL_ARM_STD::
 LLx__Get_Size__All_Slot_Status(const int ll_index)
 {
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-
 	int slot_count = 0;
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+
 		if(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][i]->Check__DATA(SLOT_STS__ALL) < 0)			continue;
 
 		slot_count++;
@@ -753,14 +903,11 @@ int  CObj__DUAL_ARM_STD::
 LLx__Check_All_Empty(const int ll_index)
 {
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
 
 		if(xEXT_CH__LLx__SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__NONE) < 0)
 		{
@@ -800,7 +947,9 @@ LLx__Check_Empty__InSlot_With_1_Slot_All_Mode(const int ll_index)
 
 	for(i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+
 		if(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][i]->Check__DATA(SLOT_STS__ALL) < 0)			continue;
 
 		if(xEXT_CH__LLx__SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__NONE) > 0)
@@ -827,10 +976,8 @@ int  CObj__DUAL_ARM_STD
 
 	for(i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -889,7 +1036,9 @@ LLx__Check_Occupied__InSlot_With_1_Slot_All_Mode(const int ll_index)
 
 	for(i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+
 		if(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][i]->Check__DATA(SLOT_STS__ALL) < 0)			continue;
 
 		if(xEXT_CH__LLx__SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__NONE) < 0)
@@ -909,8 +1058,8 @@ LLx__Check_Occupied__InSlot_With_1_Slot_All_Mode(const int ll_index)
 	return -1;
 }
 
-int  CObj__DUAL_ARM_STD::
-LLx__Check_Occupied__InSlot(const int ll_index)
+int  CObj__DUAL_ARM_STD
+::LLx__Check_Occupied__InSlot(const int ll_index)
 {
 	if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ONLY_OUTPUT) > 0)	
 	{
@@ -923,10 +1072,8 @@ LLx__Check_Occupied__InSlot(const int ll_index)
 
 	for(i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -978,11 +1125,12 @@ LLx__Get_Empty__InSlot_With_1_Slot_All_Mode(const int ll_index, int& slot_id)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+
 		if(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][i]->Check__DATA(SLOT_STS__ALL) < 0)			continue;
 
 		if(xEXT_CH__LLx__SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__NONE) > 0)
@@ -1004,14 +1152,11 @@ LLx__Get_Empty__InSlot(const int ll_index,int& slot_id)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -1043,11 +1188,12 @@ LLx__Get_Occupied__InSlot_With_1_Slot_All_Mode(const int ll_index,int& slot_id)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+
 		if(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][i]->Check__DATA(SLOT_STS__ALL) < 0)			continue;
 
 		if(xEXT_CH__LLx__SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__NONE) < 0)
@@ -1079,14 +1225,11 @@ LLx__Get_Occupied__InSlot(const int ll_index,int& slot_id)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -1108,8 +1251,18 @@ LLx__Get_Occupied__InSlot(const int ll_index,int& slot_id)
 	return -1;
 }
 
-int  CObj__DUAL_ARM_STD::
-LLx__Get_Occupied__InSlot(const int ll_index, const int db_index,int& slot_id)
+int  CObj__DUAL_ARM_STD
+::LLx__Get_Occupied__InSlot_Count(const int ll_index)
+{
+	CUIntArray l__ll_slot;
+
+	int r_flag = LLx__Get_Occupied__InSlot(ll_index, l__ll_slot);
+	if(r_flag < 0)		return -1;
+
+	return l__ll_slot.GetSize();
+}
+int  CObj__DUAL_ARM_STD
+::LLx__Get_Occupied__InSlot(const int ll_index, const int db_index,int& slot_id)
 {
 	if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ONLY_OUTPUT) > 0)
 	{
@@ -1118,33 +1271,31 @@ LLx__Get_Occupied__InSlot(const int ll_index, const int db_index,int& slot_id)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=db_index; i<slot_max; i++)
+	if(db_index <  0)				return -11;
+	if(db_index >= slot_max)		return -12;
+
+	if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][db_index]->Check__DATA(SLOT_STS__ENABLE) < 0)		return -201;
+	if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][db_index]->Check__DATA(SLOT_STS__ENABLE) < 0)		return -202;
+
+	if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		CString ch_data = xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][db_index]->Get__STRING();
 
-		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
+		if((ch_data.CompareNoCase(SLOT_STS__INPUT) != 0)
+		&& (ch_data.CompareNoCase(SLOT_STS__ALL)   != 0))
 		{
-			CString ch_data = xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][i]->Get__STRING();
-
-			if((ch_data.CompareNoCase(SLOT_STS__INPUT) != 0)
-			&& (ch_data.CompareNoCase(SLOT_STS__ALL)   != 0))
-			{
-				continue;
-			}
-		}
-
-		if(xEXT_CH__LLx__SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__NONE) < 0)
-		{
-			slot_id = i + 1;
-			return 1;
+			return -22;
 		}
 	}
-	return -1;
+
+	if(xEXT_CH__LLx__SLOT_STATUS[ll_index][db_index]->Check__DATA(SLOT_STS__NONE) > 0)
+	{
+		return -23;
+	}
+
+	slot_id = db_index + 1;
+	return 1;
 }
 int  CObj__DUAL_ARM_STD::
 LLx__Get_Occupied__InSlot(const int ll_index,CUIntArray& l_slot_id)
@@ -1170,6 +1321,15 @@ LLx__Get_Occupied__InSlot(const int ll_index,CUIntArray& l_slot_id)
 	return 1;
 }
 
+bool CObj__DUAL_ARM_STD::LLx__Check_Empty__OutSlot()
+{
+	for(int i=0; i<iLLx_LIMIT; i++)
+	{
+		if(LLx__Check_Empty__OutSlot(i) > 0)		return true;
+	}
+	return false;
+}
+
 int  CObj__DUAL_ARM_STD::
 LLx__Check_Empty__OutSlot(const int ll_index)
 {
@@ -1184,10 +1344,8 @@ LLx__Check_Empty__OutSlot(const int ll_index)
 
 	for(i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -1222,10 +1380,8 @@ LLx__Check_Occupied__OutSlot(const int ll_index)
 
 	for(i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -1278,10 +1434,8 @@ LLx__Check_Empty__OutSlot(const int ll_index,const int slot_id)
 	if(slot_id > slot_max)			return -1;
 	if(index   < 0)					return -1;
 
-	if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][index]->Check__DATA(SLOT_STS__ENABLE) < 0)
-	{
-		return -1;
-	}
+	if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][index]->Check__DATA(SLOT_STS__ENABLE) < 0)			return -11;
+	if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][index]->Check__DATA(SLOT_STS__ENABLE) < 0)			return -12;
 
 	if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 	{
@@ -1311,11 +1465,12 @@ LLx__Get_Empty__OutSlot_With_1_Slot_All_Mode(const int ll_index,int& slot_id)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)		continue;
+
 		if(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_index][i]->Check__DATA(SLOT_STS__ALL) < 0)			continue;
 
 		if(xEXT_CH__LLx__SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__NONE) > 0)
@@ -1352,14 +1507,11 @@ LLx__Get_Empty__OutSlot(const int ll_index,int& slot_id)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)	
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -1393,14 +1545,11 @@ LLx__Get_Empty__OutSlot(const int ll_index,CUIntArray& l_slotid)
 
 	// ...
 	int slot_max = iLLx_SLOT_MAX[ll_index];
-	int i;
 
-	for(i=0; i<slot_max; i++)
+	for(int i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -1437,10 +1586,8 @@ LLx__Get_Occupied__OutSlot(const int ll_index,int& slot_id)
 
 	for(i=0; i<slot_max; i++)
 	{
-		if(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)
-		{
-			continue;
-		}
+		if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+		if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_index][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
 
 		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ALL) > 0)
 		{
@@ -1648,8 +1795,8 @@ PMx__Get_Next_Process(const int pm_i)
 
 
 //---------------------------------------------------------------------------------------
-void CObj__DUAL_ARM_STD::
-Fnc__LOG_CTRL(const CString& log_msg)
+void CObj__DUAL_ARM_STD
+::Fnc__LOG_CTRL(const CString& log_msg)
 {
 	if(iLOG_CTRL_FLAG < 0)
 	{
@@ -1659,3 +1806,67 @@ Fnc__LOG_CTRL(const CString& log_msg)
 	xAPP_LOG_CTRL->WRITE__LOG(log_msg);
 }
 
+
+//---------------------------------------------------------------------------------------
+void CObj__DUAL_ARM_STD
+::_Get__ARM_INFO(const CString& arm_type,
+				 const CString& stn_name,
+				 const CString& stn_slot,
+				 CStringArray& l__arm_type,
+				 CStringArray& l__stn_name,
+				 CStringArray& l__stn_slot)
+{
+	// ...
+	{
+		l__arm_type.RemoveAll();
+		l__stn_name.RemoveAll();
+		l__stn_slot.RemoveAll();
+	}
+
+	if(arm_type.CompareNoCase(_ARM__AB) == 0)
+	{
+		CString ch_data;
+
+		int ll_i = Get__LLx_INDEX(stn_name);
+		int pm_i = Macro__Get_PMC_INDEX(stn_name);
+
+		if(ll_i >= 0)
+		{
+			l__arm_type.Add(_ARM__A);
+			l__stn_name.Add(stn_name);
+			l__stn_slot.Add("1");
+
+			l__arm_type.Add(_ARM__B);
+			l__stn_name.Add(stn_name);
+			l__stn_slot.Add("2");
+		}
+		else if(pm_i >= 0)
+		{
+			int pm_id = ((pm_i / 2) * 2) + 1;
+			int id_left  = pm_id;
+			int id_right = pm_id + 1;
+
+			l__arm_type.Add(_ARM__A);
+			ch_data.Format("PM%1d", id_left);
+			l__stn_name.Add(ch_data);
+			l__stn_slot.Add("1");
+
+			l__arm_type.Add(_ARM__B);
+			ch_data.Format("PM%1d", id_right);
+			l__stn_name.Add(ch_data);
+			l__stn_slot.Add("1");
+		}
+		else
+		{
+			l__arm_type.Add(arm_type);
+			l__stn_name.Add(stn_name);
+			l__stn_slot.Add(stn_slot);
+		}
+	}
+	else
+	{
+		l__arm_type.Add(arm_type);
+		l__stn_name.Add(stn_name);
+		l__stn_slot.Add(stn_slot);
+	}
+}

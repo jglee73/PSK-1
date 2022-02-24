@@ -53,11 +53,7 @@ private:
 
 	CX__VAR_DIGITAL_CTRL xCH_CFG__ROBOT_ARM_DIRECTION_TYPE;
 
-	CX__VAR_DIGITAL_CTRL xCH_CFG__LLx_CTRL_ONLY_INPUT_OUTPUT_MODE;
-	CX__VAR_DIGITAL_CTRL xCH_CFG__DUAL_ARM_CURRENT_BEHAVIOR;
-	CX__VAR_DIGITAL_CTRL xCH_CFG__A_ARM_CONSTRAINT_PM;
-	CX__VAR_DIGITAL_CTRL xCH_CFG__B_ARM_CONSTRAINT_PM;
-
+	//
 	CX__VAR_DIGITAL_CTRL xCH_CFG__SCH_EXCHANGE_PRIORITY;
 	CX__VAR_DIGITAL_CTRL xCH_CFG__SCH_PMC_RECIPE_TYPE;
 	CX__VAR_DIGITAL_CTRL xCH_CFG__SCH_LLx_EXCHANGE_WHEN_PMC_EMPTY;
@@ -134,11 +130,9 @@ private:
 	// SCHEDULER 
 	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_CONCURRENT_ALWAYS_APPLY;
 
-	// ...
 	CX__VAR_STRING_CTRL   sEXT_CH__PMx__CUR_PRE_COUNT[CFG_PM_LIMIT];
 	CX__VAR_STRING_CTRL   sEXT_CH__PMx__CUR_POST_COUNT[CFG_PM_LIMIT];
-	
-	
+
 	// SCH.MODE.XXX ...
 	CX__VAR_STRING_CTRL   sEXT_CH__SCH_MODE_LLx_IN;
 	CX__VAR_STRING_CTRL   sEXT_CH__SCH_MODE_LLx_OUT;
@@ -158,7 +152,8 @@ private:
 	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_SLOT_MAX[CFG_LLx_LIMIT];
 
 	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_MODE_TYPE[CFG_LLx_LIMIT];
-	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_SLOT_STATUS[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
+	CX__VAR_DIGITAL_CTRL  dEXT_CH__CFG_DB_LLx_SLOT_STATUS[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
+	CX__VAR_DIGITAL_CTRL  dEXT_CH__SCH_DB_LLx_SLOT_STATUS[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
 	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_SLOT_MODE[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
 
 	CX__VAR_STRING_CTRL   xEXT_CH__ATM_RB__SCH_STS_TO_LLx[CFG_LLx_LIMIT];
@@ -199,6 +194,13 @@ private:
 	// STATUS CHANNEL
 
 	// OBJ : VAC_ROBOT
+	int Run__ROBOT_OBJ(const CString& obj_mode, const CString& log_id = "");
+	int Run__ROBOT_OBJ(const CString& obj_mode, const CStringArray& l_para, const CString& log_id = "");
+
+	int Call__ROBOT_OBJ(const CString& obj_mode, const CString& log_id = "");
+	int Call__ROBOT_OBJ(const CString& obj_mode, CStringArray& l_para, const CString& log_id = "");
+
+	//
 	CII_EXT_OBJECT__CTRL *pVAC_RB__OBJ_CTRL;
 
 	CX__VAR_DIGITAL_CTRL xCH__VAC_RB__OBJ_CTRL;
@@ -216,7 +218,27 @@ private:
 	CX__VAR_DIGITAL_CTRL xCH__VAC_RB__CFG_A_ARM_USE_MODE;
 	CX__VAR_DIGITAL_CTRL xCH__VAC_RB__CFG_B_ARM_USE_MODE;
 
-	// OBJ : TMC_CHM
+	// LLx : Scheduler - Dual Only Input & Output ...
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME;
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE;
+
+	// ARM-CONSTRAINT ...
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_LL;
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_PM;
+
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_LL;
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_PM;
+
+	// CFG : WAFER PICK PARAMETER ...
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_PICK_WAFER_CONDITION;
+	CX__VAR_ANALOG_CTRL  aCH__VAC_RB__CFG_PMx_PICK_WAIT_SEC;
+
+
+	// OBJ : TMC_CHM ...
+	int Run__TMC_OBJ(const CString& obj_mode);
+	int Call__TMC_OBJ(const CString& obj_mode);
+
+	//
 	CII_EXT_OBJECT__CTRL *pTMC_CHM__OBJ_CTRL;
 
 	CX__VAR_DIGITAL_CTRL xCH__TMC_CHM__OBJ_CTRL;
@@ -227,6 +249,13 @@ private:
 
 
 	// OBJ : LLx ...
+	int Run__LLx_OBJ(const int ll_i, const CString& obj_mode);
+	int Run__LLx_OBJ(const int ll_i, const CString& obj_mode, const CStringArray& l_para);
+
+	int Call__LLx_OBJ(const int ll_i, const CString& obj_mode);
+	int Call__LLx_OBJ(const int ll_i, const CString& obj_mode, CStringArray& l_para);
+
+	//
 	int iLBx_OUT_COUNT;
 
 	int iLLx_SLOT_MAX[CFG_LLx_LIMIT];
@@ -242,7 +271,6 @@ private:
 	CX__VAR_DIGITAL_CTRL xEXT_CH__LLx__OBJ_MODE[CFG_LLx_LIMIT];
 	CX__VAR_DIGITAL_CTRL xEXT_CH__LLx__OBJ_STATUS[CFG_LLx_LIMIT];
 
-	CX__VAR_DIGITAL_CTRL xEXT_CH__LLx__MOVE_FLAG[CFG_LLx_LIMIT];
 	CX__VAR_STRING_CTRL  xEXT_CH__LLx__IN_OUT_FLAG[CFG_LLx_LIMIT];
 	CX__VAR_STRING_CTRL  xEXT_CH__LLx__IN_COUNT[CFG_LLx_LIMIT];
 	CX__VAR_STRING_CTRL  xEXT_CH__LLx__OUT_COUNT[CFG_LLx_LIMIT];
@@ -261,7 +289,14 @@ private:
 	CX__VAR_STRING_CTRL  sEXT_CH__LLx__PARA_PROC_SCH_NAME[CFG_LLx_LIMIT];
 
 
-	// OBJ : PMx
+	// OBJ : PMx ...
+	int Run__PMx_OBJ(const int pm_i, const CString& obj_mode);
+	int Run__PMx_OBJ(const int pm_i, const CString& obj_mode, const CStringArray& l_para);
+
+	int Call__PMx_OBJ(const int pm_i, const CString& obj_mode);
+	int Call__PMx_OBJ(const int pm_i, const CString& obj_mode, CStringArray& l_para);
+
+	//
 	CII_EXT_OBJECT__CTRL *pPMx__OBJ_CTRL[CFG_PM_LIMIT];
 
 	CX__VAR_DIGITAL_CTRL xCH__PMx__OBJ_CTRL[CFG_PM_LIMIT];
@@ -276,7 +311,6 @@ private:
 	CX__VAR_STRING_CTRL  xCH__PMx__PROCESS_PERCENT[CFG_PM_LIMIT];
 	CX__VAR_STRING_CTRL  xCH__PMx__CURRENT_PRC_TIME[CFG_PM_LIMIT];
 
-	CX__VAR_DIGITAL_CTRL xCH__PMx__MOVE_FLAG[CFG_PM_LIMIT];
 	CX__VAR_STRING_CTRL  xCH__PMx__X_PICK_FLAG[CFG_PM_LIMIT];
 	CX__VAR_STRING_CTRL  xCH__PMx__X_PLACE_FLAG[CFG_PM_LIMIT];
 
@@ -382,6 +416,9 @@ private:
 	CString Fnc__Get_PM_Rcp(const CString& pm_name, const CStringArray& l_pm_name,const CStringArray& l_pm_rcp);
 
 	int  AUTO_CTRL__LBi_RB__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+	int  _AUTO_CTRL__LBi_RB__ONLY_MODE_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+	int  _AUTO_CTRL__LBi_RB__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+
 	int  AUTO_CTRL__LBi_To_RB_With_Ready_PMC__ALL_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 
 	int  Fnc__LBi_To_RB_With_Ready_PMC__ALL_MODE(CII_OBJECT__VARIABLE *p_variable,
@@ -413,6 +450,7 @@ private:
 	int  AUTO_CTRL__LBi_RB__1_SLOT_ALL_MODE_NEW(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 
 	int  AUTO_CTRL__LBi_PMx__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+	int  _AUTO_CTRL__LBi_PMx__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 	int  AUTO_CTRL__LBi_To_Ready_PMx__ALL_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 	int  AUTO_CTRL__LBi_PMx__ALL_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 	int  AUTO_CTRL__LBi_PMx__1_SLOT_ALL_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
@@ -430,10 +468,11 @@ private:
 	int  AUTO_CTRL__PMo_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 	int  _AUTO_CTRL__PMo_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 	int  _AUTO_CTRL__PMo_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
-	int  _SCH_CHECK__PMo_RB();
+	int  _SCH_CHECK__PMo_RB(const bool active__pm_constaint);
 
 	int  AUTO_CTRL__PMx_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
-	int  _AUTO_CTRL__PMx_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm, const bool active_all);
+	int  _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+	int  _AUTO_CTRL__PMx_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 
 	int  AUTO_CTRL__RB_LBo__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 	int  _AUTO_CTRL__RB_LBo__ONLY_MODE_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
@@ -459,6 +498,9 @@ private:
 	void AUTO_CTRL__PMx_PUMP(CII_OBJECT__VARIABLE *p_variable);
 	void AUTO_CTRL__TMC_PUMP(CII_OBJECT__VARIABLE *p_variable);
 	void AUTO_CTRL__LBo_PUMP(CII_OBJECT__VARIABLE *p_variable);
+	
+	int  _Get__MIN_PMx_INDEX_OF_PMx_IN_COUNT(const CStringArray& l__pm_name);
+	int  _Get__MIN_PMx_INDEX_OF_PMx_IN_COUNT(const CUIntArray& l__pm_index);
 
 	int iFRONT_PMx_FLAG;
 	int iFRONT_WAC_FLAG;
@@ -574,6 +616,7 @@ private:
 	//
 	int  SCH__PICK_FROM(CII_OBJECT__VARIABLE *p_variable,
 						CII_OBJECT__ALARM *p_alarm,
+						const CString& log_id,
 						const bool ex_flag,
 						const CString& arm_type,
 						const CString& str_module,
@@ -604,18 +647,22 @@ private:
 	//
 	int  SCH__CHECK_PICK_MODULE__READY(CII_OBJECT__VARIABLE* p_variable,
 										const bool ex_flag,
-										const CString& para_module,const CString& para_slot,
-										const int maint_flag = 1);
-	int  SCH__CHECK_PICK_MODULE__COMPLETE(CII_OBJECT__VARIABLE* p_variable,
-										CII_OBJECT__ALARM* p_alarm,
-										const bool ex_flag,
+										const CString& para_arm,
 										const CString& para_module,
 										const CString& para_slot,
-										const CString& from_sch_name,
 										const int maint_flag = 1);
 	int  SCH__CHECK_PICK_MODULE__COMPLETE(CII_OBJECT__VARIABLE* p_variable,
 										  CII_OBJECT__ALARM* p_alarm,
 										  const bool ex_flag,
+										  const CString& para_arm,
+										  const CString& para_module,
+										  const CString& para_slot,
+										  const CString& from_sch_name,
+										  const int maint_flag = 1);
+	int  SCH__CHECK_PICK_MODULE__COMPLETE(CII_OBJECT__VARIABLE* p_variable,
+										  CII_OBJECT__ALARM* p_alarm,
+										  const bool ex_flag,
+										  const CString& para_arm,
 										  const CString& para_module,
 										  const CString& para_slot,
 										  const CStringArray& l_from_sch,
@@ -803,7 +850,9 @@ private:
 	int  LLx__Get_Occupied__InSlot(const int ll_index,int& slot_id);
 	int  LLx__Get_Occupied__InSlot(const int ll_index,const int db_index,int& slot_id);
 	int  LLx__Get_Occupied__InSlot(const int ll_index,CUIntArray& l_slot_id);
+	int  LLx__Get_Occupied__InSlot_Count(const int ll_index);
 
+	bool LLx__Check_Empty__OutSlot();
 	int  LLx__Check_Empty__OutSlot(const int ll_index);
 	int  LLx__Check_Occupied__OutSlot(const int ll_index);
 	int  LLx__Check_Empty__OutSlot(const int ll_index,const int slot_id);
@@ -851,30 +900,38 @@ private:
 	int  VAC_RB__Check_A_Arm_Enable();
 	int  VAC_RB__Check_B_Arm_Enable();
 
+	int  VAC_RB__Check_Empty__Arm_Type(const CString& arm_type);
 	int  VAC_RB__Check_Empty__Arm_Type();
 	int  VAC_RB__Check_Empty__A_Arm();
 	int  VAC_RB__Check_Empty__B_Arm();
 
+	int  VAC_RB__Check_Occupied__Arm_Type();
+	int  VAC_RB__Check_Occupied__Arm_Type(const CString& arm_type);
 	int  VAC_RB__Check_Occupied__A_Arm();
 	int  VAC_RB__Check_Occupied__A_Arm(CString& title);
 	int  VAC_RB__Check_Occupied__B_Arm();
 	int  VAC_RB__Check_Occupied__B_Arm(CString& title);
 
+	bool VAC_RB__Check_Empty__All_Type_Of_LL_Constraint(const CString& arm_type);
+	int  VAC_RB__Get_Empty__Arm_Type_With_LL_Constraint(CString& empty_arm, const int ll_slot_id);
+	int  _VAC_RB__Check_LL_Constraint(const CString& ll_type, const int ll_slot_id);
+
 	int  VAC_RB__Get_Empty__Arm_Type_With_PMx_Constraint(CString& empty_arm, const CString& pm_name);
 	int  VAC_RB__Get_Empty__Arm_Type_With_PMx_Constraint(CString& empty_arm, const CStringArray& l_pm_name);
-	int  VAC_RB__Check_Empty__Arm_Type_With_PMx_Constraint(const CString& empty_arm, const CStringArray& l_pm_name);
-	int  VAC_RB__Check__Arm_Type_With_PMx_Constraint(const CString& arm_type, const CString& pm_name);
-	int  _Check__Odd_PMx(const CStringArray& l_pm_name);
-	int  _Check__Odd_PMx(const CString& pm_name);
-	int  _Check__Even_PMx(const CStringArray& l_pm_name);
-	int  _Check__Even_PMx(const CString& pm_name);
-	int  _Check__PM_Name(const CString& pm_name, const CStringArray& l_pm_name);
+	bool VAC_RB__Check_Empty__Arm_Type_With_PMx_Constraint(const CString& empty_arm, const CString& pm_name);
+	bool VAC_RB__Check__Arm_Type_With_PMx_Constraint(const CString& arm_type, const CString& pm_name);
+	bool _Check__Odd_PMx(const CStringArray& l_pm_name);
+	bool _Check__Odd_PMx(const CString& pm_name);
+	bool _Check__Even_PMx(const CStringArray& l_pm_name);
+	bool _Check__Even_PMx(const CString& pm_name);
+	bool _Check__PM_Name(const CString& pm_name, const CStringArray& l_pm_name);
 
 	int  VAC_RB__Get_Empty__Arm_Type_From_All(CString& arm_type);
 	int  VAC_RB__Get_Empty__Arm_Type_From_LBx(CString& arm_type);
 	int  VAC_RB__Get__Arm_Type_From_LBx(CString& arm_type);
 	int  VAC_RB__Get_Empty__Arm_Type_From_PMx(CString& arm_type);
 
+	int  VAC_RB__Get_Occupied__Arm_Count();
 	int  VAC_RB__Get_Occupied__Arm_Type(CString& arm_type);
 	int  VAC_RB__Check_All_Empty();
 	int  VAC_RB__Check_Empty__Dual_Arm();
@@ -913,6 +970,15 @@ private:
 									const CString& para_module,
 									const CString& para_slot,
 									const int ex_flag);
+
+	// ...
+	void _Get__ARM_INFO(const CString& arm_type,
+						const CString& stn_name,
+						const CString& stn_slot,
+						CStringArray& l__arm_type,
+						CStringArray& l__stn_name,
+						CStringArray& l__stn_slot);
+	//
 
 public:
 	CObj__DUAL_ARM_STD();

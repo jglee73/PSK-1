@@ -153,23 +153,6 @@ int CObj__DUAL_ARM_STD
 		LINK__VAR_DIGITAL_CTRL(xCH_CFG__ROBOT_ARM_DIRECTION_TYPE,str_name);
 
 		//
-		str_name = "CFG.LLx_CTRL.ONLY_INPUT_OUTPUT.MODE";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "SINGLE DUAL", "");
-		LINK__VAR_DIGITAL_CTRL(xCH_CFG__LLx_CTRL_ONLY_INPUT_OUTPUT_MODE, str_name);
-
-		str_name = "CFG.DUAL_ARM.CURRENT_BEHAVIOR";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "DISABLE ENABLE", "");
-		LINK__VAR_DIGITAL_CTRL(xCH_CFG__DUAL_ARM_CURRENT_BEHAVIOR, str_name);
-		
-		str_name = "CFG.A_ARM.CONSTRAINT.PM";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
-		LINK__VAR_DIGITAL_CTRL(xCH_CFG__A_ARM_CONSTRAINT_PM, str_name);
-		
-		str_name = "CFG.B_ARM.CONSTRAINT.PM";
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
-		LINK__VAR_DIGITAL_CTRL(xCH_CFG__B_ARM_CONSTRAINT_PM, str_name);
-
-		//
 		str_name = "CFG.SCH.EXCHANGE.PRIORITY";
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"PMC WAFER","");
 		LINK__VAR_DIGITAL_CTRL(xCH_CFG__SCH_EXCHANGE_PRIORITY,str_name);
@@ -793,153 +776,161 @@ int CObj__DUAL_ARM_STD
 		xAPP_LOG_CTRL->ENABLE__TIME_LOG();
 	}
 
-	p_ext_obj_create->Get__DEF_CONST_DATA("DB_CFG_NAME",db_cfg_name);
-
-	// JOB START READY ...
+	// OBJ DB ...
 	{
-		str_name = "CFG.JOB_START_READY.CTRL.MODE";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_JOB_START_READY_CTRL_MODE, db_cfg_name,str_name);
+		def_name = "DB_CFG_NAME";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, db_cfg_name);
 
-		for(i=0; i<CFG_PM_LIMIT; i++)
+		// JOB START READY ...
 		{
-			str_name.Format("CFG.JOB_START_READY.PM%1d.USE", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_JOB_START_READY_PMx_USE[i], db_cfg_name,str_name);
-		}
-	}
+			str_name = "CFG.JOB_START_READY.CTRL.MODE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_JOB_START_READY_CTRL_MODE, db_cfg_name,str_name);
 
-	// SYSTEM IDLE ...
-	{
-		// ...
-		{
-			str_name = "SYSTEM_IDLE.CFG.TIME.SEC";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__SYSTEM_IDLE_CFG_TIME_SEC, db_cfg_name,str_name);
-
-			str_name = "SYSTEM_IDLE.CUR.TIME.SEC";
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SYSTEM_IDLE_CUR_TIME_SEC, db_cfg_name,str_name);
-		}
-
-		for(i=0; i<CFG_PM_LIMIT; i++)
-		{
-			str_name.Format("SYSTEM_IDLE.CFG.PM%1d.USE", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__SYSTEM_IDLE_CFG_PMx_USE[i], db_cfg_name,str_name);
-
-			str_name.Format("SYSTEM_IDLE.CFG.PM%1d.SEC", i+1);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__SYSTEM_IDLE_CFG_PMx_SEC[i], db_cfg_name,str_name);
-		}
-	}
-
-	// PRE_RCP ...
-	{
-		for(i=0; i<CFG_PM_LIMIT; i++)
-		{
-			str_name.Format("PRE_RCP.CFG.PM%1d.USE", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PRE_RCP_CFG_PMx_USE[i], db_cfg_name,str_name);
-
-			str_name.Format("PRE_RCP.CFG.PM%1d.WAFER_COUNT", i+1);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__PRE_RCP_CFG_PMx_WAFER_COUNT[i], db_cfg_name,str_name);
-		}
-	}
-	// POST_RCP ...
-	{
-		for(i=0; i<CFG_PM_LIMIT; i++)
-		{
-			str_name.Format("POST_RCP.CFG.PM%1d.USE", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__POST_RCP_CFG_PMx_USE[i], db_cfg_name,str_name);
-
-			str_name.Format("POST_RCP.CFG.PM%1d.WAFER_COUNT", i+1);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__POST_RCP_CFG_PMx_WAFER_COUNT[i], db_cfg_name,str_name);
-		}
-	}
-
-	// TRANSFER ...
-	{
-		str_name = "TRANSFER.MODE";
-		LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__CFG__TRANSFER_MODE, db_cfg_name,str_name);
-
-		str_name = "REF.ATM.PRESSURE";
-		LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__CFG__REF_ATM_PRESSURE, db_cfg_name,str_name);
-
-		str_name = "REF.VAC.PRESSURE";
-		LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__CFG__REF_VAC_PRESSURE, db_cfg_name,str_name);
-	}
-	
-	// SCHEDULER ...
-	{
-		str_name = "SCH.CONCURRENT.ALWAYS.APPLY";
-		LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_CONCURRENT_ALWAYS_APPLY, db_cfg_name,str_name);
-	}
-	
-	// SCH.MODE.XXX ...
-	{
-		str_name = "SCH.MODE.LLx_IN";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SCH_MODE_LLx_IN, db_cfg_name,str_name);
-
-		str_name = "SCH.MODE.LLx_OUT";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SCH_MODE_LLx_OUT, db_cfg_name,str_name);
-	}
-	
-	// CFG_DB ...
-	{
-		for(i=0; i<CFG_PM_LIMIT; i++)
-		{
-			str_name.Format("PM%1d.CUR.PRE_COUNT", i+1);
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx__CUR_PRE_COUNT[i], db_cfg_name,str_name);
-
-			str_name.Format("PM%1d.CUR.POST_COUNT", i+1);
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx__CUR_POST_COUNT[i], db_cfg_name,str_name);
-		}
-	}
-	// SCH_DB : LLx ...
-	{
-		int ll_limit = CFG_LLx_LIMIT;
-		int ll_i;
-
-		for(ll_i=0; ll_i<ll_limit; ll_i++)
-		{
-			iLLx_SLOT_MAX[ll_i] = CFG_LLx__SLOT_MAXx;
-
-			// ...
-			CString ll_name = Get__LLx_NAME(ll_i);
-
-			// ...
-			str_name.Format("%s.CFG.PREPMATER.USE", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_PREPMATER_USE[ll_i], db_cfg_name,str_name);
-
-			str_name.Format("%s.CFG.COMPMATER.USE", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_COMPMATER_USE[ll_i], db_cfg_name,str_name);
-
-			// PRE_RCP ...
-			str_name.Format("%s.PRE_RCP.CFG.USE", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_PRE_RCP_USE[ll_i], db_cfg_name,str_name);
-
-			str_name.Format("%s.PRE_RCP.CFG.WAFER_COUNT", ll_name);
-			LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__LLx__CFG_PRE_RCP_WAFER_COUNT[ll_i], db_cfg_name,str_name);
-
-			// POST_RCP ...
-			str_name.Format("%s.POST_RCP.CFG.USE", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_POST_RCP_USE[ll_i], db_cfg_name,str_name);
-
-			str_name.Format("%s.POST_RCP.CFG.WAFER_COUNT", ll_name);
-			LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__LLx__CFG_POST_RCP_WAFER_COUNT[ll_i], db_cfg_name,str_name);
-
-			// ...
-			str_name.Format("SCH_DB.%s.USE.FLAG", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_USE_FLAG[ll_i], db_cfg_name,str_name);
-
-			str_name.Format("SCH_DB.%s.SLOT_MAX", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_SLOT_MAX[ll_i], db_cfg_name,str_name);
-
-			str_name.Format("SCH_DB.%s.MODE_TYPE", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_i], db_cfg_name,str_name);
-
-			//
-			for(i=0; i<CFG_LLx__SLOT_MAXx; i++)
+			for(i=0; i<CFG_PM_LIMIT; i++)
 			{
-				str_name.Format("SCH_DB.%s.SLOT%1d_STATUS", ll_name,i+1);
-				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_i][i], db_cfg_name,str_name);
+				str_name.Format("CFG.JOB_START_READY.PM%1d.USE", i+1);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_JOB_START_READY_PMx_USE[i], db_cfg_name,str_name);
+			}
+		}
 
-				str_name.Format("SCH_DB.%s.SLOT%1d_MODE", ll_name,i+1);
-				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_i][i], db_cfg_name,str_name);
+		// SYSTEM IDLE ...
+		{
+			// ...
+			{
+				str_name = "SYSTEM_IDLE.CFG.TIME.SEC";
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__SYSTEM_IDLE_CFG_TIME_SEC, db_cfg_name,str_name);
+
+				str_name = "SYSTEM_IDLE.CUR.TIME.SEC";
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SYSTEM_IDLE_CUR_TIME_SEC, db_cfg_name,str_name);
+			}
+
+			for(i=0; i<CFG_PM_LIMIT; i++)
+			{
+				str_name.Format("SYSTEM_IDLE.CFG.PM%1d.USE", i+1);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__SYSTEM_IDLE_CFG_PMx_USE[i], db_cfg_name,str_name);
+
+				str_name.Format("SYSTEM_IDLE.CFG.PM%1d.SEC", i+1);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__SYSTEM_IDLE_CFG_PMx_SEC[i], db_cfg_name,str_name);
+			}
+		}
+
+		// PRE_RCP ...
+		{
+			for(i=0; i<CFG_PM_LIMIT; i++)
+			{
+				str_name.Format("PRE_RCP.CFG.PM%1d.USE", i+1);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PRE_RCP_CFG_PMx_USE[i], db_cfg_name,str_name);
+
+				str_name.Format("PRE_RCP.CFG.PM%1d.WAFER_COUNT", i+1);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__PRE_RCP_CFG_PMx_WAFER_COUNT[i], db_cfg_name,str_name);
+			}
+		}
+		// POST_RCP ...
+		{
+			for(i=0; i<CFG_PM_LIMIT; i++)
+			{
+				str_name.Format("POST_RCP.CFG.PM%1d.USE", i+1);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__POST_RCP_CFG_PMx_USE[i], db_cfg_name,str_name);
+
+				str_name.Format("POST_RCP.CFG.PM%1d.WAFER_COUNT", i+1);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__POST_RCP_CFG_PMx_WAFER_COUNT[i], db_cfg_name,str_name);
+			}
+		}
+
+		// TRANSFER ...
+		{
+			str_name = "TRANSFER.MODE";
+			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__CFG__TRANSFER_MODE, db_cfg_name,str_name);
+
+			str_name = "REF.ATM.PRESSURE";
+			LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__CFG__REF_ATM_PRESSURE, db_cfg_name,str_name);
+
+			str_name = "REF.VAC.PRESSURE";
+			LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__CFG__REF_VAC_PRESSURE, db_cfg_name,str_name);
+		}
+		
+		// SCHEDULER ...
+		{
+			str_name = "SCH.CONCURRENT.ALWAYS.APPLY";
+			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_CONCURRENT_ALWAYS_APPLY, db_cfg_name,str_name);
+		}
+	
+		// SCH.MODE.XXX ...
+		{
+			str_name = "SCH.MODE.LLx_IN";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SCH_MODE_LLx_IN, db_cfg_name,str_name);
+
+			str_name = "SCH.MODE.LLx_OUT";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SCH_MODE_LLx_OUT, db_cfg_name,str_name);
+		}
+	
+		// CFG_DB ...
+		{
+			for(i=0; i<CFG_PM_LIMIT; i++)
+			{
+				str_name.Format("PM%1d.CUR.PRE_COUNT", i+1);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx__CUR_PRE_COUNT[i], db_cfg_name,str_name);
+
+				str_name.Format("PM%1d.CUR.POST_COUNT", i+1);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx__CUR_POST_COUNT[i], db_cfg_name,str_name);
+			}
+		}
+		// SCH_DB : LLx ...
+		{
+			int ll_limit = CFG_LLx_LIMIT;
+			int ll_i;
+
+			for(ll_i=0; ll_i<ll_limit; ll_i++)
+			{
+				iLLx_SLOT_MAX[ll_i] = CFG_LLx__SLOT_MAXx;
+
+				// ...
+				CString ll_name = Get__LLx_NAME(ll_i);
+
+				// ...
+				str_name.Format("%s.CFG.PREPMATER.USE", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_PREPMATER_USE[ll_i], db_cfg_name,str_name);
+
+				str_name.Format("%s.CFG.COMPMATER.USE", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_COMPMATER_USE[ll_i], db_cfg_name,str_name);
+
+				// PRE_RCP ...
+				str_name.Format("%s.PRE_RCP.CFG.USE", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_PRE_RCP_USE[ll_i], db_cfg_name,str_name);
+
+				str_name.Format("%s.PRE_RCP.CFG.WAFER_COUNT", ll_name);
+				LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__LLx__CFG_PRE_RCP_WAFER_COUNT[ll_i], db_cfg_name,str_name);
+
+				// POST_RCP ...
+				str_name.Format("%s.POST_RCP.CFG.USE", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__CFG_POST_RCP_USE[ll_i], db_cfg_name,str_name);
+
+				str_name.Format("%s.POST_RCP.CFG.WAFER_COUNT", ll_name);
+				LINK__EXT_VAR_ANALOG_CTRL(xEXT_CH__LLx__CFG_POST_RCP_WAFER_COUNT[ll_i], db_cfg_name,str_name);
+
+				// ...
+				str_name.Format("SCH_DB.%s.USE.FLAG", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_USE_FLAG[ll_i], db_cfg_name,str_name);
+
+				str_name.Format("SCH_DB.%s.SLOT_MAX", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_SLOT_MAX[ll_i], db_cfg_name,str_name);
+
+				str_name.Format("SCH_DB.%s.MODE_TYPE", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_i], db_cfg_name,str_name);
+
+				//
+				for(i=0; i<CFG_LLx__SLOT_MAXx; i++)
+				{
+					str_name.Format("%s.SLOT%1d_STATUS", ll_name,i+1);
+					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_i][i], db_cfg_name,str_name);
+
+					str_name.Format("SCH_DB.%s.SLOT%1d_STATUS", ll_name,i+1);
+					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_i][i], db_cfg_name,str_name);
+
+					//
+					str_name.Format("SCH_DB.%s.SLOT%1d_MODE", ll_name,i+1);
+					LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_i][i], db_cfg_name,str_name);
+				}
 			}
 		}
 	}
@@ -1054,6 +1045,35 @@ int CObj__DUAL_ARM_STD
 
 		LINK__EXT_VAR_DIGITAL_CTRL(xCH__VAC_RB__CFG_A_ARM_USE_MODE, db_name,"CFG.A.ARM.USE.FLAG");
 		LINK__EXT_VAR_DIGITAL_CTRL(xCH__VAC_RB__CFG_B_ARM_USE_MODE, db_name,"CFG.B.ARM.USE.FLAG");
+
+		// LLx : Scheduler - Dual Only Input & Output ...
+		str_name = "CFG.LLx_CTRL.ONLY_INPUT_OUTPUT.MODE";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE, db_name,str_name);
+
+		str_name = "CFG.DUAL_ARM_MOVING_AT_THE_SAME_TIME";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME, db_name,str_name);
+
+		// ARM-CONSTAINT ...
+		// A ARM
+		str_name = "CFG.A_ARM.CONSTRAINT.LL";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_LL, db_name,str_name);
+
+		str_name = "CFG.A_ARM.CONSTRAINT.PM";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_A_ARM_CONSTRAINT_PM, db_name,str_name);
+
+		// B ARM
+		str_name = "CFG.B_ARM.CONSTRAINT.LL";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_LL, db_name,str_name);
+
+		str_name = "CFG.B_ARM.CONSTRAINT.PM";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_PM, db_name,str_name);
+
+		// CFG : WAFER PICK PARAMETER ...
+		str_name = "CFG.PICK_WAFER_CONDITION";
+		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_PICK_WAFER_CONDITION, db_name,str_name);
+
+		str_name = "CFG.PMx_PICK_WAIT_SEC";
+		LINK__EXT_VAR_ANALOG_CTRL(aCH__VAC_RB__CFG_PMx_PICK_WAIT_SEC, db_name,str_name);
 	}
 
 	// OBJ : TMC_CHM ..
@@ -1108,9 +1128,6 @@ int CObj__DUAL_ARM_STD
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx__UPPER_OBJ_MSG[ll_i], db_name,str_name);
 	
 			//
-			str_name = "MOVE.FLAG";
-			LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__LLx__MOVE_FLAG[ll_i], db_name,str_name);
-
 			str_name = "SCH.IN_OUT.FLAG";
 			LINK__EXT_VAR_STRING_CTRL(xEXT_CH__LLx__IN_OUT_FLAG[ll_i], db_name,str_name);
 
@@ -1182,7 +1199,6 @@ int CObj__DUAL_ARM_STD
 
 			LINK__EXT_VAR_STRING_CTRL(xCH__PMC_PROC_READY_FLAG[i],db_name, "PMC.PROC_READY.FLAG");
 
-			LINK__EXT_VAR_DIGITAL_CTRL(xCH__PMx__MOVE_FLAG[i],   db_name, "MOVE.FLAG");
 			LINK__EXT_VAR_STRING_CTRL(xCH__PMx__X_PICK_FLAG[i],  db_name, "X_PICK.FLAG");
 			LINK__EXT_VAR_STRING_CTRL(xCH__PMx__X_PLACE_FLAG[i], db_name, "X_PLACE.FLAG");
 

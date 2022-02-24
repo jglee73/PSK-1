@@ -134,7 +134,8 @@ private:
 	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_IDLE_STATUS[CFG_LLx_LIMIT];
 
 	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_MODE_TYPE[CFG_LLx_LIMIT];
-	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_SLOT_STATUS[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
+	CX__VAR_DIGITAL_CTRL  dEXT_CH__CFG_DB_LLx_SLOT_STATUS[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
+	CX__VAR_DIGITAL_CTRL  dEXT_CH__SCH_DB_LLx_SLOT_STATUS[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
 	CX__VAR_DIGITAL_CTRL  xEXT_CH__SCH_DB_LLx_SLOT_MODE[CFG_LLx_LIMIT][CFG_LLx__SLOT_MAXx];
 
 	// ...
@@ -153,6 +154,13 @@ private:
 	// STATUS CHANNEL
 
 	// OBJ : ATM_ROBOT
+	int Run__ROBOT_OBJ(const CString& obj_mode, const CString& log_id = "");
+	int Run__ROBOT_OBJ(const CString& obj_mode, const CStringArray& l_para, const CString& log_id = "");
+
+	int Call__ROBOT_OBJ(const CString& obj_mode, const CString& log_id = "");
+	int Call__ROBOT_OBJ(const CString& obj_mode, CStringArray& l_para, const CString& log_id = "");
+
+	//
 	CII_EXT_OBJECT__CTRL *pATM_RB__OBJ_CTRL;
 
 	CX__VAR_DIGITAL_CTRL xCH__ATM_RB__OBJ_CTRL;
@@ -187,7 +195,18 @@ private:
 	CX__VAR_DIGITAL_CTRL xCH__ATM_RB__CFG_A_ARM_USE_MODE;
 	CX__VAR_DIGITAL_CTRL xCH__ATM_RB__CFG_B_ARM_USE_MODE;
 
-	// OBJ : AL1
+	// LLx : Scheduler - Dual Only Input & Output ...
+	CX__VAR_DIGITAL_CTRL dCH__ATM_RB__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME;
+
+	// LLx : CONTRAINT ...
+	CX__VAR_DIGITAL_CTRL dCH__ATM_RB__CFG_LL_CONSTRAINT_1;
+	CX__VAR_DIGITAL_CTRL dCH__ATM_RB__CFG_LL_CONSTRAINT_2;
+
+	// CFG : WAFER PICK PARAMETER ...
+	CX__VAR_DIGITAL_CTRL dCH__ATM_RB__CFG_PICK_WAFER_CONDITION;
+
+
+	// OBJ : AL1 ...
 	CII_EXT_OBJECT__CTRL *pAL1__OBJ_CTRL;
 
 	CX__VAR_DIGITAL_CTRL xCH__AL1__OBJ_CTRL;
@@ -207,6 +226,13 @@ private:
 	CX__VAR_ANALOG_CTRL  xCH__LLx_AVAILABLE_SLOT_COUNT[CFG_LLx_LIMIT];
 
 	// OBJ : LLx
+	int Run__LLx_OBJ(const int ll_i, const CString& obj_mode);
+	int Run__LLx_OBJ(const int ll_i, const CString& obj_mode, const CStringArray& l_para);
+
+	int Call__LLx_OBJ(const int ll_i, const CString& obj_mode);
+	int Call__LLx_OBJ(const int ll_i, const CString& obj_mode, CStringArray& l_para);
+
+	//
 	int iLLx_SIZE;
 	int iLLx_SLOT_MAX[CFG_LLx_LIMIT];
 
@@ -280,6 +306,11 @@ private:
 	CX__VAR_STRING_CTRL  xCH__LPx__PICK_COUNT[CFG_LP_LIMIT];
 	CX__VAR_STRING_CTRL  xCH__LPx__RETURN_REQ_FLAG[CFG_LP_LIMIT];
 	CX__VAR_STRING_CTRL  xCH__LPx__SIDE_BUFFER_USE_FLAG[CFG_LP_LIMIT];
+
+	// OBJ : PMx ...
+	int iPMx_SIZE;
+
+	CX__VAR_STRING_CTRL  sCH__PMx__OBJ_VIRTUAL_STATUS[CFG_PM_LIMIT];
 	//
 
 	//-------------------------------------------------------------------------
@@ -608,6 +639,7 @@ private:
 	int  Fnc__LBo_To_LPx__ALL_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 
 	int  Fnc__LBo_To_BUFFERx__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+	int  _Check__LBo_To_BUFFERx__ONLY_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 	int  Fnc__LBo_To_BUFFERx__ALL_MODE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 
 	int  Fnc__LBo_To_RB(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
@@ -705,6 +737,8 @@ private:
 	int  ATM_RB__Check_Empty__Arm_Type();
 	int  ATM_RB__Check_Occupied__Arm_Type();
 	int  ATM_RB__Check_Occupied__Arm_Type(const CString& arm_type);
+	int  ATM_RB__Check_Occupied__A_Arm();
+	int  ATM_RB__Check_Occupied__B_Arm();
 	int  ATM_RB__Get_Empty__Arm_Type(CString& arm_type);
 	int  ATM_RB__Get_Occupied__Arm_Type(CString& arm_type);
 	int  ATM_RB__Get_Occupied__Arm_Type(const int arm_index, CString& arm_type);
@@ -736,6 +770,7 @@ private:
 
 	int  LLx__Get_Occupied__Slot(const int ll_index,int& slot_id,CString& title);
 	int  LLx__Get_Occupied__TotalSlot(const int ll_index);
+	int  LLx__Get_Occupied__Slot_List(const int ll_index,CUIntArray& l_slot_id);
 
 	int  LLx__Get_Occupied__Total_OutSlot(const int ll_index);
 	int  LLx__Get_Occupied__Total_InSlot(const int ll_index,const int prc_check = -1);
@@ -745,7 +780,14 @@ private:
 	int  LLx__Get_Occupied__Only_Output(const int ll_index,CUIntArray& l_slot_id);
 
 	int  LLx__Get_Empty__InSlot(const int ll_index,int& slot_id);
+	int  LLx__Get_Empty__InSlot_Of_Odd_Type(const int ll_index, int& slot_id);
+	int  LLx__Get_Empty__InSlot_Of_Even_Type(const int ll_index, int& slot_id);
+	int  _LLx__Get_Empty__InSlot(const int ll_index, const int db_start,const int db_offset, int& slot_id);
+
 	int  LLx__Get_Occupied__InSlot(const int ll_index,int& slot_id);
+	int  LLx__Check_All_Occupied__InSlot_Of_Odd_Type(const int ll_index);
+	int  LLx__Check_All_Occupied__InSlot_Of_Even_Type(const int ll_index);
+	int  _LLx__Check_All_Occupied__InSlot(const int ll_index, const int db_start,const int db_offset, int& slot_id);
 
 	int  LLx__Check_Empty__InSlot(const int ll_index);
 	int  LLx__Check_Empty__InSlot(const int ll_index, CUIntArray& l_ll_slot);
@@ -797,6 +839,8 @@ private:
 	// ...
 	int _QUERY__GET_EMPTY_SLOT_OF_BUUFER(const int log_enable, CStringArray& l_info);
 	int _QUERY__CHECK_BUSY_SLOT_OF_BUUFER(const int log_enable, const CStringArray& l_para);
+
+	int _Get__PM_INDEX(const CString& pm_name);
 	//
 
 
