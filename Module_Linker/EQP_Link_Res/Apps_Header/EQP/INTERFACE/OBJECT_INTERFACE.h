@@ -709,6 +709,9 @@ public:
 	virtual double Get__VALUE() = 0;
 
 	virtual int Check__VARIABLE_NAME(const CString& var_name) = 0;
+
+	//
+	virtual CString Get__STRING() = 0;
 };
 class CII__VAR_DIGITAL_CTRL
 {

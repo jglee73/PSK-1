@@ -9,5 +9,10 @@
    * (4) : class name 
    * (5) : dir root
 
+   ex)
+     -D  OBJ_DEBUG  STD  PMC_DEBUG  DEBUG.STD  "D:\WORK_GITHUB\PSK\CODE_PMC\PMC_DEBUG\Debug"
+     -D  FNC_STEP  STD  FNC_STEP__PSK_D  STEP.METAL  "D:\WORK_GITHUB\PSK\CODE_PMC\App_Ver\Debug-STD_Dll"
+
 # Working Directory : 
+   D:\WORK_GITHUB\PSK\Program_Exe\PM6_METAL-PSK
 
