@@ -1,10 +1,13 @@
 
-#EXIT_TIME_SEC          3
+#EXIT_TIME_SEC          0
 
-#EXE_DIR                "D:\WORK_PSK\Program_Exe\PM1-TRAINING"
+#EXE_DIR                "D:\WORK_PSK\Program_Exe\PM6_METAL-PSK"
 #EXE_NAME               EQP__START_R.exe
 
 
-#LINK_WORKER_FILE       EQP_WORKER-SIMPLE.inf
-#LINK_METADATA_FILE     EQP_METADATA-SIMPLE.inf
+/*
+#LINK_WORKER_FILE       EQP_WORKER-NULL.inf
+#LINK_METADATA_FILE     EQP_METADATA-NULL.inf
+*/
+#LINK_SYSTEM_FILE       EQP_SYSTEM-RUN.cfg
 
