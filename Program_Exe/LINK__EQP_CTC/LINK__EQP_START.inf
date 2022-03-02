@@ -1,0 +1,10 @@
+
+#EXIT_TIME_SEC          3
+
+#EXE_DIR                "D:\WORK_PSK\Program_Exe\PM1-TRAINING"
+#EXE_NAME               EQP__START_R.exe
+
+
+#LINK_WORKER_FILE       EQP_WORKER-SIMPLE.inf
+#LINK_METADATA_FILE     EQP_METADATA-SIMPLE.inf
+

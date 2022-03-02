@@ -7,7 +7,9 @@
 int CObj__STEP_METAL
 ::Call__INIT(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
+	printf(" * %s : Call__INIT() - Start \n", sObject_Name);
 
+	printf(" * %s : Call__INIT() - End \n", sObject_Name);
 	return 1;
 }
 

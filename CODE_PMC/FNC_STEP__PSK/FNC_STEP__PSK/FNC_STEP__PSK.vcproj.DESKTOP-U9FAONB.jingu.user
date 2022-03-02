@@ -9,9 +9,9 @@
 			Name="Debug|Win32"
 			>
 			<DebugSettings
-				Command=""
-				WorkingDirectory=""
-				CommandArguments=""
+				Command="EQP__START_R.exe"
+				WorkingDirectory="D:\WORK_PSK\Program_Exe\PM6_METAL-PSK"
+				CommandArguments="-D  FNC_STEP  STD  FNC_STEP__PSK_D  STEP.METAL  &quot;D:\WORK_ANA-SOFT\Program_Code\PMC-STD\App_Ver\Debug-STD_Dll&quot;"
 				Attach="false"
 				DebuggerType="3"
 				Remote="1"
@@ -22,7 +22,7 @@
 				SQLDebugging=""
 				Environment=""
 				EnvironmentMerge="true"
-				DebuggerFlavor=""
+				DebuggerFlavor="0"
 				MPIRunCommand=""
 				MPIRunArguments=""
 				MPIRunWorkingDirectory=""

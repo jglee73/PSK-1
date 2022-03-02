@@ -128,9 +128,15 @@ int CObj__DB_CFG::__DEFINE__VARIABLE_STD(p_variable)
 
 	for(i=0;i<CFG_PM_LIMIT;i++)
 	{
-		str_name.Format("SYS_INFO.PM%1d_ID",i+1);
-		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
+		int id = i + 1;
+
+		str_name.Format("SYS_INFO.PM%1d_ID", id);
+		STD__ADD_STRING_WITH_X_OPTION(str_name, "");
 		LINK__VAR_STRING_CTRL(sCH_SYS_INFO__PMC_ID[i], str_name);
+
+		str_name.Format("SYS_INFO.PM%1d_PROCESS", id);
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "METAL  STRIP", "");
+		LINK__VAR_DIGITAL_CTRL(dCH_SYS_INFO__PMC_PROCESS[i], str_name);
 	}
 
 	//

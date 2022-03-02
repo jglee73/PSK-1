@@ -1,26 +1,31 @@
-15:23:57.016 >>>> Start Log <<<<
-15:23:57.070 0
-15:23:57.074 1
-15:23:57.074 2
-15:23:57.076 3
-15:23:57.356 Load
-15:23:57.375 4
-15:23:57.388 Update_ListView Start : D:\WORK_GITHUB\PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\\
-15:23:57.388 Update_ListView Exist
-15:23:57.399 Update_ListView GetDirectories
-15:23:57.403 Update_ListView GetFiles
-15:23:57.403 Update_ListView End
-15:23:57.406 Update_TreeFolder Start : D:\WORK_GITHUB\PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\
-15:23:57.408 Update_TreeFolder End
-15:23:57.487 Shown
-15:23:58.853 Update_ListView Start : D:\WORK_GITHUB\PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\\2022_02_15
-15:23:58.855 Update_ListView Exist
-15:23:58.889 Update_ListView GetDirectories
-15:23:58.896 Update_ListView GetFiles
-15:23:58.896 Update_ListView End
-15:23:59.398 Update_ListView Start : D:\WORK_GITHUB\PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\\2022_02_15\MNT
-15:23:59.400 Update_ListView Exist
-15:23:59.422 Update_ListView GetDirectories
-15:23:59.422 Update_ListView GetFiles
-15:23:59.432 Update_ListView End
-15:24:01.196 >>>> Log Close <<<<
+14:41:43.998 >>>> Start Log <<<<
+14:41:44.054 0
+14:41:44.059 1
+14:41:44.059 2
+14:41:44.062 3
+14:41:44.285 Load
+14:41:44.303 4
+14:41:44.318 Update_ListView Start : D:\WORK_PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\\
+14:41:44.319 Update_ListView Exist
+14:41:44.335 Update_ListView GetDirectories
+14:41:44.350 Update_ListView GetFiles
+14:41:44.350 Update_ListView End
+14:41:44.355 Update_TreeFolder Start : D:\WORK_PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\
+14:41:44.358 Update_TreeFolder End
+14:41:44.554 Shown
+14:41:45.741 Update_ListView Start : D:\WORK_PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\\2022_02_15
+14:41:45.743 Update_ListView Exist
+14:41:45.761 Update_ListView GetDirectories
+14:41:45.762 Update_ListView GetFiles
+14:41:45.762 Update_ListView End
+14:41:47.362 Update_ListView Start : D:\WORK_PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\\2022_02_15
+14:41:47.365 Update_ListView Exist
+14:41:47.367 Update_ListView GetDirectories
+14:41:47.370 Update_ListView GetFiles
+14:41:47.370 Update_ListView End
+14:41:47.894 Update_ListView Start : D:\WORK_PSK\PROGRAM_EXE\PM6_METAL-PSK\EQP_LOG\DATALOG\\2022_02_15\MNT
+14:41:47.899 Update_ListView Exist
+14:41:47.938 Update_ListView GetDirectories
+14:41:47.939 Update_ListView GetFiles
+14:41:47.941 Update_ListView End
+14:41:49.696 >>>> Log Close <<<<
