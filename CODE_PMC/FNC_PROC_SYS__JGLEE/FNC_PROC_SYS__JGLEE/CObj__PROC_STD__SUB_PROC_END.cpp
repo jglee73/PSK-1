@@ -72,11 +72,18 @@ int CObj__PROC_STD::Save__LEARNED_MOCE()
 
 	// ...
 	{
+		CString log_msg;
+		CString log_bff;
+
 		SCX__FILE_RCP_CTRL x_file_ctrl;
 		int change_flag = -1;
 
 		CString file_path;
 		sCH__CUR_RCP_FILE_PATH->Get__DATA(file_path);
+
+		log_msg.Format("CObj__PROC_STD::Save__LEARNED_MOCE() \n");
+		log_bff.Format(" * file_path <- [%s] \n", file_path);
+		log_msg += log_bff;
 
 		//
 		CDS__LEARNED_STEP_DATA ds_data;
@@ -103,6 +110,12 @@ int CObj__PROC_STD::Save__LEARNED_MOCE()
 				CString ch_type = "A";
 
 				x_file_ctrl->Partial__ADD_ITEM(ch_name,ch_type,ch_data);
+
+				log_msg += "\n";
+				log_bff.Format(" * step_id <- [%1d] \n", step_id);
+				log_msg += log_bff;
+				log_bff.Format(" * %s <- [%s] \n", ds_data.sSTR__RCP_NAME, ds_data.sSTR__IO_RESULT);
+				log_msg += log_bff;
 			}
 		}
 
@@ -110,6 +123,13 @@ int CObj__PROC_STD::Save__LEARNED_MOCE()
 		{
 			x_file_ctrl->Partial__SAVE_FILE(file_path);
 		}
+
+		//
+		log_msg += "\n";
+		log_bff.Format(" * change_flag <- [%1d] \n", change_flag);
+		log_msg += log_bff;
+
+		printf(log_msg);
 	}
 
 	sCH__CUR_LEARNED_RESULT->Set__DATA("");
