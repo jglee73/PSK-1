@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "CObj__PROC_STD.h"
 
+#include "Ccommon_Def.h"
 #include "Macro_Function.h"
 
 
@@ -17,6 +18,18 @@ LOOP_RESTART:
 		_Make__PROC_LOG(restart_count);
 
 		sCH__ACT_RECOVERY_RESTART_FLAG->Set__DATA("");
+	}
+
+	// ...
+	{
+		sCH__CUR_LEARNED_APPLY_STATUS->Set__DATA("...");
+
+		if(dCH__CFG_LEARNED_APPLY_MODE->Check__DATA(STR__ENABLE) > 0)
+			sCH__CUR_LEARNED_RESULT->Set__DATA(STR__OK);
+		else
+			sCH__CUR_LEARNED_RESULT->Set__DATA("");
+
+		mCTRL__LEARNED_ITEM.Init__STEP_ITEM();
 	}
 
 	int r_flag = pOBJ_CTRL__STEP->Call__OBJECT(_STEP_CMD__START);

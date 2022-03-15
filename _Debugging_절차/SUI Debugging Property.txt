@@ -1,0 +1,16 @@
+
+# Command :  
+   SUI__DEBUGGER_D.exe
+
+# Arguments :  -D  (1)  (2)  (3)
+   * (1) : goi_name 
+   * (2) : class_name
+   * (3) : goi dir_root
+
+# Working Directory : 
+   SUI__DEBUGGER_D.exe 가 있는 Directory
+
+
+* SUI Directory 내 _DEBUG 폴더 안에 아래의 파일들이 생성된다.
+   _debugger.goi_inf
+   _debugger.page

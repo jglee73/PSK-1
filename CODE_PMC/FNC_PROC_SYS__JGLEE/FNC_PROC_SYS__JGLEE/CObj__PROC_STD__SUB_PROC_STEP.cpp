@@ -72,7 +72,15 @@ int CObj__PROC_STD
 			// Process Recovery Check ...
 			if(r_step <  0)		
 			{
+				sCH__CUR_LEARNED_RESULT->Set__DATA(STR__ERROR);
+
 				if(Check__ALARM_RECOVERY(p_variable, p_alarm) < 0)				return r_step;
+			}
+			else
+			{
+				int step_id = (int) cur__step_id;
+				
+				mCTRL__LEARNED_ITEM.Load__ITEM(step_id);
 			}
 
 			// Step Change time .....

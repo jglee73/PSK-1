@@ -103,6 +103,31 @@ int CObj__PROC_STD::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__ACT_RECOVERY_RESTART_FLAG, var_name);
 	}
 
+	// LEARNED INFO ... 
+	{
+		var_name = "CFG.LEARNED.APPLY.MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(var_name, "DISABLE  ENABLE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_LEARNED_APPLY_MODE, var_name);
+
+		var_name = "CUR.LEARNED_RESULT";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__CUR_LEARNED_RESULT, var_name);
+
+		//
+		var_name = "PRE.LOTID";
+		STD__ADD_STRING_WITH_X_OPTION(var_name, "");
+		LINK__VAR_STRING_CTRL(sCH__PRE_LOTID, var_name);
+
+		var_name = "CUR.LEARNED.APPLY.STATUS";
+		STD__ADD_STRING_WITH_X_OPTION(var_name,"");
+		LINK__VAR_STRING_CTRL(sCH__CUR_LEARNED_APPLY_STATUS, var_name);
+
+		//
+		var_name = "RCP_FILE.UPLOAD_FLAG";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__RCP_FILE_UPLOAD_FLAG, var_name);
+	}
+
 	// WIN.JUMP_STEP ...
 	{
 		var_name = "JUMP.STEP.ID";
@@ -574,6 +599,38 @@ int CObj__PROC_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SYS_CTRL_LOCK, obj_name,var_name);
+	}
+
+	// LEARNED.INFO ...
+	{
+		CString io_title;
+		CString rcp_name;
+		CString io_obj;
+		CString io_var;
+
+		def_name = "LEARNED_ITEM.SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+		int i_limit = atoi(def_data);
+
+		for(i=0; i<i_limit; i++)
+		{
+			int id = i + 1;
+
+			def_name.Format("LEARNED_ITEM.TITLE.%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			io_title = def_data;
+
+			def_name.Format("LEARNED_ITEM.RCP_NAME.%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			rcp_name = def_data;
+
+			//
+			def_name.Format("LEARNED_ITEM.IO_NAME.%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, io_obj,io_var);
+
+			mCTRL__LEARNED_ITEM.Load__IO_ITEM(p_ext_obj_create, io_title,rcp_name, io_obj,io_var);
+		}
 	}
 
 	// ...

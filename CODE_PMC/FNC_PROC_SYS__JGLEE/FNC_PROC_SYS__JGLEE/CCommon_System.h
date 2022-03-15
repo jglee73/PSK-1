@@ -20,6 +20,9 @@
 #define  STR__YES						"YES"
 #define  STR__NO						"NO"
 
+#define  STR__OK						"OK"
+#define  STR__ERROR						"ERROR"
+
 #define  STR__MAINT_PROC				"MAINT.PROC"
 #define  STR__DECHUCK_PROC              "DECHUCK.PROC"
 #define  STR__AUTO_PROC					"AUTO.PROC"
