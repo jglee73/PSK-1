@@ -17,7 +17,9 @@ int CObj__STEP_STRIP
 
 	CString rcp__apc_mode;
 	CString rcp__apc_position;
+	CString rcp__apc_learned_pos;
 	CString rcp__apc_pressure;
+	CString rcp__apc_hold_sec;
 
 	CString rcp__rf_top_power;
 	CString rcp__rf_top_warning;
@@ -49,7 +51,9 @@ int CObj__STEP_STRIP
 		//
 		dCH__RCP_APC_MODE->Get__DATA(rcp__apc_mode);
 		aCH__RCP_APC_POSITION->Get__DATA(rcp__apc_position);
+		sCH__RCP_APC_LEARNED_POS->Get__DATA(rcp__apc_learned_pos);
 		aCH__RCP_APC_PRESSURE->Get__DATA(rcp__apc_pressure);
+		sCH__RCP_APC_HOLD_DELAY->Get__DATA(rcp__apc_hold_sec);
 
 		//
 		sCH__RCP_RF_TOP_POWER->Get__DATA(rcp__rf_top_power);
@@ -99,7 +103,11 @@ int CObj__STEP_STRIP
 			para_data = rcp__apc_pressure;
 		}
 
-		APC_OBJ__Start_MODE(obj_mode, para_data);
+		double value__hold_sec = atof(rcp__apc_hold_sec);
+		double value__hold_pos = atof(rcp__apc_position);
+		if(value__hold_pos < 0.1)			value__hold_pos = atof(rcp__apc_learned_pos);
+
+		APC_OBJ__Start_MODE(obj_mode,para_data, value__hold_sec,value__hold_pos);
 	}
 
 	// MFC_X.CTRL ...

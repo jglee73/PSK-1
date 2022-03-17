@@ -340,6 +340,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__PROC_STD__SUB_PROC_DECHUCK.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__PROC_STD__SUB_PROC_END.cpp"
 					>
 				</File>

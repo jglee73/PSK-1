@@ -41,6 +41,7 @@
 // ...
 #define  _ACT_CMD__IDLE					"IDLE"
 #define  _ACT_CMD__START				"START"
+#define  _ACT_CMD__RESTART				"RESTART"
 #define  _ACT_CMD__ABORT				"ABORT"
 #define  _ACT_CMD__END					"END"
 #define  _ACT_CMD__SKIP					"SKIP"

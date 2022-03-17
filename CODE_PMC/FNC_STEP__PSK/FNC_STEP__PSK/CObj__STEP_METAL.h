@@ -99,7 +99,7 @@ private:
 	CX__VAR_STRING_CTRL  sEXT_CH__CUR_LOTID;
 
 	// OBJ APC ...
-	int APC_OBJ__Start_MODE(const CString& obj_mode, const CString& para_data);
+	int APC_OBJ__Start_MODE(const CString& obj_mode,const CString& para_data, const double para_hold_sec,const double para_hold_pos);
 	int APC_OBJ__Start_OPEN();	
 	int APC_OBJ__Check_ERROR();
 	int APC_OBJ__Check_ABORTED();
@@ -110,6 +110,7 @@ private:
 
 	CX__VAR_ANALOG_CTRL	 aEXT_CH__APC_OBJ__PARA_PRESSURE;
 	CX__VAR_ANALOG_CTRL	 aEXT_CH__APC_OBJ__PARA_POSITION;
+	CX__VAR_ANALOG_CTRL	 aEXT_CH__APC_OBJ__PARA_HOLD_SEC;
 
 	CX__VAR_STRING_CTRL  sEXT_CH__APC_OBJ__MON_PRESSURE_TORR;
 

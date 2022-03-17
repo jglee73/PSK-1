@@ -7,6 +7,9 @@
    * (2) : class_name
    * (3) : goi dir_root
 
+   Ex)
+    -D  JGLEE__IMG_MNG  IMG.ANI  "D:\WORK_PSK\Program_Code\UI_Sample\Debug-GOI"
+
 # Working Directory : 
    SUI__DEBUGGER_D.exe °¡ ÀÖ´Â Directory
 

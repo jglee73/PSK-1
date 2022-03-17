@@ -16,25 +16,32 @@ int CObj__PROC_STD
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 	}
 
-	// Step.End ...
+	// ...
 	{
 		pOBJ_CTRL__STEP->Dislink__UPPER_OBJECT();
-
-		pOBJ_CTRL__STEP->Call__OBJECT(_STEP_CMD__END);
-
-		pOBJ_CTRL__STEP->Link__UPPER_OBJECT();
-	}
-
-	// Chamber.Pumping ...
-	{
 		pOBJ_CTRL__CHM->Dislink__UPPER_OBJECT();
 
-		pOBJ_CTRL__CHM->Call__OBJECT(_CHM_CMD__HIGH_VAC_PUMP);
+		// Start ...
+		{
+			pOBJ_CTRL__STEP->Run__OBJECT(_STEP_CMD__END);
+			pOBJ_CTRL__CHM->Run__OBJECT(_CHM_CMD__HIGH_VAC_PUMP);
+		}
 
+		// Learned Save ...
+		{
+			Save__LEARNED_MOCE();
+			mCTRL__LEARNED_ITEM.Init__STEP_ITEM();
+		}
+
+		// Wait ...
+		{
+			pOBJ_CTRL__STEP->When__OBJECT();
+			pOBJ_CTRL__CHM->When__OBJECT();
+		}
+
+		pOBJ_CTRL__STEP->Link__UPPER_OBJECT();
 		pOBJ_CTRL__CHM->Link__UPPER_OBJECT();
 	}
-
-	Save__LEARNED_MOCE();
 	return 1;
 }
 

@@ -17,7 +17,9 @@ int CObj__STEP_METAL
 
 	CString rcp__apc_mode;
 	CString rcp__apc_position;
+	CString rcp__apc_learned_pos;
 	CString rcp__apc_pressure;
+	CString rcp__apc_hold_sec;
 
 	CString rcp__mfc_x_flow[_CFG__MFC_SIZE];
 	CString rcp__mfc_x_ramp_sec[_CFG__MFC_SIZE];
@@ -58,7 +60,9 @@ int CObj__STEP_METAL
 
 		dCH__RCP_APC_MODE->Get__DATA(rcp__apc_mode);
 		aCH__RCP_APC_POSITION->Get__DATA(rcp__apc_position);
+		sCH__RCP_APC_LEARNED_POS->Get__DATA(rcp__apc_learned_pos);
 		aCH__RCP_APC_PRESSURE->Get__DATA(rcp__apc_pressure);
+		sCH__RCP_APC_HOLD_DELAY->Get__DATA(rcp__apc_hold_sec);
 
 		for(i=0; i<iDATA__MFC_SIZE; i++)
 		{
@@ -113,7 +117,11 @@ int CObj__STEP_METAL
 			para_data = rcp__apc_pressure;
 		}
 
-		APC_OBJ__Start_MODE(obj_mode, para_data);
+		double value__hold_sec = atof(rcp__apc_hold_sec);
+		double value__hold_pos = atof(rcp__apc_position);
+		if(value__hold_pos < 0.1)			value__hold_pos = atof(rcp__apc_learned_pos);
+
+		APC_OBJ__Start_MODE(obj_mode,para_data, value__hold_sec,value__hold_pos);
 	}
 
 	// MFC_X.CTRL ...
@@ -179,7 +187,7 @@ int CObj__STEP_METAL
 		CString obj_mode;
 		CString ch_data;
 
-		if(rcp__esc_mode.CompareNoCase(STR__Chuck)    == 0)			obj_mode = _ESC_CMD__CHUCK_PROC;
+			 if(rcp__esc_mode.CompareNoCase(STR__Chuck)    == 0)			obj_mode = _ESC_CMD__CHUCK_PROC;
 		else if(rcp__esc_mode.CompareNoCase(STR__Chuck1)   == 0)			obj_mode = _ESC_CMD__CHUCK1_PROC;
 		else if(rcp__esc_mode.CompareNoCase(STR__Chuck2)   == 0)			obj_mode = _ESC_CMD__CHUCK2_PROC;
 		else if(rcp__esc_mode.CompareNoCase(STR__Dechuck)  == 0)			obj_mode = _ESC_CMD__DECHUCK;
@@ -206,7 +214,7 @@ int CObj__STEP_METAL
 	{
 		CString obj_mode;
 
-		if(rcp__lift_pin_mode.CompareNoCase(STR__Down)   == 0)			obj_mode  = _PIN_CMD__DOWN;
+		     if(rcp__lift_pin_mode.CompareNoCase(STR__Down)   == 0)			obj_mode  = _PIN_CMD__DOWN;
 		else if(rcp__lift_pin_mode.CompareNoCase(STR__Middle) == 0)			obj_mode  = _PIN_CMD__MIDDLE;
 		else if(rcp__lift_pin_mode.CompareNoCase(STR__Up)     == 0)			obj_mode  = _PIN_CMD__UP;
 
@@ -415,36 +423,46 @@ int CObj__STEP_METAL::_Fnc__PROC_LOG()
 	// STEP ...
 	{
 		log_bff.Format(" * %s <- %s \n", 
-			sCH__RCP_STEP_MESSAGE->Get__CHANNEL_NAME(),
-			sCH__RCP_STEP_MESSAGE->Get__STRING());
+						sCH__RCP_STEP_MESSAGE->Get__CHANNEL_NAME(),
+						sCH__RCP_STEP_MESSAGE->Get__STRING());
 		log_msg += log_bff;
 
 		log_bff.Format(" * %s <- %s \n", 
-			dCH__RCP_STEP_MODE->Get__CHANNEL_NAME(),
-			dCH__RCP_STEP_MODE->Get__STRING());
+						dCH__RCP_STEP_MODE->Get__CHANNEL_NAME(),
+						dCH__RCP_STEP_MODE->Get__STRING());
 		log_msg += log_bff;
 
 		log_bff.Format(" * %s <- %s \n", 
-			aCH__RCP_STEP_TIME->Get__CHANNEL_NAME(),
-			aCH__RCP_STEP_TIME->Get__STRING());
+						aCH__RCP_STEP_TIME->Get__CHANNEL_NAME(),
+						aCH__RCP_STEP_TIME->Get__STRING());
 		log_msg += log_bff;
 	}
 
 	// APC ...
 	{
 		log_bff.Format(" * %s <- %s \n", 
-			dCH__RCP_APC_MODE->Get__CHANNEL_NAME(),
-			dCH__RCP_APC_MODE->Get__STRING());
+						dCH__RCP_APC_MODE->Get__CHANNEL_NAME(),
+						dCH__RCP_APC_MODE->Get__STRING());
 		log_msg += log_bff;
 
 		log_bff.Format(" * %s <- %s \n", 
-			aCH__RCP_APC_POSITION->Get__CHANNEL_NAME(),
-			aCH__RCP_APC_POSITION->Get__STRING());
+						aCH__RCP_APC_POSITION->Get__CHANNEL_NAME(),
+						aCH__RCP_APC_POSITION->Get__STRING());
 		log_msg += log_bff;
 
 		log_bff.Format(" * %s <- %s \n", 
-			aCH__RCP_APC_PRESSURE->Get__CHANNEL_NAME(),
-			aCH__RCP_APC_PRESSURE->Get__STRING());
+						sCH__RCP_APC_LEARNED_POS->Get__CHANNEL_NAME(),
+						sCH__RCP_APC_LEARNED_POS->Get__STRING());
+		log_msg += log_bff;
+
+		log_bff.Format(" * %s <- %s \n", 
+						aCH__RCP_APC_PRESSURE->Get__CHANNEL_NAME(),
+						aCH__RCP_APC_PRESSURE->Get__STRING());
+		log_msg += log_bff;
+
+		log_bff.Format(" * %s <- %s \n", 
+						sCH__RCP_APC_HOLD_DELAY->Get__CHANNEL_NAME(),
+						sCH__RCP_APC_HOLD_DELAY->Get__STRING());
 		log_msg += log_bff;
 	}
 

@@ -138,6 +138,10 @@ int CObj__PROC_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_ANALOG(var_name, "sec", 0, 0, 100);
 		LINK__VAR_ANALOG_CTRL(aCH__CONTINUE_OVER_STEP_TIME, var_name);
 
+		var_name = "EXCEPTION.CONTINUE.REQ";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__EXCEPTION_CONTINUE_REQ, var_name);
+
 		//
 		var_name = "WIN_CTRL.JUMP_PAGE";
 		STD__ADD_STRING(var_name);
@@ -189,7 +193,7 @@ int CObj__PROC_STD::__DEFINE__VARIABLE_STD(p_variable)
 
 		//
 		var_name = "MON.EXCEPTION.ACT";
-		STD__ADD_DIGITAL(var_name, "IDLE  START  ABORT  END  SKIP  PAUSE  RESUME  JUMP  ALARM");
+		STD__ADD_DIGITAL(var_name, "IDLE  START  RESTART  ABORT  END  SKIP  PAUSE  RESUME  JUMP  ALARM  PLASMA_DECHUCK");
 		LINK__VAR_DIGITAL_CTRL(dCH__MON_EXCEPTION_ACT, var_name);
 
 		var_name = "MON.EXCEPTION.MSG";
@@ -299,9 +303,9 @@ int CObj__PROC_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	// Process Recovery Action ...
+	// Process Recovery Action With Wafer ...
 	{
-		alarm_id = ALID__PROCESS_RECOVERY_CHECK;
+		alarm_id = ALID__PROCESS_RECOVERY_CHECK_WITH_WAFER;
 
 		alarm_title  = title;
 		alarm_title += "Check Process Recovery Action !";
@@ -321,6 +325,29 @@ int CObj__PROC_STD::__DEFINE__ALARM(p_alarm)
 		l_act.Add(ACT__JUMP);
 		l_act.Add(ACT__END);
 		l_act.Add(ACT__END_WITH_PLASMA_DECHUCK);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// Process Recovery Action ...
+	{
+		alarm_id = ALID__PROCESS_RECOVERY_CHECK_NO_WAFER;
+
+		alarm_title  = title;
+		alarm_title += "Check Process Recovery Action !";
+
+		alarm_msg  = "Please, check process recovery action.\n";
+		alarm_msg += "If you select [RESTART],				the process will restart after system initialize.\n";
+		alarm_msg += "If you select [ABORT],				the process will be aborted.\n";
+		// alarm_msg += "If you select [CONTIUNE],				after current step time elapse, the next step will be executed.\n";
+		alarm_msg += "If you select [JUMP],					the step that you select will be executed.\n";
+		alarm_msg += "If you select [END],					Without Plasma Dechuck.. the process will be normally completed.\n";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__RESTART);
+		l_act.Add(ACT__ABORT);
+		// l_act.Add(ACT__CONTINUE);
+		l_act.Add(ACT__JUMP);
+		l_act.Add(ACT__END);
 
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}

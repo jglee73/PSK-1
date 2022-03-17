@@ -370,6 +370,9 @@ int CObj__STEP_STRIP::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			var_name = "PARA.POSITION";
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__APC_OBJ__PARA_POSITION, obj_name,var_name);
 
+			var_name = "PARA.HOLD.SEC";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__APC_OBJ__PARA_HOLD_SEC, obj_name,var_name);
+
 			//
 			var_name = "MON.PRESSURE.TORR";
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__APC_OBJ__MON_PRESSURE_TORR, obj_name,var_name);

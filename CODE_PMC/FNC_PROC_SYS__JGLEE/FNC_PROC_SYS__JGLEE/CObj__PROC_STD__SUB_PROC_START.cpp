@@ -7,7 +7,7 @@
 
 // ...
 int CObj__PROC_STD::
-Sub__PROC_START(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+Sub__PROC_START(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const bool active_dechuck)
 {
 	int restart_count = 0;
 
@@ -38,7 +38,7 @@ LOOP_RESTART:
 	{		
 		xI_LOG_CTRL->WRITE__LOG("Recovery Restart - PROC_READY() Starting !!!");
 
-		if(Fnc__PROC_READY(p_variable, p_alarm) < 0)
+		if(Fnc__PROC_READY(p_variable, p_alarm, active_dechuck) < 0)
 		{
 			xI_LOG_CTRL->WRITE__LOG("Recovery Restart - PROC_READY() Aborted !!!");
 
