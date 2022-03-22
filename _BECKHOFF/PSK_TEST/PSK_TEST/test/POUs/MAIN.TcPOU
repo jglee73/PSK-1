@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{12af55fa-6e6d-48c4-9d80-072d21dd6a65}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	diACTIVE:BOOL;
+	doACTIVE:BOOL;	
+END_VAR
+
+VAR_INPUT
+	AI_0_0: DWORD := 0;
+	AI_0_1: DWORD := 0;
+	AI_0_2: REAL := 0;
+	AI_0_3: DWORD := 0;
+	AI_0_4: DWORD := 0;
+	AI_0_5: DWORD := 0;
+	AI_0_6: DWORD := 0;
+	AI_0_7: DWORD := 0;
+	AI_0_8: DWORD := 0;
+	AI_0_9: DWORD := 0;
+END_VAR
+VAR_OUTPUT
+	AO_0_0: WORD := 0;
+	AO_0_1: WORD := 0;
+	AO_0_2: WORD := 0;
+	AO_0_3: WORD := 0;
+	AO_0_4: WORD := 0;
+	AO_0_5: WORD := 0;
+	AO_0_6: WORD := 0;
+	AO_0_7: WORD := 0;
+	AO_0_8: WORD := 0;
+	AO_0_9: WORD := 0;
+END_VAR
+
+VAR_INPUT
+	DI_0_00: BOOL := FALSE;
+	DI_0_01: BOOL := FALSE;
+	DI_0_02: BOOL := FALSE;
+	DI_0_03: BOOL := FALSE;
+	DI_0_04: BOOL := FALSE;
+	DI_0_05: BOOL := FALSE;
+	DI_0_06: BOOL := FALSE;
+	DI_0_07: BOOL := FALSE;
+	DI_0_08: BOOL := FALSE;
+	DI_0_09: BOOL := FALSE;
+	DI_0_10: BOOL := FALSE;
+	DI_0_11: BOOL := FALSE;
+	DI_0_12: BOOL := FALSE;
+	DI_0_13: BOOL := FALSE;
+	DI_0_14: BOOL := FALSE;
+	DI_0_15: BOOL := FALSE;
+END_VAR
+VAR_OUTPUT
+	DO_0_00: BOOL;
+	DO_0_01: BOOL;
+	DO_0_02: BOOL;
+	DO_0_03: BOOL;
+	DO_0_04: BOOL;
+	DO_0_05: BOOL;
+	DO_0_06: BOOL;
+	DO_0_07: BOOL;
+	DO_0_08: BOOL;
+	DO_0_09: BOOL;
+	DO_0_10: BOOL;
+	DO_0_11: BOOL;
+	DO_0_12: BOOL;
+	DO_0_13: BOOL;
+	DO_0_14: BOOL;
+	DO_0_15: BOOL;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF diACTIVE THEN
+	doACTIVE := TRUE;
+ELSE 
+	doACTIVE := FALSE;	
+END_IF
+
+	AI_0_0 := 11;
+	AI_0_1 := 4660;
+	AI_0_2 := 12345.6789;
+	AI_0_3 := AO_0_3;
+	AI_0_4 := AO_0_4;
+	AI_0_5 := AO_0_5;
+	AI_0_6 := AO_0_6;
+	AI_0_7 := AO_0_7;
+	AI_0_8 := AO_0_8;
+	AI_0_9 := AO_0_9;
+
+	DI_0_00 := DO_0_00;
+	DI_0_01 := TRUE;
+	DI_0_02 := DO_0_02;
+	DI_0_03 := DO_0_03;
+	DI_0_04 := DO_0_04;
+	DI_0_05 := DO_0_05;
+	DI_0_06 := DO_0_06;
+	DI_0_07 := DO_0_07;
+	DI_0_08 := DO_0_08;
+	DI_0_09 := DO_0_09;
+	DI_0_10 := DO_0_10;
+	DI_0_11 := DO_0_11;
+	DI_0_12 := DO_0_12;
+	DI_0_13 := DO_0_13;
+	DI_0_14 := DO_0_14;
+	DI_0_15 := DO_0_15;
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="8" Count="4" />
+      <LineId Id="57" Count="10" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="127" Count="14" />
+      <LineId Id="124" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
