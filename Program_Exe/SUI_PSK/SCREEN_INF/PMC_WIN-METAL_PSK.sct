@@ -702,7 +702,7 @@ WINDOW_NAME APP_POPUP_HTR_EXH
 	USER_LEVEL                      Maint
 }
 
-WINDOW_NAME APP_POPUP_EPD
+WINDOW_NAME APP_POPUP_OES
 {
 	POPUP                           YES
 	LOW_LEFT_X                      225  
