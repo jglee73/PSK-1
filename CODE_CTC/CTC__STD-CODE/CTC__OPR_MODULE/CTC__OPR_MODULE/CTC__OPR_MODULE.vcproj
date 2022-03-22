@@ -354,6 +354,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj_Opr__MAINT_MODE__CALL_CHECK.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj_Opr__MAINT_MODE__CALL_FNC.cpp"
 					>
 				</File>

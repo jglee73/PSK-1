@@ -1003,5 +1003,6 @@ public:
 	//-------------------------------------------------------------------------
 	int __Define__QUERY(CStringArray& l_query);
 
+	int __Call__QUERY_LIST(const CString& query_name, CStringArray& l_data);
 	int __Call__QUERY_LIST(const CString& query_name,const CStringArray& l_sub_query, CStringArray& l_data);
 };

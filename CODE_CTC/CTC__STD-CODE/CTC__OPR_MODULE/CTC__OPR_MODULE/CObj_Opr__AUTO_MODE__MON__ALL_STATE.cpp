@@ -13,9 +13,11 @@ void CObj_Opr__AUTO_MODE
 		xCH__RESYNC_EDIT_STATUS_CUR->Set__DATA(STR__DISABLE);			
 	}
 
+
 	while(1)
 	{
-		Sleep(100);
+		p_variable->Wait__SINGLE_OBJECT(0.1);
+
 
 		// ...
 		{

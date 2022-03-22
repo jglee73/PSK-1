@@ -2,6 +2,8 @@
 #include "CObj__SINGLE_ARM_STD.h"
 
 
+#define _QRY__GET_EMPTY_ARM                 "GET.EMPTY_ARM"
+
 #define _QRY__GET_EMPTY_SLOT_OF_BUUFER      "GET_EMPTY_SLOT_OF_BUUFER"
 #define _QRY__CHECK_BUSY_SLOT_OF_BUUFER     "CHECK_BUSY_SLOT_OF_BUUFER"
 
@@ -10,13 +12,30 @@
 int CObj__SINGLE_ARM_STD
 ::__Define__QUERY(CStringArray& l_query)
 {
+	l_query.Add(_QRY__GET_EMPTY_ARM);
+
 	l_query.Add(_QRY__GET_EMPTY_SLOT_OF_BUUFER);
 	l_query.Add(_QRY__CHECK_BUSY_SLOT_OF_BUUFER);
 
 	return 1;
 }
 
+int CObj__SINGLE_ARM_STD
+::__Call__QUERY(const CString& query_name,CString& query_data)
+{
+	return -1;
+}
+int CObj__SINGLE_ARM_STD
+::__Call__QUERY_LIST(const CString& query_name,CStringArray& l_data)
+{
+	l_data.RemoveAll();
 
+	if(query_name.CompareNoCase(_QRY__GET_EMPTY_ARM) == 0)
+	{
+		return pATM_RB__OBJ_CTRL->Call__QUERY_LIST(query_name, l_data);
+	}
+	return -1;
+}
 int CObj__SINGLE_ARM_STD
 ::__Call__QUERY_LIST(const CString& query_name,const CStringArray& l_sub_query, CStringArray& l_data)
 {
@@ -40,6 +59,14 @@ int CObj__SINGLE_ARM_STD
 		}
 
 		xAPP_LOG_CTRL->WRITE__LOG(log_msg);
+	}
+
+	// ...
+	l_data.RemoveAll();
+
+	if(query_name.CompareNoCase(_QRY__GET_EMPTY_ARM) == 0)
+	{
+		return pATM_RB__OBJ_CTRL->Call__QUERY_LIST(query_name, l_data);
 	}
 
 	if((query_name.CompareNoCase(_QRY__GET_EMPTY_SLOT_OF_BUUFER)  == 0)

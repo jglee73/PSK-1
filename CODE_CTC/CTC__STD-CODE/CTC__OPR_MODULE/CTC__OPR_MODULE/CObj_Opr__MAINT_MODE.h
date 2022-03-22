@@ -112,6 +112,198 @@ public:
 	}
 };
 
+class CDB__TARGET_INFO
+{
+public:
+	int iALx_SIZE;
+	CStringArray sLIST__ALx_TITLE;
+	CStringArray sLIST__ALx_NAME;
+	CStringArray sLIST__ALx_SLOT;
+	CUIntArray   iLIST__ALx_PROC;
+
+	int iLLx_SIZE;
+	CStringArray sLIST__LLx_TITLE;
+	CStringArray sLIST__LLx_NAME;
+	CStringArray sLIST__LLx_SLOT;
+	CUIntArray   iLIST__LLx_PROC;
+
+	int iPMx_SIZE;
+	CStringArray sLIST__PMx_TITLE;
+	CStringArray sLIST__PMx_NAME;
+	CStringArray sLIST__PMx_SLOT;
+	CUIntArray   iLIST__PMx_PROC;
+
+	int iSTx_SIZE;
+	CStringArray sLIST__STx_TITLE;
+	CStringArray sLIST__STx_NAME;
+	CStringArray sLIST__STx_SLOT;
+	CUIntArray   iLIST__STx_PROC;
+
+public:
+	CDB__TARGET_INFO()
+	{
+		iALx_SIZE = 0;
+		iLLx_SIZE = 0;
+		iPMx_SIZE = 0;
+		iSTx_SIZE = 0;
+	}
+
+	void Get__TARGET_ITEM_LIST(CStringArray& l_var_item)
+	{
+		l_var_item.RemoveAll();
+
+		// ...
+		CString trg_info;
+		int i;
+
+		// ALx ...
+		for(i=0; i<iALx_SIZE; i++)
+		{
+			trg_info = sLIST__ALx_TITLE[i];
+			l_var_item.Add(trg_info);
+		}
+		// LLx ...
+		for(i=0; i<iLLx_SIZE; i++)
+		{
+			trg_info = sLIST__LLx_TITLE[i];
+			l_var_item.Add(trg_info);
+		}
+		// PMx ...
+		for(i=0; i<iPMx_SIZE; i++)
+		{
+			trg_info = sLIST__PMx_TITLE[i];
+			l_var_item.Add(trg_info);
+		}
+		// STx ...
+		for(i=0; i<iSTx_SIZE; i++)
+		{
+			trg_info = sLIST__STx_TITLE[i];
+			l_var_item.Add(trg_info);
+		}
+	}
+
+	CString Get__TARGET_INFO(const CString& str_title)
+	{
+		CString trg_info;
+		int i;
+
+		// ALx ...
+		for(i=0; i<iALx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__ALx_TITLE[i]) != 0)			continue;
+
+			trg_info.Format("%s-%s", sLIST__ALx_NAME[i],sLIST__ALx_SLOT[i]);
+			return trg_info;
+		}
+		// LLx ...
+		for(i=0; i<iLLx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__LLx_TITLE[i]) != 0)			continue;
+
+			trg_info.Format("%s-%s", sLIST__LLx_NAME[i],sLIST__LLx_SLOT[i]);
+			return trg_info;
+		}
+		// PMx ...
+		for(i=0; i<iPMx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__PMx_TITLE[i]) != 0)			continue;
+
+			trg_info.Format("%s-%s", sLIST__PMx_NAME[i],sLIST__PMx_SLOT[i]);
+			return trg_info;
+		}
+		// STx ...
+		for(i=0; i<iSTx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__STx_TITLE[i]) != 0)			continue;
+
+			trg_info.Format("%s-%s", sLIST__STx_NAME[i],sLIST__STx_SLOT[i]);
+			return trg_info;
+		}
+
+		return str_title;
+	}
+
+	int Get__TARGET_INFO(const CString& str_title, CString & trg_name,CString& trg_slot)
+	{
+		bool active_proc;
+		int i;
+
+		// ALx ...
+		for(i=0; i<iALx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__ALx_TITLE[i]) != 0)			continue;
+
+			trg_name = sLIST__ALx_NAME[i];
+			trg_slot = sLIST__ALx_SLOT[i];
+			return 1;
+		}
+
+		// LLx ...
+		if(Get__LLx_INFO(str_title, trg_name,trg_slot, active_proc) > 0)
+		{
+			return 1;
+		}
+
+		// PMx ...
+		if(Get__PMx_INFO(str_title, trg_name,trg_slot, active_proc) > 0)
+		{
+			return 1;
+		}
+
+		// STx ...
+		for(i=0; i<iSTx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__STx_TITLE[i]) != 0)			continue;
+
+			trg_name = sLIST__STx_NAME[i];
+			trg_slot = sLIST__STx_SLOT[i];
+			return 1;
+		}
+
+		return -1;
+	}
+	int Get__PMx_INFO(const CString& str_title, CString & trg_name,CString& trg_slot, bool& active_proc)
+	{
+		int i;
+
+		// PMx ...
+		for(i=0; i<iPMx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__PMx_TITLE[i]) != 0)			continue;
+
+			trg_name = sLIST__PMx_NAME[i];
+			trg_slot = sLIST__PMx_SLOT[i];
+
+			if(iLIST__PMx_PROC[i] > 0)			active_proc = true;
+			else								active_proc = false;
+
+			return i;
+		}
+
+		return -1;
+	}
+	int Get__LLx_INFO(const CString& str_title, CString & trg_name,CString& trg_slot, bool& active_proc)
+	{
+		int i;
+
+		// LLx ...
+		for(i=0; i<iLLx_SIZE; i++)
+		{
+			if(str_title.CompareNoCase(sLIST__LLx_TITLE[i]) != 0)			continue;
+
+			trg_name = sLIST__LLx_NAME[i];
+			trg_slot = sLIST__LLx_SLOT[i];
+
+			if(iLIST__LLx_PROC[i] > 0)			active_proc = true;
+			else								active_proc = false;
+
+			return i;
+		}
+
+		return -1;
+	}
+};
+
 
 // ...
 #define CFG_SIZE__MOVE_HISTORY				20
@@ -125,6 +317,8 @@ private:
 
 	CCommon_Error__USER_FNC mERROR__USER_FNC;
 	SCX__USER_LOG_CTRL xAPP_LOG_CTRL;
+
+	CDB__TARGET_INFO mDB__TRG_INFO;
 
 
 	//-------------------------------------------------------------------------
@@ -170,8 +364,17 @@ private:
 	// CX__VAR_DIGITAL_CTRL dCH__PARTICLE_PARA_CYCLE_MODULE;
 	CX__VAR_STRING_CTRL  sCH__PARTICLE_DATA_CYCLE_MODULE;
 
-	CX__VAR_ANALOG_CTRL  aCH__PARTICLE_PARA_CYCLE_COUNT;
-	CX__VAR_STRING_CTRL  sCH__PARTICLE_DATA_CYCLE_COUNT;
+	CX__VAR_ANALOG_CTRL  aCH__PARTICLE_PARA_PICK_PLACE_CYCLE_COUNT;
+	CX__VAR_STRING_CTRL  sCH__PARTICLE_DATA_PICK_PLACE_CYCLE_COUNT;
+
+	CX__VAR_ANALOG_CTRL  aCH__PARTICLE_PARA_MOVE_CYCLE_COUNT;
+	CX__VAR_STRING_CTRL  sCH__PARTICLE_DATA_MOVE_CYCLE_COUNT;
+
+	CX__VAR_ANALOG_CTRL  aCH__PARTICLE_PARA_PROC_CYCLE_COUNT;
+	CX__VAR_STRING_CTRL  sCH__PARTICLE_DATA_PROC_CYCLE_COUNT;
+
+	CX__VAR_ANALOG_CTRL  aCH__PARTICLE_PARA_ATM_ROBOT_CFG_TIME_SEC;
+	CX__VAR_STRING_CTRL  sCH__PARTICLE_PARA_ATM_ROBOT_CUR_TIME_COUNT;
 
 	CX__VAR_ANALOG_CTRL  aCH__PARTICLE_PARA_VAC_ROBOT_CFG_TIME_SEC;
 	CX__VAR_STRING_CTRL  sCH__PARTICLE_PARA_VAC_ROBOT_CUR_TIME_COUNT;
@@ -281,6 +484,9 @@ private:
 
 	CX__VAR_STRING_CTRL  sCH__PARA_TRG_MODULE;
 	CX__VAR_STRING_CTRL  sCH__PARA_TRG_SLOT;
+
+	// ...
+	CX__VAR_STRING_CTRL  sCH__TEST_TARGET_TITLE;
 	//
 
 	//-------------------------------------------------------------------------
@@ -326,9 +532,19 @@ private:
 
 	CString sMODE__PARTICLE_CHECK;
 	int  Call__PARTICLE_CHECK(CII_OBJECT__VARIABLE *p_variable);
+	int  _Fnc__PARTICLE_CHECK__WAITING(CII_OBJECT__VARIABLE *p_variable, 
+									   const CString& para__trg_module,
+									   const CString& para__trg_slot,
+		                               const bool active__pm,
+									   const bool active__ll,
+									   const int prc_check__pm_index,
+									   const int prc_check__ll_index);
 
 	CString sMODE__MACRO_MOVE;
 	int  Call__MACRO_MOVE(CII_OBJECT__VARIABLE *p_variable);
+
+	CString sMODE__CHECK_TARGET_INFO;
+	int  Call__CHECK_TARGET_INFO(CII_OBJECT__VARIABLE *p_variable);
 
 	// ...
 	void Mon__MACRO_MOVE_CTRL(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
@@ -377,6 +593,15 @@ private:
 
 	int  VAC_RB__Place_Module(CII_OBJECT__VARIABLE *p_variable,
 							  const CString& arm_type,CString& str_module,CString& str_slot);
+
+	int  Seq__VAC_RB__Place(CII_OBJECT__VARIABLE* p_variable,
+							const CString& arm_type,
+							const CString& str_module,
+							const CString& str_slot);
+	int  Seq__VAC_RB__Pick(CII_OBJECT__VARIABLE* p_variable,
+							const CString& arm_type,
+							const CString& str_module,
+							const CString& str_slot);
 
 	// ...
 	int  Seq__ATM_RB__Place(CII_OBJECT__VARIABLE* p_variable,

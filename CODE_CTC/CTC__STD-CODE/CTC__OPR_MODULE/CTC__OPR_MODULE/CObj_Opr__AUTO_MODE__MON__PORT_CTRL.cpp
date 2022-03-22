@@ -47,21 +47,17 @@ Mon__PORT_CTRL(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 	{
 		while(iMAINT_FLAG > 0)	
 		{
-			Sleep(100);
+			p_variable->Wait__SINGLE_OBJECT(0.1);
+			maint_count++;
 
-			// ...
-			{
-				maint_count++;
-
-					 if(maint_count == 1)			Update__CFG_DB_TO_SCH_DB();
-				else if(maint_count >= 10)			maint_count = 0;
-			}
+				 if(maint_count == 1)			Update__CFG_DB_TO_SCH_DB();
+			else if(maint_count >= 10)			maint_count = 0;
 
 			Seq__CLEAR_ALL_PORT(p_alarm);		
 		}
 
 		maint_count = 0;
-		Sleep(10);
+		p_variable->Wait__SINGLE_OBJECT(0.01);
 
 		// ...
 		{
