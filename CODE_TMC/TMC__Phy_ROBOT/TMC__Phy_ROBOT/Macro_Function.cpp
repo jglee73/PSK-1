@@ -25,7 +25,9 @@ int  Macro__CHECK_PMx_INDEX(const CString& stn_name)
 	for(i=0;i<CFG_PMx__SIZE;i++)
 	{
 		pm_name.Format("PM%1d",i+1);
-		if(stn_name.CompareNoCase(pm_name) != 0)		continue;
+
+		int p_index = stn_name.Find(pm_name);
+		if(p_index < 0)			continue;
 
 		return i;
 	}
@@ -56,6 +58,22 @@ int  Macro__CHECK_LLx_INDEX(const CString& stn_name)
 	}
 
 	return -1;
+}
+bool Macro__CHECK_LLx_NAME(const CString& stn_name)
+{
+	CString ll_name;
+	int i;
+
+	for(i=0; i<CFG_LLx__SIZE;i++)
+	{
+		ll_name.Format("LL%1d",i+1);
+		if(ll_name.CompareNoCase(stn_name) == 0)		return true;
+
+		ll_name = Macro__GET_LLx_NAME(i);
+		if(ll_name.CompareNoCase(stn_name) == 0)		return true;
+	}
+
+	return false;
 }
 
 int  Macro__Get_PortID_SlotID_Of_Wafer_Title(const CString& wfr_title,

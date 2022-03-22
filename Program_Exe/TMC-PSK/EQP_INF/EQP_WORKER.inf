@@ -67,7 +67,8 @@
 #OBJECT_STD    TMC__Phy_ROBOT                SIDE.STORAGE             PHY__BUFF1
 #OBJECT_STD    TMC__Phy_ROBOT                SIDE.STORAGE             PHY__BUFF2
 
-#OBJECT_IO     Phy_IO__YASKAWA_ROBOT         SR100.RBx                PHY_IO__ATM_ROBOT
+// #OBJECT_IO     Phy_IO__YASKAWA_ROBOT         SR100.RBx                PHY_IO__ATM_ROBOT
+#OBJECT_IO     IO_RS232__ROBOT_SANKYO        PSK                      PHY_IO__ATM_ROBOT
 
 ===========================================================================
 #OBJECT_STD    TMC__INF_MODULE               ALx.STD                  INF__AL1

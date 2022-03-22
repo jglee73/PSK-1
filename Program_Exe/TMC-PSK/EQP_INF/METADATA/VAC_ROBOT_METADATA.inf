@@ -69,6 +69,8 @@
 #DEFINE_CONSTANT    OBJ__LL1	                          PHY__LBA
 #DEFINE_CONSTANT    OBJ__LL2	                          PHY__LBB
 
+#DEFINE_CONSTANT    ROBOT.ARM_RNE_SNS                   NO
+
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_IO__VAC_ROBOT

@@ -45,15 +45,16 @@
 
 #ALARM   801   85   "FNC_PROC - Process recipe does not exist."
 #ALARM   802   85   "FNC_PROC - Check Process Recovery Action !"
-#ALARM   803   85   "FNC_PROC - Process [Plasma Dechuck] recipe does not exist."
-#ALARM   804   85   "FNC_PROC - Process [Plasma Dechuck] Sequence Failed."
-#ALARM   805   85   "FNC_PROC - Process recipe file is being changed, now. 
+#ALARM   803   85   "FNC_PROC - Check Process Recovery Action !"
+#ALARM   804   85   "FNC_PROC - Process [Plasma Dechuck] recipe does not exist."
+#ALARM   805   85   "FNC_PROC - Process [Plasma Dechuck] Sequence Failed."
+#ALARM   806   85   "FNC_PROC - Process recipe file is being changed, now. 
 "
-#ALARM   806   85   "FNC_PROC - Do you want to convert the status of wafer ? 
+#ALARM   807   85   "FNC_PROC - Do you want to convert the status of wafer ? 
 "
-#ALARM   807   85   "FNC_PROC - Do you want to proceed the re-processing of wafer ?"
-#ALARM   808   85   "FNC_PROC - The step size of process recipe is not correct !"
-#ALARM   809   85   "FNC_PROC - Process를 진행할 상태가 아닙니다."
+#ALARM   808   85   "FNC_PROC - Do you want to proceed the re-processing of wafer ?"
+#ALARM   809   85   "FNC_PROC - The step size of process recipe is not correct !"
+#ALARM   810   85   "FNC_PROC - Process를 진행할 상태가 아닙니다."
 
 #ALARM   901   85   "FNC_STEP - STEP OVERTIME ALARM."
 #ALARM   902   85   "FNC_STEP - STABLE OVERTIME ALARM."

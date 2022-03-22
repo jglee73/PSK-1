@@ -40,6 +40,12 @@
 #define  ALID__LP4__MATERIAL_NONE_ERROR							54
 #define  ALID__LP5__MATERIAL_NONE_ERROR							55
 
+#define  ALID__LP1__WFR_SLIDE_SNS_ALARM							56
+#define  ALID__LP2__WFR_SLIDE_SNS_ALARM							57
+#define  ALID__LP3__WFR_SLIDE_SNS_ALARM							58		
+#define  ALID__LP4__WFR_SLIDE_SNS_ALARM							59
+#define  ALID__LP5__WFR_SLIDE_SNS_ALARM							60
+
 #define  ALID__AL1__MATERIAL_NONE_ERROR							61
 #define  ALID__LBA__MATERIAL_NONE_ERROR							62
 #define  ALID__LBB__MATERIAL_NONE_ERROR							63

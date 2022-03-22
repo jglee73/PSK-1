@@ -69,22 +69,11 @@ int  CObj__ATM_ROBOT_FUSION
 							CString& trg_slot)
 {
 	int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
-	if(ll_i < 0)
-	{
-		return 1;
-	}
+	if(ll_i <  0)				return  1;
+	if(ll_i >= iSIZE_LLx)		return -1;
 
 	// ...
-	CString ch_data = "";
-
-	if(ll_i >= 0)
-	{
-		ch_data = dEXT_CH__CFG_LLx_SLOT_MAX[ll_i]->Get__STRING();
-	}
-	else
-	{
-		return -1;
-	}
+	CString ch_data = dEXT_CH__CFG_LLx_SLOT_MAX[ll_i]->Get__STRING();
 
 	int cfg_slot = atoi(ch_data);
 	if(cfg_slot < 2)
@@ -162,16 +151,16 @@ int  CObj__ATM_ROBOT_FUSION
 		}
 	}
 
-	Set_ANI__ROBOT_ROTATE(arm_type,stn_name);
-	Set_ANI__ROBOT_EXTEND(arm_type,stn_name,stn_slot);
+	Set_ANI__ROBOT_ROTATE(arm_type, stn_name,stn_slot);
+	Set_ANI__ROBOT_EXTEND(arm_type, stn_name,stn_slot);
 
 	// ...
 	int flag = Fnc__ACTION(arm_type,stn_name,stn_slot, CMMD__PICK);
 
 	if(flag > 0)
 	{
-		Fnc__CHANGE_MATERIAL_INFO(-1,arm_type,stn_name,stn_slot);
-		Set_ANI__ROBOT_RETRACT(arm_type,stn_name,stn_slot);
+		Fnc__CHANGE_MATERIAL_INFO(-1,arm_type, stn_name,stn_slot);
+		Set_ANI__ROBOT_RETRACT(arm_type, stn_name,stn_slot);
 	}
 
 	act_name.Format("End..Call__PICK.. ret:%d", flag);
@@ -280,16 +269,37 @@ int  CObj__ATM_ROBOT_FUSION
 				int db_i = Macro__CHECK_LLx_INDEX(stn_name);
 				if(db_i >= 0)
 				{
-					sCH__TAS_ACTION_TIME_NOW__LLx[db_index][db_i]->Set__DATA(str_cur);
+					if(bActive__LLx_MULTI_DOOR_VALVE)
+					{
+						int s_index = atoi(stn_slot) - 1;
 
-					//
-					p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx[db_index][db_i].Get__PTR();
-					p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx[db_index][db_i].Get__PTR();
-					p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx[db_index][db_i].Get__PTR();
-					p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx[db_index][db_i].Get__PTR();
-					p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx[db_index][db_i].Get__PTR();
+						if((s_index >= 0) && (s_index < CFG_LLx__SLOT_SIZE))
+						{
+							sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[db_index][db_i][s_index]->Set__DATA(str_cur);
 
-					_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+							//
+							p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+
+							_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+						}
+					}
+					else
+					{
+						sCH__TAS_ACTION_TIME_NOW__LLx_X[db_index][db_i]->Set__DATA(str_cur);
+
+						//
+						p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_X[db_index][db_i].Get__PTR();
+
+						_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+					}
 				}
 			}
 
@@ -420,16 +430,16 @@ int  CObj__ATM_ROBOT_FUSION
 		}
 	}
 
-	Set_ANI__ROBOT_ROTATE(arm_type,stn_name);
-	Set_ANI__ROBOT_EXTEND(arm_type,stn_name,stn_slot);
+	Set_ANI__ROBOT_ROTATE(arm_type, stn_name,stn_slot);
+	Set_ANI__ROBOT_EXTEND(arm_type, stn_name,stn_slot);
 
 	// ...
-	int flag = Fnc__ACTION(arm_type,stn_name,stn_slot, CMMD__PLACE);
+	int flag = Fnc__ACTION(arm_type, stn_name,stn_slot, CMMD__PLACE);
 
 	if(flag > 0)
 	{
-		Fnc__CHANGE_MATERIAL_INFO(1,arm_type,stn_name,stn_slot);
-		Set_ANI__ROBOT_RETRACT(arm_type,stn_name,stn_slot);
+		Fnc__CHANGE_MATERIAL_INFO(1,arm_type, stn_name,stn_slot);
+		Set_ANI__ROBOT_RETRACT(arm_type, stn_name,stn_slot);
 	}
 
 	act_name.Format("End..Call__PLACE.. ret:%d", flag);
@@ -443,9 +453,9 @@ int  CObj__ATM_ROBOT_FUSION
 			   const CString& stn_name,
 			   const CString& stn_slot)
 {
-	Set_ANI__ROBOT_ROTATE(arm_type,stn_name);
+	Set_ANI__ROBOT_ROTATE(arm_type, stn_name,stn_slot);
 
-	return Fnc__ACTION(arm_type,stn_name,stn_slot, CMMD__ROTATE);
+	return Fnc__ACTION(arm_type, stn_name,stn_slot, CMMD__ROTATE);
 }
 
 int  CObj__ATM_ROBOT_FUSION::
@@ -520,7 +530,7 @@ Call__RETRACT(CII_OBJECT__VARIABLE* p_variable,
 	l_para.Add(stn_slot);
 
 	int flag = pROBOT__OBJ_CTRL->Call__OBJ_MODE(CMMD__RETRACT,l_para);
-	if(flag > 0)		Set_ANI__ROBOT_ARM_RETRACT(arm_type);
+	if(flag > 0)		Set_ANI__ROBOT_RETRACT(arm_type, stn_name, stn_slot);
 	
 	return flag;
 }
@@ -568,7 +578,7 @@ int  CObj__ATM_ROBOT_FUSION
 		}
 	}
 
-	Set_ANI__ROBOT_ROTATE(arm_type,stn_name);
+	Set_ANI__ROBOT_ROTATE(arm_type, stn_name,stn_slot);
 
 	// ...
 	CStringArray l_para;
@@ -578,7 +588,7 @@ int  CObj__ATM_ROBOT_FUSION
 	l_para.Add(stn_slot);
 
 	int flag = pROBOT__OBJ_CTRL->Call__OBJ_MODE(CMMD__EXTEND,l_para);
-	if(flag > 0)			Set_ANI__ROBOT_ARM_EXTEND(arm_type);
+	if(flag > 0)			Set_ANI__ROBOT_EXTEND(arm_type, stn_name, stn_slot);
 	
 	return flag;
 }
@@ -738,16 +748,35 @@ Call__TIME_TEST(CII_OBJECT__VARIABLE* p_variable,
 					int db_i = Macro__CHECK_LLx_INDEX(stn_name);
 					if(db_i >= 0)
 					{
-						sCH__TAS_ACTION_TIME_NOW__LLx[db_index][db_i]->Set__DATA(str_cur);
+						if(bActive__LLx_MULTI_DOOR_VALVE)
+						{
+							for(int t=0; t<CFG_LLx__SLOT_SIZE; t++)
+							{
+								sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[db_index][db_i][t]->Set__DATA(str_cur);
 
-						//
-						p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx[db_index][db_i].Get__PTR();
-						p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx[db_index][db_i].Get__PTR();
-						p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx[db_index][db_i].Get__PTR();
-						p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx[db_index][db_i].Get__PTR();
-						p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx[db_index][db_i].Get__PTR();
+								//
+								p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[db_index][db_i][t].Get__PTR();
 
-						_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+								_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+							}
+						}
+						else
+						{
+							sCH__TAS_ACTION_TIME_NOW__LLx_X[db_index][db_i]->Set__DATA(str_cur);
+
+							//
+							p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_X[db_index][db_i].Get__PTR();
+
+							_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+						}
 					}
 				}
 

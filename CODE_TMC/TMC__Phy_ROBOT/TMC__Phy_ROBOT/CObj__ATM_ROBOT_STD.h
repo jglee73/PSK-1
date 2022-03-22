@@ -17,6 +17,8 @@ private:
 	SCX__USER_LOG_CTRL xAPP_LOG_CTRL;
 	int iFlag__APP_LOG;
 
+	int iActive_SIM;
+	//
 
 	//-------------------------------------------------------------------------
 	//  INTERNAL PROPERTY
@@ -30,6 +32,9 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__OTR_IN_PARA__STN_NAME;
 	CX__VAR_DIGITAL_CTRL dCH__OTR_IN_PARA__STN_SLOT;
 	CX__VAR_DIGITAL_CTRL dCH__OTR_IN_PARA__ARM_TYPE;
+
+	// CFG ...
+	CX__VAR_DIGITAL_CTRL dCH__CFG_MAPPING_ACTION_SLIDE_OUT_CHECK;
 
 	// MATERIAL CHANNEL
 	CX__VAR_DIGITAL_CTRL dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS;
@@ -47,6 +52,7 @@ private:
 
 	CX__VAR_DIGITAL_CTRL dCH__CFG__WAFER_PRESENT_CHECK;
 	CX__VAR_DIGITAL_CTRL dCH__CFG__WAFER_CROSSED_CHECK_AFTER_MAPPING;
+	//
 
 
 	//-------------------------------------------------------------------------
@@ -89,6 +95,11 @@ private:
 
 	CX__VAR_ANALOG_CTRL  aEXT_CH__ALIGNER_ANGLE_PARA;
 
+	// IO : ARM_RNE_SNS ... 
+	bool bActive__ROBOT_ARM_RNE_SNS;
+	CX__VAR_DIGITAL_CTRL dEXT_CH__ROBOT_ARM_RNE_SNS;
+	//
+
 	// AL1 -----
 	CX__VAR_DIGITAL_CTRL dEXT_CH__AL1_SLOT01_STATUS;
 	CX__VAR_DIGITAL_CTRL dEXT_CH__AL1_SLOT02_STATUS;
@@ -97,12 +108,26 @@ private:
 	CX__VAR_STRING_CTRL  sEXT_CH__AL1_SLOT02_TITLE;
 
 	// LLx -----
-	int iSIZE_LLx;
+	int iLLx_SIZE;
 
 	CX__VAR_DIGITAL_CTRL dEXT_CH__LLx_SLOT_STATUS[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
 	CX__VAR_STRING_CTRL  sEXT_CH__LLx_SLOT_TITLE[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
 
 	CX__VAR_DIGITAL_CTRL dEXT_CH__LLx_DOOR_STATUS[CFG_LLx__SIZE];
+
+	//
+	bool bActive__LLx_ARM_RNE_SNS[CFG_LLx__SIZE];
+	CX__VAR_DIGITAL_CTRL dEXT_CH__LLx_ARM_RNE_SNS[CFG_LLx__SIZE];
+
+	CString sDATA__LLx_ARM_RNE_OFF_STS[CFG_LLx__SIZE];
+	CString sDATA__LLx_ARM_RNE_ON_STS[CFG_LLx__SIZE];
+
+	//
+	bool bActive__LLx_LOAD_ENABLE_SNS[CFG_LLx__SIZE];
+	CX__VAR_DIGITAL_CTRL dEXT_CH__LLx_LOAD_ENABLE_SNS[CFG_LLx__SIZE];
+	
+	CString sDATA__LLx_LOAD_ENABLE_OFF_STS[CFG_LLx__SIZE];
+	CString sDATA__LLx_LOAD_ENABLE_ON_STS[CFG_LLx__SIZE];
 
 	// LPx -----
 	int iLPx_SIZE;
@@ -120,6 +145,10 @@ private:
 
 	CX__VAR_STRING_CTRL  sEXT_CH__LPx_MAP_SEQ_LOCK[CFG_LPx__SIZE];
 
+	bool bActive__LPx_WAFER_SLIDE_OUT_SNS[CFG_LPx__SIZE];
+	CX__VAR_DIGITAL_CTRL dEXT_CH__LPx_WAFER_SLIDE_OUT_SNS[CFG_LPx__SIZE];
+	//
+
 	// SIDE STORAGE1 ...
 	CX__VAR_DIGITAL_CTRL dEXT_CH__SIDE_STORAGE1_SLOT_STATUS[CFG_LPx__SLOT_SIZE];
 	CX__VAR_STRING_CTRL  sEXT_CH__SIDE_STORAGE1_SLOT_TITLE[CFG_LPx__SLOT_SIZE];
@@ -127,7 +156,7 @@ private:
 	// SIDE STORAGE2 ...
 	CX__VAR_DIGITAL_CTRL dEXT_CH__SIDE_STORAGE2_SLOT_STATUS[CFG_LPx__SLOT_SIZE];
 	CX__VAR_STRING_CTRL  sEXT_CH__SIDE_STORAGE2_SLOT_TITLE[CFG_LPx__SLOT_SIZE];
-
+	//
 
 	//-------------------------------------------------------------------------
 	// Init -----
@@ -264,6 +293,11 @@ private:
 									const CString& stn_name,
 									const CString& stn_slot,
 									const CString& act_name);
+
+	int  Interlock__CHECK_WAFER_LP_SLIDE(CII_OBJECT__ALARM* p_alarm,
+										 const CString& stn_name,
+										 const CString& act_name);
+
 	int  Interlock__CHECK_DOOR_OPEN(CII_OBJECT__ALARM* p_alarm,
 									const CString& stn_name,
 									const CString& act_name);
@@ -280,13 +314,12 @@ private:
 	int  Interlock__LLx_SLOT_CHECK(const CString& stn_name,
 								   const CString& para_slot,
 								   CString& trg_slot);
+	//
 
 	// ...
-	void Set_ANI__ROBOT_ARM_EXTEND(const CString& arm_type);
 	void Set_ANI__ROBOT_EXTEND(const CString& arm_type,const CString& stn_name,const CString& stn_slot);
 
 	void Set_ANI__ROBOT_ALL_RETRACT();
-	void Set_ANI__ROBOT_ARM_RETRACT(const CString& arm_type);
 	void Set_ANI__ROBOT_RETRACT(const CString& arm_type,const CString& stn_name,const CString& stn_slot);
 
 	void Set_ANI__ROBOT_ROTATE(const CString& arm_type,	const CString& stn_name);

@@ -9,23 +9,55 @@
 //------------------------------------------------------------------------------------
 int  CObj__VAC_ROBOT_STD::
 Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
-						  const int place_flag,
+						  const bool active_place,
 						  const CString& arm_type,
 						  const CString& stn_name,
 						  const CString& stn_slot,
 						  const CString& act_name)
 {
+	CStringArray l__arm_type;
+	CStringArray l__stn_name;
+	CStringArray l__stn_slot;
+
+	_Get__ARM_INFO(arm_type,stn_name,stn_slot, l__arm_type,l__stn_name,l__stn_slot);
+
+	int i_limit = l__arm_type.GetSize();
+	for(int i=0; i<i_limit; i++)
+	{
+		CString cur__arm_type = l__arm_type[i];
+		CString cur__stn_name = l__stn_name[i];
+		CString cur__stn_slot = l__stn_slot[i];
+
+		int r_flag = _Interlock__CHECK_MATERIAL(p_alarm, active_place, cur__arm_type,cur__stn_name,cur__stn_slot, act_name);
+		if(r_flag < 0)		return r_flag;
+	}
+	return 1;
+}
+int  CObj__VAC_ROBOT_STD
+::_Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
+						     const bool active_place,
+						     const CString& arm_type,
+						     const CString& stn_name,
+						     const CString& stn_slot,
+						     const CString& act_name)
+{
 LOOP_RETRY:
 
 	// ...
-	int slot_index = atoi(stn_slot) - 1;
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+		 if(arm_type.CompareNoCase(_ARM_A) == 0)			active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM_B) == 0)			active__arm_b = true;
+
+	// ...
 	CString wfr_sts;
 
-	if(arm_type.CompareNoCase(ARM_A) == 0)
+	if(active__arm_a)
 	{
 		dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS->Get__DATA(wfr_sts);
 
-		if(place_flag > 0)
+		if(active_place)
 		{
 			if(wfr_sts.CompareNoCase(STR__NONE) == 0)
 			{
@@ -37,8 +69,8 @@ LOOP_RETRY:
 
 				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-				if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-				return -1;
+				if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+				if(r_act.CompareNoCase(ACT__IGNORE) != 0)		return -1;
 			}
 		}
 		else
@@ -54,15 +86,15 @@ LOOP_RETRY:
 				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
 				if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-				return -1;
+				return -2;
 			}
 		}
 	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
+	else if(active__arm_b)
 	{
 		dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS->Get__DATA(wfr_sts);
 
-		if(place_flag > 0)
+		if(active_place)
 		{
 			if(wfr_sts.CompareNoCase(STR__NONE) == 0)
 			{
@@ -74,8 +106,8 @@ LOOP_RETRY:
 
 				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-				if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-				return -1;
+				if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+				if(r_act.CompareNoCase(ACT__IGNORE) != 0)		return -3;
 			}
 		}
 		else
@@ -91,7 +123,7 @@ LOOP_RETRY:
 				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
 				if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-				return -1;
+				return -4;
 			}
 		}
 	}
@@ -100,84 +132,90 @@ LOOP_RETRY:
 	int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
 	if(ll_i >= 0)
 	{
-		if((slot_index >= 0)&&(slot_index < CFG_LLx__SLOT_SIZE))
+		int s_index = atoi(stn_slot) - 1;
+
+		if(s_index <  0)						return -11;
+		if(s_index >= CFG_LLx__SLOT_SIZE)		return -12;
+
+		//			
+		dEXT_CH__LLx_SLOT_STATUS[ll_i][s_index]->Get__DATA(wfr_sts);
+
+		if(active_place)
 		{
-			dEXT_CH__LLx_SLOT_STATUS[ll_i][slot_index]->Get__DATA(wfr_sts);
-
-			if(place_flag < 0)
+			if(wfr_sts.CompareNoCase(STR__NONE) != 0)
 			{
-				if(wfr_sts.CompareNoCase(STR__NONE) == 0)
-				{
-					int alarm_id = ALID__LLx__MATERIAL_NONE_ERROR + ll_i;
-					CString err_msg;
-					CString r_act;
+				int alarm_id = ALID__LLx__MATERIAL_EXIST_ERROR;
+				CString err_msg;
+				CString r_act;
 
-					err_msg.Format("Material in %s(%s) must exist.\n",stn_name,stn_slot);
+				err_msg.Format("No material in %s(%s) must exist.\n", stn_name,stn_slot);
 
-					p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
+				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-					if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-					return -1;
-				}
+				if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+				return -13;
 			}
-			else
+		}
+		else
+		{
+			if(wfr_sts.CompareNoCase(STR__NONE) == 0)
 			{
-				if(wfr_sts.CompareNoCase(STR__NONE) != 0)
-				{
-					int alarm_id = ALID__LLx__MATERIAL_EXIST_ERROR + ll_i;
-					CString err_msg;
-					CString r_act;
+				int alarm_id = ALID__LLx__MATERIAL_NONE_ERROR;
+				CString err_msg;
+				CString r_act;
 
-					err_msg.Format("No material in %s(%s) must exist.\n", stn_name,stn_slot);
+				err_msg.Format("Material in %s(%s) must exist.\n",stn_name,stn_slot);
 
-					p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
+				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-					if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-					return -1;
-				}
+				if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+				if(r_act.CompareNoCase(ACT__IGNORE) != 0)		return -14;
 			}
 		}
 	}
 
 	// ...
 	int pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-	if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
+	if(pm_index >= 0)
 	{
-		if(slot_index == 0)
+		if(pm_index >= m_nPM_LIMIT)			return -21;
+
+		int slot_index = atoi(stn_slot) - 1;
+		if(slot_index != 0)					return -22;
+
+		//
+		dEXT_CH__PMx_SLOT01_STATUS[pm_index]->Get__DATA(wfr_sts);
+
+		if(active_place)
 		{
-			dEXT_CH__PMx_SLOT01_STATUS[pm_index]->Get__DATA(wfr_sts);
-
-			if(place_flag < 0)
+			if(wfr_sts.CompareNoCase(STR__NONE) != 0)
 			{
-				if(wfr_sts.CompareNoCase(STR__NONE) == 0)
-				{
-					int alarm_id = ALID__PMx__MATERIAL_NONE_ERROR;
-					CString err_msg;
-					CString r_act;
+				int alarm_id = ALID__PMx__MATERIAL_EXIST_ERROR;
+				CString err_msg;
+				CString r_act;
 
-					err_msg.Format("Material in %s(%s) must exist.\n",stn_name,stn_slot);
+				err_msg.Format("No material in %s(%s) must exist.\n", stn_name,stn_slot);
 
-					p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
+				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-					if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-					return -1;
-				}
+				if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
+				return -23;
 			}
-			else
+		}
+		else
+		{
+			if(wfr_sts.CompareNoCase(STR__NONE) == 0)
 			{
-				if(wfr_sts.CompareNoCase(STR__NONE) != 0)
-				{
-					int alarm_id = ALID__PMx__MATERIAL_EXIST_ERROR;
-					CString err_msg;
-					CString r_act;
+				int alarm_id = ALID__PMx__MATERIAL_NONE_ERROR;
+				CString err_msg;
+				CString r_act;
 
-					err_msg.Format("No material in %s(%s) must exist.\n",stn_name,stn_slot);
+				err_msg.Format("Material in %s(%s) must exist.\n", stn_name,stn_slot);
 
-					p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
+				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-					if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-					return -1;
-				}
+				if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+				if(r_act.CompareNoCase(ACT__IGNORE) != 0)		return -24;
 			}
 		}
 	}
@@ -185,33 +223,62 @@ LOOP_RETRY:
 	return 1;
 }
 
-
-int  CObj__VAC_ROBOT_STD::
-Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
-						  const CString& arm_type,
-						  const CString& stn_name,
-						  const CString& stn_slot)
+int  CObj__VAC_ROBOT_STD
+::Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
+						    const CString& arm_type,
+						    const CString& stn_name,
+						    const CString& stn_slot)
 {
-	int check_flag = -1;
-	int slot_index = atoi(stn_slot) - 1;
+	CStringArray l__arm_type;
+	CStringArray l__stn_name;
+	CStringArray l__stn_slot;
 
-	CString wfr_sts;
-	CString wfr_title;
+	_Get__ARM_INFO(arm_type,stn_name,stn_slot, l__arm_type,l__stn_name,l__stn_slot);
+
+	int i_limit = l__arm_type.GetSize();
+	for(int i=0; i<i_limit; i++)
+	{
+		CString cur__arm_type = l__arm_type[i];
+		CString cur__stn_name = l__stn_name[i];
+		CString cur__stn_slot = l__stn_slot[i];
+
+		int r_flag = _Fnc__CHANGE_MATERIAL_INFO(place_flag, cur__arm_type,cur__stn_name,cur__stn_slot);
+		if(r_flag < 0)		return r_flag;
+	}
+	return 1;
+}
+int  CObj__VAC_ROBOT_STD
+::_Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
+						     const CString& arm_type,
+						     const CString& stn_name,
+						     const CString& stn_slot)
+{
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+		 if(arm_type.CompareNoCase(_ARM_A) == 0)			active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM_B) == 0)			active__arm_b = true;
+
+	// ...
+	int check_flag = -1;
+
+	CString arm__wfr_sts;
+	CString arm__wfr_title;
 
 	if(place_flag > 0)
 	{
-		if(arm_type.CompareNoCase(ARM_A) == 0)
+		if(active__arm_a)
 		{
-			dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS->Get__DATA(wfr_sts);
-			sCH__OTR_OUT_MON__ARM_A_MATERIAL_TITLE->Get__DATA(wfr_title);
+			arm__wfr_sts   = dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS->Get__STRING();
+			arm__wfr_title = sCH__OTR_OUT_MON__ARM_A_MATERIAL_TITLE->Get__STRING();
 
 			dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS->Set__DATA(STR__NONE);
 			sCH__OTR_OUT_MON__ARM_A_MATERIAL_TITLE->Set__DATA("");
 		}
-		else if(arm_type.CompareNoCase(ARM_B) == 0)
+		else if(active__arm_b)
 		{
-			dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS->Get__DATA(wfr_sts);
-			sCH__OTR_OUT_MON__ARM_B_MATERIAL_TITLE->Get__DATA(wfr_title);
+			arm__wfr_sts   = dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS->Get__STRING();
+			arm__wfr_title = sCH__OTR_OUT_MON__ARM_B_MATERIAL_TITLE->Get__STRING();
 
 			dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS->Set__DATA(STR__NONE);
 			sCH__OTR_OUT_MON__ARM_B_MATERIAL_TITLE->Set__DATA("");
@@ -223,68 +290,71 @@ Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
 		int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
 		if(ll_i >= 0)
 		{
+			if(ll_i >= iSIZE__LLx)					return -11;
+
+			int s_index = atoi(stn_slot) - 1;
+			if(s_index <  0)						return -12;
+			if(s_index >= CFG_LLx__SLOT_SIZE)		return -13;
+
+			// ...
 			check_flag = 1;
 
-			if((slot_index >= 0)&&(slot_index < CFG_LLx__SLOT_SIZE))
+			if(place_flag > 0)
 			{
-				if(place_flag > 0)
-				{
-					dEXT_CH__LLx_SLOT_STATUS[ll_i][slot_index]->Set__DATA(wfr_sts);
-					sEXT_CH__LLx_SLOT_TITLE[ll_i][slot_index]->Set__DATA(wfr_title);
-				}
-				else
-				{
-					dEXT_CH__LLx_SLOT_STATUS[ll_i][slot_index]->Get__DATA(wfr_sts);
-					sEXT_CH__LLx_SLOT_TITLE[ll_i][slot_index]->Get__DATA(wfr_title);
+				dEXT_CH__LLx_SLOT_STATUS[ll_i][s_index]->Set__DATA(arm__wfr_sts);
+				sEXT_CH__LLx_SLOT_TITLE[ll_i][s_index]->Set__DATA(arm__wfr_title);
+			}
+			else
+			{
+				arm__wfr_sts   = dEXT_CH__LLx_SLOT_STATUS[ll_i][s_index]->Get__STRING();
+				arm__wfr_title = sEXT_CH__LLx_SLOT_TITLE[ll_i][s_index]->Get__STRING();
 
-					dEXT_CH__LLx_SLOT_STATUS[ll_i][slot_index]->Set__DATA(STR__NONE);
-					sEXT_CH__LLx_SLOT_TITLE[ll_i][slot_index]->Set__DATA("");
-				}
+				dEXT_CH__LLx_SLOT_STATUS[ll_i][s_index]->Set__DATA(STR__NONE);
+				sEXT_CH__LLx_SLOT_TITLE[ll_i][s_index]->Set__DATA("");
 			}
 		}
 	}
 
 	if(check_flag < 0)
 	{
-		int pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-
-		if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
+		int p_index = Macro__CHECK_PMx_INDEX(stn_name);
+		if(p_index >= 0)
 		{
+			if(p_index >= m_nPM_LIMIT)				return -21;
+
+			int s_index = atoi(stn_slot) - 1;
+			if(s_index != 0)						return -22;
+
+			// ...
 			check_flag = 1;
 
-			if(slot_index == 0)
+			if(place_flag > 0)
 			{
-				if(place_flag > 0)
-				{
-					dEXT_CH__PMx_SLOT01_STATUS[pm_index]->Set__DATA(wfr_sts);
-					sEXT_CH__PMx_SLOT01_TITLE[pm_index]->Set__DATA(wfr_title);
-				}
-				else
-				{
-					dEXT_CH__PMx_SLOT01_STATUS[pm_index]->Get__DATA(wfr_sts);
-					sEXT_CH__PMx_SLOT01_TITLE[pm_index]->Get__DATA(wfr_title);
+				dEXT_CH__PMx_SLOT01_STATUS[p_index]->Set__DATA(arm__wfr_sts);
+				sEXT_CH__PMx_SLOT01_TITLE[p_index]->Set__DATA(arm__wfr_title);
+			}
+			else
+			{
+				arm__wfr_sts   = dEXT_CH__PMx_SLOT01_STATUS[p_index]->Get__STRING();
+				arm__wfr_title = sEXT_CH__PMx_SLOT01_TITLE[p_index]->Get__STRING();
 
-					dEXT_CH__PMx_SLOT01_STATUS[pm_index]->Set__DATA(STR__NONE);
-					sEXT_CH__PMx_SLOT01_TITLE[pm_index]->Set__DATA("");
-				}
+				dEXT_CH__PMx_SLOT01_STATUS[p_index]->Set__DATA(STR__NONE);
+				sEXT_CH__PMx_SLOT01_TITLE[p_index]->Set__DATA("");
 			}
 		}
 	}
 
 	if(place_flag < 0)
 	{
-		if(wfr_sts.GetLength() > 0)
+		if(active__arm_a)
 		{
-			if(arm_type.CompareNoCase(ARM_A) == 0)
-			{
-				dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS->Set__DATA(wfr_sts);
-				sCH__OTR_OUT_MON__ARM_A_MATERIAL_TITLE->Set__DATA(wfr_title);
-			}
-			else if(arm_type.CompareNoCase(ARM_B) == 0)
-			{
-				dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS->Set__DATA(wfr_sts);
-				sCH__OTR_OUT_MON__ARM_B_MATERIAL_TITLE->Set__DATA(wfr_title);
-			}
+			dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS->Set__DATA(arm__wfr_sts);
+			sCH__OTR_OUT_MON__ARM_A_MATERIAL_TITLE->Set__DATA(arm__wfr_title);
+		}
+		else if(active__arm_b)
+		{
+			dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS->Set__DATA(arm__wfr_sts);
+			sCH__OTR_OUT_MON__ARM_B_MATERIAL_TITLE->Set__DATA(arm__wfr_title);
 		}
 	}
 

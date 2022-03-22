@@ -48,6 +48,7 @@ enum {NORMAL, ACTIVE_HANDOFF};
 
 #define  STR__YES					"YES"
 #define  STR__NO					"NO"
+#define  STR__NULL					"NULL"
 
 #define  STR__CLAMP					"CLAMP"
 #define  STR__UNCLAMP				"UNCLAMP"
@@ -55,10 +56,14 @@ enum {NORMAL, ACTIVE_HANDOFF};
 #define  STR__LOAD					"LOAD"
 #define  STR__UNLOAD				"UNLOAD"
 
+#define  STR__Extend				"Extend"
+#define  STR__None					"None"
 
-//.....
-#define  ARM_A						"A"
-#define  ARM_B						"B"
+
+// ...
+#define  _ARM_A						"A"
+#define  _ARM_B						"B"
+#define  _ARM_AB					"AB"
 
 // ...
 #define  STR__PM1					"PM1"

@@ -58,9 +58,11 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VERSION_HISTORY(version)
 
 // ...
 #define APP_DSP__RB_TARGET_MOVE						\
-"UNKNOWN HOME READY									\
- PM1 PM2 PM3 PM4 PM5 PM6							\
- LBA LBB LBC LBD"
+"UNKNOWN  HOME  READY								\
+ PM1  PM2  PM3  PM4  PM5  PM6						\
+ PM12 PM34 PM56 									\
+ LBA  LBB  LBC  LBD									\
+ LBA-12  LBB-12  LBC-12  LBD-12"
 
 #define APP_DSP__STN_NAME							\
 "PM1 PM2 PM3 PM4 PM5 PM6							\
@@ -70,7 +72,7 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VERSION_HISTORY(version)
 "1 2 3 4"
 
 #define APP_DSP__RB_ARM								\
-"A B"
+"A  B  AB"
 
 #define APP_DSP__ARM_STS_ANI						\
 "UNKNOWN RETRACT EXTEND"
@@ -91,6 +93,18 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 	CString str_name, def_data;
 	int i;
 	int k;
+
+	// LLx ...
+	{
+		CString def_name;
+		CString def_data;
+
+		def_name = "LLx.MULTI_SLOT_VALVE";
+		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+
+		if(def_data.CompareNoCase("YES") == 0)			bActive__LLx_MULTI_SLOT_VALVE = true;
+		else											bActive__LLx_MULTI_SLOT_VALVE = false;
+	}
 
 	// ...
 	{
@@ -292,31 +306,67 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 			{
 				int id = k + 1;
 
-				str_name.Format("TAS.%s.TIME.NOW.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_NOW__LLx[i][k], str_name);
+				if(bActive__LLx_MULTI_SLOT_VALVE)
+				{
+					for(int t=0; t<CFG_LLx__SLOT_SIZE; t++)
+					{
+						int slot = t + 1;
 
-				//
-				str_name.Format("TAS.%s.TIME.MIN.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MIN__LLx[i][k], str_name);
+						str_name.Format("TAS.%s.TIME.NOW.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[i][k][t], str_name);
 
-				str_name.Format("TAS.%s.TIME.MAX.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MAX__LLx[i][k], str_name);
+						//
+						str_name.Format("TAS.%s.TIME.MIN.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[i][k][t], str_name);
 
-				//
-				str_name.Format("TAS.%s.TIME.AVG.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG__LLx[i][k], str_name);
+						str_name.Format("TAS.%s.TIME.MAX.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[i][k][t], str_name);
 
-				str_name.Format("TAS.%s.TIME.AVG_F.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG_F__LLx[i][k], str_name);
+						//
+						str_name.Format("TAS.%s.TIME.AVG.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[i][k][t], str_name);
 
-				str_name.Format("TAS.%s.TIME.CNT.LL%1d", act_name,id);
-				STD__ADD_ANALOG(str_name, "count", 0, 1, 100000);
-				LINK__VAR_ANALOG_CTRL(aCH__TAS_ACTION_TIME_CNT__LLx[i][k], str_name);
+						str_name.Format("TAS.%s.TIME.AVG_F.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[i][k][t], str_name);
+
+						str_name.Format("TAS.%s.TIME.CNT.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_ANALOG(str_name, "count", 0, 1, 100000);
+						LINK__VAR_ANALOG_CTRL(aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[i][k][t], str_name);
+					}
+				}
+				else
+				{
+					str_name.Format("TAS.%s.TIME.NOW.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_NOW__LLx_X[i][k], str_name);
+
+					//
+					str_name.Format("TAS.%s.TIME.MIN.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MIN__LLx_X[i][k], str_name);
+
+					str_name.Format("TAS.%s.TIME.MAX.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MAX__LLx_X[i][k], str_name);
+
+					//
+					str_name.Format("TAS.%s.TIME.AVG.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG__LLx_X[i][k], str_name);
+
+					str_name.Format("TAS.%s.TIME.AVG_F.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG_F__LLx_X[i][k], str_name);
+
+					str_name.Format("TAS.%s.TIME.CNT.LL%1d", act_name,id);
+					STD__ADD_ANALOG(str_name, "count", 0, 1, 100000);
+					LINK__VAR_ANALOG_CTRL(aCH__TAS_ACTION_TIME_CNT__LLx_X[i][k], str_name);
+				}
 			}
 
 			// PMx ...
@@ -359,49 +409,105 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 		{
 			CString ll_name;
 
-			for(i=0; i<CFG_LLx__SIZE; i++)
-			{	
-				ll_name.Format("LL%1d", i+1);
+			if(bActive__LLx_MULTI_SLOT_VALVE)
+			{
+				for(i=0; i<CFG_LLx__SIZE; i++)
+				{	
+					ll_name.Format("LL%1d", i+1);
 
-				// A_ARM ...
-				{
-					// Hard
-					str_name.Format("CFG.%s.R.OFFSET.HARD.ERR.A_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_HARD_ERR_A_ARM__LLx[i], str_name);
+					for(int k=0; k<CFG_LLx__SLOT_SIZE; k++)
+					{
+						int slot = k + 1;
 
-					str_name.Format("CFG.%s.T.OFFSET.HARD.ERR.A_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_HARD_ERR_A_ARM__LLx[i], str_name);
+						// A_ARM ...
+						{
+							// Hard
+							str_name.Format("CFG.%s.%1d.R.OFFSET.HARD.ERR.A_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_HARD_ERR_A_ARM__LLx_SLOT[i][k], str_name);
 
-					// Soft
-					str_name.Format("CFG.%s.R.OFFSET.SOFT.ERR.A_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_SOFT_ERR_A_ARM__LLx[i], str_name);
+							str_name.Format("CFG.%s.%1d.T.OFFSET.HARD.ERR.A_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_HARD_ERR_A_ARM__LLx_SLOT[i][k], str_name);
 
-					str_name.Format("CFG.%s.T.OFFSET.SOFT.ERR.A_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_SOFT_ERR_A_ARM__LLx[i], str_name);
+							// Soft
+							str_name.Format("CFG.%s.%1d.R.OFFSET.SOFT.ERR.A_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_SOFT_ERR_A_ARM__LLx_SLOT[i][k], str_name);
+
+							str_name.Format("CFG.%s.%1d.T.OFFSET.SOFT.ERR.A_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_SOFT_ERR_A_ARM__LLx_SLOT[i][k], str_name);
+						}
+						// B_ARM ...
+						{
+							// Hard
+							str_name.Format("CFG.%s.%1d.R.OFFSET.HARD.ERR.B_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_HARD_ERR_B_ARM__LLx_SLOT[i][k], str_name);
+
+							str_name.Format("CFG.%s.%1d.T.OFFSET.HARD.ERR.B_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_HARD_ERR_B_ARM__LLx_SLOT[i][k], str_name);
+
+							// Soft
+							str_name.Format("CFG.%s.%1d.R.OFFSET.SOFT.ERR.B_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_SOFT_ERR_B_ARM__LLx_SLOT[i][k], str_name);
+
+							str_name.Format("CFG.%s.%1d.T.OFFSET.SOFT.ERR.B_ARM", ll_name,slot);
+							STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+							LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_SOFT_ERR_B_ARM__LLx_SLOT[i][k], str_name);
+						}
+					}
 				}
-				// B_ARM ...
-				{
-					// Hard
-					str_name.Format("CFG.%s.R.OFFSET.HARD.ERR.B_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_HARD_ERR_B_ARM__LLx[i], str_name);
+			}
+			else
+			{
+				for(i=0; i<CFG_LLx__SIZE; i++)
+				{	
+					ll_name.Format("LL%1d", i+1);
 
-					str_name.Format("CFG.%s.T.OFFSET.HARD.ERR.B_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_HARD_ERR_B_ARM__LLx[i], str_name);
+					// A_ARM ...
+					{
+						// Hard
+						str_name.Format("CFG.%s.R.OFFSET.HARD.ERR.A_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_HARD_ERR_A_ARM__LLx_X[i], str_name);
 
-					// Soft
-					str_name.Format("CFG.%s.R.OFFSET.SOFT.ERR.B_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_SOFT_ERR_B_ARM__LLx[i], str_name);
+						str_name.Format("CFG.%s.T.OFFSET.HARD.ERR.A_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_HARD_ERR_A_ARM__LLx_X[i], str_name);
 
-					str_name.Format("CFG.%s.T.OFFSET.SOFT.ERR.B_ARM", ll_name);
-					STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
-					LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_SOFT_ERR_B_ARM__LLx[i], str_name);
+						// Soft
+						str_name.Format("CFG.%s.R.OFFSET.SOFT.ERR.A_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_SOFT_ERR_A_ARM__LLx_X[i], str_name);
+
+						str_name.Format("CFG.%s.T.OFFSET.SOFT.ERR.A_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_SOFT_ERR_A_ARM__LLx_X[i], str_name);
+					}
+					// B_ARM ...
+					{
+						// Hard
+						str_name.Format("CFG.%s.R.OFFSET.HARD.ERR.B_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_HARD_ERR_B_ARM__LLx_X[i], str_name);
+
+						str_name.Format("CFG.%s.T.OFFSET.HARD.ERR.B_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_HARD_ERR_B_ARM__LLx_X[i], str_name);
+
+						// Soft
+						str_name.Format("CFG.%s.R.OFFSET.SOFT.ERR.B_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "deg", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__R_OFFSET_SOFT_ERR_B_ARM__LLx_X[i], str_name);
+
+						str_name.Format("CFG.%s.T.OFFSET.SOFT.ERR.B_ARM", ll_name);
+						STD__ADD_ANALOG_WITH_X_OPTION(str_name, "mm", 1, 0, 10, "");
+						LINK__VAR_ANALOG_CTRL(aCH__CFG__T_OFFSET_SOFT_ERR_B_ARM__LLx_X[i], str_name);
+					}
 				}
 			}
 		}
@@ -497,62 +603,130 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 			CString ll_name = Macro__GET_LLx_NAME(i);
 			int id = i + 1;
 
-			// Sts ...
+			if(bActive__LLx_MULTI_SLOT_VALVE)
 			{
-				str_name.Format("MON.LL%1d.STS.OFFSET.A_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_STS_OFFSET_A_ARM__LLx[i], str_name);
+				for(int k=0; k<CFG_LLx__SLOT_SIZE; k++)
+				{
+					int slot = k + 1;
 
-				str_name.Format("MON.LL%1d.STS.OFFSET.B_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_STS_OFFSET_B_ARM__LLx[i], str_name);
+					// Sts ...
+					{
+						str_name.Format("MON.LL%1d.%1d.STS.OFFSET.A_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_STS_OFFSET_A_ARM__LLx_SLOT[i][k], str_name);
+
+						str_name.Format("MON.LL%1d.%1d.STS.OFFSET.B_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_STS_OFFSET_B_ARM__LLx_SLOT[i][k], str_name);
+					}
+					// Result ...
+					{
+						str_name.Format("MON.LL%1d.%1d.RESULT.OFFSET.A_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_RESULT_OFFSET_A_ARM__LLx_SLOT[i][k], str_name);
+
+						str_name.Format("MON.LL%1d.%1d.RESULT.OFFSET.B_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_RESULT_OFFSET_B_ARM__LLx_SLOT[i][k], str_name);
+					}
+					// R Offset ...
+					{
+						str_name.Format("MON.LL%1d.%1d.R.OFFSET.A_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_R_OFFSET_A_ARM__LLx_SLOT[i][k], str_name);
+
+						str_name.Format("MON.LL%1d.%1d.R.OFFSET.B_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_R_OFFSET_B_ARM__LLx_SLOT[i][k], str_name);
+					}
+					// T Offset ...
+					{
+						str_name.Format("MON.LL%1d.%1d.T.OFFSET.A_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_T_OFFSET_A_ARM__LLx_SLOT[i][k], str_name);
+
+						str_name.Format("MON.LL%1d.%1d.T.OFFSET.B_ARM", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_T_OFFSET_B_ARM__LLx_SLOT[i][k], str_name);
+					}
+					// RT Offset ...
+					{
+						str_name.Format("MON.LL%1d.%1d.RT.OFFSET", id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__MON_DA_RT_OFFSET__LLx_SLOT[i][k], str_name);
+					}
+
+					// DA Chart Offset ...
+					{
+						str_name.Format("sDA.%s.%1d.CHART.ROFFSET.DISPLAY", ll_name,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__DA_CHART_R_OFFSET_DISPLAY__LLx_SLOT[i][k], str_name);
+
+						str_name.Format("sDA.%s.%1d.CHART.TOFFSET.DISPLAY", ll_name,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__DA_CHART_T_OFFSET_DISPLAY__LLx_SLOT[i][k], str_name);
+					}
+				}
 			}
-			// Result ...
+			else
 			{
-				str_name.Format("MON.LL%1d.RESULT.OFFSET.A_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_RESULT_OFFSET_A_ARM__LLx[i], str_name);
+				// Sts ...
+				{
+					str_name.Format("MON.LL%1d.STS.OFFSET.A_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_STS_OFFSET_A_ARM__LLx_X[i], str_name);
 
-				str_name.Format("MON.LL%1d.RESULT.OFFSET.B_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_RESULT_OFFSET_B_ARM__LLx[i], str_name);
-			}
-			// R Offset ...
-			{
-				str_name.Format("MON.LL%1d.R.OFFSET.A_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_R_OFFSET_A_ARM__LLx[i], str_name);
+					str_name.Format("MON.LL%1d.STS.OFFSET.B_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_STS_OFFSET_B_ARM__LLx_X[i], str_name);
+				}
+				// Result ...
+				{
+					str_name.Format("MON.LL%1d.RESULT.OFFSET.A_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_RESULT_OFFSET_A_ARM__LLx_X[i], str_name);
 
-				str_name.Format("MON.LL%1d.R.OFFSET.B_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_R_OFFSET_B_ARM__LLx[i], str_name);
-			}
-			// T Offset ...
-			{
-				str_name.Format("MON.LL%1d.T.OFFSET.A_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_T_OFFSET_A_ARM__LLx[i], str_name);
+					str_name.Format("MON.LL%1d.RESULT.OFFSET.B_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_RESULT_OFFSET_B_ARM__LLx_X[i], str_name);
+				}
+				// R Offset ...
+				{
+					str_name.Format("MON.LL%1d.R.OFFSET.A_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_R_OFFSET_A_ARM__LLx_X[i], str_name);
 
-				str_name.Format("MON.LL%1d.T.OFFSET.B_ARM", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_T_OFFSET_B_ARM__LLx[i], str_name);
-			}
-			// RT Offset ...
-			{
-				str_name.Format("MON.LL%1d.RT.OFFSET", id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__MON_DA_RT_OFFSET__LLx[i], str_name);
-			}
+					str_name.Format("MON.LL%1d.R.OFFSET.B_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_R_OFFSET_B_ARM__LLx_X[i], str_name);
+				}
+				// T Offset ...
+				{
+					str_name.Format("MON.LL%1d.T.OFFSET.A_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_T_OFFSET_A_ARM__LLx_X[i], str_name);
 
-			// DA Chart Offset ...
-			{
-				str_name.Format("sDA.%s.CHART.ROFFSET.DISPLAY", ll_name);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__DA_CHART_R_OFFSET_DISPLAY__LLx[i], str_name);
+					str_name.Format("MON.LL%1d.T.OFFSET.B_ARM", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_T_OFFSET_B_ARM__LLx_X[i], str_name);
+				}
+				// RT Offset ...
+				{
+					str_name.Format("MON.LL%1d.RT.OFFSET", id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__MON_DA_RT_OFFSET__LLx_X[i], str_name);
+				}
 
-				str_name.Format("sDA.%s.CHART.TOFFSET.DISPLAY", ll_name);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__DA_CHART_T_OFFSET_DISPLAY__LLx[i], str_name);
+				// DA Chart Offset ...
+				{
+					str_name.Format("sDA.%s.CHART.ROFFSET.DISPLAY", ll_name);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__DA_CHART_R_OFFSET_DISPLAY__LLx_X[i], str_name);
+
+					str_name.Format("sDA.%s.CHART.TOFFSET.DISPLAY", ll_name);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__DA_CHART_T_OFFSET_DISPLAY__LLx_X[i], str_name);
+				}
 			}
 		}
 
@@ -644,6 +818,12 @@ l_act.RemoveAll();								\
 l_act.Add("ABORT");								\
 l_act.Add("IGNORE");
 
+#define  _LALM__ABORT_RETRY_IGNORE				\
+l_act.RemoveAll();								\
+l_act.Add("ABORT");								\
+l_act.Add("RETRY");								\
+l_act.Add("IGNORE");
+
 
 int CObj__VAC_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 {
@@ -716,7 +896,7 @@ int CObj__VAC_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 
 		alarm_msg = "Please, check material on Robot's A-Arm.\n";
 
-		_LALM__RETRY_ABORT;
+		_LALM__ABORT_RETRY_IGNORE;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 	// ...
@@ -728,7 +908,7 @@ int CObj__VAC_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 
 		alarm_msg = "Please, check material on Robot's B-Arm.\n";
 
-		_LALM__RETRY_ABORT;
+		_LALM__ABORT_RETRY_IGNORE;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 	// ...
@@ -740,7 +920,7 @@ int CObj__VAC_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 
 		alarm_msg = "Please, check material in LLx.\n";
 
-		_LALM__RETRY_ABORT;
+		_LALM__ABORT_RETRY_IGNORE;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 	// ...
@@ -752,7 +932,7 @@ int CObj__VAC_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 
 		alarm_msg = "Please, check material in PMx.\n";
 
-		_LALM__RETRY_ABORT;
+		_LALM__ABORT_RETRY_IGNORE;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
@@ -948,136 +1128,18 @@ int CObj__VAC_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		SCX__SEQ_INFO x_seq_info;
 		
-		iSim_Flag = x_seq_info->Is__SIMULATION_MODE();
-		x_seq_info->Get__DIR_ROOT(sDir_Root);
+		iActive_SIM = x_seq_info->Is__SIMULATION_MODE();
 
+		//
 		CString dir_root;
+
+		x_seq_info->Get__DIR_ROOT(sDir_Root);
 		dir_root = sDir_Root + "\\EQP_LOG\\DA_Data\\";	
 
 		CreateDirectory(dir_root, NULL);
 	}
 
-	// DB_CFG ...
-	{
-		def_name = "PM_SIZE";
-		p_variable->Get__DEF_CONST_DATA(def_name, def_data);
-
-		m_nPM_LIMIT = atoi(def_data);
-		if(m_nPM_LIMIT <= 0)
-		{
-			m_nPM_LIMIT = CFG_PMx__SIZE;
-		}
-
-		// ...
-		def_name = "OBJ__DB";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
-
-		// ...
-		{
-			str_name = "CFG.SETUP.TEST.MODE";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_SETUP_TEST_MODE, def_data,str_name);
-		}
-
-		// ...
-		{
-			str_name = "CFG.TRANSFER.MODE";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_TRANSFER_MODE, def_data,str_name);
-
-			str_name = "CFG.REF.ATM.PRESSURE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_REF_ATM_PRESSURE, def_data,str_name);
-
-			str_name = "CFG.REF.VAC.PRESSURE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_REF_VAC_PRESSURE, def_data,str_name);
-		}
-
-		// LLx .. 
-		for(i=0; i<CFG_LLx__SIZE; i++)
-		{
-			CString ll_name = Macro__GET_LLx_NAME(i);
-
-			//
-			str_name.Format("CFG.%s.EXIST.FLAG", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_EXIST_FLAG[i], def_data,str_name);
-
-			// DA Use ...
-			str_name.Format("CFG.DA.USE.LL%1d", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DA_USE__LLx[i], def_data,str_name);
-		}
-
-		// PMx ...
-		for(i=0; i<CFG_PMx__SIZE; i++)
-		{
-			//
-			str_name.Format("CFG.PM%1d.EXIST.FLAG", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_PMx_EXIST_FLAG[i], def_data,str_name);
-
-			str_name.Format("CFG.PM%1d.SV.USE", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_PMx_SV_USE[i], def_data,str_name);
-
-			// DA Use ...
-			str_name.Format("CFG.DA.USE.PM%1d", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DA_USE__PMx[i], def_data,str_name);
-		}
-	}
-
-	// ROBOT -----
-	{
-		def_name = "OBJ__ROBOT";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
-
-		pROBOT__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
-
-		// Material Status ...
-		{
-			str_name = "OTR.OUT.MON.dARM_A.MATERIAL.STATUS";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_A_MATERIAL_STATUS, def_data,str_name);
-
-			str_name = "OTR.OUT.MON.dARM_B.MATERIAL.STATUS";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_B_MATERIAL_STATUS, def_data,str_name);
-		}
-		// DA Offset ...
-		{
-			str_name = "DA.RESULT.R_OFFSET.DEG";		// deg
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__ROBOT_DA_RESULT_R_OFFSET_DEG, def_data,str_name);
-
-			str_name = "DA.RESULT.T_OFFSET.MM";			// mm
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__ROBOT_DA_RESULT_T_OFFSET_MM, def_data,str_name); 
-		}
-	}
-
-	// TMC CHM -----
-	{
-		def_name = "OBJ__TMC_CHM";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
-
-		//.....
-		str_name = "OTR.OUT.MON.aPRESSURE.TORR";
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__TMC_CHM_PRESSURE_TORR, def_data,str_name);
-	}
-
-	// PMx -----
-	{
-		def_name = "OBJ__PMC";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
-
-		for(i=0;i<m_nPM_LIMIT;i++)
-		{
-			str_name.Format("OTR.OUT.MON.aPM%1d.PRESSURE.TORR",i+1);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__PMx_PRESSURE_TORR[i], def_data,str_name);
-
-			str_name.Format("OTR.OUT.MON.dPM%1d.SLIT.VALVE.STATUS",i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PMx_SLIT_VALVE_STATUS[i], def_data,str_name);
-
-			//
-			str_name.Format("OTR.OUT.MON.dPM%1d.SLOT01.STATUS",i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PMx_SLOT01_STATUS[i], def_data,str_name);
-
-			str_name.Format("OTR.OUT.MON.sPM%1d.SLOT01.TITLE",i+1);
-			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx_SLOT01_TITLE[i], def_data,str_name);
-		}
-	}
-
-	// LLx -----
+	// LLx ...
 	{
 		def_name = "LLx.MULTI_DOOR_VALVE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
@@ -1145,9 +1207,159 @@ int CObj__VAC_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
+	// DB_CFG ...
+	{
+		def_name = "PM_SIZE";
+		p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+
+		m_nPM_LIMIT = atoi(def_data);
+		if(m_nPM_LIMIT <= 0)
+		{
+			m_nPM_LIMIT = CFG_PMx__SIZE;
+		}
+
+		// ...
+		def_name = "OBJ__DB";
+		p_variable->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		// ...
+		{
+			str_name = "CFG.SETUP.TEST.MODE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_SETUP_TEST_MODE, obj_name,str_name);
+		}
+
+		// ...
+		{
+			str_name = "CFG.TRANSFER.MODE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_TRANSFER_MODE, obj_name,str_name);
+
+			str_name = "CFG.REF.ATM.PRESSURE";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_REF_ATM_PRESSURE, obj_name,str_name);
+
+			str_name = "CFG.REF.VAC.PRESSURE";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_REF_VAC_PRESSURE, obj_name,str_name);
+		}
+
+		// LLx ...
+		for(i=0; i<CFG_LLx__SIZE; i++)
+		{
+			CString ll_name = Macro__GET_LLx_NAME(i);
+			int ll_id = i + 1;
+
+			// DA Use ...
+			str_name.Format("CFG.DA.USE.LL%1d", ll_id);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DA_USE__LLx[i], obj_name,str_name);
+
+			if(bActive__LLx_MULTI_SLOT_VALVE)
+			{
+				str_name.Format("CFG.LL%1d.1.EXIST.FLAG", ll_id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_1_EXIST_FLAG[i], obj_name,str_name);
+
+				str_name.Format("CFG.LL%1d.2.EXIST.FLAG", ll_id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_2_EXIST_FLAG[i], obj_name,str_name);
+			}
+			else
+			{
+				str_name.Format("CFG.%s.EXIST.FLAG", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_EXIST_FLAG[i], obj_name,str_name);
+			}
+		}
+
+		// PMx ...
+		for(i=0; i<CFG_PMx__SIZE; i++)
+		{
+			//
+			str_name.Format("CFG.PM%1d.EXIST.FLAG", i+1);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_PMx_EXIST_FLAG[i], obj_name,str_name);
+
+			str_name.Format("CFG.PM%1d.SV.USE", i+1);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_PMx_SV_USE[i], obj_name,str_name);
+
+			// DA Use ...
+			str_name.Format("CFG.DA.USE.PM%1d", i+1);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_DA_USE__PMx[i], obj_name,str_name);
+		}
+	}
+
+	// ROBOT -----
+	{
+		def_name = "OBJ__ROBOT";
+		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+
+		pROBOT__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
+
+		// Material Status ...
+		{
+			str_name = "OTR.OUT.MON.dARM_A.MATERIAL.STATUS";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_A_MATERIAL_STATUS, def_data,str_name);
+
+			str_name = "OTR.OUT.MON.dARM_B.MATERIAL.STATUS";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_B_MATERIAL_STATUS, def_data,str_name);
+		}
+		// DA Offset ...
+		{
+			str_name = "DA.RESULT.R_OFFSET.DEG";		// deg
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__ROBOT_DA_RESULT_R_OFFSET_DEG, def_data,str_name);
+
+			str_name = "DA.RESULT.T_OFFSET.MM";			// mm
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__ROBOT_DA_RESULT_T_OFFSET_MM, def_data,str_name); 
+		}
+
+		// IO : ARM_RNE_SNS ... 
+		{
+			def_name = "ROBOT.ARM_RNE_SNS";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			if((def_data.CompareNoCase(STR__NO)   == 0)
+			|| (def_data.CompareNoCase(STR__NULL) == 0))
+			{
+				bActive__ROBOT_ARM_RNE_SNS = false;
+			}
+			else
+			{
+				bActive__ROBOT_ARM_RNE_SNS = true;
+
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,str_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_RNE_SNS, obj_name,str_name);
+			}
+		}
+	}
+
+	// TMC CHM -----
+	{
+		def_name = "OBJ__TMC_CHM";
+		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+
+		//.....
+		str_name = "OTR.OUT.MON.aPRESSURE.TORR";
+		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__TMC_CHM_PRESSURE_TORR, def_data,str_name);
+	}
+
+	// PMx -----
+	{
+		def_name = "OBJ__PMC";
+		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+
+		for(i=0;i<m_nPM_LIMIT;i++)
+		{
+			str_name.Format("OTR.OUT.MON.aPM%1d.PRESSURE.TORR",i+1);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__PMx_PRESSURE_TORR[i], def_data,str_name);
+
+			str_name.Format("OTR.OUT.MON.dPM%1d.SLIT.VALVE.STATUS",i+1);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PMx_SLIT_VALVE_STATUS[i], def_data,str_name);
+
+			//
+			str_name.Format("OTR.OUT.MON.dPM%1d.SLOT01.STATUS",i+1);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PMx_SLOT01_STATUS[i], def_data,str_name);
+
+			str_name.Format("OTR.OUT.MON.sPM%1d.SLOT01.TITLE",i+1);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PMx_SLOT01_TITLE[i], def_data,str_name);
+		}
+	}
+
 	iFlag__APP_LOG = 1;
 
-	if(iSim_Flag > 0)
+	if(iActive_SIM > 0)
 	{
 		CString ch__lotid = "LOTID";
 		CString ch__ppid = "PPID";
@@ -1294,7 +1506,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__PICK)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1303,7 +1515,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__PLACE)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1312,7 +1524,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__SWAP)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1321,7 +1533,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__ROTATE)
 		{	
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1348,7 +1560,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 
 		ELSE_IF__CTRL_MODE(sMODE__RETRACT)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1358,7 +1570,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__EXTEND)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1367,7 +1579,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__GOUP)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1376,7 +1588,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__GODOWN)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1385,7 +1597,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__RQ_STN)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1394,7 +1606,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__SET_STN)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1403,7 +1615,7 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		}
 		ELSE_IF__CTRL_MODE(sMODE__TEACHED_CPTR_SAVE)
 		{
-			flag = Check__STN_EXIST(p_alarm,para__stn_name);
+			flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 			if(flag > 0)
 			{
@@ -1413,10 +1625,6 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 		ELSE_IF__CTRL_MODE(sMODE__TIME_TEST)
 		{
 			flag = Call__TIME_TEST(p_variable,p_alarm);
-		}
-		else	
-		{
-			flag = -1;
 		}
 	}
 

@@ -132,3 +132,62 @@ LOOP__RETRY:
 
 	return 1;
 }
+
+int  CObj__ATM_ROBOT_STD
+::Interlock__CHECK_WAFER_LP_SLIDE(CII_OBJECT__ALARM* p_alarm,
+								  const CString& stn_name,
+								  const CString& act_name)
+{
+LOOP_RETRY:
+
+	// ...
+	int lp_index = Macro__CHECK_LPx_INDEX(stn_name);
+
+	if((lp_index >= 0) && (lp_index < iLPx_SIZE))
+	{
+		if(!bActive__LPx_WAFER_SLIDE_OUT_SNS[lp_index])
+		{
+			return 1;
+		}
+
+		// ...
+		CString ch_data = dEXT_CH__LPx_WAFER_SLIDE_OUT_SNS[lp_index]->Get__STRING();
+
+		if(ch_data.CompareNoCase(STR__OFF) != 0)
+		{
+			CString log_msg;
+
+			log_msg.Format("During Robot [%s] Action to [%s] Stn.. WAFER SLIDE OUT SNS [%s] Status.. so Alarm Occur !!", 
+						   act_name, 
+						   stn_name, 
+						   ch_data);
+
+			Fnc__APP_LOG(log_msg);
+
+			// ...
+			{
+				int alarm_id = ALID__LP1__WFR_SLIDE_SNS_ALARM + lp_index;
+				CString r_act;
+
+				p_alarm->Popup__ALARM(alarm_id,r_act);
+
+				if(r_act.CompareNoCase("RETRY") == 0)
+				{
+					goto LOOP_RETRY;
+				}
+			}
+			return -1;
+		}
+	}
+	else
+	{
+		CString log_msg;
+
+		log_msg.Format("Unknown %s Station...ret:-1", stn_name);
+
+		Fnc__APP_LOG(log_msg);
+		return -1;
+	}
+
+	return 1;
+}

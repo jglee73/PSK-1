@@ -699,6 +699,28 @@ If you select [END_WITH_PLASMA_DECHUCK],       With Plasma Dechuck recipe will b
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
+"FNC_PROC - Check Process Recovery Action !"
+#MESSAGE 
+"Please, check process recovery action.
+If you select [RESTART],				the process will restart after system initialize.
+If you select [ABORT],				the process will be aborted.
+If you select [JUMP],					the step that you select will be executed.
+If you select [END],					Without Plasma Dechuck.. the process will be normally completed.
+"
+#RECOVERY_ACTION 
+     RESTART   ""
+     ABORT   ""
+     JUMP   ""
+     END   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   4 
+#EXTERNAL_ID   804 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
 "FNC_PROC - Process [Plasma Dechuck] recipe does not exist."
 #MESSAGE 
 "Please, check [Plasma Dechuck] recipe file.
@@ -710,8 +732,8 @@ If you select [END_WITH_PLASMA_DECHUCK],       With Plasma Dechuck recipe will b
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   4 
-#EXTERNAL_ID   804 
+#INTERNAL_ID   5 
+#EXTERNAL_ID   805 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -727,8 +749,8 @@ If you don't, Wafer may be broken in the chamber.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   5 
-#EXTERNAL_ID   805 
+#INTERNAL_ID   6 
+#EXTERNAL_ID   806 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -744,8 +766,8 @@ Please, wait or recipe file.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   6 
-#EXTERNAL_ID   806 
+#INTERNAL_ID   7 
+#EXTERNAL_ID   807 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -762,8 +784,8 @@ If you click "NO",  the status of wafer will be not changed.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   7 
-#EXTERNAL_ID   807 
+#INTERNAL_ID   8 
+#EXTERNAL_ID   808 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -779,8 +801,8 @@ If you click "NO",  the process will be aborted.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   8 
-#EXTERNAL_ID   808 
+#INTERNAL_ID   9 
+#EXTERNAL_ID   809 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -794,8 +816,8 @@ If you click "NO",  the process will be aborted.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   9 
-#EXTERNAL_ID   809 
+#INTERNAL_ID   10 
+#EXTERNAL_ID   810 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 

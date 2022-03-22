@@ -30,7 +30,7 @@ Call__PICK(CII_OBJECT__VARIABLE* p_variable,
 		   const CString& stn_slot,
 		   const int handoff_mode)
 {
-	_Active__DA_STS(arm_type, stn_name, false);
+	_Active__DA_STS(arm_type, stn_name,stn_slot, false);
 
 	int r_flag = Fnc__PICK(p_variable,p_alarm, arm_type,stn_name,stn_slot,handoff_mode);
 	if(r_flag > 0)
@@ -39,8 +39,8 @@ Call__PICK(CII_OBJECT__VARIABLE* p_variable,
 		// _Save__DA_OFFSET(arm_type,stn_name,stn_slot);
 	}
 
-	_Clear__DA_STS(arm_type,stn_name);
-	_Clear__DA_RT_OFFSET(stn_name);
+	_Clear__DA_STS(arm_type,stn_name,stn_slot);
+	_Clear__DA_RT_OFFSET(stn_name,stn_slot);
 	return r_flag;
 }
 int  CObj__VAC_ROBOT_STD::
@@ -58,16 +58,20 @@ Fnc__PICK(CII_OBJECT__VARIABLE* p_variable,
 		act_name.Format("pick from %s-%s to Arm-%s", stn_name,stn_slot,arm_type);
 		Fnc__APP_LOG(act_name);
 
-		// Valve Check -----
-		if(Interlock__CHECK_VALVE_OPEN(p_alarm, stn_name,stn_slot, act_name) < 0)
+		// Valve Check ...
+		if(Interlock__CHECK_VALVE_OPEN(p_alarm, arm_type,stn_name,stn_slot, act_name) < 0)
 		{
-			return -1;
+			act_name.Format(" * Interlock__CHECK_VALVE_OPEN() - Error !");
+			Fnc__APP_LOG(act_name);
+			return -11;
 		}
 
-		// Material Check -----
-		if(Interlock__CHECK_MATERIAL(p_alarm,-1,arm_type,stn_name,stn_slot,act_name) < 0)
+		// Material Check ...
+		if(Interlock__CHECK_MATERIAL(p_alarm, false, arm_type,stn_name,stn_slot, act_name) < 0)
 		{
-			return -1;
+			act_name.Format(" * Interlock__CHECK_MATERIAL() - Error !");
+			Fnc__APP_LOG(act_name);
+			return -12;
 		}
 	}
 
@@ -144,16 +148,37 @@ Fnc__ACTION(const CString& arm_type,
 				int db_i = Macro__CHECK_LLx_INDEX(stn_name);
 				if(db_i >= 0)
 				{
-					sCH__TAS_ACTION_TIME_NOW__LLx[db_index][db_i]->Set__DATA(str_cur);
+					if(bActive__LLx_MULTI_SLOT_VALVE)
+					{
+						int s_index = atoi(stn_slot) - 1;
 
-					//
-					p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx[db_index][db_i].Get__PTR();
-					p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx[db_index][db_i].Get__PTR();
-					p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx[db_index][db_i].Get__PTR();
-					p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx[db_index][db_i].Get__PTR();
-					p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx[db_index][db_i].Get__PTR();
+						if((s_index >= 0) && (s_index < CFG_LLx__SLOT_SIZE))
+						{
+							sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[db_index][db_i][s_index]->Set__DATA(str_cur);
 
-					_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+							//
+							p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+							p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[db_index][db_i][s_index].Get__PTR();
+
+							_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+						}
+					}
+					else
+					{
+						sCH__TAS_ACTION_TIME_NOW__LLx_X[db_index][db_i]->Set__DATA(str_cur);
+
+						//
+						p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_X[db_index][db_i].Get__PTR();
+						p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_X[db_index][db_i].Get__PTR();
+
+						_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+					}
 				}
 			}
 			// PMx ...
@@ -251,17 +276,17 @@ Call__PLACE(CII_OBJECT__VARIABLE* p_variable,
 			const CString& stn_slot,
 			const int handoff_mode)
 {
-	_Active__DA_STS(arm_type, stn_name, true);
+	_Active__DA_STS(arm_type, stn_name,stn_slot, true);
 
 	int r_flag = Fnc__PLACE(p_variable,p_alarm, arm_type,stn_name,stn_slot,handoff_mode);
 	if(r_flag > 0)
 	{
-		_Report__DA_OFFSET(p_alarm, arm_type,stn_name,stn_slot);
+		r_flag = _Report__DA_OFFSET(p_alarm, arm_type,stn_name,stn_slot);
 		_Save__DA_OFFSET(arm_type,stn_name,stn_slot, true);
 	}
 
-	_Clear__DA_STS(arm_type,stn_name);
-	_Set__DA_RT_OFFSET(stn_name);
+	_Clear__DA_STS(arm_type,stn_name,stn_slot);
+	_Set__DA_RT_OFFSET(stn_name,stn_slot);
 	return r_flag;
 }
 int  CObj__VAC_ROBOT_STD::
@@ -279,14 +304,14 @@ Fnc__PLACE(CII_OBJECT__VARIABLE* p_variable,
 		act_name.Format("place from Arm-%s to %s-%s", arm_type,stn_name,stn_slot);
 		Fnc__APP_LOG(act_name);
 
-		// Valve Check -----
-		if(Interlock__CHECK_VALVE_OPEN(p_alarm, stn_name,stn_slot, act_name) < 0)
+		// Valve Check ...
+		if(Interlock__CHECK_VALVE_OPEN(p_alarm, arm_type,stn_name,stn_slot, act_name) < 0)
 		{
 			return -1;
 		}
 
-		// Material Check -----
-		if(Interlock__CHECK_MATERIAL(p_alarm,1,arm_type,stn_name,stn_slot,act_name) < 0)
+		// Material Check ...
+		if(Interlock__CHECK_MATERIAL(p_alarm, true, arm_type,stn_name,stn_slot, act_name) < 0)
 		{
 			return -1;
 		}
@@ -327,7 +352,7 @@ Call__ROTATE(CII_OBJECT__VARIABLE* p_variable,
 			 const CString& stn_name, 
 			 const CString& stn_slot)
 {
-	Set_ANI__ROBOT_ROTATE(arm_type,stn_name);
+	Set_ANI__ROBOT_ROTATE(arm_type, stn_name,stn_slot);
 
 	return Fnc__ACTION(arm_type,stn_name,stn_slot, CMMD__ROTATE);
 }
@@ -365,7 +390,7 @@ Call__EXTEND(CII_OBJECT__VARIABLE* p_variable,
 			 const CString& stn_name, 
 			 const CString& stn_slot)
 {
-	_Active__DA_STS(arm_type, stn_name, true);
+	_Active__DA_STS(arm_type, stn_name,stn_slot, true);
 
 	return Fnc__EXTEND(p_variable,p_alarm, arm_type,stn_name,stn_slot);
 }
@@ -383,33 +408,41 @@ Fnc__EXTEND(CII_OBJECT__VARIABLE* p_variable,
 		act_name.Format("extend from Arm-%s to %s-%s", arm_type,stn_name,stn_slot);
 		Fnc__APP_LOG(act_name);
 
-		// Valve Check -----
-		if(Interlock__CHECK_VALVE_OPEN(p_alarm, stn_name,stn_slot, act_name) < 0)
+		// Valve Check ...
+		if(Interlock__CHECK_VALVE_OPEN(p_alarm, arm_type,stn_name,stn_slot, act_name) < 0)
 		{
 			return -1;
 		}
 
-		// Material Check -----
+		// Material Check ...
+		bool active__arm_a = false;
+		bool active__arm_b = false;
+
+			 if(arm_type.CompareNoCase(_ARM_A)  == 0)			active__arm_a = true;
+		else if(arm_type.CompareNoCase(_ARM_B)  == 0)			active__arm_b = true;
+		else if(arm_type.CompareNoCase(_ARM_AB) == 0)
+		{
+			active__arm_a = true;
+			active__arm_b = true;
+		}
+
+		// ...
 		int place_flag = -1;
 
-		if(arm_type.CompareNoCase(ARM_A) == 0)
+		if(active__arm_a)
 		{
 			if(dEXT_CH__ROBOT_ARM_A_MATERIAL_STATUS->Check__DATA(STR__NONE) < 0)
-			{
 				place_flag = 1;
-			}
 		}
-		else if(arm_type.CompareNoCase(ARM_B) == 0)
+		if(active__arm_b)
 		{
 			if(dEXT_CH__ROBOT_ARM_B_MATERIAL_STATUS->Check__DATA(STR__NONE) < 0)
-			{
 				place_flag = 1;
-			}
 		}
 
 		if(place_flag > 0)
 		{
-			if(Interlock__CHECK_MATERIAL(p_alarm,1,arm_type,stn_name,stn_slot,act_name) < 0)
+			if(Interlock__CHECK_MATERIAL(p_alarm, true, arm_type,stn_name,stn_slot, act_name) < 0)
 			{
 				return -1;
 			}
@@ -419,7 +452,7 @@ Fnc__EXTEND(CII_OBJECT__VARIABLE* p_variable,
 	// ...
 	int flag;
 
-	Set_ANI__ROBOT_ROTATE(arm_type,stn_name);
+	Set_ANI__ROBOT_ROTATE(arm_type, stn_name,stn_slot);
 
 	// ...
 	{
@@ -447,21 +480,29 @@ Call__RETRACT(CII_OBJECT__VARIABLE* p_variable,
 			  const CString& stn_name, 
 			  const CString& stn_slot)
 {
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+		 if(arm_type.CompareNoCase(_ARM_A)  == 0)		active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM_B)  == 0)		active__arm_b = true;
+	else if(arm_type.CompareNoCase(_ARM_AB) == 0)
+	{
+		active__arm_a = true;
+		active__arm_b = true;
+	}
+
+	// ...
 	bool active_place = false;
 
-	if(arm_type.CompareNoCase(ARM_A) == 0)
+	if(active__arm_a)
 	{
 		if(dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS->Check__DATA(STR__NONE) > 0)
 			active_place = true;
 	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
+	if(active__arm_b)
 	{
 		if(dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS->Check__DATA(STR__NONE) > 0)
 			active_place = true;
-	}
-	else
-	{
-		return -11;
 	}
 
 	// ...
@@ -470,13 +511,13 @@ Call__RETRACT(CII_OBJECT__VARIABLE* p_variable,
 	{
 		if(active_place)
 		{
-			_Report__DA_OFFSET(p_alarm, arm_type,stn_name,stn_slot);
+			r_flag = _Report__DA_OFFSET(p_alarm, arm_type,stn_name,stn_slot);
 			_Save__DA_OFFSET(arm_type,stn_name,stn_slot, true);
 		}
 	}
 
-	_Clear__DA_STS(arm_type,stn_name);
-	_Set__DA_RT_OFFSET(stn_name);
+	_Clear__DA_STS(arm_type,stn_name,stn_slot);
+	_Set__DA_RT_OFFSET(stn_name,stn_slot);
 	return r_flag;
 
 }
@@ -508,7 +549,7 @@ Fnc__RETRACT(CII_OBJECT__VARIABLE* p_variable,
 
 	if(flag > 0)
 	{
-		Set_ANI__ROBOT_ARM_RETRACT(arm_type, stn_name);
+		Set_ANI__ROBOT_RETRACT(arm_type, stn_name, stn_slot);
 	}
 	return flag;
 }
@@ -708,16 +749,35 @@ Call__TIME_TEST(CII_OBJECT__VARIABLE* p_variable,
 					int db_i = Macro__CHECK_LLx_INDEX(stn_name);
 					if(db_i >= 0)
 					{
-						sCH__TAS_ACTION_TIME_NOW__LLx[db_index][db_i]->Set__DATA(str_cur);
+						if(bActive__LLx_MULTI_SLOT_VALVE)
+						{
+							for(int t=0; t<CFG_LLx__SLOT_SIZE; t++)
+							{
+								sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[db_index][db_i][t]->Set__DATA(str_cur);
 
-						//
-						p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx[db_index][db_i].Get__PTR();
-						p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx[db_index][db_i].Get__PTR();
-						p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx[db_index][db_i].Get__PTR();
-						p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx[db_index][db_i].Get__PTR();
-						p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx[db_index][db_i].Get__PTR();
+								//
+								p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[db_index][db_i][t].Get__PTR();
+								p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[db_index][db_i][t].Get__PTR();
 
-						_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+								_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+							}
+						}
+						else
+						{
+							sCH__TAS_ACTION_TIME_NOW__LLx_X[db_index][db_i]->Set__DATA(str_cur);
+
+							//
+							p_ch_min = sCH__TAS_ACTION_TIME_MIN__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_max = sCH__TAS_ACTION_TIME_MAX__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_avg = sCH__TAS_ACTION_TIME_AVG__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F__LLx_X[db_index][db_i].Get__PTR();
+							p_ch_cnt = aCH__TAS_ACTION_TIME_CNT__LLx_X[db_index][db_i].Get__PTR();
+
+							_Update__ACTION_MIN_MAX(p_ch_min,p_ch_max, p_ch_avg,p_ch_avg_f,p_ch_cnt, cur_sec);
+						}
 					}
 				}
 				// PMx ...

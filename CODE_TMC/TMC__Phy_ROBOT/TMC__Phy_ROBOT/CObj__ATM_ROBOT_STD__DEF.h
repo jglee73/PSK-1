@@ -39,6 +39,10 @@
 
 #define  STR__YES					"YES"
 #define  STR__NO					"NO"
+#define  STR__NULL					"NULL"
+
+#define  STR__OFF					"OFF"
+#define  STR__ON					"ON"
 
 #define  STR__OPEN					"OPEN"
 #define  STR__CLAMP					"CLAMP"
@@ -49,11 +53,14 @@
 #define  STR__ENABLE			    "ENABLE"
 #define  STR__DISABLE			    "DISABLE"
 
-//.....
+#define  STR__Extend				"Extend"
+#define  STR__None					"None"
+
+// ...
 #define  ARM_A						"A"
 #define  ARM_B						"B"
 
-//.....
+// ...
 #define  STR__LP1					"LP1"
 #define  STR__LP2					"LP2"
 #define  STR__LP3					"LP3"
@@ -68,12 +75,11 @@
 #define  STR__BUFF1					"BUFF1"
 #define  STR__BUFF2                 "BUFF2"
 
-//.....
+// ...
 #define  STR__ABSENT				"ABSENT"
 #define  STR__PRESENT				"PRESENT"
 #define  STR__CROSSED				"CROSSED"
 
-// ...
 // ...
 #define  _MODULE__LBA				"LBA"
 #define  _MODULE__LBB				"LBB"

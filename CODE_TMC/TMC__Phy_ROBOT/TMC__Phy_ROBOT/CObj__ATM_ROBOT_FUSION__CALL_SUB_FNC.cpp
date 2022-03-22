@@ -19,35 +19,14 @@ Fnc__APP_LOG(const CString& log_msg)
 
 // ...
 void  CObj__ATM_ROBOT_FUSION::
-Set_ANI__ROBOT_ARM_EXTEND(const CString& arm_type)
-{
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__EXTEND);
-	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
-	}
-}
-void  CObj__ATM_ROBOT_FUSION::
 Set_ANI__ROBOT_EXTEND(const CString& arm_type,
 					  const CString& stn_name,
 					  const CString& stn_slot)
 {
-	dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
-	dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
-
 	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__EXTEND);
-	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
-	}
+		 if(arm_type.CompareNoCase(ARM_A) == 0)			dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__EXTEND);
+	else if(arm_type.CompareNoCase(ARM_B) == 0)			dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
 }
 
 void  CObj__ATM_ROBOT_FUSION::
@@ -57,48 +36,53 @@ Set_ANI__ROBOT_ALL_RETRACT()
 	dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
 }
 void  CObj__ATM_ROBOT_FUSION::
-Set_ANI__ROBOT_ARM_RETRACT(const CString& arm_type)
-{
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
-	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
-	}
-}
-void  CObj__ATM_ROBOT_FUSION::
 Set_ANI__ROBOT_RETRACT(const CString& arm_type,
 					   const CString& stn_name,
 					   const CString& stn_slot)
 {
-	dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
-	dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
-
 	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
-	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
-	}
+		 if(arm_type.CompareNoCase(ARM_A) == 0)			dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
+	else if(arm_type.CompareNoCase(ARM_B) == 0)			dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
 }
 
 void  CObj__ATM_ROBOT_FUSION::
 Set_ANI__ROBOT_ROTATE(const CString& arm_type,
-					  const CString& stn_name)
+					  const CString& stn_name,
+					  const CString& stn_slot)
 {
-	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
+	// ...
+	{
+		dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
-	dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
-	dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
+		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
+		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
+	}
 
-	dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
-	dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
+	_Set_ANI__ROBOT_ROTATE(arm_type, stn_name, stn_slot);
+}
+void  CObj__ATM_ROBOT_FUSION
+::_Set_ANI__ROBOT_ROTATE(const CString& arm_type,
+						 const CString& stn_name,
+						 const CString& stn_slot)
+{
+	if(bActive__LLx_MULTI_SLOT_VALVE)
+	{
+		CString ch_data;
+
+		int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
+
+		if(ll_i >= 0)			ch_data.Format("%s-%s", stn_name,stn_slot);
+		else					ch_data = stn_name;
+
+		dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(ch_data);
+		dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(ch_data);
+	}
+	else
+	{
+		dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
+		dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
+	}
 }
 
 int CObj__ATM_ROBOT_FUSION::
@@ -128,7 +112,8 @@ Chk_Retry:
 
 int  CObj__ATM_ROBOT_FUSION
 ::Check__STN_EXIST(CII_OBJECT__ALARM* p_alarm,
-				   const CString& stn_name)
+				   const CString& stn_name,
+				   const CString& stn_slot)
 {
 	CString module_name;
 	int i;
@@ -197,9 +182,20 @@ LOOP_CHECK:
 		int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
 		if(ll_i >= 0)
 		{
-			if(dEXT_CH__CFG_LLx_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)
+			if(bActive__LLx_MULTI_SLOT_VALVE)
 			{
-				return 1;
+				if(stn_slot.CompareNoCase("1") == 0)
+				{
+					if(dEXT_CH__CFG_LLx_1_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)			return 1;
+				}
+				else if(stn_slot.CompareNoCase("2") == 0)
+				{
+					if(dEXT_CH__CFG_LLx_2_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)			return 1;
+				}
+			}
+			else
+			{
+				if(dEXT_CH__CFG_LLx_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)				return 1;
 			}
 
 			// ...
@@ -208,7 +204,7 @@ LOOP_CHECK:
 				CString alarm_msg;
 				CString r_act;
 
-				alarm_msg.Format("The exist flag of (%s) STN is not \"YES\", in config page.\n" ,stn_name);
+				alarm_msg.Format("The exist flag of %s(%s) STN is not \"YES\", in config page.\n", stn_name,stn_slot);
 				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,alarm_msg,r_act);
 
 				if(r_act == ACT__RETRY)

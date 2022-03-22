@@ -125,6 +125,14 @@ int CObj__ATM_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_DIGITAL_CTRL(dCH__OTR_IN_PARA__ARM_TYPE,str_name);	
 	}
 
+	// CFG ...
+	{
+		// CheckWaferSlideOut
+		str_name = "CFG.dMAPPING.ACTION.SLIDEOUT.CHECK";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NO YES","");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_MAPPING_ACTION_SLIDE_OUT_CHECK, str_name);
+	}
+
 	// MATERIAL CHANNEL -----
 	{
 		CString dsp_slot_sts;
@@ -173,13 +181,12 @@ int CObj__ATM_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_DIGITAL_CTRL(dCH__OTR_OUT_MON__TRG_ROTATE,str_name);
 	}
 
-	// Wafer Present Check [NO/YES]
+	// Wafer Present Check [NO/YES] ...
 	{
 		str_name = "CFG.dWAFER.PRESENT.CHECK";
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "YES NO", "");
 		LINK__VAR_DIGITAL_CTRL(dCH__CFG__WAFER_PRESENT_CHECK, str_name);
 
-		//
 		str_name = "CFG.dWAFER.CROSSED.CHECK.AFTER.MAPPING";
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "FALSE TRUE", "");
 		LINK__VAR_DIGITAL_CTRL(dCH__CFG__WAFER_CROSSED_CHECK_AFTER_MAPPING, str_name);
@@ -216,7 +223,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 	int alarm_id;
 	int i;
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__ARM_A__MATERIAL_EXIST_ERROR;
 
@@ -228,7 +235,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__ARM_B__MATERIAL_EXIST_ERROR;
 
@@ -241,7 +248,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__AFTER_MAPPING_CROSSED_WAFER_DETECTED;
 
@@ -254,8 +261,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
-	for(i=0;i<CFG_LPx__SIZE;i++)
+	for(i=0; i<CFG_LPx__SIZE; i++)
 	{
 		alarm_id = ALID__LP1__MATERIAL_EXIST_ERROR + i;
 
@@ -269,7 +275,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__AL1__MATERIAL_EXIST_ERROR;
 
@@ -282,7 +288,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LBA__MATERIAL_EXIST_ERROR;
 
@@ -294,7 +300,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LBB__MATERIAL_EXIST_ERROR;
 
@@ -307,7 +313,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__VIS1__MATERIAL_EXIST_ERROR;
 
@@ -320,7 +326,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	// SIDE STORAGE 1 ...
+	// ST1 ...
 	{
 		alarm_id = ALID__SIDE_STORAGE1__MATERIAL_EXIST_ERROR;
 
@@ -332,7 +338,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	// SIDE STORAGE 2 ...
+	// ST2 ...
 	{
 		alarm_id = ALID__SIDE_STORAGE2__MATERIAL_EXIST_ERROR;
 
@@ -345,7 +351,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}	
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__PMx__MATERIAL_EXIST_ERROR;
 
@@ -358,7 +364,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__ARM_A__MATERIAL_NONE_ERROR;
 
@@ -370,7 +376,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__ARM_B__MATERIAL_NONE_ERROR;
 
@@ -383,21 +389,40 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	for(i=0;i<CFG_LPx__SIZE;i++)
+	for(i=0; i<CFG_LPx__SIZE; i++)
 	{
-		alarm_id = ALID__LP1__MATERIAL_NONE_ERROR + i;
+		int id = i + 1;
 
-		alarm_title  = title;
-		alarm_bff.Format("There is no material in LP%1d.",i+1);
-		alarm_title += alarm_bff;
+		// WAFER NONE ERROR ...
+		{
+			alarm_id = ALID__LP1__MATERIAL_NONE_ERROR + i;
 
-		alarm_msg.Format("Please, check material in LP%1d.\n",i+1);
+			alarm_title  = title;
+			alarm_bff.Format("There is no material in LP%1d.", id);
+			alarm_title += alarm_bff;
 
-		ACT__RETRY_ABORT;
-		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+			alarm_msg.Format("Please, check material in LP%1d.\n", id);
+	
+			ACT__RETRY_ABORT;
+			ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+		}
+
+		// WAFER SLIDE OUT SNS ...
+		{
+			alarm_id = ALID__LP1__WFR_SLIDE_SNS_ALARM + i;
+
+			alarm_title  = title;
+			alarm_bff.Format("LP%1d's Wafer Slide Out Sns is On Status.", id);
+			alarm_title += alarm_bff;
+
+			alarm_msg.Format("Please, check LP%1d's Wafer Slide Status... !\n", id);
+
+			ACT__RETRY_ABORT;
+			ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+		}
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__AL1__MATERIAL_NONE_ERROR;
 
@@ -410,7 +435,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LBA__MATERIAL_NONE_ERROR;
 
@@ -422,7 +447,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LBB__MATERIAL_NONE_ERROR;
 
@@ -435,7 +460,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__VIS1__MATERIAL_NONE_ERROR;
 
@@ -448,7 +473,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	// SIDE STORAGE 1
+	// ST1
 	{
 		alarm_id = ALID__SIDE_STORAGE1__MATERIAL_NONE_ERROR;
 
@@ -460,7 +485,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	// SIDE STORAGE 2
+	// ST2
 	{
 		alarm_id = ALID__SIDE_STORAGE2__MATERIAL_NONE_ERROR;
 
@@ -473,7 +498,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__PMx__MATERIAL_NONE_ERROR;
 
@@ -486,7 +511,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__STN__NOT_EXIST_ERROR;
 
@@ -499,7 +524,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LBA__NOT_DOOR_OPEN;
 
@@ -511,7 +536,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LBB__NOT_DOOR_OPEN;
 
@@ -524,7 +549,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LPx__NOT_DOOR_OPEN;
 
@@ -536,7 +561,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LPx__FOUP_NOT_EXIST;
 
@@ -548,7 +573,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LPx__FOUP_NOT_CLAMP;
 
@@ -560,7 +585,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__LPx__FOUP_NOT_LOAD;
 
@@ -572,7 +597,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__INTLK__EFEM_DOOR_NOT_CLOSE;
 
@@ -585,7 +610,7 @@ int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-	//.....
+	// ...
 	{
 		alarm_id = ALID__INTLK__LPx_CANNOT_MAP_WAFER_EXIST_ON_ARM;
 
@@ -633,14 +658,17 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString def_data;
 	CString str_name;
 
-	CString obj_name, var_name;
+	CString obj_name;
+	CString var_name;
+
 	int i;
 	int j;
+
 
 	// DB_CFG ...
 	{
 		def_name = "OBJ__DB";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
 		for(i=0;i<CFG_LPx__SIZE;i++)
 		{
@@ -725,7 +753,7 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	// ROBOT ...
 	{
 		def_name = "OBJ__ROBOT";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
 		pROBOT__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
 
@@ -747,12 +775,31 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		// Angle Value
 		str_name = "OTR.IN.PARA.AL1.CCD.POS";
 		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__ALIGNER_ANGLE_PARA, def_data,str_name);
+
+		// IO : ARM_RNE_SNS ... 
+		{
+			def_name = "ROBOT.ARM_RNE_SNS";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			if((def_data.CompareNoCase(STR__NO)   == 0)
+			|| (def_data.CompareNoCase(STR__NULL) == 0))
+			{
+				bActive__ROBOT_ARM_RNE_SNS = false;
+			}
+			else
+			{
+				bActive__ROBOT_ARM_RNE_SNS = true;
+
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,str_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_RNE_SNS, obj_name,str_name);
+			}
+		}
 	}
 
 	// AL1 ...
 	{
 		def_name = "OBJ__AL1";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
 		// Slot Status
 		str_name = "OTR.OUT.MON.dSLOT01.STATUS";
@@ -771,35 +818,93 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// LLx ...
 	{
-		iSIZE_LLx = 2;
+		def_name = "DATA.LLx_SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-		for(int ll_i=0; ll_i<iSIZE_LLx; ll_i++)
+		iLLx_SIZE = atoi(def_data);
+		if(iLLx_SIZE > CFG_LLx__SIZE)		iLLx_SIZE = CFG_LLx__SIZE;
+
+		for(int ll_i=0; ll_i<iLLx_SIZE; ll_i++)
 		{
-				 if(ll_i == 0)		def_name = "OBJ__LBA";
-			else if(ll_i == 1)		def_name = "OBJ__LBB";
-			else					break;
+			int id = ll_i + 1;
 
-			p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+			//
+			def_name.Format("OBJ__LL%1d", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-			for(i=0;i <CFG_LLx__SLOT_SIZE; i++)
+			for(i=0; i<CFG_LLx__SLOT_SIZE; i++)
 			{
-				str_name.Format("OTR.OUT.MON.dSLOT%002d.STATUS", i+1);
+				int slot_id = i + 1;
+
+				str_name.Format("OTR.OUT.MON.dSLOT%002d.STATUS", slot_id);
 				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LLx_SLOT_STATUS[ll_i][i], def_data,str_name);
 
-				str_name.Format("OTR.OUT.MON.sSLOT%002d.TITLE", i+1);
+				str_name.Format("OTR.OUT.MON.sSLOT%002d.TITLE", slot_id);
 				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx_SLOT_TITLE[ll_i][i], def_data,str_name);
 			}
 
 			// Door Status
 			str_name = "OTR.OUT.MON.dDOOR.VALVE.STATUS";
 			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LLx_DOOR_STATUS[ll_i], def_data,str_name);		
+
+			//
+			def_name.Format("LL%1d.ARM_RNE.SNS", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			
+			if((def_data.CompareNoCase(STR__NO)   == 0)
+			|| (def_data.CompareNoCase(STR__NULL) == 0))
+			{
+				bActive__LLx_ARM_RNE_SNS[ll_i] = false;
+			}
+			else
+			{
+				bActive__LLx_ARM_RNE_SNS[ll_i] = true;
+
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LLx_ARM_RNE_SNS[ll_i], obj_name,var_name);
+
+				//
+				def_name.Format("LL%1d.ARM_RNE_ON.STS", id);
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+				sDATA__LLx_ARM_RNE_ON_STS[ll_i] = def_data;
+
+				def_name.Format("LL%1d.ARM_RNE_OFF.STS", id);
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+				sDATA__LLx_ARM_RNE_OFF_STS[ll_i] = def_data;
+			}
+
+			//
+			def_name.Format("LL%1d.LOAD_ENABLE.SNS", id);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			if((def_data.CompareNoCase(STR__NO)   == 0)
+			|| (def_data.CompareNoCase(STR__NULL) == 0))
+			{
+				bActive__LLx_LOAD_ENABLE_SNS[ll_i] = false;
+			}
+			else
+			{
+				bActive__LLx_LOAD_ENABLE_SNS[ll_i] = true;
+
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LLx_LOAD_ENABLE_SNS[ll_i], obj_name,var_name);
+
+				//
+				def_name.Format("LL%1d.LOAD_ENABLE_OFF.STS", id);
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+				sDATA__LLx_LOAD_ENABLE_OFF_STS[ll_i] = def_data;
+
+				def_name.Format("LL%1d.LOAD_ENABLE_ON.STS", id);
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+				sDATA__LLx_LOAD_ENABLE_ON_STS[ll_i] = def_data;
+			}
 		}
 	}
 
 	// LPx ...
 	{
 		def_name = "LP_SIZE";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
 		iLPx_SIZE = atoi(def_data);
 		if(iLPx_SIZE > CFG_LPx__SIZE)		iLPx_SIZE = CFG_LPx__SIZE;
@@ -847,6 +952,27 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LPx_MAP_SEQ_LOCK[i], def_data,str_name);
 		}
 	}
+	// LPx : IO ...
+	{
+		for(i=0; i<iLPx_SIZE; i++)	
+		{
+			def_name.Format("LP%1d.WAFER_SLIDE_OUT_SNS", i+1);
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			if((def_data.CompareNoCase(STR__NO)   == 0)
+			|| (def_data.CompareNoCase(STR__NULL) == 0))
+			{
+				bActive__LPx_WAFER_SLIDE_OUT_SNS[i] = false;
+			}
+			else
+			{
+				bActive__LPx_WAFER_SLIDE_OUT_SNS[i] = true;
+
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LPx_WAFER_SLIDE_OUT_SNS[i], obj_name,var_name);
+			}
+		}
+	}
 
 	// SIDE STORAGE1 ...
 	{
@@ -877,6 +1003,21 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
+	// ...
+	{
+		SCX__SEQ_INFO x_seq_info;
+
+		iActive_SIM = x_seq_info->Is__SIMULATION_MODE();
+	}
+
+	if(iActive_SIM > 0)
+	{
+		for(i=0; i<iLPx_SIZE; i++)
+		{
+			if(bActive__LPx_WAFER_SLIDE_OUT_SNS[i])
+				dEXT_CH__LPx_WAFER_SLIDE_OUT_SNS[i]->Set__DATA(STR__OFF);
+		}
+	}
 	return 1;
 }
 
@@ -1437,10 +1578,6 @@ int CObj__ATM_ROBOT_STD::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm
 				}
 			}
 		}	
-	}
-	else	
-	{
-
 	}
 
 

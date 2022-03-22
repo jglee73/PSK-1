@@ -18,173 +18,227 @@ Fnc__APP_LOG(const CString& log_msg)
 
 // ...
 void  CObj__VAC_ROBOT_STD::
-Set_ANI__ROBOT_ARM_EXTEND(const CString& arm_type, const CString& stn_name)
-{
-	// ...
-	{
-		int pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-
-		if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
-		{
-			dCH__OTR_OUT_MON__PMx_ARM_STATE[pm_index]->Set__DATA(STR__EXTEND);
-		}
-	}
-
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__EXTEND);
-		return;
-	}
-	if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
-		return;
-	}
-}
-void  CObj__VAC_ROBOT_STD::
 Set_ANI__ROBOT_EXTEND(const CString& arm_type,
 					  const CString& stn_name,
 					  const CString& stn_slot)
 {
+	CStringArray l__arm_type;
+	CStringArray l__stn_name;
+	CStringArray l__stn_slot;
+
+	_Get__ARM_INFO(arm_type,stn_name,stn_slot, l__arm_type,l__stn_name,l__stn_slot);
+
+	int i_limit = l__arm_type.GetSize();
+	for(int i=0; i<i_limit; i++)
+	{
+		CString cur__arm_type = l__arm_type[i];
+		CString cur__stn_name = l__stn_name[i];
+		CString cur__stn_slot = l__stn_slot[i];
+
+		_Set_ANI__ROBOT_EXTEND(cur__arm_type, cur__stn_name,cur__stn_slot);
+	}
+
+	if(iActive_SIM > 0)
+	{
+		if(bActive__ROBOT_ARM_RNE_SNS)			dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(STR__Extend);
+	}
+}
+void  CObj__VAC_ROBOT_STD::
+_Set_ANI__ROBOT_EXTEND(const CString& arm_type,
+					   const CString& stn_name,
+					   const CString& stn_slot)
+{
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+		 if(arm_type.CompareNoCase(_ARM_A) == 0)		active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM_B) == 0)		active__arm_b = true;
+
+	// ...
 	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__EXTEND);
+		 if(active__arm_a)			dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__EXTEND);
+	else if(active__arm_b)			dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
 
+	// PM Check ...
+	{
 		int pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-		if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
+
+		if((pm_index >= 0) && (pm_index < m_nPM_LIMIT))
 		{
 			dCH__OTR_OUT_MON__PMx_ARM_STATE[pm_index]->Set__DATA(STR__EXTEND);
-			dCH__OTR_OUT_MON__PMx_ARM_A_ACT[pm_index]->Set__DATA(STR__EXTEND);
-		}
 
-		int ll_index = Macro__CHECK_LLx_INDEX(stn_name);
-		if(ll_index >= 0)
-		{
-			dCH__OTR_OUT_MON__LBx_ARM_A_ACT[ll_index]->Set__DATA(STR__EXTEND);
+				 if(active__arm_a)		dCH__OTR_OUT_MON__PMx_ARM_A_ACT[pm_index]->Set__DATA(STR__EXTEND);
+			else if(active__arm_b)		dCH__OTR_OUT_MON__PMx_ARM_B_ACT[pm_index]->Set__DATA(STR__EXTEND);
 		}
-		return;
 	}
-	if(arm_type.CompareNoCase(ARM_B) == 0)
+	
+	// LL Check ...
 	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
-
-		int pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-		if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
-		{
-			dCH__OTR_OUT_MON__PMx_ARM_STATE[pm_index]->Set__DATA(STR__EXTEND);
-			dCH__OTR_OUT_MON__PMx_ARM_B_ACT[pm_index]->Set__DATA(STR__EXTEND);
-		}
-
 		int ll_index = Macro__CHECK_LLx_INDEX(stn_name);
-		if(ll_index >= 0)
+
+		if((ll_index >= 0) && (ll_index < iSIZE__LLx))
 		{
-			dCH__OTR_OUT_MON__LBx_ARM_B_ACT[ll_index]->Set__DATA(STR__EXTEND);
+				 if(active__arm_a)		dCH__OTR_OUT_MON__LBx_ARM_A_ACT[ll_index]->Set__DATA(STR__EXTEND);
+			else if(active__arm_b)		dCH__OTR_OUT_MON__LBx_ARM_B_ACT[ll_index]->Set__DATA(STR__EXTEND);
 		}
-		return;
 	}
 }
 
-void  CObj__VAC_ROBOT_STD::
-Set_ANI__ROBOT_ALL_RETRACT()
+void  CObj__VAC_ROBOT_STD
+::Set_ANI__ROBOT_ALL_RETRACT()
 {
 	dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
 	dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
 
-	for(int i=0; i<m_nPM_LIMIT; i++)
+	// ...
+	int i;
+
+	for(i=0; i<m_nPM_LIMIT; i++)
 	{
 		dCH__OTR_OUT_MON__PMx_ARM_STATE[i]->Set__DATA(STR__RETRACT);
 		dCH__OTR_OUT_MON__PMx_ARM_A_ACT[i]->Set__DATA(STR__RETRACT);
 		dCH__OTR_OUT_MON__PMx_ARM_B_ACT[i]->Set__DATA(STR__RETRACT);
 	}
+
+	for(i=0; i<iSIZE__LLx; i++)
+	{
+		dCH__OTR_OUT_MON__LBx_ARM_A_ACT[i]->Set__DATA(STR__RETRACT);
+		dCH__OTR_OUT_MON__LBx_ARM_B_ACT[i]->Set__DATA(STR__RETRACT);
+	}
+
+	if(iActive_SIM > 0)
+	{
+		if(bActive__ROBOT_ARM_RNE_SNS)			dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(STR__None);
+	}
 }
-void  CObj__VAC_ROBOT_STD::
-Set_ANI__ROBOT_ARM_RETRACT(const CString& arm_type, const CString& stn_name)
+void  CObj__VAC_ROBOT_STD
+::Set_ANI__ROBOT_RETRACT(const CString& arm_type,
+					     const CString& stn_name,
+					     const CString& stn_slot)
 {
+	CStringArray l__arm_type;
+	CStringArray l__stn_name;
+	CStringArray l__stn_slot;
+
+	_Get__ARM_INFO(arm_type,stn_name,stn_slot, l__arm_type,l__stn_name,l__stn_slot);
+
+	int i_limit = l__arm_type.GetSize();
+	for(int i=0; i<i_limit; i++)
+	{
+		CString cur__arm_type = l__arm_type[i];
+		CString cur__stn_name = l__stn_name[i];
+		CString cur__stn_slot = l__stn_slot[i];
+
+		_Set_ANI__ROBOT_RETRACT(cur__arm_type, cur__stn_name,cur__stn_slot);
+	}
+
+	if(iActive_SIM > 0)
+	{
+		if(bActive__ROBOT_ARM_RNE_SNS)			dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(STR__None);
+	}
+}
+void  CObj__VAC_ROBOT_STD
+::_Set_ANI__ROBOT_RETRACT(const CString& arm_type,
+						  const CString& stn_name,
+						  const CString& stn_slot)
+{
+	bool active__arm_a = false;
+	bool active__arm_b = false;
+
+		 if(arm_type.CompareNoCase(_ARM_A) == 0)			active__arm_a = true;
+	else if(arm_type.CompareNoCase(_ARM_B) == 0)			active__arm_b = true;
+
 	// ...
-	{
-		int pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-		if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
-		{
-			dCH__OTR_OUT_MON__PMx_ARM_STATE[pm_index]->Set__DATA(STR__RETRACT);
-		}
-	}
-
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
-		return;
-	}
-	if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
-		return;
-	}
-}
-void  CObj__VAC_ROBOT_STD::
-Set_ANI__ROBOT_RETRACT(const CString& arm_type,
-					   const CString& stn_name,
-					   const CString& stn_slot)
-{
-	int pm_index;
-
 	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
-	if(arm_type.CompareNoCase(ARM_A) == 0)
+		 if(active__arm_a)			dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
+	else if(active__arm_b)			dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
+
+	// PM Check ...
+	int pm_index = Macro__CHECK_PMx_INDEX(stn_name);
+	if((pm_index >= 0) && (pm_index < m_nPM_LIMIT))
 	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
+		dCH__OTR_OUT_MON__PMx_ARM_STATE[pm_index]->Set__DATA(STR__RETRACT);
 
-		pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-		if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
-		{
-			dCH__OTR_OUT_MON__PMx_ARM_STATE[pm_index]->Set__DATA(STR__RETRACT);
-			dCH__OTR_OUT_MON__PMx_ARM_A_ACT[pm_index]->Set__DATA(STR__RETRACT);
-		}
-
-		int ll_index = Macro__CHECK_LLx_INDEX(stn_name);
-		if(ll_index >= 0)
-		{
-			dCH__OTR_OUT_MON__LBx_ARM_A_ACT[ll_index]->Set__DATA(STR__RETRACT);
-		}
-		return;
+			 if(active__arm_a)		dCH__OTR_OUT_MON__PMx_ARM_A_ACT[pm_index]->Set__DATA(STR__RETRACT);
+		else if(active__arm_b)		dCH__OTR_OUT_MON__PMx_ARM_B_ACT[pm_index]->Set__DATA(STR__RETRACT);
 	}
-	if(arm_type.CompareNoCase(ARM_B) == 0)
+
+	// LL Check ...
+	int ll_index = Macro__CHECK_LLx_INDEX(stn_name);
+	if((ll_index >= 0) && (ll_index < iSIZE__LLx))
 	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
-
-		pm_index = Macro__CHECK_PMx_INDEX(stn_name);
-		if((pm_index >= 0)&&(pm_index < m_nPM_LIMIT))
-		{
-			dCH__OTR_OUT_MON__PMx_ARM_STATE[pm_index]->Set__DATA(STR__RETRACT);
-			dCH__OTR_OUT_MON__PMx_ARM_B_ACT[pm_index]->Set__DATA(STR__RETRACT);
-		}
-
-		int ll_index = Macro__CHECK_LLx_INDEX(stn_name);
-		if(ll_index >= 0)
-		{
-			dCH__OTR_OUT_MON__LBx_ARM_B_ACT[ll_index]->Set__DATA(STR__RETRACT);
-		}
-		return;
+			 if(active__arm_a)		dCH__OTR_OUT_MON__LBx_ARM_A_ACT[ll_index]->Set__DATA(STR__RETRACT);
+		else if(active__arm_b)		dCH__OTR_OUT_MON__LBx_ARM_B_ACT[ll_index]->Set__DATA(STR__RETRACT);
 	}
 }
 
-void  CObj__VAC_ROBOT_STD::
-Set_ANI__ROBOT_ROTATE(const CString& arm_type,
-					  const CString& stn_name)
+void  CObj__VAC_ROBOT_STD
+::Set_ANI__ROBOT_ROTATE(const CString& arm_type,
+					    const CString& stn_name,
+					    const CString& stn_slot)
 {
 	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
 	dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
 	dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
 
-	dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
-	dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
+	_Set_ANI__ROBOT_ROTATE(arm_type, stn_name, stn_slot);
+}
+void  CObj__VAC_ROBOT_STD
+::_Set_ANI__ROBOT_ROTATE(const CString& arm_type,
+						 const CString& stn_name,
+						 const CString& stn_slot)
+{
+	CString ani_str;
+
+	if(arm_type.CompareNoCase(_ARM_AB) == 0)
+	{
+		int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
+		int pm_i = Macro__CHECK_PMx_INDEX(stn_name);
+
+		if(ll_i >= 0)
+		{
+			int id_left  = 1;
+			int id_right = 2;
+
+			ani_str.Format("%s-%1d%1d", stn_name,id_left,id_right);
+		}
+		else if(pm_i >= 0)
+		{
+			// 0 1 : 0 * 2 + 1 -> 1
+			// 2 3 : 1 * 2 + 1 -> 3
+            // 4 5 : 2 * 2 + 1 -> 5
+			int pm_id = ((pm_i / 2) * 2) + 1;
+
+			int id_left  = pm_id;
+			int id_right = id_left + 1;
+
+			ani_str.Format("PM%1d%1d", id_left,id_right);
+		}
+	}
+
+	if(ani_str.GetLength() > 0)
+	{
+		dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(ani_str);
+		dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(ani_str);
+	}
+	else
+	{
+		dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
+		dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
+	}
+
+	if(iActive_SIM > 0)
+	{
+		if(bActive__ROBOT_ARM_RNE_SNS)			dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(STR__None);
+	}
 }
 
 
 int  CObj__VAC_ROBOT_STD
-::Check__STN_EXIST(CII_OBJECT__ALARM* p_alarm,const CString& stn_name)
+::Check__STN_EXIST(CII_OBJECT__ALARM* p_alarm, const CString& stn_name,const CString& stn_slot)
 {
 	CString module_name;
 	int i;
@@ -195,9 +249,20 @@ LOOP_CHECK:
 	int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
 	if(ll_i >= 0)
 	{
-		if(dEXT_CH__CFG_LLx_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)
+		if(bActive__LLx_MULTI_SLOT_VALVE)
 		{
-			return 1;
+			if(stn_slot.CompareNoCase("1") == 0)		
+			{
+				if(dEXT_CH__CFG_LLx_1_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)			return 1;
+			}
+			else if(stn_slot.CompareNoCase("2") == 0)		
+			{
+				if(dEXT_CH__CFG_LLx_2_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)			return 1;
+			}
+		}
+		else
+		{
+			if(dEXT_CH__CFG_LLx_EXIST_FLAG[ll_i]->Check__DATA(STR__YES) > 0)			return 1;
 		}
 
 		// ...

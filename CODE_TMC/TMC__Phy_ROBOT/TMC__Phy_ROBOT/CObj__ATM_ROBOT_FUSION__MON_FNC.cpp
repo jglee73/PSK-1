@@ -14,7 +14,7 @@ Mon__STATE_MONITOR(CII_OBJECT__VARIABLE* p_variable,
 
 	while(1)
 	{
-		Sleep(500);
+		p_variable->Wait__SINGLE_OBJECT(0.5);
 
 		if(sCH__TAS_RESET_REQ->Check__DATA("") < 0)
 		{
@@ -54,14 +54,32 @@ Mon__STATE_MONITOR(CII_OBJECT__VARIABLE* p_variable,
 				}
 
 				// LLx ...
-				for(k=0; k<CFG_LLx__SIZE; k++)
+				if(bActive__LLx_MULTI_DOOR_VALVE)
 				{
-					sCH__TAS_ACTION_TIME_NOW__LLx[i][k]->Set__DATA("");
-					sCH__TAS_ACTION_TIME_MIN__LLx[i][k]->Set__DATA("");
-					sCH__TAS_ACTION_TIME_MAX__LLx[i][k]->Set__DATA("");
-					sCH__TAS_ACTION_TIME_AVG__LLx[i][k]->Set__DATA("");
-					sCH__TAS_ACTION_TIME_AVG_F__LLx[i][k]->Set__DATA("");
-					aCH__TAS_ACTION_TIME_CNT__LLx[i][k]->Set__VALUE(1);
+					for(k=0; k<CFG_LLx__SIZE; k++)
+					{
+						for(int t=0; t<CFG_LLx__SLOT_SIZE; t++)
+						{
+							sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[i][k][t]->Set__DATA("");
+							sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[i][k][t]->Set__DATA("");
+							sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[i][k][t]->Set__DATA("");
+							sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[i][k][t]->Set__DATA("");
+							sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[i][k][t]->Set__DATA("");
+							aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[i][k][t]->Set__VALUE(1);
+						}
+					}
+				}
+				else
+				{
+					for(k=0; k<CFG_LLx__SIZE; k++)
+					{
+						sCH__TAS_ACTION_TIME_NOW__LLx_X[i][k]->Set__DATA("");
+						sCH__TAS_ACTION_TIME_MIN__LLx_X[i][k]->Set__DATA("");
+						sCH__TAS_ACTION_TIME_MAX__LLx_X[i][k]->Set__DATA("");
+						sCH__TAS_ACTION_TIME_AVG__LLx_X[i][k]->Set__DATA("");
+						sCH__TAS_ACTION_TIME_AVG_F__LLx_X[i][k]->Set__DATA("");
+						aCH__TAS_ACTION_TIME_CNT__LLx_X[i][k]->Set__VALUE(1);
+					}
 				}
 
 				// ST1 ...

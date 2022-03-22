@@ -1957,23 +1957,6 @@ Please, Check Communication Status !
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - Error Code !"
-#MESSAGE 
-"Please, check HW status !
-"
-#RECOVERY_ACTION 
-     ABORT   ""
-     RETRY   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   23813 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
 "PHY_IO__ATM_ROBOT - Align and Pick Action Timeout Occur."
 #MESSAGE 
 "Align and Pick Action Timeout Occur.
@@ -1985,8 +1968,8 @@ Please, Check ATM Robot Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   14 
-#EXTERNAL_ID   23814 
+#INTERNAL_ID   13 
+#EXTERNAL_ID   23813 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
@@ -2002,14 +1985,60 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   31 
-#EXTERNAL_ID   23831 
+#INTERNAL_ID   15 
+#EXTERNAL_ID   23815 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP1's door status is not open."
+"PHY_IO__ATM_ROBOT - Error State"
 #MESSAGE 
-"Please, check LP1's door status !
+"Error state must be "OFF". 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   16 
+#EXTERNAL_ID   23816 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - Servo State"
+#MESSAGE 
+"Servo state must be "ON". 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   17 
+#EXTERNAL_ID   23817 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - Robot's FAN State"
+#MESSAGE 
+"Robot's FAN state must be "ON". 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   101 
+#EXTERNAL_ID   23901 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Command failed"
+#MESSAGE 
+"This is a generic command that requires the operator to have a knowledge.
+of the events leading to the failure.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2018,14 +2047,321 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   41 
-#EXTERNAL_ID   23841 
+#INTERNAL_ID   102 
+#EXTERNAL_ID   23902 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP1's foup does not exist."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC Error"
 #MESSAGE 
-"Please, check LP1's foup does not exist !
+"MCC Error Already Displayed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   103 
+#EXTERNAL_ID   23903 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Not at Station"
+#MESSAGE 
+"Station based command issued while robot was
+not at a station."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   104 
+#EXTERNAL_ID   23904 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Radial axis not at retract position"
+#MESSAGE 
+"Robot must be retracted prior to executing desired move."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   105 
+#EXTERNAL_ID   23905 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Invalid Arm selection"
+#MESSAGE 
+"Verify that arm A is being selected for single arm robot.
+Arm B is available for dual arm."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   106 
+#EXTERNAL_ID   23906 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Wrist axis not at unflipped position"
+#MESSAGE 
+"This error is displayed anytime a robot is commanded to retract from a
+station and the W-axis is at the FLIPPED position with the Z-axis DOWN
+for the station."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   107 
+#EXTERNAL_ID   23907 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Wrist axis not at flipped position [ErrorID:%d]"
+#MESSAGE 
+"Wrist axis not at flipped position."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   108 
+#EXTERNAL_ID   23908 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : R and T axis must be referenced before homing Z"
+#MESSAGE 
+"R and T axis must be referenced before homing Z."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   109 
+#EXTERNAL_ID   23909 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Robot Extended to VCE"
+#MESSAGE 
+"Robot Extended to VCE."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   110 
+#EXTERNAL_ID   23910 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Atmospheric Robot Extended to VCE"
+#MESSAGE 
+"Atmospheric Robot Extended to VCE."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   111 
+#EXTERNAL_ID   23911 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Platform 97 Pneumatic Fault"
+#MESSAGE 
+"Platform 97 Pneumatic Fault."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   112 
+#EXTERNAL_ID   23912 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Extend to station not enabled"
+#MESSAGE 
+"Extend to station not enabled.
+ATM Robot occurred H/W Alarm.
+Please, Check ATM Robot H/W Status"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   113 
+#EXTERNAL_ID   23913 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Valve not closed"
+#MESSAGE 
+"Valve not closed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   114 
+#EXTERNAL_ID   23914 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Command argument already used"
+#MESSAGE 
+"Command argument already used."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   115 
+#EXTERNAL_ID   23915 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Unknown command"
+#MESSAGE 
+"Unrecognized command. An optional parameter is missing or the command was
+entered incorrectly."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   116 
+#EXTERNAL_ID   23916 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Command not supported"
+#MESSAGE 
+"Command not supported."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   117 
+#EXTERNAL_ID   23917 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Parser error, bad node in parse tree"
+#MESSAGE 
+"Parser error, bad node in parse tree."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   118 
+#EXTERNAL_ID   23918 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Parser error, stack overflow"
+#MESSAGE 
+"Parser error, stack overflow."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   119 
+#EXTERNAL_ID   23919 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Parse error, no memory available"
+#MESSAGE 
+"Parse error, no memory available."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   120 
+#EXTERNAL_ID   23920 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Unexpected mail to UIO task"
+#MESSAGE 
+"Unexpected mail to UIO task"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   121 
+#EXTERNAL_ID   23921 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Command checksum error"
+#MESSAGE 
+"Command checksum error"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   122 
+#EXTERNAL_ID   23922 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Bad slot number"
+#MESSAGE 
+"Bad slot number
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2034,14 +2370,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   46 
-#EXTERNAL_ID   23846 
+#INTERNAL_ID   123 
+#EXTERNAL_ID   23923 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP1's foup does not clamp."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Bad Lower Position"
 #MESSAGE 
-"Please, check LP1's foup does not clamp !
+"Bad Lower Position.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2050,14 +2386,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   51 
-#EXTERNAL_ID   23851 
+#INTERNAL_ID   124 
+#EXTERNAL_ID   23924 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP1's foup position is not load."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Station not initialized"
 #MESSAGE 
-"Please, check LP1's foup position is not load !
+"Station not initialized.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2066,14 +2402,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   56 
-#EXTERNAL_ID   23856 
+#INTERNAL_ID   125 
+#EXTERNAL_ID   23925 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP1's Wafer Slide Out Sns is On Status."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : No Z-axis on robot"
 #MESSAGE 
-"Please, check LP1's Wafer Slide Status... !
+"No Z-axis on robot.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2082,14 +2418,30 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   32 
-#EXTERNAL_ID   23832 
+#INTERNAL_ID   126 
+#EXTERNAL_ID   23926 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP2's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Command sequencer busy"
 #MESSAGE 
-"Please, check LP2's door status !
+"Wait for the robot to complete its last operation. If the error persists,
+reset the robot by issuing the RESET command or toggling power."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   127 
+#EXTERNAL_ID   23927 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Command halted"
+#MESSAGE 
+"A HALT command was issued to stop robot motion. The robot remains referenced.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2098,14 +2450,64 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   42 
-#EXTERNAL_ID   23842 
+#INTERNAL_ID   129 
+#EXTERNAL_ID   23929 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP2's foup does not exist."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Digital I/O in control of robot"
 #MESSAGE 
-"Please, check LP2's foup does not exist !
+"To release digital I/O control of robot, enter the command DIO STOP.
+Refer to DIO Start/Stop on page 8-66 for additional information."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   130 
+#EXTERNAL_ID   23930 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Serial I/O in control of robot"
+#MESSAGE 
+"To initiate digital I/O control of robot, enter the command DIO START.
+Refer to DIO Start/Stop on page 8-66 for additional information."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   131 
+#EXTERNAL_ID   23931 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Emergency stop on"
+#MESSAGE 
+"The EMER_STOP interlock for the robot has been activated.
+Refer to Operational Interlocks on page 6-66. Verify that a robot
+Emergency Stop (EMS) button has been activated and deactivate
+as appropriate. Check host controller software."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   132 
+#EXTERNAL_ID   23932 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Warning, CDM has been turned on"
+#MESSAGE 
+"Warning, CDM has been turned on.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2114,14 +2516,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   47 
-#EXTERNAL_ID   23847 
+#INTERNAL_ID   133 
+#EXTERNAL_ID   23933 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP2's foup does not clamp."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Warning, CDM has been turned off"
 #MESSAGE 
-"Please, check LP2's foup does not clamp !
+"Warning, CDM has been turned off.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2130,14 +2532,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   52 
-#EXTERNAL_ID   23852 
+#INTERNAL_ID   134 
+#EXTERNAL_ID   23934 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP2's foup position is not load."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Unknown command"
 #MESSAGE 
-"Please, check LP2's foup position is not load !
+"Unknown command.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2146,14 +2548,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   57 
-#EXTERNAL_ID   23857 
+#INTERNAL_ID   135 
+#EXTERNAL_ID   23935 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP2's Wafer Slide Out Sns is On Status."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Invalid command identifier"
 #MESSAGE 
-"Please, check LP2's Wafer Slide Status... !
+"Invalid command identifier.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2162,14 +2564,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   33 
-#EXTERNAL_ID   23833 
+#INTERNAL_ID   136 
+#EXTERNAL_ID   23936 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP3's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Wafer detected on paddle"
 #MESSAGE 
-"Please, check LP3's door status !
+"Wafer detected on paddle
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2178,14 +2580,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   43 
-#EXTERNAL_ID   23843 
+#INTERNAL_ID   137 
+#EXTERNAL_ID   23937 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP3's foup does not exist."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Slot valve not open"
 #MESSAGE 
-"Please, check LP3's foup does not exist !
+"Slot valve not open
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2194,14 +2596,447 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   48 
-#EXTERNAL_ID   23848 
+#INTERNAL_ID   138 
+#EXTERNAL_ID   23938 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP3's foup does not clamp."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : No Vacuum Grip Arm A"
 #MESSAGE 
-"Please, check LP3's foup does not clamp !
+"Occurs during a PICK operation if successful vacuum gripping is NOT
+detected for the specified arm at the completion of the operation,
+whether the arm is retracted or not.
+Occurs during a PLACE operation if successful vacuum gripping is
+NOT detected for the specified arm prior to placing the wafer.
+Occurs during either the PICK or PLACE portion of a XFER operation.
+Occurs during a GOTO operation if successful vacuum gripping is NOT
+detected for the specified arm prior to the specified motion."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   139 
+#EXTERNAL_ID   23939 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Slow Vacuum Grip Arm A"
+#MESSAGE 
+"Occurs during a PICK operation if successful vacuum gripping is NOT
+detected for the specified arm when a wafer has been picked up and the
+robot arm is still extended, but IS detected at the completion of the operation."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   140 
+#EXTERNAL_ID   23940 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Possible Material on Arm A"
+#MESSAGE 
+"Possible Material on Arm A."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   141 
+#EXTERNAL_ID   23941 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Pick failed"
+#MESSAGE 
+"Pick failed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   142 
+#EXTERNAL_ID   23942 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Placed failed"
+#MESSAGE 
+"Placed failed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   143 
+#EXTERNAL_ID   23943 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : RE wafer sensor error prior to PLACE:NoWafer Sensed"
+#MESSAGE 
+"RE wafer sensor error prior to PLACE:NoWafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   144 
+#EXTERNAL_ID   23944 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : RE wafer sensor error after a PLACE:Wafer Sensed"
+#MESSAGE 
+"RE wafer sensor error after a PLACE:Wafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   145 
+#EXTERNAL_ID   23945 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : EX wafer sensor error prior to a PLACE: Wafer Sensed"
+#MESSAGE 
+"EX wafer sensor error prior to a PLACE: Wafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   146 
+#EXTERNAL_ID   23946 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : EX wafer sensor error after a PLACE: No Wafer Sensed"
+#MESSAGE 
+"EX wafer sensor error after a PLACE: No Wafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   147 
+#EXTERNAL_ID   23947 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : RE wafer sensor error prior to a PICK: Wafer Sensed"
+#MESSAGE 
+"RE wafer sensor error prior to a PICK: Wafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   148 
+#EXTERNAL_ID   23948 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : RE wafer sensor error after a PICK:NoWafer Sensed"
+#MESSAGE 
+"RE wafer sensor error after a PICK:NoWafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   149 
+#EXTERNAL_ID   23949 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : EX wafer sensor error prior to a PICK:NoWafer Sensed"
+#MESSAGE 
+"EX wafer sensor error prior to a PICK:NoWafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   150 
+#EXTERNAL_ID   23950 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : EX wafer sensor error after a PICK: Wafer Sensed"
+#MESSAGE 
+"EX wafer sensor error after a PICK: Wafer Sensed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   151 
+#EXTERNAL_ID   23951 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Possible material on Arm A"
+#MESSAGE 
+"Prior to a PICK operation, it is not known if a wafer is on the arm."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   152 
+#EXTERNAL_ID   23952 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Unknown serial port"
+#MESSAGE 
+"Unknown serial port."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   153 
+#EXTERNAL_ID   23953 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Can't allocate serial port semaphore"
+#MESSAGE 
+"Can't allocate serial port semaphore."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   154 
+#EXTERNAL_ID   23954 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Secondary Serial Port mode"
+#MESSAGE 
+"Secondary Serial Port mode."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   155 
+#EXTERNAL_ID   23955 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Secondary Serial Port is busy"
+#MESSAGE 
+"Secondary Serial Port is busy."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   156 
+#EXTERNAL_ID   23956 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Secondary Serial Port response timeout"
+#MESSAGE 
+"Secondary Serial Port response timeout."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   157 
+#EXTERNAL_ID   23957 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : No serial communication with remote MCC"
+#MESSAGE 
+"No serial communication with remote MCC."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   158 
+#EXTERNAL_ID   23958 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Default debug message from the MCC"
+#MESSAGE 
+"Default debug message from the MCC."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   159 
+#EXTERNAL_ID   23959 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Sync error, motor moving or encoder noisy"
+#MESSAGE 
+"Sync error, motor moving or encoder noisy."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   160 
+#EXTERNAL_ID   23960 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC board memory allocation error"
+#MESSAGE 
+"MCC board memory allocation error."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   161 
+#EXTERNAL_ID   23961 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC board unexpected event error"
+#MESSAGE 
+"MCC board unexpected event error."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   162 
+#EXTERNAL_ID   23962 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC board, bad command state"
+#MESSAGE 
+"MCC board, bad command state."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   163 
+#EXTERNAL_ID   23963 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC Board Sync error"
+#MESSAGE 
+"MCC Board Sync error, can't move motor. Possible binding.
+See Z Binding Test Using the Trace Command on page 10-37.
+Obstruction in way ofmotion.
+Perform Verifying Robot Calibration Parameters on page 10-44."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   164 
+#EXTERNAL_ID   23964 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC encoder VABS adjusted"
+#MESSAGE 
+"MCC encoder VABS adjusted (small)."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   165 
+#EXTERNAL_ID   23965 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC board position settle error"
+#MESSAGE 
+"MCC board position settle error/unable to obtain position The robot has
+a settling window at the end of the trajectory."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   166 
+#EXTERNAL_ID   23966 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC unable to hold position"
+#MESSAGE 
+"MCC unable to hold position.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2210,14 +3045,717 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   53 
-#EXTERNAL_ID   23853 
+#INTERNAL_ID   167 
+#EXTERNAL_ID   23967 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP3's foup position is not load."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC hard tracking error"
 #MESSAGE 
-"Please, check LP3's foup position is not load !
+"Verify that robot arm state is correct (arms on or arms off).
+Verify robot application number is correct.
+Check for physical obstruction."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   168 
+#EXTERNAL_ID   23968 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : MCC soft tracking error"
+#MESSAGE 
+"MCC soft tracking error."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   169 
+#EXTERNAL_ID   23969 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, motor is already moving"
+#MESSAGE 
+"Error, motor is already moving."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   170 
+#EXTERNAL_ID   23970 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, motor is not configured"
+#MESSAGE 
+"Error, motor is not configured."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   171 
+#EXTERNAL_ID   23971 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, motor is not referenced"
+#MESSAGE 
+"Error, motor is not referenced."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   172 
+#EXTERNAL_ID   23972 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, motor is already referencing"
+#MESSAGE 
+"Error, motor is already referencing."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   173 
+#EXTERNAL_ID   23973 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, motor is currently moving"
+#MESSAGE 
+"Error, Error, motor is currently moving."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   174 
+#EXTERNAL_ID   23974 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, unable to calculate trajectory"
+#MESSAGE 
+"Error, unable to calculate trajectory."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   175 
+#EXTERNAL_ID   23975 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Illegal number of polls calculated"
+#MESSAGE 
+"Illegal number of polls calculated."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   176 
+#EXTERNAL_ID   23976 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Unable to calculate absolute position"
+#MESSAGE 
+"Unable to calculate absolute position."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   178 
+#EXTERNAL_ID   23978 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Encoder failed multiple times"
+#MESSAGE 
+"Check if failure location is repeatable.
+Record position of failure."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   179 
+#EXTERNAL_ID   23979 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Board Power Failure"
+#MESSAGE 
+"Error, Board Power Failure (Blown Fuse?).
+Check if fuse is blown by inspecting fuses or if respective
+LED is not illuminated.
+Replace fuse as needed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   180 
+#EXTERNAL_ID   23980 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Z axis overtravel limit reached"
+#MESSAGE 
+"Error, Z axis overtravel limit reached."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   181 
+#EXTERNAL_ID   23981 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Arm actual position impossible, check sync zero"
+#MESSAGE 
+"Arm actual position impossible, check sync zero."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   182 
+#EXTERNAL_ID   23982 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, MCC watchdog timed out"
+#MESSAGE 
+"Error, MCC watchdog timed out."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   183 
+#EXTERNAL_ID   23983 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, obstruction encounter for axis"
+#MESSAGE 
+"Error, obstruction encounter for axis."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   184 
+#EXTERNAL_ID   23984 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Emergency Stop circuit is active"
+#MESSAGE 
+"Error, Emergency Stop circuit is active."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   185 
+#EXTERNAL_ID   23985 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, excessive current detected"
+#MESSAGE 
+"Error, excessive current detected."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   186 
+#EXTERNAL_ID   23986 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Warning, Home Sensor position moved"
+#MESSAGE 
+"Warning, Home Sensor position moved."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   187 
+#EXTERNAL_ID   23987 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, encoder min/max value out of range"
+#MESSAGE 
+"Error, encoder min/max value out of range."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   188 
+#EXTERNAL_ID   23988 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, bad sync phase offset value"
+#MESSAGE 
+"Error, bad sync phase offset value."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   189 
+#EXTERNAL_ID   23989 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, robot links are not yet defined"
+#MESSAGE 
+"Error, robot links are not yet defined."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   190 
+#EXTERNAL_ID   23990 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, MCC code date/stamp mismatch"
+#MESSAGE 
+"Error, MCC code date/stamp mismatch."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   191 
+#EXTERNAL_ID   23991 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, MCC stored code checksum incorrect"
+#MESSAGE 
+"Error, MCC stored code checksum incorrect."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   192 
+#EXTERNAL_ID   23992 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, MCC code size too large to store"
+#MESSAGE 
+"Error, MCC code size too large to store."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   193 
+#EXTERNAL_ID   23993 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, i2c bus is busy"
+#MESSAGE 
+"Error, i2c bus is busy."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   194 
+#EXTERNAL_ID   23994 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, no ack on i2c send data"
+#MESSAGE 
+"Error, no ack on i2c send data."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   195 
+#EXTERNAL_ID   23995 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, no ack on i2c send address"
+#MESSAGE 
+"Error, no ack on i2c send address."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   196 
+#EXTERNAL_ID   23996 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, i2c bus error"
+#MESSAGE 
+"Error, i2c bus error."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   197 
+#EXTERNAL_ID   23997 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, DPRAM bad MCC head/tail pointer"
+#MESSAGE 
+"Error, DPRAM bad MCC head/tail pointer."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   198 
+#EXTERNAL_ID   23998 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, DPRAM bad SUP head/tail pointer"
+#MESSAGE 
+"Error, DPRAM bad SUP head/tail pointer."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   199 
+#EXTERNAL_ID   23999 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, DPRAM bad SUP message site"
+#MESSAGE 
+"Error, DPRAM bad SUP message site."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   200 
+#EXTERNAL_ID   24000 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Home Sensor position moved too far"
+#MESSAGE 
+"Error, Home Sensor position moved too far."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   201 
+#EXTERNAL_ID   24001 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Set loop mode failed"
+#MESSAGE 
+"Error, Set loop mode failed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   202 
+#EXTERNAL_ID   24002 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Motor Stop Move timed out"
+#MESSAGE 
+"Error, Motor Stop Move timed out."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   203 
+#EXTERNAL_ID   24003 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Error, Reference Faile"
+#MESSAGE 
+"Error, Reference Failed."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   204 
+#EXTERNAL_ID   24004 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Find Bias required"
+#MESSAGE 
+"Find Bias required."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   205 
+#EXTERNAL_ID   24005 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Aligner not specified"
+#MESSAGE 
+"Aligner not specified."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   206 
+#EXTERNAL_ID   24006 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Aligner not at station specified [ErrorID:%d]"
+#MESSAGE 
+"Aligner not at station specified."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   207 
+#EXTERNAL_ID   24007 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Aligner has not finished last operation"
+#MESSAGE 
+"Aligner has not finished last operation."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   208 
+#EXTERNAL_ID   24008 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Received bad message from Aligner"
+#MESSAGE 
+"Received bad message from Aligner."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   209 
+#EXTERNAL_ID   24009 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Aligner has an error"
+#MESSAGE 
+"Aligner has an error."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   210 
+#EXTERNAL_ID   24010 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Receive bad data from Aligner"
+#MESSAGE 
+"Receive bad data from Aligner."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   211 
+#EXTERNAL_ID   24011 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Wafer needs to be scanned again"
+#MESSAGE 
+"Wafer needs to be scanned again."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   212 
+#EXTERNAL_ID   24012 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Communication with aligner timeout"
+#MESSAGE 
+"Communication with aligner timeout."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   213 
+#EXTERNAL_ID   24013 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Communication with aligner not initialized"
+#MESSAGE 
+"Communication with aligner not initialized."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   214 
+#EXTERNAL_ID   24014 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Aligner parameter mismatch"
+#MESSAGE 
+"Issue the INIT ALIGNER command to upload the aligner parameters,
+then request the settings using the command RQ ALIGNER 1
+(WAFERID|POSTPOS 1 POS) and verify the correct parameters are set.
+The wafer ID or the Post Position were SET but not STORED then the robot
+was rebooted. User STORE ALIGNER command to store parameters.
+The robot was reset after the wafer ID or Post Position was SET.
+The aligner retained the setting, however, the robot lost the information.
+Reset the robot and the aligner at the same time.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -2226,15 +3764,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   58 
-#EXTERNAL_ID   23858 
+#INTERNAL_ID   215 
+#EXTERNAL_ID   24015 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP3's Wafer Slide Out Sns is On Status."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Data out of range"
 #MESSAGE 
-"Please, check LP3's Wafer Slide Status... !
-"
+"Data out of range."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2242,15 +3779,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   34 
-#EXTERNAL_ID   23834 
+#INTERNAL_ID   216 
+#EXTERNAL_ID   24016 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP4's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : No Wafer Detected"
 #MESSAGE 
-"Please, check LP4's door status !
-"
+"No Wafer Detected."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2258,15 +3794,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   44 
-#EXTERNAL_ID   23844 
+#INTERNAL_ID   217 
+#EXTERNAL_ID   24017 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP4's foup does not exist."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Vacuum Suction Error [ErrorID:%d]"
 #MESSAGE 
-"Please, check LP4's foup does not exist !
-"
+"Vacuum Suction Error."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2274,15 +3809,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   49 
-#EXTERNAL_ID   23849 
+#INTERNAL_ID   218 
+#EXTERNAL_ID   24018 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP4's foup does not clamp."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Vacuum Release Error"
 #MESSAGE 
-"Please, check LP4's foup does not clamp !
-"
+"Vacuum Release Error."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2290,15 +3824,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   54 
-#EXTERNAL_ID   23854 
+#INTERNAL_ID   219 
+#EXTERNAL_ID   24019 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP4's foup position is not load."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : EEPROMChecksum Error"
 #MESSAGE 
-"Please, check LP4's foup position is not load !
-"
+"EEPROM Checksum Error."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2306,15 +3839,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   59 
-#EXTERNAL_ID   23859 
+#INTERNAL_ID   221 
+#EXTERNAL_ID   24021 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP4's Wafer Slide Out Sns is On Status."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Value out of range"
 #MESSAGE 
-"Please, check LP4's Wafer Slide Status... !
-"
+"Value out of range."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2322,15 +3854,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   35 
-#EXTERNAL_ID   23835 
+#INTERNAL_ID   223 
+#EXTERNAL_ID   24023 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP5's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Argument not found"
 #MESSAGE 
-"Please, check LP5's door status !
-"
+"Argument not found."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2338,15 +3869,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   45 
-#EXTERNAL_ID   23845 
+#INTERNAL_ID   224 
+#EXTERNAL_ID   24024 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP5's foup does not exist."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Command not available"
 #MESSAGE 
-"Please, check LP5's foup does not exist !
-"
+"Command not available."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2354,15 +3884,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   50 
-#EXTERNAL_ID   23850 
+#INTERNAL_ID   225 
+#EXTERNAL_ID   24025 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP5's foup does not clamp."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Z-lift mechanism is not present"
 #MESSAGE 
-"Please, check LP5's foup does not clamp !
-"
+"Z-lift mechanism is not present."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2370,15 +3899,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   55 
-#EXTERNAL_ID   23855 
+#INTERNAL_ID   226 
+#EXTERNAL_ID   24026 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP5's foup position is not load."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Abnormal Fiducial Mark Size (N)"
 #MESSAGE 
-"Please, check LP5's foup position is not load !
-"
+"Abnormal Fiducial Mark Size (N)."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2386,15 +3914,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   60 
-#EXTERNAL_ID   23860 
+#INTERNAL_ID   227 
+#EXTERNAL_ID   24027 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LP5's Wafer Slide Out Sns is On Status."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Abnormal Fiducial Mark Size (FD)"
 #MESSAGE 
-"Please, check LP5's Wafer Slide Status... !
-"
+"Abnormal Fiducial Mark Size (FD)."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2402,16 +3929,14 @@ Would you like to continue ??
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   21 
-#EXTERNAL_ID   23821 
+#INTERNAL_ID   228 
+#EXTERNAL_ID   24028 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBA's Pressure is not ATM."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Too Large Average"
 #MESSAGE 
-"Please, Check LBA's Pressure !
-LBA's Pressure must be ATM.
-"
+"Too Large Average."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2419,15 +3944,14 @@ LBA's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   36 
-#EXTERNAL_ID   23836 
+#INTERNAL_ID   229 
+#EXTERNAL_ID   24029 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBA's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Too Small Average"
 #MESSAGE 
-"Please, check LBA's door status !
-"
+"Too Small Average."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2435,16 +3959,14 @@ LBA's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   22 
-#EXTERNAL_ID   23822 
+#INTERNAL_ID   230 
+#EXTERNAL_ID   24030 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBB's Pressure is not ATM."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : No Distinct Fiducial Mark Detected"
 #MESSAGE 
-"Please, Check LBA's Pressure !
-LBB's Pressure must be ATM.
-"
+"No Distinct Fiducial Mark Detected."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2452,15 +3974,14 @@ LBB's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   37 
-#EXTERNAL_ID   23837 
+#INTERNAL_ID   231 
+#EXTERNAL_ID   24031 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBB's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Too Large Fiducial Mark"
 #MESSAGE 
-"Please, check LBA's door status !
-"
+"Too Large Fiducial Mark."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2468,16 +3989,14 @@ LBB's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   23 
-#EXTERNAL_ID   23823 
+#INTERNAL_ID   232 
+#EXTERNAL_ID   24032 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBC's Pressure is not ATM."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Too Small Wafer"
 #MESSAGE 
-"Please, Check LBA's Pressure !
-LBC's Pressure must be ATM.
-"
+"Too Small Wafer."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2485,15 +4004,14 @@ LBC's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   38 
-#EXTERNAL_ID   23838 
+#INTERNAL_ID   233 
+#EXTERNAL_ID   24033 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBC's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Too Large Wafer"
 #MESSAGE 
-"Please, check LBA's door status !
-"
+"Too Large Wafer."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2501,16 +4019,14 @@ LBC's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   24 
-#EXTERNAL_ID   23824 
+#INTERNAL_ID   234 
+#EXTERNAL_ID   24034 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBD's Pressure is not ATM."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Out of CCD Range or Video Threshold is Low"
 #MESSAGE 
-"Please, Check LBA's Pressure !
-LBD's Pressure must be ATM.
-"
+"Out of CCD Range or Video Threshold is Low."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2518,15 +4034,14 @@ LBD's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   39 
-#EXTERNAL_ID   23839 
+#INTERNAL_ID   235 
+#EXTERNAL_ID   24035 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - LBD's door status is not open."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Invalid Cal Factor"
 #MESSAGE 
-"Please, check LBA's door status !
-"
+"Invalid Cal Factor."
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""
@@ -2534,15 +4049,149 @@ LBD's Pressure must be ATM.
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   40 
-#EXTERNAL_ID   23840 
+#INTERNAL_ID   236 
+#EXTERNAL_ID   24036 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__ATM_ROBOT - Invalid Target Station Eorror."
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : No Distinct Fiducial Mark Detected"
 #MESSAGE 
-"Please, check Target Station's Name !
-"
+"No Distinct Fiducial Mark Detected."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   237 
+#EXTERNAL_ID   24037 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Invalid Wafer Size"
+#MESSAGE 
+"Invalid Wafer Size."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   238 
+#EXTERNAL_ID   24038 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Out of CCD Range or Video Threshold is Low"
+#MESSAGE 
+"Out of CCD Range or Video Threshold is Low."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   240 
+#EXTERNAL_ID   24040 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Fiducial Differentiation Error (D)"
+#MESSAGE 
+"Fiducial Differentiation Error (D)."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   241 
+#EXTERNAL_ID   24041 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Noisy Fiducial Mark Edge (N) [ErrorID:%d]"
+#MESSAGE 
+"Noisy Fiducial Mark Edge (N)."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   242 
+#EXTERNAL_ID   24042 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Bad Video Data"
+#MESSAGE 
+"Bad Video Data."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   243 
+#EXTERNAL_ID   24043 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Bad Video Data"
+#MESSAGE 
+"Bad Video Data."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   244 
+#EXTERNAL_ID   24044 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : No Results Available"
+#MESSAGE 
+"No Results Available."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   245 
+#EXTERNAL_ID   24045 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Module No Exist Error"
+#MESSAGE 
+"Can't Set Command, Check Config option.."
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   246 
+#EXTERNAL_ID   24046 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__ATM_ROBOT - ATM-Robot Error : Robot System Error"
+#MESSAGE 
+"Unknown Error is Occured, Please Reference Manual"
 #RECOVERY_ACTION 
      RETRY   ""
      ABORT   ""

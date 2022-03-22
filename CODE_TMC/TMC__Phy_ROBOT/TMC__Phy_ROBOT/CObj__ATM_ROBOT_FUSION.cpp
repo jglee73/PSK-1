@@ -66,7 +66,9 @@ LBA LBB LBC LBD										\
 AL1 AL2												\
 VIS1 VIS2											\
 LP1 LP2 LP3 LP4 LP5									\
-BUFF1 BUFF2 FULL_BUFF"
+BUFF1 BUFF2 FULL_BUFF								\
+LBA-1  LBA-2										\
+LBB-1  LBB-2"
 
 #define APP_DSP__STN_NAME							\
 "LP1 LP2 LP3 LP4 LP5								\
@@ -102,6 +104,18 @@ int CObj__ATM_ROBOT_FUSION::__DEFINE__VARIABLE_STD(p_variable)
 	CString str_name;
 	int i;
 	int k;
+
+	// LLx ...
+	{
+		CString def_name;
+		CString def_data;
+
+		def_name = "LLx.MULTI_DOOR_VALVE";
+		p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if(def_data.CompareNoCase("YES") == 0)			bActive__LLx_MULTI_DOOR_VALVE = true;
+		else											bActive__LLx_MULTI_DOOR_VALVE = false;
+	}
 
 	// ...
 	{
@@ -291,35 +305,76 @@ int CObj__ATM_ROBOT_FUSION::__DEFINE__VARIABLE_STD(p_variable)
 			}
 
 			// LLx ...
-			for(k=0; k<CFG_LLx__SIZE; k++)
+			if(bActive__LLx_MULTI_DOOR_VALVE)
 			{
-				int id = k + 1;
+				for(k=0; k<CFG_LLx__SIZE; k++)
+				{
+					int id = k + 1;
+					
+					for(int t=0; t<CFG_LLx__SLOT_SIZE; t++)
+					{
+						int slot = t + 1;
 
-				str_name.Format("TAS.%s.TIME.NOW.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_NOW__LLx[i][k], str_name);
+						str_name.Format("TAS.%s.TIME.NOW.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[i][k][t], str_name);
 
-				//
-				str_name.Format("TAS.%s.TIME.MIN.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MIN__LLx[i][k], str_name);
+						//
+						str_name.Format("TAS.%s.TIME.MIN.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[i][k][t], str_name);
 
-				str_name.Format("TAS.%s.TIME.MAX.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MAX__LLx[i][k], str_name);
+						str_name.Format("TAS.%s.TIME.MAX.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[i][k][t], str_name);
 
-				//
-				str_name.Format("TAS.%s.TIME.AVG.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG__LLx[i][k], str_name);
+						//
+						str_name.Format("TAS.%s.TIME.AVG.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[i][k][t], str_name);
 
-				str_name.Format("TAS.%s.TIME.AVG_F.LL%1d", act_name,id);
-				STD__ADD_STRING(str_name);
-				LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG_F__LLx[i][k], str_name);
+						str_name.Format("TAS.%s.TIME.AVG_F.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_STRING(str_name);
+						LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[i][k][t], str_name);
 
-				str_name.Format("TAS.%s.TIME.CNT.LL%1d", act_name,id);
-				STD__ADD_ANALOG(str_name, "count", 0, 1, 100000);
-				LINK__VAR_ANALOG_CTRL(aCH__TAS_ACTION_TIME_CNT__LLx[i][k], str_name);
+						str_name.Format("TAS.%s.TIME.CNT.LL%1d.%1d", act_name,id,slot);
+						STD__ADD_ANALOG(str_name, "count", 0, 1, 100000);
+						LINK__VAR_ANALOG_CTRL(aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[i][k][t], str_name);
+					}
+				}
+			}
+			else
+			{
+				for(k=0; k<CFG_LLx__SIZE; k++)
+				{
+					int id = k + 1;
+
+					str_name.Format("TAS.%s.TIME.NOW.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_NOW__LLx_X[i][k], str_name);
+
+					//
+					str_name.Format("TAS.%s.TIME.MIN.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MIN__LLx_X[i][k], str_name);
+
+					str_name.Format("TAS.%s.TIME.MAX.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_MAX__LLx_X[i][k], str_name);
+
+					//
+					str_name.Format("TAS.%s.TIME.AVG.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG__LLx_X[i][k], str_name);
+
+					str_name.Format("TAS.%s.TIME.AVG_F.LL%1d", act_name,id);
+					STD__ADD_STRING(str_name);
+					LINK__VAR_STRING_CTRL(sCH__TAS_ACTION_TIME_AVG_F__LLx_X[i][k], str_name);
+
+					str_name.Format("TAS.%s.TIME.CNT.LL%1d", act_name,id);
+					STD__ADD_ANALOG(str_name, "count", 0, 1, 100000);
+					LINK__VAR_ANALOG_CTRL(aCH__TAS_ACTION_TIME_CNT__LLx_X[i][k], str_name);
+				}
 			}
 
 			// ST1 ...
@@ -798,157 +853,7 @@ int CObj__ATM_ROBOT_FUSION::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	int i;
 	int j;
 
-
-	// DB_CFG ...
-	{
-		def_name = "OBJ__DB";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
-
-		for(i=0;i<CFG_LPx__SIZE;i++)
-		{
-			str_name.Format("CFG.LP%1d.EXIST.FLAG",i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LPx_EXIST_FLAG[i], def_data,str_name);
-
-			str_name.Format("CFG.dLP%1d.DOOR_CLOSE_MODE.AFTER_MAPPING", i+1);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LPx_CLOSE_MOVE_AFTER_MAPPING[i], def_data,str_name);
-		}
-
-		// ...
-		{
-			str_name = "CFG.dALIGN.DEVICE";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_ALIGN_DEVICE, def_data,str_name);
-
-			str_name = "CFG.AL1.EXIST.FLAG";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_AL1_EXIST_FLAG, def_data,str_name);
-
-			str_name = "CFG.AL1.SLOT.MAX";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_AL1_SLOT_MAX, def_data,str_name);
-		}
-		
-		for(i=0; i<CFG_LLx__SIZE; i++)
-		{
-			CString ll_name = Macro__GET_LLx_NAME(i);
-
-			str_name.Format("CFG.%s.EXIST.FLAG", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_EXIST_FLAG[i], def_data,str_name);
-
-			str_name.Format("CFG.%s.SLOT.MAX", ll_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_SLOT_MAX[i], def_data,str_name);
-		}
-		
-		// ...
-		{
-			str_name = "CFG.VIS1.EXIST.FLAG";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_VIS1_EIXST_FLAG, def_data,str_name);
-
-			//
-			str_name = "CFG.BUFF1.EXIST.FLAG";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_BUFF1_EXIST_FLAG, def_data,str_name);
-
-			str_name = "CFG.BUFF2.EXIST.FLAG";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_BUFF2_EXIST_FLAG, def_data,str_name);
-
-			str_name = "CFG.FULL.BUFF.EXIST.FLAG";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_FULL_BUFF_EXIST_FLAG, def_data,str_name);
-		}
-
-		// ...
-		{
-			// ...
-			{
-				var_name = "MAINT.TARGET.LLx.NAME";
-				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__MAINT_TARGT_LLx_NAME, def_data,var_name);
-
-				var_name = "MODULE.LINK.sTARGET.LLx.NAME";
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__MODULE_LINK_TARGT_LLx_NAME, def_data,var_name);
-
-				//
-				var_name = "CUR.AL1.TARGET.LLx.NAME";
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_TARGET_LLx_NAME, def_data,var_name);
-
-				var_name = "CUR.AL1.CCD.POS";
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_CCD_POS, def_data,var_name);
-			}
-		}
-
-		// LLx ...
-		for(i=0; i<CFG_LLx__SIZE; i++)
-		{
-			int id = i + 1;
-
-			str_name.Format("CFG.LL%1d.ALIGN.POS", id);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_ALIGN_ANGLE[i], def_data,str_name);
-
-			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT", id);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT[i], def_data,str_name);
-
-			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.RANGE", id);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_RANGE[i], def_data,str_name);
-
-			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.START.ANGLE", id);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_START_ANGLE[i], def_data,str_name);
-
-			str_name.Format("CFG.LL%1d.POST.POSITION.INCREMENT.APPLY", id);
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_APPLY[i], def_data,str_name);
-
-			str_name.Format("CUR.aLL%1d.POST.POSITION.INCREMENT.ANGLE", id);
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[i], def_data,str_name);
-		}
-	}
-
-	// IO ...
-	{
-		def_name = "IO_CH__EFEM_DOOR";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
-
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__IO_EFEM_DOOR_STS, obj_name,var_name);
-	}
-
-	// ROBOT ...
-	{
-		def_name = "OBJ__ROBOT";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
-
-		pROBOT__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
-
-		// Arm-A
-		str_name = "MON.ARM_A.MATERIAL.STATUS";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_A_MATERIAL_STATUS, obj_name,str_name);
-
-		// Arm-B
-		str_name = "MON.ARM_B.MATERIAL.STATUS";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_B_MATERIAL_STATUS, obj_name,str_name);
-
-		// Angle Value
-		str_name = "PARA.AL1.CCD.POS";
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__ALIGNER_ANGLE_PARA, obj_name,str_name);
-
-	}
-
-	// AL1 ...
-	{
-		def_name = "OBJ__AL1";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
-
-		pAL1__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
-
-		// Slot Status
-		str_name = "OTR.OUT.MON.dSLOT01.STATUS";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__AL1_SLOT01_STATUS, def_data,str_name);
-
-		str_name = "OTR.OUT.MON.dSLOT02.STATUS";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__AL1_SLOT02_STATUS, def_data,str_name);
-
-		// Slot Title
-		str_name = "OTR.OUT.MON.sSLOT01.TITLE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__AL1_SLOT01_TITLE, def_data,str_name);
-
-		str_name = "OTR.OUT.MON.sSLOT02.TITLE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__AL1_SLOT02_TITLE, def_data,str_name);
-	}
-
-	// LLx -----
+	// LLx ...
 	{
 		def_name = "LLx.MULTI_DOOR_VALVE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
@@ -1010,6 +915,205 @@ int CObj__ATM_ROBOT_FUSION::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LLx_DOOR_STATUS_A[ll_i], obj_name,str_name);		
 			}
 		}
+	}
+
+	// DB_CFG ...
+	{
+		def_name = "OBJ__DB";
+		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+
+		for(i=0;i<CFG_LPx__SIZE;i++)
+		{
+			str_name.Format("CFG.LP%1d.EXIST.FLAG",i+1);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LPx_EXIST_FLAG[i], def_data,str_name);
+
+			str_name.Format("CFG.dLP%1d.DOOR_CLOSE_MODE.AFTER_MAPPING", i+1);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LPx_CLOSE_MOVE_AFTER_MAPPING[i], def_data,str_name);
+		}
+
+		// ...
+		{
+			str_name = "CFG.dALIGN.DEVICE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_ALIGN_DEVICE, def_data,str_name);
+
+			str_name = "CFG.AL1.EXIST.FLAG";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_AL1_EXIST_FLAG, def_data,str_name);
+
+			str_name = "CFG.AL1.SLOT.MAX";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_AL1_SLOT_MAX, def_data,str_name);
+		}
+		
+		for(i=0; i<CFG_LLx__SIZE; i++)
+		{
+			CString ll_name = Macro__GET_LLx_NAME(i);
+
+			str_name.Format("CFG.%s.SLOT.MAX", ll_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_SLOT_MAX[i], def_data,str_name);
+
+			if(bActive__LLx_MULTI_DOOR_VALVE)
+			{
+				int ll_id = i + 1;
+
+				str_name.Format("CFG.LL%1d.1.EXIST.FLAG", ll_id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_1_EXIST_FLAG[i], def_data,str_name);
+
+				str_name.Format("CFG.LL%1d.2.EXIST.FLAG", ll_id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_2_EXIST_FLAG[i], def_data,str_name);
+			}
+			else
+			{
+				str_name.Format("CFG.%s.EXIST.FLAG", ll_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_EXIST_FLAG[i], def_data,str_name);
+			}
+		}
+		
+		// ...
+		{
+			str_name = "CFG.VIS1.EXIST.FLAG";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_VIS1_EIXST_FLAG, def_data,str_name);
+
+			//
+			str_name = "CFG.BUFF1.EXIST.FLAG";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_BUFF1_EXIST_FLAG, def_data,str_name);
+
+			str_name = "CFG.BUFF2.EXIST.FLAG";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_BUFF2_EXIST_FLAG, def_data,str_name);
+
+			str_name = "CFG.FULL.BUFF.EXIST.FLAG";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_FULL_BUFF_EXIST_FLAG, def_data,str_name);
+		}
+
+		// ...
+		{
+			var_name = "MAINT.TARGET.LLx.NAME";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__MAINT_TARGT_LLx_NAME, def_data,var_name);
+
+			var_name = "MAINT.TARGET.LLx.SLOT";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__MAINT_TARGT_LLx_SLOT, def_data,var_name);
+
+			//
+			var_name = "MODULE.LINK.sTARGET.LLx.NAME";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__MODULE_LINK_TARGT_LLx_NAME, def_data,var_name);
+
+			var_name = "MODULE.LINK.sTARGET.LLx.SLOT";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__MODULE_LINK_TARGT_LLx_SLOT, def_data,var_name);
+
+			//
+			var_name = "CUR.AL1.TARGET.LLx.NAME";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_TARGET_LLx_NAME, def_data,var_name);
+
+			var_name = "CUR.AL1.TARGET.LLx.SLOT";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_TARGET_LLx_SLOT, def_data,var_name);
+
+			var_name = "CUR.AL1.CCD.POS";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_CCD_POS, def_data,var_name);
+		}
+
+		// LLx ...
+		for(i=0; i<CFG_LLx__SIZE; i++)
+		{
+			int id = i + 1;
+
+			if(bActive__LLx_MULTI_DOOR_VALVE)
+			{
+				for(int  k=0; k<CFG_LLx__SLOT_SIZE; k++)
+				{
+					int slot = k + 1;
+
+					//
+					str_name.Format("CFG.LL%1d.%1d.ALIGN.POS", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_ALIGN_ANGLE[i][k], def_data,str_name);
+
+					str_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT[i][k], def_data,str_name);
+
+					str_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT.RANGE", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_RANGE[i][k], def_data,str_name);
+
+					str_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT.START.ANGLE", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_START_ANGLE[i][k], def_data,str_name);
+
+					str_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT.APPLY", id,slot);
+					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_APPLY[i][k], def_data,str_name);
+
+					str_name.Format("CUR.LL%1d.%1d.POST.POSITION.INCREMENT.ANGLE", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LLx_X_POST_POSITION_INCREMENT_ANGLE[i][k], def_data,str_name);
+				}
+
+			}
+			else
+			{
+				str_name.Format("CFG.LL%1d.ALIGN.POS", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_ALIGN_ANGLE[i], def_data,str_name);
+
+				str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT[i], def_data,str_name);
+
+				str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.RANGE", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_RANGE[i], def_data,str_name);
+
+				str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.START.ANGLE", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_START_ANGLE[i], def_data,str_name);
+
+				str_name.Format("CFG.LL%1d.POST.POSITION.INCREMENT.APPLY", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_APPLY[i], def_data,str_name);
+
+				str_name.Format("CUR.aLL%1d.POST.POSITION.INCREMENT.ANGLE", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[i], def_data,str_name);
+			}
+		}
+	}
+
+	// IO ...
+	{
+		def_name = "IO_CH__EFEM_DOOR";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__IO_EFEM_DOOR_STS, obj_name,var_name);
+	}
+
+	// ROBOT ...
+	{
+		def_name = "OBJ__ROBOT";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		pROBOT__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+		// Arm-A
+		str_name = "MON.ARM_A.MATERIAL.STATUS";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_A_MATERIAL_STATUS, obj_name,str_name);
+
+		// Arm-B
+		str_name = "MON.ARM_B.MATERIAL.STATUS";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_B_MATERIAL_STATUS, obj_name,str_name);
+
+		// Angle Value
+		str_name = "PARA.AL1.CCD.POS";
+		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__ALIGNER_ANGLE_PARA, obj_name,str_name);
+
+	}
+
+	// AL1 ...
+	{
+		def_name = "OBJ__AL1";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		pAL1__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
+
+		// Slot Status
+		str_name = "OTR.OUT.MON.dSLOT01.STATUS";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__AL1_SLOT01_STATUS, def_data,str_name);
+
+		str_name = "OTR.OUT.MON.dSLOT02.STATUS";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__AL1_SLOT02_STATUS, def_data,str_name);
+
+		// Slot Title
+		str_name = "OTR.OUT.MON.sSLOT01.TITLE";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__AL1_SLOT01_TITLE, def_data,str_name);
+
+		str_name = "OTR.OUT.MON.sSLOT02.TITLE";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__AL1_SLOT02_TITLE, def_data,str_name);
 	}
 
 	// LPx -----
@@ -1186,23 +1290,38 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 		dEXT_CH__ROBOT_ARM_B_MATERIAL_STATUS->Set__DATA(var_data);
 	}
 
-	if((mode.CompareNoCase(sMODE__PICK) == 0)
-	&& (para__stn_name.CompareNoCase(STR__AL1) == 0))
+	// ...
+	bool active_align = false;
+
+	if(para__stn_name.CompareNoCase(STR__AL1) == 0)
+	{
+		if(mode.CompareNoCase(sMODE__PICK) == 0)
+		{
+			active_align = true;
+		}
+	}
+
+	if(active_align)
 	{
 		CString log_msg;
 		CString log_bff;
 
 		CString llx_name;
+		CString llx_slot;
 		CString al_angle;
 
 		if(sCH__OBJ_STATUS->Check__DATA(STR__MAINTMODE) > 0)
 		{
 			dEXT_CH__MAINT_TARGT_LLx_NAME->Get__DATA(llx_name);
+			dEXT_CH__MAINT_TARGT_LLx_SLOT->Get__DATA(llx_slot);
 		}
 		else
 		{
 			sEXT_CH__MODULE_LINK_TARGT_LLx_NAME->Get__DATA(llx_name);	
 			if(llx_name == "")		llx_name = _MODULE__LBA;
+
+			sEXT_CH__MODULE_LINK_TARGT_LLx_SLOT->Get__DATA(llx_slot);	
+			if(llx_slot == "")		llx_slot = "1";
 		}
 
 		int ll_i = Macro__CHECK_LLx_INDEX(llx_name);
@@ -1212,67 +1331,136 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 			{
 				log_msg = "\n";
 
-				log_bff.Format("[%s] Align Info ... \n", llx_name);
+				log_bff.Format("%s(%s) Align Info ... \n", llx_name,llx_slot);
 				log_msg += log_bff;
 			}
 
-			if(dEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_APPLY[ll_i]->Check__DATA(STR__ENABLE) > 0)
+			if(bActive__LLx_MULTI_DOOR_VALVE)
 			{
-				aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[ll_i]->Get__DATA(var_data);
-				double cur_angle = atof(var_data);
+				int slot_index = atoi(llx_slot) - 1;
+				if(slot_index <  0)						return -11;
+				if(slot_index >= CFG_LLx__SLOT_SIZE)	return -12;
 
-				aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT[ll_i]->Get__DATA(var_data);
-				double cfg_inc = atof(var_data);
-
-				aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_RANGE[ll_i]->Get__DATA(var_data);
-				double max_angle = atof(var_data);
-
-				if(cur_angle > max_angle)		cur_angle = 0;
-
-				// ...
-				aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_START_ANGLE[ll_i]->Get__DATA(var_data);
-				double start_angle = atof(var_data);
-
-				al_angle.Format("%.0f", (start_angle+cur_angle));
-				
-				// ...
+				if(dEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_APPLY[ll_i][slot_index]->Check__DATA(STR__ENABLE) > 0)
 				{
-					double next_angle = cur_angle + cfg_inc;
-					if(next_angle > max_angle)		next_angle = 0;
+					aEXT_CH__CUR_LLx_X_POST_POSITION_INCREMENT_ANGLE[ll_i][slot_index]->Get__DATA(var_data);
+					double cur_angle = atof(var_data);
 
-					var_data.Format("%.0f", next_angle);
-					aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[ll_i]->Set__DATA(var_data);
-				}
+					aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT[ll_i][slot_index]->Get__DATA(var_data);
+					double cfg_inc = atof(var_data);
 
-				// ...
+					aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_RANGE[ll_i][slot_index]->Get__DATA(var_data);
+					double max_angle = atof(var_data);
+
+					if(cur_angle > max_angle)		cur_angle = 0;
+
+					// ...
+					aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_START_ANGLE[ll_i][slot_index]->Get__DATA(var_data);
+					double start_angle = atof(var_data);
+
+					al_angle.Format("%.0f", (start_angle+cur_angle));
+
+					// ...
+					{
+						double next_angle = cur_angle + cfg_inc;
+						if(next_angle > max_angle)		next_angle = 0;
+
+						var_data.Format("%.0f", next_angle);
+						aEXT_CH__CUR_LLx_X_POST_POSITION_INCREMENT_ANGLE[ll_i][slot_index]->Set__DATA(var_data);
+					}
+
+					// ...
+					{
+						log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
+						log_msg += log_bff;
+
+						log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
+				}	
+				else
 				{
-					log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
-					log_msg += log_bff;
+					aEXT_CH__CFG_LLx_X_ALIGN_ANGLE[ll_i][slot_index]->Get__DATA(al_angle);
 
-					log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
+					// ...
+					{
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
 				}
-			}	
+			}
 			else
 			{
-				aEXT_CH__CFG_LLx_ALIGN_ANGLE[ll_i]->Get__DATA(al_angle);
-			
-				// ...
+				if(dEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_APPLY[ll_i]->Check__DATA(STR__ENABLE) > 0)
 				{
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
+					aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[ll_i]->Get__DATA(var_data);
+					double cur_angle = atof(var_data);
+
+					aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT[ll_i]->Get__DATA(var_data);
+					double cfg_inc = atof(var_data);
+
+					aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_RANGE[ll_i]->Get__DATA(var_data);
+					double max_angle = atof(var_data);
+
+					if(cur_angle > max_angle)		cur_angle = 0;
+
+					// ...
+					aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_START_ANGLE[ll_i]->Get__DATA(var_data);
+					double start_angle = atof(var_data);
+
+					al_angle.Format("%.0f", (start_angle+cur_angle));
+					
+					// ...
+					{
+						double next_angle = cur_angle + cfg_inc;
+						if(next_angle > max_angle)		next_angle = 0;
+
+						var_data.Format("%.0f", next_angle);
+						aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[ll_i]->Set__DATA(var_data);
+					}
+
+					// ...
+					{
+						log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
+						log_msg += log_bff;
+
+						log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
+				}	
+				else
+				{
+					aEXT_CH__CFG_LLx_ALIGN_ANGLE[ll_i]->Get__DATA(al_angle);
+				
+					// ...
+					{
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
 				}
 			}
 		}
@@ -1280,6 +1468,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 		if(dEXT_CH__CFG_ALIGN_DEVICE->Check__DATA("ATM_RB") > 0)
 		{
 			sEXT_CH__CUR_AL1_TARGET_LLx_NAME->Set__DATA(llx_name);
+			sEXT_CH__CUR_AL1_TARGET_LLx_SLOT->Set__DATA(llx_slot);
 
 			aEXT_CH__ALIGNER_ANGLE_PARA->Set__DATA(al_angle);
 			sEXT_CH__CUR_AL1_CCD_POS->Set__DATA(al_angle);
@@ -1440,7 +1629,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}	
 	ELSE_IF__CTRL_MODE(sMODE__PICK)
 	{
-		flag = Check__STN_EXIST(p_alarm,para__stn_name);
+		flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 		if(flag > 0)
 		{
@@ -1491,7 +1680,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}
 	ELSE_IF__CTRL_MODE(sMODE__PLACE)
 	{
-		flag = Check__STN_EXIST(p_alarm,para__stn_name);
+		flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 		if(flag > 0)
 		{
@@ -1542,7 +1731,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}
 	ELSE_IF__CTRL_MODE(sMODE__ROTATE)
 	{
-		flag = Check__STN_EXIST(p_alarm,para__stn_name);
+		flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 		if(flag > 0)
 		{
@@ -1589,7 +1778,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}
 	ELSE_IF__CTRL_MODE(sMODE__RETRACT)
 	{
-		flag = Check__STN_EXIST(p_alarm,para__stn_name);
+		flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 		if(flag > 0)
 		{
@@ -1598,7 +1787,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}
 	ELSE_IF__CTRL_MODE(sMODE__EXTEND)
 	{
-		flag = Check__STN_EXIST(p_alarm,para__stn_name);
+		flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 		if(flag > 0)
 		{
@@ -1607,7 +1796,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}
 	ELSE_IF__CTRL_MODE(sMODE__GOUP)
 	{
-		flag = Check__STN_EXIST(p_alarm,para__stn_name);
+		flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 		if(flag > 0)
 		{
@@ -1616,7 +1805,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}
 	ELSE_IF__CTRL_MODE(sMODE__GODOWN)
 	{
-		flag = Check__STN_EXIST(p_alarm,para__stn_name);
+		flag = Check__STN_EXIST(p_alarm, para__stn_name,para__stn_slot);
 
 		if(flag > 0)
 		{

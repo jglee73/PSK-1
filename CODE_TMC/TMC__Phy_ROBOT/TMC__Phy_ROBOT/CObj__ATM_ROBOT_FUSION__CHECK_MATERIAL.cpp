@@ -187,9 +187,15 @@ LOOP_RETRY:
 
 	// ...
 	int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
-	if(ll_i >= 0)
+
+	if(ll_i >= 0) 
 	{
-		if((slot_index >= 0)&&(slot_index < CFG_LLx__SLOT_SIZE))
+		if(ll_i >= iSIZE_LLx)
+		{
+			return -10001;
+		}
+
+		if((slot_index >= 0)&&(slot_index < iLLx_SLOT_SIZE))
 		{
 			dEXT_CH__LLx_SLOT_STATUS[ll_i][slot_index]->Get__DATA(wfr_sts);
 
@@ -432,11 +438,18 @@ Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
 	if(check_flag < 0)
 	{
 		int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
+
 		if(ll_i >= 0)
 		{
+			if(ll_i >= iSIZE_LLx)
+			{
+				return -10001;
+			}
+
+			// ...
 			check_flag = 1;
 
-			if((slot_index >= 0)&&(slot_index < CFG_LLx__SLOT_SIZE))
+			if((slot_index >= 0) && (slot_index < iLLx_SLOT_SIZE))
 			{
 				if(place_flag > 0)
 				{

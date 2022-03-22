@@ -402,7 +402,7 @@ Call__RETRACT(CII_OBJECT__VARIABLE* p_variable,
 
 	if(flag > 0)
 	{
-		Set_ANI__ROBOT_ARM_RETRACT(arm_type);
+		Set_ANI__ROBOT_RETRACT(arm_type, stn_name, stn_slot);
 	}
 	return flag;
 }
@@ -473,7 +473,7 @@ int  CObj__ATM_ROBOT_STD
 
 	if(flag > 0)
 	{
-		Set_ANI__ROBOT_ARM_EXTEND(arm_type);
+		Set_ANI__ROBOT_EXTEND(arm_type, stn_name, stn_slot);
 	}
 	return flag;
 }
@@ -694,6 +694,15 @@ int  CObj__ATM_ROBOT_STD
 	Fnc__APP_LOG(act_name);
 
 Chk_Retry:
+
+	// LP Side Sensor Check ...
+	if(dCH__CFG_MAPPING_ACTION_SLIDE_OUT_CHECK->Check__DATA("YES") > 0)
+	{
+		if(Interlock__CHECK_WAFER_LP_SLIDE(p_alarm,stn_name,act_name) < 0)
+		{
+			return -1;
+		}
+	}
 
 	// ...
 	if(arm_type.CompareNoCase("B") == 0)		dEXT_CH__ROBOT_ARM_B_MATERIAL_STATUS->Get__DATA(var_data);

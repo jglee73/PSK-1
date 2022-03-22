@@ -76,11 +76,10 @@
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_IO__ATM_ROBOT
 
-#OBJECT_IO_PARA     IP        192.168.100.20
-#OBJECT_IO_PARA     PORT      10110
+#DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
 
-#DEFINE_CONSTANT    LLx.MULTI_DOOR_VALVE                YES
-#DEFINE_CONSTANT    LLx.SLOT_SIZE                       2
+#OBJECT_IO_PARA     COM_PORT  11 
+
 
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_IO__AL1

@@ -19,25 +19,10 @@ Fnc__APP_LOG(const CString& log_msg)
 
 // ...
 void  CObj__ATM_ROBOT_STD::
-Set_ANI__ROBOT_ARM_EXTEND(const CString& arm_type)
-{
-	if(arm_type.CompareNoCase(ARM_A) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__EXTEND);
-	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
-	}
-}
-void  CObj__ATM_ROBOT_STD::
 Set_ANI__ROBOT_EXTEND(const CString& arm_type,
 					  const CString& stn_name,
 					  const CString& stn_slot)
 {
-	dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
-	dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
-
 	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
 	if(arm_type.CompareNoCase(ARM_A) == 0)
@@ -47,6 +32,11 @@ Set_ANI__ROBOT_EXTEND(const CString& arm_type,
 	else if(arm_type.CompareNoCase(ARM_B) == 0)
 	{
 		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__EXTEND);
+	}
+
+	if(iActive_SIM > 0)
+	{
+		if(bActive__ROBOT_ARM_RNE_SNS)			dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(STR__Extend);
 	}
 }
 
@@ -55,17 +45,19 @@ Set_ANI__ROBOT_ALL_RETRACT()
 {
 	dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
 	dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
-}
-void  CObj__ATM_ROBOT_STD::
-Set_ANI__ROBOT_ARM_RETRACT(const CString& arm_type)
-{
-	if(arm_type.CompareNoCase(ARM_A) == 0)
+
+	if(iActive_SIM > 0)
 	{
-		dCH__OTR_OUT_MON__ARM_A_ACT->Set__DATA(STR__RETRACT);
-	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
-	{
-		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
+		if(bActive__ROBOT_ARM_RNE_SNS)			dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(STR__None);
+
+		for(int i=0; i<iLLx_SIZE; i++)
+		{
+			if(bActive__LLx_ARM_RNE_SNS[i])
+				dEXT_CH__LLx_ARM_RNE_SNS[i]->Set__DATA(sDATA__LLx_ARM_RNE_ON_STS[i]);			
+
+			if(bActive__LLx_LOAD_ENABLE_SNS[i])
+				dEXT_CH__LLx_LOAD_ENABLE_SNS[i]->Set__DATA(sDATA__LLx_LOAD_ENABLE_OFF_STS[i]);
+		}
 	}
 }
 void  CObj__ATM_ROBOT_STD::
@@ -73,9 +65,6 @@ Set_ANI__ROBOT_RETRACT(const CString& arm_type,
 					   const CString& stn_name,
 					   const CString& stn_slot)
 {
-	dCH__OTR_OUT_MON__TRG_MOVE->Set__DATA(stn_name);
-	dCH__OTR_OUT_MON__TRG_ROTATE->Set__DATA(stn_name);
-
 	dCH__OTR_OUT_MON__ACT_ARM->Set__DATA(arm_type);
 
 	if(arm_type.CompareNoCase(ARM_A) == 0)
@@ -85,6 +74,11 @@ Set_ANI__ROBOT_RETRACT(const CString& arm_type,
 	else if(arm_type.CompareNoCase(ARM_B) == 0)
 	{
 		dCH__OTR_OUT_MON__ARM_B_ACT->Set__DATA(STR__RETRACT);
+	}
+
+	if(iActive_SIM > 0)
+	{
+		if(bActive__ROBOT_ARM_RNE_SNS)			dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(STR__None);
 	}
 }
 

@@ -20,7 +20,7 @@ private:
 	int m_nPM_LIMIT;
 	CString sDir_Root;
 
-	int iSim_Flag;
+	int iActive_SIM;
 	//
 
 	//-------------------------------------------------------------------------
@@ -77,12 +77,19 @@ private:
 	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_AVG_F__RB[CFG_ACT__SIZE];
 	CX__VAR_ANALOG_CTRL  aCH__TAS_ACTION_TIME_CNT__RB[CFG_ACT__SIZE];
 
-	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_NOW__LLx[CFG_ACT__SIZE][CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_MIN__LLx[CFG_ACT__SIZE][CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_MAX__LLx[CFG_ACT__SIZE][CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_AVG__LLx[CFG_ACT__SIZE][CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_AVG_F__LLx[CFG_ACT__SIZE][CFG_LLx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__TAS_ACTION_TIME_CNT__LLx[CFG_ACT__SIZE][CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_NOW__LLx_X[CFG_ACT__SIZE][CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_MIN__LLx_X[CFG_ACT__SIZE][CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_MAX__LLx_X[CFG_ACT__SIZE][CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_AVG__LLx_X[CFG_ACT__SIZE][CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_AVG_F__LLx_X[CFG_ACT__SIZE][CFG_LLx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__TAS_ACTION_TIME_CNT__LLx_X[CFG_ACT__SIZE][CFG_LLx__SIZE];
+
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_NOW__LLx_SLOT[CFG_ACT__SIZE][CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_MIN__LLx_SLOT[CFG_ACT__SIZE][CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_MAX__LLx_SLOT[CFG_ACT__SIZE][CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_AVG__LLx_SLOT[CFG_ACT__SIZE][CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_AVG_F__LLx_SLOT[CFG_ACT__SIZE][CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__TAS_ACTION_TIME_CNT__LLx_SLOT[CFG_ACT__SIZE][CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
 
 	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_NOW__PMx[CFG_ACT__SIZE][CFG_PMx__SIZE];
 	CX__VAR_STRING_CTRL  sCH__TAS_ACTION_TIME_MIN__PMx[CFG_ACT__SIZE][CFG_PMx__SIZE];
@@ -92,15 +99,25 @@ private:
 	CX__VAR_ANALOG_CTRL  aCH__TAS_ACTION_TIME_CNT__PMx[CFG_ACT__SIZE][CFG_PMx__SIZE];
 
 	// DA : Config ...
-	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_HARD_ERR_A_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_HARD_ERR_A_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_SOFT_ERR_A_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_SOFT_ERR_A_ARM__LLx[CFG_LLx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_HARD_ERR_A_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_HARD_ERR_A_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_SOFT_ERR_A_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_SOFT_ERR_A_ARM__LLx_X[CFG_LLx__SIZE];
 
-	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_HARD_ERR_B_ARM__LLx[CFG_PMx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_HARD_ERR_B_ARM__LLx[CFG_PMx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_SOFT_ERR_B_ARM__LLx[CFG_PMx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_SOFT_ERR_B_ARM__LLx[CFG_PMx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_HARD_ERR_B_ARM__LLx_X[CFG_PMx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_HARD_ERR_B_ARM__LLx_X[CFG_PMx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_SOFT_ERR_B_ARM__LLx_X[CFG_PMx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_SOFT_ERR_B_ARM__LLx_X[CFG_PMx__SIZE];
+
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_HARD_ERR_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_HARD_ERR_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_SOFT_ERR_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_SOFT_ERR_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_HARD_ERR_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_HARD_ERR_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_SOFT_ERR_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__CFG__T_OFFSET_SOFT_ERR_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
 
 	//
 	CX__VAR_ANALOG_CTRL  aCH__CFG__R_OFFSET_HARD_ERR_A_ARM__PMx[CFG_LLx__SIZE];
@@ -124,18 +141,38 @@ private:
 	CX__VAR_STRING_CTRL  sCH__MON_T_OFFSET_B_ARM__ROBOT;
 
 	//
-	CX__VAR_STRING_CTRL  sCH__MON_STS_OFFSET_A_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__MON_STS_OFFSET_B_ARM__LLx[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_STS_OFFSET_A_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_STS_OFFSET_B_ARM__LLx_X[CFG_LLx__SIZE];
 
-	CX__VAR_STRING_CTRL  sCH__MON_RESULT_OFFSET_A_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__MON_RESULT_OFFSET_B_ARM__LLx[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_RESULT_OFFSET_A_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_RESULT_OFFSET_B_ARM__LLx_X[CFG_LLx__SIZE];
 
-	CX__VAR_STRING_CTRL  sCH__MON_R_OFFSET_A_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__MON_R_OFFSET_B_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__MON_T_OFFSET_A_ARM__LLx[CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__MON_T_OFFSET_B_ARM__LLx[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_R_OFFSET_A_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_R_OFFSET_B_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_T_OFFSET_A_ARM__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_T_OFFSET_B_ARM__LLx_X[CFG_LLx__SIZE];
 
-	CX__VAR_STRING_CTRL  sCH__MON_DA_RT_OFFSET__LLx[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_DA_RT_OFFSET__LLx_X[CFG_LLx__SIZE];
+
+	CX__VAR_STRING_CTRL  sCH__DA_CHART_R_OFFSET_DISPLAY__LLx_X[CFG_LLx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__DA_CHART_T_OFFSET_DISPLAY__LLx_X[CFG_LLx__SIZE];
+
+	//
+	CX__VAR_STRING_CTRL  sCH__MON_STS_OFFSET_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_STS_OFFSET_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+
+	CX__VAR_STRING_CTRL  sCH__MON_RESULT_OFFSET_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_RESULT_OFFSET_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+
+	CX__VAR_STRING_CTRL  sCH__MON_R_OFFSET_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_R_OFFSET_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_T_OFFSET_A_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__MON_T_OFFSET_B_ARM__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+
+	CX__VAR_STRING_CTRL  sCH__MON_DA_RT_OFFSET__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+
+	CX__VAR_STRING_CTRL  sCH__DA_CHART_R_OFFSET_DISPLAY__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+	CX__VAR_STRING_CTRL  sCH__DA_CHART_T_OFFSET_DISPLAY__LLx_SLOT[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
 
 	//
 	CX__VAR_STRING_CTRL  sCH__MON_STS_OFFSET_A_ARM__PMx[CFG_PMx__SIZE];
@@ -152,9 +189,6 @@ private:
 	CX__VAR_STRING_CTRL  sCH__MON_DA_RT_OFFSET__PMx[CFG_PMx__SIZE];
 
 	// DA Link ...
-	CX__VAR_STRING_CTRL  sCH__DA_CHART_R_OFFSET_DISPLAY__LLx[CFG_LLx__SIZE];
-	CX__VAR_STRING_CTRL  sCH__DA_CHART_T_OFFSET_DISPLAY__LLx[CFG_LLx__SIZE];
-
 	CX__VAR_STRING_CTRL  sCH__DA_CHART_R_OFFSET_DISPLAY__PMx[CFG_PMx__SIZE];
 	CX__VAR_STRING_CTRL	 sCH__DA_CHART_T_OFFSET_DISPLAY__PMx[CFG_PMx__SIZE];
 	//
@@ -170,6 +204,8 @@ private:
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_REF_ATM_PRESSURE;
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_REF_VAC_PRESSURE;
 
+	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_1_EXIST_FLAG[CFG_LLx__SIZE];
+	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_2_EXIST_FLAG[CFG_LLx__SIZE];
 	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_EXIST_FLAG[CFG_LLx__SIZE];
 	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_PMx_EXIST_FLAG[CFG_PMx__SIZE];
 
@@ -186,6 +222,11 @@ private:
 
 	CX__VAR_STRING_CTRL  sEXT_CH__ROBOT_DA_RESULT_R_OFFSET_DEG;
 	CX__VAR_STRING_CTRL  sEXT_CH__ROBOT_DA_RESULT_T_OFFSET_MM;
+
+	// IO : ARM_RNE_SNS ... 
+	bool bActive__ROBOT_ARM_RNE_SNS;
+	CX__VAR_DIGITAL_CTRL dEXT_CH__ROBOT_ARM_RNE_SNS;
+	//
 
 	// TMC CHM -----
 	CX__VAR_ANALOG_CTRL  aEXT_CH__TMC_CHM_PRESSURE_TORR;
@@ -374,22 +415,34 @@ private:
 	int  Call__TIME_TEST(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
 
 	// ...
-	int  Check__STN_EXIST(CII_OBJECT__ALARM* p_alarm,const CString& stn_name);
+	int  Check__STN_EXIST(CII_OBJECT__ALARM* p_alarm, const CString& stn_name,const CString& stn_slot);
 	//
 
 	//-------------------------------------------------------------------------
 	// ...
 	int  Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
-								   const int place_flag,
+								   const bool active_place,
 								   const CString& arm_type,
 								   const CString& stn_name,
 								   const CString& stn_slot,
 								   const CString& act_name);
+	int  _Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
+									const bool active_place,
+									const CString& arm_type,
+									const CString& stn_name,
+									const CString& stn_slot,
+									const CString& act_name);
 
 	int  Interlock__CHECK_VALVE_OPEN(CII_OBJECT__ALARM* p_alarm,
+									 const CString& arm_type,
 									 const CString& stn_name,
 									 const CString& stn_slot,
 									 const CString& act_name);
+	int  _Interlock__CHECK_VALVE_OPEN(CII_OBJECT__ALARM* p_alarm,
+									  const CString& arm_type,
+									  const CString& stn_name,
+									  const CString& stn_slot,
+									  const CString& act_name);
 
 	int  Interlock__CHECK_PRESSURE_VAC(CII_OBJECT__ALARM* p_alarm,
 									   const CString& stn_name,
@@ -402,43 +455,70 @@ private:
 								   const CString& arm_type,
 								   const CString& stn_name,
 								   const CString& stn_slot);
+	int  _Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
+									const CString& arm_type,
+									const CString& stn_name,
+									const CString& stn_slot);
 
 	// ...
-	void Set_ANI__ROBOT_ARM_EXTEND(const CString& arm_type, const CString& stn_name);
 	void Set_ANI__ROBOT_EXTEND(const CString& arm_type,const CString& stn_name,const CString& stn_slot);
+	void _Set_ANI__ROBOT_EXTEND(const CString& arm_type,const CString& stn_name,const CString& stn_slot);
 
 	void Set_ANI__ROBOT_ALL_RETRACT();
-	void Set_ANI__ROBOT_ARM_RETRACT(const CString& arm_type, const CString& stn_name);
-	void Set_ANI__ROBOT_RETRACT(const CString& arm_type,const CString& stn_name,const CString& stn_slot);
+	void Set_ANI__ROBOT_RETRACT(const CString& arm_type, const CString& stn_name,const CString& stn_slot);
+	void _Set_ANI__ROBOT_RETRACT(const CString& arm_type, const CString& stn_name,const CString& stn_slot);
 
-	void Set_ANI__ROBOT_ROTATE(const CString& arm_type,const CString& stn_name);
+	void Set_ANI__ROBOT_ROTATE(const CString& arm_type, const CString& stn_name,const CString& stn_slot);
+	void _Set_ANI__ROBOT_ROTATE(const CString& arm_type, const CString& stn_name,const CString& stn_slot);
 
 	// ...
-	int _Report__DA_OFFSET(CII_OBJECT__ALARM* p_alarm,
-						   const CString& arm_type,
-						   const CString& stn_name,
-						   const CString& stn_slot);
+	int _Report__DA_OFFSET(CII_OBJECT__ALARM* p_alarm, const CString& arm_type,const CString& stn_name,const CString& stn_slot);
+	int __Report__DA_OFFSET(CII_OBJECT__ALARM* p_alarm, const CString& arm_type,const CString& stn_name,const CString& stn_slot);
 	
-	int _Set__DA_RT_OFFSET(const CString& stn_name);
-	int _Clear__DA_RT_OFFSET(const CString& stn_name);
+	int _Set__DA_RT_OFFSET(const CString& stn_name, const CString& stn_slot);
+	int _Clear__DA_RT_OFFSET(const CString& stn_name, const CString& stn_slot);
+
+	// ...
+	void _Get__ARM_INFO(const CString& arm_type,
+						const CString& stn_name,
+						const CString& stn_slot,
+						CStringArray& l__arm_type,
+						CStringArray& l__stn_name,
+						CStringArray& l__stn_slot);
 
 	int _Save__DA_OFFSET(const CString& arm_type,
 						 const CString& stn_name,
 						 const CString& stn_slot,
 						 const bool active_place);
+	int __Save__DA_OFFSET(const CString& arm_type,
+						  const CString& stn_name,
+						  const CString& stn_slot,
+						  const bool active_place);
 
 	int _Active__DA_STS(const CString& arm_type,
 						const CString& stn_name,
+						const CString& stn_slot,
 						const bool result_clear);
+	int __Active__DA_STS(const CString& arm_type,
+						 const CString& stn_name,
+						 const CString& stn_slot,
+						 const bool result_clear);
+
 	int _Clear__DA_STS(const CString& arm_type,
-					   const CString& stn_name);
+					   const CString& stn_name,
+					   const CString& stn_slot);
+	int __Clear__DA_STS(const CString& arm_type,
+						const CString& stn_name,
+						const CString& stn_slot);
 
 	int _Get__CFG_STN_OFFSET_OF_A_ARM(const CString& stn_name, 
+									  const CString& stn_slot, 
 									  double& cfg__soft_r,
 									  double& cfg__hard_r,
 									  double& cfg__soft_t,
 									  double& cfg__hard_t);
 	int _Get__CFG_STN_OFFSET_OF_B_ARM(const CString& stn_name, 
+									  const CString& stn_slot, 
 									  double& cfg__soft_r,
 									  double& cfg__hard_r,
 									  double& cfg__soft_t,
