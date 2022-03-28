@@ -95,6 +95,34 @@ int  Macro__Check_Item(const CString& str_item,const CStringArray& l_item)
 	return -1;
 }
 
+CString MACRO__Get_Quotation_String(const CString& string)
+{
+	CString word;
+
+	bool active_comment = false;
+	int i_limit = string.GetLength();
+
+	for(int i=0; i<i_limit; i++)
+	{
+		char ch = string.GetAt(i);
+
+		if(ch == '\"')
+		{
+			if(active_comment)			active_comment = false;
+			else						active_comment = true;
+
+			continue;
+		}
+		else if(active_comment)
+		{
+			word += ch;
+		}
+	}
+
+	if(active_comment)		return "";
+	return word;
+}
+
 int  Macro__Get_Para_List_From_String(const CString& str_data,
 									  CStringArray& l_para)
 {

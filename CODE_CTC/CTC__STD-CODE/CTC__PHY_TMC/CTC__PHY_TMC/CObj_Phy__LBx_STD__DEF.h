@@ -19,6 +19,15 @@
 #define _CMMD__PUMP								"PUMP"
 #define _CMMD__VENT								"VENT"
 
+#define _CMMD__DOOR_OPEN						"DOOR.OPEN"
+#define _CMMD__DOOR_CLOSE						"DOOR.CLOSE"
+
+#define _CMMD__SLOT_OPEN						"SLOT.OPEN"
+#define _CMMD__SLOT_CLOSE						"SLOT.CLOSE"
+
+#define _CMMD__PIN_UP							"PIN.UP"
+#define _CMMD__PIN_DOWN							"PIN.DOWN"
+
 #define _CMMD__PREPMATER						"PREPMATER"
 #define _CMMD__COMPMATER_EX						"COMPMATER.EX"
 #define _CMMD__COMPMATER						"COMPMATER"

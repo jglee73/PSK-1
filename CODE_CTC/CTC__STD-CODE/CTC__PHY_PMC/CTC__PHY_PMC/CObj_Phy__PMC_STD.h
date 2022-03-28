@@ -472,6 +472,20 @@ private:
 	int  Call__VENT(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm);
 
 	//
+	CString sMODE__SLOT_OPEN;
+	int  Call__SLOT_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm);
+
+	CString sMODE__SLOT_CLOSE;
+	int  Call__SLOT_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm);
+
+	//
+	CString sMODE__PIN_UP;
+	int  Call__PIN_UP(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm);
+
+	CString sMODE__PIN_DOWN;
+	int  Call__PIN_DOWN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm);
+
+	//
 	CString sMODE__PICK_READY;
 	int  Call__PICK_READY(CII_OBJECT__VARIABLE* p_variable);
 
@@ -649,6 +663,12 @@ private:
 
 	int  Call__CTC_SIM__PUMP(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm);
 	int  Call__CTC_SIM__VENT(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	int  Call__CTC_SIM__SLOT_OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm);
+	int  Call__CTC_SIM__SLOT_CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	int  Call__CTC_SIM__PIN_UP(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm);
+	int  Call__CTC_SIM__PIN_DOWN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm);
 
 	int  Call__CTC_SIM__PICK_READY(CII_OBJECT__VARIABLE* p_variable);
 	int  Call__CTC_SIM__PICK_X_READY(CII_OBJECT__VARIABLE* p_variable);

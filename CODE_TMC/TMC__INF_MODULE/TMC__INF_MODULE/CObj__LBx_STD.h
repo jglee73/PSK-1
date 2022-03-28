@@ -48,6 +48,28 @@ private:
 	CString sMODE__VENT;
 	int  Call__VENT(CII_OBJECT__VARIABLE* p_variable);
 
+	//
+	CString sMODE__DOOR_OPEN;
+	int  Call__DOOR_OPEN(CII_OBJECT__VARIABLE* p_variable);
+
+	CString sMODE__DOOR_CLOSE;
+	int  Call__DOOR_CLOSE(CII_OBJECT__VARIABLE* p_variable);
+
+	//
+	CString sMODE__SLOT_OPEN;
+	int  Call__SLOT_OPEN(CII_OBJECT__VARIABLE* p_variable);
+
+	CString sMODE__SLOT_CLOSE;
+	int  Call__SLOT_CLOSE(CII_OBJECT__VARIABLE* p_variable);
+
+	//
+	CString sMODE__PIN_UP;
+	int  Call__PIN_UP(CII_OBJECT__VARIABLE* p_variable);
+
+	CString sMODE__PIN_DOWN;
+	int  Call__PIN_DOWN(CII_OBJECT__VARIABLE* p_variable);
+
+	//
 	CString sMODE__PREPMATER;
 	int  Call__PREPMATER(CII_OBJECT__VARIABLE* p_variable);
 

@@ -51,6 +51,12 @@
 #FNC_MODE     OBJ_MODE__LEAK_CHECK					    OPR_PMC   			LEAK_CHECK
 #FNC_MODE     OBJ_MODE__AUTO_PM					        OPR_PMC   			AUTO_PM
 #FNC_MODE     OBJ_MODE__PURGE           				OPR_PMC   			PURGE
+
+#FNC_MODE     OBJ_MODE__SLOT_OPEN        				OPR_PMC   			SLOT.OPEN
+#FNC_MODE     OBJ_MODE__SLOT_CLOSE       				OPR_PMC   			SLOT.CLOSE
+#FNC_MODE     OBJ_MODE__PIN_UP        				  OPR_PMC   			PIN.UP
+#FNC_MODE     OBJ_MODE__PIN_DOWN         				OPR_PMC   			PIN.DOWN
+
 #FNC_MODE     OBJ_MODE__PICK_READY						  OPR_PMC   			PICK_READY
 #FNC_MODE     OBJ_MODE__XPICK_READY					    OPR_PMC   			PICK_X_READY
 #FNC_MODE     OBJ_MODE__PICK_COMPLETE				    OPR_PMC   			PICK_COMPLETE
@@ -134,6 +140,11 @@
 #FNC_MODE     OBJ_MODE__VENT									          FNC_CHM			    VENTING
 #FNC_MODE     OBJ_MODE__LEAK_CHECK						          FNC_CHM			    LEAK_CHECK
 #FNC_MODE     OBJ_MODE__PURGE								            FNC_CHM			    PURGE
+
+#FNC_MODE     OBJ_MODE__SLOT_OPEN        				        FNC_CHM   			SLOT.OPEN
+#FNC_MODE     OBJ_MODE__SLOT_CLOSE       				        FNC_CHM   			SLOT.CLOSE
+#FNC_MODE     OBJ_MODE__PIN_UP        				          PHY_LIFT_PIN		UP
+#FNC_MODE     OBJ_MODE__PIN_DOWN         				        PHY_LIFT_PIN		DOWN
 
 #FNC_MODE     OBJ_MODE__PRO_READY						            FNC_PROC		    MAIN.READY
 #FNC_MODE     OBJ_MODE__PRO_START						            FNC_PROC		    MAIN.START

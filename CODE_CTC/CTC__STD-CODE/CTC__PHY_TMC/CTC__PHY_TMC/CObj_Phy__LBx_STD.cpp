@@ -29,6 +29,15 @@ int CObj_Phy__LBx_STD::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__PUMP, "PUMP");
 		ADD__CTRL_VAR(sMODE__VENT, "VENT");
 
+		ADD__CTRL_VAR(sMODE__DOOR_OPEN,  "DOOR.OPEN");
+		ADD__CTRL_VAR(sMODE__DOOR_CLOSE, "DOOR.CLOSE");
+
+		ADD__CTRL_VAR(sMODE__SLOT_OPEN,  "SLOT.OPEN");
+		ADD__CTRL_VAR(sMODE__SLOT_CLOSE, "SLOT.CLOSE");
+
+		ADD__CTRL_VAR(sMODE__PIN_UP,   "PIN.UP");
+		ADD__CTRL_VAR(sMODE__PIN_DOWN, "PIN.DOWN");
+
 		ADD__CTRL_VAR(sMODE__PREPMATER, "PREPMATER");
 		ADD__CTRL_VAR(sMODE__MAP,       "MAP");
 		ADD__CTRL_VAR(sMODE__COMPMATER,    "COMPMATER"); 
@@ -61,6 +70,9 @@ int CObj_Phy__LBx_STD::__DEFINE__VERSION_HISTORY(version)
 #define  DSP__MODE										\
 "INIT  MAINT											\
  PUMP  VENT												\
+ DOOR.OPEN  DOOR.CLOSE									\
+ SLOT.OPEN  SLOT.CLOSE									\
+ PIN.UP  PIN.DOWN    									\
  PREPMATER  MAP											\
  COMPMATER  COMPMATER.EX  ISOLATE						\
  LOAD  UNLOAD											\
@@ -186,6 +198,13 @@ int CObj_Phy__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "SCH.IDLE_COUNT";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__SCH_IDLE_COUNT, str_name);
+	}
+
+	// PARA ...
+	{
+		str_name = "PARA.SLOT_ID";
+		STD__ADD_DIGITAL(str_name, "1 2");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARA_SLOT_ID, str_name);
 	}
 
 	// ...
@@ -389,6 +408,7 @@ int CObj_Phy__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0.0, 100, "");
 		LINK__VAR_ANALOG_CTRL(aCH__SCH_TEST_CFG_INIT_SEC, str_name);
 
+		//
 		str_name = "SCH_TEST.CFG.PUMP.SEC";
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0.0, 100, "");
 		LINK__VAR_ANALOG_CTRL(aCH__SCH_TEST_CFG_PUMP_SEC, str_name);
@@ -397,6 +417,16 @@ int CObj_Phy__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0.0, 100, "");
 		LINK__VAR_ANALOG_CTRL(aCH__SCH_TEST_CFG_VENT_SEC, str_name);
 		
+		//
+		str_name = "SCH_TEST.CFG.DOOR.SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 1.0, 100, "");
+		LINK__VAR_ANALOG_CTRL(aCH__SCH_TEST_CFG_DOOR_SEC, str_name);
+
+		str_name = "SCH_TEST.CFG.SLOT.SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 1.0, 100, "");
+		LINK__VAR_ANALOG_CTRL(aCH__SCH_TEST_CFG_SLOT_SEC, str_name);
+
+		//
 		str_name = "SCH_TEST.CFG.PREPMATER.SEC";
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 1, 0.0, 100, "");
 		LINK__VAR_ANALOG_CTRL(aCH__SCH_TEST_CFG_PREPMATER_SEC, str_name);
@@ -892,6 +922,18 @@ LOOP_RETRY:
 
 	// ...
 	{
+		CString log_msg;
+		CString log_bff;
+
+		log_msg.Format(" * %s <- %s \n",
+						dCH__PARA_SLOT_ID->Get__CHANNEL_NAME(),
+						dCH__PARA_SLOT_ID->Get__STRING());
+
+		xI_LOG_CTRL->WRITE__LOG(log_msg);
+	}
+
+	// ...
+	{
 		CString msg;
 
 		msg.Format("%s ...",mode);
@@ -930,6 +972,16 @@ LOOP_RETRY:
 			xCH__VENTING_FLAG->Set__DATA("");
 			xCH__VENTING_COMP_FLAG->Set__DATA("");
 		}
+
+		ELSE_IF__CTRL_MODE(sMODE__DOOR_OPEN)		flag = Call__DOOR_OPEN(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__DOOR_CLOSE)		flag = Call__DOOR_CLOSE(p_variable,p_alarm);
+
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_OPEN)		flag = Call__SLOT_OPEN(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_CLOSE)		flag = Call__SLOT_CLOSE(p_variable,p_alarm);
+
+		ELSE_IF__CTRL_MODE(sMODE__PIN_UP)			flag = Call__PIN_UP(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PIN_DOWN)			flag = Call__PIN_DOWN(p_variable,p_alarm);
+
 		ELSE_IF__CTRL_MODE(sMODE__PREPMATER)		flag = Call__PREPMATER(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__MAP)				flag = Call__MAP(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__COMPMATER)		flag = Call__COMPMATER(p_variable, -1);

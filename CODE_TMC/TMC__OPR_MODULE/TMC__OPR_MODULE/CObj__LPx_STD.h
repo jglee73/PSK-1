@@ -54,7 +54,11 @@ private:
 	CString sMODE__UNLOAD;
 	int  Call__UNLOAD(const CString& mode,CII_OBJECT__VARIABLE* p_variable);
 
-	// ADD
+	//
+	CString sMODE__CYCLE;
+	int  Call__CYCLE(const CString& mode,CII_OBJECT__VARIABLE* p_variable);
+
+	// 
 	CString sMODE__CLAMP;
 	int  Call__CLAMP(const CString& mode,CII_OBJECT__VARIABLE* p_variable);
 

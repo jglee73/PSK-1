@@ -23,6 +23,12 @@
 #define STR__ABORTED						"ABORTED"
 #define STR__AVAILABLE						"AVAILABLE"
 
+#define STR__IDLE							"IDLE"
+#define STR__RESERVE						"RESERVE"
+#define STR__RUN							"RUN"
+#define STR__END							"END"
+#define STR__ABORT							"ABORT"
+
 
 // ...
 #define SCR_NAME__POPUP_MACRO_MOVE_HISTORY_VIEW		"POPUP_MACRO_MOVE_HISTORY_VIEW"

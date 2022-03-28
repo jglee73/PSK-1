@@ -42,17 +42,17 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VERSION_HISTORY(version)
 
 // ...
 #define  APP_DSP__PARA_ARM							\
-"A  B"
+"A  B  AB"
 
 #define  APP_DSP__PARA_MODULE						\
 "LBA  LBB  LBC  LBD									\
  LLL  LLU											\
-PM1  PM2  PM3  PM4  PM5  PM6"
+ PM1   PM2   PM3   PM4   PM5   PM6"
 
 #define  APP_DSP__PARA_SLOT							\
 " 1  2  3  4  5  6  7  8  9 10						\
-11 12 13 14 15 16 17 18 19 20						\
-21 22 23 24 25 26 27 28 29 30"
+ 11 12 13 14 15 16 17 18 19 20						\
+ 21 22 23 24 25 26 27 28 29 30"
 
 
 int CObj__VAC_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)

@@ -39,6 +39,12 @@ int CObj_Phy__PMC_STD::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__PUMP, "PUMP");
 		ADD__CTRL_VAR(sMODE__VENT, "VENT");
 	
+		ADD__CTRL_VAR(sMODE__SLOT_OPEN,  "SLOT.OPEN");
+		ADD__CTRL_VAR(sMODE__SLOT_CLOSE, "SLOT.CLOSE");
+
+		ADD__CTRL_VAR(sMODE__PIN_UP,   "PIN.UP");
+		ADD__CTRL_VAR(sMODE__PIN_DOWN, "PIN.DOWN");
+
 		ADD__CTRL_VAR(sMODE__PICK_READY,      "PICK_READY");
 		ADD__CTRL_VAR(sMODE__PICK_X_READY,    "PICK_X_READY");
 		ADD__CTRL_VAR(sMODE__PICK_COMPLETE,   "PICK_COMPLETE");
@@ -115,6 +121,8 @@ int CObj_Phy__PMC_STD::__DEFINE__VERSION_HISTORY(version)
 #define  DSP__MODE													\
 "TIME_INIT  SYSTEM_INIT   AUTO_INIT									\
 PUMP  VENT															\
+SLOT.OPEN  SLOT.CLOSE												\
+PIN.UP  PIN.DOWN    												\
 PICK_READY   PICK_X_READY   PICK_COMPLETE   PICK_X_COMPLETE			\
 PLACE_READY  PLACE_X_READY  PLACE_COMPLETE  PLACE_X_COMPLETE		\
 PRO_READY  PRO_START												\
@@ -1848,6 +1856,12 @@ int CObj_Phy__PMC_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__PUMP)					flag = Call__PUMP(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__VENT)					flag = Call__VENT(p_variable,p_alarm);
 
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_OPEN)			flag = Call__SLOT_OPEN(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_CLOSE)			flag = Call__SLOT_CLOSE(p_variable,p_alarm);
+		
+		ELSE_IF__CTRL_MODE(sMODE__PIN_UP)				flag = Call__PIN_UP(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PIN_DOWN)				flag = Call__PIN_DOWN(p_variable,p_alarm);
+
 		ELSE_IF__CTRL_MODE(sMODE__PICK_READY)			flag = Call__PICK_READY(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__PICK_X_READY)			flag = Call__PICK_X_READY(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__PICK_COMPLETE)		flag = Call__PICK_COMPLETE(p_variable);
@@ -1933,6 +1947,12 @@ int CObj_Phy__PMC_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 
 		ELSE_IF__CTRL_MODE(sMODE__PUMP)					flag = Call__CTC_SIM__PUMP(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__VENT)					flag = Call__CTC_SIM__VENT(p_variable,p_alarm);
+
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_OPEN)			flag = Call__CTC_SIM__SLOT_OPEN(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_CLOSE)			flag = Call__CTC_SIM__SLOT_CLOSE(p_variable,p_alarm);
+
+		ELSE_IF__CTRL_MODE(sMODE__PIN_UP)				flag = Call__CTC_SIM__PIN_UP(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PIN_DOWN)				flag = Call__CTC_SIM__PIN_DOWN(p_variable,p_alarm);
 
 		ELSE_IF__CTRL_MODE(sMODE__PICK_READY)			flag = Call__CTC_SIM__PICK_READY(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__PICK_X_READY)			flag = Call__CTC_SIM__PICK_X_READY(p_variable);

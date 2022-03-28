@@ -39,6 +39,8 @@
 #define  STR__OPEN								"OPEN"
 #define  STR__CLOSE								"CLOSE"
 
+#define  STR__UP								"UP"
+#define  STR__DOWN								"DOWN"
 
 // ...
 #define  STR__INTERVAL							"INTERVAL"

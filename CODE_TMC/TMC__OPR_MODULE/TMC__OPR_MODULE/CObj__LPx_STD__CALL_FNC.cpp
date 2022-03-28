@@ -45,6 +45,11 @@ int  CObj__LPx_STD::Call__UNLOAD(const CString& mode,CII_OBJECT__VARIABLE* p_var
 	return pLPx__OBJ_CTRL->Call__OBJECT("UNLOAD");
 }
 
+int  CObj__LPx_STD::Call__CYCLE(const CString& mode,CII_OBJECT__VARIABLE* p_variable)
+{
+	return pLPx__OBJ_CTRL->Call__OBJECT("CYCLE");
+}
+
 int  CObj__LPx_STD::Call__CLAMP(const CString& mode,CII_OBJECT__VARIABLE* p_variable)
 {
 	return pLPx__OBJ_CTRL->Call__OBJECT("CLAMP");

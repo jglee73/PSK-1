@@ -77,6 +77,41 @@ int  CObj_Phy__PMC_STD
 
 
 int  CObj_Phy__PMC_STD
+::Call__CTC_SIM__SLOT_OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	Sleep(1000);
+
+	dCH__SLIT_VLV_STS->Set__DATA(STR__OPEN);
+	return 1;
+}
+int  CObj_Phy__PMC_STD
+::Call__CTC_SIM__SLOT_CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	Sleep(1000);
+
+	dCH__SLIT_VLV_STS->Set__DATA(STR__CLOSE);
+	return 1;
+}
+
+int  CObj_Phy__PMC_STD
+::Call__CTC_SIM__PIN_UP(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	Sleep(1000);
+
+	sCH__LIFT_PIN_STS->Set__DATA(STR__UP);
+	return 1;
+}
+int  CObj_Phy__PMC_STD
+::Call__CTC_SIM__PIN_DOWN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	Sleep(1000);
+
+	sCH__LIFT_PIN_STS->Set__DATA(STR__DOWN);
+	return 1;
+}
+
+
+int  CObj_Phy__PMC_STD
 ::Call__CTC_SIM__PICK_READY(CII_OBJECT__VARIABLE* p_variable)
 {
 	return 1;

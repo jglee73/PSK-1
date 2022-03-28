@@ -149,6 +149,10 @@ int CObj__TMC_CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		pPress_VLV__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
 	}
 
+	// ...
+	{
+		dCH__OBJ_STATUS->Set__DATA(STR__MAINTMODE);
+	}
 	return 1;
 }
 

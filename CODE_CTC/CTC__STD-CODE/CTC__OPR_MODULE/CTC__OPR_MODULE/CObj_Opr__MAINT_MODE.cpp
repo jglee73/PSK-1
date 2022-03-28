@@ -15,17 +15,18 @@ CObj_Opr__MAINT_MODE::~CObj_Opr__MAINT_MODE()
 //-------------------------------------------------------------------------
 int CObj_Opr__MAINT_MODE::__DEFINE__CONTROL_MODE(obj,l_mode)
 {
-	// ...
-	{
-		sObject_Name = obj;
-	}
+	sObject_Name = obj;
 
 	// ...
 	{
-		ADD__CTRL_VAR(sMODE__MANUAL_MOVE,    "MANUAL_MOVE");
-		ADD__CTRL_VAR(sMODE__TOOL_CLEAR,     "TOOL_CLEAR" );
-		ADD__CTRL_VAR(sMODE__PARTICLE_CHECK, "PARTICLE_CHECK");
-		ADD__CTRL_VAR(sMODE__MACRO_MOVE,	 "MACRO_MOVE");
+		ADD__CTRL_VAR(sMODE__MANUAL_MOVE, "MANUAL_MOVE");
+		ADD__CTRL_VAR(sMODE__TOOL_CLEAR,  "TOOL_CLEAR" );
+		ADD__CTRL_VAR(sMODE__MACRO_MOVE,  "MACRO_MOVE" );
+
+		ADD__CTRL_VAR(sMODE__PARTICLE_PART_CHECK,    "PARTICLE.PART_CHECK");
+		ADD__CTRL_VAR(sMODE__PARTICLE_TRANSFER_PART, "PARTICLE.TRANSFER_PART");
+		ADD__CTRL_VAR(sMODE__PARTICLE_PROCESS_PART,  "PARTICLE.PROCESS_PART");
+		ADD__CTRL_VAR(sMODE__PARTICLE_CHECK,         "PARTICLE_CHECK");
 
 		ADD__CTRL_VAR(sMODE__CHECK_TARGET_INFO, "CHECK.TARGET_INFO");
 	}
@@ -91,6 +92,166 @@ int CObj_Opr__MAINT_MODE::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "ACTIVE.MODE";
 		STD__ADD_STRING_WITH_COMMENT(str_name,"");
 		LINK__VAR_STRING_CTRL(xCH__ACTIVE_MODE,str_name);
+	}
+
+	// PARTICLE.COMMON ...
+	{
+		str_name = "PARTICLE.PARA.SEL_AREA";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "TRANSFER  PROCESS  ALL", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARTICLE_PARA_SEL_AREA, str_name);
+
+		str_name = "PARTICLE.PARA.CUR_AREA";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__PARTICLE_PARA_CUR_AREA, str_name);
+
+		//
+		str_name = "PARTICLE.PARA.LPx";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "1 2 3", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARTICLE_PARA_LPx, str_name);
+
+		str_name = "PARTICLE.CUR.LPx";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__PARTICLE_CUR_LPx, str_name);
+
+		//
+		str_name = "PARTICLE.PARA.LLx";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "LL1-1 LL1-2  LL2-1 LL2-2", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARTICLE_PARA_LLx, str_name);
+
+		str_name = "PARTICLE.CUR.LLx";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__PARTICLE_CUR_LLx, str_name);
+
+		str_name = "PARTICLE.PARA.LLx_COOLING_SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 1, 600, "");
+		LINK__VAR_ANALOG_CTRL(aCH__PARTICLE_PARA_LLx_COOLING_SEC, str_name);
+
+		str_name = "PARTICLE.CUR.LLx_COOLING_SEC";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__PARTICLE_CUR_LLx_COOLING_SEC, str_name);
+
+		//
+		for(i=0; i<CFG_ST_LIMIT; i++)
+		{
+			str_name.Format("PARTICLE.PARA.ST%1d_SLOT", i+1);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "slot", 0, 1, 25, "");
+			LINK__VAR_ANALOG_CTRL(aCH__PARTICLE_PARA_STx_SLOT[i], str_name);
+
+			str_name.Format("PARTICLE.CUR.ST%1d_SLOT", i+1);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__PARTICLE_CUR_STx_SLOT[i], str_name);
+		}
+
+		//
+		str_name = "PARTICLE.PARA.EFEM_ROBOT";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "A B", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARTICLE_PARA_EFEM_ROBOT, str_name);
+
+		str_name = "PARTICLE.CUR.EFEM_ROBOT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__PARTICLE_CUR_EFEM_ROBOT, str_name);
+
+		str_name = "PARTICLE.PARA.TM_ROBOT";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "A B", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARTICLE_PARA_TM_ROBOT, str_name);
+
+		str_name = "PARTICLE.CUR.TM_ROBOT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__PARTICLE_CUR_TM_ROBOT, str_name);
+	}
+	// TRANSFER.PART ...
+	{
+		for(i=0; i<_ACT__TRANSFER_SIZE; i++)
+		{
+			CString act_name;
+
+				 if(i == _ACT_ID__MOVE_TO_LPx)				act_name = _ACT_MOVE__MOVE_TO_LPx;
+			else if(i == _ACT_ID__MOVE_TO_LLx_IN_ATM)		act_name = _ACT_MOVE__MOVE_TO_LLx_IN_ATM;
+			else if(i == _ACT_ID__LLx_DOOR_VLV_OP_CL)		act_name = _ACT_MOVE__LLx_DOOR_VLV_OP_CL;
+			else if(i == _ACT_ID__LLx_PUMP_VENT)			act_name = _ACT_MOVE__LLx_PUMP_VENT;
+			else if(i == _ACT_ID__LLx_SLOT_VLV_OP_CL)		act_name = _ACT_MOVE__LLx_SLOT_VLV_OP_CL;
+			else if(i == _ACT_ID__MOVE_TO_LLx_IN_VAC)		act_name = _ACT_MOVE__MOVE_TO_LLx_IN_VAC;
+			else if(i == _ACT_ID__MOVE_TO_AL1)				act_name = _ACT_MOVE__MOVE_TO_AL1;
+			else if(i == _ACT_ID__MOVE_TO_ST1)				act_name = _ACT_MOVE__MOVE_TO_ST1;
+			else if(i == _ACT_ID__MOVE_TO_ST2)				act_name = _ACT_MOVE__MOVE_TO_ST2;
+			else											continue;
+
+			//
+			str_name.Format("PARA.TRANSFER.ACT_CHECK.%s", act_name);
+			STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRANSFER_ACT_CHECK_X[i], str_name);
+
+			str_name.Format("PARA.TRANSFER.CTRL_STATE.%s", act_name);
+			STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRANSFER_CTRL_STATE_X[i], str_name);
+
+			//
+			str_name.Format("PARA.TRANSFER.STN_SRC.%s", act_name);
+			STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRANSFER_STN_SRC_X[i], str_name);
+
+			str_name.Format("PARA.TRANSFER.STN_TRG.%s", act_name);
+			STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRANSFER_STN_TRG_X[i], str_name);
+
+			str_name.Format("PARA.TRANSFER.CFG_COUNT.%s", act_name);
+			STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRANSFER_CFG_COUNT_X[i], str_name);
+
+			str_name.Format("PARA.TRANSFER.CUR_COUNT.%s", act_name);
+			STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRANSFER_CUR_COUNT_X[i], str_name);
+		}
+	}
+	// PROCESS.PART ...
+	{
+		CString str_pm;
+
+		for(int k=0; k<CFG_PM_LIMIT; k++)
+		{
+			str_pm.Format("PM%1d", k+1);
+
+			for(i=0; i<_ACT__PROCESS_SIZE; i++)
+			{
+				CString act_name;
+
+					 if(i == _ACT_ID__MOVE_TO_PMx)					act_name = _ACT_PROC__MOVE_TO_PMx;
+				else if(i == _ACT_ID__PMx_SLOT_VLV_OP_CL)			act_name = _ACT_PROC__PMx_SLOT_VLV_OP_CL;
+				else if(i == _ACT_ID__PMx_PIN_UP_TO_DOWN)			act_name = _ACT_PROC__PMx_PIN_UP_TO_DOWN;
+				else if(i == _ACT_ID__PMx_PROCESS)					act_name = _ACT_PROC__PMx_PROCESS;
+				else												continue;
+
+				//
+				str_name.Format("PARA.PROCESS.ACT_CHECK.%s.%s", act_name, str_pm);
+				STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+				LINK__VAR_STRING_CTRL(sCH__PARA_PROCESS_ACT_CHECK_X[k][i], str_name);
+
+				str_name.Format("PARA.PROCESS.CTRL_STATE.%s.%s", act_name, str_pm);
+				STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+				LINK__VAR_STRING_CTRL(sCH__PARA_PROCESS_CTRL_STATE_X[k][i], str_name);
+
+				//
+				str_name.Format("PARA.PROCESS.STN_SRC.%s.%s", act_name, str_pm);
+				STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+				LINK__VAR_STRING_CTRL(sCH__PARA_PROCESS_STN_SRC_X[k][i], str_name);
+
+				str_name.Format("PARA.PROCESS.STN_TRG.%s.%s", act_name, str_pm);
+				STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+				LINK__VAR_STRING_CTRL(sCH__PARA_PROCESS_STN_TRG_X[k][i], str_name);
+
+				str_name.Format("PARA.PROCESS.CFG_COUNT.%s.%s", act_name, str_pm);
+				STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+				LINK__VAR_STRING_CTRL(sCH__PARA_PROCESS_CFG_COUNT_X[k][i], str_name);
+
+				str_name.Format("PARA.PROCESS.CUR_COUNT.%s.%s", act_name, str_pm);
+				STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+				LINK__VAR_STRING_CTRL(sCH__PARA_PROCESS_CUR_COUNT_X[k][i], str_name);
+			}
+
+			str_name.Format("PARA.PROCESS.RECIPE_NAME.%s", str_pm);
+			STD__ADD_STRING_WITH_X_OPTION(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_PROCESS_RECIPE_NAME_X[k], str_name);
+		}
 	}
 
 	// PARTICLE PARAMETER .....
@@ -837,6 +998,10 @@ int CObj_Opr__MAINT_MODE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 					pLLx__OBJ_CTRL[i] = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
 					//
+					var_name = "PARA.SLOT_ID";
+					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__LLx_PARA_SLOT_ID[i], obj_name,var_name);
+
+					//
 					var_name = "PARA.PROC.RECIPE.NAME";
 					LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx_PARA_PROC_RECIPE_NAME[i], obj_name,var_name);
 
@@ -1066,6 +1231,11 @@ int CObj_Opr__MAINT_MODE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				sList__LBx_AREA.Add(str_module);
 			}
 
+			//
+			str_module = "LLX";
+			sList__ATM_AREA.Add(str_module);
+			sList__LBx_AREA.Add(str_module);
+
 			/*
 			str_module = "VIS1";
 			sList__ATM_AREA.Add(str_module);
@@ -1244,6 +1414,22 @@ int CObj_Opr__MAINT_MODE::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 
 			flag = Call__TOOL_CLEAR(p_variable);
 		}
+		ELSE_IF__CTRL_MODE(sMODE__MACRO_MOVE)
+		{
+			flag = Call__MACRO_MOVE(p_variable);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__PARTICLE_PART_CHECK)
+		{
+			flag = Call__PARTICLE_PART_CHECK(p_variable, p_alarm);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__PARTICLE_TRANSFER_PART)
+		{
+			flag = Call__PARTICLE_TRANSFER_PART(p_variable, p_alarm);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__PARTICLE_PROCESS_PART)
+		{
+			flag = Call__PARTICLE_PROCESS_PART(p_variable, p_alarm);
+		}
 		ELSE_IF__CTRL_MODE(sMODE__PARTICLE_CHECK)
 		{
 			CString ch_data;
@@ -1267,10 +1453,6 @@ int CObj_Opr__MAINT_MODE::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 				if(i_count < 1)			break;
 			}
 		}
-		ELSE_IF__CTRL_MODE(sMODE__MACRO_MOVE)
-		{
-			flag = Call__MACRO_MOVE(p_variable);
-		}
 		ELSE_IF__CTRL_MODE(sMODE__CHECK_TARGET_INFO)
 		{
 			flag = Call__CHECK_TARGET_INFO(p_variable);
@@ -1291,8 +1473,16 @@ int CObj_Opr__MAINT_MODE::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	{
 		CString obj_msg;
 
-		obj_msg.Format("%s completed : [%1d]", mode,flag);
-		printf("[%s] : %s completed [%1d] ... \n", sObject_Name,mode,flag);
+		if(flag > 0)
+		{
+			obj_msg.Format("%s completed : [%1d]", mode,flag);
+			printf("[%s] : %s completed [%1d] ... \n", sObject_Name,mode,flag);
+		}
+		else
+		{
+			obj_msg.Format("%s aborted : [%1d]", mode,flag);
+			printf("[%s] : %s aborted [%1d] ... \n", sObject_Name,mode,flag);
+		}
 
 		xAPP_LOG_CTRL->WRITE__LOG(obj_msg);
 

@@ -25,6 +25,17 @@ int CObj__LBx_STD::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__PUMP, "PUMP");
 		ADD__CTRL_VAR(sMODE__VENT, "VENT");
 
+		//
+		ADD__CTRL_VAR(sMODE__DOOR_OPEN,  "DOOR.OPEN");
+		ADD__CTRL_VAR(sMODE__DOOR_CLOSE, "DOOR.CLOSE");
+
+		ADD__CTRL_VAR(sMODE__SLOT_OPEN,  "SLOT.OPEN");
+		ADD__CTRL_VAR(sMODE__SLOT_CLOSE, "SLOT.CLOSE");
+
+		ADD__CTRL_VAR(sMODE__PIN_UP,   "PIN.UP");
+		ADD__CTRL_VAR(sMODE__PIN_DOWN, "PIN.DOWN");
+
+		//
 		ADD__CTRL_VAR(sMODE__PREPMATER, "PREPMATER");
 		ADD__CTRL_VAR(sMODE__COMPMATER, "COMPMATER");
 		ADD__CTRL_VAR(sMODE__COMPMATER_EX, "COMPMATER.EX");
@@ -182,6 +193,13 @@ int CObj__LBx_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__PUMP)				flag = Call__PUMP(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__VENT)				flag = Call__VENT(p_variable);
 		
+		ELSE_IF__CTRL_MODE(sMODE__DOOR_OPEN)		flag = Call__DOOR_OPEN(p_variable);
+		ELSE_IF__CTRL_MODE(sMODE__DOOR_CLOSE)		flag = Call__DOOR_CLOSE(p_variable);
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_OPEN)		flag = Call__SLOT_OPEN(p_variable);
+		ELSE_IF__CTRL_MODE(sMODE__SLOT_CLOSE)		flag = Call__SLOT_CLOSE(p_variable);
+		ELSE_IF__CTRL_MODE(sMODE__PIN_UP)			flag = Call__PIN_UP(p_variable);
+		ELSE_IF__CTRL_MODE(sMODE__PIN_DOWN)			flag = Call__PIN_DOWN(p_variable);
+
 		ELSE_IF__CTRL_MODE(sMODE__PREPMATER)		flag = Call__PREPMATER(p_variable);		
 		ELSE_IF__CTRL_MODE(sMODE__COMPMATER)		flag = Call__COMPMATER(p_variable, -1);
 		ELSE_IF__CTRL_MODE(sMODE__COMPMATER_EX)		flag = Call__COMPMATER(p_variable,  1);

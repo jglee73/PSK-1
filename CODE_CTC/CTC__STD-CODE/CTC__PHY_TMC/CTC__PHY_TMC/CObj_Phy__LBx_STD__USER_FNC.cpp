@@ -16,6 +16,9 @@ int CObj_Phy__LBx_STD
 	aCH__SCH_TEST_CFG_PUMP_SEC->Set__VALUE(5.0);
 	aCH__SCH_TEST_CFG_VENT_SEC->Set__VALUE(5.0);
 
+	aCH__SCH_TEST_CFG_DOOR_SEC->Set__VALUE(1.0);
+	aCH__SCH_TEST_CFG_SLOT_SEC->Set__VALUE(1.0);
+
 	aCH__SCH_TEST_CFG_PREPMATER_SEC->Set__VALUE(1.0);
 	aCH__SCH_TEST_CFG_MAP_SEC->Set__VALUE(1.0);
 	
@@ -104,6 +107,16 @@ int CObj_Phy__LBx_STD
 	else if(obj_mode.CompareNoCase(_CMMD__PUMP) == 0)
 	{
 		pch_analog_cfg = aCH__SCH_TEST_CFG_PUMP_SEC.Get__PTR();
+	}
+	else if((obj_mode.CompareNoCase(_CMMD__DOOR_OPEN)  == 0)
+		 || (obj_mode.CompareNoCase(_CMMD__DOOR_CLOSE) == 0))
+	{
+		pch_analog_cfg = aCH__SCH_TEST_CFG_DOOR_SEC.Get__PTR();
+	}
+	else if((obj_mode.CompareNoCase(_CMMD__SLOT_OPEN)  == 0)
+		 || (obj_mode.CompareNoCase(_CMMD__SLOT_CLOSE) == 0))
+	{
+		pch_analog_cfg = aCH__SCH_TEST_CFG_SLOT_SEC.Get__PTR();
 	}
 	else if(obj_mode.CompareNoCase(_CMMD__PREPMATER) == 0)
 	{
@@ -222,6 +235,38 @@ int CObj_Phy__LBx_STD
 		xCH__PRESSURE_VALUE->Set__DATA("0.000");
 		xCH__PRESSURE_mTORR->Set__DATA("0.0");
 		xCH__VAC_SNS->Set__DATA("ON");
+	}
+	else if(obj_mode.CompareNoCase(_CMMD__DOOR_OPEN) == 0)
+	{
+		CString ch_data = dCH__PARA_SLOT_ID->Get__STRING();
+		int slot_index = atoi(ch_data) - 1;
+
+		dCH__DOOR_STS_X->Set__DATA(STR__OPEN);
+		dCH__DOOR_STS_SLOT[slot_index]->Set__DATA(STR__OPEN);
+	}
+	else if(obj_mode.CompareNoCase(_CMMD__DOOR_CLOSE) == 0)
+	{
+		CString ch_data = dCH__PARA_SLOT_ID->Get__STRING();
+		int slot_index = atoi(ch_data) - 1;
+
+		dCH__DOOR_STS_X->Set__DATA(STR__CLOSE);
+		dCH__DOOR_STS_SLOT[slot_index]->Set__DATA(STR__CLOSE);
+	}
+	else if(obj_mode.CompareNoCase(_CMMD__SLOT_OPEN) == 0)
+	{
+		CString ch_data = dCH__PARA_SLOT_ID->Get__STRING();
+		int slot_index = atoi(ch_data) - 1;
+
+		dCH__SLIT_VLV_STS_X->Set__DATA(STR__OPEN);
+		dCH__SLIT_VLV_STS_SLOT[slot_index]->Set__DATA(STR__OPEN);
+	}
+	else if(obj_mode.CompareNoCase(_CMMD__SLOT_CLOSE) == 0)
+	{
+		CString ch_data = dCH__PARA_SLOT_ID->Get__STRING();
+		int slot_index = atoi(ch_data) - 1;
+
+		dCH__SLIT_VLV_STS_X->Set__DATA(STR__CLOSE);
+		dCH__SLIT_VLV_STS_SLOT[slot_index]->Set__DATA(STR__CLOSE);
 	}
 	else if(obj_mode.CompareNoCase(_CMMD__PREPMATER) == 0)
 	{

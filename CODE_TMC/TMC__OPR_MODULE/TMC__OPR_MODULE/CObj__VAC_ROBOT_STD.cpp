@@ -53,17 +53,17 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VERSION_HISTORY(version)
 
 // ...
 #define  APP_DSP__PARA_ARM							\
-"A  B"
+"A  B  AB"
 
 #define  APP_DSP__PARA_MODULE						\
 "LBA  LBB  LBC  LBD									\
  LLL  LLU											\
-PM1  PM2  PM3  PM4  PM5  PM6"
+ PM1   PM2   PM3   PM4   PM5   PM6"
 
 #define  APP_DSP__PARA_SLOT							\
 " 1  2  3  4  5  6  7  8  9 10						\
-11 12 13 14 15 16 17 18 19 20						\
-21 22 23 24 25 26 27 28 29 30"
+ 11 12 13 14 15 16 17 18 19 20						\
+ 21 22 23 24 25 26 27 28 29 30"
 
 
 int CObj__VAC_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
@@ -85,7 +85,7 @@ int CObj__VAC_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_DIGITAL_WITH_COMMENT(str_name,dsc_item_list,"");
 		LINK__VAR_DIGITAL_CTRL(dCH__OBJ_STATUS,str_name);
 
-		//.....
+		//
 		str_name = "PARA.ARM";
 		STD__ADD_DIGITAL_WITH_COMMENT(str_name,APP_DSP__PARA_ARM,"");
 		LINK__VAR_DIGITAL_CTRL(dCH__PARA_ARM,str_name);
@@ -127,6 +127,26 @@ int CObj__VAC_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	{
+		CString file_name;
+		CString log_msg;
+
+		file_name.Format("%s_App.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
+
+		xLOG_CTRL->DISABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG(log_msg);
+
+		xLOG_CTRL->ENABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG("   START   \n");
+	}
+
+	// ...
+	{
 		def_name = "OBJ__ROBOT";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
@@ -144,31 +164,17 @@ int CObj__VAC_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	{
-		CString obj_name, var_name;
+		CString obj_name;
+		CString var_name;
 
 		p_ext_obj_create->Get__DEF_CONST_DATA("dHYPER_TERMINAL_LOCK", def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_PHY__IO_CH__HYPER_TERMINAL_LOCK, obj_name, var_name);
 	}
 
-	//.....
+	// ...
 	{
-		CString file_name;
-		CString log_msg;
-
-		file_name.Format("%s_App.log", sObject_Name);
-
-		log_msg  = "\n\n";
-		log_msg += "//------------------------------------------------------------------------";
-
-		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
-
-		xLOG_CTRL->DISABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG(log_msg);
-
-		xLOG_CTRL->ENABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG("   START   \n");
+		dCH__OBJ_STATUS->Set__DATA(STR__MAINTMODE);
 	}
 	return 1;
 }
@@ -225,11 +231,6 @@ int CObj__VAC_ROBOT_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__RQ_STN)				flag = Call__RQ_STN(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__SET_STN)				flag = Call__SET_STN(p_variable);
 		ELSE_IF__CTRL_MODE(sMODE__TEACHED_CPTR_SAVE)	flag = Call__TEACHED_CPTR_SAVE(p_variable);
-
-		else									
-		{
-
-		}
 	}
 
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))

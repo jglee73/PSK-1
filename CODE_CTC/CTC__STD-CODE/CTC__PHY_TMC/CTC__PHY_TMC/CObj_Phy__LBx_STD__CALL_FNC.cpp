@@ -326,6 +326,40 @@ int CObj_Phy__LBx_STD
 
 //
 int CObj_Phy__LBx_STD
+::Call__DOOR_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	return Fnc__MODULE_OBJ(p_variable, _CMMD__DOOR_OPEN);
+}
+int CObj_Phy__LBx_STD
+::Call__DOOR_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	return Fnc__MODULE_OBJ(p_variable, _CMMD__DOOR_CLOSE);
+}
+
+int CObj_Phy__LBx_STD
+::Call__SLOT_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	return Fnc__MODULE_OBJ(p_variable, _CMMD__SLOT_OPEN);
+}
+int CObj_Phy__LBx_STD
+::Call__SLOT_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	return Fnc__MODULE_OBJ(p_variable, _CMMD__SLOT_CLOSE);
+}
+
+int CObj_Phy__LBx_STD
+::Call__PIN_UP(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	return Fnc__MODULE_OBJ(p_variable, _CMMD__PIN_UP);
+}
+int CObj_Phy__LBx_STD
+::Call__PIN_DOWN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	return Fnc__MODULE_OBJ(p_variable, _CMMD__PIN_DOWN);
+}
+
+//
+int CObj_Phy__LBx_STD
 ::Call__PREPMATER(CII_OBJECT__VARIABLE* p_variable)
 {
 	Set__SLOT_PARAMETER(p_variable);
