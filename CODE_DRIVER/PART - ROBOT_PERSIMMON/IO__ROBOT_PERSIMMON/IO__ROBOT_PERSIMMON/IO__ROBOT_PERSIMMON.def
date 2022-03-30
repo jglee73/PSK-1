@@ -1,0 +1,6 @@
+; IO__ROBOT_PERSIMMON.def : Declares the module parameters for the DLL.
+
+LIBRARY      "IO__ROBOT_PERSIMMON"
+
+EXPORTS
+    ; Explicit exports can go here

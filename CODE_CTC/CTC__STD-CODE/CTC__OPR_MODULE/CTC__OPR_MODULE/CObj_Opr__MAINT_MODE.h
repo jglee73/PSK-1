@@ -622,11 +622,13 @@ private:
 	CString sMODE__PARTICLE_TRANSFER_PART;
 	int  Call__PARTICLE_TRANSFER_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 	int  _Reserve__PARTICLE_TRANSFER_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+	int  _Release__PARTICLE_TRANSFER_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 	int  _Run__PARTICLE_TRANSFER_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 
 	CString sMODE__PARTICLE_PROCESS_PART;
 	int  Call__PARTICLE_PROCESS_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 	int  _Reserve__PARTICLE_PROCESS_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+	int  _Release__PARTICLE_PROCESS_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 	int  _Run__PARTICLE_PROCESS_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 
 	CString _Get__Transfer_Action_Name(const int act_id);

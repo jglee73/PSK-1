@@ -18,6 +18,11 @@ int  CObj_Opr__MAINT_MODE
 		_Reserve__PARTICLE_TRANSFER_PART(p_variable, p_alarm);
 		_Reserve__PARTICLE_PROCESS_PART(p_variable, p_alarm);
 	}
+	else
+	{
+		_Release__PARTICLE_TRANSFER_PART(p_variable, p_alarm);
+		_Release__PARTICLE_PROCESS_PART(p_variable, p_alarm);
+	}
 
 	if((cur_mode.CompareNoCase("ALL") == 0)
 	|| (cur_mode.CompareNoCase("TRANSFER") == 0))
@@ -74,6 +79,18 @@ int  CObj_Opr__MAINT_MODE
 		sCH__PARA_TRANSFER_CTRL_STATE_X[i]->Set__DATA(STR__RESERVE);
 	}
 
+	return 1;
+}
+int  CObj_Opr__MAINT_MODE
+::_Release__PARTICLE_TRANSFER_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	printf(" _Release__PARTICLE_TRANSFER_PART() ... \n");
+
+	for(int i=0; i<_ACT__TRANSFER_SIZE; i++)
+	{
+		sCH__PARA_TRANSFER_CTRL_STATE_X[i]->Set__DATA(STR__IDLE);
+		sCH__PARA_TRANSFER_CUR_COUNT_X[i]->Set__DATA("___");
+	}
 	return 1;
 }
 int  CObj_Opr__MAINT_MODE
@@ -163,6 +180,8 @@ int  CObj_Opr__MAINT_MODE
 			CString para__src_slot;
 			CString para__trg_module;
 			CString para__trg_slot;
+			CString para__efem_module;
+			CString para__efem_slot;
 			CString ch_data;
 
 			// PARA.SRC ...
@@ -173,29 +192,28 @@ int  CObj_Opr__MAINT_MODE
 				int cur__src_slot = atoi(ch_data);
 				para__src_slot.Format("%1d", cur__src_slot + (loop_count-1));
 			}
+			// PARA.EFEM_ARM ...
+			{
+				ch_data = sCH__PARTICLE_CUR_EFEM_ROBOT->Get__STRING();
+					 if(ch_data.CompareNoCase("A") == 0)			para__efem_module = "ATM_RB1_A";
+				else if(ch_data.CompareNoCase("B") == 0)			para__efem_module = "ATM_RB1_B";
+
+				para__efem_slot = "";
+			}
+
+			// LPx -> EFEM.ROBOT
+			{
+				sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
+				sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+
+				sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+				sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+
+				if(Call__MANUAL_MOVE(p_variable) < 0)		return -101;
+			}
 
 			if(i == _ACT_ID__MOVE_TO_LPx)
 			{
-				// PARA.TRG ...
-				{
-					ch_data = sCH__PARTICLE_CUR_EFEM_ROBOT->Get__STRING();
-						 if(ch_data.CompareNoCase("A") == 0)			para__trg_module = "ATM_RB1_A";
-					else if(ch_data.CompareNoCase("B") == 0)			para__trg_module = "ATM_RB1_B";
-
-					para__trg_slot = "";
-				}
-
-				// LPx -> EFEM.ROBOT
-				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
-
-					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
-
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
-				}
-
 				// MOVE_TO_LPx
 				while(1)
 				{
@@ -212,8 +230,8 @@ int  CObj_Opr__MAINT_MODE
 
 					// EFEM.ROBOT -> LPx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+						sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+						sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 						sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
 						sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
@@ -228,8 +246,8 @@ int  CObj_Opr__MAINT_MODE
 						sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
 						sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+						sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
 
@@ -237,40 +255,20 @@ int  CObj_Opr__MAINT_MODE
 					}
 				}
 
-				// EFEM.ROBOT -> LPx
-				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
-
-					sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
-
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -12;
-				}			
+				// ...
 			}
 			else if(i == _ACT_ID__MOVE_TO_LLx_IN_ATM)
 			{
-				CString para__arm_module;
-				CString para__arm_slot;
-
 				// PARA.TRG ...
 				{
 					para__trg_module = sCH__PARTICLE_CUR_LLx->Get__STRING();
 					Check__LLx_ISLOT(para__trg_module, para__trg_module,para__trg_slot);
 				}
-				// PARA.ARM ...
-				{
-					ch_data = sCH__PARTICLE_CUR_EFEM_ROBOT->Get__STRING();
-						 if(ch_data.CompareNoCase("A") == 0)			para__arm_module = "ATM_RB1_A";
-					else if(ch_data.CompareNoCase("B") == 0)			para__arm_module = "ATM_RB1_B";
 
-					para__arm_slot = "";
-				}
-
-				// LPx -> LLx_In_ATM
+				// EFEM.ROBOT -> LLx_In_ATM
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
@@ -297,8 +295,8 @@ int  CObj_Opr__MAINT_MODE
 						sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
 						sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__arm_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__arm_slot);
+						sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+						sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
@@ -307,8 +305,8 @@ int  CObj_Opr__MAINT_MODE
 
 					// EFEM.ROBOT -> LLx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__arm_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__arm_slot);
+						sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+						sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
 						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
@@ -319,16 +317,16 @@ int  CObj_Opr__MAINT_MODE
 					}
 				}
 
-				// LLx_In_ATM -> LPx
+				// LLx_In_ATM -> EFEM.ROBOT
 				{
 					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -12;
-				}			
+					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
+				}
 			}
 			else if(i == _ACT_ID__LLx_DOOR_VLV_OP_CL)
 			{
@@ -340,10 +338,10 @@ int  CObj_Opr__MAINT_MODE
 
 				int ll_index = Get__LLx_INDEX(para__trg_module);
 
-				// LPx -> LLx
+				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
@@ -369,7 +367,7 @@ int  CObj_Opr__MAINT_MODE
 					{
 						dEXT_CH__LLx_PARA_SLOT_ID[ll_index]->Set__DATA(para__trg_slot);
 
-						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("DOOR.OPEN") < 0)		return -31;
+						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("DOOR.OPEN") < 0)			return -21;
 
 						Sleep(500);
 					}
@@ -378,21 +376,21 @@ int  CObj_Opr__MAINT_MODE
 					{
 						dEXT_CH__LLx_PARA_SLOT_ID[ll_index]->Set__DATA(para__trg_slot);
 
-						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("DOOR.CLOSE") < 0)		return -32;
+						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("DOOR.CLOSE") < 0)		return -22;
 
 						Sleep(500);
 					}
 				}
 
-				// LLx -> LPx
+				// LLx -> EFEM.ROBOT
 				{
 					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -12;
+					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
 			}
 			else if(i == _ACT_ID__LLx_PUMP_VENT)
@@ -405,10 +403,10 @@ int  CObj_Opr__MAINT_MODE
 
 				int ll_index = Get__LLx_INDEX(para__trg_module);
 
-				// LPx -> LLx
+				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
@@ -434,7 +432,7 @@ int  CObj_Opr__MAINT_MODE
 					{
 						dEXT_CH__LLx_PARA_SLOT_ID[ll_index]->Set__DATA(para__trg_slot);
 
-						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("PUMP") < 0)		return -31;
+						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("PUMP") < 0)		return -21;
 
 						Sleep(500);
 					}
@@ -443,21 +441,21 @@ int  CObj_Opr__MAINT_MODE
 					{
 						dEXT_CH__LLx_PARA_SLOT_ID[ll_index]->Set__DATA(para__trg_slot);
 
-						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("VENT") < 0)		return -32;
+						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("VENT") < 0)		return -22;
 
 						Sleep(500);
 					}
 				}
 
-				// LLx -> LPx
+				// LLx -> EFEM.ROBOT
 				{
 					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -12;
+					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
 			}
 			else if(i == _ACT_ID__LLx_SLOT_VLV_OP_CL)
@@ -470,10 +468,10 @@ int  CObj_Opr__MAINT_MODE
 
 				int ll_index = Get__LLx_INDEX(para__trg_module);
 
-				// LPx -> LLx
+				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
@@ -506,7 +504,7 @@ int  CObj_Opr__MAINT_MODE
 					{
 						dEXT_CH__LLx_PARA_SLOT_ID[ll_index]->Set__DATA(para__trg_slot);
 
-						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("SLOT.OPEN") < 0)			return -31;
+						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("SLOT.OPEN") < 0)			return -21;
 
 						Sleep(500);
 					}
@@ -515,21 +513,21 @@ int  CObj_Opr__MAINT_MODE
 					{
 						dEXT_CH__LLx_PARA_SLOT_ID[ll_index]->Set__DATA(para__trg_slot);
 
-						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("SLOT.CLOSE") < 0)		return -32;
+						if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("SLOT.CLOSE") < 0)		return -22;
 
 						Sleep(500);
 					}
 				}
 
-				// LLx -> LPx
+				// LLx -> EFEM.ROBOT
 				{
 					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
 					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -13;
+					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
 			}
 			else if(i == _ACT_ID__MOVE_TO_LLx_IN_VAC)
@@ -541,13 +539,17 @@ int  CObj_Opr__MAINT_MODE
 					else if(ch_data.CompareNoCase("B") == 0)			para__trg_module = "VAC_RB1_B";
 				}
 
-				CString para__llx_module = sCH__PARTICLE_CUR_LLx->Get__STRING();
-				CString para__llx_slot   = "";
+				// ...
+				CString para__llx_module;
+				CString para__llx_slot;
 
-				// LPx -> LLx
+				CString cur__ll_name = sCH__PARTICLE_CUR_LLx->Get__STRING();
+				Check__LLx_ISLOT(cur__ll_name, para__llx_module,para__llx_slot);
+
+				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 					sCH__PARA_TRG_MODULE->Set__DATA(para__llx_module);
 					sCH__PARA_TRG_SLOT->Set__DATA(para__llx_slot);
@@ -576,7 +578,7 @@ int  CObj_Opr__MAINT_MODE
 						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
 						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
 
-						if(Call__MANUAL_MOVE(p_variable) < 0)		return -12;
+						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
 						Sleep(500);
 					}
@@ -589,34 +591,27 @@ int  CObj_Opr__MAINT_MODE
 						sCH__PARA_TRG_MODULE->Set__DATA(para__llx_module);
 						sCH__PARA_TRG_SLOT->Set__DATA(para__llx_slot);
 
-						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
+						if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
 
 						Sleep(500);
 					}
 				}
 
-				// LLx -> LPx
+				// LLx -> EFEM.ROBOT
 				{
 					sCH__PARA_SRC_MODULE->Set__DATA(para__llx_module);
 					sCH__PARA_SRC_SLOT->Set__DATA(para__llx_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
+					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
 			}
 			else if((i == _ACT_ID__MOVE_TO_AL1)
 				 || (i == _ACT_ID__MOVE_TO_ST1)
 				 || (i == _ACT_ID__MOVE_TO_ST2))
 			{
-				// PARA.TRG ...
-				{
-					ch_data = sCH__PARTICLE_CUR_EFEM_ROBOT->Get__STRING();
-						 if(ch_data.CompareNoCase("A") == 0)			para__trg_module = "ATM_RB1_A";
-					else if(ch_data.CompareNoCase("B") == 0)			para__trg_module = "ATM_RB1_B";
-				}
-
 				CString para__md_module = "";
 				CString para__md_slot   = "";
 
@@ -636,10 +631,10 @@ int  CObj_Opr__MAINT_MODE
 					para__md_slot = sCH__PARTICLE_CUR_STx_SLOT[1]->Get__STRING();
 				}
 
-				// LPx -> MDx
+				// EFEM.ROBOT -> MDx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 					sCH__PARA_TRG_MODULE->Set__DATA(para__md_module);
 					sCH__PARA_TRG_SLOT->Set__DATA(para__md_slot);
@@ -665,37 +660,37 @@ int  CObj_Opr__MAINT_MODE
 						sCH__PARA_SRC_MODULE->Set__DATA(para__md_module);
 						sCH__PARA_SRC_SLOT->Set__DATA(para__md_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+						sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
-						if(Call__MANUAL_MOVE(p_variable) < 0)		return -12;
+						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
 						Sleep(500);
 					}
 
 					// EFEM.ROBOT -> MDx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+						sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+						sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
 						sCH__PARA_TRG_MODULE->Set__DATA(para__md_module);
 						sCH__PARA_TRG_SLOT->Set__DATA(para__md_slot);
 
-						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
+						if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
 
 						Sleep(500);
 					}
 				}
 
-				// MDx -> LPx
+				// MDx -> EFEM.ROBOT
 				{
 					sCH__PARA_SRC_MODULE->Set__DATA(para__md_module);
 					sCH__PARA_SRC_SLOT->Set__DATA(para__md_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
 
-					if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
+					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
 			}
 			else
@@ -703,10 +698,16 @@ int  CObj_Opr__MAINT_MODE
 				continue;
 			}
 
-			// ...
+			// EFEM.ROBOT -> LPx
 			{
+				sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
+				sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
 
-			}
+				sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
+				sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+
+				if(Call__MANUAL_MOVE(p_variable) < 0)		return -201;
+			}			
 		}
 
 		sCH__PARA_TRANSFER_CTRL_STATE_X[i]->Set__DATA(STR__END);
@@ -760,6 +761,21 @@ int  CObj_Opr__MAINT_MODE
 		}
 	}
 
+	return 1;
+}
+int  CObj_Opr__MAINT_MODE
+::_Release__PARTICLE_PROCESS_PART(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	printf(" Release__PARTICLE_PROCESS_PART() ... \n");
+
+	for(int i=0; i<CFG_PM_LIMIT; i++)
+	{
+		for(int k=0; k<_ACT__PROCESS_SIZE; k++)
+		{
+			sCH__PARA_PROCESS_CTRL_STATE_X[i][k]->Set__DATA(STR__IDLE);
+			sCH__PARA_PROCESS_CUR_COUNT_X[i][k]->Set__DATA("___");
+		}
+	}
 	return 1;
 }
 int  CObj_Opr__MAINT_MODE

@@ -75,6 +75,8 @@
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY_IO__VAC_ROBOT
 
+#OBJECT_IO_PARA     COM_PORT  11
+
 #OBJECT_IO_PARA     IP        192.168.100.21
 #OBJECT_IO_PARA     PORT      5000
 

@@ -52,7 +52,8 @@
 #OBJECT_STD    TMC__Phy_PMC                  PMC.SIMPLE               PHY__PMx
 #OBJECT_STD    TMC__Active_HandOff           PMC.EX                   OPR__PMx_HANDOFF
 
-#OBJECT_IO     Phy_IO__BROOKS_ROBOT          VacRobot.PSK             PHY_IO__VAC_ROBOT
+// #OBJECT_IO     Phy_IO__BROOKS_ROBOT          VacRobot.PSK             PHY_IO__VAC_ROBOT
+#OBJECT_IO     IO__ROBOT_PERSIMMON           VAC_ROBOT.SERIAL         PHY_IO__VAC_ROBOT
 
 
 ===========================================================================
@@ -67,7 +68,6 @@
 #OBJECT_STD    TMC__Phy_ROBOT                SIDE.STORAGE             PHY__BUFF1
 #OBJECT_STD    TMC__Phy_ROBOT                SIDE.STORAGE             PHY__BUFF2
 
-// #OBJECT_IO     Phy_IO__YASKAWA_ROBOT         SR100.RBx                PHY_IO__ATM_ROBOT
 #OBJECT_IO     IO_RS232__ROBOT_SANKYO        PSK                      PHY_IO__ATM_ROBOT
 
 ===========================================================================
@@ -75,18 +75,6 @@
 #OBJECT_STD    TMC__OPR_MODULE               ALx.STD                  OPR__AL1
 
 #OBJECT_STD    TMC__Phy_PART                 ALx.STD                  PHY__AL1
-
-#OBJECT_IO     Phy_IO__YASKAWA_ROBOT         SR100.ALx                PHY_IO__AL1
-
-
-/*
-===========================================================================
-#OBJECT_STD    TMC__INF_MODULE               VIS.STD                  INF__VIS1
-#OBJECT_STD    TMC__OPR_MODULE               VIS.STD                  OPR__VIS1
-
-#OBJECT_STD    TMC__Phy_PART                 VIS.STD                  PHY__VIS1
-#OBJECT_STD    TMC__Phy_DUMMY                VIS.STD                  PHY_DUMMY__VIS1
-*/
 
 
 ===========================================================================
