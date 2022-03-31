@@ -115,6 +115,7 @@ try catch 문을 사용하면 안됩니다.
 #DEFINE_CONSTANT    OBJ__LL1              PHY_LBA
 #DEFINE_CONSTANT    OBJ__LL2              PHY_LBB
 
+#DEFINE_CONSTANT    OBJ__TMC_CHM        	PHY_TMC_CHM
 
 #DEFINE_CONSTANT    TARGET.ALx_SIZE       1
 #DEFINE_CONSTANT    ALx.TITLE.1           AL1
