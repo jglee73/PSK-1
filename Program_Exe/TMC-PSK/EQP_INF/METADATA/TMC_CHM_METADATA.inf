@@ -57,41 +57,41 @@
 #DEFINE_CONSTANT    OBJ.LINK.2                          OPR__VAC_ROBOT
 #DEFINE_CONSTANT    OBJ.WAIT.2                          YES							// Waiting ...
 
-#DEFINE_CONSTANT    OBJ.MSG.3                           AL1
-#DEFINE_CONSTANT    OBJ.LINK.3                          OPR__AL1
-#DEFINE_CONSTANT    OBJ.WAITING.3                       NO
+#DEFINE_CONSTANT    OBJ.MSG.3                           LP1
+#DEFINE_CONSTANT    OBJ.LINK.3                          OPR__LP1
+#DEFINE_CONSTANT    OBJ.WAIT.3                          NO
 
-#DEFINE_CONSTANT    OBJ.MSG.4                           LP1
-#DEFINE_CONSTANT    OBJ.LINK.4                          OPR__LP1
+#DEFINE_CONSTANT    OBJ.MSG.4                           LP2
+#DEFINE_CONSTANT    OBJ.LINK.4                          OPR__LP2
 #DEFINE_CONSTANT    OBJ.WAIT.4                          NO
 
-#DEFINE_CONSTANT    OBJ.MSG.5                           LP2
-#DEFINE_CONSTANT    OBJ.LINK.5                          OPR__LP2
+#DEFINE_CONSTANT    OBJ.MSG.5                           LP3
+#DEFINE_CONSTANT    OBJ.LINK.5                          OPR__LP3
 #DEFINE_CONSTANT    OBJ.WAIT.5                          NO
 
-#DEFINE_CONSTANT    OBJ.MSG.6                           LP3
-#DEFINE_CONSTANT    OBJ.LINK.6                          OPR__LP3
+#DEFINE_CONSTANT    OBJ.MSG.6                           TMC_PUMP
+#DEFINE_CONSTANT    OBJ.LINK.6                          PHY__TMC_PUMP
 #DEFINE_CONSTANT    OBJ.WAIT.6                          NO
 
-#DEFINE_CONSTANT    OBJ.MSG.7                           TMC_PUMP
-#DEFINE_CONSTANT    OBJ.LINK.7                          PHY__TMC_PUMP
-#DEFINE_CONSTANT    OBJ.WAIT.7                          NO
+#DEFINE_CONSTANT    OBJ.MSG.7                           LLx_PUMP
+#DEFINE_CONSTANT    OBJ.LINK.7                          PHY__LLx_PUMP
+#DEFINE_CONSTANT    OBJ.WAIT.7                          YES							// Waiting ...
 
-#DEFINE_CONSTANT    OBJ.MSG.8                           LLx_PUMP
-#DEFINE_CONSTANT    OBJ.LINK.8                          PHY__LLx_PUMP
-#DEFINE_CONSTANT    OBJ.WAIT.8                          YES							// Waiting ...
+#DEFINE_CONSTANT    OBJ.MSG.8                           TM_CHM
+#DEFINE_CONSTANT    OBJ.LINK.8                          OPR__TMC_CHM
+#DEFINE_CONSTANT    OBJ.WAIT.8                          NO
 
-#DEFINE_CONSTANT    OBJ.MSG.9                           TM_CHM
-#DEFINE_CONSTANT    OBJ.LINK.9                          OPR__TMC_CHM
+#DEFINE_CONSTANT    OBJ.MSG.9                           LL1
+#DEFINE_CONSTANT    OBJ.LINK.9                          OPR__LBA
 #DEFINE_CONSTANT    OBJ.WAIT.9                          NO
 
-#DEFINE_CONSTANT    OBJ.MSG.10                          LL1
-#DEFINE_CONSTANT    OBJ.LINK.10                         OPR__LBA
-#DEFINE_CONSTANT    OBJ.WAIT.10                         NO
+#DEFINE_CONSTANT    OBJ.MSG.10                          LL2
+#DEFINE_CONSTANT    OBJ.LINK.10                         OPR__LBB
+#DEFINE_CONSTANT    OBJ.WAIT.10                         YES							// Waiting ...
 
-#DEFINE_CONSTANT    OBJ.MSG.11                          LL2
-#DEFINE_CONSTANT    OBJ.LINK.11                         OPR__LBB
-#DEFINE_CONSTANT    OBJ.WAIT.11                         YES							// Waiting ...
+#DEFINE_CONSTANT    OBJ.MSG.11                          AL1
+#DEFINE_CONSTANT    OBJ.LINK.11                         OPR__AL1
+#DEFINE_CONSTANT    OBJ.WAIT.11                         YES							
 
 
 //------------------------------------------------
