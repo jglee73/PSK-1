@@ -1,6 +1,0 @@
-; IO__BECKHOFF_PSK.def : Declares the module parameters for the DLL.
-
-LIBRARY      "IO__BECKHOFF_PSK"
-
-EXPORTS
-    ; Explicit exports can go here
