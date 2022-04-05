@@ -873,6 +873,20 @@ int CObj_Opr__MAINT_MODE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString obj_name;
 	CString var_name;
 
+	// DB.CFG ...
+	{
+		def_name = "DB_CFG_NAME";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		for(int i=0; i<CFG_PM_LIMIT; i++)
+		{
+			int pm_id = i + 1;
+
+			var_name.Format("PM%1d.USE", pm_id);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PNx_USE[i], obj_name,var_name);;
+		}
+	}
+
 	// ...
 	{
 		// CH.TARGET ...
@@ -1009,6 +1023,18 @@ int CObj_Opr__MAINT_MODE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 					LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx_PARA_PROC_SCH_NAME[i], obj_name,var_name);
 				}
 			}
+		}
+
+		// OBJ - TMC_CHM ...
+		{
+			def_name = "OBJ__TMC_CHM";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+			pOBJ_CTRL__TMC_CHM = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			//
+			var_name = "PARA.PMx.ID";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__TMC_CHM__PARA_PMx_ID, obj_name,var_name);
 		}
 	}
 

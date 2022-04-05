@@ -572,6 +572,9 @@ private:
 	//-------------------------------------------------------------------------
 	//  EXTERNAL PROPERTY
 
+	// DB.CFG ...
+	CX__VAR_DIGITAL_CTRL dEXT_CH__PNx_USE[CFG_PM_LIMIT];
+
 	// LPx - OBJ ...
 	int iLPx_SIZE;
 	CX__VAR_STRING_CTRL sEXT_CH__LPx_LOCK_FLAG[CFG_LP_LIMIT];
@@ -602,6 +605,11 @@ private:
 
 	CX__VAR_STRING_CTRL  sEXT_CH__LLx_PARA_PROC_RECIPE_NAME[CFG_LLx_LIMIT];
 	CX__VAR_STRING_CTRL  sEXT_CH__LLx_PARA_PROC_SCH_NAME[CFG_LLx_LIMIT];
+
+	// OBJ - TMC_CHM ...
+	CII_EXT_OBJECT__CTRL *pOBJ_CTRL__TMC_CHM;
+
+	CX__VAR_DIGITAL_CTRL dEXT_CH__TMC_CHM__PARA_PMx_ID;
 	//
 
 

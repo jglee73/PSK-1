@@ -756,6 +756,13 @@ int  CObj_Opr__MAINT_MODE
 				continue;
 			}
 
+			if(dEXT_CH__PNx_USE[i]->Check__DATA(STR__ENABLE) < 0)
+			{
+				sCH__PARA_PROCESS_CTRL_STATE_X[i][k]->Set__DATA(STR__DISABLE);
+				sCH__PARA_PROCESS_CUR_COUNT_X[i][k]->Set__DATA("___");
+				continue;
+			}
+
 			sCH__PARA_PROCESS_CUR_COUNT_X[i][k]->Set__DATA("");
 			sCH__PARA_PROCESS_CTRL_STATE_X[i][k]->Set__DATA(STR__RESERVE);
 		}
@@ -824,6 +831,11 @@ int  CObj_Opr__MAINT_MODE
 				sCH__PARA_PROCESS_CTRL_STATE_X[i][k]->Set__DATA(STR__IDLE);
 				continue;
 			}
+			if(dEXT_CH__PNx_USE[i]->Check__DATA(STR__ENABLE) < 0)
+			{
+				sCH__PARA_PROCESS_CTRL_STATE_X[i][k]->Set__DATA(STR__DISABLE);
+				continue;
+			}
 
 			// ...
 			CString act_name = _Get__Process_Action_Name(k);
@@ -854,10 +866,26 @@ int  CObj_Opr__MAINT_MODE
 			sCH__PARA_PROCESS_CTRL_STATE_X[i][k]->Set__DATA(STR__RUN);
 
 			// ...
+			bool active__error_chheck = false;
+
 			CString para__stn_src = sCH__PARA_PROCESS_STN_SRC_X[i][k]->Get__STRING();
 			CString para__stn_trg = sCH__PARA_PROCESS_STN_TRG_X[i][k]->Get__STRING();
 
-			int loop_size  = atoi(para__stn_trg) - atoi(para__stn_src) + 1;
+			int cur__stn_trg = atoi(para__stn_trg);
+			int cur__stn_src = atoi(para__stn_src);
+
+			if(cur__stn_src < 1)				active__error_chheck = true;
+			if(cur__stn_trg < 1)				active__error_chheck = true;
+			if(cur__stn_src > cur__stn_trg)		active__error_chheck = true;
+
+			if(active__error_chheck)
+			{
+				sCH__PARA_PROCESS_CTRL_STATE_X[i][k]->Set__DATA(STR__DISABLE);
+				continue;
+			}
+
+			// ...
+			int loop_size  = cur__stn_trg - cur__stn_src + 1;
 			int loop_count = 0;
 
 			while(loop_count < loop_size)
@@ -992,14 +1020,22 @@ int  CObj_Opr__MAINT_MODE
 
 						// SLOT-VLV.OPEN
 						{
-							if(pPMx__OBJ_CTRL[i]->Call__OBJECT("SLOT.OPEN") < 0)			return -31;
+							ch_data.Format("%1d", i+1);
+							dEXT_CH__TMC_CHM__PARA_PMx_ID->Set__DATA(ch_data);
+							if(pOBJ_CTRL__TMC_CHM->Call__OBJECT("PMx.SV_OPEN") < 0)			return -31;
+
+							if(pPMx__OBJ_CTRL[i]->Call__OBJECT("SLOT.OPEN") < 0)			return -32;
 
 							Sleep(500);
 						}
 
 						// SLOT-VLV.CLOSE
 						{
-							if(pPMx__OBJ_CTRL[i]->Call__OBJECT("SLOT.CLOSE") < 0)			return -32;
+							ch_data.Format("%1d", i+1);
+							dEXT_CH__TMC_CHM__PARA_PMx_ID->Set__DATA(ch_data);
+							if(pOBJ_CTRL__TMC_CHM->Call__OBJECT("PMx.SV_CLOSE") < 0)		return -33;
+
+							if(pPMx__OBJ_CTRL[i]->Call__OBJECT("SLOT.CLOSE") < 0)			return -34;
 
 							Sleep(500);
 						}
