@@ -1,6 +1,6 @@
 * OBJECT : OPR_CTC_MODE
   # LPx Job 시작시 아래의 경로에 Job_Log 폴더를 생성한다.
-    Ref_Dir : "..\EQP_LOF\Wafer_Data\[생성날짜]\"
+    Ref_Dir : "..\EQP_LOG\Wafer_Data\[생성날짜]\"
     Job_Log 폴더 : "LPx+[PortID]+[LotID]+[JobID]+[CID]"
       Ex) "LPx+1+LOTID+##PJOB-PTN1+CID1"
     
