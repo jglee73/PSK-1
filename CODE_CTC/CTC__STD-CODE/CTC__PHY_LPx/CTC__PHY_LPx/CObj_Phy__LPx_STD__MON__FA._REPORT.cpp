@@ -34,7 +34,7 @@ void CObj_Phy__LPx_STD
 
 	while(1)
 	{
-		Sleep(90);
+		p_variable->Wait__SINGLE_OBJECT(0.01);
 
 
 		// FA ONLINE_REPORT ...
@@ -160,7 +160,7 @@ void CObj_Phy__LPx_STD
 						p_e30_ctrl->Event__LP__FOUP_UNCLAMPED(iPTN);
 
 						if((sCH__PORT_STATUS->Check__DATA("RESERVE") > 0)
-							|| (sCH__PORT_STATUS->Check__DATA("BUSY")    > 0))
+						|| (sCH__PORT_STATUS->Check__DATA("BUSY")    > 0))
 						{
 							xI_SCH_MATERIAL_CTRL->Clear__JOB(iPTN);
 							Cancel__PORT();
@@ -253,9 +253,11 @@ void CObj_Phy__LPx_STD
 	xCH__FA_LP_ACCESS_REQ->Get__DATA(var_data);
 	xCH__FA_LP_ACCESS_STATUS->Set__DATA(var_data);
 
+
 	while(1)
 	{
-		Sleep(490);
+		p_variable->Wait__SINGLE_OBJECT(0.5);
+
 
 		if(dEXT_CH__CFG_LPx_ACCESS_MODE_AUTO_CTRL_FLAG->Check__DATA(STR__ENABLE) > 0)
 		{
@@ -411,8 +413,8 @@ void CObj_Phy__LPx_STD
 
 				sCH__PORT_STATUS->Get__DATA(var_data);
 
-				if((var_data.CompareNoCase("LOAD.REQ")   == 0)
-				|| (var_data.CompareNoCase("UNLOAD.REQ") == 0))
+				if((var_data.CompareNoCase("LOAD.REQ") == 0)
+				|| (var_data.CompareNoCase(STR__UNLOAD_REQ) == 0))
 				{
 					int lp_ready_flag = 1;
 
@@ -423,7 +425,7 @@ void CObj_Phy__LPx_STD
 							lp_ready_flag = -1;
 						}
 					}
-					else if(var_data.CompareNoCase("UNLOAD.REQ") == 0)
+					else if(var_data.CompareNoCase(STR__UNLOAD_REQ) == 0)
 					{
 						if(dCH__CST_STATUS->Check__DATA("EXIST") < 0)
 						{
@@ -435,7 +437,7 @@ void CObj_Phy__LPx_STD
 					{
 						p_e87_ctrl->Event__LP__TRANSFER_READY(iPTN);
 
-						if(var_data.CompareNoCase("UNLOAD.REQ") == 0)
+						if(var_data.CompareNoCase(STR__UNLOAD_REQ) == 0)
 						{
 							p_e87_ctrl->Event__LP__READY_TO_UNLOAD(iPTN);
 						}

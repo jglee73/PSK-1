@@ -91,6 +91,14 @@
 #OBJECT_IO_PARA     COM_PORT                       13
 
 
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__EPD
+
+#OBJECT_IO_PARA     IP                             127.0.0.1
+#OBJECT_IO_PARA     PORT                           20001
+#OBJECT_IO_PARA     END.STRING                     CR
+
+
 //------------------------------------------------
 #OBJECT_PROPERTY    IO
 

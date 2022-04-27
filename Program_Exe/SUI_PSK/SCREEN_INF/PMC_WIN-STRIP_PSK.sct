@@ -121,6 +121,22 @@ WINDOW_NAME PMC_BTM_UTILITY
 // Client
 // Bottom => Operate
 
+WINDOW_NAME PMC_OPERATE_CHAMBER
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Operate
+}
+
+WINDOW_NAME PMC_OPERATE_HEATER
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Operate
+}
+
 
 // Bottom => Config
 

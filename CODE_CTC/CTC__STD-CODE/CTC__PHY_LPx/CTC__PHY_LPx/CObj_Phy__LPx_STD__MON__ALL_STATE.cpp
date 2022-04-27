@@ -38,7 +38,7 @@ void CObj_Phy__LPx_STD
 
 	while(1)
 	{
-		Sleep(490);
+		p_variable->Wait__SINGLE_OBJECT(0.5);
 
 
 		// PORT STATUS ...

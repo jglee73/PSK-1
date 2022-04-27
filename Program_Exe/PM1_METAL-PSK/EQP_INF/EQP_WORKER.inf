@@ -84,6 +84,8 @@
 #OBJECT_IO      PHY_RS232__RF_AE            PARAMOUNT.HF            PHY_IO__RF_BIAS
 #OBJECT_IO      PHY_IO__MATCHER_AE          NAVII.SERIAL            PHY_IO__MATCHER
 
+#OBJECT_IO      PHY_IO__OES_VERITY          VERITY.STD              PHY_IO__EPD
+
 
 ===========================================================================
 #OBJECT_STD     PHY_HEATER__JGLEE           MINI8.IO                PHY_HTR_CHUCK

@@ -110,6 +110,17 @@ int CObj__STEP_STRIP::__DEFINE__VARIABLE_STD(p_variable)
 			LINK__VAR_ANALOG_CTRL(aCH__RCP_STEP_TIME, var_name);
 		}
 
+		// EPD ...
+		{
+			var_name = "RCP.EPD.ALGORITHM.ID";
+			STD__ADD_STRING_WITH_OPTION(var_name, 0, "E", "");
+			LINK__VAR_STRING_CTRL(sCH__RCP_EPD_ALGORITHM_ID, var_name);
+
+			var_name = "RCP.EPD.ALGORITHM.LIST";
+			STD__ADD_STRING(var_name);
+			LINK__VAR_STRING_CTRL(sCH__RCP_EPD_ALGORITHM_LIST, var_name);
+		}
+
 		// APC ...
 		{
 			var_name = "RCP.APC.MODE";		
@@ -542,6 +553,13 @@ int CObj__STEP_STRIP::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		SCX__SEQ_INFO x_seq_info;
 
 		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
+	}
+
+	// ...
+	{
+		CString str_list = "IDLE/AAA/BBB/CCC/Test.01";
+
+		sCH__RCP_EPD_ALGORITHM_LIST->Set__DATA(str_list);
 	}
 	return 1;
 }

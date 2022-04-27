@@ -18,6 +18,39 @@ extern CMacro_FA mFA_Link;
 
 // ...
 void CObj_Phy__LPx_STD
+::Mon__PORT_EXCEPTION(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+{
+
+	while(1)
+	{
+		while(dCH_CFG__LPx_USE->Check__DATA("DISABLE") > 0)
+		{
+			p_variable->Wait__SINGLE_OBJECT(0.9);
+		}
+		p_variable->Wait__SINGLE_OBJECT(0.1);
+
+		// ...
+		{
+			CString ch_data;
+
+			if((sCH__PORT_STATUS->Check__DATA(STR__UNLOAD_REQ) > 0)
+			&& (sCH__PIO_TRANSFER->Check__DATA(STR__YES) < 0))
+			{
+				ch_data = STR__ON;
+			}
+			else
+			{
+				ch_data = STR__OFF;
+			}
+
+			dCH__ACTIVE_FOUP_RELOAD->Set__DATA(ch_data);
+		}
+
+		_Fnc__PORT_EXCEPTION(p_variable, p_alarm);
+	}
+}
+
+void CObj_Phy__LPx_STD
 ::Mon__PORT_CTRL(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
 	// PORT CTRL ...
@@ -53,22 +86,16 @@ void CObj_Phy__LPx_STD
 			}
 		}
 	}
-	// ...
 
 
 	while(1)
 	{
 		while(dCH_CFG__LPx_USE->Check__DATA("DISABLE") > 0)
 		{
-			Sleep(900);
+			p_variable->Wait__SINGLE_OBJECT(0.9);
 		}
-		Sleep(90);
+		p_variable->Wait__SINGLE_OBJECT(0.1);
 
-
-		// RELOAD CTRL ...
-		{
-			Fnc__RELOAD_CTRL(p_variable, p_alarm);
-		}
 
 		// PORT CTRL ...
 		if(dCH__CST_STATUS->Check__DATA("NONE") > 0)
@@ -298,24 +325,40 @@ void CObj_Phy__LPx_STD
 					}
 					else
 					{
-						CString str_cid;
-						CString str_date;
-						CString str_time;
-
-						Macro__GET_DATE_TIME(str_date,str_time);
-
-						if(xEXT_CH__CFG_LPx_CID_FORMAT->Check__DATA(STR__CID_FORMAT__ONLY_TIME) > 0)
+						if(xEXT_CH__CFG_LPx_CID_FORMAT->Check__DATA(STR__CID_FORMAT__USER) > 0)
 						{
-							str_cid.Format("LP%1d-%s_%s",iPTN,str_date,str_time);
+							sCH__CID_STRING->Set__DATA("");
+
+							if(Popup__WIN_CSTID() < 0)
+							{
+								Cancel__PORT();
+							}
+							else
+							{
+								Fnc__CID_READ(p_variable, p_alarm);
+							}
 						}
 						else
 						{
-							str_cid.Format("LP%1d_Bypass-%s_%s",iPTN,str_date,str_time);
+							CString str_cid;
+							CString str_date;
+							CString str_time;
+	
+							Macro__GET_DATE_TIME(str_date,str_time);
+
+							if(xEXT_CH__CFG_LPx_CID_FORMAT->Check__DATA(STR__CID_FORMAT__ONLY_TIME) > 0)
+							{
+								str_cid.Format("LP%1d-%s_%s",iPTN,str_date,str_time);
+							}
+							else
+							{
+								str_cid.Format("LP%1d_Bypass-%s_%s",iPTN,str_date,str_time);
+							}
+
+							sCH__CID_STRING->Set__DATA(str_cid);
+
+							Fnc__CID_READ(p_variable, p_alarm);
 						}
-
-						sCH__CID_STRING->Set__DATA(str_cid);
-
-						Fnc__CID_READ(p_variable, p_alarm);
 					}
 				}
 				else
@@ -354,8 +397,8 @@ void CObj_Phy__LPx_STD
 }
 
 void CObj_Phy__LPx_STD
-::Fnc__RELOAD_CTRL(CII_OBJECT__VARIABLE* p_variable,
-				   CII_OBJECT__ALARM* p_alarm)
+::_Fnc__PORT_EXCEPTION(CII_OBJECT__VARIABLE* p_variable, 
+					   CII_OBJECT__ALARM* p_alarm)
 {
 	CString mode = sCH__PORT_EXCEPTION->Get__STRING();
 	if(mode == "")		return;
@@ -464,9 +507,9 @@ void CObj_Phy__LPx_STD
 		{
 			sCH__PORT_STATUS->Get__DATA(status);
 
-			if(status.CompareNoCase("UNLOAD.REQ") == 0)
+			if(status.CompareNoCase(STR__UNLOAD_REQ) == 0)
 			{
-				Reload__PORT();
+				Reload__PORT(p_alarm);
 			}
 		}
 	}

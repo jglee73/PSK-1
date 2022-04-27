@@ -7891,36 +7891,111 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 
 			xSCH_MATERIAL_CTRL->Get__NEXT_PROCESS_INFO(sch_name, l_pm_name,l_pm_rcp);
 
-			int k_limit = l_pm_name.GetSize();
-
-			for(int k=0; k<k_limit; k++)
+			// Normal Pass ...
 			{
-				CString pm_xxx = l_pm_name[k];
+				int k_limit = l_pm_name.GetSize();
 
-				if(!VAC_RB__Check_Empty__Arm_Type_With_PMx_Constraint(arm_type, pm_xxx))
+				for(int k=0; k<k_limit; k++)
 				{
-					continue;
+					CString pm_xxx = l_pm_name[k];
+	
+					if(!VAC_RB__Check_Empty__Arm_Type_With_PMx_Constraint(arm_type, pm_xxx))
+					{
+						continue;
+					}
+
+					int pm_index = Macro__Get_PMC_INDEX(pm_xxx);
+					if(pm_index < 0)			continue;
+	
+					if(PMx__Check_Empty__SlotStatus(pm_index) < 0)		continue;
+	
+					if(xEXT_CH__CFG__PMx_USE[pm_index]->Check__DATA(STR__ENABLE) > 0)
+					{
+						if(PMx__Is_Ready(pm_index) < 0)				continue;
+					}
+					else
+					{
+						continue;
+					}
+
+					active__pmc_check = true;
+					break;
 				}
-
-				int pm_index = Macro__Get_PMC_INDEX(pm_xxx);
-				if(pm_index < 0)			continue;
-
-				if(PMx__Check_Empty__SlotStatus(pm_index) < 0)		continue;
-
-				if(xEXT_CH__CFG__PMx_USE[pm_index]->Check__DATA(STR__ENABLE) > 0)
-				{
-					if(PMx__Is_Ready(pm_index) < 0)				continue;
-				}
-				else
-				{
-					continue;
-				}
-
-				active__pmc_check = true;
-				break;
 			}
 
-			if(!active__pmc_check)			continue;
+			// Abnormal Pass ...
+			bool active__abnormal_pass = false;
+			CString pm_abnormal;
+
+			if(!active__pmc_check)
+			{
+				int k_limit = l_pm_name.GetSize();
+
+				for(int k=0; k<k_limit; k++)
+				{
+					CString pm_xxx = l_pm_name[k];
+
+					/*
+					if(!VAC_RB__Check_Empty__Arm_Type_With_PMx_Constraint(arm_type, pm_xxx))
+					{
+						continue;
+					}
+					*/
+
+					int pm_index = Macro__Get_PMC_INDEX(pm_xxx);
+					if(pm_index < 0)			continue;
+
+					if(PMx__Check_Empty__SlotStatus(pm_index) < 0)		continue;
+
+					if(xEXT_CH__CFG__PMx_USE[pm_index]->Check__DATA(STR__ENABLE) > 0)
+					{
+						if(PMx__Is_Ready(pm_index) < 0)				continue;
+					}
+					else
+					{
+						continue;
+					}
+
+					active__abnormal_pass = true;
+					pm_abnormal = pm_xxx;
+
+					active__pmc_check = true;
+					break;
+				}
+			}
+
+			if(!active__pmc_check)
+			{
+				int alm_id = ALID__VAC_ROBOT__DEADLOCK_CONDITION;
+				CString alm_msg;
+				CString alm_bff;
+				CString r_act;
+
+				alm_msg.Format("The wafer in %s can't move to next pm. \n", pm_name);
+
+				int k_limit = l_pm_name.GetSize();
+				for(int k=0; k<k_limit; k++)
+				{
+					alm_bff.Format("  %1d) %s \n", k+1,l_pm_name[k]);
+					alm_msg += alm_bff;
+				}
+
+				p_alarm->Check__ALARM(alm_id, r_act);
+				p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+				continue;
+			}
+
+			if(active__abnormal_pass)
+			{
+				int alm_id = ALID__VAC_ROBOT__ABNORMAL_WAFER_MOVING;
+				CString alm_msg;
+				CString r_act;
+
+				alm_msg.Format("Abnormal pass : %s -> Arm(%s) -> %s \n", pm_name,arm_type,pm_abnormal);
+
+				p_alarm->Check__ALARM(alm_id, r_act);
+				p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+			}
 		}
 
 		// ...

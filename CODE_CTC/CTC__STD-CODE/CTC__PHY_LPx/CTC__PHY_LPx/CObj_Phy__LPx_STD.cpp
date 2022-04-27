@@ -59,6 +59,7 @@ int CObj_Phy__LPx_STD::__DEFINE__VERSION_HISTORY(version)
 // ...
 #define  MON_ID__ALL_STATE							1
 #define  MON_ID__PORT_CTRL							2
+#define  MON_ID__PORT_EXCEPTION						3
 
 #define  MON_ID__FA_REPORT							11
 #define  MON_ID__FA_ACCESS_And_TRANSFER				13
@@ -127,6 +128,10 @@ int CObj_Phy__LPx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(xCH__SEQ_INFO_MSG,"SEQ_INFO.MSG");
 
+		str_name = "ACTIVE.FOUP.RELOAD";
+		STD__ADD_DIGITAL(str_name, "OFF ON");
+		LINK__VAR_DIGITAL_CTRL(dCH__ACTIVE_FOUP_RELOAD, str_name);
+
 		//
 		str_name = "CFG.USE";
 		STD__ADD_DIGITAL(str_name,DSP__LPx_MODE);
@@ -136,8 +141,9 @@ int CObj_Phy__LPx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NORMAL TEST","");
 		LINK__VAR_DIGITAL_CTRL(dCH__CFG_PROCESS_TYPE,str_name);
 
-		dVAR_CFG__SLOT_MAX = "CFG.SLOT.MAX";
-		STD__ADD_DIGITAL(dVAR_CFG__SLOT_MAX,DSP__LPx_SLOT_MAX);
+		str_name = "CFG.SLOT.MAX";
+		STD__ADD_DIGITAL(str_name, DSP__LPx_SLOT_MAX);
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_SLOT_MAX, str_name);
 
 		str_name = "CFG.TYPE";
 		STD__ADD_DIGITAL(str_name,DSP__LPx_TYPE);
@@ -193,9 +199,9 @@ int CObj_Phy__LPx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_STRING_WITH_COMMENT(str_name,"LIST  :  YES NO");
 		sCH__PIO_TRANSFER = p_variable->Get__VAR_STRING_CTRL(str_name);
 
-		str_name = "PIO.COMM.READY.STS";
-		STD__ADD_STRING_WITH_COMMENT(str_name,"");
-		sCH__PIO_COMM_READY_STS = p_variable->Get__VAR_STRING_CTRL(str_name);
+		str_name = "PIO.ERROR.ACTIVE";
+		STD__ADD_STRING_WITH_COMMENT(str_name, "");
+		sCH__PIO_ERROR_ACTIVE = p_variable->Get__VAR_STRING_CTRL(str_name);
 	}
 
 	// ...
@@ -557,13 +563,14 @@ int CObj_Phy__LPx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_ANALOG_CTRL(aCH__SCH_TEST_CFG_RF_PAGE_WRITE_SEC, str_name);
 	}
 
-	//-------------------------------------------------------------------------------
+	// ...
 	{
-		p_variable->Add__MONITORING_PROC(0.5,MON_ID__ALL_STATE);
-		p_variable->Add__MONITORING_PROC(0.5,MON_ID__PORT_CTRL);
+		p_variable->Add__MONITORING_PROC(0.5, MON_ID__ALL_STATE);
+		p_variable->Add__MONITORING_PROC(0.5, MON_ID__PORT_CTRL);
+		p_variable->Add__MONITORING_PROC(0.5, MON_ID__PORT_EXCEPTION);
 
-		p_variable->Add__MONITORING_PROC(3,MON_ID__FA_REPORT);
-		p_variable->Add__MONITORING_PROC(3,MON_ID__FA_ACCESS_And_TRANSFER);
+		p_variable->Add__MONITORING_PROC(3, MON_ID__FA_REPORT);
+		p_variable->Add__MONITORING_PROC(3, MON_ID__FA_ACCESS_And_TRANSFER);
 	}
 	return 1;
 }
@@ -849,7 +856,7 @@ int CObj_Phy__LPx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		CString file_name;
 		CString log_msg;
 
-		file_name.Format("%s_App",sObject_Name);
+		file_name.Format("%s_App.log",sObject_Name);
 
 		log_msg  = "\n\n";
 		log_msg += "//------------------------------------------------------------------------";
@@ -1045,6 +1052,10 @@ int CObj_Phy__LPx_STD::__CALL__MONITORING(id,p_variable,p_alarm)
 
 		case MON_ID__PORT_CTRL:
 			Mon__PORT_CTRL(p_variable,p_alarm);
+			break;
+
+		case MON_ID__PORT_EXCEPTION:
+			Mon__PORT_EXCEPTION(p_variable,p_alarm);
 			break;
 
 		//

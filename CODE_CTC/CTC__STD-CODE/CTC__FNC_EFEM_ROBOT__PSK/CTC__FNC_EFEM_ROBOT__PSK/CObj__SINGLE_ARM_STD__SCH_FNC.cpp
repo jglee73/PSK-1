@@ -892,7 +892,7 @@ SCH__PLACE_TO(CII_OBJECT__VARIABLE *p_variable,
 			alm_bff.Format("AL's \"L/L target name\" is \"%s(%s)\". \n", cur__trg_name,cur__trg_slot);
 			alm_msg += alm_bff;
 
-			alm_bff.Format("L/L name to place is \"%s\". \n", str_module);
+			alm_bff.Format("L/L name to place is \"%s(%s)\". \n", str_module,str_slot);
 			alm_msg += alm_bff;
 
 			//

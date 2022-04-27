@@ -148,7 +148,13 @@ int CObj__PROC_STD
 
 						if(p_variable->Check__CTRL_ABORT() > 0)	
 						{
+							sCH__PARA_MANUAL_STEP_CTRL_REQ->Set__DATA("");
 							return -11;
+						}
+						else if(dCH__MON_EXCEPTION_ACT->Check__DATA(_ACT_CMD__ABORT) > 0)
+						{
+							sCH__PARA_MANUAL_STEP_CTRL_REQ->Set__DATA("");
+							return -12;
 						}
 
 						// ...

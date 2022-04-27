@@ -291,12 +291,16 @@ Fnc__GET_DUMMY_SLOT(const int port_id,int& slot_id)
 			continue;
 		}
 
-		if(xCH__PORT_SLOT_STS[db_index][i]->Check__DATA(STR__EXIST) < 0)
+		// ...
+		var_data = xCH__PORT_SLOT_STS[db_index][i]->Get__STRING();
+
+		if(var_data.CompareNoCase(STR__EXIST)  != 0)
 		{
 			continue;
 		}
 
 		xCH__PORT_SLOT_STS[db_index][i]->Set__DATA(STR__MAPPED);
+		
 		slot_id = i + 1;
 		return 1;
 	}
@@ -308,12 +312,16 @@ Fnc__GET_DUMMY_SLOT(const int port_id,int& slot_id)
 			continue;
 		}
 
-		if(xCH__PORT_SLOT_STS[db_index][i]->Check__DATA(STR__EXIST) < 0)
+		// ...
+		var_data = xCH__PORT_SLOT_STS[db_index][i]->Get__STRING();
+
+		if(var_data.CompareNoCase(STR__EXIST)  != 0)
 		{
 			continue;
 		}
 
 		xCH__PORT_SLOT_STS[db_index][i]->Set__DATA(STR__MAPPED);
+
 		slot_id = i + 1;
 		return 1;
 	}
@@ -384,8 +392,8 @@ int  CObj_Opr__AUTO_MODE
 	{
 		xCH__PORT_SLOT_STS[db_index][i]->Get__DATA(var_data);
 
-		if(var_data.CompareNoCase(STR__NONE)   == 0)			str_maplist += "0";
-		else													str_maplist += "1";
+		if(var_data.CompareNoCase(STR__NONE) == 0)			str_maplist += "0";
+		else												str_maplist += "1";
 	}
 	return 1;
 }
@@ -1883,7 +1891,6 @@ void CObj_Opr__AUTO_MODE::Seq__CHECK_PORT_COMPLETE(CII_OBJECT__ALARM *p_alarm)
 					{
 						int act_flag = 1;
 
-						// ...
 						if(xEXT_CH__CFG_CYCLE_FOUP_CTRL_MODE->Check__DATA(STR__UNLOAD_RELOAD) > 0)
 						{
 							xCH__PORT_STATUS[i]->Set__DATA("UNLOAD_RELOAD");
@@ -1917,23 +1924,17 @@ void CObj_Opr__AUTO_MODE::Seq__CHECK_PORT_COMPLETE(CII_OBJECT__ALARM *p_alarm)
 								Sleep(100);
 							}
 						}
-						else
+
+						if(act_flag > 0)
 						{
-							CString var_data;
-
-							int slot_max;
-							int k;
-
-							xCH__PORT_CFG_SLOT_MAX[i]->Get__DATA(var_data);
-							slot_max = atoi(var_data);
+							CString var_data = xCH__PORT_CFG_SLOT_MAX[i]->Get__STRING();
+							int slot_max = atoi(var_data);
 							
-							for(k=0;k<slot_max;k++)
+							for(int k=0; k<slot_max; k++)
 							{
 								xCH__PORT_SLOT_STS[i][k]->Get__DATA(var_data);
 								
-								if((var_data.CompareNoCase(STR__PROCESSED) == 0)
-								|| (var_data.CompareNoCase(STR__ABORTED)   == 0)
-								|| (var_data.CompareNoCase(STR__MAPPED)    == 0))
+								if(var_data.CompareNoCase(STR__NONE) != 0)
 								{
 									xCH__PORT_SLOT_STS[i][k]->Set__DATA(STR__EXIST);
 								}
@@ -2000,7 +2001,7 @@ void CObj_Opr__AUTO_MODE::Seq__CHECK_PORT_COMPLETE(CII_OBJECT__ALARM *p_alarm)
 									
 										xCH__PORT_SLOT_STS[i][k]->Get__DATA(var_data);
 									
-										if((var_data.CompareNoCase(STR__EXIST) != 0)
+										if((var_data.CompareNoCase(STR__NONE) == 0)
 										|| (cur_slot < s_slot)
 										|| (cur_slot > e_slot))
 										{
@@ -3070,10 +3071,11 @@ Fnc__UPLOAD_JOB(CII_OBJECT__ALARM *p_alarm,
 			}
 
 			// ...
+			int alm_id = ALID__JOB_START__NO_SLOT_MAP_ERROR;
 			CString r_act;
 
-			p_alarm->Check__ALARM(ALID__JOB_START__NO_SLOT_MAP_ERROR,r_act);
-			p_alarm->Post__ALARM_With_MESSAGE(ALID__JOB_START__NO_SLOT_MAP_ERROR,err_msg);
+			p_alarm->Check__ALARM(alm_id, r_act);
+			p_alarm->Post__ALARM_With_MESSAGE(alm_id, err_msg);
 
 			// ...
 			{

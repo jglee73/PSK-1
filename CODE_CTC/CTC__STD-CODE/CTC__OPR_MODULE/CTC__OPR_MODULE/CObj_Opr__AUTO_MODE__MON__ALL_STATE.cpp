@@ -213,18 +213,39 @@ void CObj_Opr__AUTO_MODE
 						cur_slot = k + 1;
 
 						// ...
+						bool active__slot_check = true;
+
 						xCH__PORT_SLOT_STS[i][k]->Get__DATA(var_data);
 
-						if((var_data.CompareNoCase(STR__EXIST) != 0)
-						|| (cur_slot < s_slot)
-						|| (cur_slot > e_slot))
+						if(flag__cycle > 0)
 						{
-							str_bff.Format("!SLOT%002d,%s,,,,\n", k+1,str_lotid);
+							if(var_data.CompareNoCase(STR__NONE) == 0)
+							{
+								active__slot_check = false;
+							}
+						}
+						else
+						{
+							if((var_data.CompareNoCase(STR__EXIST)  != 0)
+							&& (var_data.CompareNoCase(STR__MAPPED) != 0))
+							{
+								active__slot_check = false;
+							}
+						}
+
+						if((cur_slot < s_slot) || (cur_slot > e_slot))
+						{
+							active__slot_check = false;
+						}
+
+						if(active__slot_check)
+						{
+							str_bff.Format("#SLOT%002d,%s,,%s,,X,,\n", k+1,str_lotid,str_ppid);
 							str_css += str_bff;
 						}
 						else
 						{
-							str_bff.Format("#SLOT%002d,%s,,%s,,X,,\n", k+1,str_lotid,str_ppid);
+							str_bff.Format("!SLOT%002d,%s,,,,\n", k+1,str_lotid);
 							str_css += str_bff;
 						}
 					}

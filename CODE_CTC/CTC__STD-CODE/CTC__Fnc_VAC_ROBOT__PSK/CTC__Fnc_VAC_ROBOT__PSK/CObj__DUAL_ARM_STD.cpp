@@ -704,6 +704,35 @@ int CObj__DUAL_ARM_STD
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
+	// ...
+	{
+		alarm_id = ALID__VAC_ROBOT__DEADLOCK_CONDITION;
+
+		alarm_title  = title;
+		alarm_title += "Deadlock condition !";
+
+		alarm_msg = "Please, check PM state or route recipe. \n";
+
+		l_act.RemoveAll();
+		l_act.Add(STR__CHECK);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__VAC_ROBOT__ABNORMAL_WAFER_MOVING;
+
+		alarm_title  = title;
+		alarm_title += "Abnormal wafer moving !";
+
+		alarm_msg = "Please, check PM state or route recipe. \n";
+
+		l_act.RemoveAll();
+		l_act.Add(STR__CHECK);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
 	return 1;
 }
 

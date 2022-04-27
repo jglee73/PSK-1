@@ -121,6 +121,22 @@ WINDOW_NAME PMC_BTM_UTILITY
 // Client
 // Bottom => Operate
 
+WINDOW_NAME PMC_OPERATE_CHAMBER
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Operate
+}
+
+WINDOW_NAME PMC_OPERATE_HEATER
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Operate
+}
+
 
 // Bottom => Config
 
@@ -702,7 +718,20 @@ WINDOW_NAME APP_POPUP_HTR_EXH
 	USER_LEVEL                      Maint
 }
 
+/*
 WINDOW_NAME APP_POPUP_EPD
+{
+	POPUP                           YES
+	LOW_LEFT_X                      225  
+	LOW_LEFT_Y                      25 
+	WIDTH                           530
+	HEIGHT                          542 
+	
+	SEQ_CTRL_CHANNEL                DB_GUI+GUI.PMC.ESC.POPUP
+	USER_LEVEL                      Maint
+}
+*/
+WINDOW_NAME APP_POPUP_IO_OES
 {
 	POPUP                           YES
 	LOW_LEFT_X                      225  
