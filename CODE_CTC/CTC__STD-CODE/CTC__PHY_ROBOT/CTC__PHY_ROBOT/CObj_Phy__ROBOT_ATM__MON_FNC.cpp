@@ -397,6 +397,9 @@ void CObj_Phy__ROBOT_ATM
 		log_bff.Format("#ALIGN.LLx_NAME=%s\n",  sCH__TARGET_LLx_NAME_GET->Get__STRING());
 		act_log += log_bff;
 
+		log_bff.Format("#ALIGN.LLx_SLOT=%s\n",  sCH__TARGET_LLx_SLOT_GET->Get__STRING());
+		act_log += log_bff;
+
 		log_bff.Format("#ALIGN.LLx_ANGLE=%s\n", sCH__TARGET_LLx_ANGLE_GET->Get__STRING());
 		act_log += log_bff;
 	}

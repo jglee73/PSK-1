@@ -1243,6 +1243,40 @@ int  CObj__DUAL_ARM_STD
 		NEXT__LOOP;
 	}
 
+	if(dCH__ATM_RB__CFG_PICK_WAFER_CONDITION->Check__DATA(STR__ONLY_PROCESSED) > 0)
+	{
+		// LLx Out - Check ...
+		{
+			for(int ll_i=0; ll_i < iLLx_SIZE; ll_i++)
+			{
+				if(LLx__Get_Occupied__Total_OutSlot(ll_i) < 1)			continue;
+
+				if(LLx__Is_Available(ll_i) < 0)			continue;
+				if(LLx__Is_ATM(ll_i) < 0)				continue;
+
+				NEXT__LOOP;
+			}
+		}
+
+		// LLx In - Check ...
+		{
+			bool active__ll_error = true;
+
+			for(int ll_i=0; ll_i < iLLx_SIZE; ll_i++)
+			{
+				if(LLx__Get_Empty__Total_InSlot(ll_i) < 1)				continue;
+
+				if(LLx__Is_Available(ll_i) < 0)			continue;
+				if(LLx__Is_ATM(ll_i) < 0)				continue;
+
+				active__ll_error = false;
+				break;;
+			}
+
+			if(active__ll_error)		NEXT__LOOP;
+		}
+	}
+
 	// ...
 	{
 		int dummy_lp = Fnc__GET_DUMMY_PORT();
@@ -1331,9 +1365,93 @@ int  CObj__DUAL_ARM_STD
 
 	if(xCH_CFG__SCH_ARM_MODE->Check__DATA(STR__DUAL) > 0)
 	{
+		int ll_in_count = LLx__Get_Empty__Total_InSlot();
+		if(ll_in_count < 1)			NEXT__LOOP;
+
 		empty_arm__count = ATM_RB__Get_Empty_Arm_Count();
+		if(empty_arm__count > ll_in_count)		empty_arm__count = ll_in_count;	
 	}
-	
+
+	// PMx Check ...
+	if(empty_arm__count > 0)
+	{
+		bool active__pm_odd  = false;
+		bool active__pm_even = false;
+
+		// 
+		int lp_id;
+		int lp_slot;
+
+		if(xSCH_MATERIAL_CTRL->Get__MATERIAL_FROM_LPx(lp_id,lp_slot) < 0)
+		{
+			NEXT__LOOP;
+		}
+
+		//
+		CStringArray l__pm_name;
+		CStringArray l__pm_rcp;
+
+		xSCH_MATERIAL_CTRL->Get__CUR_PROCESS_INFO(lp_id,lp_slot, l__pm_name,l__pm_rcp);
+
+		int k_limit = l__pm_name.GetSize();
+		for(int k=0; k<k_limit; k++)
+		{
+			CString pmc_name = l__pm_name[k];
+
+			int pm_index = _Get__PM_INDEX(pmc_name);
+			if(pm_index < 0)		continue;
+
+			if(sCH__PMx__OBJ_VIRTUAL_STATUS[pm_index]->Check__DATA(STR__DISABLE) > 0)
+			{
+				continue;
+			}
+
+			int pm_id = pm_index + 1;
+			int pm_check = pm_id % 2;
+
+			if(pm_check == 1)
+			{
+				if(LLx__Check_Empty__InSlot_Of_Odd_Type())
+					active__pm_odd  = true;
+			}
+			else if(pm_check == 0)
+			{
+				if(LLx__Check_Empty__InSlot_Of_Even_Type())
+					active__pm_even = true;
+			}
+		}
+
+		if((active__pm_odd) && (active__pm_even))
+		{
+
+		}
+		else if((active__pm_odd) || (active__pm_even))
+		{
+			empty_arm__count = 1;
+		}
+		else
+		{
+			for(int ll_i=0; ll_i<iLLx_SIZE; ll_i++)
+			{
+				if(xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Check__DATA("IN") < 0)
+				{
+					continue;
+				}
+
+				if((LLx__Is_ATM(ll_i) > 0)
+				&& (LLx__Is_Available(ll_i) > 0))
+				{
+					if(SCH_RUN__LLx_PUMP(ll_i, p_variable, "", "") > 0)
+					{
+						xEXT_CH__LLx__IN_OUT_FLAG[ll_i]->Set__DATA("OUT");
+					}
+				}
+			}
+
+			NEXT__LOOP;
+		}
+	}
+
 	while(empty_arm__count > 0)
 	{
 		empty_arm__count--;
@@ -1737,6 +1855,9 @@ int  CObj__DUAL_ARM_STD
 int  CObj__DUAL_ARM_STD
 ::AUTO_CTRL__BUFFERx_AL(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
+	NEXT__LOOP;
+
+	/*
 	CString log_id = "AUTO_CTRL__BUFFERx_AL()";
 
 	// ...
@@ -1814,6 +1935,7 @@ int  CObj__DUAL_ARM_STD
 
 	Fnc__PLACE_AL(p_variable,p_alarm, log_id, arm_type);
 	return 1;
+	*/
 }
 
 int  CObj__DUAL_ARM_STD
@@ -2959,42 +3081,12 @@ int  CObj__DUAL_ARM_STD
 		if(ATM_RB__Check_Occupied__A_Arm() > 0)
 		{
 			NEXT__LOOP;
-
-			/*
-			arm_type = ARM_A;
-
-			if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) > 0)				NEXT__LOOP;
-
-			//
-			IDS__SCH_MATERIAL_STATUS ds_sts;
-			if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type, ds_sts) < 0)		NEXT__LOOP;
-
-			if(ds_sts.sMATERIAL_STS.CompareNoCase(STR__TO_LP) == 0)					NEXT__LOOP;
-			*/
 		}
 		if(ATM_RB__Check_Occupied__B_Arm() > 0)
 		{
 			NEXT__LOOP;
-
-			/*
-			arm_type = ARM_B;
-
-			if(xSCH_MATERIAL_CTRL->Check__NEXT_PROCESS(arm_type) > 0)				NEXT__LOOP;
-
-			//
-			IDS__SCH_MATERIAL_STATUS ds_sts;
-			if(xSCH_MATERIAL_CTRL->Get__MATERIAL_STATUS(arm_type, ds_sts) < 0)		NEXT__LOOP;
-
-			if(ds_sts.sMATERIAL_STS.CompareNoCase(STR__TO_LP) == 0)					NEXT__LOOP;
-			*/
 		}
 	}
-	/*
-	// LLx Check ...
-	{
-		if(_Check__LBo_To_BUFFERx__ONLY_MODE(p_variable, p_alarm) > 0)		NEXT__LOOP;
-	}
-	*/
 
 	// ...
 	int arm_count = 1;
@@ -3014,107 +3106,123 @@ int  CObj__DUAL_ARM_STD
 		}
 
 		// ...
-		int buffer_flag = -1;
-		CString bff_name;
-		CString bff_slot;
-		int slot_id;
+		CUIntArray l__bff_slot_id;
 
-		if(buffer_flag < 0)
+		// STx Check ...
 		{
-			if(buffer_flag < 0)
+			if(sCH__SCH_DB_ST1_USE_FLAG->Check__DATA(STR__ENABLE) > 0)
 			{
-				if(sCH__SCH_DB_ST1_USE_FLAG->Check__DATA(STR__ENABLE) > 0)
+				CUIntArray l__lp_id;
+				CUIntArray l__st_slot_id;
+
+				if(Buffer1__Get_Occupied__Slot_To_Process(l__lp_id, l__st_slot_id) < 0)
 				{
-					if((Buffer1__Get_Occupied__Slot_To_Process(slot_id) > 0)
-					&& (Buffer1__Check_Wait_Sec(slot_id) < 0))
+					NEXT__LOOP;
+				}
+
+				int t_limit = l__st_slot_id.GetSize();
+				for(int t=0; t<t_limit; t++)
+				{
+					int slot_id = l__st_slot_id[t];
+
+					if(Buffer1__Check_Wait_Sec(slot_id) > 0)
 					{
-						buffer_flag = 1;
-				
-						bff_name = MODULE__BUFFER1;
-						bff_slot.Format("%1d", slot_id);
+						continue;
 					}
+
+					l__bff_slot_id.Add(slot_id);
 				}
 			}
 
-			if(buffer_flag < 0)
+			if(l__bff_slot_id.GetSize() < 1)	
 			{
-				if(sCH__SCH_DB_ST2_USE_FLAG->Check__DATA(STR__ENABLE) > 0)
-				{
-					if((Buffer2__Get_Occupied__Slot_To_Process(slot_id) > 0)
-					&& (Buffer2__Check_Wait_Sec(slot_id) < 0))
-					{
-						buffer_flag = 1;
-			
-						bff_name = MODULE__BUFFER2;
-						bff_slot.Format("%1d", slot_id);
-					}
-				}
+				NEXT__LOOP;
 			}
-		}
-
-		if(buffer_flag < 0)
-		{
-			continue;
 		}
 
 		// ...
+		bool active__stx_error = true;
+
 		CString sch_module;
-		sch_module.Format("%s-%s", bff_name,bff_slot);
+		CString bff_name;
+		CString bff_slot;
 
-		CString para__out_mode = "";
-		int active__lpx_empty = -1;
-		int active__lpx_opt   = -1;
-		int active__lpx_time  = -1;
-
-		if(bff_name.CompareNoCase(MODULE__BUFFER1) == 0)
+		int k_limit = l__bff_slot_id.GetSize();
+		for(int k=0; k<k_limit; k++)
 		{
-			para__out_mode = dCH__SCH_DB_ST1_OUT_MODE_BUFFER_TO_LPo->Get__STRING();
-		}
-		else if(bff_name.CompareNoCase(MODULE__BUFFER2) == 0)
-		{
-			para__out_mode = dCH__SCH_DB_ST2_OUT_MODE_BUFFER_TO_LPo->Get__STRING();
-		}
+			int slot_id = l__bff_slot_id[k];
 
-		if(para__out_mode.CompareNoCase(STR__LPx_EMPTY) == 0)					active__lpx_empty = 1;
-		if(para__out_mode.CompareNoCase(STR__LPx_OPTIMIZATION) == 0)			active__lpx_opt   = 1;
-		if(para__out_mode.CompareNoCase(STR__LPx_TIME)  == 0)					active__lpx_time  = 1;
+			bff_name = MODULE__BUFFER1;
+			bff_slot.Format("%1d", slot_id);
 
-		if((active__lpx_empty > 0)
-		|| (active__lpx_opt   > 0))
-		{
-			IDS__SCH_MATERIAL_INFO ds_info;
-			xSCH_MATERIAL_CTRL->Get__MATERIAL_INFO(sch_module,ds_info);
-	
-			if(xSCH_MATERIAL_CTRL->Check__MATERIAL_TO_PROCESS_IN_LPx(ds_info.iSRC__PTN) > 0)
+			sch_module.Format("%s-%s", bff_name,bff_slot);
+
+			// ...
 			{
-				continue;
-			}
-		}
-		else if(active__lpx_time > 0)
-		{
-			IDS__SCH_MATERIAL_INFO ds_info;
-			xSCH_MATERIAL_CTRL->Get__MATERIAL_INFO(sch_module,ds_info);
-
-			if(xSCH_MATERIAL_CTRL->Check__MATERIAL_TO_PROCESS_IN_LPx(ds_info.iSRC__PTN) > 0)
-			{
-				int check_skip = -1;
+				CString para__out_mode = "";
+				int active__lpx_empty = -1;
+				int active__lpx_opt   = -1;
+				int active__lpx_time  = -1;
 
 				if(bff_name.CompareNoCase(MODULE__BUFFER1) == 0)
 				{
-					if(Buffer1__Check_Empty__Any_Slot() < 0)		check_skip = 1;
+					para__out_mode = dCH__SCH_DB_ST1_OUT_MODE_BUFFER_TO_LPo->Get__STRING();
 				}
 				else if(bff_name.CompareNoCase(MODULE__BUFFER2) == 0)
 				{
-					if(Buffer2__Check_Empty__Any_Slot() < 0)		check_skip = 1;
+					para__out_mode = dCH__SCH_DB_ST2_OUT_MODE_BUFFER_TO_LPo->Get__STRING();
 				}
 
-				if(check_skip < 0)
+				if(para__out_mode.CompareNoCase(STR__LPx_EMPTY) == 0)					active__lpx_empty = 1;
+				if(para__out_mode.CompareNoCase(STR__LPx_OPTIMIZATION) == 0)			active__lpx_opt   = 1;
+				if(para__out_mode.CompareNoCase(STR__LPx_TIME)  == 0)					active__lpx_time  = 1;
+
+				if((active__lpx_empty > 0)
+				|| (active__lpx_opt   > 0))
 				{
-					continue;
+					IDS__SCH_MATERIAL_INFO ds_info;
+					xSCH_MATERIAL_CTRL->Get__MATERIAL_INFO(sch_module,ds_info);
+
+					if(xSCH_MATERIAL_CTRL->Check__MATERIAL_TO_PROCESS_IN_LPx(ds_info.iSRC__PTN) > 0)
+					{
+						continue;
+					}
+				}
+				else if(active__lpx_time > 0)
+				{
+					IDS__SCH_MATERIAL_INFO ds_info;
+					xSCH_MATERIAL_CTRL->Get__MATERIAL_INFO(sch_module,ds_info);
+
+					if(xSCH_MATERIAL_CTRL->Check__MATERIAL_TO_PROCESS_IN_LPx(ds_info.iSRC__PTN) > 0)
+					{
+						int check_skip = -1;
+
+						if(bff_name.CompareNoCase(MODULE__BUFFER1) == 0)
+						{
+							if(Buffer1__Check_Empty__Any_Slot() < 0)		check_skip = 1;
+						}
+						else if(bff_name.CompareNoCase(MODULE__BUFFER2) == 0)
+						{
+							if(Buffer2__Check_Empty__Any_Slot() < 0)		check_skip = 1;
+						}
+
+						if(check_skip < 0)
+						{
+							continue;
+						}
+					}
 				}
 			}
+
+			active__stx_error = false;
+			break;
 		}
-	
+
+		if(active__stx_error)
+		{
+			NEXT__LOOP;
+		}
+
 		if(SCH__PICK_MODULE(p_variable,p_alarm, log_id, false,arm_type,bff_name,bff_slot,sch_module) < 0)
 		{
 			NEXT__LOOP;
@@ -5385,8 +5493,16 @@ Fnc__PLACE_LBi(CII_OBJECT__VARIABLE *p_variable,
 			int pm_id = pm_index + 1;
 			int pm_check = pm_id % 2;
 			
-				 if(pm_check == 1)		active__pm_odd  = true;
-			else if(pm_check == 0)		active__pm_even = true;
+			if(pm_check == 1)
+			{
+				if(LLx__Check_Empty__InSlot_Of_Odd_Type())
+					active__pm_odd  = true;
+			}
+			else if(pm_check == 0)
+			{
+				if(LLx__Check_Empty__InSlot_Of_Even_Type())
+					active__pm_even = true;
+			}
 		}
 	}
 
@@ -5454,6 +5570,28 @@ Fnc__PLACE_LBi(CII_OBJECT__VARIABLE *p_variable,
 			para_slot.Format("%1d", slot_id);
 			break;
 		}
+
+		/*
+		// ...
+		{
+			CString log_msg;
+			CString log_bff;
+
+			log_msg.Format(" %s(%s) \n", para_module,para_slot);
+
+			log_bff.Format(" * active__pm_odd  <- [%1d] \n", active__pm_odd);
+			log_msg += log_bff;
+			log_bff.Format(" * active__pm_even <- [%1d] \n", active__pm_even);
+			log_msg += log_bff;
+
+			log_bff.Format(" * InSlot_Of_Odd_Type  <- [%1d] \n", LLx__Check_Empty__InSlot_Of_Odd_Type());
+			log_msg += log_bff;
+			log_bff.Format(" * InSlot_Of_Even_Type <- [%1d] \n", LLx__Check_Empty__InSlot_Of_Even_Type());
+			log_msg += log_bff;
+
+			printf(log_msg);
+		}
+		*/
 
 		if(active__ll_only_input < 0)
 		{

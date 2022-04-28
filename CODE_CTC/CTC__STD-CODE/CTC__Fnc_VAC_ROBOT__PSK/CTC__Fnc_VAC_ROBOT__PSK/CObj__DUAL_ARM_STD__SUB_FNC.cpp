@@ -1571,6 +1571,61 @@ LLx__Get_Empty__OutSlot(const int ll_index,CUIntArray& l_slotid)
 
 	return l_slotid.GetSize();
 }
+int  CObj__DUAL_ARM_STD::
+LLx__Get_Empty__OutSlot(CUIntArray& l_ll_index)
+{
+	l_ll_index.RemoveAll();
+
+	// ...
+	int ll_i;
+
+	for(ll_i = 0; ll_i < iLLx_LIMIT; ll_i++)
+	{
+		if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_i]->Check__DATA(LBx_MODE__ONLY_INPUT) > 0)
+		{
+			continue;
+		}
+
+		// ...
+		bool active__ll_out = false;
+
+		int slot_max = iLLx_SLOT_MAX[ll_i];
+		for(int i=0; i<slot_max; i++)
+		{
+			if(dEXT_CH__SCH_DB_LLx_SLOT_STATUS[ll_i][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+			if(dEXT_CH__CFG_DB_LLx_SLOT_STATUS[ll_i][i]->Check__DATA(SLOT_STS__ENABLE) < 0)			continue;
+
+			if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_i]->Check__DATA(LBx_MODE__ALL) > 0)
+			{
+				CString ch_data = xEXT_CH__SCH_DB_LLx_SLOT_MODE[ll_i][i]->Get__STRING();
+	
+				if((ch_data.CompareNoCase(SLOT_STS__OUTPUT) != 0)
+				&& (ch_data.CompareNoCase(SLOT_STS__ALL)    != 0))
+				{
+					continue;
+				}
+
+				if(xEXT_CH__LLx__SLOT_STATUS[ll_i][i]->Check__DATA(SLOT_STS__NONE) < 0)
+				{
+					continue;
+				}
+			}
+
+			active__ll_out = true;
+			break;
+		}
+
+		if(active__ll_out)
+		{
+			l_ll_index.Add(ll_i);
+		}
+	}
+
+	int ll_size = l_ll_index.GetSize();
+	if(ll_size > 0)				return ll_size;
+
+	return -1;
+}
 
 int  CObj__DUAL_ARM_STD::
 LLx__Get_Occupied__OutSlot(const int ll_index,int& slot_id)

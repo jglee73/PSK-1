@@ -921,7 +921,7 @@ SCH__PLACE_TO(CII_OBJECT__VARIABLE *p_variable,
 			xCH__ATM_RB__TARGET_LLx_NAME_SET_ALL->Set__DATA("");
 			xCH__ATM_RB__TARGET_LLx_SLOT_SET_ALL->Set__DATA("");
 
-			//
+			/*
 			int alarm_id = ALID__ALx_LLx_TARGET_NAME_ERROR;
 			CString alm_msg;
 			CString alm_bff;
@@ -936,6 +936,7 @@ SCH__PLACE_TO(CII_OBJECT__VARIABLE *p_variable,
 			//
 			p_alarm->Check__ALARM(alarm_id,r_act);
 			p_alarm->Post__ALARM_With_MESSAGE(alarm_id,alm_msg);
+			*/
 		}
 	}
 

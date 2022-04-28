@@ -380,6 +380,11 @@ int CObj_Phy__ROBOT_VAC::__DEFINE__VARIABLE_STD(p_variable)
 			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ODD EVEN", "");
 			LINK__VAR_DIGITAL_CTRL(dCH_CFG__B_ARM_CONSTRAINT_PM, str_name);
 		}
+		// PMx To PMx ...
+		{
+			str_name = "CFG.PMx_To_PMx.CONSTRAINT";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "ALL ", "");
+		}
 	}
 
 	// CFG : WAFER PICK PARAMETER ...
@@ -394,18 +399,17 @@ int CObj_Phy__ROBOT_VAC::__DEFINE__VARIABLE_STD(p_variable)
 	}
 
 	// CONFIG ...
+	for(i=0; i<CFG_ROBOT__ARM_SIZE; i++)
 	{
-		dVAR__CFG_A_ARM_USE_FLAG = "CFG.A.ARM.USE.FLAG";
-		STD__ADD_DIGITAL(dVAR__CFG_A_ARM_USE_FLAG, DSP__ENABLE_DISABLE);
+		CString arm_name;
 
-		dVAR__CFG_B_ARM_USE_FLAG = "CFG.B.ARM.USE.FLAG";
-		STD__ADD_DIGITAL(dVAR__CFG_B_ARM_USE_FLAG, DSP__ENABLE_DISABLE);
+			 if(i == 0)			arm_name = "A";
+		else if(i == 1)			arm_name = "B";
+		else					continue;
 
-		dVAR__CFG_C_ARM_USE_FLAG = "CFG.C.ARM.USE.FLAG";
-		STD__ADD_DIGITAL(dVAR__CFG_C_ARM_USE_FLAG, DSP__ENABLE_DISABLE);
-
-		dVAR__CFG_D_ARM_USE_FLAG = "CFG.D.ARM.USE.FLAG";
-		STD__ADD_DIGITAL(dVAR__CFG_D_ARM_USE_FLAG, DSP__ENABLE_DISABLE);
+		str_name.Format("CFG.%s.ARM.USE.FLAG", arm_name);
+		STD__ADD_DIGITAL(str_name, DSP__ENABLE_DISABLE);
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_ARM_USE_FLAG_X[i], str_name);
 	}
 
 	// SIM CFG ...
@@ -681,6 +685,12 @@ int CObj_Phy__ROBOT_VAC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		xI_Upper_Obj->Register__Module_Status_Channel(xCH__UPPER_OBJ__STATUS->Get__VARIABLE_NAME());
 		xI_Upper_Obj->Register__Module_Mode_Channel(xCH__UPPER_OBJ__MODE->Get__VARIABLE_NAME());
 		xI_Upper_Obj->Register__Module_Ctrl_Channel(xCH__UPPER_OBJ__CTRL->Get__VARIABLE_NAME());
+	}
+
+	// ...
+	{
+		SCX__SEQ_INFO x_seq_info;
+		iACTIVE__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 
 	// ...

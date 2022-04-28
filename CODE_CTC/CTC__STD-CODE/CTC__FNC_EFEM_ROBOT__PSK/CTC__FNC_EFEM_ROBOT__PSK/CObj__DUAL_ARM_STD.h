@@ -767,6 +767,7 @@ private:
 	
 	int  LLx__Check_Empty__SlotStatus(const int ll_index,const int slot_id);
 	int  LLx__Get_Empty__Total_InSlot(const int ll_index);
+	int  LLx__Get_Empty__Total_InSlot();
 
 	int  LLx__Get_Occupied__Slot(const int ll_index,int& slot_id,CString& title);
 	int  LLx__Get_Occupied__TotalSlot(const int ll_index);
@@ -774,13 +775,16 @@ private:
 
 	int  LLx__Get_Occupied__Total_OutSlot(const int ll_index);
 	int  LLx__Get_Occupied__Total_InSlot(const int ll_index,const int prc_check = -1);
+	int  LLx__Get_Occupied__Total_InSlot();
 
 	int  LLx__Check_Occupied__OutSlot(const int ll_index,const int slot_index);
 	int  LLx__Get_Occupied__OutSlot(const int ll_index,int& slot_id);
 	int  LLx__Get_Occupied__Only_Output(const int ll_index,CUIntArray& l_slot_id);
 
 	int  LLx__Get_Empty__InSlot(const int ll_index,int& slot_id);
+	bool LLx__Check_Empty__InSlot_Of_Odd_Type();
 	int  LLx__Get_Empty__InSlot_Of_Odd_Type(const int ll_index, int& slot_id);
+	bool LLx__Check_Empty__InSlot_Of_Even_Type();
 	int  LLx__Get_Empty__InSlot_Of_Even_Type(const int ll_index, int& slot_id);
 	int  _LLx__Get_Empty__InSlot(const int ll_index, const int db_start,const int db_offset, int& slot_id);
 
@@ -797,7 +801,7 @@ private:
 	// ...
 	int  Buffer1__Get_Occupied__Slot(int& slot_id,CString& title);
 	int  Buffer1__Check_Empty_Slot(int& slot_id);
-	int  Buffer1__Get_Occupied__Slot_To_Process(int& slot_id);	
+	int  Buffer1__Get_Occupied__Slot_To_Process(CUIntArray& l_lp_id, CUIntArray& l_stx_slot_id);	
 	int  Buffer1__Check_Empty__Slot_To_Process(int& slot_id);
 	int  Buffer1__Check_Empty__All_Slot();
 	int  Buffer1__Check_Empty__Any_Slot();

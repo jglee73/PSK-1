@@ -229,6 +229,8 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_LL;
 	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_B_ARM_CONSTRAINT_PM;
 
+	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_PMx_To_PMx_CONSTRAINT;
+
 	// CFG : WAFER PICK PARAMETER ...
 	CX__VAR_DIGITAL_CTRL dCH__VAC_RB__CFG_PICK_WAFER_CONDITION;
 	CX__VAR_ANALOG_CTRL  aCH__VAC_RB__CFG_PMx_PICK_WAIT_SEC;
@@ -860,6 +862,7 @@ private:
 	int  LLx__Get_Empty__OutSlot_With_1_Slot_All_Mode(const int ll_index,int& slot_id);
 	int  LLx__Get_Empty__OutSlot(const int ll_index,int& slot_id);
 	int  LLx__Get_Empty__OutSlot(const int ll_index,CUIntArray& l_slotid);
+	int  LLx__Get_Empty__OutSlot(CUIntArray& l_ll_index);
 
 	int  LLx__Get_Occupied__OutSlot(const int ll_index,int& slot_id);
 

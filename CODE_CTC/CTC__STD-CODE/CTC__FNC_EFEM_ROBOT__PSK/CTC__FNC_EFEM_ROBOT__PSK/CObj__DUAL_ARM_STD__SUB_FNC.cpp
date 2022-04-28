@@ -647,6 +647,20 @@ LLx__Check__Slot_Enable(const int ll_index,const int slot_id)
 }
 
 int  CObj__DUAL_ARM_STD::
+LLx__Get_Empty__Total_InSlot()
+{
+	int in_total = 0;
+
+	for(int ll_i=0; ll_i < iLLx_SIZE; ll_i++)
+	{
+		int in_count = LLx__Get_Empty__Total_InSlot(ll_i);
+		if(in_count < 1)			continue;
+
+		in_total += in_count;
+	}
+	return in_total;
+}
+int  CObj__DUAL_ARM_STD::
 LLx__Get_Empty__Total_InSlot(const int ll_index)
 {
 	if(xEXT_CH__SCH_DB_LLx_MODE_TYPE[ll_index]->Check__DATA(LBx_MODE__ONLY_OUTPUT) > 0)
@@ -692,6 +706,23 @@ LLx__Get_Empty__InSlot(const int ll_index,int& slot_id)
 {
 	return _LLx__Get_Empty__InSlot(ll_index, 0, 1, slot_id);
 }
+bool CObj__DUAL_ARM_STD::
+LLx__Check_Empty__InSlot_Of_Odd_Type()
+{
+	int slot_id;
+
+	for(int ll_i=0; ll_i < iLLx_SIZE; ll_i++)
+	{
+		if(LLx__Get_Empty__InSlot_Of_Odd_Type(ll_i, slot_id) < 0)
+		{
+			continue;
+		}
+
+		return true;
+	}
+
+	return false;
+}
 int  CObj__DUAL_ARM_STD::
 LLx__Get_Empty__InSlot_Of_Odd_Type(const int ll_index, int& slot_id)
 {
@@ -706,6 +737,23 @@ LLx__Get_Empty__InSlot_Of_Odd_Type(const int ll_index, int& slot_id)
 	}
 
 	return _LLx__Get_Empty__InSlot(ll_index, db_start, 2, slot_id);
+}
+bool CObj__DUAL_ARM_STD::
+LLx__Check_Empty__InSlot_Of_Even_Type()
+{
+	int slot_id;
+
+	for(int ll_i=0; ll_i < iLLx_SIZE; ll_i++)
+	{
+		if(LLx__Get_Empty__InSlot_Of_Even_Type(ll_i, slot_id) < 0)
+		{
+			continue;
+		}
+
+		return true;
+	}
+
+	return false;
 }
 int  CObj__DUAL_ARM_STD::
 LLx__Get_Empty__InSlot_Of_Even_Type(const int ll_index, int& slot_id)
@@ -921,6 +969,20 @@ LLx__Get_Occupied__Total_OutSlot(const int ll_index)
 	return count;
 }
 
+int  CObj__DUAL_ARM_STD::
+LLx__Get_Occupied__Total_InSlot()
+{
+	int ll_total = 0;
+
+	for(int ll_i=0; ll_i < iLLx_SIZE; ll_i++)
+	{
+		int ll_count = LLx__Get_Occupied__Total_InSlot(ll_i, -1);
+		if(ll_count < 1)			continue;;
+
+		ll_total += ll_count;
+	}
+	return ll_total;
+}
 int  CObj__DUAL_ARM_STD::
 LLx__Get_Occupied__Total_InSlot(const int ll_index,const int prc_check)
 {
@@ -1288,14 +1350,20 @@ Buffer1__Get_Occupied__Slot(int& slot_id,CString& title)
 	return -1;
 }
 int  CObj__DUAL_ARM_STD::
-Buffer1__Get_Occupied__Slot_To_Process(int& slot_id)
+Buffer1__Get_Occupied__Slot_To_Process(CUIntArray& l_lp_id, CUIntArray& l_stx_slot_id)
 {
-	CString var_data;
-	xEXT_CH__BUFFER1__CFG_SLOT_MAX->Get__DATA(var_data);
+	l_lp_id.RemoveAll();
+	l_stx_slot_id.RemoveAll();
 
+	// ...
+	IDS__SCH_MATERIAL_INFO sch_info;
+	CString sch_name;
+
+	CString var_data = xEXT_CH__BUFFER1__CFG_SLOT_MAX->Get__STRING();
 	int slot_size = atoi(var_data);
 	int i;
 
+	/*
 	// ...
 	{
 		xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Get__DATA(var_data);
@@ -1312,12 +1380,10 @@ Buffer1__Get_Occupied__Slot_To_Process(int& slot_id)
 				}
 
 				// ...
-				{
-					slot_id = i + 1;
+				slot_id = i + 1;
 
-					var_data.Format("%1d", slot_id);
-					xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
-				}
+				var_data.Format("%1d", slot_id);
+				xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
 				return 1;
 			}
 		}
@@ -1331,21 +1397,19 @@ Buffer1__Get_Occupied__Slot_To_Process(int& slot_id)
 				}
 
 				// ...
-				{
-					slot_id = i + 1;
+				slot_id = i + 1;
 
-					var_data.Format("%1d", slot_id);
-					xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
-				}
+				var_data.Format("%1d", slot_id);
+				xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
 				return 1;
 			}
 		}
 	}
+	*/
 
-	//
 	if(xCH__SCH_DB_ST1_WAFER_PICK_MODE->Check__DATA(STR__BOTTOM_TO_UP) > 0)
 	{
-		for(i=0;i<slot_size;i++)
+		for(i=0; i<slot_size; i++)
 		{
 			if(xEXT_CH__BUFFER1__SLOT_STATUS[i]->Check__DATA(STR__NONE) > 0)
 			{
@@ -1353,18 +1417,41 @@ Buffer1__Get_Occupied__Slot_To_Process(int& slot_id)
 			}
 
 			// ...
-			{
-				slot_id = i + 1;
+			int slot_id = i + 1;
 
-				var_data.Format("%1d", slot_id);
-				xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
+			sch_name.Format("%s-%1d", MODULE__BUFFER1,slot_id);
+			if(xSCH_MATERIAL_CTRL->Get__MATERIAL_INFO(sch_name, sch_info) < 0)
+			{
+				continue;
 			}
+
+			int lp_id = sch_info.iSRC__PTN;
+
+			bool active__lp_id_add = true;
+			int k_limit = l_lp_id.GetSize();
+			for(int k=0; k<k_limit; k++)
+			{
+				if(lp_id != l_lp_id[k])			continue;
+
+				active__lp_id_add = false;					
+				break;
+			}
+			if(active__lp_id_add)
+			{
+				l_lp_id.Add(lp_id);
+				l_stx_slot_id.Add(slot_id);
+			}
+
+			/*
+			var_data.Format("%1d", slot_id);
+			xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
 			return 1;
+			*/
 		}
 	}
 	else
 	{
-		for(i=slot_size-1;i>=0;i--)
+		for(i=slot_size-1; i>=0; i--)
 		{
 			if(xEXT_CH__BUFFER1__SLOT_STATUS[i]->Check__DATA(STR__NONE) > 0)
 			{
@@ -1372,15 +1459,41 @@ Buffer1__Get_Occupied__Slot_To_Process(int& slot_id)
 			}
 
 			// ...
-			{
-				slot_id = i + 1;
+			int slot_id = i + 1;
 
-				var_data.Format("%1d", slot_id);
-				xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
+			sch_name.Format("%s-%1d", MODULE__BUFFER1,slot_id);
+			if(xSCH_MATERIAL_CTRL->Get__MATERIAL_INFO(sch_name, sch_info) < 0)
+			{
+				continue;
 			}
-			return 1;
+
+			int lp_id = sch_info.iSRC__PTN;
+
+			bool active__lp_id_add = true;
+			int k_limit = l_lp_id.GetSize();
+			for(int k=0; k<k_limit; k++)
+			{
+				if(lp_id != l_lp_id[k])			continue;
+				active__lp_id_add = false;					
+			}
+			if(active__lp_id_add)
+			{
+				l_lp_id.Add(lp_id);
+				l_stx_slot_id.Add(slot_id);
+			}
+
+			/*
+			var_data.Format("%1d", slot_id);
+			xEXT_CH__BUFFER1__APP_NEXT_SLOT_TO_PICK->Set__DATA(var_data);
+			*/
 		}
 	}
+
+	if(l_lp_id.GetSize() > 0)
+	{
+		return 1;
+	}
+
 	return -1;
 }
 int  CObj__DUAL_ARM_STD::
@@ -1530,10 +1643,13 @@ Buffer1__Get_LotID()
 
 	if(Buffer1__Check_Empty__All_Slot() < 0)
 	{
-		int slot_id;
+		CUIntArray l__lp_id;
+		CUIntArray l__st_slot_id;
 
-		if(Buffer1__Get_Occupied__Slot_To_Process(slot_id) > 0)
+		if(Buffer1__Get_Occupied__Slot_To_Process(l__lp_id, l__st_slot_id) > 0)
 		{
+			int slot_id = l__st_slot_id[0];
+
 			CString sch_name;
 			sch_name.Format("%s-%1d", MODULE__BUFFER1,slot_id);
 

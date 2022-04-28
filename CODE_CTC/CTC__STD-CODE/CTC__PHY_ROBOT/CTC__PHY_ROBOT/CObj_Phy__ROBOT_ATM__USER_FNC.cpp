@@ -56,6 +56,22 @@ int CObj_Phy__ROBOT_ATM
 	if(dEXT_CH__SCH_TEST_CFG_TMC_DUMMY_BY_CTC->Check__DATA(STR__YES) > 0)
 	{
 		flag = Sim__MODULE_OBJ(p_variable, obj_mode);
+
+		if(iACTIVE__SIM_MODE > 0)
+		{
+			CString cur_md = dCH__PARA_MODULE->Get__STRING();
+
+			if(cur_md.Find("AL1") == 0)
+			{
+				CString ch_data;
+
+				ch_data = sCH__TARGET_LLx_NAME_SET->Get__STRING();
+				sCH__TARGET_LLx_NAME_GET->Set__DATA(ch_data);
+
+				ch_data = sCH__TARGET_LLx_SLOT_SET->Get__STRING();
+				sCH__TARGET_LLx_SLOT_GET->Set__DATA(ch_data);
+			}
+		}
 	}
 	else
 	{

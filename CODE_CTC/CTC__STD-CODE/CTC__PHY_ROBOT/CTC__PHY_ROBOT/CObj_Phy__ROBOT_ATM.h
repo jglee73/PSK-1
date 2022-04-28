@@ -15,6 +15,8 @@ private:
 	//-------------------------------------------------------------------
 	CString sObject_Name;
 
+	int iACTIVE__SIM_MODE;
+
 	// ...
 	CCommon_Error__MODULE_OBJ   mERROR__MODULE_OBJ;
 	CCommon_Error__DEF_VARIABLE mERROR__DEF_VAR;
@@ -121,11 +123,8 @@ private:
 	// CFG : WAFER PICK PARAMETER ...
 	CX__VAR_DIGITAL_CTRL dCH__CFG_PICK_WAFER_CONDITION;
 
-	// CONFIG 
-	CString dVAR__CFG_A_ARM_USE_FLAG;
-	CString dVAR__CFG_B_ARM_USE_FLAG;
-	CString dVAR__CFG_C_ARM_USE_FLAG;
-	CString dVAR__CFG_D_ARM_USE_FLAG;
+	// CONFIG ...
+	CX__VAR_DIGITAL_CTRL dCH__CFG_ARM_USE_FLAG_X[CFG_ROBOT__ARM_SIZE];
 
 	// SIM CFG ...
 	CX__VAR_ANALOG_CTRL aCH__SCH_TEST_CFG_PICK_LPx_SEC;
@@ -286,6 +285,9 @@ private:
 	void _Save__MATERIAL_INFO(const int lp_id,
 							  const int lp_slot, 
 							  const CString& wfr_info);
+
+	// ...
+	int _Query__GET_EMPTY_ARM(const CString& query_name,CStringArray& l_data);
 	//
 
 
@@ -308,4 +310,11 @@ public:
 	//-------------------------------------------------------------------------
 	int __CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm);
 	int __CALL__MONITORING(id,p_variable,p_alarm);
+
+	//-------------------------------------------------------------------------
+	int __Define__QUERY(CStringArray& l_query);
+
+	int __Call__QUERY_LIST(const CString& query_name,CStringArray& l_data);
+	int __Call__QUERY_LIST(const CString& query_name,const CStringArray& l_sub_query, CStringArray& l_data);
 };
+
