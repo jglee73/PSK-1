@@ -1,0 +1,7 @@
+#DATAITEMLIST
+IO si.PMC_AI_01_3
+IO si.Node_2.Ch_0
+IO ai.Pin_Pos.AMP1
+IO so.PMC_AO_01_21
+IO so.Node_2.Ch_0
+IO ao.ESC.He.Pressure

@@ -1,0 +1,8 @@
+#OBJECT_PROPERTY     IO 
+   #OBJECT_IO_FILE     CFG_IO__PSK_PMC.cfg 
+
+   #DEFINE_CONSTANT     PLC.NETID                          5.100.31.192.1.1 
+   #DEFINE_CONSTANT     ADS.PORT                           301 
+   #DEFINE_CONSTANT     ADS.NAME_OUTPUT                    Task 2.Outputs. 
+   #DEFINE_CONSTANT     ADS.NAME_INPUT                     Task 2.Inputs. 
+

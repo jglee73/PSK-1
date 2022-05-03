@@ -1,0 +1,6 @@
+#DATAITEMLIST
+IO ai.Pin_Pos.AMP1
+IO ai.Pin_Pos.AMP2
+IO ai.Pin_Pos.AMP3
+IO ao.Node_1.Ch_0
+IO si.PMC_AI_01_3

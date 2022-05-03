@@ -1,0 +1,257 @@
+//==================================================================================== 
+// Command Info ... 
+/* 
+#EQP9__ALARM_OFFSET   ??? 
+#EQP9__ALARM_RANGE   ??? 
+
+#INCLUDE   ??? 
+
+#DEFINE   ?[Name)  ?[Data) 
+
+#OBJECT   ?[Name)  ?[OffsetID)  ?[ToolID)  ?[UnitID)  
+... 
+
+#OBJECT_START   ?[Name) 
+#ALID   ??? 
+#LEVEL     // HEAVY(Default)  LIGHT  WARNING  
+#HOST_REPORT_DISABLE
+#HOST_REPORT_ENABLE     // Default 
+#TITLE   " ... " 
+#MESSAGE   " ... " 
+#OPTION1   " ... " 
+#OPTION2   " ... " 
+#OPTION3   " ... " 
+#ACTION
+{ 
+   " ... " 
+} 
+#OBJECT_END
+*/ 
+
+//==================================================================================== 
+// Define List ... 
+
+
+
+//==================================================================================== 
+// Object Define Info ... 
+
+"__EQP" Object not defined ! 
+
+
+//==================================================================================== 
+// Alarm Info ... 
+//------------------------------------------------------------
+OBJECT_NAME : __SYS   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   0 
+#EXTERNAL_ID   0 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS - SYSTEM ERROR"
+#MESSAGE 
+""
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS - System Error 11 - Dll Title"
+#MESSAGE 
+"System Error 11 - Dll Message"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS - Alarm Clear Test !"
+#MESSAGE 
+""
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS - SYSTEM WARNING 12"
+#MESSAGE 
+""
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   21 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS - System Error : Async Timer Max Error"
+#MESSAGE 
+""
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   31 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS -  AlarmID(1)"
+#MESSAGE 
+"AlarmID(1)'s message ..."
+#RECOVERY_ACTION 
+     ABORT   ""
+     RETRY   ""
+     ACT.1   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   32 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS -  AlarmID(2)"
+#MESSAGE 
+"AlarmID(2)'s message ..."
+#RECOVERY_ACTION 
+     ABORT   ""
+     RETRY   ""
+     ACT.2   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   33 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS -  AlarmID(3)"
+#MESSAGE 
+"AlarmID(3)'s message ..."
+#RECOVERY_ACTION 
+     ABORT   ""
+     RETRY   ""
+     ACT.3   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   34 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS -  AlarmID(4)"
+#MESSAGE 
+"AlarmID(4)'s message ..."
+#RECOVERY_ACTION 
+     ABORT   ""
+     RETRY   ""
+     ACT.4   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   35 
+#EXTERNAL_ID   35 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"__SYS -  AlarmID(5)"
+#MESSAGE 
+"AlarmID(5)'s message ..."
+#RECOVERY_ACTION 
+     ABORT   ""
+     RETRY   ""
+     ACT.5   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : IO   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   HEAVY 
+#HOST_REPORT   YES
+#TITLE 
+"IO - PLC Offlne !"
+#MESSAGE 
+"Please, check the state of PLC !"
+#RECOVERY_ACTION 
+     CLEAR   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO - PLC AI Error !"
+#MESSAGE 
+"Please, check the state of PLC !"
+#RECOVERY_ACTION 
+     CLEAR   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO - PLC DI Error !"
+#MESSAGE 
+"Please, check the state of PLC !"
+#RECOVERY_ACTION 
+     CLEAR   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   4 
+#EXTERNAL_ID   4 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO - PLC SI Error !"
+#MESSAGE 
+"Please, check the state of PLC !"
+#RECOVERY_ACTION 
+     CLEAR   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
