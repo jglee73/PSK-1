@@ -78,7 +78,7 @@ int CObj__MFC_IO::__DEFINE__VARIABLE_STD(p_variable)
 	// PARA ...
 	{
 		str_name = "PARA.SET.FLOW";
-		STD__ADD_ANALOG_WITH_OPTION(str_name, "slm", 3, 0.0, 10000, -1, "L", "");
+		STD__ADD_ANALOG_WITH_OPTION(str_name, "sccm", 3, 0.0, 10000, -1, "L", "");
 		LINK__VAR_ANALOG_CTRL(aCH__PARA_SET_VALUE, str_name);
 
 		str_name = "PARA.RAMP.SEC";
@@ -265,11 +265,11 @@ int CObj__MFC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_DIGITAL_CTRL(dCH__CFG_MFC_USE, str_name);
 
 		str_name = "CFG.MFC.MIN.VALUE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "slm", 0, 0, 999999, "");
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 999999, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_MFC_MIN_VALUE, str_name);
 
 		str_name = "CFG.MFC.MAX.VALUE";
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "slm", 0, 0, 999999, "");
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 999999, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_MFC_MAX_VALUE, str_name);
 
 		str_name = "CFG.MFC.DEC.VALUE";
@@ -614,12 +614,17 @@ int CObj__MFC_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				def_name = "CH__IO_MFC_SET";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_SET, obj_name,var_name);
+				
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_SET_HEXA, obj_name,var_name);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__IO_MFC_SET_DEC, obj_name,var_name);
 
+				//
 				def_name = "CH__IO_MFC_READ";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_READ, obj_name,var_name);
+
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__IO_MFC_READ_HEXA, obj_name,var_name);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__IO_MFC_READ_DEC, obj_name,var_name);
 			}
 
 			// IO.STATE ...

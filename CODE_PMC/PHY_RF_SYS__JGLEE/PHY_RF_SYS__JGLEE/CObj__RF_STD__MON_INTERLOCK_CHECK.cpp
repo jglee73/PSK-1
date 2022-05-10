@@ -22,8 +22,6 @@ int CObj__RF_STD
 	{
 		dEXT_CH__DI_VAC_SNS->Set__DATA(STR__ON);
 		dEXT_CH__DI_ATM_SNS->Set__DATA(STR__OFF);
-
-		dEXT_CH__CHM_SHUTTER_STATE->Set__DATA(STR__CLOSE);
 	}
 
 	// ...
@@ -43,7 +41,7 @@ int CObj__RF_STD
 			continue;
 		}
 
-		// DI VAC.SNS ...
+		// DI.VAC.SNS ...
 		if(dEXT_CH__DI_VAC_SNS->Check__DATA(STR__ON) < 0)
 		{
 			if(count__di_vac_sns < 5)
@@ -72,7 +70,7 @@ int CObj__RF_STD
 			count__di_vac_sns = 0;
 		}
 
-		// DI ATM.SNS ...
+		// DI.ATM.SNS ...
 		if(dEXT_CH__DI_ATM_SNS->Check__DATA(STR__OFF) < 0)
 		{
 			if(count__di_atm_sns < 5)
@@ -97,7 +95,7 @@ int CObj__RF_STD
 			}
 		}
 
-		// DI LID_CLOSE.SNS ...
+		// DI.LID_CLOSE.SNS ...
 		bool active__chm_lid_open = false;
 
 		if(bActive__DI_CHM_LID_CLOSE_SNS)
@@ -137,7 +135,7 @@ int CObj__RF_STD
 			count__di_lid_close = 0;
 		}
 
-		// DI SHUTTER.SNS ...
+		// DI.SHUTTER.SNS ...
 		if(dEXT_CH__CHM_SHUTTER_STATE->Check__DATA(STR__CLOSE) < 0)
 		{
 			if(count__di_shutter < 5)

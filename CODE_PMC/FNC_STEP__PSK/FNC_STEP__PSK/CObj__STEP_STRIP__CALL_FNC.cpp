@@ -14,6 +14,17 @@ int CObj__STEP_STRIP
 int CObj__STEP_STRIP
 ::Call__READY(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
+	// ...
+	{
+		sCH__INFO_STEP_CUR_NUM->Set__DATA("");
+		sCH__INFO_STEP_PRE_NUM->Set__DATA("");
+
+		//
+		sCH__INFO_STEP_PRE_TIME->Set__DATA("");
+		sCH__INFO_STEP_PRE_MODE->Set__DATA("");
+		sCH__INFO_STEP_PRE_PIN_CTRL->Set__DATA("");
+	}
+
 	return _Fnc__END();
 }
 int CObj__STEP_STRIP

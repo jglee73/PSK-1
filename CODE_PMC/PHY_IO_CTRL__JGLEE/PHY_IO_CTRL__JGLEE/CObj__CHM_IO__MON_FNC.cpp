@@ -15,11 +15,17 @@ int CObj__CHM_IO
 	{
 		dEXT_CH__DI_VAC_SNS->Set__DATA(STR__ON);
 		dEXT_CH__DI_ATM_SNS->Set__DATA(STR__OFF);
+
+		//
+		if(bActive__DI_SLOT_VLV_OPEN)		dEXT_CH__DI_SLOT_VLV_OPEN->Set__DATA(STR__OFF);
+		if(bActive__DI_SLOT_VLV_CLOSE)		dEXT_CH__DI_SLOT_VLV_CLOSE->Set__DATA(STR__ON);
 	}
+
 
 	while(1)
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.1);
+
 
 		// ...
 		int interlock__do_iso_vlv = 1;
@@ -51,9 +57,43 @@ int CObj__CHM_IO
 			ch_data = sEXT_CH__SIM_PRESSURE_TORR->Get__STRING();
 
 			for(i=0; i<iSIZE__PRC_GUAGE; i++)
+			{
 				aEXT_CH__AI_PRC_GAUGE_TORR_X[i]->Set__DATA(ch_data);
+			}
 
 			aEXT_CH__AI_CHM_GAUGE_TORR->Set__DATA(ch_data);
+		}
+
+		// SLOT.VLV SNS ...
+		if((bActive__DI_SLOT_VLV_OPEN)
+		|| (bActive__DI_SLOT_VLV_CLOSE))
+		{
+			int check_open  = 0;
+			int check_close = 0;
+
+			if(bActive__DI_SLOT_VLV_OPEN)
+			{
+				if(dEXT_CH__DI_SLOT_VLV_OPEN->Check__DATA(STR__ON) > 0)			check_open =  1;
+				else															check_open = -1;
+			}
+			if(bActive__DI_SLOT_VLV_CLOSE)
+			{
+				if(dEXT_CH__DI_SLOT_VLV_CLOSE->Check__DATA(STR__ON) > 0)		check_close  = 1;
+				else															check_close = -1;
+			}
+
+			if((check_close >= 0) && (check_open <= 0))
+			{
+				dEXT_CH__CHM_SLOT_VLV_STATE->Set__DATA(STR__CLOSE);
+			}
+			else if((check_close <= 0) && (check_open >= 0))
+			{
+				dEXT_CH__CHM_SLOT_VLV_STATE->Set__DATA(STR__OPEN);
+			}
+			else
+			{
+				dEXT_CH__CHM_SLOT_VLV_STATE->Set__DATA(STR__UNKNOWN);
+			}
 		}
 
 		// ...
@@ -152,6 +192,24 @@ int CObj__CHM_IO
 					ch_data.Format("%.1f", cur_press*1000.0);
 					sEXT_CH__CHM_PRESSURE_mTORR->Set__DATA(ch_data);
 				}
+			}
+
+			// ...
+			{
+				ch_data = sEXT_CH__CHM_PRESSURE_VALUE->Get__STRING();
+				double cur__press_torr = atof(ch_data);
+
+				ch_data = sEXT_CH__CHM_PRESSURE_mTORR->Get__STRING();
+				double cur__press_mtorr = atof(ch_data);
+
+					 if(cur__press_torr <  0.01)		ch_data.Format("%1.2f mtorr", cur__press_mtorr);
+				else if(cur__press_torr <   0.1)		ch_data.Format("%2.1f mtorr", cur__press_mtorr);
+				else if(cur__press_torr <   1.0)		ch_data.Format("%3.0f mtorr", cur__press_mtorr);
+				else if(cur__press_torr <  10.0)		ch_data.Format("%.3f torr", cur__press_torr);
+				else if(cur__press_torr < 100.0)		ch_data.Format("%.2f torr", cur__press_torr);
+				else									ch_data.Format("%.1f torr", cur__press_torr);
+
+				sCH__MON_CHM_PRESSURE_DISPLAY->Set__DATA(ch_data);
 			}
 		}
 

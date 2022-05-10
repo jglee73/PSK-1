@@ -16,43 +16,19 @@ int CObj__STEP_METAL
 int CObj__STEP_METAL
 ::Call__READY(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
+	// ...
+	{
+		sCH__INFO_STEP_CUR_NUM->Set__DATA("");
+	}
+
 	return _Fnc__END();
 }
 int CObj__STEP_METAL
 ::Call__START(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
-	CString rcp__chuck_temp_x[_CFG__CHUCK_SIZE];
-	CString rcp__chuck_offset_x[_CFG__CHUCK_SIZE];
-	CString rcp__chuck_warning_x[_CFG__CHUCK_SIZE];
-	CString rcp__chuck_alarm_x[_CFG__CHUCK_SIZE];
+	int r_flag = Fnc__HTR_STEP_START(p_variable, p_alarm);
+	if(r_flag < 0)			return r_flag;
 
-	CString rcp__wall_main_temp;
-	CString rcp__wall_offset;
-	CString rcp__wall_warning;
-	CString rcp__wall_alarm;
-
-	int i;
-
-	// Chuck.Temperature ...
-	for(i=0; i<_CFG__CHUCK_SIZE; i++)
-	{
-		rcp__chuck_temp_x[i]    = sCH__RCP_ESC_CHUCK_TEMP_X[i]->Get__STRING();
-		rcp__chuck_offset_x[i]  = sCH__RCP_ESC_CHUCK_OFFSET_X[i]->Get__STRING();
-		rcp__chuck_warning_x[i] = sCH__RCP_ESC_CHUCK_WARNING_X[i]->Get__STRING();
-		rcp__chuck_alarm_x[i]   = sCH__RCP_ESC_CHUCK_ALARM_X[i]->Get__STRING();
-	}
-	// Wall.Temperature ...
-	{
-		rcp__wall_main_temp = sCH__RCP_WALL_MAIN_TEMP->Get__STRING();
-		rcp__wall_offset    = sCH__RCP_WALL_MAIN_OFFSET->Get__STRING();	
-		rcp__wall_warning   = sCH__RCP_WALL_MAIN_WARNING->Get__STRING();	
-		rcp__wall_alarm     = sCH__RCP_WALL_MAIN_ALARM->Get__STRING();
-	}
-
-	// Temperature.Check ...
-	{
-
-	}
 	return 1;
 }
 
@@ -85,6 +61,15 @@ int CObj__STEP_METAL::_Fnc__END()
 {
 	int i;
 
+	// HTR.CHUCK ...
+	{
+		HTR_CHUCK_OBJ__Init_DATA();
+	}
+	// HTR.WALL ...
+	{
+		HTR_WALL_OBJ__Init_DATA();
+	}
+
 	// RF_SOURCE ...
 	{
 		RF_SRC_OBJ__Start_OFF();
@@ -97,6 +82,7 @@ int CObj__STEP_METAL::_Fnc__END()
 	// ESC ...
 	{
 		ESC_OBJ__Start_HE_CLOSE();
+		ESC_OBJ__Init_DATA();
 	}
 
 	// MFC_X.CTRL ...

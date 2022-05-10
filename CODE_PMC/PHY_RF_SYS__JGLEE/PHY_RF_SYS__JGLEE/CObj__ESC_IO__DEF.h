@@ -16,7 +16,6 @@
 #define DEF_CHUCK_CHART__RF_ON					4
 #define DEF_CHUCK_CHART__FINAL_FLOW_STABLE		5
 
-
 // ...
 #define  _HE_LINE_TYPE__ICD						1
 #define  _HE_LINE_TYPE__FLEX					2
@@ -77,6 +76,7 @@
 // ...
 #define  STR__NONE							"NONE"
 #define  STR__YES							"YES"
+#define  STR__NO							"NO"
 #define  STR__ON							"ON"
 #define  STR__OFF							"OFF"
 
@@ -96,6 +96,9 @@
 #define  STR__DECHUCKING					"DECHUCKING"
 #define  STR__DECHUCKED						"DECHUCKED"
 #define  STR__ABORTED						"ABORTED"
+
+#define  STR__RESET                         "RESET"
+#define  STR__RETURN                        "RETURN"
 
 // ...
 #define  STR__Pass							"Pass"

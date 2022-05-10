@@ -6,6 +6,7 @@
 #define  _CFG__PT_SIZE					20
 
 #define  _CFG__CHUCK_SIZE				4
+#define  _CFG__WALL_SIZE				5
 
 
 // ...
@@ -55,6 +56,9 @@
 #define  _PIN_CMD__MIDDLE				"MIDDLE"
 #define  _PIN_CMD__UP					"UP"
 
+#define  _HTR_CMD__HEATING_PROC			"HEATING.PROC"
+#define  _HTR_CMD__STABLE_CHECK			"STABLE.CHECK"
+
 
 // ...
 #define  STR__Stable					"Stable"
@@ -84,4 +88,9 @@
 
 // ...
 #define  STR__ON						"ON"
+
+#define  STR__DISABLE					"DISABLE"
+#define  STR__ENABLE					"ENABLE"
+#define  STR__CONTROL					"CONTROL"
+#define  STR__ONLY_CHECK				"ONLY.CHECK"
 

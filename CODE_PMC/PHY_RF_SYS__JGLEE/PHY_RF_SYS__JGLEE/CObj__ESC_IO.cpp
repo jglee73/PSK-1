@@ -132,7 +132,7 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__MON_He_OBJ_STATUS, var_name);
 	}
 
-	// ...
+	// MON.HE ...
 	{
 		// ...
 		{
@@ -174,6 +174,25 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_He_Flow_EDGE, var_name);
 		}
+	}
+
+	// MON.ESC_ON ...
+	{
+		var_name = "MON.ESC_ON.TIME.START_DATE";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_ESC_ON_TIME_START_DATE, var_name);
+
+		var_name = "MON.ESC_ON.TIME.TOTAL_HOUR";
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "hour", 0, 0, 9999999, "");
+		LINK__VAR_ANALOG_CTRL(aCH__MON_ESC_ON_TIME_TOTAL_HOUR, var_name);
+
+		var_name = "MON.ESC_ON.TIME.TOTAL_SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 0, 0, 9999999, "");
+		LINK__VAR_ANALOG_CTRL(aCH__MON_ESC_ON_TIME_TOTAL_SEC, var_name);
+
+		var_name = "MON.ESC_ON.TIME.RESET";
+		STD__ADD_DIGITAL(var_name, "RETURN  RESET");
+		LINK__VAR_DIGITAL_CTRL(dCH__MON_ESC_ON_TIME_RESET, var_name);
 	}
 
 	// ZERO CAL - HE_PRESSURE ...
@@ -258,22 +277,27 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 
 		// System ...
 		{
-			var_name = "MON.STABLE.FLAG";
-			STD__ADD_STRING(var_name);
-			LINK__VAR_STRING_CTRL(sCH__MON_STABLE_FLAG, var_name);
+			var_name = "MON.STABLE.ACTIVE";
+			STD__ADD_DIGITAL(var_name, "OFF ON");
+			LINK__VAR_DIGITAL_CTRL(dCH__MON_STABLE_ACTIVE, var_name);
 
-			var_name = "MON.FAULT.FLAG";
-			STD__ADD_STRING(var_name);
-			LINK__VAR_STRING_CTRL(sCH__MON_FAULT_FLAG, var_name);
+			var_name = "MON.FAULT.ACTIVE";
+			STD__ADD_DIGITAL(var_name, "OFF ON");
+			LINK__VAR_DIGITAL_CTRL(dCH__MON_FAULT_ACTIVE, var_name);
 
 			//
 			var_name = "MON.ESC.VOLTAGE.STATE";
 			STD__ADD_DIGITAL(var_name, "OFF ON");
-			LINK__VAR_DIGITAL_CTRL(dCH__MON_ESC_VOLTAGE_STATE, var_name);
+			LINK__VAR_DIGITAL_CTRL(dCH__MON_ESC_VOLTAGE_ACTIVE, var_name);
 		}
 
 		// ESC Center ...
 		{
+			var_name = "MON.ESC.CENTER.CTRL.CHECK";
+			STD__ADD_STRING(var_name);
+			LINK__VAR_STRING_CTRL(sCH__MON_ESC_CENTER_CTRL_CHECK, var_name);
+
+			//
 			var_name = "MON.CENTER.CHANGE.ESC.STATE";
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_CENTER_CHANGE_ESC_STATE, var_name);
@@ -307,6 +331,11 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		}
 		// ESC Edge ...
 		{
+			var_name = "MON.ESC.EDGE.CTRL.CHECK";
+			STD__ADD_STRING(var_name);
+			LINK__VAR_STRING_CTRL(sCH__MON_ESC_EDGE_CTRL_CHECK, var_name);
+
+			//
 			var_name = "MON.EDGE.CHANGE.ESC.STATE";
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_EDGE_CHANGE_ESC_STATE, var_name);
@@ -341,6 +370,11 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 
 		// He Center ...
 		{
+			var_name = "MON.HE.CENTER.CTRL.CHECK";
+			STD__ADD_STRING(var_name);
+			LINK__VAR_STRING_CTRL(sCH__MON_HE_CENTER_CTRL_CHECK, var_name);
+
+			//
 			var_name = "MON.CHANGE.HE.CENTER.STATE";
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_CHANGE_HE_CENTER_STATE, var_name);
@@ -369,6 +403,11 @@ int CObj__ESC_IO::__DEFINE__VARIABLE_STD(p_variable)
 		}
 		// He Edge ...
 		{
+			var_name = "MON.HE.EDGE.CTRL.CHECK";
+			STD__ADD_STRING(var_name);
+			LINK__VAR_STRING_CTRL(sCH__MON_HE_EDGE_CTRL_CHECK, var_name);
+
+			//
 			var_name = "MON.CHANGE.HE.EDGE.STATE";
 			STD__ADD_STRING(var_name);
 			LINK__VAR_STRING_CTRL(sCH__MON_CHANGE_HE_EDGE_STATE, var_name);

@@ -9,8 +9,11 @@ int CObj__STEP_STRIP
 {
 	CString log_msg;
 	CString log_bff;
+
+	CString ch_data;
 	int i;
 
+	// ...
 	CString rcp__step_msg;
 	CString rcp__step_mode;
 	CString rcp__step_time;
@@ -40,6 +43,11 @@ int CObj__STEP_STRIP
 
 	// ...
 	bool active__rcp_log = false;
+
+	SCX__ASYNC_TIMER_CTRL x_obj_timer_ctrl;
+	x_obj_timer_ctrl->START__COUNT_UP(9999);
+
+	CString cur__step_ud = sCH__INFO_STEP_CUR_NUM->Get__STRING();
 
 
 	// RCP ...
@@ -163,7 +171,66 @@ int CObj__STEP_STRIP
 		else if(rcp__lift_pin_mode.CompareNoCase(STR__Middle) == 0)			obj_mode  = _PIN_CMD__MIDDLE;
 		else if(rcp__lift_pin_mode.CompareNoCase(STR__Up)     == 0)			obj_mode  = _PIN_CMD__UP;
 
-		LIFT_PIN_OBJ__Start_MODE(obj_mode);
+		if(obj_mode.GetLength() > 0)
+		{
+			LIFT_PIN_OBJ__Start_MODE(obj_mode);
+		}
+		else
+		{
+			LIFT_PIN_OBJ__Wait();
+		}
+	}
+
+	// Object Over-Time Check ...
+	double cfg__err_ref = aCH__CFG_STEP_OBJECT_OVER_TIME_ERRPR_REF_SEC->Get__VALUE();
+
+	x_obj_timer_ctrl->STOP();
+	if(x_obj_timer_ctrl->Get__CURRENT_TIME() > cfg__err_ref)
+	{
+		int alm_id = ALID__OBJECT_OVERTIME;
+
+		CString alm_msg;
+		CString alm_bff;
+		CString r_act;
+
+		CString cur__step_id = sCH__INFO_STEP_CUR_NUM->Get__STRING();
+		CString pre__step_id = sCH__INFO_STEP_PRE_NUM->Get__STRING();
+		
+		CString pre__step_time = sCH__INFO_STEP_PRE_TIME->Get__STRING();
+		CString pre__step_mode = sCH__INFO_STEP_PRE_MODE->Get__STRING();
+		CString pre__pin_ctrl = sCH__INFO_STEP_PRE_PIN_CTRL->Get__STRING();
+
+		//
+		alm_bff.Format(" Object over-time is %.1f (sec). \n", x_obj_timer_ctrl->Get__CURRENT_TIME());
+		alm_msg += alm_bff;
+
+		alm_bff.Format(" Object over-time error-ref is %.2f (sec). \n", cfg__err_ref);
+		alm_msg += alm_bff;
+
+		//
+		alm_msg += "\n";
+		alm_bff.Format(" The current step ID is %s. \n", cur__step_id);
+		alm_msg += alm_bff;
+
+		alm_bff.Format(" The information of previous step(%s) is as follows : \n", pre__step_id);
+		alm_msg += alm_bff;
+
+		alm_bff.Format("   * Step-time is %s (sec). \n", pre__step_time);
+		alm_msg += alm_bff;
+
+		alm_bff.Format("   * Step-mode is \"%s\". \n", pre__step_mode);
+		alm_msg += alm_bff;
+
+		alm_bff.Format("   * Lift-pin control is \"%s\". \n", pre__pin_ctrl);
+		alm_msg += alm_bff;
+
+		alm_msg += "\n";
+		alm_bff.Format(" Please, check the actual operation time of lift-pin. \n");
+		alm_msg += alm_bff;
+
+		//
+		p_alarm->Check__ALARM(alm_id, r_act);
+		p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
 	}
 
 	// ...
@@ -188,6 +255,13 @@ int CObj__STEP_STRIP
 
 	double para__step_sec = atof(rcp__step_time);
 	double cur_sec  = 0.0;
+
+	// ...
+	{
+		log_msg.Format("Step(%s) Start - Object Delay (%.2f sec) \n", cur__step_ud, x_obj_timer_ctrl->Get__CURRENT_TIME());
+
+		xLOG_CTRL->WRITE__LOG(log_msg);		
+	}
 
 	while(1)
 	{
@@ -274,6 +348,28 @@ int CObj__STEP_STRIP
 		}
 	}
 
+	// INFO.STEP_PRE ...
+	{
+		ch_data = sCH__INFO_STEP_CUR_NUM->Get__STRING();
+		sCH__INFO_STEP_PRE_NUM->Set__DATA(ch_data);
+
+		//
+		ch_data = aCH__RCP_STEP_TIME->Get__STRING();
+		sCH__INFO_STEP_PRE_TIME->Set__DATA(ch_data);
+
+		ch_data = dCH__RCP_STEP_MODE->Get__STRING();
+		sCH__INFO_STEP_PRE_MODE->Set__DATA(ch_data);
+
+		ch_data = dCH__RCP_LIFT_PIN_MODE->Get__STRING();
+		sCH__INFO_STEP_PRE_PIN_CTRL->Set__DATA(ch_data);
+	}
+
+	// ...
+	{
+		log_msg.Format("Step(%s) End ...", cur__step_ud);
+
+		xLOG_CTRL->WRITE__LOG(log_msg);		
+	}
 	return 1;
 }
 

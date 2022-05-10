@@ -70,6 +70,30 @@ int CObj__STEP_STRIP::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__OBJ_SUB_MSG, var_name);
 	}
 
+	// INFO ...
+	{
+		var_name = "INFO.STEP.CUR_NUM";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_CUR_NUM, var_name);
+
+		var_name = "INFO.STEP.PRE_NUM";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_NUM, var_name);
+
+		//
+		var_name = "INFO.STEP.PRE_TIME";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_TIME, var_name);
+
+		var_name = "INFO.STEP.PRE_MODE";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_MODE, var_name);
+
+		var_name = "INFO.STEP.PRE_PIN_CTRL";
+		STD__ADD_STRING(var_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_PIN_CTRL, var_name);
+	}
+
 	// MON ...
 	{
 		var_name = "MON.STEP.EXCEPTION.ACT";
@@ -85,8 +109,12 @@ int CObj__STEP_STRIP::__DEFINE__VARIABLE_STD(p_variable)
 
 		//
 		var_name = "CFG.STEP.STABLE.MIN.SEC";
-		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 1, 0, 5, "");
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 1, 1, 10, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_STEP_STABLE_MIN_SEC, var_name);
+
+		var_name = "CFG.STEP.OBJECT_OVER_TIME.ERRPR_REF.SEC";
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 2, 0.05, 1.0, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_STEP_OBJECT_OVER_TIME_ERRPR_REF_SEC, var_name);
 
 		var_name = "CFG.CHM.PRESSURE.HIGH.LIMIT";
 		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "torr", 0, 1, 900, "");
@@ -298,6 +326,21 @@ int CObj__STEP_STRIP::__DEFINE__ALARM(p_alarm)
 
 		alarm_msg = "Process Stable Step Time-over Alarm Message.\n";
 		alarm_msg += "Check Process Stable Step time and Control time.";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CLEAR);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__OBJECT_OVERTIME;
+
+		alarm_title  = title;
+		alarm_title += "OBJECT OVERTIME ALARM.";
+
+		alarm_msg  = "Object control time must be less than process step time ! \n";
 
 		l_act.RemoveAll();
 		l_act.Add(ACT__CLEAR);
