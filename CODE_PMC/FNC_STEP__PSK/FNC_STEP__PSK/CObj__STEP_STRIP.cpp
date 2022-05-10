@@ -75,23 +75,6 @@ int CObj__STEP_STRIP::__DEFINE__VARIABLE_STD(p_variable)
 		var_name = "INFO.STEP.CUR_NUM";
 		STD__ADD_STRING(var_name);
 		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_CUR_NUM, var_name);
-
-		var_name = "INFO.STEP.PRE_NUM";
-		STD__ADD_STRING(var_name);
-		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_NUM, var_name);
-
-		//
-		var_name = "INFO.STEP.PRE_TIME";
-		STD__ADD_STRING(var_name);
-		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_TIME, var_name);
-
-		var_name = "INFO.STEP.PRE_MODE";
-		STD__ADD_STRING(var_name);
-		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_MODE, var_name);
-
-		var_name = "INFO.STEP.PRE_PIN_CTRL";
-		STD__ADD_STRING(var_name);
-		LINK__VAR_STRING_CTRL(sCH__INFO_STEP_PRE_PIN_CTRL, var_name);
 	}
 
 	// MON ...
@@ -119,6 +102,37 @@ int CObj__STEP_STRIP::__DEFINE__VARIABLE_STD(p_variable)
 		var_name = "CFG.CHM.PRESSURE.HIGH.LIMIT";
 		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "torr", 0, 1, 900, "");
 		LINK__VAR_ANALOG_CTRL(aCH__CFG_CHM_PRESSURE_HIGH_LIMIT, var_name);
+
+		//
+		var_name = "CFG.STEP_DELAY.RF_OFF";
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 1, 0, 2, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_STEP_DELAY_RF_OFF, var_name);
+
+		var_name = "CFG.STEP_DELAY.MFC_CLOSE";
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 1, 0, 2, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_STEP_DELAY_MFC_CLOSE, var_name);
+
+		//
+		var_name = "CFG.STEP_READY.HEATER.MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(var_name, "DISABLE  ONLY.CHECK  CONTROL", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_STEP_READY_HEATER_MODE, var_name);
+
+		var_name = "CFG.STEP_READY.CHECK.TIME.MIN";
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 0, 1, 10, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_STEP_READY_CHECK_TIME_MIN, var_name);
+
+		var_name = "CFG.STEP_READY.CHECK.TIME.MAX";
+		STD__ADD_ANALOG_WITH_X_OPTION(var_name, "sec", 0, 5, 100, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_STEP_READY_CHECK_TIME_MAX, var_name);
+
+		//
+		var_name = "CFG.STEP_CTRL.HEATER.MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(var_name, "DISABLE  ONLY.CHECK", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_STEP_CTRL_HEATER_MODE, var_name);
+
+		var_name = "CFG.STEP_CTRL.ERROR.CONTROL";
+		STD__ADD_DIGITAL_WITH_X_OPTION(var_name, "DISABLE  ENABLE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_STEP_CTRL_ERROR_CONTROL, var_name);
 	}
 
 	// RCP ...
@@ -155,13 +169,13 @@ int CObj__STEP_STRIP::__DEFINE__VARIABLE_STD(p_variable)
 			STD__ADD_DIGITAL_WITH_OPTION(var_name, "POSITION PRESSURE", -1, "E", "");
 			LINK__VAR_DIGITAL_CTRL(dCH__RCP_APC_MODE, var_name);
 
+			var_name = "RCP.APC.PRESSURE.mTORR";		
+			STD__ADD_ANALOG_WITH_OPTION(var_name, "mtorr", 0, 0.0, 10000.0, -1, "E", "");
+			LINK__VAR_ANALOG_CTRL(aCH__RCP_APC_PRESSURE_mTORR, var_name);
+
 			var_name = "RCP.APC.POSITION";		
 			STD__ADD_ANALOG_WITH_OPTION(var_name, "%", 1, 0.0, 100.0, -1, "E", "");
 			LINK__VAR_ANALOG_CTRL(aCH__RCP_APC_POSITION, var_name);
-
-			var_name = "RCP.APC.PRESSURE";		
-			STD__ADD_ANALOG_WITH_OPTION(var_name, "torr", 3, 0.0, 10.0, -1, "E", "");
-			LINK__VAR_ANALOG_CTRL(aCH__RCP_APC_PRESSURE, var_name);
 
 			//
 			var_name = "RCP.APC.LEARNED.POS";
@@ -209,6 +223,19 @@ int CObj__STEP_STRIP::__DEFINE__VARIABLE_STD(p_variable)
 			var_name = "RCP.MAT.TOP.CAPACITY";
 			STD__ADD_STRING_WITH_OPTION(var_name, -1, "E", "");
 			LINK__VAR_STRING_CTRL(sCH__RCP_MAT_TOP_CAPACITY, var_name);
+
+			//
+			var_name = "RCP.MAT.TOP.LEARNED.SHUNT";
+			STD__ADD_STRING_WITH_OPTION(var_name, -1, "E", "");
+			LINK__VAR_STRING_CTRL(sCH__RCP_MAT_TOP_LEARNED_SHUNT, var_name);
+
+			var_name = "RCP.MAT.TOP.LEARNED.SERIES";
+			STD__ADD_STRING_WITH_OPTION(var_name, -1, "E", "");
+			LINK__VAR_STRING_CTRL(sCH__RCP_MAT_TOP_LEARNED_SERIES, var_name);
+
+			var_name = "RCP.MAT.TOP.LEARNED.CAPACITY";
+			STD__ADD_STRING_WITH_OPTION(var_name, -1, "E", "");
+			LINK__VAR_STRING_CTRL(sCH__RCP_MAT_TOP_LEARNED_CAPACITY, var_name);
 		}
 
 		// MFC ...
@@ -306,10 +333,11 @@ int CObj__STEP_STRIP::__DEFINE__ALARM(p_alarm)
 	// ...
 	{
 		alarm_id = ALID__STEP_OVERTIME;
+
 		alarm_title  = title;
 		alarm_title += "STEP OVERTIME ALARM.";
 
-		alarm_msg = "Process Step Time-Over Alarm Message.\n";
+		alarm_msg  = "Process Step Time-Over Alarm Message.\n";
 		alarm_msg += "Check Process Step time and Control time.";
 
 		l_act.RemoveAll();
@@ -321,6 +349,7 @@ int CObj__STEP_STRIP::__DEFINE__ALARM(p_alarm)
 	// ...
 	{
 		alarm_id = ALID__STABLE_OVERTIME;
+
 		alarm_title  = title;
 		alarm_title += "STABLE OVERTIME ALARM.";
 
@@ -341,6 +370,35 @@ int CObj__STEP_STRIP::__DEFINE__ALARM(p_alarm)
 		alarm_title += "OBJECT OVERTIME ALARM.";
 
 		alarm_msg  = "Object control time must be less than process step time ! \n";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CLEAR);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__STEP_READY__TEMPERATURE_STABLE_TIMEOUT_ERROR;
+
+		alarm_title  = title;
+		alarm_title += "Temperature stable timeout error In the step preparation.";
+
+		alarm_msg = "Please, check the current temperature of system and temperature parameter in 1st step recipe ! \n";
+
+		l_act.RemoveAll();
+		l_act.Add(ACT__CLEAR);
+
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__STEP_READY__TEMPERATURE_STABLE_TIMEOUT_WARNING;
+
+		alarm_title  = title;
+		alarm_title += "Temperature stable timeout warning In the step preparation.";
+
+		alarm_msg = "Please, check the current temperature of system and temperature parameter in 1st step recipe ! \n";
 
 		l_act.RemoveAll();
 		l_act.Add(ACT__CLEAR);
@@ -432,11 +490,25 @@ int CObj__STEP_STRIP::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__APC_OBJ__MON_PRESSURE_TORR, obj_name,var_name);
 
 			//
-			var_name = "MON.PRESSURE.ABORT.ACTIVE";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__APC_OBJ__MON_PRESSURE_ABORT_ACTIVE, obj_name,var_name);
+			var_name = "CFG.PRESSURE.WARNING.BAND";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__APC_OBJ__CFG_PROC_PRESSURE_WARNING_BAND, obj_name,var_name);
 
-			var_name = "MON.PRESSURE.STABLE.ACTIVE";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__APC_OBJ__MON_PRESSURE_STABLE_ACTIVE, obj_name,var_name);
+			var_name = "CFG.PRESSURE.ABORT.BAND";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__APC_OBJ__CFG_PROC_PRESSURE_ABORT_BAND, obj_name,var_name);
+
+			//
+			var_name = "MON.PROC.PRESSURE.ABORT.ACTIVE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__APC_OBJ__MON_PROC_PRESSURE_ABORT_ACTIVE, obj_name,var_name);
+
+			var_name = "MON.PROC.PRESSURE.STABLE.ACTIVE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__APC_OBJ__MON_PROC_PRESSURE_STABLE_ACTIVE, obj_name,var_name);
+
+			//
+			var_name = "MON.IDLE.PRESSURE.ABORT.ACTIVE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__APC_OBJ__MON_IDLE_PRESSURE_ABORT_ACTIVE, obj_name,var_name);
+
+			var_name = "MON.IDLE.PRESSURE.STABLE.ACTIVE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__APC_OBJ__MON_IDLE_PRESSURE_STABLE_ACTIVE, obj_name,var_name);
 		}
 	}
 
@@ -478,9 +550,20 @@ int CObj__STEP_STRIP::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_TOP__PARA_HOLD_TIME, obj_name,var_name);
 
 			//
-			var_name = "MON.POWER.ABORT.ACTIVE";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RF_TOP__MON_POWER_ABORT_ACTIVE, obj_name,var_name);
+			var_name = "CFG.PROC.POWER.WARNING.BAND";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_TOP__CFG_PROC_POWER_WARNING_BAND, obj_name,var_name);
 
+			var_name = "CFG.PROC.POWER.ABORT.BAND";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__RF_TOP__CFG_PROC_POWER_ABORT_BAND, obj_name,var_name);
+
+			//
+			var_name = "MON.IDLE.POWER.ABORT.ACTIVE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RF_TOP__MON_IDLE_POWER_ABORT_ACTIVE, obj_name,var_name);
+
+			var_name = "MON.PROC.POWER.ABORT.ACTIVE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RF_TOP__MON_PROC_POWER_ABORT_ACTIVE, obj_name,var_name);
+
+			//
 			var_name = "MON.REFLECT.HIGH_LIMIT.ACTIVE";
 			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__RF_TOP__MON_REFLECT_HIGH_LIMIT_ACTIVE, obj_name,var_name);
 
@@ -588,6 +671,107 @@ int CObj__STEP_STRIP::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		if(def_check)
 		{
 			pOBJ_CTRL__LIFT_PIN = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		}
+	}
+
+	// OBJ__HTR_CHUCK ...
+	{
+		def_name = "OBJ__HTR_CHUCK";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,obj_name);
+
+		def_check = x_utility.Check__Link(obj_name);
+		bActive__OBJ_CTRL__HTR_CHUCK = def_check;
+
+		if(def_check)
+		{
+			pOBJ_CTRL__HTR_CHUCK = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			for(i=0; i<_CFG__CHUCK_SIZE; i++)
+			{
+				int id = i+1;
+
+				//
+				var_name.Format("PARA.PROC.REF.SP.%02d", id);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__HTR_CHUCK__PARA_PROC_REF_SP_X[i], obj_name,var_name);
+
+				var_name.Format("PARA.TARGET.SP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_CHUCK__PARA_TARGET_SP_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("MON.IDLE.STABLE.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_CHUCK__MON_IDLE_STABLE_ACTIVE_X[i], obj_name,var_name);
+
+				var_name.Format("MON.IDLE.ABORT.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_CHUCK__MON_IDLE_ABORT_ACTIVE_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("MON.PROC.STABLE.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_CHUCK__MON_PROC_STABLE_ACTIVE_X[i], obj_name,var_name);
+
+				var_name.Format("MON.PROC.ABORT.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_CHUCK__MON_PROC_ABORT_ACTIVE_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("CFG.PROC.SOFT.TOLERANCE.THRESHOLD.LOOP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_CHUCK__CFG_PROC_SOFT_TOLERANCE_X[i], obj_name,var_name);
+
+				var_name.Format("CFG.PROC.HARD.TOLERANCE.THRESHOLD.LOOP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_CHUCK__CFG_PROC_HARD_TOLERANCE_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("MON.IO.GET.PV.LOOP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_CHUCK__MON_IO_PV_X[i], obj_name,var_name);
+			}
+		}
+	}
+	// OBJ__HTR_WALL ...
+	{
+		def_name = "OBJ__HTR_WALL";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,obj_name);
+
+		def_check = x_utility.Check__Link(obj_name);
+		bActive__OBJ_CTRL__HTR_WALL = def_check;
+
+		if(def_check)
+		{
+			pOBJ_CTRL__HTR_WALL = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			for(i=0; i<_CFG__WALL_SIZE; i++)
+			{
+				int id = i+1;
+
+				//
+				var_name.Format("PARA.PROC.REF.SP.%02d", id);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__HTR_WALL__PARA_PROC_REF_SP_X[i], obj_name,var_name);
+
+				var_name.Format("PARA.TARGET.SP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_WALL__PARA_TARGET_SP_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("MON.IDLE.STABLE.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_WALL__MON_IDLE_STABLE_ACTIVE_X[i], obj_name,var_name);
+
+				var_name.Format("MON.IDLE.ABORT.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_WALL__MON_IDLE_ABORT_ACTIVE_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("MON.PROC.STABLE.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_WALL__MON_PROC_STABLE_ACTIVE_X[i], obj_name,var_name);
+
+				var_name.Format("MON.PROC.ABORT.ACTIVE.LOOP.%02d", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__HTR_WALL__MON_PROC_ABORT_ACTIVE_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("CFG.PROC.SOFT.TOLERANCE.THRESHOLD.LOOP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_WALL__CFG_PROC_SOFT_TOLERANCE_X[i], obj_name,var_name);
+
+				var_name.Format("CFG.PROC.HARD.TOLERANCE.THRESHOLD.LOOP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_WALL__CFG_PROC_HARD_TOLERANCE_X[i], obj_name,var_name);
+
+				//
+				var_name.Format("MON.IO.GET.PV.LOOP.%02d", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__HTR_WALL__MON_IO_PV_X[i], obj_name,var_name);
+			}
 		}
 	}
 

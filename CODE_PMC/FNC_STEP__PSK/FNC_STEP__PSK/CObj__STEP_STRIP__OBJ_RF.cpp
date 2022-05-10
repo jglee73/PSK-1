@@ -5,12 +5,15 @@
 
 // ...
 int CObj__STEP_STRIP
-::RF_TOP_OBJ__Start_MODE(const CString& obj_mode, const CString& para_data)
+::RF_TOP_OBJ__Start_MODE(const CString& obj_mode, const CString& para_data, const CString& para_warning,const CString& para_alarm)
 {
 	if(!bActive__OBJ_CTRL__RF_TOP)					return 1;
 
 	aEXT_CH__RF_TOP__PARA_SET_POWER->Set__DATA(para_data);
 	aEXT_CH__RF_TOP__PARA_HOLD_TIME->Set__VALUE(0.0);
+
+	aEXT_CH__RF_TOP__CFG_PROC_POWER_WARNING_BAND->Set__DATA(para_warning);
+	aEXT_CH__RF_TOP__CFG_PROC_POWER_ABORT_BAND->Set__DATA(para_alarm);
 
 	return pOBJ_CTRL__RF_TOP->Run__OBJECT(obj_mode);
 }
@@ -29,10 +32,12 @@ int CObj__STEP_STRIP
 {
 	if(!bActive__OBJ_CTRL__RF_TOP)					return -11;
 
-	if(dEXT_CH__RF_TOP__MON_POWER_ABORT_ACTIVE->Check__DATA(STR__ON) > 0)
+	if((dEXT_CH__RF_TOP__MON_IDLE_POWER_ABORT_ACTIVE->Check__DATA(STR__ON) > 0)
+	|| (dEXT_CH__RF_TOP__MON_PROC_POWER_ABORT_ACTIVE->Check__DATA(STR__ON) > 0))
 	{
 		return 1;
 	}
+
 	if(dEXT_CH__RF_TOP__MON_REFLECT_HIGH_LIMIT_ACTIVE->Check__DATA(STR__ON) > 0)
 	{
 		return 2;

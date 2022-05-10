@@ -86,6 +86,7 @@
 #define  STR__Middle					"Middle"
 #define  STR__Up						"Up"
 
+
 // ...
 #define  STR__ON						"ON"
 

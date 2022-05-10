@@ -19,19 +19,27 @@ int CObj__STEP_STRIP
 	CString rcp__step_time;
 
 	CString rcp__apc_mode;
+	CString rcp__apc_pressure_torr;
 	CString rcp__apc_position;
 	CString rcp__apc_learned_pos;
-	CString rcp__apc_pressure;
 	CString rcp__apc_hold_sec;
+	CString rcp__apc_tol_warning;
+	CString rcp__apc_tol_alarm;
 
 	CString rcp__rf_top_power;
 	CString rcp__rf_top_warning;
 	CString rcp__rf_top_alarm;
 
+	//
 	CString rcp__mat_top_shunt;
 	CString rcp__mat_top_series;
 	CString rcp__mat_top_capacity;
 
+	CString rcp__mat_top_learned_shunt;
+	CString rcp__mat_top_learned_series;
+	CString rcp__mat_top_learned_capacity;
+
+	//
 	CString rcp__mfc_x_flow[_CFG__MFC_SIZE];
 	CString rcp__mfc_x_ramp_sec[_CFG__MFC_SIZE];
 
@@ -49,6 +57,17 @@ int CObj__STEP_STRIP
 
 	CString cur__step_ud = sCH__INFO_STEP_CUR_NUM->Get__STRING();
 
+	// ...
+	bool active__mfc_delay_off = false;
+	bool active__rfx_delay_off = false;
+
+	double cfg_delay__rf_off    = aCH__CFG_STEP_DELAY_RF_OFF->Get__VALUE();
+	double cfg_delay__mfc_close = aCH__CFG_STEP_DELAY_MFC_CLOSE->Get__VALUE();
+	double cfg_delay__ref_sec = 0.05;
+
+	if(cfg_delay__mfc_close > cfg_delay__ref_sec)		active__mfc_delay_off = true;
+	if(cfg_delay__rf_off    > cfg_delay__ref_sec)		active__rfx_delay_off = true;
+
 
 	// RCP ...
 	{
@@ -58,10 +77,16 @@ int CObj__STEP_STRIP
 
 		//
 		dCH__RCP_APC_MODE->Get__DATA(rcp__apc_mode);
+
+		ch_data = aCH__RCP_APC_PRESSURE_mTORR->Get__STRING();
+		rcp__apc_pressure_torr.Format("%.3f", atof(ch_data) * 0.001);
+
 		aCH__RCP_APC_POSITION->Get__DATA(rcp__apc_position);
 		sCH__RCP_APC_LEARNED_POS->Get__DATA(rcp__apc_learned_pos);
-		aCH__RCP_APC_PRESSURE->Get__DATA(rcp__apc_pressure);
 		sCH__RCP_APC_HOLD_DELAY->Get__DATA(rcp__apc_hold_sec);
+
+		rcp__apc_tol_warning = sCH__RCP_APC_TOL_WARNING->Get__STRING();
+		rcp__apc_tol_alarm   = sCH__RCP_APC_TOL_ALARM->Get__STRING();
 
 		//
 		sCH__RCP_RF_TOP_POWER->Get__DATA(rcp__rf_top_power);
@@ -71,7 +96,11 @@ int CObj__STEP_STRIP
 		//
 		rcp__mat_top_shunt    = sCH__RCP_MAT_TOP_SHUNT->Get__STRING();
 		rcp__mat_top_series   = sCH__RCP_MAT_TOP_SERIES->Get__STRING(); 
-		rcp__mat_top_capacity = sCH__RCP_MAT_TOP_SHUNT->Get__STRING();
+		rcp__mat_top_capacity = sCH__RCP_MAT_TOP_CAPACITY->Get__STRING();
+
+		sCH__RCP_MAT_TOP_LEARNED_SHUNT->Get__DATA(rcp__mat_top_learned_shunt);
+		sCH__RCP_MAT_TOP_LEARNED_SERIES->Get__DATA(rcp__mat_top_learned_series);
+		sCH__RCP_MAT_TOP_LEARNED_CAPACITY->Get__DATA(rcp__mat_top_learned_capacity);
 
 		//
 		for(i=0; i<iDATA__MFC_SIZE; i++)
@@ -108,48 +137,114 @@ int CObj__STEP_STRIP
 		else if(rcp__apc_mode.CompareNoCase(STR__Pressure) == 0)
 		{
 			obj_mode  = _APC_CMD__PRESSURE;
-			para_data = rcp__apc_pressure;
+			para_data = rcp__apc_pressure_torr;
 		}
 
-		double value__hold_sec = atof(rcp__apc_hold_sec);
-		double value__hold_pos = atof(rcp__apc_position);
-		if(value__hold_pos < 0.1)			value__hold_pos = atof(rcp__apc_learned_pos);
+		if(obj_mode.GetLength() > 0)
+		{
+			double value__hold_sec = atof(rcp__apc_hold_sec);
+			double value__hold_pos = atof(rcp__apc_position);
+			if(value__hold_pos < 0.01)			value__hold_pos = atof(rcp__apc_learned_pos);			
 
-		APC_OBJ__Start_MODE(obj_mode,para_data, value__hold_sec,value__hold_pos);
+			aEXT_CH__APC_OBJ__CFG_PROC_PRESSURE_WARNING_BAND->Set__DATA(rcp__apc_tol_warning);
+			aEXT_CH__APC_OBJ__CFG_PROC_PRESSURE_ABORT_BAND->Set__DATA(rcp__apc_tol_alarm);
+
+			APC_OBJ__Start_MODE(obj_mode,para_data, value__hold_sec,value__hold_pos);
+		}
 	}
 
 	// MFC_X.CTRL ...
-	for(i=0; i<iDATA__MFC_SIZE; i++)
+	if(active__mfc_delay_off)
 	{
-		MFC_OBJ__Start_CONTROL(i, rcp__mfc_x_flow[i],rcp__mfc_x_ramp_sec[i]);
+		int mfc_ctrl_count = 0;
+
+		for(i=0; i<iDATA__MFC_SIZE; i++)
+		{
+			double para__set_flow = atof(rcp__mfc_x_flow[i]);
+			if(para__set_flow < 0.001)			continue;
+
+			MFC_OBJ__Start_CONTROL(i, rcp__mfc_x_flow[i],rcp__mfc_x_ramp_sec[i]);
+
+			// ...
+			{
+				mfc_ctrl_count++;		
+				if(mfc_ctrl_count == 1)		
+					log_msg.Format("MFCx Control ... \n");
+
+				log_bff.Format("  * MFC%1d Control(%s, %s) \n", i+1, rcp__mfc_x_flow[i],rcp__mfc_x_ramp_sec[i]);
+				log_msg += log_bff;
+			}
+		}
+
+		if(mfc_ctrl_count > 0)
+		{
+			xLOG_CTRL->WRITE__LOG(log_msg);		
+		}
+	}
+	else
+	{
+		for(i=0; i<iDATA__MFC_SIZE; i++)
+		{
+			MFC_OBJ__Start_CONTROL(i, rcp__mfc_x_flow[i],rcp__mfc_x_ramp_sec[i]);
+		}
 	}
 
 	// RF_TOP ...
-	if(bActive__OBJ_CTRL__RF_TOP)
 	{
 		CString obj_mode;
 		double set_power = atof(rcp__rf_top_power);
 
-		if(set_power > 0.1)				obj_mode = _RF_CMD__SET_POWER;
+		if(set_power >= 0.001)			obj_mode = _RF_CMD__SET_POWER;
 		else							obj_mode = _RF_CMD__OFF;
 
-		RF_TOP_OBJ__Start_MODE(obj_mode, rcp__rf_top_power);
+		if(active__rfx_delay_off)
+		{
+			if(obj_mode.CompareNoCase(_RF_CMD__OFF) != 0)
+			{
+				RF_TOP_OBJ__Start_MODE(obj_mode, rcp__rf_top_power, rcp__rf_top_warning,rcp__rf_top_alarm);
+
+				// ...
+				{
+					log_msg = "RF.TOP Control ... \n";
+
+					log_bff.Format("  * RF.Source Control(%s, %s) \n", obj_mode,rcp__rf_top_power);
+					log_msg += log_bff;
+
+					xLOG_CTRL->WRITE__LOG(log_msg);		
+				}
+			}
+		}
+		else
+		{
+			RF_TOP_OBJ__Start_MODE(obj_mode, rcp__rf_top_power, rcp__rf_top_warning,rcp__rf_top_alarm);
+		}
 	}
 
 	// MAT_TOP ...
 	if(bActive__OBJ_CTRL__MAT)
 	{
 		CString obj_mode = _MAT_CMD__PROC_CTRL;
-		CString ch_data;
+		double para__rcp_value = 0;
 
-		sCH__RCP_MAT_TOP_SHUNT->Get__DATA(ch_data);
-		aEXT_CH__MAT__PARA_LOAD_POS_CH1->Set__DATA(ch_data);
+		// ...
+		{
+			para__rcp_value = atof(rcp__mat_top_shunt);
+			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_top_learned_shunt);
 
-		sCH__RCP_MAT_TOP_SERIES->Get__DATA(ch_data);
-		aEXT_CH__MAT__PARA_TUNE_POS_CH1->Set__DATA(ch_data);
+			aEXT_CH__MAT__PARA_LOAD_POS_CH1->Set__VALUE(para__rcp_value);
 
-		sCH__RCP_MAT_TOP_CAPACITY->Get__DATA(ch_data);
-		aEXT_CH__MAT__PARA_CAP_POS_CH1->Set__DATA(ch_data);
+			//
+			para__rcp_value = atof(rcp__mat_top_series);
+			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_top_learned_series);
+
+			aEXT_CH__MAT__PARA_TUNE_POS_CH1->Set__VALUE(para__rcp_value);
+
+			//
+			para__rcp_value = atof(rcp__mat_top_capacity);
+			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_top_learned_capacity);
+
+			aEXT_CH__MAT__PARA_CAP_POS_CH1->Set__VALUE(para__rcp_value);
+		}
 
 		MAT_OBJ__Start_MODE(obj_mode);
 	}
@@ -175,63 +270,14 @@ int CObj__STEP_STRIP
 		{
 			LIFT_PIN_OBJ__Start_MODE(obj_mode);
 		}
-		else
-		{
-			LIFT_PIN_OBJ__Wait();
-		}
 	}
 
-	// Object Over-Time Check ...
-	double cfg__err_ref = aCH__CFG_STEP_OBJECT_OVER_TIME_ERRPR_REF_SEC->Get__VALUE();
-
-	x_obj_timer_ctrl->STOP();
-	if(x_obj_timer_ctrl->Get__CURRENT_TIME() > cfg__err_ref)
+	// HTR.STABLE_CHECK ...
+	if(dCH__CFG_STEP_CTRL_HEATER_MODE->Check__DATA(STR__ONLY_CHECK) > 0)
 	{
-		int alm_id = ALID__OBJECT_OVERTIME;
-
-		CString alm_msg;
-		CString alm_bff;
-		CString r_act;
-
-		CString cur__step_id = sCH__INFO_STEP_CUR_NUM->Get__STRING();
-		CString pre__step_id = sCH__INFO_STEP_PRE_NUM->Get__STRING();
-		
-		CString pre__step_time = sCH__INFO_STEP_PRE_TIME->Get__STRING();
-		CString pre__step_mode = sCH__INFO_STEP_PRE_MODE->Get__STRING();
-		CString pre__pin_ctrl = sCH__INFO_STEP_PRE_PIN_CTRL->Get__STRING();
-
-		//
-		alm_bff.Format(" Object over-time is %.1f (sec). \n", x_obj_timer_ctrl->Get__CURRENT_TIME());
-		alm_msg += alm_bff;
-
-		alm_bff.Format(" Object over-time error-ref is %.2f (sec). \n", cfg__err_ref);
-		alm_msg += alm_bff;
-
-		//
-		alm_msg += "\n";
-		alm_bff.Format(" The current step ID is %s. \n", cur__step_id);
-		alm_msg += alm_bff;
-
-		alm_bff.Format(" The information of previous step(%s) is as follows : \n", pre__step_id);
-		alm_msg += alm_bff;
-
-		alm_bff.Format("   * Step-time is %s (sec). \n", pre__step_time);
-		alm_msg += alm_bff;
-
-		alm_bff.Format("   * Step-mode is \"%s\". \n", pre__step_mode);
-		alm_msg += alm_bff;
-
-		alm_bff.Format("   * Lift-pin control is \"%s\". \n", pre__pin_ctrl);
-		alm_msg += alm_bff;
-
-		alm_msg += "\n";
-		alm_bff.Format(" Please, check the actual operation time of lift-pin. \n");
-		alm_msg += alm_bff;
-
-		//
-		p_alarm->Check__ALARM(alm_id, r_act);
-		p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+		_Fnc__HTR_STABLE_CHECK(p_variable,p_alarm);
 	}
+
 
 	// ...
 	bool active__stable_mode = false;
@@ -250,6 +296,14 @@ int CObj__STEP_STRIP
 	double cfg__stable_min_sec = aCH__CFG_STEP_STABLE_MIN_SEC->Get__VALUE();
 
 	// ...
+	bool active__htr_error_check = false;
+
+	if(dCH__CFG_STEP_CTRL_ERROR_CONTROL->Check__DATA(STR__ENABLE) > 0)
+	{
+		active__htr_error_check = true;
+	}
+
+	// ...
 	SCX__STEP_TIMER_CTRL x_step_timer;
 	x_step_timer->START__TIMER();
 
@@ -258,7 +312,14 @@ int CObj__STEP_STRIP
 
 	// ...
 	{
-		log_msg.Format("Step(%s) Start - Object Delay (%.2f sec) \n", cur__step_ud, x_obj_timer_ctrl->Get__CURRENT_TIME());
+		log_msg.Format("Step(%s) Start - Mode(%s) Time(%s sec) \n", cur__step_ud, rcp__step_mode,rcp__step_time);
+
+		log_bff.Format("  * cfg_delay__rf_off : %.1f sec \n", cfg_delay__rf_off);
+		log_msg += log_bff;
+		log_bff.Format("  * cfg_delay__mfc_close : %.1f sec \n", cfg_delay__mfc_close);
+		log_msg += log_bff;
+		log_bff.Format("  * cfg_delay__ref_sec : %.1f sec \n", cfg_delay__ref_sec);
+		log_msg += log_bff;
 
 		xLOG_CTRL->WRITE__LOG(log_msg);		
 	}
@@ -286,20 +347,101 @@ int CObj__STEP_STRIP
 			}
 		}
 
+		// Turn.Off De;ay ...
+		{
+			// MFC_X.CTRL ...
+			if(active__mfc_delay_off)
+			{
+				if(cur_sec >= cfg_delay__mfc_close)
+				{
+					active__mfc_delay_off = false;
+
+					//
+					int mfc_ctrl_count = 0;
+
+					for(i=0; i<iDATA__MFC_SIZE; i++)
+					{
+						double para__set_flow = atof(rcp__mfc_x_flow[i]);
+						if(para__set_flow >= 0.001)		continue;
+
+						MFC_OBJ__Start_CLOSE(i);
+
+						// ...
+						{
+							mfc_ctrl_count++;		
+							if(mfc_ctrl_count == 1)		
+								log_msg.Format("MFCx Close ... \n");
+
+							log_bff.Format("  * MFC%1d Close(%s, %s) \n", i+1, rcp__mfc_x_flow[i],rcp__mfc_x_ramp_sec[i]);
+							log_msg += log_bff;
+						}
+					}
+
+					if(mfc_ctrl_count > 0)
+					{
+						xLOG_CTRL->WRITE__LOG(log_msg);		
+					}
+				}
+			}
+
+			// RFx.CTRL ...
+			if(active__rfx_delay_off)
+			{
+				if(cur_sec >= cfg_delay__rf_off)
+				{
+					active__rfx_delay_off = false;
+
+					//
+					int rfx_ctrl_count = 0;
+
+					log_msg.Format("RFx Off ... \n");
+
+					// RF_TOP ...
+					{
+						double set_power = atof(rcp__rf_top_power);
+
+						if(set_power < 0.001)
+						{
+							RF_TOP_OBJ__Start_OFF();
+
+							// ...
+							{
+								rfx_ctrl_count++;
+
+								log_bff.Format("  * RF.Top Off(%s) \n", rcp__rf_top_power);
+								log_msg += log_bff;
+							}
+						}
+					}
+
+					if(rfx_ctrl_count > 0)
+					{
+						xLOG_CTRL->WRITE__LOG(log_msg);		
+					}
+				}
+			}
+		}
+
 		// ERROR CHECK ...
 		{
-			if(MFC_OBJ__Check_ERROR() > 0)				return -111;
-			if(APC_OBJ__Check_ERROR() > 0)				return -112;
-			if(PT_OBJ__Check_ERROR()  > 0)				return -113;
+			if(MFC_OBJ__Check_ERROR() > 0)							return -111;
+			if(APC_OBJ__Check_ERROR() > 0)							return -112;
+			if(PT_OBJ__Check_ERROR()  > 0)							return -113;
 
-			if(RF_TOP_OBJ__Check_ERROR()  > 0)			return -121;
+			if(RF_TOP_OBJ__Check_ERROR()  > 0)						return -121;
+
+			if(active__htr_error_check)
+			{
+				if(HTR_CHUCK_OBJ__Check_STABLE_ERROR() > 0)			return -141;
+				if(HTR_WALL_OBJ__Check_STABLE_ERROR()  > 0)			return -142;
+			}
 		}
 		// ABORTEDR CHECK ...
 		{
-			if(MFC_OBJ__Check_ABORTED() > 0)			return -211;
-			if(APC_OBJ__Check_ABORTED() > 0)			return -212;
+			if(MFC_OBJ__Check_ABORTED() > 0)						return -211;
+			if(APC_OBJ__Check_ABORTED() > 0)						return -212;
 
-			if(RF_TOP_OBJ__Check_ABORTED()  > 0)		return -221;
+			if(RF_TOP_OBJ__Check_ABORTED()  > 0)					return -221;
 		}
 
 		if(active__stable_mode)
@@ -317,7 +459,7 @@ int CObj__STEP_STRIP
 			if(cur_sec >= cfg__stable_min_sec)
 			{
 				double cur__pressure = aEXT_CH__APC_OBJ__PARA_PRESSURE->Get__VALUE();
-				double ref__pressure = atof(rcp__apc_pressure);
+				double ref__pressure = atof(rcp__apc_pressure_torr);
 
 				if(cur__pressure <= ref__pressure)
 				{
@@ -348,29 +490,106 @@ int CObj__STEP_STRIP
 		}
 	}
 
-	// INFO.STEP_PRE ...
-	{
-		ch_data = sCH__INFO_STEP_CUR_NUM->Get__STRING();
-		sCH__INFO_STEP_PRE_NUM->Set__DATA(ch_data);
-
-		//
-		ch_data = aCH__RCP_STEP_TIME->Get__STRING();
-		sCH__INFO_STEP_PRE_TIME->Set__DATA(ch_data);
-
-		ch_data = dCH__RCP_STEP_MODE->Get__STRING();
-		sCH__INFO_STEP_PRE_MODE->Set__DATA(ch_data);
-
-		ch_data = dCH__RCP_LIFT_PIN_MODE->Get__STRING();
-		sCH__INFO_STEP_PRE_PIN_CTRL->Set__DATA(ch_data);
-	}
+	// Object Over-Time Check ...
+	double cur__obj_delay_sec = Fnc__OBJ_OVERTIME_CHECK(p_variable, p_alarm);
 
 	// ...
 	{
-		log_msg.Format("Step(%s) End ...", cur__step_ud);
+		log_msg.Format("Step(%s) End - Object Delay (%.2f sec)", cur__step_ud, cur__obj_delay_sec);
 
 		xLOG_CTRL->WRITE__LOG(log_msg);		
 	}
 	return 1;
+}
+
+double CObj__STEP_STRIP
+::Fnc__OBJ_OVERTIME_CHECK(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM* p_alarm)
+{
+	SCX__ASYNC_TIMER_CTRL x_obj_timer_ctrl;
+	x_obj_timer_ctrl->START__COUNT_UP(9999);
+
+	bool active__pin_obj = false;
+
+	while(1)
+	{
+		bool active__obj_budy = false;
+
+		if(LIFT_PIN_OBJ__Is_BUSY() > 0)
+		{
+			active__obj_budy = true;
+			active__pin_obj = true;
+		}
+
+		if(active__obj_budy)
+		{
+			if(p_variable->Check__CTRL_ABORT() > 0)			break;
+
+			Sleep(1);
+			continue;
+		}
+
+		break;
+	}
+
+	//
+	double cfg__err_ref = aCH__CFG_STEP_OBJECT_OVER_TIME_ERRPR_REF_SEC->Get__VALUE();
+
+	if(x_obj_timer_ctrl->Get__CURRENT_TIME() > cfg__err_ref)
+	{
+		int alm_id = ALID__OBJECT_OVERTIME;
+
+		CString alm_msg;
+		CString alm_bff;
+		CString r_act;
+
+		CString cur__step_id = sCH__INFO_STEP_CUR_NUM->Get__STRING();
+
+		//
+		CString cur__step_time = aCH__RCP_STEP_TIME->Get__STRING();
+		CString cur__step_mode = dCH__RCP_STEP_MODE->Get__STRING();
+		CString cur__pin_mode = dCH__RCP_LIFT_PIN_MODE->Get__STRING();
+
+		//
+		alm_bff.Format(" Object over-time is %.1f (sec). \n", x_obj_timer_ctrl->Get__CURRENT_TIME());
+		alm_msg += alm_bff;
+
+		alm_bff.Format(" Object over-time error-ref is %.2f (sec). \n", cfg__err_ref);
+		alm_msg += alm_bff;
+
+		//
+		alm_msg += "\n";
+		alm_bff.Format(" The current step ID is %s. \n", cur__step_id);
+		alm_msg += alm_bff;
+
+		alm_bff.Format(" The step information is as follows : \n");
+		alm_msg += alm_bff;
+
+		alm_bff.Format("   * Step-time is %s (sec). \n", cur__step_time);
+		alm_msg += alm_bff;
+
+		alm_bff.Format("   * Step-mode is \"%s\". \n", cur__step_mode);
+		alm_msg += alm_bff;
+
+		if(active__pin_obj)
+		{
+			alm_bff.Format("   * Lift-pin control is \"%s\". \n", cur__pin_mode);
+			alm_msg += alm_bff;
+		}
+
+		alm_msg += "\n";
+
+		if(active__pin_obj)
+		{
+			alm_bff.Format(" Please, check the actual operation time of lift-pin (%s). \n", cur__pin_mode);
+			alm_msg += alm_bff;
+		}
+
+		//
+		p_alarm->Check__ALARM(alm_id, r_act);
+		p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+	}
+
+	return x_obj_timer_ctrl->Get__CURRENT_TIME();
 }
 
 int CObj__STEP_STRIP
@@ -488,8 +707,8 @@ int CObj__STEP_STRIP::_Fnc__PROC_LOG()
 		log_msg += log_bff;
 
 		log_bff.Format(" * %s <- %s \n", 
-						aCH__RCP_APC_PRESSURE->Get__CHANNEL_NAME(),
-						aCH__RCP_APC_PRESSURE->Get__STRING());
+						aCH__RCP_APC_PRESSURE_mTORR->Get__CHANNEL_NAME(),
+						aCH__RCP_APC_PRESSURE_mTORR->Get__STRING());
 		log_msg += log_bff;
 	}
 

@@ -53,14 +53,6 @@ int CObj__STEP_METAL
 }
 
 int CObj__STEP_METAL
-::ESC_OBJ__Wait()
-{
-	if(!bActive__OBJ_CTRL__ESC)						return -1;
-
-	return pOBJ_CTRL__ESC->When__OBJECT();
-}
-
-int CObj__STEP_METAL
 ::ESC_OBJ__Is_BUSY()
 {
 	if(!bActive__OBJ_CTRL__ESC)						return -1;

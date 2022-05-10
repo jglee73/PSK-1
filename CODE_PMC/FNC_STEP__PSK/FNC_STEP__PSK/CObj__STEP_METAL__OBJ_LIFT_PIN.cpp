@@ -24,14 +24,6 @@ int CObj__STEP_METAL
 }
 
 int CObj__STEP_METAL
-::LIFT_PIN_OBJ__Wait()
-{
-	if(!bActive__OBJ_CTRL__LIFT_PIN)				return -1;
-
-	return pOBJ_CTRL__LIFT_PIN->When__OBJECT();
-}
-
-int CObj__STEP_METAL
 ::LIFT_PIN_OBJ__Is_BUSY()
 {
 	if(!bActive__OBJ_CTRL__LIFT_PIN)				return -1;

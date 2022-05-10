@@ -164,6 +164,11 @@ int CObj__MFC_IO::__DEFINE__VARIABLE_STD(p_variable)
 
 	// MON.STABLE ...
 	{
+		str_name = "MON.MFC.PROC.ACTIVE";
+		STD__ADD_DIGITAL(str_name, "OFF ON");
+		LINK__VAR_DIGITAL_CTRL(dCH__MON_MFC_PROC_ACTIVE, str_name);
+
+		//
 		str_name = "MON.MFC.ABORT.ACTIVE";
 		STD__ADD_DIGITAL(str_name, "OFF ON");
 		LINK__VAR_DIGITAL_CTRL(dCH__MON_MFC_ABORT_ACTIVE, str_name);

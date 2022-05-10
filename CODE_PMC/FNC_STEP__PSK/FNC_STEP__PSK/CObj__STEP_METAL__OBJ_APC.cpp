@@ -38,7 +38,8 @@ int CObj__STEP_METAL::APC_OBJ__Check_ERROR()
 {
 	if(!bActive__OBJ_CTRL__APC)						return -11;
 
-	if(dEXT_CH__APC_OBJ__MON_PROC_PRESSURE_ABORT_ACTIVE->Check__DATA(STR__ON) > 0)			
+	if((dEXT_CH__APC_OBJ__MON_PROC_PRESSURE_ABORT_ACTIVE->Check__DATA(STR__ON) > 0)			
+	|| (dEXT_CH__APC_OBJ__MON_IDLE_PRESSURE_ABORT_ACTIVE->Check__DATA(STR__ON) > 0))
 	{
 		return 1;
 	}
