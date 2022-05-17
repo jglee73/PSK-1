@@ -89,6 +89,7 @@
 
 // ...
 #define  STR__ON						"ON"
+#define  STR__OFF						"OFF"
 
 #define  STR__DISABLE					"DISABLE"
 #define  STR__ENABLE					"ENABLE"

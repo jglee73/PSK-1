@@ -499,6 +499,11 @@ int CObj__STEP_STRIP
 
 		xLOG_CTRL->WRITE__LOG(log_msg);		
 	}
+
+	// OBJ.Abort Check ...
+	{
+		if(LIFT_PIN_OBJ__Check_ABORTED() > 0)					return -302;
+	}
 	return 1;
 }
 

@@ -562,6 +562,7 @@ int CObj__STEP_METAL
 			if(RF_BIAS_OBJ__Check_ABORTED() > 0)					return -222;
 			if(MAT_OBJ__Check_ABORTED() > 0)						return -223;
 			if(ESC_OBJ__Check_ABORTED() > 0)						return -224;
+			if(LIFT_PIN_OBJ__Check_ABORTED() > 0)					return -225;
 		}
 
 		if(active__stable_mode)
@@ -618,6 +619,12 @@ int CObj__STEP_METAL
 		log_msg.Format("Step(%s) End - Object Delay (%.2f sec)", cur__step_ud, cur__obj_delay_sec);
 
 		xLOG_CTRL->WRITE__LOG(log_msg);		
+	}
+
+	// OBJ.Abort Check ...
+	{
+		if(ESC_OBJ__Check_ABORTED() > 0)						return -301;
+		if(LIFT_PIN_OBJ__Check_ABORTED() > 0)					return -302;
 	}
 	return 1;
 }

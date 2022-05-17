@@ -19,6 +19,9 @@ private:
 	int iLOOP_SIZE;
 	int iActive__SIM_MODE;
 
+	CUIntArray iLIST_ALID__HTR;
+	//
+
 	//-------------------------------------------------------------------------
 	CX__VAR_STRING_CTRL  sCH__OBJ_MSG;
 	CX__VAR_STRING_CTRL  sCH__OBJ_STATUS;
@@ -109,6 +112,10 @@ private:
 
 	CX__VAR_DIGITAL_CTRL dCH__CFG_AI_ALARM_MC_OFF__LOOP_X[CFG__LOOP_SIZE];
 	CX__VAR_DIGITAL_CTRL dCH__CFG_DI_ALARM_MC_OFF__LOOP_X[CFG__LOOP_SIZE];
+
+	// MON.PART ...
+	CX__VAR_DIGITAL_CTRL  dCH__MON_HTR_CTRL_ACTIVE;
+	CX__VAR_DIGITAL_CTRL  dCH__MON_HTR_ERROR_ACTIVE;
 
 	// MON.ACTIVE ...
 	CX__VAR_STRING_CTRL  sCH__MON_HEATING_ACTIVE;

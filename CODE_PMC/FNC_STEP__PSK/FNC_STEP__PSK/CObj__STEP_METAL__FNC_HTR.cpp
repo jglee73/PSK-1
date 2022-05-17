@@ -360,7 +360,6 @@ int CObj__STEP_METAL
 		}
 	}
 
-	_Fnc__HTR_STABLE_CHECK(p_variable,p_alarm);
 	return 1;
 }
 

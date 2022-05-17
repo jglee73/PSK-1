@@ -50,6 +50,13 @@ int CObj__PMP_IO::__DEFINE__VARIABLE_STD(p_variable)
 	// ...
 	CString str_name;
 
+	// MON.PART ...
+	{
+		str_name = "MON.PART.ERROR.ACTIVE";
+		STD__ADD_DIGITAL(str_name, "OFF ON");
+		LINK__VAR_DIGITAL_CTRL(dCH__MON_PART_ERROR_ACTIVE, str_name);
+	}
+
 	// MON ...
 	{
 		str_name = "MON.COMM.STATE";
@@ -80,6 +87,8 @@ int CObj__PMP_IO::__DEFINE__VARIABLE_STD(p_variable)
 }
 int CObj__PMP_IO::__DEFINE__ALARM(p_alarm)
 {
+
+	iLIST_ALID__PART.RemoveAll();
 
 	return 1;
 }

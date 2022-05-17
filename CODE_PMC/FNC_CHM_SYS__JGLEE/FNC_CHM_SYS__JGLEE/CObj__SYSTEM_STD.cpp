@@ -21,10 +21,12 @@ int CObj__SYSTEM_STD::__DEFINE__CONTROL_MODE(obj,l_mode)
 
 	// ...
 	{
-		ADD__CTRL_VAR(sMODE__SYSTEM_INIT,	"SYSTEM_INIT");
+		ADD__CTRL_VAR(sMODE__SYSTEM_INIT,  "SYSTEM_INIT");
 		ADD__CTRL_VAR(sMODE__SYSTEM_MAINT, "SYSTEM_MAINT");
 
 		ADD__CTRL_VAR(sMODE__TRANSFER_INIT, "TRANSFER_INIT");
+
+		ADD__CTRL_VAR(sMODE__WAFER_UPDATE, "WAFER_UPDATE");
 	}
 	return 1;
 }
@@ -499,6 +501,10 @@ int CObj__SYSTEM_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__TRANSFER_INIT)
 		{
 			flag = Call__TRANSFER_INIT(p_variable, p_alarm);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__WAFER_UPDATE)
+		{
+			flag = Call__WAFER_UPDATE(p_variable, p_alarm);
 		}
 	}
 

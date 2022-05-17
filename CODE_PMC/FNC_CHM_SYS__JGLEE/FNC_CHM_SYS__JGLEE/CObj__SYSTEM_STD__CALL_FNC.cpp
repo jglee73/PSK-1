@@ -646,3 +646,77 @@ int CObj__SYSTEM_STD
 
 	return retVal;
 }
+
+int CObj__SYSTEM_STD
+::Call__WAFER_UPDATE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm)
+{
+	if(dCH__CFG_CHAMBER_MODE->Check__DATA(STR__TEST) < 0)
+	{
+		return -11;
+	}
+
+	if(dCH__CFG_WAFER_STATUS->Check__DATA(STR__YES) > 0)
+	{
+		CString str_title;
+		CString str_msg;
+		CStringArray l_act;
+		CString r_act;
+		CString var_data;
+
+		//
+		str_title = "The current chamber' wafer status is \"YES\".";
+
+		//
+		str_msg  = "Chamber 내에 Wafer가 있나요? \n";
+		str_msg += " 맞으면? \"YES\"를 선택하세요.\n";
+
+		//
+		l_act.Add(STR__YES);
+		l_act.Add(STR__NO);
+
+		//
+		p_alarm->Popup__MESSAGE_BOX(str_title,str_msg,l_act,r_act);
+
+		if(r_act.CompareNoCase(STR__YES) == 0)
+		{
+			dEXT_CH__WAFER_STATUS->Set__DATA(STR__EXIST);
+		}
+		else
+		{
+			return -21;
+		}
+	}
+	else
+	{
+		CString str_title;
+		CString str_msg;
+		CStringArray l_act;
+		CString r_act;
+		CString var_data;
+
+		//
+		str_title = "The current chamber' wafer status is \"NO\".";
+
+		//
+		str_msg  = "Chamber 내에 Wafer가 없나요? \n";
+		str_msg += " 맞으면? \"YES\"를 선택하세요.\n";
+
+		//
+		l_act.Add(STR__YES);
+		l_act.Add(STR__NO);
+
+		//
+		p_alarm->Popup__MESSAGE_BOX(str_title,str_msg,l_act,r_act);
+
+		if(r_act.CompareNoCase(STR__YES) == 0)
+		{
+			dEXT_CH__WAFER_STATUS->Set__DATA(STR__NONE);
+		}
+		else
+		{
+			return -31;
+		}
+	}
+
+	return 1;
+}

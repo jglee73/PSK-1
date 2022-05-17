@@ -112,6 +112,9 @@ private:
 	CString sMODE__TRANSFER_INIT;
 	int Call__TRANSFER_INIT(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
 
+	CString sMODE__WAFER_UPDATE;
+	int Call__WAFER_UPDATE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm);
+
 	// ...
 	int	 Alarm__CHECK_RETRY_ABORT(CII_OBJECT__ALARM* p_alarm, CString msg, const int alarm_id);
 	void Alarm__POST_CHECK(CII_OBJECT__ALARM *p_alarm, CString msg, const int alarm_id);

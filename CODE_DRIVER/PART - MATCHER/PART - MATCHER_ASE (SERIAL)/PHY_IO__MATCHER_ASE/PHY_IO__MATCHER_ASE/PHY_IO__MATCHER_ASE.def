@@ -1,0 +1,6 @@
+; PHY_IO__MATCHER_ASE.def : Declares the module parameters for the DLL.
+
+LIBRARY      "PHY_IO__MATCHER_ASE"
+
+EXPORTS
+    ; Explicit exports can go here
