@@ -1,0 +1,6 @@
+; IO__PUMP_PFEIFFIER.def : Declares the module parameters for the DLL.
+
+LIBRARY      "IO__PUMP_PFEIFFIER"
+
+EXPORTS
+    ; Explicit exports can go here
