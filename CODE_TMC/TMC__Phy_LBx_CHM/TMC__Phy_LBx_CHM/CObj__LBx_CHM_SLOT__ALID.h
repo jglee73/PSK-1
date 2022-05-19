@@ -4,6 +4,7 @@
 // ..
 #define  ACT__RETRY									"RETRY"
 #define  ACT__ABORT									"ABORT"
+#define  ACT__OK									"OK"
 
 
 // ..
@@ -14,7 +15,7 @@
 #define  ALID__SLIT_CANNOT_CLOSE_NOT_EXIST				5
 #define  ALID__SLIT_CANNOT_OPEN_NOT_EXIST				6
 #define  ALID__MAX_DIFFER_PRESS_ALARM					7
-#define  ALID__CONVECTRON_ATM_HIGH_PRESS_ALARM			8
+#define  ALID__ATM_HIGH_PRESSURE_LIMIT					8
 #define  ALID__LIFT_PIN_UP__TIMEOUT						9
 #define  ALID__LIFT_PIN_DOWN__TIMEOUT					10
 

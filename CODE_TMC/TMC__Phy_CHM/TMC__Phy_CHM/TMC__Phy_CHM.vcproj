@@ -125,6 +125,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\..\CCommon_Utility;..\TMC__Phy_CHM"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -275,6 +276,18 @@
 				</File>
 				<File
 					RelativePath=".\CObj__CHM_STD__MON_FNC.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CCommon_Utility"
+				>
+				<File
+					RelativePath="..\..\CCommon_Utility\CCommon_Utility.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\CCommon_Utility\CCommon_Utility.h"
 					>
 				</File>
 			</Filter>

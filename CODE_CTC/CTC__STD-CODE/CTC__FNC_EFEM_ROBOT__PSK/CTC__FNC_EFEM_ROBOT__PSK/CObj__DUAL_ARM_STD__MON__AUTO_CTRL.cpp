@@ -6884,9 +6884,16 @@ int CObj__DUAL_ARM_STD
 		{
 			bool ex_flag = false;
 
-			if(SCH__CHECK_LBo_OCCUPIED() > 1)
+			if(dEXT_CH__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE->Check__DATA(STR__DUAL) > 0)
 			{
-				ex_flag = true;
+
+			}
+			else
+			{
+				if(SCH__CHECK_LBo_OCCUPIED() > 1)
+				{
+					ex_flag = true;
+				}
 			}
 
 			// ...

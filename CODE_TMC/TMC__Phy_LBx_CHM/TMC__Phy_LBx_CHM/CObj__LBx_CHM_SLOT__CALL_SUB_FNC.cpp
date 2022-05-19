@@ -189,11 +189,12 @@ bool CObj__LBx_CHM_SLOT::Is__ALL_SV_OPEN()
 
 	for(int i=0; i<iLBx_SLOT_SIZE; i++)
 	{
-		if(diEXT_CH__LLx__SV_OPEN_X[i]->Check__DATA(STR__ON)   > 0)		continue;
-		if(diEXT_CH__LLx__SV_CLOSE_X[i]->Check__DATA(STR__OFF) > 0)		continue;
-
-		active__all_open = false;
-		break;
+		if((diEXT_CH__LLx__SV_OPEN_X[i]->Check__DATA(STR__ON)   < 0)
+		|| (diEXT_CH__LLx__SV_CLOSE_X[i]->Check__DATA(STR__OFF) < 0))
+		{
+			active__all_open = false;
+			break;
+		}
 	}
 
 	return active__all_open;
@@ -204,11 +205,12 @@ bool CObj__LBx_CHM_SLOT::Is__ALL_SV_CLOSE()
 
 	for(int i=0; i<iLBx_SLOT_SIZE; i++)
 	{
-		if(diEXT_CH__LLx__SV_OPEN_X[i]->Check__DATA(STR__OFF)  < 0)		continue;
-		if(diEXT_CH__LLx__SV_CLOSE_X[i]->Check__DATA(STR__ON) < 0)		continue;
-
-		active__all_close = false;
-		break;
+		if((diEXT_CH__LLx__SV_OPEN_X[i]->Check__DATA(STR__OFF) < 0)
+		|| (diEXT_CH__LLx__SV_CLOSE_X[i]->Check__DATA(STR__ON) < 0))
+		{
+			active__all_close = false;
+			break;
+		}
 	}
 
 	return active__all_close;
@@ -500,8 +502,7 @@ LOOP_RETRY:
 	return -1;
 }
 int  CObj__LBx_CHM_SLOT
-::Check__TRANSFER_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm,
-							 const CString& act_name)
+::Check__TRANSFER_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm, const CString& act_name)
 {
 	int i;
 
@@ -514,20 +515,16 @@ int  CObj__LBx_CHM_SLOT
 		dCH__SLIT_VALVE_STATUS_X[i]->Enable__UPPER_OBJECT_ABORT_CHECK();
 	}
 
-	// ...
-	CString str_log;
-	CString str_temp;
-
 LOOP_RETRY:
 
 	// ...
 	{
 		Fnc__LOG("Door and Slit Valve Close Check.. Start");
-		Fnc__LOG("Door Valve Close Check..");
 	}
 
 	if(iSim_Flag > 0)
 	{
+		/*
 		for(i=0; i<iLBx_SLOT_SIZE; i++)
 		{
 			diEXT_CH__LLx__SV_OPEN_X[i]->Set__DATA(STR__OFF);
@@ -536,86 +533,186 @@ LOOP_RETRY:
 			diEXT_CH__LLx__DV_OPEN_X[i]->Set__DATA(STR__OFF);
 			diEXT_CH__LLx__DV_CLOSE_X[i]->Set__DATA(STR__ON);
 		}
+		*/
 	}
 
-	//
-	for(i=0; i<iLBx_SLOT_SIZE; i++)
+	// AUTO.CLOSE : SV & DV ...
+	if(dCH__CFG_AUTO_SV_DV_CLOSE_WHEN_PUMP_VENT->Check__DATA(STR__YES) > 0)
 	{
-		int r_val = dCH__DOOR_VALVE_STATUS_X[i]->When__DATA(STR__CLOSE, 5.0);	// 0:Aborted, -1:Timeout
+		bool active__arm_retract = false;
 
-		// ...
+		for(i=0; i<iData__ROBOT_ARM_RNE; i++)
 		{
-			str_log.Format("DOOR VLV STS Ret:%d", r_val);
-			Fnc__LOG(str_log);
+			if((diEXT_CH__VAC_RB_RNE_X[i]->Check__DATA(sDATA__RNE_ON) > 0)
+			&& (diEXT_CH__ATM_RB_RNE_X[i]->Check__DATA(sDATA__RNE_ON) > 0))
+			{
+				active__arm_retract = true;
+				continue;
+			}
+
+			active__arm_retract = false;
+			break;
 		}
 
-		if(r_val < 0)
+		if(active__arm_retract)
 		{
-			int alarm_id = ALID__DOOR_VALVE__NOT_CLOSE;
+			bool active__auto_close = false;
 
-			CString alarm_msg;
-			CString r_act;
+			CString log_msg;
+			CString log_bff;
 
-			str_temp.Format("Can not %s, Cause Door Valve Not Close Sts !!\n", act_name);
-			alarm_msg = str_temp;
+			log_msg = "AUTO.CLOSE (SV & DV) \n";
 
-			Fnc__LOG(alarm_msg);
-
-			p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, alarm_msg, r_act);
-
-			if(r_act.CompareNoCase(ACT__RETRY) == 0)
+			for(i=0; i<iLBx_SLOT_SIZE; i++)
 			{
-				goto LOOP_RETRY;
+				if((diEXT_CH__LLx__SV_OPEN_X[i]->Check__DATA(STR__OFF) < 0)
+				|| (diEXT_CH__LLx__SV_CLOSE_X[i]->Check__DATA(STR__ON) < 0))
+				{
+					active__auto_close = true;
+
+					// ...
+					{
+						log_bff.Format("SV(%1d).State ... \n", i+1);
+						log_msg += log_bff;
+
+						log_bff.Format("  * %s <- %s \n", 
+										diEXT_CH__LLx__SV_OPEN_X[i]->Get__CHANNEL_NAME(),
+										diEXT_CH__LLx__SV_OPEN_X[i]->Get__STRING());
+						log_msg += log_bff;
+						
+						log_bff.Format("  * %s <- %s \n", 
+										diEXT_CH__LLx__SV_CLOSE_X[i]->Get__CHANNEL_NAME(),
+										diEXT_CH__LLx__SV_CLOSE_X[i]->Get__STRING());
+						log_msg += log_bff;
+					}
+				}
+
+				if((diEXT_CH__LLx__DV_OPEN_X[i]->Check__DATA(STR__OFF) < 0)
+				|| (diEXT_CH__LLx__DV_CLOSE_X[i]->Check__DATA(STR__ON) < 0))
+				{
+					active__auto_close = true;
+
+					// ...
+					{
+						log_bff.Format("DV(%1d).State ... \n", i+1);
+						log_msg += log_bff;
+
+						log_bff.Format("  * %s <- %s \n", 
+										diEXT_CH__LLx__DV_OPEN_X[i]->Get__CHANNEL_NAME(),
+										diEXT_CH__LLx__DV_OPEN_X[i]->Get__STRING());
+						log_msg += log_bff;
+
+						log_bff.Format("  * %s <- %s \n", 
+										diEXT_CH__LLx__DV_CLOSE_X[i]->Get__CHANNEL_NAME(),
+										diEXT_CH__LLx__DV_CLOSE_X[i]->Get__STRING());
+						log_msg += log_bff;
+					}
+				}
+
+				// ...
+				{
+					diEXT_CH__LLx__SV_OPEN_X[i]->Set__DATA(STR__OFF);
+					diEXT_CH__LLx__SV_CLOSE_X[i]->Set__DATA(STR__ON);
+
+					diEXT_CH__LLx__DV_OPEN_X[i]->Set__DATA(STR__OFF);
+					diEXT_CH__LLx__DV_CLOSE_X[i]->Set__DATA(STR__ON);
+				}
 			}
-			else if(r_act.CompareNoCase(ACT__ABORT) == 0)
+
+			if(active__auto_close)
 			{
-				return -1;
+				Fnc__LOG(log_msg);
 			}
-		}
-		else if(r_val == 0)
-		{
-			return OBJ_ABORT;
 		}
 	}
 
-	// ...
+	// DV CHECK ...
+	{
+		Fnc__LOG("Door Valve Close Check..");
+
+		for(i=0; i<iLBx_SLOT_SIZE; i++)
+		{
+			int r_val = dCH__DOOR_VALVE_STATUS_X[i]->When__DATA(STR__CLOSE, 5.0);	// 0:Aborted, -1:Timeout
+
+			// ...
+			{
+				CString log_msg;
+
+				log_msg.Format("DOOR VLV STS Ret:%d", r_val);
+				Fnc__LOG(log_msg);
+			}
+
+			if(r_val < 0)
+			{
+				int alarm_id = ALID__DOOR_VALVE__NOT_CLOSE;
+
+				CString alarm_msg;
+				CString msg_bff;
+				CString r_act;
+
+				msg_bff.Format("Can not %s, Cause Door Valve Not Close Sts !!\n", act_name);
+				alarm_msg = msg_bff;
+
+				Fnc__LOG(alarm_msg);
+
+				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, alarm_msg, r_act);
+
+				if(r_act.CompareNoCase(ACT__RETRY) == 0)
+				{
+					goto LOOP_RETRY;
+				}
+				else if(r_act.CompareNoCase(ACT__ABORT) == 0)
+				{
+					return -1;
+				}
+			}
+			else if(r_val == 0)
+			{
+				return OBJ_ABORT;
+			}
+		}
+	}
+
+	// SV CHECK ...
 	{
 		Fnc__LOG("Slit Valve Close Check..");
-	}
 
-	for(i=0; i<iLBx_SLOT_SIZE; i++)
-	{
-		int r_val = dCH__SLIT_VALVE_STATUS_X[i]->When__DATA(STR__CLOSE, 5.0);
-
-		// ...
+		for(i=0; i<iLBx_SLOT_SIZE; i++)
 		{
-			str_log.Format("SLIT VLV STS Ret:%d", r_val);
-			Fnc__LOG(str_log);
-		}
+			int r_val = dCH__SLIT_VALVE_STATUS_X[i]->When__DATA(STR__CLOSE, 5.0);
 
-		if(r_val < 0)
-		{
-			int alarm_id = ALID__SLIT_VALVE__NOT_CLOSE;
-
-			CString alarm_msg;
-			CString r_act;
-
-			alarm_msg.Format("Can not %s !\n", act_name);
-
-			p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, alarm_msg, r_act);
-
-			if(r_act.CompareNoCase(ACT__RETRY) == 0)
+			// ...
 			{
-				goto LOOP_RETRY;
+				CString log_msg;
+
+				log_msg.Format("SLIT VLV STS Ret:%d", r_val);
+				Fnc__LOG(log_msg);
 			}
-			else if(r_act.CompareNoCase(ACT__ABORT) == 0)
+
+			if(r_val < 0)
 			{
-				return -1;
+				int alarm_id = ALID__SLIT_VALVE__NOT_CLOSE;
+
+				CString alarm_msg;
+				CString r_act;
+
+				alarm_msg.Format("Can not %s !\n", act_name);
+
+				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, alarm_msg, r_act);
+
+				if(r_act.CompareNoCase(ACT__RETRY) == 0)
+				{
+					goto LOOP_RETRY;
+				}
+				else if(r_act.CompareNoCase(ACT__ABORT) == 0)
+				{
+					return -1;
+				}
 			}
-		}
-		else if(r_val == 0)
-		{
-			return OBJ_ABORT;
+			else if(r_val == 0)
+			{
+				return OBJ_ABORT;
+			}
 		}
 	}
 
@@ -693,25 +790,27 @@ int  CObj__LBx_CHM_SLOT
 	int i;
 
 	for(i=0; i<iData__ROBOT_ARM_RNE; i++)
+	{
 		diEXT_CH__VAC_RB_RNE_X[i]->Link__UPPER_OBJECT_ABORT(sObject_Name);
+	}
 
 LOOP_RETRY:
 
 	if(iSim_Flag > 0)
 	{
 		for(i=0; i<iData__ROBOT_ARM_RNE; i++)
-			diEXT_CH__VAC_RB_RNE_X[i]->Set__DATA("None");
+			diEXT_CH__VAC_RB_RNE_X[i]->Set__DATA(sDATA__RNE_ON);
 	}
 
 	for(i=0; i<iData__ROBOT_ARM_RNE; i++)
 	{
-		int nRet = diEXT_CH__VAC_RB_RNE_X[i]->When__DATA("None", 2);
+		int nRet = diEXT_CH__VAC_RB_RNE_X[i]->When__DATA(sDATA__RNE_ON, 2);
 		if(nRet == 0)	return OBJ_ABORT;
 
 		CString var_data;
-		diEXT_CH__VAC_RB_RNE_X[1]->Get__DATA(var_data);
+		diEXT_CH__VAC_RB_RNE_X[i]->Get__DATA(var_data);
 
-		if(var_data.CompareNoCase("None") != 0)
+		if(var_data.CompareNoCase(sDATA__RNE_ON) != 0)
 		{
 			int alarm_id = ALID__VAC_RB_NOT_RETRACTED;
 
@@ -742,37 +841,46 @@ int  CObj__LBx_CHM_SLOT
 	int i;
 
 	for(i=0; i<iData__ROBOT_ARM_RNE; i++)
+	{
 		diEXT_CH__ATM_RB_RNE_X[i]->Link__UPPER_OBJECT_ABORT(sObject_Name);
+	}
 
 LOOP_RETRY:
 
 	if(iSim_Flag > 0)
 	{
 		for(i=0; i<iData__ROBOT_ARM_RNE; i++)
-			diEXT_CH__ATM_RB_RNE_X[i]->Set__DATA("None");
+			diEXT_CH__ATM_RB_RNE_X[i]->Set__DATA(sDATA__RNE_ON);
 	}
 
 	for(i=0; i<iData__ROBOT_ARM_RNE; i++)
 	{
-		int nRet = diEXT_CH__ATM_RB_RNE_X[i]->When__DATA("None", 2);
-		if(nRet == 0)	return OBJ_ABORT;	// Object Abort
+		int r_act = diEXT_CH__ATM_RB_RNE_X[i]->When__DATA(sDATA__RNE_ON, 2);
+		if(r_act == 0)			return -11;
 
-		diEXT_CH__ATM_RB_RNE_X[i]->Get__DATA(var_data);
+		// ...
+		CString cur__arm_sts = diEXT_CH__ATM_RB_RNE_X[i]->Get__STRING();
 
 		str_log.Format("ATM RB ARM[%s], [%s] Status...", 
-		diEXT_CH__ATM_RB_RNE_X[i]->Get__VARIABLE_NAME(), var_data);
+						diEXT_CH__ATM_RB_RNE_X[i]->Get__VARIABLE_NAME(), 
+						cur__arm_sts);
 		Fnc__LOG(str_log);
 
-		if(var_data.CompareNoCase("None") != 0)
+		if(cur__arm_sts.CompareNoCase(sDATA__RNE_ON) != 0)
 		{
 			int alarm_id = ALID__ATM_RB_NOT_RETRACTED;
 
 			CString err_msg;
+			CString err_bff;
 			CString r_act;
 
-			err_msg.Format("ATM Robot's Arm [%s] Status", var_data);
+			err_msg.Format("ATM Robot's Arm [%s] Status \n", cur__arm_sts);
+			err_bff.Format(" * Arm.Retract_State <- %s \n", sDATA__RNE_ON);
+			err_msg += err_bff;
+
 			Fnc__LOG(err_msg);	
-			p_alarm->Popup__ALARM(alarm_id,r_act);
+			
+			p_alarm->Popup__ALARM_With_MESSAGE(alarm_id, err_msg, r_act);
 
 			if(r_act.CompareNoCase(ACT__RETRY) == 0)
 			{
@@ -823,7 +931,7 @@ int  CObj__LBx_CHM_SLOT
 		double delay_time;
 		CString var_data;
 
-		aCH__CFG_VALVE_CLOSE_DELAY_TIME->Get__DATA(var_data);
+		aCH__CFG_VENT_VALVE_CLOSE_DELAY_TIME->Get__DATA(var_data);
 		delay_time = atof(var_data);
 		if(delay_time < 0.3)	delay_time = 0.3;
 
@@ -862,7 +970,7 @@ int  CObj__LBx_CHM_SLOT
 		double delay_time;
 		CString var_data;
 
-		aCH__CFG_VALVE_CLOSE_DELAY_TIME->Get__DATA(var_data);
+		aCH__CFG_VENT_VALVE_CLOSE_DELAY_TIME->Get__DATA(var_data);
 		delay_time = atof(var_data);
 		if(delay_time < 0.3)	delay_time = 0.3;
 
@@ -900,7 +1008,7 @@ int  CObj__LBx_CHM_SLOT
 		double delay_time;
 		CString var_data;
 
-		aCH__CFG_VALVE_CLOSE_DELAY_TIME->Get__DATA(var_data);
+		aCH__CFG_PUMP_VALVE_CLOSE_DELAY_TIME->Get__DATA(var_data);
 		delay_time = atof(var_data);
 		if(delay_time < 0.3)	delay_time = 0.3;
 
@@ -966,12 +1074,6 @@ int  CObj__LBx_CHM_SLOT
 
 	SCX__ASYNC_TIMER_CTRL x_timer_sv;
 	x_timer_sv->REGISTER__COUNT_CHANNEL(sObject_Name,aCH_SV_OPEN__TIME_COUNT->Get__VARIABLE_NAME());
-
-	if(iSim_Flag > 0)
-	{
-		for(int i=0; i<iLBx_SLOT_SIZE; i++)
-			diEXT_CH__LLx__SV_OPEN_X[i]->Set__DATA(STR__ON);
-	}
 
 	// 1. Already Sns Check..
 	if(Is__SLOT_SV_OPEN())
@@ -1155,15 +1257,33 @@ void CObj__LBx_CHM_SLOT::Fnc__LOG(const CString &sMsg)
 
 
 int  CObj__LBx_CHM_SLOT
-::_Update__ACTION_MIN_MAX(const int db_i,const double cur_sec)
+::_Update__ACTION_MIN_MAX(const int db_i,const int slot_i, const double cur_sec)
 {
-	CII__VAR_STRING_CTRL* p_ch_now = sCH__TAS_ACTION_TIME_NOW[db_i].Get__PTR();
-	CII__VAR_STRING_CTRL* p_ch_min = sCH__TAS_ACTION_TIME_MIN[db_i].Get__PTR();
-	CII__VAR_STRING_CTRL* p_ch_max = sCH__TAS_ACTION_TIME_MAX[db_i].Get__PTR();
+	if((slot_i >= 0) && (slot_i < iLBx_SLOT_SIZE))
+	{
+		_Fnc__ACTION_MIN_MAX(db_i,slot_i, cur_sec);
+		return 1;
+	}
 
-	CII__VAR_STRING_CTRL* p_ch_avg = sCH__TAS_ACTION_TIME_AVG[db_i].Get__PTR();
-	CII__VAR_STRING_CTRL* p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F[db_i].Get__PTR();
-	CII__VAR_ANALOG_CTRL* p_ch_cnt = aCH__TAS_ACTION_TIME_CNT[db_i].Get__PTR();
+	if(slot_i < 0)
+	{
+		for(int k=0; k<iLBx_SLOT_SIZE; k++)
+		{
+			_Fnc__ACTION_MIN_MAX(db_i,k, cur_sec);
+		}
+	}
+	return 1;
+}
+int  CObj__LBx_CHM_SLOT
+::_Fnc__ACTION_MIN_MAX(const int db_i,const int slot_i, const double cur_sec)
+{
+	CII__VAR_STRING_CTRL* p_ch_now = sCH__TAS_ACTION_TIME_NOW_SLOT[db_i][slot_i].Get__PTR();
+	CII__VAR_STRING_CTRL* p_ch_min = sCH__TAS_ACTION_TIME_MIN_SLOT[db_i][slot_i].Get__PTR();
+	CII__VAR_STRING_CTRL* p_ch_max = sCH__TAS_ACTION_TIME_MAX_SLOT[db_i][slot_i].Get__PTR();
+
+	CII__VAR_STRING_CTRL* p_ch_avg = sCH__TAS_ACTION_TIME_AVG_SLOT[db_i][slot_i].Get__PTR();
+	CII__VAR_STRING_CTRL* p_ch_avg_f = sCH__TAS_ACTION_TIME_AVG_F_SLOT[db_i][slot_i].Get__PTR();
+	CII__VAR_ANALOG_CTRL* p_ch_cnt = aCH__TAS_ACTION_TIME_CNT_SLOT[db_i][slot_i].Get__PTR();
 
 	// ...
 	CString ch_data;

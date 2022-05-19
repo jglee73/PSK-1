@@ -899,6 +899,7 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			}
 		}
 
+		//
 		str_name = "PRESSURE_CHECK.MODE";
 		LINK__EXT_VAR_DIGITAL_CTRL(xEXT_CH__CFG__PRESSURE_CHECK_MODE, db_cfg_name,str_name);
 
@@ -957,6 +958,9 @@ int CObj__DUAL_ARM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_DIGITAL_CTRL(xCH__ATM_RB__CFG_B_ARM_USE_MODE, db_name,"CFG.B.ARM.USE.FLAG");
 
 		// LLx : Scheduler - Dual Only Input & Output ...
+		str_name = "CFG.LLx_CTRL.ONLY_INPUT_OUTPUT.MODE";
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE, db_name,str_name);
+
 		str_name = "CFG.DUAL_ARM_MOVING_AT_THE_SAME_TIME";
 		LINK__EXT_VAR_DIGITAL_CTRL(dCH__ATM_RB__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME, db_name,str_name);
 

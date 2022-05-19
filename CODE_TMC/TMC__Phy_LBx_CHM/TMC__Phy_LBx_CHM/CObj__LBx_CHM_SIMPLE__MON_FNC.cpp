@@ -8,8 +8,6 @@
 void CObj__LBx_CHM_SIMPLE
 ::Mon__IO_MONITOR(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	SCX__TIMER_CTRL cx_timer_ctrl;
-
 	CString str__atm_sns;
 	CString str__vac_sns;
 	CString var__data;
@@ -19,26 +17,29 @@ void CObj__LBx_CHM_SIMPLE
 
 	if(iSim_Flag > 0)
 	{
-		// SLIT VALVE ...
+		if(bActive__LIFT_PIN)
 		{
-			diEXT_CH__LBx__SV_OPEN->Set__DATA(STR__OFF);
-			diEXT_CH__LBx__SV_CLOSE->Set__DATA(STR__ON);
-		}
-		// DOOR VALVE ...
-		{
-			diEXT_CH__LBx__DV_OPEN->Set__DATA(STR__OFF);
-			diEXT_CH__LBx__DV_CLOSE->Set__DATA(STR__ON);
-		}
-		// LIFT_PIN VALVE ...
-		{
-			diEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__OFF);
-			diEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__ON);
+			// SLIT VALVE ...
+			{
+				diEXT_CH__LBx__SV_OPEN->Set__DATA(STR__OFF);
+				diEXT_CH__LBx__SV_CLOSE->Set__DATA(STR__ON);
+			}
+			// DOOR VALVE ...
+			{
+				diEXT_CH__LBx__DV_OPEN->Set__DATA(STR__OFF);
+				diEXT_CH__LBx__DV_CLOSE->Set__DATA(STR__ON);
+			}
+			// LIFT_PIN VALVE ...
+			{
+				diEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__OFF);
+				diEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__ON);
+			}
 		}
 	}
 
 	while(1)
 	{
-		Sleep(9);
+		p_variable->Wait__SINGLE_OBJECT(0.01);
 
 		// PRESSURE ...
 		aiEXT_CH__LBx__PRESSURE_TORR->Get__DATA(var__data);
@@ -55,11 +56,11 @@ void CObj__LBx_CHM_SIMPLE
 			
 			if(cur_press < cfg_press)
 			{
-				diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
+				diEXT_CH__LBx__ATM_SENSOR->Set__DATA(sDATA__ATM_OFF);
 			}
 			else
 			{
-				diEXT_CH__LBx__ATM_SNS->Set__DATA("ATM");
+				diEXT_CH__LBx__ATM_SENSOR->Set__DATA(sDATA__ATM_ON);
 			}
 		}
 
@@ -103,37 +104,37 @@ void CObj__LBx_CHM_SIMPLE
 			int vac_sns = -1;
 			int atm_sns = -1;
 			
-			if(diEXT_CH__LBx__ATM_SNS->Check__DATA("ATM") > 0)		atm_sns = 1;
-			if(diEXT_CH__LBx__VAC_SNS->Check__DATA("VAC") > 0)		vac_sns = 1;
+			if(diEXT_CH__LBx__ATM_SENSOR->Check__DATA(sDATA__ATM_ON) > 0)		atm_sns = 1;
+			if(diEXT_CH__LBx__VAC_SENSOR->Check__DATA(sDATA__VAC_ON) > 0)		vac_sns = 1;
 
 			if((atm_range_min <= cur_press)
 			&& (atm_sns > 0)
 			&& (vac_sns < 0))
 			{
-				dCH__PRESSURE_STATUS->Set__DATA("ATM");
+				dCH__PRESSURE_STATUS->Set__DATA(STR__ATM);
 			}
 			else if((cur_press > 0)					// 0.0 이면 Gauge Offline 가능성 큼.. 
 				 &&	(cur_press <= ref_vac_max)
 				 && (atm_sns < 0)
 				 && (vac_sns > 0))
 			{
-				dCH__PRESSURE_STATUS->Set__DATA("VAC");
+				dCH__PRESSURE_STATUS->Set__DATA(STR__VAC);
 			}
 			else
 			{
-				dCH__PRESSURE_STATUS->Set__DATA("BTW");
+				dCH__PRESSURE_STATUS->Set__DATA(STR__BTW);
 			}
 		}
 
 		// ...
 		{
-			if(diEXT_CH__LBx__ATM_SNS->Check__DATA("ATM") > 0)
+			if(diEXT_CH__LBx__ATM_SENSOR->Check__DATA(sDATA__ATM_ON) > 0)
 			{
-				dCH__VAC_SNS->Set__DATA("OFF");
+				dCH__VAC_SNS->Set__DATA(STR__OFF);
 			}
 			else
 			{
-				dCH__VAC_SNS->Set__DATA("ON");
+				dCH__VAC_SNS->Set__DATA(STR__ON);
 			}
 		}
 
@@ -298,34 +299,37 @@ void CObj__LBx_CHM_SIMPLE
 {
 	if(iSim_Flag > 0)
 	{
-		CString ch_data;
+		if(bActive__LIFT_PIN)
+		{
+			CString ch_data;
 
-		doEXT_CH__LBx__LIFT_PIN_UP->Get__DATA(ch_data);
-		diEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(ch_data);
-
-		doEXT_CH__LBx__LIFT_PIN_DOWN->Get__DATA(ch_data);
-		diEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(ch_data);
-	}
-
-	// ...
-	CString str__up_sns;
-	CString str__down_sns;
+			ch_data = doEXT_CH__LBx__LIFT_PIN_UP->Get__STRING();
+			diEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(ch_data);
 	
-	diEXT_CH__LBx__LIFT_PIN_UP->Get__DATA(str__up_sns);
-	diEXT_CH__LBx__LIFT_PIN_DOWN->Get__DATA(str__down_sns);
+			ch_data = doEXT_CH__LBx__LIFT_PIN_DOWN->Get__STRING();
+			diEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(ch_data);
+		}
+	}
 
-	if((str__up_sns.CompareNoCase(STR__ON)    == 0)
-	&& (str__down_sns.CompareNoCase(STR__OFF) == 0))
+	if(bActive__LIFT_PIN)
 	{
-		dCH__LIFT_PIN_STATUS->Set__DATA(STR__UP);
-	}
-	else if((str__up_sns.CompareNoCase(STR__OFF)  == 0)
-		 && (str__down_sns.CompareNoCase(STR__ON) == 0))
-	{
-		dCH__LIFT_PIN_STATUS->Set__DATA(STR__DOWN);
-	}
-	else
-	{
-		dCH__LIFT_PIN_STATUS->Set__DATA(STR__UNKNOWN);
+		CString str__up_sns = diEXT_CH__LBx__LIFT_PIN_UP->Get__STRING();
+		CString str__dw_sns = diEXT_CH__LBx__LIFT_PIN_DOWN->Get__STRING();
+
+		if((str__up_sns.CompareNoCase(STR__ON)  == 0)
+		&& (str__dw_sns.CompareNoCase(STR__OFF) == 0))
+		{
+			dCH__LIFT_PIN_STATUS->Set__DATA(STR__UP);
+		}
+		else if((str__up_sns.CompareNoCase(STR__OFF) == 0)
+			 && (str__dw_sns.CompareNoCase(STR__ON)  == 0))
+		{
+			dCH__LIFT_PIN_STATUS->Set__DATA(STR__DOWN);
+		}
+		else
+		{
+			dCH__LIFT_PIN_STATUS->Set__DATA(STR__UNKNOWN);
+		}
 	}
 }
+

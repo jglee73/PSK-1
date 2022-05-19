@@ -17,18 +17,17 @@ void CObj__CHM_STD
 
 	if(iSim_Flag > 0)
 	{
-		diEXT_CH__ATM_SNS->Set__DATA("None");
-		diEXT_CH__VAC_SNS->Set__DATA("VAC");
+		diEXT_CH__ATM_SENSOR->Set__DATA(sDATA__ATM_OFF);
+		diEXT_CH__VAC_SENSOR->Set__DATA(sDATA__VAC_ON);
 
 		aiEXT_CH__TMC_CHM__PRESSURE_TORR->Set__DATA("0.001");
 	}
 	
 	while(1)
 	{
-		Sleep(100);
+		p_variable->Wait__SINGLE_OBJECT(0.1);
 		
-
-		// PRESSURE -----
+		// PRESSURE ...
 		{
 			aiEXT_CH__TMC_CHM__PRESSURE_TORR->Get__DATA(var__data);
 			aCH__TMC_CHM_PRESSURE_TORR->Set__DATA(var__data);
@@ -49,11 +48,11 @@ void CObj__CHM_STD
 
 			if(cur_press < cfg_press)
 			{
-				diEXT_CH__ATM_SNS->Set__DATA("None");
+				diEXT_CH__ATM_SENSOR->Set__DATA(sDATA__ATM_OFF);
 			}
 			else
 			{
-				diEXT_CH__ATM_SNS->Set__DATA("ATM");
+				diEXT_CH__ATM_SENSOR->Set__DATA(sDATA__ATM_ON);
 			}
 		}
 
@@ -65,7 +64,7 @@ void CObj__CHM_STD
 			double atm_range_min, atm_range_max;
 			double tolerance_atm_press;
 
-			// ... Get Pressure Value
+			// Get Pressure Value ...
 			aCH__TMC_CHM_PRESSURE_TORR->Get__DATA(var__data);
 			cur_press = atof(var__data);
 
@@ -75,42 +74,42 @@ void CObj__CHM_STD
 			aEXT_CH__CFG_REF_VAC_PRESSURE->Get__DATA(var__data);
 			ref_vac_press = atof(var__data);
 
-			// Get Atm Tolerance...
+			// Get ATM Tolerance...
 			aCH__CFG_ATM_PRESS_STS_TOLERANCE->Get__DATA(var__data);
 			tolerance_atm_press = atof(var__data);
 
 			atm_range_min = ref_atm_press - tolerance_atm_press;
 			atm_range_max = ref_atm_press + tolerance_atm_press;
 
-			// ... Get Sensor Value
-			diEXT_CH__ATM_SNS->Get__DATA(str__atm_sns);
-			diEXT_CH__VAC_SNS->Get__DATA(str__vac_sns);
+			// Get Sensor Value ...
+			diEXT_CH__ATM_SENSOR->Get__DATA(str__atm_sns);
+			diEXT_CH__VAC_SENSOR->Get__DATA(str__vac_sns);
 
-			if( (cur_press >= atm_range_min) 
-			&& 	((str__atm_sns.CompareNoCase("ATM") == 0) && (str__vac_sns.CompareNoCase("None") == 0)) )
+			if((cur_press >= atm_range_min) 
+			&& ((str__atm_sns.CompareNoCase(sDATA__ATM_ON) == 0) && (str__vac_sns.CompareNoCase(sDATA__VAC_OFF) == 0)))
 			{
-				dCH__TMC_CHM_PRESSURE_STATUS->Set__DATA("ATM");
+				dCH__TMC_CHM_PRESSURE_STATUS->Set__DATA(STR__ATM);
 			}
-			else if( ((cur_press <= ref_vac_press) && (cur_press > 0)) 
-				 &&  ((str__atm_sns.CompareNoCase("None") == 0) && (str__vac_sns.CompareNoCase("VAC") == 0)) )
+			else if(((cur_press <= ref_vac_press) && (cur_press > 0)) 
+				 && ((str__atm_sns.CompareNoCase(sDATA__ATM_OFF) == 0) && (str__vac_sns.CompareNoCase(sDATA__VAC_ON) == 0)))
 			{
-				dCH__TMC_CHM_PRESSURE_STATUS->Set__DATA("VAC");
+				dCH__TMC_CHM_PRESSURE_STATUS->Set__DATA(STR__VAC);
 			}
 			else
 			{
-				dCH__TMC_CHM_PRESSURE_STATUS->Set__DATA("BTW");
+				dCH__TMC_CHM_PRESSURE_STATUS->Set__DATA(STR__BTW);
 			}			
 		}
 
 		// ...
 		{
-			if(diEXT_CH__ATM_SNS->Check__DATA(STR__ATM) > 0)
+			if(diEXT_CH__ATM_SENSOR->Check__DATA(sDATA__ATM_ON) > 0)
 			{
-				dCH__TMC_CMH_VAC_SNS->Set__DATA("OFF");
+				dCH__TMC_CMH_VAC_SNS->Set__DATA(STR__OFF);
 			}
 			else
 			{
-				dCH__TMC_CMH_VAC_SNS->Set__DATA("ON");
+				dCH__TMC_CMH_VAC_SNS->Set__DATA(STR__ON);
 			}
 		}
 
@@ -207,9 +206,6 @@ int CObj__CHM_STD
 	CString    szData, szData_bak;
 	CString    szData_DOOR_bak, szData_CLAMP_bak;
 
-	SCX__TIMER_CTRL Wait_Time;	
-	Wait_Time->REGISTER__ABORT_OBJECT(sObject_Name);
-
 	szData_bak			= "~";
 	szData_DOOR_bak		= "~";
 	szData_CLAMP_bak	= "~";
@@ -252,10 +248,12 @@ int CObj__CHM_STD
 	
 	int nPGSet_RUN     = -1;
 	int nPGSet_DISABLE = -1;
-	
+
+
 	while(1)
 	{
-		Wait_Time->WAIT(0.100);
+		p_variable->Wait__SINGLE_OBJECT(0.1);
+
 
 		if(dTM_BALLAST_CTRL_INIT_FLAG->Check__DATA("NONE") > 0)	
 		{

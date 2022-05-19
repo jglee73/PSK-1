@@ -3,6 +3,8 @@
 #include "CObj__LBx_CHM_SIMPLE__ALID.h"
 #include "CObj__LBx_CHM_SIMPLE__DEF.h"
 
+#include "CCommon_Utility.h"
+
 
 //-------------------------------------------------------------------------
 CObj__LBx_CHM_SIMPLE::CObj__LBx_CHM_SIMPLE()
@@ -787,8 +789,12 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString var_name;
 	int i;
 
+	// ...
+	CCommon_Utility x_utility;
+	bool def_check;
 
-	// OBJ INFO -----
+
+	// OBJ INFO ...
 	{
 		def_name = "LBx_NAME";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
@@ -889,22 +895,26 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			def_name = "LINK_OBJ.GAS";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-			if(obj_name.CompareNoCase("NO") == 0)			pOBJ_CTRL__GAS = NULL;
-			else											pOBJ_CTRL__GAS = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
-			
-			if(pOBJ_CTRL__GAS == NULL)			bActive__OBJ_GAS = FALSE;
-			else								bActive__OBJ_GAS = TRUE;	
+			def_check = x_utility.Check__Link(obj_name);
+			bActive__OBJ_GAS = def_check;
+
+			if(def_check)
+			{
+				pOBJ_CTRL__GAS = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);			
+			}
 		}
 		// OBJ : VAT ...
 		{
 			def_name = "LINK_OBJ.VAT";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+			
+			def_check = x_utility.Check__Link(obj_name);
+			bActive__OBJ_VAT = def_check;
 
-			if(obj_name.CompareNoCase("NO") == 0)			pOBJ_CTRL__VAT = NULL;
-			else											pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
-
-			if(pOBJ_CTRL__VAT == NULL)			bActive__OBJ_VAT = FALSE;
-			else								bActive__OBJ_VAT = TRUE;	
+			if(def_check)
+			{
+				pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+			}
 		}
 
 		// GAUGE ...
@@ -912,14 +922,11 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			def_name = "VAR__IO_GAUGE_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-			if(def_data.CompareNoCase("NO") == 0)
-			{
-				bAtive__GAUGE_VLV = FALSE;
-			}
-			else
-			{
-				bAtive__GAUGE_VLV = TRUE;
+			def_check = x_utility.Check__Link(def_data);
+			bAtive__GAUGE_VLV = def_check;
 
+			if(def_check)
+			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__GAUGE_VLV, obj_name,var_name);
 			}
@@ -930,14 +937,11 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			def_name = "VAR__LID_CLOSE_SNS";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-			if(def_data.CompareNoCase("NO") == 0)
-			{
-				bActive__LID_CLOSE = FALSE;
-			}
-			else
-			{
-				bActive__LID_CLOSE = TRUE;
+			def_check = x_utility.Check__Link(def_data);
+			bActive__LID_CLOSE = def_check;
 
+			if(def_check)
+			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LID_CLOSE_SNS, obj_name,var_name);
 			}
@@ -1025,27 +1029,36 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 		// LIFT_PIN ...
 		{
-			// do
-			def_name = "VAR__IO_DO_LIFT_PIN_UP";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LBx__LIFT_PIN_UP, obj_name,var_name);
+			def_name = "LIFT_PIN.USE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			
+			def_check = x_utility.Check__Link(def_data);
+			bActive__LIFT_PIN = def_check;
 
-			def_name = "VAR__IO_DO_LIFT_PIN_DOWN";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LBx__LIFT_PIN_DOWN, obj_name,var_name);
+			if(def_check)
+			{
+				// do
+				def_name = "VAR__IO_DO_LIFT_PIN_UP";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LBx__LIFT_PIN_UP, obj_name,var_name);
 
-			// di
-			def_name = "VAR__IO_DI_LIFT_PIN_UP";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__LIFT_PIN_UP, obj_name,var_name);
+				def_name = "VAR__IO_DO_LIFT_PIN_DOWN";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LBx__LIFT_PIN_DOWN, obj_name,var_name);
 
-			def_name = "VAR__IO_DI_LIFT_PIN_DOWN";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
-			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__LIFT_PIN_DOWN, obj_name,var_name);
+				// di
+				def_name = "VAR__IO_DI_LIFT_PIN_UP";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__LIFT_PIN_UP, obj_name,var_name);
+
+				def_name = "VAR__IO_DI_LIFT_PIN_DOWN";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__LIFT_PIN_DOWN, obj_name,var_name);
+			}
 		}
 
 		// Robot Arm Sns ...
@@ -1064,7 +1077,7 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
-	// PUMP OBJECT -----
+	// PUMP OBJECT ...
 	{
 		def_name = "OBJ__PUMP";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
@@ -1079,10 +1092,8 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__MON_PUMP_RUN_STS, def_data,str_name);
 	}
 
-	// GAUGE IO OBJECT -----
+	// GAUGE IO OBJECT ...
 	{
-		CString obj_name, var_name;
-
 		def_name = "VAR__PRESSURE_TORR";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
@@ -1096,18 +1107,42 @@ int CObj__LBx_CHM_SIMPLE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		//
 		def_name = "DATA.ATM_SNS.VIRTUAL_TYPE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-		if(def_data.CompareNoCase("YES") == 0)		bActive__ATM_SNS_Virtual_Type = true;
-		else										bActive__ATM_SNS_Virtual_Type = false;
 
-		def_name = "VAR__ATM_SNS";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__ATM_SNS, obj_name,var_name);
+		def_check = x_utility.Check__Link(def_data);
+		bActive__ATM_SNS_Virtual_Type = def_check;
 
-		def_name = "VAR__VAC_SNS";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__VAC_SNS, obj_name,var_name);
+		// ATM.SNS ...
+		{
+			def_name = "VAR__ATM_SNS";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__ATM_SENSOR, obj_name,var_name);
+
+			//
+			def_name = "DATA.ATM_ON";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			sDATA__ATM_ON = def_data;
+
+			def_name = "DATA.ATM_OFF";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			sDATA__ATM_OFF = def_data;
+		}
+		// VAC.SNS ...
+		{
+			def_name = "VAR__VAC_SNS";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__VAC_SENSOR, obj_name,var_name);
+
+			//
+			def_name = "DATA.VAC_ON";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			sDATA__VAC_ON = def_data;
+
+			def_name = "DATA.VAC_OFF";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+			sDATA__VAC_OFF = def_data;
+		}
 	}
 
 	// PHY_TM : TMÀÇ Pressure Status (ATM, VAC, BTW)

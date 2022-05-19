@@ -394,6 +394,10 @@ int CObj_Phy__ROBOT_ATM::__DEFINE__VARIABLE_STD(p_variable)
 
 	// LLx : Scheduler - Dual Only Input & Output ...
 	{
+		str_name = "CFG.LLx_CTRL.ONLY_INPUT_OUTPUT.MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "SINGLE DUAL", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE, str_name);
+
 		str_name = "CFG.DUAL_ARM_MOVING_AT_THE_SAME_TIME";
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "DISABLE ENABLE", "");
 		LINK__VAR_DIGITAL_CTRL(dCH__CFG_DUAL_ARM_MOVING_AT_THE_SAME_TIME, str_name);

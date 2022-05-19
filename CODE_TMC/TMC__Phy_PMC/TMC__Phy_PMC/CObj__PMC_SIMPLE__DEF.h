@@ -14,6 +14,7 @@
 #define  STR__ON				"ON"
 #define  STR__OFF				"OFF"
 
+#define  STR__NO				"NO"
 #define  STR__YES				"YES"
 
 #define  STR__VAC				"VAC"
@@ -32,3 +33,7 @@
 #define  STR__LBA_DV			"LBA_DV"
 #define  STR__LBB_SV			"LBB_SV"
 #define  STR__LBB_DV			"LBB_DV"
+
+// ...
+#define  STR__STANDBY			"STANDBY"
+

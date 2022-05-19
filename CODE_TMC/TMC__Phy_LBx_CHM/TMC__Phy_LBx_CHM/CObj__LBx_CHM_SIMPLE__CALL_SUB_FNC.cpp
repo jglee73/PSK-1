@@ -450,17 +450,16 @@ LOOP_RETRY:
 
 	if(iSim_Flag > 0)
 	{
-		diEXT_CH__VAC_RB_RNE->Set__DATA("None");
+		diEXT_CH__VAC_RB_RNE->Set__DATA(STR__ON);
 	}
 
-	// ...
-	int nRet = diEXT_CH__VAC_RB_RNE->When__DATA("None", 2);
-	if(nRet == 0)	return OBJ_ABORT;
+	int r_flag = diEXT_CH__VAC_RB_RNE->When__DATA(STR__ON, 2);
+	if(r_flag == 0)			return -11;
 
 	CString var_data;
 	diEXT_CH__VAC_RB_RNE->Get__DATA(var_data);
 
-	if(var_data.CompareNoCase("None") != 0)
+	if(var_data.CompareNoCase(STR__ON) != 0)
 	{
 		int alarm_id = ALID__VAC_RB_NOT_RETRACTED;
 
@@ -470,7 +469,7 @@ LOOP_RETRY:
 		err_msg.Format("VAC Robot's Arm [%s] Status", var_data);	
 		Fnc__LOG(err_msg);	
 
-		p_alarm->Popup__ALARM(alarm_id,r_act);
+		p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,r_act, err_msg);
 
 		if(r_act.CompareNoCase(ACT__RETRY) == 0)
 		{
@@ -485,29 +484,22 @@ LOOP_RETRY:
 int  CObj__LBx_CHM_SIMPLE
 ::Is_DV_CLOSE_CONDITION(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	CString var_data;
-	CString str_log;
-
 	diEXT_CH__ATM_RB_RNE->Link__UPPER_OBJECT_ABORT(sObject_Name);
 
 LOOP_RETRY:
 
 	if(iSim_Flag > 0)
 	{
-		diEXT_CH__ATM_RB_RNE->Set__DATA("None");
+		diEXT_CH__ATM_RB_RNE->Set__DATA(STR__ON);
 	}
 
-	// ...
-	int nRet = diEXT_CH__ATM_RB_RNE->When__DATA("None", 2);
-	if(nRet == 0)	return OBJ_ABORT;	// Object Abort
+	int r_flag = diEXT_CH__ATM_RB_RNE->When__DATA(STR__ON, 2);
+	if(r_flag < 0)			return -11;
 
+	CString var_data;
 	diEXT_CH__ATM_RB_RNE->Get__DATA(var_data);
 
-	str_log.Format("ATM RB ARM[%s], [%s] Status...", 
-		diEXT_CH__ATM_RB_RNE->Get__VARIABLE_NAME(), var_data);
-	Fnc__LOG(str_log);
-
-	if(var_data.CompareNoCase("None") != 0)
+	if(var_data.CompareNoCase(STR__ON) != 0)
 	{
 		int alarm_id = ALID__ATM_RB_NOT_RETRACTED;
 
@@ -516,7 +508,8 @@ LOOP_RETRY:
 
 		err_msg.Format("ATM Robot's Arm [%s] Status", var_data);
 		Fnc__LOG(err_msg);	
-		p_alarm->Popup__ALARM(alarm_id,r_act);
+
+		p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,r_act, err_msg);
 
 		if(r_act.CompareNoCase(ACT__RETRY) == 0)
 		{

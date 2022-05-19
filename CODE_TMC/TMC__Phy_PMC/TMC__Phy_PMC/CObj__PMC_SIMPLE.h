@@ -11,11 +11,13 @@ class CObj__PMC_SIMPLE : public __IOBJ__STD_TYPE
 private:
 	//-------------------------------------------------------------------------
 	CString sObject_Name;
-	int m_nPM_LIMIT;
+
+	// ...
+	int iPM_LIMIT;
 
 	SCX__USER_LOG_CTRL xLOG_CTRL;
-	int iSim_Flag;
-
+	int iActive__SIM_MODE;
+	//
 
 	//-------------------------------------------------------------------------
 	// INTERNAL PROPERTY
@@ -118,6 +120,8 @@ private:
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_SIM_SLOT_VLV_CLOSE_TIME;
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_SIM_SLOT_VLV_OPEN_TIME;
 
+	CX__VAR_DIGITAL_CTRL dEXT_CH__SCH_TEST_CFG_PM_DUMMY_BY_CTC;
+
 	// PHY_TM OBJECT -----
 	CX__VAR_DIGITAL_CTRL dEXT_CH__PHY_TM__PRESS_STS;
 	CX__VAR_ANALOG_CTRL  aEXT_CH__PHY_TM__PRESS_TORR;
@@ -133,11 +137,19 @@ private:
 
 	CX__VAR_DIGITAL_CTRL diEXT_CH__PMx__ATM_SNS[CFG_PMx__SIZE];
 	CX__VAR_DIGITAL_CTRL diEXT_CH__PMx__VAC_SNS[CFG_PMx__SIZE];
-	
-	CX__VAR_DIGITAL_CTRL diEXT_CH__TMC__VAC_SNS;
-	CX__VAR_DIGITAL_CTRL diEXT_CH__TMC__ATM_SNS;
-	
+
 	CX__VAR_DIGITAL_CTRL diEXT_CH__VAC_RB__RNE_PM_X[CFG_PMx__SIZE];
+
+	// ATM & VAC STATE ...
+	CString sDATA__ATM_ON;
+	CString sDATA__ATM_OFF;
+
+	CString sDATA__VAC_ON;
+	CString sDATA__VAC_OFF;
+
+	// ARM_RNE.STATE ...
+	CString sDATA__RNE_ON;
+	CString sDATA__RNE_OFF;
 	//
 
 

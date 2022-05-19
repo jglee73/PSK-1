@@ -202,11 +202,11 @@ LOOP_RETRY:
 
 	if(iSim_Flag > 0)
 	{
-		diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
-		diEXT_CH__LBx__VAC_SNS->Set__DATA("None");
+		diEXT_CH__LBx__ATM_SENSOR->Set__DATA(sDATA__ATM_OFF);
+		diEXT_CH__LBx__VAC_SENSOR->Set__DATA(sDATA__VAC_OFF);
 	}
 
-	// Soft Pumping -----
+	// Soft Pumping ...
 	Fnc__LOG("Soft Pump Valve Open !!");
 
 	if(dCH__CFG_USE_SOFT_PUMP_VALVE->Check__DATA(STR__NO) > 0)
@@ -330,8 +330,8 @@ START_FAST_PUMP:
 
 	if(iSim_Flag > 0)
 	{
-		diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
-		diEXT_CH__LBx__VAC_SNS->Set__DATA("VAC");
+		diEXT_CH__LBx__ATM_SENSOR->Set__DATA(sDATA__ATM_OFF);
+		diEXT_CH__LBx__VAC_SENSOR->Set__DATA(sDATA__VAC_ON);
 	}
 
 	// ...
@@ -414,12 +414,12 @@ START_FAST_PUMP:
 
 				alarm_msg += "Sensor State ... \n";
 				str_sns.Format("  * %s <- %s \n", 
-							   diEXT_CH__LBx__ATM_SNS->Get__CHANNEL_NAME(),
-							   diEXT_CH__LBx__ATM_SNS->Get__STRING());
+							   diEXT_CH__LBx__ATM_SENSOR->Get__CHANNEL_NAME(),
+							   diEXT_CH__LBx__ATM_SENSOR->Get__STRING());
 				alarm_msg += str_sns;
 				str_sns.Format("  * %s <- %s \n",
-					           diEXT_CH__LBx__VAC_SNS->Get__CHANNEL_NAME(),
-							   diEXT_CH__LBx__VAC_SNS->Get__STRING());
+					           diEXT_CH__LBx__VAC_SENSOR->Get__CHANNEL_NAME(),
+							   diEXT_CH__LBx__VAC_SENSOR->Get__STRING());
 				alarm_msg += str_sns;
 
 				dCH__PRESSURE_STATUS->Get__DATA(var_data);
@@ -534,7 +534,6 @@ int  CObj__LBx_CHM_SIMPLE
 		double  cfg__press;
 
 		cfg__press = aCFG_CH_CONVECT_ATM_HIGH_PRESS->Get__VALUE();
-		cfg__press = cfg__press * 0.001;			// mtorr -> torr
 
 		if(cfg__press > 700)
 		{
@@ -544,11 +543,15 @@ int  CObj__LBx_CHM_SIMPLE
 			{
 				int alm_id = ALID__CONVECTRON_ATM_HIGH_PRESS_ALARM;
 				CString alm_msg;
+				CString alm_bff;
 
-				alm_msg.Format("%s Module.. After Venting Complete, Current Press %.3f (torr) > Config %.3f (torr) Status.\n", 
-					           m_sLBx__MODULE_NAME, 
-							   cur__press, 
-							   cfg__press);
+				alm_msg = "After venting complete, \n";
+
+				alm_bff.Format(" * current pressure <- %.1f (torr) \n", cur__press);
+				alm_msg += alm_bff;
+
+				alm_msg.Format(" * config pressure <- %.1f (torr) \n", cfg__press);
+				alm_msg += alm_bff;
 
 				p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
 				return OBJ_ABORT;
@@ -615,8 +618,8 @@ LOOP_RETRY:
 
 		if(iSim_Flag > 0)
 		{
-			diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
-			diEXT_CH__LBx__VAC_SNS->Set__DATA("None");
+			diEXT_CH__LBx__ATM_SENSOR->Set__DATA(sDATA__ATM_OFF);
+			diEXT_CH__LBx__VAC_SENSOR->Set__DATA(sDATA__VAC_OFF);
 		}
 
 		// ...
@@ -693,12 +696,12 @@ LOOP_RETRY:
 
 						alm_msg += "Sensor State ... \n";
 						alm_bff.Format("  * %s <- %s \n", 
-									   diEXT_CH__LBx__ATM_SNS->Get__CHANNEL_NAME(),
-									   diEXT_CH__LBx__ATM_SNS->Get__STRING());
+									   diEXT_CH__LBx__ATM_SENSOR->Get__CHANNEL_NAME(),
+									   diEXT_CH__LBx__ATM_SENSOR->Get__STRING());
 						alm_msg += alm_bff;
 						alm_bff.Format("  * %s <- %s \n",
-										diEXT_CH__LBx__VAC_SNS->Get__CHANNEL_NAME(),
-										diEXT_CH__LBx__VAC_SNS->Get__STRING());
+										diEXT_CH__LBx__VAC_SENSOR->Get__CHANNEL_NAME(),
+										diEXT_CH__LBx__VAC_SENSOR->Get__STRING());
 						alm_msg += alm_bff;
 
 						dCH__PRESSURE_STATUS->Get__DATA(var_data);
@@ -746,8 +749,8 @@ LOOP_RETRY:
 
 		if(iSim_Flag > 0)
 		{
-			diEXT_CH__LBx__ATM_SNS->Set__DATA("ATM");
-			diEXT_CH__LBx__VAC_SNS->Set__DATA("None");
+			diEXT_CH__LBx__ATM_SENSOR->Set__DATA(sDATA__ATM_ON);
+			diEXT_CH__LBx__VAC_SENSOR->Set__DATA(sDATA__VAC_OFF);
 		}
 
 		// ...
@@ -827,12 +830,12 @@ LOOP_RETRY:
 
 						alm_msg += "Sensor State ... \n";
 						alm_bff.Format("  * %s <- %s \n", 
-									   diEXT_CH__LBx__ATM_SNS->Get__CHANNEL_NAME(),
-									   diEXT_CH__LBx__ATM_SNS->Get__STRING());
+									   diEXT_CH__LBx__ATM_SENSOR->Get__CHANNEL_NAME(),
+									   diEXT_CH__LBx__ATM_SENSOR->Get__STRING());
 						alm_msg += alm_bff;
 						alm_bff.Format("  * %s <- %s \n",
-									   diEXT_CH__LBx__VAC_SNS->Get__CHANNEL_NAME(),
-									   diEXT_CH__LBx__VAC_SNS->Get__STRING());
+									   diEXT_CH__LBx__VAC_SENSOR->Get__CHANNEL_NAME(),
+									   diEXT_CH__LBx__VAC_SENSOR->Get__STRING());
 						alm_msg += alm_bff;
 
 						dCH__PRESSURE_STATUS->Get__DATA(var_data);
@@ -1383,6 +1386,11 @@ int  CObj__LBx_CHM_SIMPLE
 int  CObj__LBx_CHM_SIMPLE
 ::Fnc__LIFT_PIN_UP(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
+	if(!bActive__LIFT_PIN)
+	{
+		return -11;
+	}
+
 	// ...
 	{
 		CString str_log;
@@ -1411,7 +1419,7 @@ LOOP_RETRY:
 		else if(r_act.CompareNoCase(ACT__ABORT) == 0)		return OBJ_ABORT;
 	}
 
-	// ...
+	if(bActive__LIFT_PIN)
 	{
 		doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__ON);
 		doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__OFF);
@@ -1477,6 +1485,11 @@ int  CObj__LBx_CHM_SIMPLE
 int  CObj__LBx_CHM_SIMPLE
 ::Fnc__LIFT_PIN_DOWN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
+	if(!bActive__LIFT_PIN)
+	{
+		return -11;
+	}
+
 	// ...
 	{
 		CString str_log;
@@ -1505,7 +1518,7 @@ LOOP_RETRY:
 		else if(r_act.CompareNoCase(ACT__ABORT) == 0)		return OBJ_ABORT;
 	}
 
-	// ...
+	if(bActive__LIFT_PIN)
 	{
 		doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__OFF);
 		doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__ON);
@@ -1566,11 +1579,16 @@ LOOP_RETRY:
 int  CObj__LBx_CHM_SIMPLE
 ::Is__LIFT_PIN_UP(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	CString str_log;
+	if(!bActive__LIFT_PIN)
+	{
+		return -11;
+	}
 
 	if((diEXT_CH__LBx__LIFT_PIN_UP->Check__DATA(STR__ON)    > 0)
 	&& (diEXT_CH__LBx__LIFT_PIN_DOWN->Check__DATA(STR__OFF) > 0))
 	{
+		CString str_log;
+
 		str_log.Format("Already... %s's Lift_Pin Up sts ...", m_sLBx__MODULE_NAME);
 		Fnc__LOG(str_log);
 		return 1;
@@ -1581,11 +1599,16 @@ int  CObj__LBx_CHM_SIMPLE
 int  CObj__LBx_CHM_SIMPLE
 ::Is__LIFT_PIN_DOWN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	CString str_log;
+	if(!bActive__LIFT_PIN)
+	{
+		return -11;
+	}
 
 	if((diEXT_CH__LBx__LIFT_PIN_UP->Check__DATA(STR__OFF)  > 0)
 	&& (diEXT_CH__LBx__LIFT_PIN_DOWN->Check__DATA(STR__ON) > 0))
 	{
+		CString str_log;
+
 		str_log.Format("Already... %s's Lift_Pin Down sts ...", m_sLBx__MODULE_NAME);
 		Fnc__LOG(str_log);
 		return 1;
@@ -1613,12 +1636,17 @@ int  CObj__LBx_CHM_SIMPLE
 	}
 
 	// ...
-	int cfg_use = dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE");
+	int cfg_use = -1;
 
-	if(cfg_use > 0)
+	if(bActive__LIFT_PIN)
 	{
-		doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__ON);
-		doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__OFF);
+		cfg_use = dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE");
+
+		if(cfg_use > 0)
+		{
+			doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__ON);
+			doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__OFF);
+		}
 	}
 
 	// ...
@@ -1653,16 +1681,19 @@ int  CObj__LBx_CHM_SIMPLE
 	// ...
 	int cfg_use = -1;
 
-	if((dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE") > 0)
-	&& (dEXT_CH__CFG_LLx_LIFT_PIN_DOWM_MODE_AFTER_DOOR_CLOSE->Check__DATA("ENABLE") > 0))
+	if(bActive__LIFT_PIN)
 	{
-		cfg_use = 1;
-	}
+		if((dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE") > 0)
+		&& (dEXT_CH__CFG_LLx_LIFT_PIN_DOWM_MODE_AFTER_DOOR_CLOSE->Check__DATA("ENABLE") > 0))
+		{
+			cfg_use = 1;
+		}
 
-	if(cfg_use > 0)
-	{
-		doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__OFF);
-		doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__ON);
+		if(cfg_use > 0)
+		{
+			doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__OFF);
+			doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__ON);
+		}
 	}
 
 	// ...
@@ -1696,12 +1727,17 @@ int  CObj__LBx_CHM_SIMPLE
 	}
 
 	// ...
-	int cfg_use = dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE");
+	int cfg_use = -1;
 
-	if(cfg_use > 0)
+	if(bActive__LIFT_PIN)
 	{
-		doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__ON);
-		doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__OFF);
+		int cfg_use = dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE");
+
+		if(cfg_use > 0)
+		{
+			doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__ON);
+			doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__OFF);
+		}
 	}
 
 	// ...
@@ -1736,16 +1772,19 @@ int  CObj__LBx_CHM_SIMPLE
 	// ...
 	int cfg_use = -1;
 
-	if((dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE") > 0)
-	&& (dEXT_CH__CFG_LLx_LIFT_PIN_DOWM_MODE_AFTER_DOOR_CLOSE->Check__DATA("ENABLE") > 0))
+	if(bActive__LIFT_PIN)
 	{
-		cfg_use = 1;
-	}
+		if((dEXT_CH__CFG_LLx_LIFT_PIN_EXIST_FLAG->Check__DATA("TRUE") > 0)
+		&& (dEXT_CH__CFG_LLx_LIFT_PIN_DOWM_MODE_AFTER_DOOR_CLOSE->Check__DATA("ENABLE") > 0))
+		{
+			cfg_use = 1;
+		}
 
-	if(cfg_use > 0)
-	{
-		doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__OFF);
-		doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__ON);
+		if(cfg_use > 0)
+		{
+			doEXT_CH__LBx__LIFT_PIN_UP->Set__DATA(STR__OFF);
+			doEXT_CH__LBx__LIFT_PIN_DOWN->Set__DATA(STR__ON);
+		}
 	}
 
 	// ...
@@ -1830,7 +1869,7 @@ int  CObj__LBx_CHM_SIMPLE
 		}
 	}
 
-	if(diEXT_CH__LBx__VAC_SNS->Check__DATA(STR__VAC) < 0)
+	if(diEXT_CH__LBx__VAC_SENSOR->Check__DATA(sDATA__VAC_ON) < 0)
 	{
 		// Alarm Post ...
 		{

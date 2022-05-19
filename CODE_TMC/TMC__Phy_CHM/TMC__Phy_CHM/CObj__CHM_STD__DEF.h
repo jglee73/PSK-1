@@ -16,6 +16,7 @@
 #define  STR__NONE				"NONE"
 #define  STR__ATM				"ATM"
 #define  STR__VAC				"VAC"
+#define  STR__BTW				"BTW"
 
 // ...
 #define  STR__ON				"ON"
@@ -27,3 +28,4 @@
 // ...
 #define  STR__OFFLINE           "OFFLINE"
 #define  STR__ONLINE			"ONLINE"
+

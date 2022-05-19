@@ -8,8 +8,6 @@
 void CObj__LBx_CHM_SLOT
 ::Mon__IO_MONITOR(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	SCX__TIMER_CTRL cx_timer_ctrl;
-
 	CString str__atm_sns;
 	CString str__vac_sns;
 	CString var__data;
@@ -40,7 +38,7 @@ void CObj__LBx_CHM_SLOT
 
 	while(1)
 	{
-		Sleep(9);
+		p_variable->Wait__SINGLE_OBJECT(0.01);
 
 		// PRESSURE ...
 		aiEXT_CH__LBx__PRESSURE_TORR->Get__DATA(var__data);
@@ -57,11 +55,11 @@ void CObj__LBx_CHM_SLOT
 
 			if(cur_press < cfg_press)
 			{
-				diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
+				diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_OFF);
 			}
 			else
 			{
-				diEXT_CH__LBx__ATM_SNS->Set__DATA("ATM");
+				diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_ON);
 			}
 		}
 
@@ -105,19 +103,19 @@ void CObj__LBx_CHM_SLOT
 			int vac_sns = -1;
 			int atm_sns = -1;
 
-			if(diEXT_CH__LBx__ATM_SNS->Check__DATA("ATM") > 0)		atm_sns = 1;
-			if(diEXT_CH__LBx__VAC_SNS->Check__DATA("VAC") > 0)		vac_sns = 1;
+			if(diEXT_CH__LBx__ATM_SNS->Check__DATA(sDATA__ATM_ON) > 0)		atm_sns = 1;
+			if(diEXT_CH__LBx__VAC_SNS->Check__DATA(sDATA__VAC_ON) > 0)		vac_sns = 1;
 
 			if((atm_range_min <= cur_press)
-				&& (atm_sns > 0)
-				&& (vac_sns < 0))
+			&& (atm_sns > 0)
+			&& (vac_sns < 0))
 			{
 				dCH__PRESSURE_STATUS->Set__DATA("ATM");
 			}
 			else if((cur_press > 0)					// 0.0 이면 Gauge Offline 가능성 큼.. 
-				&&	(cur_press <= ref_vac_max)
-				&& (atm_sns < 0)
-				&& (vac_sns > 0))
+				 && (cur_press <= ref_vac_max)
+				 && (atm_sns < 0)
+				 && (vac_sns > 0))
 			{
 				dCH__PRESSURE_STATUS->Set__DATA("VAC");
 			}
@@ -129,7 +127,7 @@ void CObj__LBx_CHM_SLOT
 
 		// ...
 		{
-			if(diEXT_CH__LBx__ATM_SNS->Check__DATA("ATM") > 0)
+			if(diEXT_CH__LBx__ATM_SNS->Check__DATA(sDATA__ATM_ON) > 0)
 			{
 				dCH__VAC_SNS->Set__DATA("OFF");
 			}
@@ -159,18 +157,23 @@ void CObj__LBx_CHM_SLOT
 void CObj__LBx_CHM_SLOT
 ::Fnc__INTERLOCK(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	if(sCH__TAS_RESET_REQ->Check__DATA("") < 0)
-	{
-		sCH__TAS_RESET_REQ->Set__DATA("");
+	int k;
 
-		for(int i=0; i<CFG_ACT__SIZE; i++)
+	for(k=0; k<CFG_LBx__SLOT_SIZE; k++)
+	{
+		if(sCH__TAS_RESET_REQ_SLOT[k]->Check__DATA("") < 0)
 		{
-			sCH__TAS_ACTION_TIME_NOW[i]->Set__DATA("");
-			sCH__TAS_ACTION_TIME_MIN[i]->Set__DATA("");
-			sCH__TAS_ACTION_TIME_MAX[i]->Set__DATA("");
-			sCH__TAS_ACTION_TIME_AVG[i]->Set__DATA("");
-			sCH__TAS_ACTION_TIME_AVG_F[i]->Set__DATA("");
-			aCH__TAS_ACTION_TIME_CNT[i]->Set__VALUE(1.0);
+			sCH__TAS_RESET_REQ_SLOT[k]->Set__DATA("");
+
+			for(int i=0; i<CFG_ACT__SIZE; i++)
+			{
+				sCH__TAS_ACTION_TIME_NOW_SLOT[i][k]->Set__DATA("");
+				sCH__TAS_ACTION_TIME_MIN_SLOT[i][k]->Set__DATA("");
+				sCH__TAS_ACTION_TIME_MAX_SLOT[i][k]->Set__DATA("");
+				sCH__TAS_ACTION_TIME_AVG_SLOT[i][k]->Set__DATA("");
+				sCH__TAS_ACTION_TIME_AVG_F_SLOT[i][k]->Set__DATA("");
+				aCH__TAS_ACTION_TIME_CNT_SLOT[i][k]->Set__VALUE(1.0);
+			}
 		}
 	}
 
@@ -278,6 +281,12 @@ void CObj__LBx_CHM_SLOT
 			dCH__SLIT_VALVE_STATUS_X[i]->Set__DATA(STR__UNKNOWN);
 		}
 	}
+
+	if(iLBx_SLOT_SIZE > 0)
+	{
+		CString ch_data = dCH__SLIT_VALVE_STATUS_X[0]->Get__STRING();
+		dCH__SLIT_VALVE_STATUS->Set__DATA(ch_data);
+	}
 }
 void CObj__LBx_CHM_SLOT
 ::Update__DV_STS(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
@@ -304,6 +313,12 @@ void CObj__LBx_CHM_SLOT
 		{
 			dCH__DOOR_VALVE_STATUS_X[i]->Set__DATA(STR__UNKNOWN);
 		}
+	}
+
+	if(iLBx_SLOT_SIZE > 0)
+	{
+		CString ch_data = dCH__DOOR_VALVE_STATUS_X[0]->Get__STRING();
+		dCH__DOOR_VALVE_STATUS->Set__DATA(ch_data);
 	}
 }
 void CObj__LBx_CHM_SLOT

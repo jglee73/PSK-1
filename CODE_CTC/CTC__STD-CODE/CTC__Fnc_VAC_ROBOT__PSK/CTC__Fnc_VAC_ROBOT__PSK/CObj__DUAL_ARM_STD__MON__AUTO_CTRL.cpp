@@ -1047,8 +1047,10 @@ _AUTO_CTRL__LBi_RB__ONLY_MODE_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, C
 				// ...
 				bool active__ex_pick = false;
 
+				/*
 				int slot_count = LLx__Get_Occupied__InSlot_Count(ll_i);
 				if(slot_count > 1)		active__ex_pick = true;
+				*/
 				
 				int act_flag = SCH__PICK_MODULE(p_variable,p_alarm, log_id, active__ex_pick, empty_arm, para__ll_name,para__ll_slot, sch_name);
 
@@ -5284,16 +5286,9 @@ _AUTO_CTRL__RB_PMx_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable,
 					// ...
 					bool active__pm_constraint = true;
 
-					if(active__pm_constraint)
+					if(dCH__VAC_RB__CFG_PMx_To_PMx_CONSTRAINT->Check__DATA(STR__ALL) > 0)
 					{
-
-					}
-					else
-					{
-						if(dCH__VAC_RB__CFG_PMx_To_PMx_CONSTRAINT->Check__DATA(STR__ALL) > 0)
-						{
-							active__pm_constraint = false;
-						}
+						active__pm_constraint = false;
 					}
 
 					if(active__pm_constraint)
@@ -7942,12 +7937,17 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 			continue;
 		}
 
+		// ...
+		bool active__pm_to_pm_constraint = true;
+
 		if(dCH__VAC_RB__CFG_PMx_To_PMx_CONSTRAINT->Check__DATA(STR__ALL) > 0)
 		{
 			if(VAC_RB__Get_Empty__Arm_Type_From_All(arm_type) < 0)
 			{
 				continue;
 			}
+
+			active__pm_to_pm_constraint = false;
 		}
 		else
 		{
@@ -7955,8 +7955,10 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 			{
 				continue;
 			}
+		}
 
-			// ...
+		// ...
+		{
 			bool active__pmc_check = false;
 
 			CStringArray l_pm_name;
@@ -7965,9 +7967,9 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 			xSCH_MATERIAL_CTRL->Get__NEXT_PROCESS_INFO(sch_name, l_pm_name,l_pm_rcp);
 
 			// Normal Pass ...
+			if(active__pm_to_pm_constraint)
 			{
 				int k_limit = l_pm_name.GetSize();
-
 				for(int k=0; k<k_limit; k++)
 				{
 					CString pm_xxx = l_pm_name[k];
@@ -8037,37 +8039,45 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 				}
 			}
 
-			if(!active__pmc_check)
+			if(active__pm_to_pm_constraint)
 			{
-				int alm_id = ALID__VAC_ROBOT__DEADLOCK_CONDITION;
-				CString alm_msg;
-				CString alm_bff;
-				CString r_act;
-
-				alm_msg.Format("The wafer in %s can't move to next pm. \n", pm_name);
-
-				int k_limit = l_pm_name.GetSize();
-				for(int k=0; k<k_limit; k++)
+				if(!active__pmc_check)
 				{
-					alm_bff.Format("  %1d) %s \n", k+1,l_pm_name[k]);
-					alm_msg += alm_bff;
+					int alm_id = ALID__VAC_ROBOT__DEADLOCK_CONDITION;
+					CString alm_msg;
+					CString alm_bff;
+					CString r_act;
+
+					alm_msg.Format("The wafer in %s can't move to next pm. \n", pm_name);
+
+					int k_limit = l_pm_name.GetSize();
+					for(int k=0; k<k_limit; k++)
+					{
+						alm_bff.Format("  %1d) %s \n", k+1,l_pm_name[k]);
+						alm_msg += alm_bff;
+					}
+
+					p_alarm->Check__ALARM(alm_id, r_act);
+					p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+					continue;
 				}
 
-				p_alarm->Check__ALARM(alm_id, r_act);
-				p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
-				continue;
+				if(active__abnormal_pass)
+				{
+					int alm_id = ALID__VAC_ROBOT__ABNORMAL_WAFER_MOVING;
+					CString alm_msg;
+					CString r_act;
+
+					alm_msg.Format("Abnormal pass : %s -> Arm(%s) -> %s \n", pm_name,arm_type,pm_abnormal);
+
+					p_alarm->Check__ALARM(alm_id, r_act);
+					p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+				}
 			}
 
-			if(active__abnormal_pass)
+			if(!active__pmc_check)
 			{
-				int alm_id = ALID__VAC_ROBOT__ABNORMAL_WAFER_MOVING;
-				CString alm_msg;
-				CString r_act;
-
-				alm_msg.Format("Abnormal pass : %s -> Arm(%s) -> %s \n", pm_name,arm_type,pm_abnormal);
-
-				p_alarm->Check__ALARM(alm_id, r_act);
-				p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+				continue;
 			}
 		}
 

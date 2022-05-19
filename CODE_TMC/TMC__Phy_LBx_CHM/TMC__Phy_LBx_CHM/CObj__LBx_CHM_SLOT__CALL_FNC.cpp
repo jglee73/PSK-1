@@ -76,7 +76,7 @@ int  CObj__LBx_CHM_SLOT
 		double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 		int db_i = _ACT_INDEX__PUMP;
-		_Update__ACTION_MIN_MAX(db_i,cur_sec);
+		_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 	}
 	return flag;
 }
@@ -219,8 +219,8 @@ LOOP_RETRY:
 
 	if(iSim_Flag > 0)
 	{
-		diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
-		diEXT_CH__LBx__VAC_SNS->Set__DATA("None");
+		diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_OFF);
+		diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_OFF);
 	}
 
 	// Soft Pumping -----
@@ -347,8 +347,8 @@ START_FAST_PUMP:
 
 	if(iSim_Flag > 0)
 	{
-		diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
-		diEXT_CH__LBx__VAC_SNS->Set__DATA("VAC");
+		diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_OFF);
+		diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_ON);
 	}
 
 	// ...
@@ -464,10 +464,42 @@ START_FAST_PUMP:
 int  CObj__LBx_CHM_SLOT
 ::Call__VENT(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	SCX__TIMER_CTRL xTimer;
+	// ...
+	{
+		double cur__press = aiEXT_CH__LBx__PRESSURE_TORR->Get__VALUE();
 
-	double  cur__press;
-	double  cfg__press;
+		double cfg__press = aCH__CFG_ATM_PRESSURE_TORR->Get__VALUE();
+		double cfg__atm_tol = aCH__CFG_ATM_PRESS_STS_TOLERANCE->Get__VALUE();
+
+		if((cur__press > (cfg__press - cfg__atm_tol))
+		&& (dCH__PRESSURE_STATUS->Check__DATA(STR__IO_ATM) > 0))
+		{
+			Fnc__VENT_ALL_VLV__CLOSE(p_alarm);
+
+			// ...
+			{
+				CString log_msg;
+				CString log_bff;
+			
+				log_msg = "Already ATM State \n";
+				log_bff.Format("  * Current pressure : %.3f torr \n", cur__press);
+				log_msg += log_bff;
+				log_bff.Format("  * Config atm-pressure : %.3f torr \n", cfg__press);
+				log_msg += log_bff;
+				log_bff.Format("  * Config atm-tolerance : %.1f torr \n", cfg__atm_tol);
+				log_msg += log_bff;
+				log_bff.Format("  * ATM-Sensor state \n");
+				log_msg += log_bff;
+				log_bff.Format("   * %s <- %s \n", 
+								dCH__PRESSURE_STATUS->Get__CHANNEL_NAME(),
+								dCH__PRESSURE_STATUS->Get__STRING());
+				log_msg += log_bff;
+							
+				Fnc__LOG(log_msg);
+			}
+			return 1;
+		}
+	}
 
 	// ...
 	{
@@ -499,7 +531,7 @@ int  CObj__LBx_CHM_SLOT
 		double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 		int db_i = _ACT_INDEX__VENT;
-		_Update__ACTION_MIN_MAX(db_i,cur_sec);
+		_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 	}
 
 	// ...
@@ -522,9 +554,9 @@ int  CObj__LBx_CHM_SLOT
 	x_timer->REGISTER__ABORT_OBJECT(sObject_Name);
 
 	// Equalize-Valve <<- "Open" ...
+	if(bActive__ATM_EQUAL_VLV)
 	{
-		if(bActive__ATM_EQUAL_VLV)
-			doEXT_CH__ATM_EQUAL_VLV__SET->Set__DATA(STR__OPEN);
+		doEXT_CH__ATM_EQUAL_VLV__SET->Set__DATA(STR__OPEN);
 	}
 
 	// Over-Vent Time ...
@@ -533,46 +565,47 @@ int  CObj__LBx_CHM_SLOT
 
 		if(x_timer->WAIT(cfg_sec) < 0)
 		{
-			return OBJ_ABORT;
+			return -11;
 		}
 
 		Fnc__VENT_ALL_VLV__CLOSE_WITHOUT_EQUAL_VLV(p_alarm);
 	}
 
 	// Equalize-Vent Time ...
+	if(bActive__ATM_EQUAL_VLV)
 	{
 		double cfg_sec = aCH__CFG_EQUALIZE_VENT_TIME->Get__VALUE();
 
 		if(x_timer->WAIT(cfg_sec) < 0)
 		{
-			return OBJ_ABORT;
+			return -21;
 		}
 	}
 
 	// Venting 후 압력 Limit 체크 ...
 	{
-		double  cur__press;
-		double  cfg__press;
-
-		cfg__press = aCFG_CH_CONVECT_ATM_HIGH_PRESS->Get__VALUE();
-		cfg__press = cfg__press * 0.001;			// mtorr -> torr
+		double cfg__press = aCH__CFG_ATM_HIGH_PRESSURE_TORR->Get__VALUE();
 
 		if(cfg__press > 700)
 		{
-			cur__press = aiEXT_CH__LBx__PRESSURE_TORR->Get__VALUE();
+			double cur__press = aiEXT_CH__LBx__PRESSURE_TORR->Get__VALUE();
 
 			if(cur__press > cfg__press)
 			{
-				int alm_id = ALID__CONVECTRON_ATM_HIGH_PRESS_ALARM;
+				int alm_id = ALID__ATM_HIGH_PRESSURE_LIMIT;
 				CString alm_msg;
+				CString alm_bff;
 
-				alm_msg.Format("%s Module.. After Venting Complete, Current Press %.3f (torr) > Config %.3f (torr) Status.\n", 
-								m_sLBx__MODULE_NAME, 
-								cur__press, 
-								cfg__press);
+				alm_msg = "After venting complete, \n";
+
+				alm_bff.Format(" * current pressure <- %.1f (torr) \n", cur__press);
+				alm_msg += alm_bff;
+
+				alm_msg.Format(" * config pressure <- %.1f (torr) \n", cfg__press);
+				alm_msg += alm_bff;
 
 				p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
-				return OBJ_ABORT;
+				return -31;
 			}
 		}
 	}
@@ -603,7 +636,7 @@ LOOP_RETRY:
 	Fnc__LOG(sLog);
 
 	if((cur__press > cfg__press)
-		&& (dCH__PRESSURE_STATUS->Check__DATA(STR__IO_ATM) > 0))
+	&& (dCH__PRESSURE_STATUS->Check__DATA(STR__IO_ATM) > 0))
 	{
 		Fnc__VENT_ALL_VLV__CLOSE(p_alarm);
 
@@ -636,8 +669,8 @@ LOOP_RETRY:
 
 		if(iSim_Flag > 0)
 		{
-			diEXT_CH__LBx__ATM_SNS->Set__DATA("None");
-			diEXT_CH__LBx__VAC_SNS->Set__DATA("None");
+			diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_OFF);
+			diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_OFF);
 		}
 
 		// ...
@@ -740,7 +773,6 @@ LOOP_RETRY:
 		}
 	}
 
-
 	// Fast Venting ...
 	{
 		// Time Delay
@@ -768,8 +800,8 @@ LOOP_RETRY:
 
 		if(iSim_Flag > 0)
 		{
-			diEXT_CH__LBx__ATM_SNS->Set__DATA("ATM");
-			diEXT_CH__LBx__VAC_SNS->Set__DATA("None");
+			diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_ON);
+			diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_OFF);
 		}
 
 		// ...
@@ -881,20 +913,20 @@ LOOP_RETRY:
 
 // DOOR VLV CLOSE -----
 int  CObj__LBx_CHM_SLOT
-::Call__DV_CLOSE(CII_OBJECT__VARIABLE* p_variable,
-				 CII_OBJECT__ALARM* p_alarm)
+::Call__DV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	SCX__ASYNC_TIMER_CTRL x_timer_ctrl;
 	x_timer_ctrl->START__COUNT_UP(9999);
 
-	int r_flag = Fnc__DV_CLOSE(p_variable,p_alarm);
-
+	int r_flag = Fnc__DV_CLOSE(p_variable,p_alarm, slot_id);
 	if(r_flag > 0)
 	{
 		double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 		int db_i = _ACT_INDEX__DV_CLOSE;
-		_Update__ACTION_MIN_MAX(db_i,cur_sec);
+		int slot_i = slot_id - 1;
+
+		_Update__ACTION_MIN_MAX(db_i,slot_i, cur_sec);
 	}
 
 	if(dCH__CFG_IO_OFF_MODE->Check__DATA(STR__ENABLE) > 0)
@@ -902,13 +934,16 @@ int  CObj__LBx_CHM_SLOT
 		int para_id = (int)	aCH__PARA_SLOT_ID->Get__VALUE();
 		int p_index = para_id - 1;
 
-		doEXT_CH__LLx__DV_OPEN_X[p_index]->Set__DATA(STR__OFF);
-		doEXT_CH__LLx__DV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		if((p_index >= 0) && (p_index < iLBx_SLOT_SIZE))
+		{
+			doEXT_CH__LLx__DV_OPEN_X[p_index]->Set__DATA(STR__OFF);
+			doEXT_CH__LLx__DV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		}
 	}
 	return r_flag;
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__DV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__DV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	CString str_log;
 
@@ -921,7 +956,7 @@ LOOP_RETRY:
 
 	if(Is__SLOT_DV_CLOSE())
 	{
-		str_log.Format("Already... Close sts.. %s Door Valve.", m_sLBx__MODULE_NAME);
+		str_log.Format("Already, the door Valve of %s is closed.", m_sLBx__MODULE_NAME);
 		Fnc__LOG(str_log);
 		return 1;
 	}
@@ -953,6 +988,14 @@ LOOP_RETRY:
 		diEXT_CH__LLx__DV_CLOSE_X[p_index]->Set__DATA(STR__ON);
 	}
 
+	// ...
+	CII__VAR_ANALOG_CTRL* pch__cfg_timeout = NULL;
+
+		 if(slot_id == 1)		pch__cfg_timeout = aCH__CFG_DOOR_1_VALVE_CLOSE_TIMEOUT.Get__PTR();
+	else if(slot_id == 2)		pch__cfg_timeout = aCH__CFG_DOOR_2_VALVE_CLOSE_TIMEOUT.Get__PTR();
+
+	if(pch__cfg_timeout == NULL)		return -11;
+
 	while(1)
 	{
 		Sleep(3);
@@ -970,8 +1013,7 @@ LOOP_RETRY:
 			return 1;
 		}
 
-		aCH__CFG_DOOR_VALVE_CLOSE_TIMEOUT->Get__DATA(var_data);
-		cfg_timeout = atof(var_data);
+		cfg_timeout = pch__cfg_timeout->Get__VALUE();
 
 		if(xI_ASYNC_TIMER->Get__CURRENT_TIME() >= cfg_timeout)
 		{
@@ -1001,7 +1043,7 @@ LOOP_RETRY:
 
 // DOOR VLV OPEN -----
 int  CObj__LBx_CHM_SLOT
-::Call__DV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Call__DV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	if(Check__PRESSURE_ATM_TO_DV_OPEN(p_alarm,ALID__DV_OPEN__NOT_ATM_ERROR) < 0)
 	{
@@ -1012,14 +1054,15 @@ int  CObj__LBx_CHM_SLOT
 	SCX__ASYNC_TIMER_CTRL x_timer_ctrl;
 	x_timer_ctrl->START__COUNT_UP(9999);
 
-	int r_flag = Fnc__DV_OPEN(p_variable,p_alarm);
-
+	int r_flag = Fnc__DV_OPEN(p_variable,p_alarm, slot_id);
 	if(r_flag > 0)
 	{
 		double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 		int db_i = _ACT_INDEX__DV_OPEN;
-		_Update__ACTION_MIN_MAX(db_i,cur_sec);
+		int slot_i = slot_id - 1;
+
+		_Update__ACTION_MIN_MAX(db_i,slot_i, cur_sec);
 	}
 
 	if(dCH__CFG_IO_OFF_MODE->Check__DATA(STR__ENABLE) > 0)
@@ -1027,13 +1070,16 @@ int  CObj__LBx_CHM_SLOT
 		int para_id = (int)	aCH__PARA_SLOT_ID->Get__VALUE();
 		int p_index = para_id - 1;
 
-		doEXT_CH__LLx__DV_OPEN_X[p_index]->Set__DATA(STR__OFF);
-		doEXT_CH__LLx__DV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		if((p_index >= 0) && (p_index < iLBx_SLOT_SIZE))
+		{
+			doEXT_CH__LLx__DV_OPEN_X[p_index]->Set__DATA(STR__OFF);
+			doEXT_CH__LLx__DV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		}
 	}
 	return r_flag;
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__DV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__DV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	CString str_log;
 
@@ -1072,6 +1118,14 @@ LOOP_RETRY:
 		diEXT_CH__LLx__DV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
 	}
 
+	// ...
+	CII__VAR_ANALOG_CTRL* pch__cfg_timeout = NULL;
+
+		 if(slot_id == 1)		pch__cfg_timeout = aCH__CFG_DOOR_1_VALVE_OPEN_TIMEOUT.Get__PTR();
+	else if(slot_id == 2)		pch__cfg_timeout = aCH__CFG_DOOR_2_VALVE_OPEN_TIMEOUT.Get__PTR();
+
+	if(pch__cfg_timeout == NULL)		return -11;
+
 	while(1)
 	{
 		Sleep(3);
@@ -1088,8 +1142,7 @@ LOOP_RETRY:
 			return 1;
 		}
 
-		aCH__CFG_DOOR_VALVE_OPEN_TIMEOUT->Get__DATA(var_data);
-		cfg_timeout = atof(var_data);
+		cfg_timeout = pch__cfg_timeout->Get__VALUE();
 
 		if(xI_ASYNC_TIMER->Get__CURRENT_TIME() >= cfg_timeout)
 		{
@@ -1119,19 +1172,20 @@ LOOP_RETRY:
 
 // SLIT VLV CLOSE -----
 int  CObj__LBx_CHM_SLOT
-::Call__SV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Call__SV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	SCX__ASYNC_TIMER_CTRL x_timer_ctrl;
 	x_timer_ctrl->START__COUNT_UP(9999);
 
-	int r_flag = Fnc__SV_CLOSE(p_variable,p_alarm);
-
+	int r_flag = Fnc__SV_CLOSE(p_variable,p_alarm, slot_id);
 	if(r_flag > 0)
 	{
 		double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 		int db_i = _ACT_INDEX__SV_CLOSE;
-		_Update__ACTION_MIN_MAX(db_i,cur_sec);
+		int slot_i = slot_id - 1;
+
+		_Update__ACTION_MIN_MAX(db_i,slot_i, cur_sec);
 	}
 
 	if(dCH__CFG_IO_OFF_MODE->Check__DATA(STR__ENABLE) > 0)
@@ -1139,13 +1193,16 @@ int  CObj__LBx_CHM_SLOT
 		int para_id = (int)	aCH__PARA_SLOT_ID->Get__VALUE();
 		int p_index = para_id - 1;
 
-		doEXT_CH__LLx__SV_OPEN_X[p_index]->Set__DATA(STR__OFF);
-		doEXT_CH__LLx__SV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		if((p_index >= 0) && (p_index < iLBx_SLOT_SIZE))
+		{
+			doEXT_CH__LLx__SV_OPEN_X[p_index]->Set__DATA(STR__OFF);
+			doEXT_CH__LLx__SV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		}
 	}
 	return r_flag;
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__SV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__SV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	CString str_log;
 
@@ -1170,8 +1227,14 @@ LOOP_RETRY:
 	}
 
 	// ...
-	aCH__CFG_SLIT_VALVE_CLOSE_TIMEOUT->Get__DATA(var_data);
-	cfg_timeout = atof(var_data);
+	CII__VAR_ANALOG_CTRL* pch__cfg_timeout = NULL;
+
+		 if(slot_id == 1)		pch__cfg_timeout = aCH__CFG_SLOT_1_VALVE_CLOSE_TIMEOUT.Get__PTR();
+	else if(slot_id == 2)		pch__cfg_timeout = aCH__CFG_SLOT_2_VALVE_CLOSE_TIMEOUT.Get__PTR();
+
+	if(pch__cfg_timeout == NULL)		return -11;
+
+	cfg_timeout = pch__cfg_timeout->Get__VALUE();
 
 	// 1. VAC Robot Arm Retract Check...
 	{
@@ -1210,7 +1273,7 @@ LOOP_RETRY:
 
 // SLIT VLV OPEN -----
 int  CObj__LBx_CHM_SLOT
-::Call__SV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Call__SV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	int atm_mode = -1;
 
@@ -1244,14 +1307,15 @@ int  CObj__LBx_CHM_SLOT
 	SCX__ASYNC_TIMER_CTRL x_timer_ctrl;
 	x_timer_ctrl->START__COUNT_UP(9999);
 
-	int r_flag = Fnc__SV_OPEN(p_variable,p_alarm);
-
+	int r_flag = Fnc__SV_OPEN(p_variable,p_alarm, slot_id);
 	if(r_flag > 0)
 	{
 		double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 		int db_i = _ACT_INDEX__SV_OPEN;
-		_Update__ACTION_MIN_MAX(db_i,cur_sec);
+		int slot_i = slot_id - 1;
+
+		_Update__ACTION_MIN_MAX(db_i,slot_i, cur_sec);
 	}
 
 	if(dCH__CFG_IO_OFF_MODE->Check__DATA(STR__ENABLE) > 0)
@@ -1259,13 +1323,16 @@ int  CObj__LBx_CHM_SLOT
 		int para_id = (int)	aCH__PARA_SLOT_ID->Get__VALUE();
 		int p_index = para_id - 1;
 
-		doEXT_CH__LLx__SV_OPEN_X[p_index]->Set__DATA(STR__OFF);
-		doEXT_CH__LLx__SV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		if((p_index >= 0) && (p_index < iLBx_SLOT_SIZE))
+		{
+			doEXT_CH__LLx__SV_OPEN_X[p_index]->Set__DATA(STR__OFF);
+			doEXT_CH__LLx__SV_CLOSE_X[p_index]->Set__DATA(STR__OFF);
+		}
 	}
 	return r_flag;
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__SV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__SV_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	CString str_log;
 
@@ -1286,7 +1353,6 @@ LOOP_RETRY:
 	CString var_data;
 
 	int r_ret = dEXT_CH__CFG_LLx_SV_EXIST_FLAG->Check__DATA("FALSE");
-
 	if(r_ret > 0)
 	{
 		alarm_id = ALID__SLIT_CANNOT_OPEN_NOT_EXIST;
@@ -1298,7 +1364,7 @@ LOOP_RETRY:
 		Fnc__LOG(err_msg);
 		p_alarm->Popup__ALARM(alarm_id,r_act);
 
-		if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
+			 if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
 		else if(r_act.CompareNoCase(ACT__ABORT) == 0)		return OBJ_ABORT;
 	}
 
@@ -1310,15 +1376,21 @@ LOOP_RETRY:
 	}
 
 	// ...
-	aEXT_CH__CFG_LLx_LIFT_PIN_UP_TIMEOUT->Get__DATA(var_data);
-	cfg_timeout = atof(var_data);
+	CII__VAR_ANALOG_CTRL* pch__cfg_timeout = NULL;
+
+		 if(slot_id == 1)		pch__cfg_timeout = aCH__CFG_SLOT_1_VALVE_OPEN_TIMEOUT.Get__PTR();
+	else if(slot_id == 2)		pch__cfg_timeout = aCH__CFG_SLOT_2_VALVE_OPEN_TIMEOUT.Get__PTR();
+
+	if(pch__cfg_timeout == NULL)		return -10001;
+
+	cfg_timeout = pch__cfg_timeout->Get__VALUE();
 
 	r_ret = Sub__SV_OPEN(p_variable, p_alarm, cfg_timeout);
 
 	if(r_ret > 0)
 	{
-		Sleep(500);			// HW 동작 time
-		return 1;			// FULL OPEN Complete !!
+		// Sleep(500);			// HW 동작 time
+		return 1;				// FULL OPEN Complete !!
 	}
 	if(r_ret < 0)
 	{
@@ -1430,7 +1502,8 @@ LOOP_RETRY:
 			double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 			int db_i = _ACT_INDEX__LIFT_PIN_UP;
-			_Update__ACTION_MIN_MAX(db_i,cur_sec);
+
+			_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 			return 1;
 		}
 
@@ -1529,7 +1602,8 @@ LOOP_RETRY:
 			double cur_sec = x_timer_ctrl->Get__CURRENT_TIME();
 
 			int db_i = _ACT_INDEX__LIFT_PIN_DOWN;
-			_Update__ACTION_MIN_MAX(db_i,cur_sec);
+
+			_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 			return 1;
 		}
 
@@ -1609,12 +1683,12 @@ int  CObj__LBx_CHM_SLOT
 
 // SV_TRANSFER -----
 int  CObj__LBx_CHM_SLOT
-::Call__SV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Call__SV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
-	return Fnc__SV_TRANSFER_OPEN(p_variable,p_alarm);
+	return Fnc__SV_TRANSFER_OPEN(p_variable,p_alarm, slot_id);
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__SV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__SV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_od)
 {
 	// ...
 	{
@@ -1638,8 +1712,7 @@ int  CObj__LBx_CHM_SLOT
 	}
 
 	// ...
-	int r_ret =  Call__SV_OPEN(p_variable, p_alarm);
-
+	int r_ret =  Call__SV_OPEN(p_variable, p_alarm, slot_od);
 	if(r_ret > 0)
 	{
 		if(cfg_use > 0)	
@@ -1651,12 +1724,12 @@ int  CObj__LBx_CHM_SLOT
 }
 
 int  CObj__LBx_CHM_SLOT
-::Call__SV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Call__SV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
-	return Fnc__SV_TRANSFER_CLOSE(p_variable,p_alarm);
+	return Fnc__SV_TRANSFER_CLOSE(p_variable,p_alarm, slot_id);
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__SV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__SV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	// ...
 	{
@@ -1685,8 +1758,7 @@ int  CObj__LBx_CHM_SLOT
 	}
 
 	// ...
-	int r_ret =  Call__SV_CLOSE(p_variable, p_alarm);
-
+	int r_ret =  Call__SV_CLOSE(p_variable, p_alarm, slot_id);
 	if(r_ret > 0)
 	{
 		if(cfg_use > 0)
@@ -1699,12 +1771,12 @@ int  CObj__LBx_CHM_SLOT
 
 // DV_TRANSFER -----
 int  CObj__LBx_CHM_SLOT
-::Call__DV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Call__DV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
-	return Fnc__DV_TRANSFER_OPEN(p_variable,p_alarm);
+	return Fnc__DV_TRANSFER_OPEN(p_variable,p_alarm, slot_id);
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__DV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__DV_TRANSFER_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	// ...
 	{
@@ -1729,8 +1801,7 @@ int  CObj__LBx_CHM_SLOT
 	}
 
 	// ...
-	int r_ret =  Call__DV_OPEN(p_variable, p_alarm);
-
+	int r_ret =  Call__DV_OPEN(p_variable, p_alarm, slot_id);
 	if(r_ret > 0)
 	{
 		if(cfg_use > 0)
@@ -1742,12 +1813,12 @@ int  CObj__LBx_CHM_SLOT
 }
 
 int  CObj__LBx_CHM_SLOT
-::Call__DV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Call__DV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
-	return Fnc__DV_TRANSFER_CLOSE(p_variable,p_alarm);
+	return Fnc__DV_TRANSFER_CLOSE(p_variable,p_alarm, slot_id);
 }
 int  CObj__LBx_CHM_SLOT
-::Fnc__DV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+::Fnc__DV_TRANSFER_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const int slot_id)
 {
 	// ...
 	{
@@ -1776,8 +1847,7 @@ int  CObj__LBx_CHM_SLOT
 	}
 
 	// ...
-	int r_ret =  Call__DV_CLOSE(p_variable, p_alarm);
-
+	int r_ret =  Call__DV_CLOSE(p_variable, p_alarm, slot_id);
 	if(r_ret > 0)
 	{
 		if(cfg_use > 0)
@@ -1785,6 +1855,7 @@ int  CObj__LBx_CHM_SLOT
 			r_ret = Call__LIFT_PIN_DOWN(p_variable, p_alarm);
 		}
 	}
+
 	return r_ret;
 }
 
@@ -1854,7 +1925,7 @@ int  CObj__LBx_CHM_SLOT
 		}
 	}
 
-	if(diEXT_CH__LBx__VAC_SNS->Check__DATA(STR__VAC) < 0)
+	if(diEXT_CH__LBx__VAC_SNS->Check__DATA(sDATA__VAC_ON) < 0)
 	{
 		// Alarm Post ...
 		{
@@ -1943,23 +2014,24 @@ int  CObj__LBx_CHM_SLOT
 		// DOWN ...
 		{
 			int db_i = _ACT_INDEX__LIFT_PIN_DOWN;
-			_Update__ACTION_MIN_MAX(db_i, cur_sec);
+
+			_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 		}
 		// UP ...
 		{
 			int db_i = _ACT_INDEX__LIFT_PIN_UP;
-			_Update__ACTION_MIN_MAX(db_i, cur_sec);
+			_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 		}
 
 		// OPEN ...
 		{
 			int db_i = _ACT_INDEX__SV_OPEN;
-			_Update__ACTION_MIN_MAX(db_i, cur_sec);
+			_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 		}
 		// CLOSE ...
 		{
 			int db_i = _ACT_INDEX__SV_CLOSE;
-			_Update__ACTION_MIN_MAX(db_i, cur_sec);
+			_Update__ACTION_MIN_MAX(db_i,-1, cur_sec);
 		}
 	}
 	return 1;
