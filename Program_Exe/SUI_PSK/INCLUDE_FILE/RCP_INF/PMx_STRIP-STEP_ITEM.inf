@@ -903,7 +903,7 @@
 #TITLE             1._Control_Mode
 #CHANNEL_TYPE      DIGITAL
 #CH_CHANNEL_ITEM 
-#LIST              Idle/OverValue.Check/UnderValue.Check/OverValue.Slope/UnderValue.Slope/Error.Check/ValueChange/ValueSlope/PercentChange/PercentSlope
+#LIST              Idle/OverValue.Check/UnderValue.Check/OverValue.Slope/UnderValue.Slope/Error.Check
 #RANGE             
 #CH_ALG_MIN
 #CH_ALG_MAX
@@ -915,28 +915,13 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.EPD.VALUE_TO_CHANGE
-#TITLE             2.1_Target_Value
+#TITLE             2._Target_Value
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST
 #RANGE             
 #CH_ALG_MIN        PHY_EPD+CFG.INTENSITY.MIN.VALUE
 #CH_ALG_MAX        PHY_EPD+CFG.INTENSITY.MAX.VALUE
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
-#CHANNEL           FNC_STEP+RCP.EPD.PERCENT_TO_CHANGE
-#TITLE             2.2_Percent_To_Change(%)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST
-#RANGE             (-100,100)
-#CH_ALG_MIN
-#CH_ALG_MAX
 #TEXTCOLOR         RGB(0,0,0)
 #BACKCOLOR         RGB(255,255,255)
 #CATEGORY 			   CHILD
@@ -959,23 +944,8 @@
 //-----------------------------------------------------------------
 ##ITEM   YES
 
-#CHANNEL           FNC_STEP+RCP.EPD.NORMALIZE_TIME
-#TITLE             4._Normalize_Time(sec)
-#CHANNEL_TYPE      ANALOG
-#CH_CHANNEL_ITEM 
-#LIST              
-#RANGE             (0.0,10.0)
-#CH_ALG_MIN
-#CH_ALG_MAX
-#TEXTCOLOR         RGB(0,0,0)
-#BACKCOLOR         RGB(255,255,255)
-#CATEGORY 			   CHILD
-
-//-----------------------------------------------------------------
-##ITEM   YES
-
 #CHANNEL           FNC_STEP+RCP.EPD.MIN_TIME
-#TITLE             5._Min_Time(sec)
+#TITLE             4._Min_Time(sec)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST              
@@ -990,7 +960,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.EPD.MAX_TIME
-#TITLE             6._Max_Time(sec)
+#TITLE             5._Max_Time(sec)
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST              
@@ -1005,7 +975,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.EPD.MIN_THRESHOLD
-#TITLE             7._Min_Threshold
+#TITLE             6._Min_Threshold
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST              
@@ -1020,7 +990,7 @@
 ##ITEM   YES
 
 #CHANNEL           FNC_STEP+RCP.EPD.MAX_THRESHOLD
-#TITLE             8._Max_Threshold
+#TITLE             7._Max_Threshold
 #CHANNEL_TYPE      ANALOG
 #CH_CHANNEL_ITEM 
 #LIST              
