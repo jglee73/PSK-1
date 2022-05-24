@@ -44,6 +44,16 @@ int CObj__STEP_STRIP
 
 	return pOBJ_CTRL__MFC_X[mfc_index]->Run__OBJECT(obj_mode);
 }
+int CObj__STEP_STRIP
+::MFC_OBJ__Call_CLOSE(const int mfc_index)
+{
+	if(mfc_index <  0)							return -11;
+	if(mfc_index >= iDATA__MFC_SIZE)			return -12;
+
+	CString obj_mode = _MFC_CMD__CLOSE;
+
+	return pOBJ_CTRL__MFC_X[mfc_index]->Call__OBJECT(obj_mode);
+}
 
 int CObj__STEP_STRIP
 ::MFC_OBJ__Check_ERROR()

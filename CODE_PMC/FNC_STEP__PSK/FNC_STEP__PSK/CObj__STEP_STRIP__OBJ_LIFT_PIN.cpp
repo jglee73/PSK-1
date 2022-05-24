@@ -30,3 +30,11 @@ int CObj__STEP_STRIP
 
 	return pOBJ_CTRL__LIFT_PIN->Is__OBJ_BUSY();
 }
+
+int CObj__STEP_STRIP
+::LIFT_PIN_OBJ__Wait()
+{
+	if(!bActive__OBJ_CTRL__LIFT_PIN)				return 1;
+
+	return pOBJ_CTRL__LIFT_PIN->When__OBJECT();
+}

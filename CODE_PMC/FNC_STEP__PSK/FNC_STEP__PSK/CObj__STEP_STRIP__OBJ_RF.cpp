@@ -26,6 +26,15 @@ int CObj__STEP_STRIP
 
 	return pOBJ_CTRL__RF_TOP->Run__OBJECT(obj_mode);
 }
+int CObj__STEP_STRIP
+::RF_TOP_OBJ__Call_OFF()
+{
+	if(!bActive__OBJ_CTRL__RF_TOP)					return 1;
+
+	CString obj_mode = _RF_CMD__OFF;
+
+	return pOBJ_CTRL__RF_TOP->Call__OBJECT(obj_mode);
+}
 
 int CObj__STEP_STRIP
 ::RF_TOP_OBJ__Check_ERROR()

@@ -17,6 +17,12 @@ int CObj__STEP_STRIP
 	// ...
 	{
 		sCH__INFO_STEP_CUR_NUM->Set__DATA("");
+		sCH__INFO_STEP_PRE_TIME->Set__DATA("");
+	}
+
+	// EPD.INIT ...
+	{
+		EPD_OBJ__Call_INIT();
 	}
 
 	return _Fnc__END();
@@ -59,6 +65,11 @@ int CObj__STEP_STRIP::_Fnc__END()
 {
 	int i;
 
+	// EPD.IDLE ...
+	{
+		EPD_OBJ__Start_IDLE();
+	}
+
 	// HTR.CHUCK ...
 	{
 		HTR_CHUCK_OBJ__Init_DATA();
@@ -70,18 +81,18 @@ int CObj__STEP_STRIP::_Fnc__END()
 
 	// RF_TOP ...
 	{
-		RF_TOP_OBJ__Start_OFF();
+		RF_TOP_OBJ__Call_OFF();
 	}
 
 	// MFC_X.CTRL ...
 	for(i=0; i<iDATA__MFC_SIZE; i++)
 	{
-		MFC_OBJ__Start_CLOSE(i);
+		MFC_OBJ__Call_CLOSE(i);
 	}
 
 	// APC.CTRL ...
 	{
-		APC_OBJ__Start_OPEN();
+		APC_OBJ__Call_OPEN();
 	}
 
 	return 1;

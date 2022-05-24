@@ -33,6 +33,15 @@ int CObj__STEP_STRIP
 
 	return pOBJ_CTRL__APC->Run__OBJECT(obj_mode);
 }
+int CObj__STEP_STRIP
+::APC_OBJ__Call_OPEN()
+{
+	if(!bActive__OBJ_CTRL__APC)						return 1;
+
+	CString obj_mode = _APC_CMD__OPEN;
+
+	return pOBJ_CTRL__APC->Call__OBJECT(obj_mode);
+}
 
 int CObj__STEP_STRIP::APC_OBJ__Check_ERROR()
 {

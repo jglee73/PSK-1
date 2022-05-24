@@ -30,6 +30,7 @@ private:
 
 	// INFO ...
 	CX__VAR_STRING_CTRL  sCH__INFO_STEP_CUR_NUM;
+	CX__VAR_STRING_CTRL  sCH__INFO_STEP_PRE_TIME;
 
 	// MON ...
 	CX__VAR_STRING_CTRL  sCH__MON_STEP_EXCEPTION_ACT;
@@ -57,6 +58,7 @@ private:
 	CX__VAR_STRING_CTRL  sCH__RCP_STEP_MESSAGE;		
 	CX__VAR_DIGITAL_CTRL dCH__RCP_STEP_MODE;	
 	CX__VAR_ANALOG_CTRL	 aCH__RCP_STEP_TIME;
+	CX__VAR_ANALOG_CTRL	 aCH__RCP_STEP_OVERETCH_PERCENT;
 
 	CX__VAR_STRING_CTRL  sCH__RCP_EPD_ALGORITHM_ID;
 	CX__VAR_STRING_CTRL  sCH__RCP_EPD_ALGORITHM_LIST;
@@ -104,6 +106,24 @@ private:
 
 	//
 	CX__VAR_DIGITAL_CTRL dCH__RCP_LIFT_PIN_MODE;
+
+	//
+	CX__VAR_DIGITAL_CTRL dCH__RCP_EPD_EPD_MODE;
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_VALUE_TO_CHANGE;
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_PERCENT_TO_CHANGE;
+
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_DELAY_TIME;
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_NORMALIZE_TIME;
+
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_MIN_TIME;
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_MAX_TIME;
+
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_MIN_THRESHOLD;
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_MAX_THRESHOLD;
+
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_SLOPE_VALUE;
+	CX__VAR_DIGITAL_CTRL dCH__RCP_EPD_SLOPE_TYPE;
+	CX__VAR_ANALOG_CTRL  aCH__RCP_EPD_SLOPE_VALID_TIME;
 	//
 
 
@@ -117,6 +137,7 @@ private:
 	// OBJ APC ...
 	int APC_OBJ__Start_MODE(const CString& obj_mode,const CString& para_data, const double para_hold_sec,const double para_hold_pos);
 	int APC_OBJ__Start_OPEN();	
+	int APC_OBJ__Call_OPEN();	
 	int APC_OBJ__Check_ERROR();
 	int APC_OBJ__Check_ABORTED();
 	int APC_OBJ__Check_STABLE();
@@ -148,6 +169,7 @@ private:
 	// OBJ RF_TOP ...
 	int RF_TOP_OBJ__Start_MODE(const CString& obj_mode, const CString& para_data, const CString& para_warning,const CString& para_alarm);
 	int RF_TOP_OBJ__Start_OFF();
+	int RF_TOP_OBJ__Call_OFF();
 	int RF_TOP_OBJ__Check_ERROR();
 	int RF_TOP_OBJ__Check_ABORTED();
 
@@ -185,6 +207,7 @@ private:
 	// OBJ MFC_X ...
 	int MFC_OBJ__Start_CONTROL(const int mfc_index, const CString& para_flow,const CString& para_ramp_sec);
 	int MFC_OBJ__Start_CLOSE(const int mfc_index);
+	int MFC_OBJ__Call_CLOSE(const int mfc_index);
 	int MFC_OBJ__Check_ERROR();
 	int MFC_OBJ__Check_ABORTED();
 
@@ -200,6 +223,7 @@ private:
 	int LFC_OBJ__Start_CONTROL(const CString& para_flow);
 	int LFC_OBJ__Start_CLOSE();
 	int LFC_OBJ__Start_DUMP();
+	int LFC_OBJ__Call_DUMP();
 	int LFC_OBJ__Check_ERROR();
 	int LFC_OBJ__Check_ABORTED();
 
@@ -215,6 +239,7 @@ private:
 	int LIFT_PIN_OBJ__Start_MODE(const CString& obj_mode);
 	int LIFT_PIN_OBJ__Check_ABORTED();
 	int LIFT_PIN_OBJ__Is_BUSY();
+	int LIFT_PIN_OBJ__Wait();
 
 	bool bActive__OBJ_CTRL__LIFT_PIN;
 	CII_EXT_OBJECT__CTRL *pOBJ_CTRL__LIFT_PIN;
@@ -268,6 +293,40 @@ private:
 	CX__VAR_ANALOG_CTRL  aEXT_CH__HTR_WALL__CFG_PROC_HARD_TOLERANCE_X[_CFG__WALL_SIZE];
 
 	CX__VAR_ANALOG_CTRL  aEXT_CH__HTR_WALL__MON_IO_PV_X[_CFG__WALL_SIZE];
+
+	// OBJ.EPD ...
+	int EPD_OBJ__Call_INIT();
+	int EPD_OBJ__Start_IDLE();
+	int EPD_OBJ__Start_CHECK();
+	int EPD_OBJ__Start_DETECT();
+	int EPD_OBJ__Check_ABORTED();
+	int EPD_OBJ__Is_BUSY();
+	int EPD_OBJ__Check_ERROR();
+
+	bool bActive__OBJ_CTRL__EPD;
+	CII_EXT_OBJECT__CTRL *pOBJ_CTRL__EPD;
+
+	//
+	CX__VAR_DIGITAL_CTRL dEXT_CH__EPD__PARA_EPD_MODE;
+
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_VALUE_TO_CHANGE;
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_PERCENT_TO_CHANGE;
+
+	CX__VAR_ANALOG_CTRL  aEXT_CH__EPD__PARA_DELAY_TIME;
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_NORMALIZE_TIME;
+
+	CX__VAR_ANALOG_CTRL  aEXT_CH__EPD__PARA_EPD_TIMEOUT_MINIMUM;
+	CX__VAR_ANALOG_CTRL  aEXT_CH__EPD__PARA_EPD_TIMEOUT_MAXIMUM;
+
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_EPD_THRESHOLD_MIN;
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_EPD_THRESHOLD_MAX;
+
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_SLOPE_COUNT;
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_SLOPE_DIRECTION;
+	CX__VAR_STRING_CTRL  sEXT_CH__EPD__PARA_VALID_TIME;
+
+	//
+	CX__VAR_DIGITAL_CTRL dEXT_CH__EPD__MON_ERROR_ACTIVE;
 	//
 
 

@@ -264,6 +264,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__STEP_METAL__OBJ_EPD.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__STEP_METAL__OBJ_ESC.cpp"
 					>
 				</File>
@@ -349,6 +353,10 @@
 				</File>
 				<File
 					RelativePath=".\CObj__STEP_STRIP__OBJ_APC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__STEP_STRIP__OBJ_EPD.cpp"
 					>
 				</File>
 				<File

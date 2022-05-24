@@ -64,13 +64,18 @@
 #define  _HTR_CMD__HEATING_PROC			"HEATING.PROC"
 #define  _HTR_CMD__STABLE_CHECK			"STABLE.CHECK"
 
+#define  _EPD_CMD__INIT					"INIT"
+#define  _EPD_CMD__IDLE					"IDLE"
+#define  _EPD_CMD__DETECT				"EPD.DETECT"
+#define  _EPD_CMD__ERROR_CHECK			"ERROR.CHECK"
+
 
 // ...
 #define  STR__Stable					"Stable"
 #define  STR__Time						"Time"
 #define  STR__High_Vac					"High.Vac"
-#define  STR__OverEtch					"OverEtch"
 #define  STR__EndPT						"EndPT"
+#define  STR__OverEtch					"OverEtch"
 #define  STR__End						"End"
 
 #define  STR__Position					"Position"

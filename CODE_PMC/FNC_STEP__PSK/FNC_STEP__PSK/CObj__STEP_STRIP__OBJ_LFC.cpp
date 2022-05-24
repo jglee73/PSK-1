@@ -53,6 +53,16 @@ int CObj__STEP_STRIP
 
 	return pOBJ_CTRL__LFC->Run__OBJECT(obj_mode);
 }
+int CObj__STEP_STRIP
+::LFC_OBJ__Call_DUMP()
+{
+	if(!bActive__OBJ_CTRL__LFC)					return 1;
+
+	// ...
+	CString obj_mode = _LFC_CMD__DUMP;
+
+	return pOBJ_CTRL__LFC->Call__OBJECT(obj_mode);
+}
 
 int CObj__STEP_STRIP
 ::LFC_OBJ__Check_ERROR()
