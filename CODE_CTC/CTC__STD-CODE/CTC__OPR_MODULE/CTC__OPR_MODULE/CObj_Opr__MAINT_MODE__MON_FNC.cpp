@@ -25,8 +25,14 @@ void CObj_Opr__MAINT_MODE
 				// ...
 				{
 					mMacro_Log.Clear__ALL_HISTORY();
-				}
 
+					for(int i=0;i<CFG_SIZE__MOVE_HISTORY;i++)
+					{
+						sCH__MACRO_MOVE__HISTORY[i]->Set__DATA("");
+					}
+					sCH__MACRO_MOVE__LOG_COUNT->Set__DATA("__");
+				}
+	
 				// ...
 				{
 					SCX__SEQ_INFO x_seq_info;
@@ -47,22 +53,53 @@ void CObj_Opr__MAINT_MODE
 		}
 		else
 		{
-			pre__log_status = "";	
+			if(sCH__MACRO_MOVE__LOG_STATUS->Check__DATA(STR__SAVE) > 0)
+			{
+				sCH__MACRO_MOVE__LOG_STATUS->Set__DATA("");
+
+				Sleep(500);
+
+				printf(" * log_state <- save ! \n");
+			}
+
+			if(pre__log_status.CompareNoCase(STR__START) == 0)
+			{
+				pre__log_status = "";	
+
+				// ...
+				{
+					mMacro_Log.Clear__ALL_HISTORY();
+
+					for(int i=0;i<CFG_SIZE__MOVE_HISTORY;i++)
+					{
+						sCH__MACRO_MOVE__HISTORY[i]->Set__DATA("");
+					}
+					sCH__MACRO_MOVE__LOG_COUNT->Set__DATA("__");
+				}
+
+				printf(" * log_end ! \n");
+			}
 		}
 
 		//
 		if(sCH__MACRO_MOVE__LOG_VIEW_REQ->Check__DATA(STR__YES) > 0)
 		{
-			sCH__MACRO_MOVE__SCR_NAME->Set__DATA(SCR_NAME__POPUP_MACRO_MOVE_HISTORY_VIEW);
-
 			sCH__MACRO_MOVE__LOG_VIEW_REQ->Set__DATA("");
+
+			sCH__MACRO_MOVE__SCR_NAME->Set__DATA(SCR_NAME__POPUP_MACRO_MOVE_HISTORY_VIEW);
 		}
 
 		//
 		if(sCH__MACRO_MOVE__LOG_SAVE_REQ->Check__DATA(STR__YES) > 0)
 		{
+			printf(" * log_save_req ! \n");
+
+			Sleep(500);
+			
 			sCH__MACRO_MOVE__LOG_SAVE_REQ->Set__DATA("");
-			Sleep(100);
+			sCH__MACRO_MOVE__LOG_STATUS->Set__DATA("");
+
+			mMacro_Log.Clear__ALL_HISTORY();
 
 			// ...
 			{
@@ -72,20 +109,11 @@ void CObj_Opr__MAINT_MODE
 				CString trg_module;
 				CString trg_slot;
 
-				CString var_data;
-				int i;
+				CString var_data = sCH__MACRO_MOVE__LOG_COUNT->Get__STRING();
+				int i_limit = atoi(var_data);
+				if(i_limit > CFG_SIZE__MOVE_HISTORY)		i_limit = CFG_SIZE__MOVE_HISTORY;
 
-				sCH__MACRO_MOVE__LOG_COUNT->Get__DATA(var_data);
-
-				int limit = atoi(var_data);
-				if(limit > CFG_SIZE__MOVE_HISTORY)
-				{
-					limit = CFG_SIZE__MOVE_HISTORY;
-				}
-
-				mMacro_Log.Clear__ALL_HISTORY();
-
-				for(i=0;i<limit;i++)
+				for(int i=0; i<i_limit; i++)
 				{						
 					CString str__cmmd_line;
 					sCH__MACRO_MOVE__HISTORY[i]->Get__DATA(str__cmmd_line);
@@ -95,6 +123,7 @@ void CObj_Opr__MAINT_MODE
 
 					// ...
 					int cmmd_type;
+
 					CString str__para_1 = "";
 					CString str__para_2 = "";
 					CString str__para_3 = "";
@@ -142,11 +171,12 @@ void CObj_Opr__MAINT_MODE
 						}
 					}
 
-					mMacro_Log.Load__MOVE_INFO(cmmd_type, str__para_1,str__para_2,str__para_3,str__para_4);
+					//
+					mMacro_Log.Load__MOVE_INFO(cmmd_type, str__para_1,str__para_2,str__para_3,str__para_4, str__cmmd_line);
 				}
 			}
 
-			Fnc__MOVE_HISTORY_TO_SCR();
+			Fnc__MOVE_HISTORY_TO_SCR();		
 		}
 
 		// EDITOR ...
@@ -354,9 +384,7 @@ void CObj_Opr__MAINT_MODE
 {
 	// ...
 	{
-		int i;
-
-		for(i=0;i<CFG_SIZE__MOVE_HISTORY;i++)
+		for(int i=0;i<CFG_SIZE__MOVE_HISTORY;i++)
 		{
 			sCH__MACRO_MOVE__HISTORY[i]->Set__DATA("");
 		}
@@ -521,7 +549,7 @@ void CObj_Opr__MAINT_MODE
 		// BUFFER1 ...
 		if(check_flag < 0)
 		{
-			if(src_module.CompareNoCase("BUFF1") == 0)
+			if(src_module.CompareNoCase(STR__BUFF1) == 0)
 			{
 				check_flag = 1;
 
@@ -545,7 +573,7 @@ void CObj_Opr__MAINT_MODE
 		// BUFFER2 ...
 		if(check_flag < 0)
 		{
-			if(src_module.CompareNoCase("BUFF2") == 0)
+			if(src_module.CompareNoCase(STR__BUFF2) == 0)
 			{
 				check_flag = 1;
 
@@ -728,7 +756,7 @@ void CObj_Opr__MAINT_MODE
 		// BUFFER1 ...
 		if(check_flag < 0)
 		{
-			if(trg_module.CompareNoCase("BUFF1") == 0)
+			if(trg_module.CompareNoCase(STR__BUFF1) == 0)
 			{
 				check_flag = 1;
 
@@ -749,7 +777,7 @@ void CObj_Opr__MAINT_MODE
 		// BUFFER2 ...
 		if(check_flag < 0)
 		{
-			if(trg_module.CompareNoCase("BUFF2") == 0)
+			if(trg_module.CompareNoCase(STR__BUFF2) == 0)
 			{
 				check_flag = 1;
 

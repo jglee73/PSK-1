@@ -639,6 +639,7 @@ SCH__SYSTEM_INIT()
 	for(i=0;i<CFG_PM_LIMIT;i++)
 	{
 		xCH__PMx__IN_COUNT[i]->Set__DATA("0");
+		dCH__VAC_RB__INFO_PM_RESERVE_X[i]->Set__DATA(STR__OFF);
 	}
 
 	for(i=0;i<iPMx_SIZE;i++)
@@ -1029,6 +1030,10 @@ _AUTO_CTRL__LBi_RB__ONLY_MODE_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, C
 				int pm_index = Macro__Get_PMC_INDEX(pmc_name);
 				if(pm_index < 0)		continue;
 
+				if(dCH__VAC_RB__INFO_PM_RESERVE_X[pm_index]->Check__DATA(STR__ON) > 0)
+				{
+					continue;
+				}
 				if(PMx__Check_Empty__SlotStatus(pm_index) < 0)
 				{
 					continue;
@@ -1060,6 +1065,8 @@ _AUTO_CTRL__LBi_RB__ONLY_MODE_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, C
 				}
 
 				if(act_flag < 0)			NEXT__LOOP;
+
+				dCH__VAC_RB__INFO_PM_RESERVE_X[pm_index]->Set__DATA(STR__ON);
 
 				wfr__pick_count++;
 				// break;
@@ -7958,9 +7965,11 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 		}
 
 		// ...
-		{
-			bool active__pmc_check = false;
+		bool active__pmc_check = false;
+		int  active__pmc_index = -1;
 
+		// ...
+		{
 			CStringArray l_pm_name;
 			CStringArray l_pm_rcp;
 
@@ -7982,7 +7991,14 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 					int pm_index = Macro__Get_PMC_INDEX(pm_xxx);
 					if(pm_index < 0)			continue;
 	
-					if(PMx__Check_Empty__SlotStatus(pm_index) < 0)		continue;
+					if(dCH__VAC_RB__INFO_PM_RESERVE_X[pm_index]->Check__DATA(STR__ON) > 0)
+					{
+						continue;
+					}
+					if(PMx__Check_Empty__SlotStatus(pm_index) < 0)
+					{
+						continue;
+					}
 	
 					if(xEXT_CH__CFG__PMx_USE[pm_index]->Check__DATA(STR__ENABLE) > 0)
 					{
@@ -7994,6 +8010,7 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 					}
 
 					active__pmc_check = true;
+					active__pmc_index = pm_index;
 					break;
 				}
 			}
@@ -8020,7 +8037,14 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 					int pm_index = Macro__Get_PMC_INDEX(pm_xxx);
 					if(pm_index < 0)			continue;
 
-					if(PMx__Check_Empty__SlotStatus(pm_index) < 0)		continue;
+					if(dCH__VAC_RB__INFO_PM_RESERVE_X[pm_index]->Check__DATA(STR__ON) > 0)
+					{
+						continue;
+					}
+					if(PMx__Check_Empty__SlotStatus(pm_index) < 0)
+					{
+						continue;
+					}
 
 					if(xEXT_CH__CFG__PMx_USE[pm_index]->Check__DATA(STR__ENABLE) > 0)
 					{
@@ -8035,6 +8059,7 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 					pm_abnormal = pm_xxx;
 
 					active__pmc_check = true;
+					active__pmc_index = pm_index;
 					break;
 				}
 			}
@@ -8074,11 +8099,11 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 					p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
 				}
 			}
+		}
 
-			if(!active__pmc_check)
-			{
-				continue;
-			}
+		if(!active__pmc_check)
+		{
+			continue;
 		}
 
 		// ...
@@ -8094,6 +8119,12 @@ _AUTO_CTRL__PMx_RB_WITH_DUAL_TYPE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__
 		if(act_flag < 0)
 		{
 			NEXT__LOOP;
+		}
+
+		if((active__pmc_index >= 0)
+		&& (active__pmc_index <  CFG_PM_LIMIT))
+		{
+			dCH__VAC_RB__INFO_PM_RESERVE_X[active__pmc_index]->Set__DATA(STR__ON);
 		}
 	}
 

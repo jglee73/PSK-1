@@ -222,11 +222,11 @@ int  CObj_Opr__MAINT_MODE::Call__MACRO_MOVE(CII_OBJECT__VARIABLE *p_variable)
 
 							// PMx -> VAC_RB1 ...
 							{
-								sCH__PARA_SRC_MODULE->Set__DATA(src_module);
-								sCH__PARA_SRC_SLOT->Set__DATA(src_slot);
+								sCH__MOVE_SRC_MODULE->Set__DATA(src_module);
+								sCH__MOVE_SRC_SLOT->Set__DATA(src_slot);
 
-								sCH__PARA_TRG_MODULE->Set__DATA(str__vac_rb);
-								sCH__PARA_TRG_SLOT->Set__DATA(str__arm_type);
+								sCH__MOVE_TRG_MODULE->Set__DATA(str__vac_rb);
+								sCH__MOVE_TRG_SLOT->Set__DATA(str__arm_type);
 
 								if(Call__MANUAL_MOVE(p_variable) < 0)
 								{
@@ -260,11 +260,11 @@ int  CObj_Opr__MAINT_MODE::Call__MACRO_MOVE(CII_OBJECT__VARIABLE *p_variable)
 
 							// VAC_RB -> MODULE_X ...
 							{
-								sCH__PARA_SRC_MODULE->Set__DATA(str__vac_rb);
-								sCH__PARA_SRC_SLOT->Set__DATA(str__arm_type);
+								sCH__MOVE_SRC_MODULE->Set__DATA(str__vac_rb);
+								sCH__MOVE_SRC_SLOT->Set__DATA(str__arm_type);
 
-								sCH__PARA_TRG_MODULE->Set__DATA(trg_module);
-								sCH__PARA_TRG_SLOT->Set__DATA(trg_slot);
+								sCH__MOVE_TRG_MODULE->Set__DATA(trg_module);
+								sCH__MOVE_TRG_SLOT->Set__DATA(trg_slot);
 
 								if(Call__MANUAL_MOVE(p_variable) < 0)
 								{
@@ -276,11 +276,11 @@ int  CObj_Opr__MAINT_MODE::Call__MACRO_MOVE(CII_OBJECT__VARIABLE *p_variable)
 						{
 							// ...
 							{
-								sCH__PARA_SRC_MODULE->Set__DATA(src_module);
-								sCH__PARA_SRC_SLOT->Set__DATA(src_slot);
+								sCH__MOVE_SRC_MODULE->Set__DATA(src_module);
+								sCH__MOVE_SRC_SLOT->Set__DATA(src_slot);
 
-								sCH__PARA_TRG_MODULE->Set__DATA(trg_module);
-								sCH__PARA_TRG_SLOT->Set__DATA(trg_slot);
+								sCH__MOVE_TRG_MODULE->Set__DATA(trg_module);
+								sCH__MOVE_TRG_SLOT->Set__DATA(trg_slot);
 							}
 
 							if(Call__MANUAL_MOVE(p_variable) < 0)
@@ -548,11 +548,11 @@ int  CObj_Opr__MAINT_MODE::Call__MANUAL_MOVE(CII_OBJECT__VARIABLE *p_variable)
 
 	// ...
 	{
-		sCH__PARA_SRC_MODULE->Get__DATA(para_src_module);
-		sCH__PARA_SRC_SLOT->Get__DATA(para_src_slot);
+		sCH__MOVE_SRC_MODULE->Get__DATA(para_src_module);
+		sCH__MOVE_SRC_SLOT->Get__DATA(para_src_slot);
 
-		sCH__PARA_TRG_MODULE->Get__DATA(para_trg_module);
-		sCH__PARA_TRG_SLOT->Get__DATA(para_trg_slot);
+		sCH__MOVE_TRG_MODULE->Get__DATA(para_trg_module);
+		sCH__MOVE_TRG_SLOT->Get__DATA(para_trg_slot);
 	}
 
 	// ...
@@ -560,18 +560,18 @@ int  CObj_Opr__MAINT_MODE::Call__MANUAL_MOVE(CII_OBJECT__VARIABLE *p_variable)
 		printf(" * PARA.SRC ... \n");
 
 		printf("  * %s <- %s \n", 
-				sCH__PARA_SRC_MODULE->Get__CHANNEL_NAME(),
-				sCH__PARA_SRC_MODULE->Get__STRING());
+				sCH__MOVE_SRC_MODULE->Get__CHANNEL_NAME(),
+				sCH__MOVE_SRC_MODULE->Get__STRING());
 		printf("  * %s <- %s \n", 
-				sCH__PARA_SRC_SLOT->Get__CHANNEL_NAME(),
-				sCH__PARA_SRC_SLOT->Get__STRING());
+				sCH__MOVE_SRC_SLOT->Get__CHANNEL_NAME(),
+				sCH__MOVE_SRC_SLOT->Get__STRING());
 
 		printf("  * %s <- %s \n", 
-				sCH__PARA_TRG_MODULE->Get__CHANNEL_NAME(),
-				sCH__PARA_TRG_MODULE->Get__STRING());
+				sCH__MOVE_TRG_MODULE->Get__CHANNEL_NAME(),
+				sCH__MOVE_TRG_MODULE->Get__STRING());
 		printf("  * %s <- %s \n", 
-				sCH__PARA_TRG_SLOT->Get__CHANNEL_NAME(),
-				sCH__PARA_TRG_SLOT->Get__STRING());
+				sCH__MOVE_TRG_SLOT->Get__CHANNEL_NAME(),
+				sCH__MOVE_TRG_SLOT->Get__STRING());
 
 		printf("\n");
 	}
@@ -844,8 +844,8 @@ int  CObj_Opr__MAINT_MODE::Call__MANUAL_MOVE(CII_OBJECT__VARIABLE *p_variable)
 			{
 				if(para_trg_module.CompareNoCase("LLX") == 0)
 				{
-					sCH__PARA_TRG_MODULE->Set__DATA(bff_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(bff_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(bff_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(bff_slot);
 				}
 				else
 				{
@@ -885,7 +885,19 @@ int  CObj_Opr__MAINT_MODE::Call__MANUAL_MOVE(CII_OBJECT__VARIABLE *p_variable)
 
 	if(sCH__MACRO_MOVE__LOG_STATUS->Check__DATA(STR__START) > 0)
 	{
-		mMacro_Log.Load__MOVE_INFO(_CMMD__MACRO_MOVE__MANUAL_MOVE, para_src_module,para_src_slot, para_trg_module,para_trg_slot);
+		CString str_cmmd;
+
+		int log_index = mMacro_Log.Load__MOVE_INFO(_CMMD__MACRO_MOVE__MANUAL_MOVE, para_src_module,para_src_slot, para_trg_module,para_trg_slot, str_cmmd);
+
+		if((log_index >= 0)
+		&& (log_index < CFG_SIZE__MOVE_HISTORY))
+		{
+			sCH__MACRO_MOVE__HISTORY[log_index]->Set__DATA(str_cmmd);
+
+			CString ch_data;
+			ch_data.Format("%1d", log_index+1);
+			sCH__MACRO_MOVE__LOG_COUNT->Set__DATA(ch_data);
+		}
 	}
 
 	return flag;
@@ -962,7 +974,18 @@ int  CObj_Opr__MAINT_MODE::Call__TOOL_CLEAR(CII_OBJECT__VARIABLE *p_variable)
 		{
 			if(sCH__MACRO_MOVE__LOG_STATUS->Check__DATA(STR__START) > 0)
 			{
-				mMacro_Log.Load__MOVE_INFO(_CMMD__MACRO_MOVE__TOOL_CLEAR, "","", "","");
+				CString str_cmmd;
+				int log_index = mMacro_Log.Load__MOVE_INFO(_CMMD__MACRO_MOVE__TOOL_CLEAR, "","", "","", str_cmmd);
+
+				if((log_index >= 0)
+				&& (log_index < CFG_SIZE__MOVE_HISTORY))
+				{
+					sCH__MACRO_MOVE__HISTORY[log_index]->Set__DATA(str_cmmd);
+
+					CString ch_data;
+					ch_data.Format("%1d", log_index+1);
+					sCH__MACRO_MOVE__LOG_COUNT->Set__DATA(ch_data);
+				}
 			}
 			return 1;
 		}
@@ -1077,10 +1100,9 @@ ATM_RB__Pick_Module_With_Arm(CII_OBJECT__VARIABLE *p_variable,
 {
 	DECLARE__EXT_CTRL(p_variable);
 
-	// ...
+	// LLx ...
 	{
 		int ll_index = Macro__Get_LL_INDEX(str_module);
-
 		if(ll_index >= 0)
 		{
 			if(pLLx__OBJ_CTRL[ll_index]->Call__OBJECT("VENT") < 0)
@@ -1088,6 +1110,10 @@ ATM_RB__Pick_Module_With_Arm(CII_OBJECT__VARIABLE *p_variable,
 				return -1001;
 			}
 		}
+	}
+	// STx ...
+	{
+
 	}
 
 	// ...
@@ -1160,14 +1186,11 @@ int  CObj_Opr__MAINT_MODE
 
 	if(active__al_retry)
 	{
-		if((str_module.CompareNoCase("LBI")   == 0)
-		|| (str_module.CompareNoCase("LBA")   == 0)
-		|| (str_module.CompareNoCase("LBB")   == 0)
-		|| (str_module.CompareNoCase("LBC")   == 0)
-		|| (str_module.CompareNoCase("LBD")   == 0))
-		// || (str_module.CompareNoCase("BUFF1") == 0)
-		// || (str_module.CompareNoCase("BUFF2") == 0)
-		// || (str_module.CompareNoCase("VIS1")  == 0))
+		if((str_module.CompareNoCase("LBI") == 0)
+		|| (str_module.CompareNoCase("LBA") == 0)
+		|| (str_module.CompareNoCase("LBB") == 0)
+		|| (str_module.CompareNoCase("LBC") == 0)
+		|| (str_module.CompareNoCase("LBD") == 0))
 		{
 			CString str_module = "AL1";
 			CString str_slot   = "1";
@@ -1255,8 +1278,8 @@ int  CObj_Opr__MAINT_MODE
 
 			if(check_flag < 0)
 			{
-				if((str_module.CompareNoCase("BUFF1") == 0)
-				|| (str_module.CompareNoCase("BUFF2") == 0))
+				if((str_module.CompareNoCase(STR__BUFF1) == 0)
+				|| (str_module.CompareNoCase(STR__BUFF2) == 0))
 				{
 					check_flag = 1;
 

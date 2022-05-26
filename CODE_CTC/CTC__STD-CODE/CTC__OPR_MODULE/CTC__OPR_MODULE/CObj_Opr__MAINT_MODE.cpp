@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "CObj_Opr__MAINT_MODE.h"
 
+#include "Macro_Function.h"
+
 
 //-------------------------------------------------------------------------
 CObj_Opr__MAINT_MODE::CObj_Opr__MAINT_MODE()
@@ -765,23 +767,45 @@ int CObj_Opr__MAINT_MODE::__DEFINE__VARIABLE_STD(p_variable)
 		sVAR_PARA__MOVE_SELECT = "PARA.MOVE.SELECT";
 		STD__ADD_STRING_WITH_COMMENT(sVAR_PARA__MOVE_SELECT, "");
 
-		//
-		str_name = "PARA.SRC.MODULE";
-		STD__ADD_STRING_WITH_COMMENT(str_name, "");
-		LINK__VAR_STRING_CTRL(sCH__PARA_SRC_MODULE,str_name);
+		// USER ...
+		{
+			str_name = "PARA.SRC.MODULE";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_SRC_MODULE_BY_USER,str_name);
 
-		str_name = "PARA.SRC.SLOT";
-		STD__ADD_STRING_WITH_COMMENT(str_name, "");
-		LINK__VAR_STRING_CTRL(sCH__PARA_SRC_SLOT,str_name);
+			str_name = "PARA.SRC.SLOT";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_SRC_SLOT_BY_USER,str_name);
 
-		//
-		str_name = "PARA.TRG.MODULE";
-		STD__ADD_STRING_WITH_COMMENT(str_name, "");
-		LINK__VAR_STRING_CTRL(sCH__PARA_TRG_MODULE,str_name);
+			//
+			str_name = "PARA.TRG.MODULE";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRG_MODULE_BY_USER,str_name);
 
-		str_name = "PARA.TRG.SLOT";
-		STD__ADD_STRING_WITH_COMMENT(str_name, "");
-		LINK__VAR_STRING_CTRL(sCH__PARA_TRG_SLOT,str_name);
+			str_name = "PARA.TRG.SLOT";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__PARA_TRG_SLOT_BY_USER,str_name);
+		}
+
+		// MOVE ...
+		{
+			str_name = "MOVE.SRC.MODULE";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__MOVE_SRC_MODULE,str_name);
+
+			str_name = "MOVE.SRC.SLOT";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__MOVE_SRC_SLOT,str_name);
+
+			//
+			str_name = "MOVE.TRG.MODULE";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__MOVE_TRG_MODULE,str_name);
+
+			str_name = "MOVE.TRG.SLOT";
+			STD__ADD_STRING_WITH_COMMENT(str_name, "");
+			LINK__VAR_STRING_CTRL(sCH__MOVE_TRG_SLOT,str_name);
+		}
 	}
 
 	// TEST ..
@@ -1226,11 +1250,20 @@ int CObj_Opr__MAINT_MODE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			sList__ALx_AREA.Add(str_module);
 
 			//
-			str_module = "BUFF1";
+			str_module = STR__BUFF1;
 			sList__ATM_AREA.Add(str_module);
 			sList__BUFFx_AREA.Add(str_module);
 
-			str_module = "BUFF2";
+			str_module = STR__BUFF2;
+			sList__ATM_AREA.Add(str_module);
+			sList__BUFFx_AREA.Add(str_module);
+
+			//
+			str_module = STR__ST1;
+			sList__ATM_AREA.Add(str_module);
+			sList__BUFFx_AREA.Add(str_module);
+
+			str_module = STR__ST2;
 			sList__ATM_AREA.Add(str_module);
 			sList__BUFFx_AREA.Add(str_module);
 
@@ -1429,6 +1462,30 @@ int CObj_Opr__MAINT_MODE::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	{
 		IF__CTRL_MODE(sMODE__MANUAL_MOVE)
 		{
+			// ...
+			{
+				CString ch_data;
+
+				// SOURCE ...
+				{
+					ch_data = sCH__PARA_SRC_MODULE_BY_USER->Get__STRING();
+					ch_data = Macro__Get_STx_NAME(ch_data);
+					sCH__MOVE_SRC_MODULE->Set__DATA(ch_data);
+
+					ch_data = sCH__PARA_SRC_SLOT_BY_USER->Get__STRING();
+					sCH__MOVE_SRC_SLOT->Set__DATA(ch_data);
+				}
+				// TARGET ...
+				{
+					ch_data = sCH__PARA_TRG_MODULE_BY_USER->Get__STRING();
+					ch_data = Macro__Get_STx_NAME(ch_data);
+					sCH__MOVE_TRG_MODULE->Set__DATA(ch_data);
+
+					ch_data = sCH__PARA_TRG_SLOT_BY_USER->Get__STRING();
+					sCH__MOVE_TRG_SLOT->Set__DATA(ch_data);
+				}
+			}
+
 			flag = Call__MANUAL_MOVE(p_variable);
 		}
 		ELSE_IF__CTRL_MODE(sMODE__TOOL_CLEAR)

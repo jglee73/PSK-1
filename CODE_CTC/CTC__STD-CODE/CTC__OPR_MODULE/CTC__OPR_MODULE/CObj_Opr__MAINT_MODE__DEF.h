@@ -14,6 +14,7 @@
 
 #define STR__START							"START"
 #define STR__STOP							"STOP"
+#define STR__SAVE							"SAVE"
 
 #define STR__NONE							"NONE"
 #define STR__EXIST							"EXIST"

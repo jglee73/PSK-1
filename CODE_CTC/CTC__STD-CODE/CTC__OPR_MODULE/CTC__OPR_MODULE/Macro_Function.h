@@ -7,6 +7,8 @@ extern int  Macro__Get_LL_INDEX(const CString& ll_name);
 extern int  Macro__Get_PM_INDEX(const CString& pm_name);
 extern int  Macro__Get_LP_INDEX(const CString& lp_name);
 
+extern CString Macro__Get_STx_NAME(const CString& st_name);
+
 extern int  Macro__Check_SEQ_ID_From_PMx(const CString& pm_name);
 extern int  Macro__Check_Item(const CString& str_item,const CStringArray& l_item);
 

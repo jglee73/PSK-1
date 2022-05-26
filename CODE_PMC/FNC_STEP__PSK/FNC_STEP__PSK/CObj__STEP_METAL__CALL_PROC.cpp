@@ -470,14 +470,17 @@ int CObj__STEP_METAL
 		bool active__epd_idle   = false;
 		bool active__epd_check  = false;
 		bool active__epd_detect = false;
+		bool active__err_check  = false;
 
 		if(rcp__epd_mode.CompareNoCase("Idle") == 0)
 		{
-			active__epd_idle = true;
+			if(active__end_point)			active__err_check = true;
+			else							active__epd_idle  = true;
 		}
 		else if(rcp__epd_mode.CompareNoCase("Error.Check") == 0)
 		{
-			active__epd_check = true;
+			if(active__end_point)			active__err_check = true;
+			else							active__epd_check = true;
 		}
 		else
 		{
@@ -508,6 +511,27 @@ int CObj__STEP_METAL
 			{
 				active__epd_idle = true;
 			}
+		}
+
+		if(active__err_check)
+		{
+			int alm_id = ALID__STEP_PARAMETER__SETTING_ERROR;
+
+			CString alm_msg;
+			CString alm_bff;
+			CString r_act;
+
+			alm_bff.Format("Current Step.No <- %s \n", sCH__INFO_STEP_CUR_NUM->Get__STRING());
+			alm_msg += alm_bff;
+
+			alm_bff.Format("  Step.Mode <- %s \n", rcp__step_mode);
+			alm_msg += alm_bff;
+			alm_bff.Format("  EPD.Mode  <- %s \n", rcp__epd_mode);
+			alm_msg += alm_bff;
+
+			p_alarm->Check__ALARM(alm_id, r_act);
+			p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+			return -101;
 		}
 
 			 if(active__epd_idle)			EPD_OBJ__Start_IDLE();
@@ -680,7 +704,7 @@ int CObj__STEP_METAL
 				if(HTR_WALL_OBJ__Check_STABLE_ERROR()  > 0)			return -142;
 			}
 
-			if(active__over_etch)
+			// if(active__over_etch)
 			{
 				if(EPD_OBJ__Check_ERROR() > 0)						return -151;
 			}
@@ -874,6 +898,11 @@ double CObj__STEP_METAL
 		if(active__pin_obj)
 		{
 			alm_bff.Format("   * Lift-pin control is \"%s\". \n", cur__pin_mode);
+			alm_msg += alm_bff;
+		}
+		if(active__epd_obj)
+		{
+			alm_bff.Format("   * EPD control is \"%s\". \n", cur__epd_mode);
 			alm_msg += alm_bff;
 		}
 

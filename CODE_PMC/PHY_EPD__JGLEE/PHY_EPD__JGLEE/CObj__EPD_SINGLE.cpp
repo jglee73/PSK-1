@@ -288,8 +288,10 @@ int CObj__EPD_SINGLE::__DEFINE__ALARM(p_alarm)
 		alarm_id = ALID__EPD_DETECT_MAX_TIMEOUT;
 		iLIST_ALID__EPD.Add(alarm_id);
 
+		alarm_title  = title;
 		alarm_title += "EPD Detect Maximum Timeout !";
-		alarm_msg   = "";
+
+		alarm_msg = "";
 
 		l_act.RemoveAll();
 		l_act.Add("CHECK");
@@ -301,8 +303,10 @@ int CObj__EPD_SINGLE::__DEFINE__ALARM(p_alarm)
 		alarm_id = ALID__EPD_DETECT_UNKNOWN_SLOPE_DIRECTION;
 		iLIST_ALID__EPD.Add(alarm_id);
 
+		alarm_title  = title;
 		alarm_title += "EPD Detect : Unknown Slope Direction !";
-		alarm_msg   = "";
+
+		alarm_msg = "";
 
 		l_act.RemoveAll();
 		l_act.Add("CHECK");
@@ -314,8 +318,10 @@ int CObj__EPD_SINGLE::__DEFINE__ALARM(p_alarm)
 		alarm_id = ALID__EPD_DETECT_MIN_TIMEOUT;
 		iLIST_ALID__EPD.Add(alarm_id);
 
+		alarm_title  = title;
 		alarm_title += "EPD Detect : Minimum Timeout !";
-		alarm_msg   = "";
+
+		alarm_msg = "";
 
 		l_act.RemoveAll();
 		l_act.Add("CHECK");
@@ -328,10 +334,10 @@ int CObj__EPD_SINGLE::__DEFINE__ALARM(p_alarm)
 		alarm_id = ALID__EPD_ERROR_RANGE;
 		iLIST_ALID__EPD.Add(alarm_id);
 
+		alarm_title  = title;
 		alarm_title += "EPD Error Range !";
 
-		alarm_msg  = "";
-		alarm_msg += "Please, check the state of EPD ! \n";
+		alarm_msg = "Please, check the state of EPD ! \n";
 
 		l_act.RemoveAll();
 		l_act.Add("CHECK");

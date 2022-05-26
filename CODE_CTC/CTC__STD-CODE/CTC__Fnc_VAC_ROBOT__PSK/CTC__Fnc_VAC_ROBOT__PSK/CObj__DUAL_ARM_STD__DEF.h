@@ -48,6 +48,9 @@
 #define  STR__YES					"YES"
 #define  STR__NO					"NO"
 
+#define  STR__ON					"ON"
+#define  STR__OFF					"OFF"
+
 #define  STR__ABORT					"ABORT"
 #define  STR__RETRY					"RETRY"
 #define  STR__IGNORE				"IGNORE"

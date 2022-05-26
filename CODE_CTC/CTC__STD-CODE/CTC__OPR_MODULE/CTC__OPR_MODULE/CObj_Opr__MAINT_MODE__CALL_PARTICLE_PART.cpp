@@ -203,11 +203,11 @@ int  CObj_Opr__MAINT_MODE
 
 			// LPx -> EFEM.ROBOT
 			{
-				sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-				sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+				sCH__MOVE_SRC_MODULE->Set__DATA(para__src_module);
+				sCH__MOVE_SRC_SLOT->Set__DATA(para__src_slot);
 
-				sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-				sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+				sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+				sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 				if(Call__MANUAL_MOVE(p_variable) < 0)		return -101;
 			}
@@ -230,11 +230,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// EFEM.ROBOT -> LPx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__src_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__src_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
@@ -243,11 +243,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LPx -> EFEM.ROBOT
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__src_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__src_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
 
@@ -267,11 +267,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// EFEM.ROBOT -> LLx_In_ATM
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 				}
@@ -292,11 +292,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LLx -> EFEM.ROBOT
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
@@ -305,11 +305,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// EFEM.ROBOT -> LLx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
 
@@ -319,11 +319,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// LLx_In_ATM -> EFEM.ROBOT
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}
@@ -340,11 +340,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 				}
@@ -384,11 +384,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// LLx -> EFEM.ROBOT
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
@@ -405,11 +405,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 				}
@@ -449,11 +449,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// LLx -> EFEM.ROBOT
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
@@ -470,11 +470,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 				}
@@ -521,11 +521,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// LLx -> EFEM.ROBOT
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
@@ -548,11 +548,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// EFEM.ROBOT -> LLx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__llx_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__llx_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__llx_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__llx_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 				}
@@ -572,11 +572,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LLx -> TM.ROBOT
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__llx_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__llx_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__llx_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__llx_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
@@ -585,11 +585,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// TM.ROBOT -> LLx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__llx_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__llx_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__llx_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__llx_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
 
@@ -599,11 +599,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// LLx -> EFEM.ROBOT
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__llx_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__llx_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__llx_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__llx_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
@@ -622,22 +622,22 @@ int  CObj_Opr__MAINT_MODE
 				}
 				else if(i == _ACT_ID__MOVE_TO_ST1)
 				{
-					para__md_module = "BUFF1";
+					para__md_module = STR__BUFF1;
 					para__md_slot = sCH__PARTICLE_CUR_STx_SLOT[0]->Get__STRING();
 				 }
 				else if(i == _ACT_ID__MOVE_TO_ST2)
 				{
-					para__md_module = "BUFF2";
+					para__md_module = STR__BUFF2;
 					para__md_slot = sCH__PARTICLE_CUR_STx_SLOT[1]->Get__STRING();
 				}
 
 				// EFEM.ROBOT -> MDx
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__md_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__md_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__md_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__md_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 				}
@@ -657,11 +657,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// MDx -> EFEM.ROBOT
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__md_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__md_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__md_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__md_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
@@ -670,11 +670,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// EFEM.ROBOT -> MDx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__md_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__md_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__md_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__md_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -22;
 
@@ -684,11 +684,11 @@ int  CObj_Opr__MAINT_MODE
 
 				// MDx -> EFEM.ROBOT
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(para__md_module);
-					sCH__PARA_SRC_SLOT->Set__DATA(para__md_slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(para__md_module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(para__md_slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(para__efem_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(para__efem_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(para__efem_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(para__efem_slot);
 
 					if(Call__MANUAL_MOVE(p_variable) < 0)		return -31;
 				}			
@@ -700,11 +700,11 @@ int  CObj_Opr__MAINT_MODE
 
 			// EFEM.ROBOT -> LPx
 			{
-				sCH__PARA_SRC_MODULE->Set__DATA(para__efem_module);
-				sCH__PARA_SRC_SLOT->Set__DATA(para__efem_slot);
+				sCH__MOVE_SRC_MODULE->Set__DATA(para__efem_module);
+				sCH__MOVE_SRC_SLOT->Set__DATA(para__efem_slot);
 
-				sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-				sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+				sCH__MOVE_TRG_MODULE->Set__DATA(para__src_module);
+				sCH__MOVE_TRG_SLOT->Set__DATA(para__src_slot);
 
 				if(Call__MANUAL_MOVE(p_variable) < 0)		return -201;
 			}			
@@ -934,11 +934,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LPx -> PMx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__src_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__src_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 					}
@@ -958,11 +958,11 @@ int  CObj_Opr__MAINT_MODE
 
 						// PMx -> TM.ROBOT
 						{
-							sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-							sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+							sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+							sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-							sCH__PARA_TRG_MODULE->Set__DATA(para__arm_module);
-							sCH__PARA_TRG_SLOT->Set__DATA(para__arm_slot);
+							sCH__MOVE_TRG_MODULE->Set__DATA(para__arm_module);
+							sCH__MOVE_TRG_SLOT->Set__DATA(para__arm_slot);
 
 							if(Call__MANUAL_MOVE(p_variable) < 0)		return -12;
 
@@ -971,11 +971,11 @@ int  CObj_Opr__MAINT_MODE
 
 						// TM.ROBOT -> PMx
 						{
-							sCH__PARA_SRC_MODULE->Set__DATA(para__arm_module);
-							sCH__PARA_SRC_SLOT->Set__DATA(para__arm_slot);
+							sCH__MOVE_SRC_MODULE->Set__DATA(para__arm_module);
+							sCH__MOVE_SRC_SLOT->Set__DATA(para__arm_slot);
 
-							sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-							sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+							sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+							sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 							if(Call__MANUAL_MOVE(p_variable) < 0)		return -21;
 
@@ -995,11 +995,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LPx -> PMx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__src_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__src_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 					}
@@ -1053,11 +1053,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LPx -> PMx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__src_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__src_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 					}
@@ -1103,11 +1103,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LPx -> PMx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__src_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__src_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__src_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__src_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__trg_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -11;
 					}
@@ -1189,18 +1189,18 @@ int  CObj_Opr__MAINT_MODE
 
 					// PMx -> LLx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__trg_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__trg_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__trg_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__trg_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__llx_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__llx_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__llx_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__llx_slot);
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -101;
 					}
 
 					// ...
 					{
-						para__llx_module = sCH__PARA_TRG_MODULE->Get__STRING();
-						para__llx_slot = sCH__PARA_TRG_SLOT->Get__STRING();
+						para__llx_module = sCH__MOVE_TRG_MODULE->Get__STRING();
+						para__llx_slot = sCH__MOVE_TRG_SLOT->Get__STRING();
 					}
 					
 					// VENT
@@ -1232,11 +1232,11 @@ int  CObj_Opr__MAINT_MODE
 
 					// LLx -> LPx
 					{
-						sCH__PARA_SRC_MODULE->Set__DATA(para__llx_module);
-						sCH__PARA_SRC_SLOT->Set__DATA(para__llx_slot);
+						sCH__MOVE_SRC_MODULE->Set__DATA(para__llx_module);
+						sCH__MOVE_SRC_SLOT->Set__DATA(para__llx_slot);
 
-						sCH__PARA_TRG_MODULE->Set__DATA(para__src_module);
-						sCH__PARA_TRG_SLOT->Set__DATA(para__src_slot);
+						sCH__MOVE_TRG_MODULE->Set__DATA(para__src_module);
+						sCH__MOVE_TRG_SLOT->Set__DATA(para__src_slot);
 
 						if(Call__MANUAL_MOVE(p_variable) < 0)		return -104;
 					}			

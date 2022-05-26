@@ -2,6 +2,8 @@
 #include "CObj_Phy__ROBOT_VAC.h"
 #include "CObj_Phy__ROBOT_VAC__DEF.h"
 
+#include "Macro_Function.h"
+
 
 //-------------------------------------------------------------------------
 CObj_Phy__ROBOT_VAC::CObj_Phy__ROBOT_VAC()
@@ -138,6 +140,9 @@ LP1 LP2 LP3 LP4 VIS1 VIS1_BUF"
 
 #define  DSP__DISABLE_ENABLE							\
 "DISABLE  ENABLE"
+
+#define  DSP__OFF_ON									\
+"OFF  ON"
 
 
 int CObj_Phy__ROBOT_VAC::__DEFINE__VARIABLE_STD(p_variable)
@@ -463,6 +468,16 @@ int CObj_Phy__ROBOT_VAC::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "TIME.ACT.RESULT";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__TIME_ACT_RESULT, str_name);
+	}
+
+	// INFO.PMx ...
+	for(i=0; i<CFG_PM_LIMIT; i++)
+	{
+		int id = i + 1;
+
+		str_name.Format("INFO.PM%1d.RESERVE", id);
+		STD__ADD_DIGITAL(str_name, DSP__OFF_ON);
+		LINK__VAR_DIGITAL_CTRL(dCH__INFO_PM_RESERVE_X[i], str_name);
 	}
 
 	// ...
@@ -1012,17 +1027,61 @@ int CObj_Phy__ROBOT_VAC
 		}
 	}
 
-	if(flag > 0)
+	// ...
+	bool active__pick_act  = false;
+	bool active__place_act = false;
+
+	if((mode.CompareNoCase(sMODE__PICK)  == 0)		
+	|| (mode.CompareNoCase(sMODE__XPICK) == 0))
 	{
-		if((mode.CompareNoCase(sMODE__PLACE)  == 0)		
-		|| (mode.CompareNoCase(sMODE__XPLACE) == 0)
-		|| (mode.CompareNoCase(sMODE__PICK)   == 0)		
-		|| (mode.CompareNoCase(sMODE__XPICK)  == 0))
+		active__pick_act = true;
+	}
+	else if((mode.CompareNoCase(sMODE__PLACE)  == 0)		
+		 || (mode.CompareNoCase(sMODE__XPLACE) == 0))
+	{
+		active__place_act = true;
+	}
+
+	if((active__pick_act)
+	|| (active__place_act))
+	{
+		if(flag > 0)
 		{
 			Report__MATERIAL_INFO(mode);
 		}
 	}
 
+	if(active__place_act)
+	{
+		// PM.Index ...
+		int pm_index = Macro__Get_PMx_INDEX(sPara1__Module);
+		if(pm_index >= 0)
+		{
+			dCH__INFO_PM_RESERVE_X[pm_index]->Set__DATA(STR__OFF);
+		}
+
+		// Wafer.Count ...
+		int wfr_count = 0;
+		int i;
+
+		for(i=0; i<CFG_PM_LIMIT; i++)
+		{
+			if(dCH__CFG_ARM_USE_FLAG_X[i]->Check__DATA(STR__ENABLE) < 0)	continue;
+			if(xCH__SLOT_STATUS[i]->Check__DATA(STR__NONE) > 0)				continue;
+
+			wfr_count++;
+		}
+	
+		if(wfr_count < 1)
+		{
+			for(i=0; i<CFG_PM_LIMIT; i++)
+			{
+				dCH__INFO_PM_RESERVE_X[i]->Set__DATA(STR__OFF);	
+			}
+		}
+	}
+
+	//
 	if(mode.CompareNoCase(sMODE__SWAP_LBx) == 0)
 	{
 		CString log_string;
@@ -1152,6 +1211,7 @@ int CObj_Phy__ROBOT_VAC
 	}
 	return flag;
 }
+
 int CObj_Phy__ROBOT_VAC::__CALL__MONITORING(id,p_variable,p_alarm)
 {
 	switch(id)

@@ -169,11 +169,11 @@ int  CObj_Opr__MAINT_MODE::Call__PARTICLE_CHECK(CII_OBJECT__VARIABLE *p_variable
 	{
 		// ...
 		{
-			sCH__PARA_SRC_MODULE->Set__DATA(str__src_module);
-			sCH__PARA_SRC_SLOT->Set__DATA(str__src_slot);
+			sCH__MOVE_SRC_MODULE->Set__DATA(str__src_module);
+			sCH__MOVE_SRC_SLOT->Set__DATA(str__src_slot);
 
-			sCH__PARA_TRG_MODULE->Set__DATA(str__trg_module);
-			sCH__PARA_TRG_SLOT->Set__DATA(str__trg_slot);
+			sCH__MOVE_TRG_MODULE->Set__DATA(str__trg_module);
+			sCH__MOVE_TRG_SLOT->Set__DATA(str__trg_slot);
 		}
 
 		if(Call__MANUAL_MOVE(p_variable) < 0)
@@ -282,11 +282,11 @@ int  CObj_Opr__MAINT_MODE::Call__PARTICLE_CHECK(CII_OBJECT__VARIABLE *p_variable
 	{
 		// ...
 		{
-			sCH__PARA_SRC_MODULE->Set__DATA(str__trg_module);
-			sCH__PARA_SRC_SLOT->Set__DATA(str__trg_slot);
+			sCH__MOVE_SRC_MODULE->Set__DATA(str__trg_module);
+			sCH__MOVE_SRC_SLOT->Set__DATA(str__trg_slot);
 
-			sCH__PARA_TRG_MODULE->Set__DATA(atm_rb__name);
-			sCH__PARA_TRG_SLOT->Set__DATA(atm_rb__slot);
+			sCH__MOVE_TRG_MODULE->Set__DATA(atm_rb__name);
+			sCH__MOVE_TRG_SLOT->Set__DATA(atm_rb__slot);
 		}
 
 		if(Call__MANUAL_MOVE(p_variable) < 0)
@@ -306,8 +306,8 @@ int  CObj_Opr__MAINT_MODE::Call__PARTICLE_CHECK(CII_OBJECT__VARIABLE *p_variable
 	{
 		if(dEXT_CH__ATM_RB__CFG_BUFFER_USE_DURING_MAINT_MODE->Check__DATA(STR__ENABLE) > 0)
 		{
-			if((str__trg_module.CompareNoCase("BUFF1") != 0)
-				&& (str__trg_module.CompareNoCase("BUFF2") != 0))
+			if((str__trg_module.CompareNoCase(STR__BUFF1) != 0)
+			&& (str__trg_module.CompareNoCase(STR__BUFF2) != 0))
 			{
 				active__stx_check = true;
 			}
@@ -349,11 +349,11 @@ int  CObj_Opr__MAINT_MODE::Call__PARTICLE_CHECK(CII_OBJECT__VARIABLE *p_variable
 
 		// ...
 		{
-			sCH__PARA_SRC_MODULE->Set__DATA(atm_rb__name);
-			sCH__PARA_SRC_SLOT->Set__DATA(atm_rb__slot);
+			sCH__MOVE_SRC_MODULE->Set__DATA(atm_rb__name);
+			sCH__MOVE_SRC_SLOT->Set__DATA(atm_rb__slot);
 
-			sCH__PARA_TRG_MODULE->Set__DATA(buff__trg_module);
-			sCH__PARA_TRG_SLOT->Set__DATA(buff__trg_slot);
+			sCH__MOVE_TRG_MODULE->Set__DATA(buff__trg_module);
+			sCH__MOVE_TRG_SLOT->Set__DATA(buff__trg_slot);
 		}
 
 		if(Call__MANUAL_MOVE(p_variable) < 0)
@@ -403,11 +403,11 @@ int  CObj_Opr__MAINT_MODE::Call__PARTICLE_CHECK(CII_OBJECT__VARIABLE *p_variable
 	{
 		// ...
 		{
-			sCH__PARA_SRC_MODULE->Set__DATA(buff__trg_module);
-			sCH__PARA_SRC_SLOT->Set__DATA(buff__trg_slot);
+			sCH__MOVE_SRC_MODULE->Set__DATA(buff__trg_module);
+			sCH__MOVE_SRC_SLOT->Set__DATA(buff__trg_slot);
 
-			sCH__PARA_TRG_MODULE->Set__DATA(str__src_module);
-			sCH__PARA_TRG_SLOT->Set__DATA(str__src_slot);
+			sCH__MOVE_TRG_MODULE->Set__DATA(str__src_module);
+			sCH__MOVE_TRG_SLOT->Set__DATA(str__src_slot);
 		}
 
 		if(Call__MANUAL_MOVE(p_variable) < 0)
@@ -437,7 +437,7 @@ _Fnc__PARTICLE_CHECK__WAITING(CII_OBJECT__VARIABLE *p_variable,
 
 		// Main.Process ...
 		{
-			if(active__pm)		str__rcp_name = sCH__PARTICLE_PARA_PMx_RECIPE[prc_check__pm_index]->Get__STRING();
+				 if(active__pm)		str__rcp_name = sCH__PARTICLE_PARA_PMx_RECIPE[prc_check__pm_index]->Get__STRING();
 			else if(active__ll)		str__rcp_name = sCH__PARTICLE_PARA_LLx_RECIPE[prc_check__ll_index]->Get__STRING();
 
 			if(str__rcp_name.GetLength() > 0)
@@ -448,7 +448,7 @@ _Fnc__PARTICLE_CHECK__WAITING(CII_OBJECT__VARIABLE *p_variable,
 		}
 		// Post.Process ...
 		{
-			if(active__pm)		str__rcp_name = sCH__PARTICLE_PARA_PMx_RCP_CLN[prc_check__pm_index]->Get__STRING();
+				 if(active__pm)		str__rcp_name = sCH__PARTICLE_PARA_PMx_RCP_CLN[prc_check__pm_index]->Get__STRING();
 			else if(active__ll)		str__rcp_name = sCH__PARTICLE_PARA_LLx_RCP_CLN[prc_check__ll_index]->Get__STRING();
 
 			if(str__rcp_name.GetLength() > 0)
@@ -459,7 +459,7 @@ _Fnc__PARTICLE_CHECK__WAITING(CII_OBJECT__VARIABLE *p_variable,
 		}
 		// Pre.Recipe ...
 		{
-			if(active__pm)		str__rcp_name = sCH__PARTICLE_PARA_PMx_RCP_PRE[prc_check__pm_index]->Get__STRING();
+				 if(active__pm)		str__rcp_name = sCH__PARTICLE_PARA_PMx_RCP_PRE[prc_check__pm_index]->Get__STRING();
 			else if(active__ll)		str__rcp_name = sCH__PARTICLE_PARA_LLx_RCP_PRE[prc_check__ll_index]->Get__STRING();
 
 			if(str__rcp_name.GetLength() > 0)
@@ -654,7 +654,7 @@ _Fnc__PARTICLE_CHECK__WAITING(CII_OBJECT__VARIABLE *p_variable,
 
 						p_obj_ctrl->Get__OBJECT_STATUS(ch_data);
 						if((ch_data.CompareNoCase(STR__ABORTED)   == 0)
-							|| (ch_data.CompareNoCase(STR__AVAILABLE) == 0))
+						|| (ch_data.CompareNoCase(STR__AVAILABLE) == 0))
 						{
 							break;
 						}
@@ -710,11 +710,11 @@ _Fnc__PARTICLE_CHECK__WAITING(CII_OBJECT__VARIABLE *p_variable,
 			{
 				// ...
 				{
-					sCH__PARA_SRC_MODULE->Set__DATA(vac_rb__module);
-					sCH__PARA_SRC_SLOT->Set__DATA(vac_rb__slot);
+					sCH__MOVE_SRC_MODULE->Set__DATA(vac_rb__module);
+					sCH__MOVE_SRC_SLOT->Set__DATA(vac_rb__slot);
 
-					sCH__PARA_TRG_MODULE->Set__DATA(str__trg_module);
-					sCH__PARA_TRG_SLOT->Set__DATA(str__trg_slot);
+					sCH__MOVE_TRG_MODULE->Set__DATA(str__trg_module);
+					sCH__MOVE_TRG_SLOT->Set__DATA(str__trg_slot);
 				}
 
 				if(Call__MANUAL_MOVE(p_variable) < 0)

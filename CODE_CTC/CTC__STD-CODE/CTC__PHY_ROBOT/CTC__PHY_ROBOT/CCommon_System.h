@@ -34,6 +34,10 @@
 #define  STR__OPEN						"OPEN"
 #define  STR__CLOSE						"CLOSE"
 
+#define  STR__ON						"ON"
+#define  STR__OFF						"OFF"
+
+
 // ...
 #define  _ARM__AB						"AB"
 #define  _ARM__A						"A"

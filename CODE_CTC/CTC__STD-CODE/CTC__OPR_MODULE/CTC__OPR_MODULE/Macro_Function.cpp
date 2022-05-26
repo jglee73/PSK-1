@@ -40,6 +40,14 @@ int  Macro__Get_PM_INDEX(const CString& pm_name)
 	return -1;
 }
 
+CString Macro__Get_STx_NAME(const CString& st_name)
+{
+	if(st_name.CompareNoCase(STR__ST1) == 0)		return STR__BUFF1;
+	if(st_name.CompareNoCase(STR__ST2) == 0)		return STR__BUFF2;
+
+	return st_name;
+}
+
 int  Macro__Get_LP_INDEX(const CString& lp_name)
 {
 	CString str_name;

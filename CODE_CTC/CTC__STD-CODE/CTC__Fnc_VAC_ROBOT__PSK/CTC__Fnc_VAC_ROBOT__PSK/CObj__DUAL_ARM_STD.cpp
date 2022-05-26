@@ -1075,6 +1075,15 @@ int CObj__DUAL_ARM_STD
 		LINK__EXT_VAR_DIGITAL_CTRL(xCH__VAC_RB__CFG_A_ARM_USE_MODE, db_name,"CFG.A.ARM.USE.FLAG");
 		LINK__EXT_VAR_DIGITAL_CTRL(xCH__VAC_RB__CFG_B_ARM_USE_MODE, db_name,"CFG.B.ARM.USE.FLAG");
 
+		//
+		for(i=0; i<CFG_PM_LIMIT; i++)
+		{
+			int id = i + 1;
+
+			str_name.Format("INFO.PM%1d.RESERVE", id);
+			LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__INFO_PM_RESERVE_X[i], db_name,str_name);
+		}
+
 		// LLx : Scheduler - Dual Only Input & Output ...
 		str_name = "CFG.LLx_CTRL.ONLY_INPUT_OUTPUT.MODE";
 		LINK__EXT_VAR_DIGITAL_CTRL(dCH__VAC_RB__CFG_LLx_CTRL_ONLY_INPUT_OUTPUT_MODE, db_name,str_name);

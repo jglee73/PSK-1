@@ -58,25 +58,23 @@ public:
 	}
 	int  Get__HISTORY_COUNT()
 	{
-		int count = 0;
-
 		EnterCriticalSection(&mCS_LOCK);
 
-		// ...
-		{
-			count = iList__CMMD_TYPE.GetSize();
-		}
+		int count = iList__CMMD_TYPE.GetSize();
 
 		LeaveCriticalSection(&mCS_LOCK);
 		return count;
 	}
-	void Load__MOVE_INFO(const int cmmd_type,
-						 const CString& str__para_1,
-						 const CString& str__para_2,
-						 const CString& str__para_3,
-						 const CString& str__para_4)   
+	int Load__MOVE_INFO(const int cmmd_type,
+					    const CString& str__para_1,
+					    const CString& str__para_2,
+					    const CString& str__para_3,
+					    const CString& str__para_4,
+						CString& strr__cmmd_line)   
 	{
 		EnterCriticalSection(&mCS_LOCK);
+
+		int db_index = iList__CMMD_TYPE.GetSize();
 
 		// ...
 		{
@@ -88,7 +86,17 @@ public:
 			sList__PARA_4.Add(str__para_4);
 		}
 
+		if(cmmd_type == _CMMD__MACRO_MOVE__MANUAL_MOVE)
+			strr__cmmd_line.Format("Move : [%s][%s] -> [%s][%s]", str__para_1,str__para_2, str__para_3,str__para_4);
+		else if(cmmd_type == _CMMD__MACRO_MOVE__TOOL_CLEAR)
+			strr__cmmd_line = "TOOL_CLEAR";
+		else if(cmmd_type == _CMMD__MACRO_MOVE__PROCESS)
+			strr__cmmd_line.Format("Process : [%s]", str__para_1);
+		else if(cmmd_type == _CMMD__MACRO_MOVE__LOOP)
+			strr__cmmd_line.Format("Repeat[%s] : [%s] -> [%s]", str__para_1, str__para_2,str__para_3);
+
 		LeaveCriticalSection(&mCS_LOCK);
+		return db_index;
 	}
 	void Get__ALL_MOVE_HISTORY(CUIntArray&   l_cmmd_type,
 							   CStringArray& l_para_1,
@@ -559,11 +567,18 @@ private:
 	// ...
 	CString sVAR_PARA__MOVE_SELECT;
 
-	CX__VAR_STRING_CTRL  sCH__PARA_SRC_MODULE;
-	CX__VAR_STRING_CTRL  sCH__PARA_SRC_SLOT;
+	CX__VAR_STRING_CTRL  sCH__PARA_SRC_MODULE_BY_USER;
+	CX__VAR_STRING_CTRL  sCH__PARA_SRC_SLOT_BY_USER;
 
-	CX__VAR_STRING_CTRL  sCH__PARA_TRG_MODULE;
-	CX__VAR_STRING_CTRL  sCH__PARA_TRG_SLOT;
+	CX__VAR_STRING_CTRL  sCH__PARA_TRG_MODULE_BY_USER;
+	CX__VAR_STRING_CTRL  sCH__PARA_TRG_SLOT_BY_USER;
+
+	//
+	CX__VAR_STRING_CTRL  sCH__MOVE_SRC_MODULE;
+	CX__VAR_STRING_CTRL  sCH__MOVE_SRC_SLOT;
+
+	CX__VAR_STRING_CTRL  sCH__MOVE_TRG_MODULE;
+	CX__VAR_STRING_CTRL  sCH__MOVE_TRG_SLOT;
 
 	// ...
 	CX__VAR_STRING_CTRL  sCH__TEST_TARGET_TITLE;
