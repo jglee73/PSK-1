@@ -1,0 +1,261 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#include ""res\\JGLEE__STD_DATALOG.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ULTRAFILECONVERSION_DIALOG DIALOGEX 150, 100, 367, 244
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CLIENTEDGE | WS_EX_APPWINDOW
+CAPTION "UltraFileConversion"
+FONT 9, "±¼¸²", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,217,55,17
+    PUSHBUTTON      "CANCEL",IDCANCEL,305,217,55,17
+    COMBOBOX        IDC_LIST_SOURCE,45,7,126,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_LIST_TARGET,234,7,127,61,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "List1",IDC_LIST_BOX,"SysListView32",LVS_REPORT | WS_BORDER | WS_TABSTOP,7,28,353,132
+    CTEXT           "-------------------------------------------------------------------------------------------------------",IDC_STATIC,8,201,351,8
+    PUSHBUTTON      "ALL",IDC_ALL,27,168,50,23
+    PUSHBUTTON      "CLEAR",IDC_CLEAR,87,168,50,23
+    LTEXT           "File Date",IDC_STATIC,10,11,29,8
+    LTEXT           "Output",IDC_STATIC,206,11,22,8
+    GROUPBOX        " File Format ",IDC_STATIC,169,168,77,29
+    CONTROL         "CSV",IDC_CHECK__FORMAT_CSV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,177,183,29,8
+    CONTROL         "TXT",IDC_CHECK__FORMAT_TXT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,211,181,32,11
+    GROUPBOX        " Item Align ",IDC_STATIC,257,168,77,29
+    CONTROL         "Left",IDC_CHECK__ALIGN_LEFT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,265,184,29,8
+    CONTROL         "Right",IDC_CHECK__ALIGN_RIGHT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,299,182,32,11
+END
+
+IDD_DIALOG1 DIALOG  0, 0, 187, 94
+STYLE DS_SETFONT | WS_CHILD | WS_BORDER
+FONT 10, "System"
+BEGIN
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,0,0,187,94
+END
+
+IDD_DLG__LOG_DIR_COPY DIALOG  0, 0, 323, 105
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Log Directory Copy ..."
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "Copy",IDOK,7,84,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,266,84,50,14
+    GROUPBOX        "",IDC_STATIC,7,3,310,47
+    PUSHBUTTON      "Source Directory",IDC_BTTN_SRC_DIR,11,11,79,16
+    PUSHBUTTON      "Target Directory",IDC_BTTN_TRG_DIR,11,30,79,16
+    EDITTEXT        IDC_EDIT_SRC_DIR,92,11,221,16,ES_CENTER | ES_READONLY
+    EDITTEXT        IDC_EDIT_TRG_DIR,92,30,221,16,ES_CENTER | ES_READONLY
+    EDITTEXT        IDC_EDIT_COPY_PROCESS_DATA,7,53,309,16,ES_CENTER | ES_READONLY
+END
+
+IDD_DLG__LOG_TRG_DIR DIALOG  0, 0, 192, 120
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Log Target Diectory"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,99,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,135,99,50,14
+    CONTROL         "C:\\LogPMx_Copy",IDC_CHECK_C_DIR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,11,79,10
+    CONTROL         "D:\\LogPMx_Copy",IDC_CHECK_D_DIR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,24,79,10
+    LTEXT           "Folder Name",IDC_STATIC,73,50,43,8
+    EDITTEXT        IDC_EDIT_FOLDER_NAME,7,62,177,14,ES_CENTER | ES_AUTOHSCROLL
+END
+
+IDD_DLG__LOG_SRC_COPY DIALOG  0, 0, 286, 216
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Log Source Directory"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,195,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,229,195,50,14
+    COMBOBOX        IDC_1st_FOLDER,7,7,135,175,CBS_SIMPLE | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_2st_FOLDER,144,7,135,175,CBS_SIMPLE | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_DLG_INTERVAL_DATALOG DIALOGEX 0, 65501, 508, 341
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CLIENTEDGE
+CAPTION "   INTERVAL - DATALOG"
+FONT 10, "System", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,217,316,70,18,0,WS_EX_DLGMODALFRAME
+    CONTROL         "List1",IDC_LIST,"SysListView32",LVS_REPORT | WS_BORDER | WS_TABSTOP,7,24,494,285
+    EDITTEXT        IDC_TITLE,7,7,494,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+END
+
+IDD_DLG_LOG_LIST DIALOG  0, 0, 187, 145
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CHILD
+FONT 10, "System"
+BEGIN
+    CONTROL         "List1",IDC_LIST_VIEW,"SysListView32",LVS_REPORT | LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,7,19,76,50
+END
+
+IDD_DLG_SEARCH_LIST DIALOGEX 0, 0, 217, 292
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CLIENTEDGE
+CAPTION "Search List"
+FONT 10, "System", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,268,50,17
+    PUSHBUTTON      "Cancel",IDCANCEL,160,268,50,17
+    LISTBOX         IDC_LIST_VIEW,7,7,203,256,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ULTRAFILECONVERSION_DIALOG, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 234
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "TODO: <Company name>"
+            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "JGLEE__STD_DATALOG.dll"
+            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "OriginalFilename", "JGLEE__STD_DATALOG.dll"
+            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(949)
+#include "res\JGLEE__STD_DATALOG.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

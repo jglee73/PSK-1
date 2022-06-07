@@ -341,7 +341,7 @@ int CObj__STEP_METAL
 				{
 					log_msg = "RF.Bias Control ... \n";
 
-					log_bff.Format("  * RF.Bias Control(%s, %s) \n", obj_mode,rcp__rf_src_power);
+					log_bff.Format("  * RF.Bias Control(%s, %s) \n", obj_mode,rcp__rf_bias_power);
 					log_msg += log_bff;
 
 					xLOG_CTRL->WRITE__LOG(log_msg);		

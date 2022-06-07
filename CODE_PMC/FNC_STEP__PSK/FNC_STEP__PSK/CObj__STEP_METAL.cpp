@@ -757,7 +757,7 @@ int CObj__STEP_METAL::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	}
 	// OBJ RF_BIAS ...
 	{
-		def_name = "OBJ__RF_SOURCE";
+		def_name = "OBJ__RF_BIAS";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,obj_name);
 
 		def_check = x_utility.Check__Link(obj_name);

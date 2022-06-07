@@ -1,0 +1,13 @@
+#pragma once
+
+
+// ...
+#define  pKEY__CH_MESSAGE					"CH.MESSAGE"
+
+#define  pKEY__DATA_FONT_NAME				"DATA.FONT_NAME"
+#define  pKEY__DATA_TEXT_COLOR				"DATA.TEXT_COLOR"
+#define  pKEY__DATA_TEXT_WIDTH				"DATA.TEXT_WIDTH"
+#define  pKEY__DATA_TEXT_HEIGHT				"DATA.TEXT_HEIGHT"
+#define  pKEY__DATA_TEXT_ALIGN				"DATA.TEXT_ALIGN"
+
+#define  pKEY__DATA_TEXT_FORMAT				"DATA.TEXT_FORMAT"

@@ -79,6 +79,13 @@ int CObj__GAS_VLV_FNC::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__OBJ_MSG, str_name);
 	}
 
+	// PARA.INTERLOCK ...
+	{
+		str_name = "PARA.INTERLOCK.SKIP";
+		STD__ADD_DIGITAL(str_name, "NO YES", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARA_INTERLOCK_SKIP, str_name);
+	}
+
 	// PARA ...
 	{
 		str_name = "PARA.MFC.TYPE";
@@ -414,44 +421,52 @@ LOOP_RETRY:
 
 	int flag = 1;
 
-	if(sEXT_CH__CHM_PUMPING_STATE->Check__DATA("PUMPING") < 0)
+	// ...
+	bool active__interlock_check = true;
+
+	if(dCH__PARA_INTERLOCK_SKIP->Check__DATA(STR__YES) > 0)			active__interlock_check = false;
+
+	if(active__interlock_check)
 	{
-		if((mode.CompareNoCase(sMODE__GAS_LINE_PURGE)     == 0)
-		|| (mode.CompareNoCase(sMODE__CHM_LINE_PURGE)     == 0)
-		|| (mode.CompareNoCase(sMODE__LINE_PURGE_WITH_N2) == 0)
-		|| (mode.CompareNoCase(sMODE__MFC_CONTROL)        == 0)
-		|| (mode.CompareNoCase(sMODE__CHM_BALLAST_FLOW)   == 0)
-		|| (mode.CompareNoCase(sMODE__TRANS_BALLAST_FLOW) == 0))
+		if(sEXT_CH__CHM_PUMPING_STATE->Check__DATA("PUMPING") < 0)
 		{
-			int alm_id = ALID__CHM_STATE__NOT_PUMPING;
-			CString alm_msg;
-			CString r_act;
-	
-			alm_msg.Format("\"%s\" 명령을 수행 할 수 없습니다. \n", mode);
-
-			p_alarm->Popup__ALARM_With_MESSAGE(alm_id, alm_msg, r_act);
-
-			if(r_act.CompareNoCase(ACT__RETRY) == 0)
+			if((mode.CompareNoCase(sMODE__GAS_LINE_PURGE)     == 0)
+			|| (mode.CompareNoCase(sMODE__CHM_LINE_PURGE)     == 0)
+			|| (mode.CompareNoCase(sMODE__LINE_PURGE_WITH_N2) == 0)
+			|| (mode.CompareNoCase(sMODE__MFC_CONTROL)        == 0)
+			|| (mode.CompareNoCase(sMODE__CHM_BALLAST_FLOW)   == 0)
+			|| (mode.CompareNoCase(sMODE__TRANS_BALLAST_FLOW) == 0))
 			{
-				// ...
+				int alm_id = ALID__CHM_STATE__NOT_PUMPING;
+				CString alm_msg;
+				CString r_act;
+		
+				alm_msg.Format("\"%s\" 명령을 수행 할 수 없습니다. \n", mode);
+
+				p_alarm->Popup__ALARM_With_MESSAGE(alm_id, alm_msg, r_act);
+
+				if(r_act.CompareNoCase(ACT__RETRY) == 0)
 				{
-					CString log_msg;
-					CString log_bff;
+					// ...
+					{
+						CString log_msg;
+						CString log_bff;
 
-					log_msg  = "\n";
-					log_msg += "Chamber State is not \"Pumping\". \n";
+						log_msg  = "\n";
+						log_msg += "Chamber State is not \"Pumping\". \n";
 
-					log_bff.Format("  * %s <- %s \n",
-								   sEXT_CH__CHM_PUMPING_STATE->Get__CHANNEL_NAME(),
-								   sEXT_CH__CHM_PUMPING_STATE->Get__STRING());
-					log_msg += log_bff;
+						log_bff.Format("  * %s <- %s \n",
+									   sEXT_CH__CHM_PUMPING_STATE->Get__CHANNEL_NAME(),
+									   sEXT_CH__CHM_PUMPING_STATE->Get__STRING());
+						log_msg += log_bff;
 
-					xLOG_CTRL->WRITE__LOG(log_msg);
+						xLOG_CTRL->WRITE__LOG(log_msg);
+					}
+					goto LOOP_RETRY;
 				}
-				goto LOOP_RETRY;
-			}
 
-			flag = -1;
+				flag = -1;
+			}
 		}
 	}
 
@@ -497,6 +512,7 @@ LOOP_RETRY:
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 	}
 
+	dCH__PARA_INTERLOCK_SKIP->Set__DATA(STR__NO);
 	return flag;
 }
 

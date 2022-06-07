@@ -1,0 +1,31 @@
+#pragma once
+
+
+// ...
+#define  pKEY__CH_STATE						"CH.STATE"
+#define  pKEY__CH_SUB_DATA					"CH.SUB_DATA"
+
+#define  pKEY__DATA_P_STATTE			    "DATA.P_STATE"
+#define  pKEY__DATA_P_SUB_STATTE		    "DATA.P_SUB_STATE"
+#define  pKEY__DATA_R_STATTE			    "DATA.R_STATE"
+#define  pKEY__DATA_P_TITLE			        "DATA.P_TITLE"
+#define  pKEY__DATA_R_TITLE			        "DATA.R_TITLE"
+
+#define  pKEY__DATA_FONT_NAME				"DATA.FONT_NAME"
+#define  pKEY__DATA_FONT_WIDTH				"DATA.FONT_WIDTH"
+#define  pKEY__DATA_FONT_HEIGHT				"DATA.FONT_HEIGHT"
+#define  pKEY__DATA_EDGE_WIDTH				"DATA.EDGE_WIDTH"
+#define  pKEY__DATA_EDGE_UP_COLOR			"DATA.EDGE_UP_COLOR"
+#define  pKEY__DATA_EDGE_DOWN_COLOR			"DATA.EDGE_DOWN_COLOR"
+
+#define  pKEY__DATA_TEXT_P_COLOR			"DATA.TEXT_P_COLOR"
+#define  pKEY__DATA_TEXT_R_COLOR			"DATA.TEXT_R_COLOR"
+#define  pKEY__DATA_BACK_P_COLOR			"DATA.BACK_P_COLOR"
+#define  pKEY__DATA_BACK_R_COLOR			"DATA.BACK_R_COLOR"
+
+#define  pKEY__DATA_OUTLINE_COLOR			"DATA.OUTLINE_COLOR"
+
+// ...
+#define  pKEY__TEST_CH_STATE				"TEST.CH_STATE"
+#define  pKEY__TEST_CH_SUB_STATE			"TEST.CH_SUB_STATE"
+//

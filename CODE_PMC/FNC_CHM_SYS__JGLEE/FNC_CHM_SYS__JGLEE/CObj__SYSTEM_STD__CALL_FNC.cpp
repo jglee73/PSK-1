@@ -374,6 +374,48 @@ int CObj__SYSTEM_STD
 	{
 		CString obj_msg;
 
+		if(dCH__CFG_SYS_INIT_CHM_SLOT_VALVE_CLOSE->Check__DATA(STR__ENABLE) > 0)
+		{
+			// ...
+			{
+				log_msg  = "\n";
+				log_msg += "CHMABER.SLOT_VALVE-CLOSE Started ...";
+				log_msg += "\n";
+				log_bff.Format("  * %s \n", sCH__LINK_OBJ_NAME_CHM_SLOT_VALVE_CLOSE->Get__STRING());
+				log_msg += log_bff;
+
+				xLOG_CTRL->WRITE__LOG(log_msg);
+			}
+
+			if(bACTIVE_CHM__SLOT_VALVE)
+			{
+				sCH__LINK_OBJ_ACTIVE_CHM_SLOT_VALVE_CLOSE->Set__DATA(STR__YES);
+
+				sEXT_CH__FNC_MSG->Set__DATA("CHAMBER.SLOT_VALVE-CLOSE Started ...");
+
+				if(pOBJ_CTRL__CHM_SLOT_VALVE->Call__OBJECT(CMMD_INIT) < 0)
+				{
+					sEXT_CH__FNC_MSG->Set__DATA("CHAMBER.SLOT_VALVE-CLOSE Aborted ...");
+					return -51;
+				}
+
+				double cfg_sec = aCH__CFG_PART_STABLE_SEC->Get__VALUE();
+				if(x_timer_ctrl->WAIT(cfg_sec) < 0)		return -(201 + i);
+
+				sEXT_CH__FNC_MSG->Set__DATA("CHAMBER.LIFT_PIN-DOWN Completed ...");
+
+				sCH__LINK_OBJ_ACTIVE_CHM_SLOT_VALVE_CLOSE->Set__DATA("");
+			}
+			else
+			{
+				log_msg  = "\n";
+				log_msg += "Error : Not Active ...";
+				log_msg += "\n";
+
+				xLOG_CTRL->WRITE__LOG(log_msg);
+			}
+		}
+
 		if(dCH__CFG_SYS_INIT_CHM_LIFT_PIN_DOWN->Check__DATA(STR__ENABLE) > 0)
 		{
 			// ...
@@ -400,7 +442,7 @@ int CObj__SYSTEM_STD
 				}
 
 				double cfg_sec = aCH__CFG_PART_STABLE_SEC->Get__VALUE();
-				if(x_timer_ctrl->WAIT(cfg_sec) < 0)		return -(201 + i);
+				if(x_timer_ctrl->WAIT(cfg_sec) < 0)		return -(211 + i);
 
 				sEXT_CH__FNC_MSG->Set__DATA("CHAMBER.LIFT_PIN-DOWN Completed ...");
 
@@ -442,7 +484,7 @@ int CObj__SYSTEM_STD
 				}
 
 				double cfg_sec = aCH__CFG_PART_STABLE_SEC->Get__VALUE();
-				if(x_timer_ctrl->WAIT(cfg_sec) < 0)		return -(211 + i);
+				if(x_timer_ctrl->WAIT(cfg_sec) < 0)		return -(221 + i);
 
 				sEXT_CH__FNC_MSG->Set__DATA("CHAMBER.DECHUCK Completed ...");
 

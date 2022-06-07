@@ -211,7 +211,22 @@ int CObj__CHM_FNC
 	}
 
 	// ...
-	int	flag = Fnc__LEAK_CHECK(p_variable,p_alarm);
+	bool active__ctc_call = false;
+
+	if((dEXT_CH__ACTIVE_CALL_BY_CTC->Check__DATA(STR__ON) > 0)
+	&& (dEXT_CH__CTC_LEAK_CHECK_USE_FLAG->Check__DATA(STR__ENABLE) > 0))
+	{
+		active__ctc_call = true;
+
+		sCH__LEAK_CHECK__ACTIVE_CALL_BY_CTC->Set__DATA("Controlled by CTC");
+	}
+	else
+	{
+		sCH__LEAK_CHECK__ACTIVE_CALL_BY_CTC->Set__DATA("Controlled by PMC");
+	}
+
+	// ...
+	int	flag = Fnc__LEAK_CHECK(p_variable,p_alarm, active__ctc_call);
 
 	if(flag < 0)
 	{
@@ -223,7 +238,11 @@ int CObj__CHM_FNC
 	{
 		if(dCH__LEAK_CHECK__CFG_VAT_VLV_POS_MOVING->Check__DATA(STR__ENABLE) > 0)
 		{
-			flag = Fnc__LEAK_CHECK__VAT_VLV_POS_MOVE(p_variable,p_alarm);
+			dCH__LEAK_CHECK__ACTIVE_VAT_VLV_POS_MOVING->Set__DATA(STR__ON);
+
+			flag = Fnc__LEAK_CHECK__VAT_VLV_POS_MOVE(p_variable,p_alarm, active__ctc_call);
+
+			dCH__LEAK_CHECK__ACTIVE_VAT_VLV_POS_MOVING->Set__DATA(STR__OFF);
 
 			if(flag < 0)
 			{
