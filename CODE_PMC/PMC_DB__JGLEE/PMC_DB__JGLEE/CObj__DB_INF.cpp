@@ -54,6 +54,14 @@ int CObj__DB_INF::__DEFINE__VARIABLE_STD(p_variable)
 	CString dsp_list;
 	int i;
 
+
+	// ...
+	{
+		str_name = "ACTIVE.CALL_BY_CTC";
+		STD__ADD_DIGITAL_WITH_COMMENT(str_name, "OFF ON", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__ACTIVE_CALL_BY_CTC, str_name);
+	}
+
 	//  PMC -> CTC
 	{
 		str_name = "CHM.PRC.STS";

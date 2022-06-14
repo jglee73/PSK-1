@@ -1,0 +1,4119 @@
+@SCREEN_SIZE 1280 800
+
+#BACK_PAGE_FILE
+{
+JGLEE__STD_CLIENT_COMMON
+}
+#RECTANGLE
+{
+RECTANGLE
+2
+100
+(0, 0, 128)
+(255, 255, 255)
+(89, 32) (392, 44) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+245 57 380 96
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DO_1_1.inf
+TABLE.TITLE=Node1 - DO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=DIGITAL
+MD.ID=2
+CMMD.1=1
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+do.OHT1.PIO.L_Req=
+IO+do.OHT1.PIO.U_Req=
+IO+do.OHT1.Out3.NotUse=
+IO+do.OHT1.PIO.Ready=
+IO+do.OHT1.Out5.NotUse=
+IO+do.OHT1.Out6.NotUse=
+IO+do.OHT1.PIO.HO_Avbl=
+IO+do.OHT1.PIO.ES=
+IO+do.OHT2.PIO.L_Req=
+IO+do.OHT2.PIO.U_Req=
+IO+do.OHT2.Out3.NotUse=
+IO+do.OHT2.PIO.Ready=
+IO+do.OHT2.Out5.NotUse=
+IO+do.OHT2.Out6.NotUse=
+IO+do.OHT2.PIO.HO_Avbl=
+IO+do.OHT2.PIO.ES=
+IO+do.OHT1.PIO.L_Req=
+IO+do.OHT1.PIO.U_Req=
+IO+do.OHT1.Out3.NotUse=
+IO+do.OHT1.PIO.Ready=
+IO+do.OHT1.Out5.NotUse=
+IO+do.OHT1.Out6.NotUse=
+IO+do.OHT1.PIO.HO_Avbl=
+IO+do.OHT1.PIO.ES=
+IO+do.OHT2.PIO.L_Req=
+IO+do.OHT2.PIO.U_Req=
+IO+do.OHT2.Out3.NotUse=
+IO+do.OHT2.PIO.Ready=
+IO+do.OHT2.Out5.NotUse=
+IO+do.OHT2.Out6.NotUse=
+IO+do.OHT2.PIO.HO_Avbl=
+IO+do.OHT2.PIO.ES=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+247 58 380 97
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/O (#1)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+2
+100
+(0, 0, 128)
+(255, 255, 255)
+(426, 32) (867, 304) 
+}
+#DYNAMIC
+{
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+157
+(0, 0, 0)
+(242, 240, 240)
+(578, 141) (708, 253) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+570 257 706 299
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\AI_2_1.inf
+TABLE.TITLE=Node2 - AI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=ANALOG
+MD.ID=3
+CMMD.1=1
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+ai.GN2.Pressure.Switch=
+IO+ai.CDA1.PM.Pressure.Switch=
+IO+ai.CDA2.PM.Pressure.Switch=
+IO+ai.CDA2.TM_LL.Pressure.Switch=
+IO+ai.PCW.Flow.Meter=
+IO+ai.UPC.Gauge=
+IO+ai.DI.Pressure.Switch=
+IO+ai.Node2.Block1.Spare=
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+229
+(0, 0, 0)
+(255, 255, 255)
+(39, 626) (540, 690) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+99 57 235 99
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_1_1.inf
+TABLE.TITLE=Node1 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=2
+CMMD.1=1
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.OHT1.PIO.Valid=
+IO+di.OHT1.PIO.CS_0=
+IO+di.OHT1.PIO.CS_1=
+IO+di.OHT1.In4.NotUse=
+IO+di.OHT1.PIO.TR_Request=
+IO+di.OHT1.PIO.Busy=
+IO+di.OHT1.PIO.Completed=
+IO+di.OHT1.PIO.Continue=
+IO+di.OHT2.PIO.Valid=
+IO+di.OHT2.PIO.CS_0=
+IO+di.OHT2.PIO.CS_1=
+IO+di.OHT2.In4.NotUse=
+IO+di.OHT2.PIO.TR_Request=
+IO+di.OHT2.PIO.Busy=
+IO+di.OHT2.PIO.Completed=
+IO+di.OHT2.PIO.Continue=
+IO+di.OHT1.PIO.Valid=
+IO+di.OHT1.PIO.CS_0=
+IO+di.OHT1.PIO.CS_1=
+IO+di.OHT1.In4.NotUse=
+IO+di.OHT1.PIO.TR_Request=
+IO+di.OHT1.PIO.Busy=
+IO+di.OHT1.PIO.Completed=
+IO+di.OHT1.PIO.Continue=
+IO+di.OHT2.PIO.Valid=
+IO+di.OHT2.PIO.CS_0=
+IO+di.OHT2.PIO.CS_1=
+IO+di.OHT2.In4.NotUse=
+IO+di.OHT2.PIO.TR_Request=
+IO+di.OHT2.PIO.Busy=
+IO+di.OHT2.PIO.Completed=
+IO+di.OHT2.PIO.Continue=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+101 58 235 97
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#1)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+255
+(0, 0, 160)
+(206, 206, 206)
+(119, 18) (361, 49) 
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Arial
+Node 01 (MacID 2)
+(0, 0, 160)
+12
+3
+(100, 100, 100)
+0
+255
+(161, 23) (317 45)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+99 97 237 139
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_1_2.inf
+TABLE.TITLE=Node1 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=2
+CMMD.1=2
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.OHT3.PIO.Valid=
+IO+di.OHT3.PIO.CS_0=
+IO+di.OHT3.PIO.CS_1=
+IO+di.OHT3.In4.NotUse=
+IO+di.OHT3.PIO.TR_Request=
+IO+di.OHT3.PIO.Busy=
+IO+di.OHT3.PIO.Completed=
+IO+di.OHT3.PIO.Continue=
+IO+di.LPM1.Run=
+IO+di.LPM1.Open=
+IO+di.LPM1.Placement.Status=
+IO+di.LPM1.Present.Status=
+IO+di.LPM2.Run=
+IO+di.LPM2.Open=
+IO+di.LPM2.Placement.Status=
+IO+di.LPM2.Present.Status=
+IO+di.OHT3.PIO.Valid=
+IO+di.OHT3.PIO.CS_0=
+IO+di.OHT3.PIO.CS_1=
+IO+di.OHT3.In4.NotUse=
+IO+di.OHT3.PIO.TR_Request=
+IO+di.OHT3.PIO.Busy=
+IO+di.OHT3.PIO.Completed=
+IO+di.OHT3.PIO.Continue=
+IO+di.LPM1.Run=
+IO+di.LPM1.Open=
+IO+di.LPM1.Placement.Status=
+IO+di.LPM1.Present.Status=
+IO+di.LPM2.Run=
+IO+di.LPM2.Open=
+IO+di.LPM2.Placement.Status=
+IO+di.LPM2.Present.Status=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+101 98 235 137
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#2)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+99 137 237 179
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_1_3.inf
+TABLE.TITLE=Node1 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=2
+CMMD.1=3
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.LPM3.Run=
+IO+di.LPM3.Open=
+IO+di.LPM3.Placement.Status=
+IO+di.LPM3.Present.Status=
+IO+di.EFEM.Power_Box.FAN.Status=
+IO+di.EFEM.IO_Box.FAN.Status=
+IO+di.EFEM.PC_Rack.FAN.Status=
+IO+di.EFEM.Heater_Box.FAN.Status=
+IO+di.Node1.Block3.Spare.08=
+IO+di.Node1.Block3.Spare.09=
+IO+di.Node1.Block3.Spare.10=
+IO+di.Node1.Block3.Spare.11=
+IO+di.Node1.Block3.Spare.12=
+IO+di.Node1.Block3.Spare.13=
+IO+di.Node1.Block3.Spare.14=
+IO+di.Node1.Block3.Spare.15=
+IO+di.LPM3.Run=
+IO+di.LPM3.Open=
+IO+di.LPM3.Placement.Status=
+IO+di.LPM3.Present.Status=
+IO+di.EFEM.Power_Box.FAN.Status=
+IO+di.EFEM.IO_Box.FAN.Status=
+IO+di.EFEM.PC_Rack.FAN.Status=
+IO+di.EFEM.Heater_Box.FAN.Status=
+IO+di.Node1.Block3.Spare.08=
+IO+di.Node1.Block3.Spare.09=
+IO+di.Node1.Block3.Spare.10=
+IO+di.Node1.Block3.Spare.11=
+IO+di.Node1.Block3.Spare.12=
+IO+di.Node1.Block3.Spare.13=
+IO+di.Node1.Block3.Spare.14=
+IO+di.Node1.Block3.Spare.15=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+101 138 235 177
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#3)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+99 177 237 219
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_1_4.inf
+TABLE.TITLE=Node1 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=2
+CMMD.1=4
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.ATM_RB.Status.Ready=
+IO+di.ATM_RB.Alarm.Normal=
+IO+di.ATM_AL.Alarm.Normal=
+IO+di.ATM_RB.Retract_LP1=
+IO+di.ATM_RB.Retract_LP2=
+IO+di.ATM_RB.Retract_LP3=
+IO+di.ATM_RB.Retract_ST1=
+IO+di.ATM_RB.Retract_LL1=
+IO+di.ATM_RB.Retract_LL2=
+IO+di.ATM_RB.Retract_LL3=
+IO+di.ATM_RB.Retract_LL4=
+IO+di.LL1.Door.Open=
+IO+di.LL1.Door.Close=
+IO+di.LL2.Door.Open=
+IO+di.LL2.Door.Close=
+IO+di.LL3.Door.Open=
+IO+di.ATM_RB.Status.Ready=
+IO+di.ATM_RB.Alarm.Normal=
+IO+di.ATM_AL.Alarm.Normal=
+IO+di.ATM_RB.Retract_LP1=
+IO+di.ATM_RB.Retract_LP2=
+IO+di.ATM_RB.Retract_LP3=
+IO+di.ATM_RB.Retract_ST1=
+IO+di.ATM_RB.Retract_LL1=
+IO+di.ATM_RB.Retract_LL2=
+IO+di.ATM_RB.Retract_LL3=
+IO+di.ATM_RB.Retract_LL4=
+IO+di.LL1.Door.Open=
+IO+di.LL1.Door.Close=
+IO+di.LL2.Door.Open=
+IO+di.LL2.Door.Close=
+IO+di.LL3.Door.Open=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+101 178 235 217
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#4)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+99 217 237 259
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_1_5.inf
+TABLE.TITLE=Node1 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=2
+CMMD.1=5
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.LL3.Door.Close=
+IO+di.LL4.Door.Open=
+IO+di.LL4.Door.Close=
+IO+di.EFEM.EMS.Normal=
+IO+di.Light.Curtain.Normal=
+IO+di.EFEM.Door.Close=
+IO+di.FFU.Alarm.Normal=
+IO+di.EFEM.Main.CDA.Pressure.OK=
+IO+di.EFEM.Main.VAC1.Pressure.OK=
+IO+di.EFEM.Main.VAC2.Pressure.OK=
+IO+di.EFEM.Robot.VAC.Pressure.OK=
+IO+di.Auto.Mode=
+IO+di.Node1.Block5.Spare.12=
+IO+di.Node1.Block5.Spare.13=
+IO+di.Node1.Block5.Spare.14=
+IO+di.Node1.Block5.Spare.15=
+IO+di.LL3.Door.Close=
+IO+di.LL4.Door.Open=
+IO+di.LL4.Door.Close=
+IO+di.EFEM.EMS.Normal=
+IO+di.Light.Curtain.Normal=
+IO+di.EFEM.Door.Close=
+IO+di.FFU.Alarm.Normal=
+IO+di.EFEM.Main.CDA.Pressure.OK=
+IO+di.EFEM.Main.VAC1.Pressure.OK=
+IO+di.EFEM.Main.VAC2.Pressure.OK=
+IO+di.EFEM.Robot.VAC.Pressure.OK=
+IO+di.Auto.Mode=
+IO+di.Node1.Block5.Spare.12=
+IO+di.Node1.Block5.Spare.13=
+IO+di.Node1.Block5.Spare.14=
+IO+di.Node1.Block5.Spare.15=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+101 218 235 257
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#5)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+244 217 380 259
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\AI_1_1.inf
+TABLE.TITLE=Node1 - AI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=ANALOG
+MD.ID=2
+CMMD.1=1
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+ai.EFEM.Main.CDA.Pressure=
+IO+ai.EFEM.Main.Vacuum.Pressure=
+IO+ai.LPM.Vacuum.Pressure=
+IO+ai.Robot.Vacuum.Pressure=
+IO+ai.EFEM.Main.CDA.Pressure=
+IO+ai.EFEM.Main.Vacuum.Pressure=
+IO+ai.LPM.Vacuum.Pressure=
+IO+ai.Robot.Vacuum.Pressure=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+247 218 380 257
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=AI (#1)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+157
+(0, 0, 0)
+(242, 240, 240)
+(245, 141) (381, 213) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+437 57 573 99
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_1.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=1
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.LBA.DV.OPEN=
+IO+di.LBA.DV.CLOSE=
+IO+di.LBB.DV.OPEN=
+IO+di.LBB.DV.CLOSE=
+IO+di.LBC.DV.OPEN=
+IO+di.LBC.DV.CLOSE=
+IO+di.LBD.DV.OPEN=
+IO+di.LBD.DV.CLOSE=
+IO+di.LBA.SV.OPEN=
+IO+di.LBA.SV.CLOSE=
+IO+di.LBB.SV.OPEN=
+IO+di.LBB.SV.CLOSE=
+IO+di.LBC.SV.OPEN=
+IO+di.LBC.SV.CLOSE=
+IO+di.LBD.SV.OPEN=
+IO+di.LBD.SV.CLOSE=
+IO+di.PM1.SV.OPEN=
+IO+di.PM1.SV.CLOSE=
+IO+di.PM2.SV.OPEN=
+IO+di.PM2.SV.CLOSE=
+IO+di.PM3.SV.OPEN=
+IO+di.PM3.SV.CLOSE=
+IO+di.PM4.SV.OPEN=
+IO+di.PM4.SV.CLOSE=
+IO+di.PM5.SV.OPEN=
+IO+di.PM5.SV.CLOSE=
+IO+di.PM6.SV.OPEN=
+IO+di.PM6.SV.CLOSE=
+IO+di.LBA.LIFT_PIN.UP.SNS=
+IO+di.LBA.LIFT_PIN.DOWN.SNS=
+IO+di.LBB.LIFT_PIN.UP.SNS=
+IO+di.LBB.LIFT_PIN.DOWN.SNS=
+IO+di.LBA.DV.OPEN=
+IO+di.LBA.DV.CLOSE=
+IO+di.LBB.DV.OPEN=
+IO+di.LBB.DV.CLOSE=
+IO+di.LBC.DV.OPEN=
+IO+di.LBC.DV.CLOSE=
+IO+di.LBD.DV.OPEN=
+IO+di.LBD.DV.CLOSE=
+IO+di.LBA.SV.OPEN=
+IO+di.LBA.SV.CLOSE=
+IO+di.LBB.SV.OPEN=
+IO+di.LBB.SV.CLOSE=
+IO+di.LBC.SV.OPEN=
+IO+di.LBC.SV.CLOSE=
+IO+di.LBD.SV.OPEN=
+IO+di.LBD.SV.CLOSE=
+IO+di.PM1.SV.OPEN=
+IO+di.PM1.SV.CLOSE=
+IO+di.PM2.SV.OPEN=
+IO+di.PM2.SV.CLOSE=
+IO+di.PM3.SV.OPEN=
+IO+di.PM3.SV.CLOSE=
+IO+di.PM4.SV.OPEN=
+IO+di.PM4.SV.CLOSE=
+IO+di.PM5.SV.OPEN=
+IO+di.PM5.SV.CLOSE=
+IO+di.PM6.SV.OPEN=
+IO+di.PM6.SV.CLOSE=
+IO+di.LBA.LIFT_PIN.UP.SNS=
+IO+di.LBA.LIFT_PIN.DOWN.SNS=
+IO+di.LBB.LIFT_PIN.UP.SNS=
+IO+di.LBB.LIFT_PIN.DOWN.SNS=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+439 58 573 97
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#1)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+718 57 854 99
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DO_2_1.inf
+TABLE.TITLE=Node2 - DO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=1
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+do.LBA.DV.OPEN=
+IO+do.LBA.DV.CLOSE=
+IO+do.LBB.DV.OPEN=
+IO+do.LBB.DV.CLOSE=
+IO+do.LBC.DV.OPEN=
+IO+do.LBC.DV.CLOSE=
+IO+do.LBD.DV.OPEN=
+IO+do.LBD.DV.CLOSE=
+IO+do.LBA.SV.OPEN=
+IO+do.LBA.SV.CLOSE=
+IO+do.LBB.SV.OPEN=
+IO+do.LBB.SV.CLOSE=
+IO+do.LBC.SV.OPEN=
+IO+do.LBC.SV.CLOSE=
+IO+do.LBD.SV.OPEN=
+IO+do.LBD.SV.CLOSE=
+IO+do.PM1.SV.OPEN=
+IO+do.PM1.SV.CLOSE=
+IO+do.PM2.SV.OPEN=
+IO+do.PM2.SV.CLOSE=
+IO+do.PM3.SV.OPEN=
+IO+do.PM3.SV.CLOSE=
+IO+do.PM4.SV.OPEN=
+IO+do.PM4.SV.CLOSE=
+IO+do.PM5.SV.OPEN=
+IO+do.PM5.SV.CLOSE=
+IO+do.PM6.SV.OPEN=
+IO+do.PM6.SV.CLOSE=
+IO+do.LBA.SOFT.PUMP.VLV=
+IO+do.LBA.FAST.PUMP.VLV=
+IO+do.LBB.SOFT.PUMP.VLV=
+IO+do.LBB.FAST.PUMP.VLV=
+IO+do.LBA.DV.OPEN=
+IO+do.LBA.DV.CLOSE=
+IO+do.LBB.DV.OPEN=
+IO+do.LBB.DV.CLOSE=
+IO+do.LBC.DV.OPEN=
+IO+do.LBC.DV.CLOSE=
+IO+do.LBD.DV.OPEN=
+IO+do.LBD.DV.CLOSE=
+IO+do.LBA.SV.OPEN=
+IO+do.LBA.SV.CLOSE=
+IO+do.LBB.SV.OPEN=
+IO+do.LBB.SV.CLOSE=
+IO+do.LBC.SV.OPEN=
+IO+do.LBC.SV.CLOSE=
+IO+do.LBD.SV.OPEN=
+IO+do.LBD.SV.CLOSE=
+IO+do.PM1.SV.OPEN=
+IO+do.PM1.SV.CLOSE=
+IO+do.PM2.SV.OPEN=
+IO+do.PM2.SV.CLOSE=
+IO+do.PM3.SV.OPEN=
+IO+do.PM3.SV.CLOSE=
+IO+do.PM4.SV.OPEN=
+IO+do.PM4.SV.CLOSE=
+IO+do.PM5.SV.OPEN=
+IO+do.PM5.SV.CLOSE=
+IO+do.PM6.SV.OPEN=
+IO+do.PM6.SV.CLOSE=
+IO+do.LBA.SOFT.PUMP.VLV=
+IO+do.LBA.FAST.PUMP.VLV=
+IO+do.LBB.SOFT.PUMP.VLV=
+IO+do.LBB.FAST.PUMP.VLV=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+721 58 854 97
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/O (#1)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+255
+(0, 0, 160)
+(206, 206, 206)
+(515, 18) (757, 49) 
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Arial
+Node 02 (MacID 3)
+(0, 0, 160)
+12
+3
+(100, 100, 100)
+0
+255
+(557, 23) (713 45)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+437 97 575 139
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_2.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=2
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.LBA.ATM.SNS=
+IO+di.LBA.VAC.SNS=
+IO+di.LBB.ATM.SNS=
+IO+di.LBB.VAC.SNS=
+IO+di.LBC.ATM.SNS=
+IO+di.LBC.VAC.SNS=
+IO+di.LBD.ATM.SNS=
+IO+di.LBD.VAC.SNS=
+IO+di.CHM1.ATM.SNS=
+IO+di.CHM1.VAC.SNS=
+IO+di.N2.PRESSURE.SW=
+IO+di.CDA.PM1.PRESSURE.SW=
+IO+di.CDA.PM2.PRESSURE.SW=
+IO+di.CDA.TM_LL.PRESSURE.SW=
+IO+di.TMC.Water_Leak.Sns.1.OK=
+IO+di.TMC.Water_Leak.Sns.2.OK=
+IO+di.LL1_3.Wafer.Protrusion.1.OK=
+IO+di.LL1_3.Wafer.Protrusion.2.OK=
+IO+di.LL1_3.Wafer.Protrusion.3.OK=
+IO+di.LL2_4.Wafer.Protrusion.1.OK=
+IO+di.LL2_4.Wafer.Protrusion.2.OK=
+IO+di.LL2_4.Wafer.Protrusion.3.OK=
+IO+di.PM1.Wafer.Protrusion.1.OK=
+IO+di.PM1.Wafer.Protrusion.2.OK=
+IO+di.PM1.Wafer.Protrusion.3.OK=
+IO+di.PM2.Wafer.Protrusion.1.OK=
+IO+di.PM2.Wafer.Protrusion.2.OK=
+IO+di.PM2.Wafer.Protrusion.3.OK=
+IO+di.PM3.Wafer.Protrusion.1.OK=
+IO+di.PM3.Wafer.Protrusion.2.OK=
+IO+di.PM3.Wafer.Protrusion.3.OK=
+IO+di.PM4.Wafer.Protrusion.1.OK=
+IO+di.LBA.ATM.SNS=
+IO+di.LBA.VAC.SNS=
+IO+di.LBB.ATM.SNS=
+IO+di.LBB.VAC.SNS=
+IO+di.LBC.ATM.SNS=
+IO+di.LBC.VAC.SNS=
+IO+di.LBD.ATM.SNS=
+IO+di.LBD.VAC.SNS=
+IO+di.CHM1.ATM.SNS=
+IO+di.CHM1.VAC.SNS=
+IO+di.N2.PRESSURE.SW=
+IO+di.CDA.PM1.PRESSURE.SW=
+IO+di.CDA.PM2.PRESSURE.SW=
+IO+di.CDA.TM_LL.PRESSURE.SW=
+IO+di.TMC.Water_Leak.Sns.1.OK=
+IO+di.TMC.Water_Leak.Sns.2.OK=
+IO+di.LL1_3.Wafer.Protrusion.1.OK=
+IO+di.LL1_3.Wafer.Protrusion.2.OK=
+IO+di.LL1_3.Wafer.Protrusion.3.OK=
+IO+di.LL2_4.Wafer.Protrusion.1.OK=
+IO+di.LL2_4.Wafer.Protrusion.2.OK=
+IO+di.LL2_4.Wafer.Protrusion.3.OK=
+IO+di.PM1.Wafer.Protrusion.1.OK=
+IO+di.PM1.Wafer.Protrusion.2.OK=
+IO+di.PM1.Wafer.Protrusion.3.OK=
+IO+di.PM2.Wafer.Protrusion.1.OK=
+IO+di.PM2.Wafer.Protrusion.2.OK=
+IO+di.PM2.Wafer.Protrusion.3.OK=
+IO+di.PM3.Wafer.Protrusion.1.OK=
+IO+di.PM3.Wafer.Protrusion.2.OK=
+IO+di.PM3.Wafer.Protrusion.3.OK=
+IO+di.PM4.Wafer.Protrusion.1.OK=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+439 98 573 137
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#2)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+437 137 575 179
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_3.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=3
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.PM4.Wafer.Protrusion.2.OK=
+IO+di.PM4.Wafer.Protrusion.3.OK=
+IO+di.PM5.Wafer.Protrusion.1.OK=
+IO+di.PM5.Wafer.Protrusion.2.OK=
+IO+di.PM5.Wafer.Protrusion.3.OK=
+IO+di.PM6.Wafer.Protrusion.1.OK=
+IO+di.PM6.Wafer.Protrusion.2.OK=
+IO+di.PM6.Wafer.Protrusion.3.OK=
+IO+di.LL1.Dry_Pump.Running=
+IO+di.LL1.Dry_Pump.Blower.Running=
+IO+di.LL1.Dry_Pump.Warning.Normal=
+IO+di.LL1.Dry_Pump.Alarm.Normal=
+IO+di.LL1.Pump.Operation.Ready=
+IO+di.LL2.Dry_Pump.Running=
+IO+di.LL2.Dry_Pump.Blower.Running=
+IO+di.LL2.Dry_Pump.Warning.Normal=
+IO+di.LL2.Dry_Pump.Alarm.Normal=
+IO+di.LL2.Pump.Operation.Ready=
+IO+di.LL3_4.Dry_Pump.Running=
+IO+di.LL3_4.Dry_Pump.Blower.Running=
+IO+di.LL3_4.Dry_Pump.Warning.Normal=
+IO+di.LL3_4.Dry_Pump.Alarm.Normal=
+IO+di.LL3_4.Pump.Operation.Ready=
+IO+di.TMC.Dry_Pump.Running=
+IO+di.TMC.Dry_Pump.Blower.Running=
+IO+di.TMC.Dry_Pump.Warning.Normal=
+IO+di.TMC.Dry_Pump.Alarm.Normal=
+IO+di.TMC.Pump Operation,Ready=
+IO+di.TMC.Chamber.Lid.Close=
+IO+di.LL3.Chamber.Lid.Close=
+IO+di.LL4.Chamber.Lid.Close=
+IO+di.EFEM.FFU.Alarm.Active=
+IO+di.PM4.Wafer.Protrusion.2.OK=
+IO+di.PM4.Wafer.Protrusion.3.OK=
+IO+di.PM5.Wafer.Protrusion.1.OK=
+IO+di.PM5.Wafer.Protrusion.2.OK=
+IO+di.PM5.Wafer.Protrusion.3.OK=
+IO+di.PM6.Wafer.Protrusion.1.OK=
+IO+di.PM6.Wafer.Protrusion.2.OK=
+IO+di.PM6.Wafer.Protrusion.3.OK=
+IO+di.LL1.Dry_Pump.Running=
+IO+di.LL1.Dry_Pump.Blower.Running=
+IO+di.LL1.Dry_Pump.Warning.Normal=
+IO+di.LL1.Dry_Pump.Alarm.Normal=
+IO+di.LL1.Pump.Operation.Ready=
+IO+di.LL2.Dry_Pump.Running=
+IO+di.LL2.Dry_Pump.Blower.Running=
+IO+di.LL2.Dry_Pump.Warning.Normal=
+IO+di.LL2.Dry_Pump.Alarm.Normal=
+IO+di.LL2.Pump.Operation.Ready=
+IO+di.LL3_4.Dry_Pump.Running=
+IO+di.LL3_4.Dry_Pump.Blower.Running=
+IO+di.LL3_4.Dry_Pump.Warning.Normal=
+IO+di.LL3_4.Dry_Pump.Alarm.Normal=
+IO+di.LL3_4.Pump.Operation.Ready=
+IO+di.TMC.Dry_Pump.Running=
+IO+di.TMC.Dry_Pump.Blower.Running=
+IO+di.TMC.Dry_Pump.Warning.Normal=
+IO+di.TMC.Dry_Pump.Alarm.Normal=
+IO+di.TMC.Pump Operation,Ready=
+IO+di.TMC.Chamber.Lid.Close=
+IO+di.LL3.Chamber.Lid.Close=
+IO+di.LL4.Chamber.Lid.Close=
+IO+di.EFEM.FFU.Alarm.Active=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+439 138 573 177
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#3)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+437 177 575 219
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_4.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=4
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.PM1.VAC.SNS=
+IO+di.PM1.Shutter.Open=
+IO+di.PM1.Pin.Home.Pos=
+IO+di.PM2.VAC.SNS=
+IO+di.PM2.Shutter.Open=
+IO+di.PM2.Pin.Home.Pos=
+IO+di.PM3.VAC.SNS=
+IO+di.PM3.Shutter.Open=
+IO+di.PM3.Pin.Home.Pos=
+IO+di.PM4.VAC.SNS=
+IO+di.PM4.Shutter.Open=
+IO+di.PM4.Pin.Home.Pos=
+IO+di.PM5.VAC.SNS=
+IO+di.PM5.Shutter.Open=
+IO+di.PM5.Pin.Home.Pos=
+IO+di.PM6.VAC.SNS=
+IO+di.PM6.Shutter.Open=
+IO+di.PM6.Pin.Home.Pos=
+IO+di.EFEM.Door.Open.Interlock.OK=
+IO+di.ATM_Robot.Retract_LL1=
+IO+di.ATM_Robot.Retract_LL2=
+IO+di.ATM_Robot.Retract_LL3=
+IO+di.ATM_Robot.Retract_LL4=
+IO+di.TMC.IO_Box.Cooling.Fan1=
+IO+di.TMC.IO_Box.Cooling.Fan2=
+IO+di.PM1.Water_Leak.TM_Side.Normal=
+IO+di.PM1.Water_Leak.PM_Side.Normal=
+IO+di.PM2.Water_Leak.TM_Side.Normal=
+IO+di.PM2.Water_Leak.PM_Side.Normal=
+IO+di.PM3.Water_Leak.TM_Side.Normal=
+IO+di.PM3.Water_Leak.PM_Side.Normal=
+IO+di.PM4.Water_Leak.TM_Side.Normal=
+IO+di.PM1.VAC.SNS=
+IO+di.PM1.Shutter.Open=
+IO+di.PM1.Pin.Home.Pos=
+IO+di.PM2.VAC.SNS=
+IO+di.PM2.Shutter.Open=
+IO+di.PM2.Pin.Home.Pos=
+IO+di.PM3.VAC.SNS=
+IO+di.PM3.Shutter.Open=
+IO+di.PM3.Pin.Home.Pos=
+IO+di.PM4.VAC.SNS=
+IO+di.PM4.Shutter.Open=
+IO+di.PM4.Pin.Home.Pos=
+IO+di.PM5.VAC.SNS=
+IO+di.PM5.Shutter.Open=
+IO+di.PM5.Pin.Home.Pos=
+IO+di.PM6.VAC.SNS=
+IO+di.PM6.Shutter.Open=
+IO+di.PM6.Pin.Home.Pos=
+IO+di.EFEM.Door.Open.Interlock.OK=
+IO+di.ATM_Robot.Retract_LL1=
+IO+di.ATM_Robot.Retract_LL2=
+IO+di.ATM_Robot.Retract_LL3=
+IO+di.ATM_Robot.Retract_LL4=
+IO+di.TMC.IO_Box.Cooling.Fan1=
+IO+di.TMC.IO_Box.Cooling.Fan2=
+IO+di.PM1.Water_Leak.TM_Side.Normal=
+IO+di.PM1.Water_Leak.PM_Side.Normal=
+IO+di.PM2.Water_Leak.TM_Side.Normal=
+IO+di.PM2.Water_Leak.PM_Side.Normal=
+IO+di.PM3.Water_Leak.TM_Side.Normal=
+IO+di.PM3.Water_Leak.PM_Side.Normal=
+IO+di.PM4.Water_Leak.TM_Side.Normal=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+439 178 573 217
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#4)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+437 217 575 259
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_5.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=5
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.PM4.Water_Leak.PM_Side.Normal=
+IO+di.PM5.Water_Leak.TM_Side.Normal=
+IO+di.PM5.Water_Leak.PM_Side.Normal=
+IO+di.PM6.Water_Leak.TM_Side.Normal=
+IO+di.PM6.Water_Leak.PM_Side.Normal=
+IO+di.PCW.Flow_Meter.Normal=
+IO+di.LBA.Line_Heater.Alarm.Normal=
+IO+di.LBB.Line_Heater.Alarm.Normal=
+IO+di.TM_PM.Line_Heater.Alarm,Normal=
+IO+di.LID.Open.Feedback=
+IO+di.Node4.Block5.Spare.10=
+IO+di.Node4.Block5.Spare.11=
+IO+di.Node4.Block5.Spare.12=
+IO+di.Node4.Block5.Spare.13=
+IO+di.Node4.Block5.Spare.14=
+IO+di.Node4.Block5.Spare.15=
+IO+di.LBA.APC.Valve.Heater.Alarm.Normal=
+IO+di.LBB.APC.Valve.Heater.Alarm.Normal=
+IO+di.DI.Pressure.Normal=
+IO+di.EFEM.EMO.Normal=
+IO+di.PM1.EMO.Normal=
+IO+di.PM2.EMO.Normal=
+IO+di.PM3.EMO.Normal=
+IO+di.PM4.EMO.Normal=
+IO+di.PM5.EMO.Normal=
+IO+di.PM6.EMO.Normal=
+IO+di.MPD.EMO.Normal=
+IO+di.Auto.Mode.Active=
+IO+di.Node4.Block5.Spare.28=
+IO+di.Node4.Block5.Spare.29=
+IO+di.Node4.Block5.Spare.30=
+IO+di.Node4.Block5.Spare.31=
+IO+di.PM4.Water_Leak.PM_Side.Normal=
+IO+di.PM5.Water_Leak.TM_Side.Normal=
+IO+di.PM5.Water_Leak.PM_Side.Normal=
+IO+di.PM6.Water_Leak.TM_Side.Normal=
+IO+di.PM6.Water_Leak.PM_Side.Normal=
+IO+di.PCW.Flow_Meter.Normal=
+IO+di.LBA.Line_Heater.Alarm.Normal=
+IO+di.LBB.Line_Heater.Alarm.Normal=
+IO+di.TM_PM.Line_Heater.Alarm,Normal=
+IO+di.LID.Open.Feedback=
+IO+di.Node4.Block5.Spare.10=
+IO+di.Node4.Block5.Spare.11=
+IO+di.Node4.Block5.Spare.12=
+IO+di.Node4.Block5.Spare.13=
+IO+di.Node4.Block5.Spare.14=
+IO+di.Node4.Block5.Spare.15=
+IO+di.LBA.APC.Valve.Heater.Alarm.Normal=
+IO+di.LBB.APC.Valve.Heater.Alarm.Normal=
+IO+di.DI.Pressure.Normal=
+IO+di.EFEM.EMO.Normal=
+IO+di.PM1.EMO.Normal=
+IO+di.PM2.EMO.Normal=
+IO+di.PM3.EMO.Normal=
+IO+di.PM4.EMO.Normal=
+IO+di.PM5.EMO.Normal=
+IO+di.PM6.EMO.Normal=
+IO+di.MPD.EMO.Normal=
+IO+di.Auto.Mode.Active=
+IO+di.Node4.Block5.Spare.28=
+IO+di.Node4.Block5.Spare.29=
+IO+di.Node4.Block5.Spare.30=
+IO+di.Node4.Block5.Spare.31=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+439 218 573 257
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#5)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+718 257 854 299
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\AO_2_1.inf
+TABLE.TITLE=Node2 - AO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=ANALOG
+MD.ID=3
+CMMD.1=1
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+ao.UPC.Gauge=
+IO+ao.Node2.Spare=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+721 258 854 297
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=AO (#1)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+157
+(0, 0, 0)
+(242, 240, 240)
+(719, 221) (855, 253) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+244 97 380 138
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DO_1_2.inf
+TABLE.TITLE=Node1 - DO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=DIGITAL
+MD.ID=2
+CMMD.1=2
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+do.TM.SAFETY.LLA_ON=
+IO+do.TM.SAFETY.LLB_ON=
+IO+do.TM.SAFETY.SLOT_CLOSE=
+IO+do.TM.SAFETY.SLOT_OPEN=
+IO+do.OHT3.PIO.L_Req=
+IO+do.OHT3.PIO.U_Req=
+IO+do.OHT3.Out3.NotUse=
+IO+do.OHT3.PIO.Ready=
+IO+do.OHT3.Out5.NotUse=
+IO+do.OHT3.Out6.NotUse=
+IO+do.OHT3.PIO.HO_Avbl=
+IO+do.OHT3.PIO.ES=
+IO+do.Signal_Tower.Red=
+IO+do.Signal_Tower.Yellow=
+IO+do.Signal_Tower.Green=
+IO+do.Signal_Tower.Blue=
+IO+do.Signal_Tower.Buzzer.1=
+IO+do.Signal_Tower.Buzzer.2=
+IO+do.Node2.Block2.Spare.14=
+IO+do.Node2.Block2.Spare.15=
+IO+do.TM.SAFETY.LLA_ON=
+IO+do.TM.SAFETY.LLB_ON=
+IO+do.TM.SAFETY.SLOT_CLOSE=
+IO+do.TM.SAFETY.SLOT_OPEN=
+IO+do.OHT3.PIO.L_Req=
+IO+do.OHT3.PIO.U_Req=
+IO+do.OHT3.Out3.NotUse=
+IO+do.OHT3.PIO.Ready=
+IO+do.OHT3.Out5.NotUse=
+IO+do.OHT3.Out6.NotUse=
+IO+do.OHT3.PIO.HO_Avbl=
+IO+do.OHT3.PIO.ES=
+IO+do.Signal_Tower.Red=
+IO+do.Signal_Tower.Yellow=
+IO+do.Signal_Tower.Green=
+IO+do.Signal_Tower.Blue=
+IO+do.Signal_Tower.Buzzer.1=
+IO+do.Signal_Tower.Buzzer.2=
+IO+do.Node2.Block2.Spare.14=
+IO+do.Node2.Block2.Spare.15=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+437 257 575 299
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_6.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=6
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.VTM_Robot.Retract_LL1=
+IO+di.VTM_Robot.Retract_LL2=
+IO+di.VTM_Robot.Retract_LL3=
+IO+di.VTM_Robot.Retract_LL4=
+IO+di.VTM_Robot.Retract_PM1=
+IO+di.VTM_Robot.Retract_PM2=
+IO+di.VTM_Robot.Retract_PM3=
+IO+di.VTM_Robot.Retract_PM4=
+IO+di.VTM_Robot.Retract_PM5=
+IO+di.VTM_Robot.Retract_PM6=
+IO+di.Node4.Block6.Spare.10=
+IO+di.Node4.Block6.Spare.11=
+IO+di.Node4.Block6.Spare.12=
+IO+di.Node4.Block6.Spare.13=
+IO+di.Node4.Block6.Spare.14=
+IO+di.Node4.Block6.Spare.15=
+IO+di.VTM_Robot.Arm_A.Retract=
+IO+di.VTM_Robot.Arm_B.Retract=
+IO+di.Auto_Mode.Active=
+IO+di.Initialize.Complete=
+IO+di.XXX.Busy=
+IO+di.XXX.Alarm=
+IO+di.VTM_Robot.Arm_C.Retract=
+IO+di.VTM_Robot.Arm_D.Retract=
+IO+di.LBA.APC.Valve.Open=
+IO+di.LBA.APC.Valve.Close=
+IO+di.LBB.APC.Valve.Open=
+IO+di.LBB.APC.Valve.Close=
+IO+di.Node4.Block6.Spare.28=
+IO+di.Node4.Block6.Spare.29=
+IO+di.Node4.Block6.Spare.30=
+IO+di.Node4.Block6.Spare.31=
+IO+di.VTM_Robot.Retract_LL1=
+IO+di.VTM_Robot.Retract_LL2=
+IO+di.VTM_Robot.Retract_LL3=
+IO+di.VTM_Robot.Retract_LL4=
+IO+di.VTM_Robot.Retract_PM1=
+IO+di.VTM_Robot.Retract_PM2=
+IO+di.VTM_Robot.Retract_PM3=
+IO+di.VTM_Robot.Retract_PM4=
+IO+di.VTM_Robot.Retract_PM5=
+IO+di.VTM_Robot.Retract_PM6=
+IO+di.Node4.Block6.Spare.10=
+IO+di.Node4.Block6.Spare.11=
+IO+di.Node4.Block6.Spare.12=
+IO+di.Node4.Block6.Spare.13=
+IO+di.Node4.Block6.Spare.14=
+IO+di.Node4.Block6.Spare.15=
+IO+di.VTM_Robot.Arm_A.Retract=
+IO+di.VTM_Robot.Arm_B.Retract=
+IO+di.Auto_Mode.Active=
+IO+di.Initialize.Complete=
+IO+di.XXX.Busy=
+IO+di.XXX.Alarm=
+IO+di.VTM_Robot.Arm_C.Retract=
+IO+di.VTM_Robot.Arm_D.Retract=
+IO+di.LBA.APC.Valve.Open=
+IO+di.LBA.APC.Valve.Close=
+IO+di.LBB.APC.Valve.Open=
+IO+di.LBB.APC.Valve.Close=
+IO+di.Node4.Block6.Spare.28=
+IO+di.Node4.Block6.Spare.29=
+IO+di.Node4.Block6.Spare.30=
+IO+di.Node4.Block6.Spare.31=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+718 97 854 139
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DO_2_2.inf
+TABLE.TITLE=Node2 - DO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=2
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+do.LBC.SOFT.PUMP.VLV=
+IO+do.LBC.FAST.PUMP.VLV=
+IO+do.LBD.SOFT.PUMP.VLV=
+IO+do.LBD.FAST.PUMP.VLV=
+IO+do.CHM1.SOFT.PUMP.VLV=
+IO+do.CHM1.FAST.PUMP.VLV=
+IO+do.LBA.SOFT.VENT.VLV=
+IO+do.LBA.FAST.VENT.VLV=
+IO+do.LBB.SOFT.VENT.VLV=
+IO+do.LBB.FAST.VENT.VLV=
+IO+do.LBC.SOFT.VENT.VLV=
+IO+do.LBC.FAST.VENT.VLV=
+IO+do.LBD.SOFT.VENT.VLV=
+IO+do.LBD.FAST.VENT.VLV=
+IO+do.CHM1.SOFT.VENT.VLV=
+IO+do.CHM1.FAST.VENT.VLV=
+IO+do.LBA.MFC1.OUT.VLV=
+IO+do.LBA.MFC1.IN.VLV=
+IO+do.LBB.MFC1.OUT.VLV=
+IO+do.LBB.MFC1.IN.VLV=
+IO+do.Node2.Spare.20=
+IO+do.Node2.Spare.21=
+IO+do.LBA.Gauge.Valve=
+IO+do.LBB.Gauge.Valve=
+IO+do.CHM1.Gauge.Valve=
+IO+do.LBA.EQUAL.ATM.VLV=
+IO+do.LBB.EQUAL.ATM.VLV=
+IO+do.LBC.EQUAL.ATM.VLV=
+IO+do.LBD.EQUAL.ATM.VLV=
+IO+do.CHM1.BALLAST.VLV=
+IO+do.PM1_2.DI.WATER.VLV=
+IO+do.PM3_4.DI.WATER.VLV=
+IO+do.LBC.SOFT.PUMP.VLV=
+IO+do.LBC.FAST.PUMP.VLV=
+IO+do.LBD.SOFT.PUMP.VLV=
+IO+do.LBD.FAST.PUMP.VLV=
+IO+do.CHM1.SOFT.PUMP.VLV=
+IO+do.CHM1.FAST.PUMP.VLV=
+IO+do.LBA.SOFT.VENT.VLV=
+IO+do.LBA.FAST.VENT.VLV=
+IO+do.LBB.SOFT.VENT.VLV=
+IO+do.LBB.FAST.VENT.VLV=
+IO+do.LBC.SOFT.VENT.VLV=
+IO+do.LBC.FAST.VENT.VLV=
+IO+do.LBD.SOFT.VENT.VLV=
+IO+do.LBD.FAST.VENT.VLV=
+IO+do.CHM1.SOFT.VENT.VLV=
+IO+do.CHM1.FAST.VENT.VLV=
+IO+do.LBA.MFC1.OUT.VLV=
+IO+do.LBA.MFC1.IN.VLV=
+IO+do.LBB.MFC1.OUT.VLV=
+IO+do.LBB.MFC1.IN.VLV=
+IO+do.Node2.Spare.20=
+IO+do.Node2.Spare.21=
+IO+do.LBA.Gauge.Valve=
+IO+do.LBB.Gauge.Valve=
+IO+do.CHM1.Gauge.Valve=
+IO+do.LBA.EQUAL.ATM.VLV=
+IO+do.LBB.EQUAL.ATM.VLV=
+IO+do.LBC.EQUAL.ATM.VLV=
+IO+do.LBD.EQUAL.ATM.VLV=
+IO+do.CHM1.BALLAST.VLV=
+IO+do.PM1_2.DI.WATER.VLV=
+IO+do.PM3_4.DI.WATER.VLV=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+721 98 854 137
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/O (#2)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+718 137 854 179
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DO_2_3.inf
+TABLE.TITLE=Node2 - DO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=3
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+do.PM5_6.DI.WATER.VLV=
+IO+do.EFEM.DI.WATER.VLV=
+IO+do.Sol.Block.Spare.02=
+IO+do.Sol.Block.Spare.03=
+IO+do.LBA.LIFT_PIN.UP.SET=
+IO+do.LBA.LIFT_PIN.DOWN.SET=
+IO+do.LBB.LIFT_PIN.UP.SET=
+IO+do.LBB.LIFT_PIN.DOWN.SET=
+IO+do.LBA.Pump.Power=
+IO+do.LBA.Pump.Idle.Mode=
+IO+do.LBA.Pump.Remote.Mode=
+IO+do.Node2.Block3.Spare.11=
+IO+do.LBB.Pump.Power=
+IO+do.LBB.Pump.Idle.Mode=
+IO+do.LBB.Pump.Remote.Mode=
+IO+do.Node2.Block3.Spare.15=
+IO+do.LBCD.Pump.Power=
+IO+do.LBCD.Pump.Idle.Mode=
+IO+do.LBCD.Pump.Remote.Mode=
+IO+do.Node2.Block3.Spare.19=
+IO+do.CHM1.Pump.Power=
+IO+do.CHM1.Pump.Idle.Mode=
+IO+do.CHM1.Pump.Remote.Mode=
+IO+do.Node6.Block3.Spare.23=
+IO+do.Node6.Block3.Spare.24=
+IO+do.Node6.Block3.Spare.25=
+IO+do.Node6.Block3.Spare.26=
+IO+do.Node6.Block3.Spare.27=
+IO+do.Node6.Block3.Spare.28=
+IO+do.Node6.Block3.Spare.29=
+IO+do.Node6.Block3.Spare.30=
+IO+do.Node6.Block3.Spare.31=
+IO+do.PM5_6.DI.WATER.VLV=
+IO+do.EFEM.DI.WATER.VLV=
+IO+do.Sol.Block.Spare.02=
+IO+do.Sol.Block.Spare.03=
+IO+do.LBA.LIFT_PIN.UP.SET=
+IO+do.LBA.LIFT_PIN.DOWN.SET=
+IO+do.LBB.LIFT_PIN.UP.SET=
+IO+do.LBB.LIFT_PIN.DOWN.SET=
+IO+do.LBA.Pump.Power=
+IO+do.LBA.Pump.Idle.Mode=
+IO+do.LBA.Pump.Remote.Mode=
+IO+do.Node2.Block3.Spare.11=
+IO+do.LBB.Pump.Power=
+IO+do.LBB.Pump.Idle.Mode=
+IO+do.LBB.Pump.Remote.Mode=
+IO+do.Node2.Block3.Spare.15=
+IO+do.LBCD.Pump.Power=
+IO+do.LBCD.Pump.Idle.Mode=
+IO+do.LBCD.Pump.Remote.Mode=
+IO+do.Node2.Block3.Spare.19=
+IO+do.CHM1.Pump.Power=
+IO+do.CHM1.Pump.Idle.Mode=
+IO+do.CHM1.Pump.Remote.Mode=
+IO+do.Node6.Block3.Spare.23=
+IO+do.Node6.Block3.Spare.24=
+IO+do.Node6.Block3.Spare.25=
+IO+do.Node6.Block3.Spare.26=
+IO+do.Node6.Block3.Spare.27=
+IO+do.Node6.Block3.Spare.28=
+IO+do.Node6.Block3.Spare.29=
+IO+do.Node6.Block3.Spare.30=
+IO+do.Node6.Block3.Spare.31=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+721 138 854 177
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/O (#3)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+718 177 854 219
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DO_2_4.inf
+TABLE.TITLE=Node2- DO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=4
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+do.PCW.Main.Interlock.VLV=
+IO+do.PM1.PCW.Interlock.VLV=
+IO+do.PM2.PCW.Interlock.VLV=
+IO+do.PM3.PCW.Interlock.VLV=
+IO+do.PM4.PCW.Interlock.VLV=
+IO+do.PM5.PCW.Interlock.VLV=
+IO+do.PM6.PCW.Interlock.VLV=
+IO+do.Node2.Block4.Spare.07=
+IO+do.Node2.Block4.Spare.08=
+IO+do.Node2.Block4.Spare.09=
+IO+do.Node2.Block4.Spare.10=
+IO+do.Node2.Block4.Spare.11=
+IO+do.Node2.Block4.Spare.12=
+IO+do.Node2.Block4.Spare.13=
+IO+do.Node2.Block4.Spare.14=
+IO+do.Node2.Block4.Spare.15=
+IO+do.LBA.Extend.Enable=
+IO+do.LBB.Extend.Enable=
+IO+do.LBC.Extend.Enable=
+IO+do.LBD.Extend.Enable=
+IO+do.PM1.Extend.Enable=
+IO+do.PM2.Extend.Enable=
+IO+do.PM3.Extend.Enable=
+IO+do.PM4.Extend.Enable=
+IO+do.PM5.Extend.Enable=
+IO+do.PM6.Extend.Enable=
+IO+do.PLC.Extend.Enable.Spare=
+IO+do.VAC_Robot.Interlock.Normal=
+IO+do.Node2.Block4.Spare.28=
+IO+do.Node2.Block4.Spare.29=
+IO+do.Node2.Block4.Spare.30=
+IO+do.Host.PLC.Alarm.Reset=
+IO+do.PCW.Main.Interlock.VLV=
+IO+do.PM1.PCW.Interlock.VLV=
+IO+do.PM2.PCW.Interlock.VLV=
+IO+do.PM3.PCW.Interlock.VLV=
+IO+do.PM4.PCW.Interlock.VLV=
+IO+do.PM5.PCW.Interlock.VLV=
+IO+do.PM6.PCW.Interlock.VLV=
+IO+do.Node2.Block4.Spare.07=
+IO+do.Node2.Block4.Spare.08=
+IO+do.Node2.Block4.Spare.09=
+IO+do.Node2.Block4.Spare.10=
+IO+do.Node2.Block4.Spare.11=
+IO+do.Node2.Block4.Spare.12=
+IO+do.Node2.Block4.Spare.13=
+IO+do.Node2.Block4.Spare.14=
+IO+do.Node2.Block4.Spare.15=
+IO+do.LBA.Extend.Enable=
+IO+do.LBB.Extend.Enable=
+IO+do.LBC.Extend.Enable=
+IO+do.LBD.Extend.Enable=
+IO+do.PM1.Extend.Enable=
+IO+do.PM2.Extend.Enable=
+IO+do.PM3.Extend.Enable=
+IO+do.PM4.Extend.Enable=
+IO+do.PM5.Extend.Enable=
+IO+do.PM6.Extend.Enable=
+IO+do.PLC.Extend.Enable.Spare=
+IO+do.VAC_Robot.Interlock.Normal=
+IO+do.Node2.Block4.Spare.28=
+IO+do.Node2.Block4.Spare.29=
+IO+do.Node2.Block4.Spare.30=
+IO+do.Host.PLC.Alarm.Reset=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+721 178 854 217
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/O (#4)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+2
+100
+(0, 0, 128)
+(255, 255, 255)
+(896, 32) (1199, 104) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+906 57 1042 99
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\SI_3_All.inf
+TABLE.TITLE=Node3 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=STRING
+MD.ID=4
+CMMD.1=
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+si.LL1.Chuck.Heater.PV=
+IO+si.LL1.Chuck.Heater.Working.SP=
+IO+si.LL1.Chuck.Heater.Working.OP=
+IO+si.LL1_3.Wall.Heater.PV=
+IO+si.LL1_3.Wall.Heater.Working.SP=
+IO+si.LL1_3.Wall.Heater.Working.OP=
+IO+si.LL1.Pumping_Pipe.Heater.PV=
+IO+si.LL1.Pumping_Pipe.Heater.Working.SP=
+IO+si.LL1.Pumping_Pipe.Heater.Working.OP=
+IO+si.LL2.Chuck.Heater.PV=
+IO+si.LL2.Chuck.Heater.Working.SP=
+IO+si.LL2.Chuck.Heater.Working.OP=
+IO+si.LL2_4.Wall.Heater.PV=
+IO+si.LL2_4.Wall.Heater.Working.SP=
+IO+si.LL2_4.Wall.Heater.Working.OP=
+IO+si.LL2.Pumping_Pipe.Heater.PV=
+IO+si.LL2.Pumping_Pipe.Heater.Working.SP=
+IO+si.LL2.Pumping_Pipe.Heater.Working.OP=
+IO+si.LL3_4.Pumping_Pipe.Heater.PV=
+IO+si.LL3_4.Pumping_Pipe.Heater.Working.SP=
+IO+si.LL3_4.Pumping_Pipe.Heater.Working.OP=
+IO+si.PM1.Gate_Valve.Heater.PV=
+IO+si.PM1.Gate_Valve.Heater.Working.SP=
+IO+si.PM1.Gate_Valve.Heater.Working.OP=
+IO+si.PM2.Gate_Valve.Heater.PV=
+IO+si.PM2.Gate_Valve.Heater.Working.SP=
+IO+si.PM2.Gate_Valve.Heater.Working.OP=
+IO+si.PM3.Gate_Valve.Heater.PV=
+IO+si.PM3.Gate_Valve.Heater.Working.SP=
+IO+si.PM3.Gate_Valve.Heater.Working.OP=
+IO+si.PM4.Gate_Valve.Heater.PV=
+IO+si.PM4.Gate_Valve.Heater.Working.SP=
+IO+si.PM4.Gate_Valve.Heater.Working.OP=
+IO+si.PM5.Gate_Valve.Heater.PV=
+IO+si.PM5.Gate_Valve.Heater.Working.SP=
+IO+si.PM5.Gate_Valve.Heater.Working.OP=
+IO+si.PM6.Gate_Valve.Heater.PV=
+IO+si.PM6.Gate_Valve.Heater.Working.SP=
+IO+si.PM6.Gate_Valve.Heater.Working.OP=
+IO+si.TM.Pumping_Pipe.Heater.PV=
+IO+si.TM.Pumping_Pipe.Heater.Working.SP=
+IO+si.TM.Pumping_Pipe.Heater.Working.OP=
+IO+si.LL1.Chuck.Heater.Temp.Alarm=
+IO+si.LL1_3.Wall.Heater.Temp.Alarm=
+IO+si.LL1.Pumping_Pipe.Heater.Temp.Alarm=
+IO+si.LL2.Chuck.Heater.Temp.Alarm=
+IO+si.LL2_4.Wall.Heater.Temp.Alarm=
+IO+si.LL2.Pumping_Pipe.Heater.Temp.Alarm=
+IO+si.LL3_4.Pumping_Pipe.Heater.Temp.Alarm=
+IO+si.PM1.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM2.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM3.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM4.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM5.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM6.Gate_Valve.Heater.Temp.Alarm=
+IO+si.TM.Pumping_Pipe.Heater.Temp.Alarm=
+IO+si.LL1.Chuck.Heater.PV=
+IO+si.LL1.Chuck.Heater.Working.SP=
+IO+si.LL1.Chuck.Heater.Working.OP=
+IO+si.LL1_3.Wall.Heater.PV=
+IO+si.LL1_3.Wall.Heater.Working.SP=
+IO+si.LL1_3.Wall.Heater.Working.OP=
+IO+si.LL1.Pumping_Pipe.Heater.PV=
+IO+si.LL1.Pumping_Pipe.Heater.Working.SP=
+IO+si.LL1.Pumping_Pipe.Heater.Working.OP=
+IO+si.LL2.Chuck.Heater.PV=
+IO+si.LL2.Chuck.Heater.Working.SP=
+IO+si.LL2.Chuck.Heater.Working.OP=
+IO+si.LL2_4.Wall.Heater.PV=
+IO+si.LL2_4.Wall.Heater.Working.SP=
+IO+si.LL2_4.Wall.Heater.Working.OP=
+IO+si.LL2.Pumping_Pipe.Heater.PV=
+IO+si.LL2.Pumping_Pipe.Heater.Working.SP=
+IO+si.LL2.Pumping_Pipe.Heater.Working.OP=
+IO+si.LL3_4.Pumping_Pipe.Heater.PV=
+IO+si.LL3_4.Pumping_Pipe.Heater.Working.SP=
+IO+si.LL3_4.Pumping_Pipe.Heater.Working.OP=
+IO+si.PM1.Gate_Valve.Heater.PV=
+IO+si.PM1.Gate_Valve.Heater.Working.SP=
+IO+si.PM1.Gate_Valve.Heater.Working.OP=
+IO+si.PM2.Gate_Valve.Heater.PV=
+IO+si.PM2.Gate_Valve.Heater.Working.SP=
+IO+si.PM2.Gate_Valve.Heater.Working.OP=
+IO+si.PM3.Gate_Valve.Heater.PV=
+IO+si.PM3.Gate_Valve.Heater.Working.SP=
+IO+si.PM3.Gate_Valve.Heater.Working.OP=
+IO+si.PM4.Gate_Valve.Heater.PV=
+IO+si.PM4.Gate_Valve.Heater.Working.SP=
+IO+si.PM4.Gate_Valve.Heater.Working.OP=
+IO+si.PM5.Gate_Valve.Heater.PV=
+IO+si.PM5.Gate_Valve.Heater.Working.SP=
+IO+si.PM5.Gate_Valve.Heater.Working.OP=
+IO+si.PM6.Gate_Valve.Heater.PV=
+IO+si.PM6.Gate_Valve.Heater.Working.SP=
+IO+si.PM6.Gate_Valve.Heater.Working.OP=
+IO+si.TM.Pumping_Pipe.Heater.PV=
+IO+si.TM.Pumping_Pipe.Heater.Working.SP=
+IO+si.TM.Pumping_Pipe.Heater.Working.OP=
+IO+si.LL1.Chuck.Heater.Temp.Alarm=
+IO+si.LL1_3.Wall.Heater.Temp.Alarm=
+IO+si.LL1.Pumping_Pipe.Heater.Temp.Alarm=
+IO+si.LL2.Chuck.Heater.Temp.Alarm=
+IO+si.LL2_4.Wall.Heater.Temp.Alarm=
+IO+si.LL2.Pumping_Pipe.Heater.Temp.Alarm=
+IO+si.LL3_4.Pumping_Pipe.Heater.Temp.Alarm=
+IO+si.PM1.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM2.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM3.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM4.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM5.Gate_Valve.Heater.Temp.Alarm=
+IO+si.PM6.Gate_Valve.Heater.Temp.Alarm=
+IO+si.TM.Pumping_Pipe.Heater.Temp.Alarm=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+908 58 1042 97
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=S/I (*)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+1051 57 1187 99
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\SO_3_All.inf
+TABLE.TITLE=Node3 - SO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=STRING
+MD.ID=4
+CMMD.1=
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=100
+IO+so.LL1.Chuck.Heater.SetPoint=
+IO+so.LL1_3.Wall.Heater.SetPoint=
+IO+so.LL1.Pumping_Pipe.Heater.SetPoint=
+IO+so.LL2.Chuck.Heater.SetPoint=
+IO+so.LL2_4.Wall.Heater.SetPoint=
+IO+so.LL2.Pumping_Pipe.Heater.SetPoint=
+IO+so.LL3_4.Pumping_Pipe.Heater.SetPoint=
+IO+so.PM1.Gate_Valve.Heater.SetPoint=
+IO+so.PM2.Gate_Valve.Heater.SetPoint=
+IO+so.PM3.Gate_Valve.Heater.SetPoint=
+IO+so.PM4.Gate_Valve.Heater.SetPoint=
+IO+so.PM5.Gate_Valve.Heater.SetPoint=
+IO+so.PM6.Gate_Valve.Heater.SetPoint=
+IO+so.TM.Pumping_Pipe.Heater.SetPoint=
+IO+so.Global.Alarm.Reset=
+IO+so.LL1.Chuck.Heater.SetPoint=
+IO+so.LL1_3.Wall.Heater.SetPoint=
+IO+so.LL1.Pumping_Pipe.Heater.SetPoint=
+IO+so.LL2.Chuck.Heater.SetPoint=
+IO+so.LL2_4.Wall.Heater.SetPoint=
+IO+so.LL2.Pumping_Pipe.Heater.SetPoint=
+IO+so.LL3_4.Pumping_Pipe.Heater.SetPoint=
+IO+so.PM1.Gate_Valve.Heater.SetPoint=
+IO+so.PM2.Gate_Valve.Heater.SetPoint=
+IO+so.PM3.Gate_Valve.Heater.SetPoint=
+IO+so.PM4.Gate_Valve.Heater.SetPoint=
+IO+so.PM5.Gate_Valve.Heater.SetPoint=
+IO+so.PM6.Gate_Valve.Heater.SetPoint=
+IO+so.TM.Pumping_Pipe.Heater.SetPoint=
+IO+so.Global.Alarm.Reset=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+1054 58 1187 97
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=S/O (*)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+255
+(0, 0, 160)
+(206, 206, 206)
+(926, 18) (1168, 49) 
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Arial
+Node 03 (MacID 4)
+(0, 0, 160)
+12
+3
+(100, 100, 100)
+0
+255
+(968, 23) (1124 45)
+}
+#DYNAMIC
+{
+}
+#RECTANGLE
+{
+RECTANGLE
+2
+100
+(0, 0, 128)
+(255, 255, 255)
+(896, 136) (1199, 208) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+906 161 1042 203
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\SI_4_All.inf
+TABLE.TITLE=Node4 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=STRING
+MD.ID=5
+CMMD.1=
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+si.LBA.VAT.HEXA=
+IO+si.LBA.VAT.HEXA=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+908 162 1042 201
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=S/I (*)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+1051 161 1187 203
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\SO_4_All.inf
+TABLE.TITLE=Node4 - SO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=STRING
+MD.ID=5
+CMMD.1=
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=100
+IO+so.LBA.VAT.HEXA=
+IO+so.LBA.VAT.HEXA=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+1054 162 1187 201
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=S/O (*)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+255
+(0, 0, 160)
+(206, 206, 206)
+(926, 122) (1168, 153) 
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Arial
+Node 04 (MacID 5)
+(0, 0, 160)
+12
+3
+(100, 100, 100)
+0
+255
+(968, 127) (1124 149)
+}
+#DYNAMIC
+{
+}
+#RECTANGLE
+{
+RECTANGLE
+2
+100
+(0, 0, 128)
+(255, 255, 255)
+(896, 232) (1199, 304) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+906 257 1042 299
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\SI_5_All.inf
+TABLE.TITLE=Node5 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=STRING
+MD.ID=6
+CMMD.1=
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+si.LBB.VAT.HEXA=
+IO+si.LBB.VAT.HEXA=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+908 258 1042 297
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=S/I (*)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+1051 257 1187 299
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\SO_5_All.inf
+TABLE.TITLE=Node5 - SO
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=OUTPUT
+CH.TYPE=STRING
+MD.ID=6
+CMMD.1=
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=100
+IO+so.LBB.VAT.HEXA=
+IO+so.LBB.VAT.HEXA=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+1054 258 1187 297
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=S/O (*)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+255
+(0, 0, 160)
+(206, 206, 206)
+(926, 218) (1168, 249) 
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Arial
+Node 05 (MacID 6)
+(0, 0, 160)
+12
+3
+(100, 100, 100)
+0
+255
+(968, 223) (1124 245)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+573 57 711 99
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_7.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=7
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.Alm_LL1.Door.Open.Error=
+IO+di.Alm_LL2.Door.Open.Error=
+IO+di.Alm_LL3.Door.Open.Error=
+IO+di.Alm_LL4.Door.Open.Error=
+IO+di.Alm_LL1.Slot.Vlv.Open.Error=
+IO+di.Alm_LL2.Slot.Vlv.Open.Error=
+IO+di.Alm_LL3.Slot.Vlv.Open.Error=
+IO+di.Alm_LL4.Slot.Vlv.Open.Error=
+IO+di.Alm_PM1.Slot.VlV.Open.Error=
+IO+di.Alm_PM2.Slot.VlV.Open.Error=
+IO+di.Alm_PM3.Slot.VlV.Open.Error=
+IO+di.Alm_PM4.Slot.VlV.Open.Error=
+IO+di.Alm_PM5.Slot.VlV.Open.Error=
+IO+di.Alm_PM6.Slot.VlV.Open.Error=
+IO+di.Alm_LL1.Door.Close.Error=
+IO+di.Alm_LL2.Door.Close.Error=
+IO+di.Alm_LL3.Door.Close.Error=
+IO+di.Alm_LL4.Door.Close.Error=
+IO+di.Alm_LL1.Slot.VlV.Close.Error=
+IO+di.Alm_LL2.Slot.VlV.Close.Error=
+IO+di.Alm_LL3.Slot.VlV.Close.Error=
+IO+di.Alm_LL4.Slot.VlV.Close.Error=
+IO+di.Alm_PM1.Slot.VlV.Close.Error=
+IO+di.Alm_PM2.Slot.VlV.Close.Error=
+IO+di.Alm_PM3.Slot.VlV.Close.Error=
+IO+di.Alm_PM4.Slot.VlV.Close.Error=
+IO+di.Alm_PM5.Slot.VlV.Close.Error=
+IO+di.Alm_PM6.Slot.VlV.Close.Error=
+IO+di.Alm_LL1.Wafer.Protrude.Error=
+IO+di.Alm_LL2.Wafer.Protrude.Error=
+IO+di.Alm_LL3.Wafer.Protrude.Error=
+IO+di.Alm_LL4.Wafer.Protrude.Error=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+575 58 709 97
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#7)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__IO_Obj_Channel
+573 97 711 139
+}
+#RENAME
+{
+FILE.NAME=TMC_IO_INF\DI_2_8.inf
+TABLE.TITLE=Node2 - DI
+OBJ.TYPE=IO
+OBJ.NAME=IO
+IO.TYPE=INPUT
+CH.TYPE=DIGITAL
+MD.ID=3
+CMMD.1=8
+CMMD.2=
+CMMD.3=
+CH_ID.RANGE.MIN=0
+CH_ID.RANGE.MAX=39
+IO+di.Alm_PM1.Wafer.Protrude.Error=
+IO+di.Alm_PM2.Wafer.Protrude.Error=
+IO+di.Alm_PM3.Wafer.Protrude.Error=
+IO+di.Alm_PM4.Wafer.Protrude.Error=
+IO+di.Alm_PM5.Wafer.Protrude.Error=
+IO+di.Alm_PM6.Wafer.Protrude.Error=
+IO+di.Alm_TM.Vent.Error=
+IO+di.Alm_LL1.Roughing.Error=
+IO+di.Alm_LL2.Roughing.Error=
+IO+di.Alm_LL3_4.Roughing.Error=
+IO+di.Alm_TM.Roughing.Error=
+IO+di.Alm_LL1.Vent_Rough.Vlv.Open.Error=
+IO+di.Alm_LL2.Vent_Rough.VlV.Open.Error=
+IO+di.Alm_LL3_4.Vent_Rough.VlV.Open.Error=
+IO+di.Alm_TM.Vent_Rough.Vlv.Open.Error=
+IO+di.Alm_LL1.Dry_Pump.Error=
+IO+di.Alm_LL2.Dry_Pump.Error=
+IO+di.Alm_LL3_4.Dry_Pump.Error=
+IO+di.Alm_TM.Dry_Pump.Error=
+IO+di.Alm_TM.Lid_Open.Error=
+IO+di.Alm_TM.Water_Leak.Error=
+IO+di.Alm_NotUse.21=
+IO+di.Alm_NotUse.22=
+IO+di.Alm_Interlock.Disable.Error=
+IO+di.Alm_PM1.Water_Leak.Error=
+IO+di.Alm_PM2.Water_Leak.Error=
+IO+di.Alm_PM3.Water_Leak.Error=
+IO+di.Alm_PM4.Water_Leak.Error=
+IO+di.Alm_PM5.Water_Leak.Error=
+IO+di.Alm_PM6.Water_Leak.Error=
+IO+di.Alm_LL.Left_Lid.Open.Error=
+IO+di.Alm_LL.Right_Lid.Open.Error=
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+575 98 709 137
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#8)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+255
+(0, 0, 0)
+(255, 255, 255)
+(934, 602) (1253, 757) 
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+1182 707 1247 730
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-DB_CFG+CFG.PROCESS.MANOMETER.MAX.PRESSURE.mTORR-STRING
+DATA.INIT_TITLE=Mode
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,210)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(0,0,210)
+DATA.EDGE_DOWN_COLOR=RGB(0,0,210)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+CFG Process Nanomater Max. Pressure (mtorr)
+(0, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(945, 711) (1175 725)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+VAT Paramter
+(0, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(1117, 690) (1187 704)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+SIM Pressure Torr
+(0, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(1054, 734) (1175 748)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+1182 730 1247 753
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-DB_CFG+SIM.PRESSURE.TORR-STRING
+DATA.INIT_TITLE=Mode
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,210)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(0,0,210)
+DATA.EDGE_DOWN_COLOR=RGB(0,0,210)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+229
+(0, 0, 0)
+(255, 255, 255)
+(39, 346) (540, 621) 
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 356 205 372
+}
+#RENAME
+{
+S-IO+di.Alm_LL1.Door.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL1.DV..Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 357) (197 371)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 374 205 390
+}
+#RENAME
+{
+S-IO+di.Alm_LL2.Door.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL2.DV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 375) (197 389)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RECT
+195 634 205 650
+}
+#RENAME
+{
+S-IO+di.TMC.Chamber.Lid.Close
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.TMC.Chamber.Lid.Close
+(0, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(55, 635) (185 649)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 392 205 408
+}
+#RENAME
+{
+S-IO+di.Alm_LL3.Door.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL3.DV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 393) (197 407)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 410 205 426
+}
+#RENAME
+{
+S-IO+di.Alm_LL4.Door.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL4.DV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 411) (197 425)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 431 205 447
+}
+#RENAME
+{
+S-IO+di.Alm_LL1.Slot.Vlv.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL1.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 432) (197 446)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 449 205 465
+}
+#RENAME
+{
+S-IO+di.Alm_LL2.Slot.Vlv.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL2.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 450) (197 464)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 467 205 483
+}
+#RENAME
+{
+S-IO+di.Alm_LL3.Slot.Vlv.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL3.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 468) (197 482)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 485 205 501
+}
+#RENAME
+{
+S-IO+di.Alm_LL4.Slot.Vlv.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL4.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 486) (197 500)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 506 205 522
+}
+#RENAME
+{
+S-IO+di.Alm_PM1.Slot.VlV.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM1.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 507) (197 521)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 524 205 540
+}
+#RENAME
+{
+S-IO+di.Alm_PM2.Slot.VlV.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM2.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 525) (197 539)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 542 205 558
+}
+#RENAME
+{
+S-IO+di.Alm_PM3.Slot.VlV.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM3.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 543) (197 557)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 560 205 576
+}
+#RENAME
+{
+S-IO+di.Alm_PM4.Slot.VlV.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM4.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 561) (197 575)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 578 205 594
+}
+#RENAME
+{
+S-IO+di.Alm_PM5.Slot.VlV.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM5.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 579) (197 593)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+195 596 205 612
+}
+#RENAME
+{
+S-IO+di.Alm_PM6.Slot.VlV.Open.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM6.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(58, 597) (197 611)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 356 362 372
+}
+#RENAME
+{
+S-IO+di.Alm_LL1.Door.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL1.DV..Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 357) (354 371)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 374 362 390
+}
+#RENAME
+{
+S-IO+di.Alm_LL2.Door.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL2.DV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 375) (354 389)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 392 362 408
+}
+#RENAME
+{
+S-IO+di.Alm_LL3.Door.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL3.DV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 393) (354 407)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 410 362 426
+}
+#RENAME
+{
+S-IO+di.Alm_LL4.Door.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL4.DV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 411) (354 425)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 431 362 447
+}
+#RENAME
+{
+S-IO+di.Alm_LL1.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL1.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 432) (354 446)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 449 362 465
+}
+#RENAME
+{
+S-IO+di.Alm_LL2.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL2.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 450) (354 464)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 467 362 483
+}
+#RENAME
+{
+S-IO+di.Alm_LL3.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL3.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 468) (354 482)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 485 362 501
+}
+#RENAME
+{
+S-IO+di.Alm_LL4.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di..LL4.SV.Open.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 486) (354 500)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 506 362 522
+}
+#RENAME
+{
+S-IO+di.Alm_PM1.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM1.SV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 507) (354 521)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 524 362 540
+}
+#RENAME
+{
+S-IO+di.Alm_PM2.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM2.SV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 525) (354 539)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 542 362 558
+}
+#RENAME
+{
+S-IO+di.Alm_PM3.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM3.SV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 543) (354 557)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 560 362 576
+}
+#RENAME
+{
+S-IO+di.Alm_PM4.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM4.SV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 561) (354 575)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 578 362 594
+}
+#RENAME
+{
+S-IO+di.Alm_PM5.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM5.SV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 579) (354 593)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+352 596 362 612
+}
+#RENAME
+{
+S-IO+di.Alm_PM6.Slot.VlV.Close.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM6.SV.Close.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(215, 597) (354 611)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 356 529 372
+}
+#RENAME
+{
+S-IO+di.Alm_LL1.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL1.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(372, 357) (511 371)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 374 529 390
+}
+#RENAME
+{
+S-IO+di.Alm_LL2.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL2.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(372, 375) (511 389)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 392 529 408
+}
+#RENAME
+{
+S-IO+di.Alm_LL3.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL3.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(372, 393) (511 407)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 410 529 426
+}
+#RENAME
+{
+S-IO+di.Alm_LL4.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL4.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(372, 411) (511 425)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 431 529 447
+}
+#RENAME
+{
+S-IO+di.Alm_PM1.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM1.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(370, 432) (510 446)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 449 529 465
+}
+#RENAME
+{
+S-IO+di.Alm_PM2.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM2.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(370, 450) (510 464)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 467 529 483
+}
+#RENAME
+{
+S-IO+di.Alm_PM3.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM3.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(370, 468) (510 482)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 485 529 501
+}
+#RENAME
+{
+S-IO+di.Alm_PM4.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM4.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(370, 486) (510 500)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 503 529 519
+}
+#RENAME
+{
+S-IO+di.Alm_PM5.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM5.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(370, 504) (510 518)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RED
+519 521 529 537
+}
+#RENAME
+{
+S-IO+di.Alm_PM6.Wafer.Protrude.Error
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.PM6.Wafer.Protrude.Error
+(128, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(370, 522) (510 536)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RECT
+195 651 205 667
+}
+#RENAME
+{
+S-IO+di.LBC.Chamber.Lid.Close
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL3.Chamber.Lid.Close
+(0, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(55, 652) (185 666)
+}
+#DYNAMIC
+{
+}
+#GP_INF
+{
+JGLEE__LED_RECT
+195 668 205 684
+}
+#RENAME
+{
+S-IO+di.LBD.Chamber.Lid.Close
+On
+}
+#TEXT_EX
+{
+Tahoma
+di.LL4.Chamber.Lid.Close
+(0, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(55, 669) (185 683)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+do.Host.PLC.Alarm.Reset
+(0, 0, 0)
+8
+0
+(192, 192, 192)
+0
+255
+(1027, 614) (1177 628)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+1182 610 1247 633
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+do.Host.PLC.Alarm.Reset-STRING
+DATA.INIT_TITLE=Mode
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,210)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(0,0,210)
+DATA.EDGE_DOWN_COLOR=RGB(0,0,210)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+439 258 573 297
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/I (#6)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+575 258 706 297
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=AI (#1)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#RECTANGLE
+{
+RECTANGLE
+1
+157
+(0, 0, 0)
+(242, 240, 240)
+(553, 346) (871, 558) 
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+GN2 Pressure Switch
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(566, 374) (685 388)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+Node02 - AI
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(668, 348) (755 362)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 369 816 392
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.GN2.Pressure.Switch
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+CDA1 PM Pressure Switch
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(565, 396) (710 410)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 391 816 414
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.CDA1.PM.Pressure.Switch
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+CDA2 PM Pressure Switch
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(565, 418) (710 432)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 413 816 436
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.CDA2.PM.Pressure.Switch
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+CDA2 TM_LL Pressure Switch
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(564, 440) (729 454)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 435 816 458
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.CDA2.TM_LL.Pressure.Switch
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+PCW Flow Meter
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(564, 466) (658 480)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 461 816 484
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.PCW.Flow.Meter
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+UPC Gauge
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(563, 488) (627 502)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 483 816 506
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.UPC.Gauge
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+DI Pressure Switch
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(564, 510) (673 524)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 505 816 528
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.DI.Pressure.Switch
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+Node2 Block1 Spare
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(564, 532) (678 546)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_DISPLAY_STD
+745 527 816 550
+}
+#RENAME
+{
+DATA.BUTTON_TYPE=Channel_Button
+CH.STATE=S-IO+ai.Node2.Block1.Spare
+DATA.INIT_TITLE=Flow
+DATA.FONT_NAME=Fixedsys
+DATA.TEXT_COLOR=RGB(0,0,0)
+DATA.BACK_COLOR=RGB(255,255,255)
+DATA.TEXT_WIDTH=6
+DATA.TEXT_HEIGHT=15
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=1
+DATA.EDGE_UP_COLOR=RGB(90,90,90)
+DATA.EDGE_DOWN_COLOR=RGB(90,90,90)
+DATA.OUTLINE_COLOR=
+DATA.TEXT.Y_POS.OFFSET=0
+}
+#TEXT_EX
+{
+Tahoma
+MPa
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(825, 374) (852 388)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+MPa
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(825, 396) (852 410)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+MPa
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(826, 418) (853 432)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+MPa
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(826, 440) (853 454)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+L/Min
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(826, 466) (862 480)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+&
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(825, 488) (837 502)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+MPa
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(826, 510) (853 524)
+}
+#DYNAMIC
+{
+}
+#TEXT_EX
+{
+Tahoma
+__
+(67, 67, 67)
+8
+1
+(146, 51, 51)
+0
+255
+(826, 532) (843 546)
+}
+#DYNAMIC
+{
+}
+#GOBJ_INTERFACE
+{
+JGLEE__BTN_TITLE_STD
+247 98 380 137
+}
+#RENAME
+{
+CH.SET=
+DATA.TITLE_TEXT=D/O (#2)
+DATA.FONT_NAME=
+DATA.TEXT_COLOR=RGB(84,19,85)
+DATA.BACK_COLOR=RGB(210,227,232)
+DATA.TEXT_WIDTH=
+DATA.TEXT_HEIGHT=
+DATA.TEXT_WEIGHT=
+DATA.EDGE_WIDTH=2
+DATA.EDGE_UP_COLOR=RGB(255,255,255)
+DATA.EDGE_DOWN_COLOR=RGB(210,210,210)
+DATA.OUTLINE_COLOR=RGB(0,0,0)
+DATA.TEXT.Y_POS.OFFSET=0
+}

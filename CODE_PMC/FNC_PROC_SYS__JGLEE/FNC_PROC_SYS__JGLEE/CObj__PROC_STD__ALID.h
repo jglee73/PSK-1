@@ -32,4 +32,5 @@
 #define ALID__RECIPE_STEP_SIZE_ERROR					9
 #define ALID__PROCESS_NOT_READY							10
 
+#define ALID__DI_SENSOR__HEAVY_ERRPR					11
 

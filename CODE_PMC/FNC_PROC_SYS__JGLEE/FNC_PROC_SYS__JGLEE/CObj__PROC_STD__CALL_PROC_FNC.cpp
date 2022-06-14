@@ -47,7 +47,13 @@ int CObj__PROC_STD
 {
 	dCH__CUR_PROCESS_TYPE->Set__DATA(STR__POST);
 
-	return Fnc__PROC_START_EX(p_variable, p_alarm, false);
+	int r_flag = Fnc__PROC_START_EX(p_variable, p_alarm, false);
+
+	if(r_flag > 0)
+	{
+		aCH__MON_WAFER_INFO_CURRENT_COUNT_VALUE->Set__VALUE(0);
+	}
+	return r_flag;
 }
 
 // MANUAL-PROCESS ...
@@ -72,8 +78,15 @@ int CObj__PROC_STD
 {
 LOOP_RETRY:
 
-	int r_flag = Fnc__PROC_START(p_variable, p_alarm, active_dechuck);
+	int r_flag;
 
+	if(dEXT_CH__CFG_BEFORE_PROCESS_DI_SENSOR_INTERLOCK_CHECK->Check__DATA(STR__YES) > 0)
+	{
+		r_flag = _Check__DI_INTERLOCK(p_variable, p_alarm);
+		if(r_flag < 0)			return r_flag;
+	}
+
+	r_flag = Fnc__PROC_START(p_variable, p_alarm, active_dechuck);
 	if(r_flag < 0)
 	{
 		// ...

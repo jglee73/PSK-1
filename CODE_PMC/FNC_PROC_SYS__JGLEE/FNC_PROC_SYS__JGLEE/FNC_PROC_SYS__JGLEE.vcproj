@@ -324,6 +324,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__PROC_STD__CHECK_IINTERLOCK.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__PROC_STD__DEF.h"
 					>
 				</File>

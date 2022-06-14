@@ -17,6 +17,9 @@ private:
 	//-------------------------------------------------------------------------
 	//  INTERNAL PROPERTY
 
+	//  
+	CX__VAR_DIGITAL_CTRL dCH__ACTIVE_CALL_BY_CTC;
+
 	//  PMC --> CTC
 	CX__VAR_DIGITAL_CTRL dCH__CHM_PRC_STS;
 	CX__VAR_STRING_CTRL  sCH__CHM_PRC_TOTAL_TIME_TO_CTC;
