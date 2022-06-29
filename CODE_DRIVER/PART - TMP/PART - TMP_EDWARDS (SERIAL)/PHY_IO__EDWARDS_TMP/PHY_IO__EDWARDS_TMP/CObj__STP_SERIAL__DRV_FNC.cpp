@@ -16,14 +16,6 @@ int CObj__STP_SERIAL
 ::__Read__DIGITAL(const CString& var_name,const CDS_IO__CHANNEL_INFO& io_info, CString& read_data,int& item_index)
 {
 
-	if(diCH__COMM_STS->Check__VARIABLE_NAME(var_name) > 0)
-	{
-		if(m_nCommState == DRV__OFFLINE)		read_data = STR__OFFLINE;
-		else									read_data = STR__ONLINE;
-			
-		return 1;
-	}
-	
 	return -1;
 }
 
@@ -240,6 +232,12 @@ int CObj__STP_SERIAL
 int CObj__STP_SERIAL
 ::__Write__DIGITAL(const CString& var_name,const CDS_IO__CHANNEL_INFO& io_info, const CString& set_data,const int item_index)
 {
+	printf(" * __Write__DIGITAL() ... \n");
+	printf("  * var_name   <- %s  \n", var_name);
+	printf("  * set_data   <- %s  \n", set_data);
+	printf("  * item_index <- %1d \n", item_index);
+
+	// ...
 	CString str_cmmd;
 	CString r_data;
 
@@ -314,19 +312,66 @@ int CObj__STP_SERIAL
 		memset(recv_cmmd, 0, sizeof(char)*255);
 	}
 
+	// ...
+	{
+		CString log_msg;
 
-	CString err_msg;
-	mX_Serial->CLEAR__BUFFER(&err_msg);
+		log_msg.Format("Var_Name <- %s \n", var_name);
 
-	mX_Serial->CHAR__SEND(send_cmmd, data_i);
+		xDRV_LOG_CTRL->WRITE__LOG(log_msg);
+	}
 
 	do 
 	{
-		int r_len = 0;
+		// ...
+		{
+			CString log_msg;
+			CString log_bff;
 
+			log_msg  = "\n";
+			log_msg += "Send >> \n";
+
+			for(int i=0; i<data_i; i++)
+			{
+				log_bff.Format("%02X ", send_cmmd[i]);
+				log_msg += log_bff;
+			}
+
+			xDRV_LOG_CTRL->WRITE__LOG(log_msg);
+		}
+
+		// ...
+		CString err_msg;
+		mX_Serial->CLEAR__BUFFER(&err_msg);
+
+		mX_Serial->CHAR__SEND(send_cmmd, data_i);
+
+		// ...
+		int r_len = 0;
 		int r_val = mX_Serial->CHAR__RECV(recv_cmmd, _ETX, &r_len, 500);
+
 		if(r_val >= 0)
 		{
+			bActive__COOM_ONLINE = true;
+
+			// Recv ...
+			{
+				CString log_msg;
+				CString log_bff;
+
+				log_msg  = "\n";
+				log_msg += "Recv << \n";
+
+				for(int i=7; i<r_len; i++)
+				{
+					log_bff.Format("%02X ", recv_cmmd[i]);
+					log_msg += log_bff;
+				}
+
+				xDRV_LOG_CTRL->WRITE__LOG(log_msg);
+			}
+
+			// ...
 			char r_rsp = recv_cmmd[0];
 			
 			if(r_rsp == _ACK)
@@ -337,8 +382,6 @@ int CObj__STP_SERIAL
 					r_data += recv_cmmd[i];
 				}
 
-				m_nCommState = DRV__ONLINE;
-
 				// SEND > ACK 
 				{
 					data_i = 0;
@@ -346,16 +389,52 @@ int CObj__STP_SERIAL
 
 					mX_Serial->CHAR__SEND(send_cmmd, data_i);
 				}
+				
+				// Send.OK ...
+				{
+					CString log_msg;
+					CString log_bff;
+
+					log_msg  = "\n";
+					log_bff.Format("Send >> ACK(%1d) \n", r_rsp);
+					log_msg += log_bff;
+
+					xDRV_LOG_CTRL->WRITE__LOG(log_msg);
+				}
 				return 1;
 			}
+
+			// Sens.ACK ...
+			{
+				CString log_msg;
+				CString log_bff;
+
+				log_msg  = "\n";
+				log_bff.Format("Error : No ACK(%1d) \n", _ACK);
+				log_msg += log_bff;
+
+				xDRV_LOG_CTRL->WRITE__LOG(log_msg);
+			}
 			return -1;
+		}
+
+		// Recv.Error ...
+		{
+			CString log_msg;
+			CString log_bff;
+
+			log_msg  = "\n";
+			log_bff.Format(" Error (%1d) \n", r_len);
+			log_msg += log_bff;
+
+			xDRV_LOG_CTRL->WRITE__LOG(log_msg);
 		}
 
 		Sleep(cfg_msec);
 	} 
 	while(++n_cnt < 2);
 
-	m_nCommState = DRV__ONLINE;
+	bActive__COOM_ONLINE = false;
 
 	Sleep(cfg_msec);
 	return -1;

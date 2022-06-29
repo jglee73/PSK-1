@@ -73,9 +73,36 @@ int CObj__PARAMOUNT_HF::__DEFINE__VARIABLE_STD(p_variable)
 
 	// PARA ...
 	{
-		str_name = "PARA.POWER.SET";
-		STD__ADD_ANALOG(str_name, "W", 1, 0.0, 1500.0);
-		LINK__VAR_ANALOG_CTRL(aCH__PARA_POWER_SET, str_name);
+		str_name = "PARA.SET.POWER";
+		STD__ADD_ANALOG_WITH_OPTION(str_name, "Watt", 1, 0, 1500, -1, "L", "");
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_SET_POWER, str_name);
+
+		//
+		str_name = "PARA.TUNE.USE";
+		STD__ADD_DIGITAL(str_name, "OFF ON");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARA_TUNE_USE, str_name);
+
+		str_name = "PARA.TUNE.DELAY";
+		STD__ADD_ANALOG(str_name, "msec", 0, 100, 10000);
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_FREQ_TUNE_DELAY, str_name);
+
+		//
+		str_name = "PARA.RAMP.UP.TIME";
+		STD__ADD_ANALOG(str_name, "msec", 0, 0, 30000);
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_RAMP_UP_TIME, str_name);
+
+		str_name = "PARA.RAMP.DOWN.TIME";
+		STD__ADD_ANALOG(str_name, "msec", 0, 0, 30000);
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_RAMP_DN_TIME, str_name);
+
+		//
+		str_name = "PARA.START.FREQUENCY";
+		STD__ADD_ANALOG(str_name, "kHz", 0, 0, 999999);
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_START_FREQUENCY, str_name);
+
+		str_name = "PARA.OUTPUT.FREQUENCY";
+		STD__ADD_ANALOG(str_name, "kHz", 0, 0, 999999);
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_OUTPUT_FREQUENCY, str_name);
 	}
 
 	// MON ...
@@ -423,8 +450,14 @@ int CObj__PARAMOUNT_HF::__INITIALIZE__IO(p_io_para)
 		sPROTOCOL_INFO += "Terminal String : [CR] \n";							  
 	}
 
-	mX_Serial->INIT__COMPORT(com_port, nRate, nByte, nStop, nParity);
-
+	if(iActive_SIM > 0)
+	{
+		return -1;
+	}
+	else
+	{
+		mX_Serial->INIT__COMPORT(com_port, nRate, nByte, nStop, nParity);
+	}
 	return 1;
 }
 

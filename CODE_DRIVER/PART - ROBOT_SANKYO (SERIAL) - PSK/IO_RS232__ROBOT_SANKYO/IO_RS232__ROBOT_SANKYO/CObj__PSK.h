@@ -44,9 +44,9 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__OTR_IN_PARA__STN_NAME;
 	CX__VAR_DIGITAL_CTRL dCH__OTR_IN_PARA__STN_SLOT;
 	CX__VAR_DIGITAL_CTRL dCH__OTR_IN_PARA__ARM_TYPE;
-	CX__VAR_ANALOG_CTRL  aCH__OTR_IN_PARA__AL1_CCD_POS;
 
-	CX__VAR_DIGITAL_CTRL dCH__ALx_PARA_STN_SLOT;				// ALx È£È¯¿ë Channel ...
+	CX__VAR_DIGITAL_CTRL dCH__OTR_IN_PARA__AL1_SLOT_ID;
+	CX__VAR_ANALOG_CTRL  aCH__OTR_IN_PARA__AL1_CCD_POS;
 
 	// PARA : RB ...
 	CX__VAR_DIGITAL_CTRL dCH__PARA_RB_ARM_TYPE;
@@ -121,14 +121,6 @@ private:
 	// MATERIAL CHANNEL ...
 	CX__VAR_DIGITAL_CTRL dCH__OTR_OUT_MON__ARM_A_MATERIAL_STATUS;
 	CX__VAR_DIGITAL_CTRL dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS;
-
-	// ...
-	CX__VAR_ANALOG_CTRL  aCH__CFG__ALIGN_AND_PICK_TIMEOUT;
-	CX__VAR_ANALOG_CTRL  aCH__CFG__PLACE_AND_ALIGN_TIMEOUT;
-	CX__VAR_ANALOG_CTRL  aCH__CFG__PICK_TIMEOUT;
-	CX__VAR_ANALOG_CTRL  aCH__CFG__PLACE_TIMEOUT;
-	CX__VAR_DIGITAL_CTRL dCH__CFG_MAPPING_ACTION_SLIDE_OUT_CHECK;
-	CX__VAR_ANALOG_CTRL  aCH__CFG_LP__PADDLE_CHECK_TIME;
 	//
 
 
@@ -177,13 +169,14 @@ private:
 					const CString& stn_name,
 					const CString& stn_slot);
 
-	CString sMODE__ALGNPICK;
-	int  Call__ALGNPICK(CII_OBJECT__VARIABLE* p_variable,
-						CII_OBJECT__ALARM* p_alarm,
-						const CString& arm_type,
-						const CString& stn_name,
-						const CString& stn_slot);
+	CString sMODE__ALIGN_PICK;
+	int  Call__ALIGN_PICK(CII_OBJECT__VARIABLE* p_variable,
+						  CII_OBJECT__ALARM* p_alarm,
+						  const CString& arm_type,
+						  const CString& stn_name,
+						  const CString& stn_slot);
 
+	// ...
 	CString sMODE__PLACE;
 	int  Call__PLACE(CII_OBJECT__VARIABLE* p_variable,
 						CII_OBJECT__ALARM* p_alarm,
@@ -197,35 +190,6 @@ private:
 						const CString& arm_type,
 						const CString& stn_name,
 						const CString& stn_slot);
-
-	// ...
-	CString sMODE__RETRACT;
-	int  Call__RETRACT(CII_OBJECT__VARIABLE* p_variable,
-						CII_OBJECT__ALARM* p_alarm,
-						const CString& arm_type,
-						const CString& stn_name,
-						const CString& stn_slot);
-
-	CString sMODE__EXTEND;
-	int  Call__EXTEND(CII_OBJECT__VARIABLE* p_variable,
-						CII_OBJECT__ALARM* p_alarm,
-						const CString& arm_type,
-						const CString& stn_name,
-						const CString& stn_slot);
-
-	CString sMODE__GOUP;
-	int  Call__GOUP(CII_OBJECT__VARIABLE* p_variable,
-					CII_OBJECT__ALARM* p_alarm,
-					const CString& arm_type,
-					const CString& stn_name,
-					const CString& stn_slot);
-
-	CString sMODE__GODOWN;
-	int  Call__GODOWN(CII_OBJECT__VARIABLE* p_variable,
-					  CII_OBJECT__ALARM* p_alarm,
-					  const CString& arm_type,
-					  const CString& stn_name,
-					  const CString& stn_slot);
 
 	// ...
 	CString sMODE__MAP;
@@ -248,17 +212,13 @@ private:
 					   const CString& arm_type);
 
 	// ...
-	CString sMODE__ALGN;
-	int  Call__ALGN(CII_OBJECT__VARIABLE* p_variable,
-					CII_OBJECT__ALARM* p_alarm);
-	
-	CString sMODE__ALGNPLACE;
-	int  Call__ALGNPLACE(CII_OBJECT__VARIABLE* p_variable,
-		                 CII_OBJECT__ALARM* p_alarm);
+	CString sMODE__AL_INIT;
+	int  Call__AL_INIT(CII_OBJECT__VARIABLE* p_variable,
+					   CII_OBJECT__ALARM* p_alarm);
 
-	CString sMODE__PLACE_PICK;
-	int  Call__PLACE_PICK(CII_OBJECT__VARIABLE* p_variable,
-		                  CII_OBJECT__ALARM* p_alarm);	
+	CString sMODE__ALIGN;
+	int  Call__ALIGN(CII_OBJECT__VARIABLE* p_variable,
+					 CII_OBJECT__ALARM* p_alarm);
 
 	// ...
 	int  _Wait__RB_ACTION(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);

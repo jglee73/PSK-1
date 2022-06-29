@@ -46,7 +46,8 @@ int CObj__NAVII_SERIAL
 		sCH__CUR_CAP_POS_CH2->Set__DATA(ch_data);
 	}
 
-	dCH__MON_COMM_STS->Set__DATA(STR__ONLINE); 
+	int loop_count = 0;
+	bActive__COMM_ONLINE = true;
 
 
 	while(1)
@@ -54,9 +55,26 @@ int CObj__NAVII_SERIAL
 		p_variable->Wait__SINGLE_OBJECT(0.1);
 
 
+		loop_count++;
+		if(loop_count > 10)			loop_count = 1;
+
+		if((loop_count == 1) || (loop_count == 6))
+		{
+			if(dCH__CFG_USE_CH2->Check__DATA(STR__YES) > 0)
+			{
+				siCH__CTRL_MODE_HEXA_CH2->Get__STRING();
+				siCH__CAPACITOR_POS_HEXA_CH2->Get__STRING();
+			}
+		}
+
+		if(loop_count == 1)
+		{
+			if(bActive__COMM_ONLINE)			dCH__MON_COMM_STS->Set__DATA(STR__ONLINE);
+			else								dCH__MON_COMM_STS->Set__DATA(STR__OFFLINE);
+		}
+
 		if(dCH__MON_COMM_STS->Check__DATA(STR__OFFLINE) > 0)
 		{
-			// ...
 			int alarm_id = ALID__OFFLINE_ALARM;
 			CString alm_msg;
 			CString	r_act;
@@ -67,7 +85,35 @@ int CObj__NAVII_SERIAL
 			p_alarm->Post__ALARM_With_MESSAGE(alarm_id,alm_msg);
 		}
 
-		// ...
+		if(iActive_SIM > 0)
+		{
+			CString ch_data;
+
+			// LOAD.POS ...
+			{
+				sCH__CUR_LOAD_POS_CH1->Get__DATA(ch_data);
+				sCH__INFO_LOAD_POS_CH1->Set__DATA(ch_data);
+
+				sCH__CUR_LOAD_POS_CH2->Get__DATA(ch_data);
+				sCH__INFO_LOAD_POS_CH2->Set__DATA(ch_data);
+			}
+			// TUNE.POS ...
+			{
+				sCH__CUR_TUNE_POS_CH1->Get__DATA(ch_data);
+				sCH__INFO_TUNE_POS_CH1->Set__DATA(ch_data);
+
+				sCH__CUR_TUNE_POS_CH2->Get__DATA(ch_data);
+				sCH__INFO_TUNE_POS_CH2->Set__DATA(ch_data);
+			}
+			// CAP.POS ...
+			{
+				sCH__CUR_CAP_POS_CH1->Get__DATA(ch_data);
+				sCH__INFO_CAP_POS_CH1->Set__DATA(ch_data);
+
+				sCH__CUR_CAP_POS_CH2->Get__DATA(ch_data);
+				sCH__INFO_CAP_POS_CH2->Set__DATA(ch_data);
+			}
+		}
 	}
 
 	return 1;

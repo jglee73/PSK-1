@@ -41,14 +41,27 @@ int CObj__PSK
 	CString ch_data;
 	int r_flag;
 
+	// CString para__data = "**********";
+	CString para__data = "0000000000";
+
 
 	if((siCH__RB_STATE_AUTO->Check__VARIABLE_NAME(var_name)   > 0)
 	|| (siCH__RB_STATE_MANUAL->Check__VARIABLE_NAME(var_name) > 0))
 	{
 		str__cmmd = "0801";
-		str__para = "**********";
+		str__para = para__data;
 
 		r_flag = Drv__RECV_COMMAND(var_name, str__cmmd,str__para, recv_data);
+
+		// ...
+		{
+			CString log_msg;
+			CString log_bff;
+
+			log_msg.Format("Data (%1d) <- [%s] \n", r_flag, recv_data);
+			Fnc__DRV_LOG(log_msg);
+		}
+
 		if(r_flag < 0)
 		{
 			read_data = "ERROR";
@@ -64,7 +77,7 @@ int CObj__PSK
 	if(siCH__VERSION->Check__VARIABLE_NAME(var_name) > 0)
 	{
 		str__cmmd = "0802";
-		str__para = "**********";
+		str__para = para__data;
 
 		r_flag = Drv__RECV_COMMAND(var_name, str__cmmd,str__para, recv_data);
 		if(r_flag < 0)
@@ -82,7 +95,7 @@ int CObj__PSK
 	if(siCH__AL_MEASUREMENT->Check__VARIABLE_NAME(var_name) > 0)
 	{
 		str__cmmd = "0803";
-		str__para = "**********";
+		str__para = para__data;
 
 		r_flag = Drv__RECV_COMMAND(var_name, str__cmmd,str__para, recv_data);
 		if(r_flag < 0)

@@ -26,15 +26,11 @@ int CObj__PSK::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__INIT, "INIT");		
 		ADD__CTRL_VAR(sMODE__HOME, "HOME");
 
-		ADD__CTRL_VAR(sMODE__PICK,	   "PICK");	
-		ADD__CTRL_VAR(sMODE__ALGNPICK, "ALGNPICK");
-		ADD__CTRL_VAR(sMODE__PLACE,	   "PLACE");	
-		ADD__CTRL_VAR(sMODE__ROTATE,   "ROTATE");	
+		ADD__CTRL_VAR(sMODE__PICK, "PICK");	
+		ADD__CTRL_VAR(sMODE__ALIGN_PICK, "ALIGN_PICK");
 
-		ADD__CTRL_VAR(sMODE__RETRACT, "RETRACT");
-		ADD__CTRL_VAR(sMODE__EXTEND,  "EXTEND");
-		ADD__CTRL_VAR(sMODE__GOUP,    "GOUP");
-		ADD__CTRL_VAR(sMODE__GODOWN,  "GODOWN");
+		ADD__CTRL_VAR(sMODE__PLACE,	 "PLACE");	
+		ADD__CTRL_VAR(sMODE__ROTATE, "ROTATE");	
 
 		ADD__CTRL_VAR(sMODE__MAP, "MAP");
 
@@ -46,9 +42,8 @@ int CObj__PSK::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__VAC_OFF_OF_A_ARM, "VAC_OFF_OF_A_ARM");
 		ADD__CTRL_VAR(sMODE__VAC_OFF_OF_B_ARM, "VAC_OFF_OF_B_ARM");
 
-		ADD__CTRL_VAR(sMODE__ALGN,       "ALGN");
-		ADD__CTRL_VAR(sMODE__ALGNPLACE,  "ALGNPLACE");
-		ADD__CTRL_VAR(sMODE__PLACE_PICK, "PLACE_PICK");
+		ADD__CTRL_VAR(sMODE__AL_INIT, "AL.INIT");
+		ADD__CTRL_VAR(sMODE__ALIGN,   "ALIGN");
 	}
 
 	return 1;
@@ -135,6 +130,11 @@ int CObj__PSK::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "PARA.dARM.TYPE";
 		STD__ADD_DIGITAL(str_name, APP_DSP__ARM_TYPE);
 		LINK__VAR_DIGITAL_CTRL(dCH__OTR_IN_PARA__ARM_TYPE,str_name);
+
+		//
+		str_name = "PARA.AL1.SLOT.ID";
+		STD__ADD_DIGITAL(str_name, APP_DSP__DSlot);
+		LINK__VAR_DIGITAL_CTRL(dCH__OTR_IN_PARA__AL1_SLOT_ID, str_name);
 
 		str_name = "PARA.AL1.CCD.POS";
 		STD__ADD_ANALOG(str_name,"deg",1,0.0,360.0);
@@ -244,13 +244,6 @@ int CObj__PSK::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__MON_AL_NOTCH_ANGLE, str_name);
 	}
 	
-	// ALx È£È¯¿ë Channel ...
-	{
-		str_name = "PARA.STN.SLOT";
-		STD__ADD_DIGITAL(str_name, APP_DSP__DSlot);
-		LINK__VAR_DIGITAL_CTRL(dCH__ALx_PARA_STN_SLOT, str_name);
-	}
-
 	// CONFIG CHANNEL ...
 	{
 		str_name = "CFG.ACTION.CONFIRM.FLAG";
@@ -369,76 +362,6 @@ int CObj__PSK::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, dsp_slot_sts,"");
 		LINK__VAR_DIGITAL_CTRL(dCH__OTR_OUT_MON__ARM_B_MATERIAL_STATUS,str_name);
 	}
-
-	// ATMAlignAndPickTime		: Excel Num 82
-	str_name = "CFG.aALIGN.AND.PICK.TIMEOUT";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",1,0.5,100.0,"recommand:9 sec");
-	LINK__VAR_ANALOG_CTRL(aCH__CFG__ALIGN_AND_PICK_TIMEOUT, str_name);
-
-	// ATMAlignOCRTime
-	str_name = "CFG.aALIGN.OCR.TIME";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",1,0.5,100.0,"recommand:4 sec");
-
-	// ATMPickTime
-	str_name = "CFG.aPICK.TIMEOUT";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",1,0.5,100.0,"recommand:4.2 sec");
-	LINK__VAR_ANALOG_CTRL(aCH__CFG__PICK_TIMEOUT, str_name);
-
-	// ATMPlaceTime
-	str_name = "CFG.aPLACE.TIMEOUT";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",1,0.5,100.0,"recommand:4.4 sec");
-	LINK__VAR_ANALOG_CTRL(aCH__CFG__PLACE_TIMEOUT, str_name);
-
-	// ATMPlaceToAlignerTime
-	str_name = "CFG.aPLACE.AND.ALIGN.TIMEOUT";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",1,0.5,100.0,"recommand:9 sec");
-	LINK__VAR_ANALOG_CTRL(aCH__CFG__PLACE_AND_ALIGN_TIMEOUT, str_name);
-
-	// CheckWaferSlideOut
-	str_name = "CFG.dMAPPING.ACTION.SLIDEOUT.CHECK";
-	STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NO YES","");
-	LINK__VAR_DIGITAL_CTRL(dCH__CFG_MAPPING_ACTION_SLIDE_OUT_CHECK,str_name);
-
-	// CoverWaferAlignmentBeforeReturnToPort
-	str_name = "CFG.dBEFORE.PLACE.TO.LP.ALIGN";
-	STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NO YES", "");
-
-	// DAAlignerRadialHardTolerance
-	str_name = "CFG.aDA.ALIGNER.R.HARD.TOLE";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,1000,8000,"recommand:4000");
-
-	// DAAlignerRadialSoftTolerance
-	str_name = "CFG.aDA.ALIGNER.R.SOFT.TOLE";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,500,4000,"recommand:2000");
-
-	// DAAlignerRadialThetaHardTolerance
-	str_name = "CFG.aDA.ALIGNER.T.HARD.TOLE";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,75,600,"recommand:300");
-
-	// DAAlignerRadialThetaSoftTolerance
-	str_name = "CFG.aDA.ALIGNER.T.SOFT.TOLE";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,37,300,"recommand:150");
-
-	// DisableExtendedAlign : 103
-	str_name = "CFG.dDISABLE.EXTEND.ALIGN";
-	STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-
-	//
-	str_name = "CFG.aBEFORE.PLACE.TO.LP.ALIGN.ANGLE";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name, "angle", 0, 0, 360, "recommand:180");
-
-	// ...
-	str_name = "CFG.aPADDLE.DOWN.CHECK.TIMEOUT";
-	STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 1, 12, "rec:2");
-	LINK__VAR_ANALOG_CTRL(aCH__CFG_LP__PADDLE_CHECK_TIME,str_name);
-
-	// UseSlowPickPlaceFromAirLockToCool
-	str_name = "CFG.dSLOW.PICK.PLACE.FROM.LLx.TO.COOL.STN";
-	STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "NO YES", "rec:NO");
-
-	// WaferAlignmentBeforePostProcessedIMMMeasurement
-	str_name = "CFG.dWFR.ALGN.BEFORE.IMM.MEASURE";
-	STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "FALSE TRUE", "rec:TRUE");
 
 	// ...
 	{
@@ -990,14 +913,9 @@ int CObj__PSK::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm)
 	    ELSE_IF__CTRL_MODE(sMODE__HOME)					flag = Call__HOME(p_variable,p_alarm);
 
 		ELSE_IF__CTRL_MODE(sMODE__PICK)					flag = Call__PICK(p_variable,p_alarm,   para__arm_type,para__stn_name,para__stn_slot);
-		ELSE_IF__CTRL_MODE(sMODE__ALGNPICK)				flag = Call__ALGNPICK(p_variable,p_alarm, para__arm_type,para__stn_name,para__stn_slot);
+		ELSE_IF__CTRL_MODE(sMODE__ALIGN_PICK)			flag = Call__ALIGN_PICK(p_variable,p_alarm, para__arm_type,para__stn_name,para__stn_slot);
 		ELSE_IF__CTRL_MODE(sMODE__PLACE)				flag = Call__PLACE(p_variable,p_alarm,  para__arm_type,para__stn_name,para__stn_slot);
 		ELSE_IF__CTRL_MODE(sMODE__ROTATE)				flag = Call__ROTATE(p_variable,p_alarm, para__arm_type,para__stn_name,para__stn_slot);
-
-		ELSE_IF__CTRL_MODE(sMODE__RETRACT)				flag = Call__RETRACT(p_variable,p_alarm, para__arm_type,para__stn_name,para__stn_slot);
-		ELSE_IF__CTRL_MODE(sMODE__EXTEND)				flag = Call__EXTEND(p_variable,p_alarm,  para__arm_type,para__stn_name,para__stn_slot);
-		ELSE_IF__CTRL_MODE(sMODE__GOUP)					flag = Call__GOUP(p_variable,p_alarm,    para__arm_type,para__stn_name,para__stn_slot);
-		ELSE_IF__CTRL_MODE(sMODE__GODOWN)				flag = Call__GODOWN(p_variable,p_alarm,  para__arm_type,para__stn_name,para__stn_slot);
 
 		ELSE_IF__CTRL_MODE(sMODE__MAP)					flag = Call__MAP(p_variable,p_alarm);
 
@@ -1009,9 +927,8 @@ int CObj__PSK::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__VAC_OFF_OF_A_ARM)		flag = Call__VAC_OFF(p_variable,p_alarm, ARM_A);
 		ELSE_IF__CTRL_MODE(sMODE__VAC_OFF_OF_B_ARM)		flag = Call__VAC_OFF(p_variable,p_alarm, ARM_B);
 
-		ELSE_IF__CTRL_MODE(sMODE__ALGN)					flag = Call__ALGN(p_variable,p_alarm);
-		ELSE_IF__CTRL_MODE(sMODE__ALGNPLACE)			flag = Call__ALGNPLACE(p_variable,p_alarm);
-		ELSE_IF__CTRL_MODE(sMODE__PLACE_PICK)			flag = Call__PLACE_PICK(p_variable,p_alarm);	
+		ELSE_IF__CTRL_MODE(sMODE__AL_INIT)				flag = Call__AL_INIT(p_variable,p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__ALIGN)				flag = Call__ALIGN(p_variable,p_alarm);
 	}
 
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))

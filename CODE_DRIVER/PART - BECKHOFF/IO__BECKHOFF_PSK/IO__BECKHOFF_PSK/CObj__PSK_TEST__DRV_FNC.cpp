@@ -23,6 +23,11 @@ int CObj__PSK_TEST
 	int md_id = io_info.iMD_NO;
 	int ch_id = io_info.iCH_NO;
 
+	if(md_id < 1)
+	{
+		return -1;
+	}
+
 	CString ads_name;
 	CString ads_data;
 
@@ -39,9 +44,10 @@ int CObj__PSK_TEST
 	}
 	else
 	{
+		int cmd_id = atof(io_info.sCOMMAND1);
 		ads_name = io_info.sCOMMAND3;
 
-		r_flag = mCH__ADS_IN.Get__LOCAL_AI_CH(ads_name, md_id,ch_id, read_data);
+		r_flag = mCH__ADS_IN.Get__LOCAL_AI_CH(ads_name, md_id,ch_id,cmd_id, read_data);
 	}
 
 	if(r_flag > 0)
@@ -73,6 +79,11 @@ int CObj__PSK_TEST
 	int md_id = io_info.iMD_NO;
 	int ch_id = io_info.iCH_NO;
 
+	if(md_id < 1)
+	{
+		return -1;
+	}
+
 	CString ads_name;
 	CString ads_data;
 
@@ -95,9 +106,24 @@ int CObj__PSK_TEST
 	}
 	else
 	{
+		int cmd_id = atof(io_info.sCOMMAND1);
 		ads_name = io_info.sCOMMAND3;
 
-		r_flag = mCH__ADS_IN.Get__LOCAL_DI_CH(ads_name, md_id,ch_id, item_index);
+		unsigned char r_byte_data;
+		r_flag = mCH__ADS_IN.Get__LOCAL_DI_CH(ads_name, md_id,ch_id,cmd_id, item_index, r_byte_data);
+
+		//
+		CString cmmd_type = io_info.sCOMMAND2;
+
+		if(cmmd_type.CompareNoCase("BOOL") == 0)
+		{
+			if(r_byte_data != 0)			item_index = 1;
+			else							item_index = 0;
+		}
+		else if(cmmd_type.CompareNoCase("BYTE") == 0)
+		{
+			item_index = 0x0ff & r_byte_data;
+		}
 	}
 
 	if(r_flag > 0)		
@@ -128,6 +154,11 @@ int CObj__PSK_TEST
 	CString ads_name;
 	CString ads_hexa;
 
+	if(md_id < 1)
+	{
+		return -1;
+	}
+
 	int r_flag = -1;
 
 	if(io_info.sCOMMAND2.CompareNoCase(_ADS) == 0)
@@ -135,14 +166,15 @@ int CObj__PSK_TEST
 		ads_name  = sPARA__ADS_NAME_INPUT;
 		ads_name += io_info.sCOMMAND3;
 
-		// r_flag = mDB__ADS_CTRL.Get__ADS_IN_HEXA(ads_name, ads_hexa);
-		r_flag = mDB__ADS_CTRL.Get__ADS_IN_DATA(ads_name, ads_hexa);
+		r_flag = mDB__ADS_CTRL.Get__ADS_IN_HEXA(ads_name, ads_hexa);
+		// r_flag = mDB__ADS_CTRL.Get__ADS_IN_DATA(ads_name, ads_hexa);
 	}
 	else
 	{
+		int cmd_id = atof(io_info.sCOMMAND1);
 		ads_name = io_info.sCOMMAND3;
 
-		r_flag = mCH__ADS_IN.Get__LOCAL_SI_CH(ads_name, md_id,ch_id, ads_hexa);		
+		r_flag = mCH__ADS_IN.Get__LOCAL_SI_CH(ads_name, md_id,ch_id,cmd_id, ads_hexa);		
 	}
 
 	if(r_flag > 0)
@@ -172,6 +204,11 @@ int CObj__PSK_TEST
 	int md_id = io_info.iMD_NO;
 	int ch_id = io_info.iCH_NO;
 
+	if(md_id < 1)
+	{
+		return 1;
+	}
+
 	int r_flag = -1;
 
 	if(io_info.sCOMMAND2.CompareNoCase(_ADS) == 0)
@@ -186,9 +223,10 @@ int CObj__PSK_TEST
 	}
 	else
 	{
+		int cmd_id = atof(io_info.sCOMMAND1);
 		CString ads_name = io_info.sCOMMAND3;
 
-		r_flag = mCH__ADS_OUT.Set__LOCAL_AO_CH(ads_name, md_id,ch_id, set_data);
+		r_flag = mCH__ADS_OUT.Set__LOCAL_AO_CH(ads_name, md_id,ch_id,cmd_id, set_data);
 	}
 
 	if(r_flag < 0)
@@ -209,6 +247,11 @@ int CObj__PSK_TEST
 	int md_id = io_info.iMD_NO;
 	int ch_id = io_info.iCH_NO;
 
+	if(md_id < 1)
+	{
+		return 1;
+	}
+
 	int r_flag = -1;
 
 	if(io_info.sCOMMAND2.CompareNoCase(_ADS) == 0)
@@ -223,9 +266,13 @@ int CObj__PSK_TEST
 	}
 	else
 	{
+		int cmd_id = atof(io_info.sCOMMAND1);
 		CString ads_name = io_info.sCOMMAND3;
 
-		r_flag = mCH__ADS_OUT.Set__LOCAL_DO_CH(ads_name, md_id,ch_id, item_index);
+		bool active__byte_ctrl = false;
+		if(io_info.sCOMMAND2.CompareNoCase("BYTE") == 0)			active__byte_ctrl = true;
+
+		r_flag = mCH__ADS_OUT.Set__LOCAL_DO_CH(ads_name, md_id,ch_id,cmd_id, item_index, active__byte_ctrl);
 	}
 
 	if(r_flag < 0)
@@ -266,6 +313,11 @@ int CObj__PSK_TEST
 	int md_id = io_info.iMD_NO;
 	int ch_id = io_info.iCH_NO;
 
+	if(md_id < 1)
+	{
+		return 1;
+	}
+
 	// ...
 	int r_flag = -1;
 
@@ -293,9 +345,10 @@ int CObj__PSK_TEST
 		}			
 
 		// ...
+		int cmd_id = atof(io_info.sCOMMAND1);
 		CString ads_name = io_info.sCOMMAND3;
 
-		r_flag = mCH__ADS_OUT.Set__LOCAL_SO_CH(ads_name, md_id,ch_id, acc_data);		
+		r_flag = mCH__ADS_OUT.Set__LOCAL_SO_CH(ads_name, md_id,ch_id,cmd_id, acc_data);		
 	}
 
 	if(r_flag < 0)

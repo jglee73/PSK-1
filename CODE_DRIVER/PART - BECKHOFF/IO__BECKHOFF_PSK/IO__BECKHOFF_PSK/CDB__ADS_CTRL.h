@@ -367,7 +367,7 @@ public:
 		return 1;
 	}
 
-	int Set__DIO_DATA(const int ads_index, const int ch_id, const int item_index)
+	int Set__DIO_DATA(const int ads_index, const int ch_id, const int item_index, const bool active__byte_set)
 	{
 		if(ads_index <  0)									return -1;
 		if(ads_index >= sList__DATA_TYPE.GetSize())			return -2;
@@ -403,25 +403,32 @@ public:
 		}
 		else if(data_len == 1)
 		{
-			ch_hexa[0] = 0x0ff & atoi(ads_data);
+			if(active__byte_set)		ch_hexa[0] = 0x0ff & item_index;
+			else						ch_hexa[0] = 0x0ff & atoi(ads_data);
 		}
 
-		// ...
-		int db_index = ch_id / 8;
-		int shift_count = ch_id % 8;
-
-		if(db_index < data_len)
+		if(active__byte_set)
 		{
-			unsigned int set_mask = 0x01;
-			set_mask = set_mask << shift_count; 
 
-			if(item_index > 0)
+		}
+		else
+		{
+			int db_index = ch_id / 8;
+			int shift_count = ch_id % 8;
+
+			if(db_index < data_len)
 			{
-				ch_hexa[db_index] |= (0x0ff & set_mask);
-			}
-			else
-			{
-				ch_hexa[db_index] &= (0x0ff & ~set_mask);
+				unsigned int set_mask = 0x01;
+				set_mask = set_mask << shift_count; 
+
+				if(item_index > 0)
+				{
+					ch_hexa[db_index] |= (0x0ff & set_mask);
+				}
+				else
+				{
+					ch_hexa[db_index] &= (0x0ff & ~set_mask);
+				}
 			}
 		}
 
@@ -447,7 +454,7 @@ public:
 		sList__ADS_DATA_HEXA[ads_index]  = str_hexa;
 		return 1;
 	}
-	int Get__DIO_DATA(const int ads_index, const int ch_id, int& item_index)
+	int Get__DIO_DATA(const int ads_index, const int ch_id, int& item_index, unsigned char& r_byte_data)
 	{
 		if(ads_index <  0)									return -1;
 		if(ads_index >= sList__DATA_TYPE.GetSize())			return -2;
@@ -483,7 +490,8 @@ public:
 		}
 		else if(data_len == 1)
 		{
-			ch_hexa[0] = 0x0ff & atoi(ads_data);
+			r_byte_data = 0x0ff & atoi(ads_data);
+			ch_hexa[0] = r_byte_data;
 		}
 
 		// ...
@@ -495,7 +503,7 @@ public:
 			unsigned int set_mask = 0x01;
 			set_mask = set_mask << shift_count; 
 
-			char check_bit = (0x0ff & ch_hexa[db_index]) & (0x0ff & set_mask);
+			unsigned char check_bit = (0x0ff & ch_hexa[db_index]) & (0x0ff & set_mask);
 
 			if(check_bit > 0)			item_index = 1;
 			else						item_index = 0;
@@ -656,9 +664,9 @@ public:
 	int  Get__AI_DATA(const int ads_index, const int ch_id, double& read_data);
 
 	//
-	int  Set__DO_DATA(const int ads_index, const int ch_id, const int item_index);
-	int  Get__DO_DATA(const int ads_index, const int ch_id, int& item_index);
-	int  Get__DI_DATA(const int ads_index, const int ch_id, int& item_index);
+	int  Set__DO_DATA(const int ads_index, const int ch_id, const int item_index, const bool active__byte_ctrl);
+	int  Get__DO_DATA(const int ads_index, const int ch_id, int& item_index, unsigned char& r_byte_data);
+	int  Get__DI_DATA(const int ads_index, const int ch_id, int& item_index, unsigned char& r_byte_data);
 
 	int  Set__SO_DATA(const int ads_index, const int ch_id, const int set_data);
 	int  Get__SO_DATA(const int ads_index, const int ch_id, CString& str_hexa);

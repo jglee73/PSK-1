@@ -44,15 +44,15 @@ int  CObj__PSK
 }
 
 int  CObj__PSK
-::Call__ALGNPICK(CII_OBJECT__VARIABLE* p_variable, 
-				 CII_OBJECT__ALARM* p_alarm,
-				 const CString& arm_type,
-				 const CString& stn_name,
-				 const CString& stn_slot)
+::Call__ALIGN_PICK(CII_OBJECT__VARIABLE* p_variable, 
+				   CII_OBJECT__ALARM* p_alarm,
+				   const CString& arm_type,
+				   const CString& stn_name,
+				   const CString& stn_slot)
 {
 	int r_flag;
 
-	r_flag = Call__ALGN(p_variable, p_alarm);
+	r_flag = Call__ALIGN(p_variable, p_alarm);
 	if(r_flag < 0)			return -11;
 
 	r_flag = Call__PICK(p_variable,p_alarm, arm_type,stn_name,stn_slot);

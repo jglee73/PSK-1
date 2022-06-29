@@ -439,20 +439,21 @@ int  CObj__PSK_TEST
 		// ...
 		int md_id = io_info.iMD_NO;
 		int ch_id = io_info.iCH_NO;
-
+		
+		int cmd_id = atoi(io_info.sCOMMAND1);
 		CString ads_name = io_info.sCOMMAND3;
 
 		if(var_type.CompareNoCase("D") == 0)
 		{
 			int item_index = 0;
-			int r_flag = mCH__ADS_OUT.Get__LOCAL_DO_CH(ads_name, md_id,ch_id, item_index);
+			int r_flag = mCH__ADS_OUT.Get__LOCAL_DO_CH(ads_name, md_id,ch_id,cmd_id, item_index);
 
 			pOBJ_CTRL->Set__Digital_Variable_With_Item_Index(var_name, item_index);
 		}
 		else if(var_type.CompareNoCase("A") == 0)
 		{
 			CString str_data;
-			int r_flag = mCH__ADS_OUT.Get__LOCAL_AO_CH(ads_name, md_id,ch_id, str_data);
+			int r_flag = mCH__ADS_OUT.Get__LOCAL_AO_CH(ads_name, md_id,ch_id,cmd_id, str_data);
 
 			//
 			double r_data = atof(str_data);
@@ -474,7 +475,7 @@ int  CObj__PSK_TEST
 		else if(var_type.CompareNoCase("S") == 0)
 		{
 			CString str_hexa;
-			mCH__ADS_OUT.Get__LOCAL_SO_CH(ads_name, md_id,ch_id, str_hexa);
+			mCH__ADS_OUT.Get__LOCAL_SO_CH(ads_name, md_id,ch_id,cmd_id, str_hexa);
 
 			pOBJ_CTRL->Set__VARIABLE_DATA(var_name, str_hexa);
 		}

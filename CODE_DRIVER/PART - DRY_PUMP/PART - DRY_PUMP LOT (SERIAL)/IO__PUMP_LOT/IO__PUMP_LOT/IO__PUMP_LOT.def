@@ -1,0 +1,6 @@
+; IO__PUMP_LOT.def : Declares the module parameters for the DLL.
+
+LIBRARY      "IO__PUMP_LOT"
+
+EXPORTS
+    ; Explicit exports can go here

@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 CDriver__LPx_ETHERNET::CDriver__LPx_ETHERNET()
 {
-	m_nCommState = ONLINE;
+
 }
 CDriver__LPx_ETHERNET::~CDriver__LPx_ETHERNET()
 {
@@ -70,7 +70,7 @@ int CDriver__LPx_ETHERNET::__DEFINE__VARIABLE_STD(p_variable)
 
 	// DRV ...
 	{
-		str_list = "DRV.CANCEL_CODE";
+		str_name = "DRV.CANCEL_CODE";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__DRV_CANCEL_CODE, str_name);
 	}
@@ -1097,6 +1097,7 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__IO(p_io_para)
 		printf("%s : %s", sObject_Name, log_msg);
 		xDRV_LOG_CTRL->WRITE__LOG(log_msg);
 
+		m_nCommState = OFFLINE;
 		diCH__COMM_STS->Set__DATA(STR__OFFLINE);
 	}
 	else
@@ -1107,6 +1108,7 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__IO(p_io_para)
 		printf("%s : %s", sObject_Name, log_msg);
 		xDRV_LOG_CTRL->WRITE__LOG(log_msg);
 
+		m_nCommState = ONLINE;
 		diCH__COMM_STS->Set__DATA(STR__ONLINE);
 	}
 
@@ -1114,7 +1116,7 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__IO(p_io_para)
 	{
 		SCX__SEQ_INFO x_seq_info;
 
-		bActive_SIM = x_seq_info->Is__SIMULATION_MODE();
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 	return 1;
 }

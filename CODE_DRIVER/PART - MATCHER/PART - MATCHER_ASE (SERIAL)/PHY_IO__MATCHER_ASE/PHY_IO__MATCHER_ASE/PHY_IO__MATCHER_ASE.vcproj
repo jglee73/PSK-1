@@ -145,7 +145,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
+				OutputFile="..\..\..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\PHY_IO__MATCHER_ASE.def"
 				GenerateDebugInformation="true"

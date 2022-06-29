@@ -28,7 +28,7 @@ void CDriver__LPx_ETHERNET
 
 		//
 		if((dCH__SIM_CFG__REAL_TEST->Check__DATA(STR__YES) < 0)
-		&& (bActive_SIM))
+		&& (iActive__SIM_MODE > 0))
 		{
 			iSim_Flag = 1;
 		}
@@ -39,11 +39,8 @@ void CDriver__LPx_ETHERNET
 
 		if(iSim_Flag > 0)
 		{
-			if(diCH__COMM_STS->Check__DATA(STR__ONLINE) < 0)
-			{
-				diCH__COMM_STS->Set__DATA(STR__ONLINE);
-				sCH__MON_COMMUNICATION_STATE->Set__DATA(STR__ONLINE);
-			}
+			diCH__COMM_STS->Set__DATA(STR__ONLINE);
+			sCH__MON_COMMUNICATION_STATE->Set__DATA(STR__ONLINE);
 		}
 		else
 		{
@@ -93,9 +90,11 @@ int  CDriver__LPx_ETHERNET
 	CString str_data;
 	CString err_msg;
 	CString key_word;
+	CString fnc_name;
 	CString log_msg;
 	CString log_bff;
 
+	int err_count = 0;
 
 	while(1)
 	{
@@ -103,9 +102,14 @@ int  CDriver__LPx_ETHERNET
 		if(r_len < 0)
 		{
 			Sleep(1);
+
+			err_count++;
+			if(err_count > 2)		m_nCommState = OFFLINE;
+
 			continue;
 		}
 
+		err_count = 0;
 		m_nCommState = ONLINE;
 
 		// ...
@@ -129,28 +133,111 @@ int  CDriver__LPx_ETHERNET
 
 		for(k=0; k<k_limit; k++)
 		{
-			     if(k == 0)			key_word = _DRV_GET__STATE;
-		    else if(k == 1)			key_word = _DRV_GET__LP_MAP;
-			else if(k == 2)			key_word = _DRV_GET__ALM_TXT;
-			else if(k == 3)			key_word = _DRV_GET__ALM_MSG;
-			else if(k == 4)			key_word = _DRV_GET__N2_STS;
-			else if(k == 5)			key_word = _DRV_GET__RFID_READ;
-			else if(k == 6)			key_word = _DRV_GET__TIME_READ;
+			if(k == 0)
+			{
+				key_word = _RSP_GET__STATE;
+				fnc_name = _DRV_GET__STATE;
+			}
+		    else if(k == 1)
+			{
+				key_word = _RSP_GET__LP_MAP;
+				fnc_name = _DRV_GET__LP_MAP;
+			}
+			else if(k == 2)
+			{
+				key_word = _RSP_GET__ALM_TXT;
+				fnc_name = _DRV_GET__ALM_TXT;
+			}
+			else if(k == 3)
+			{
+				key_word = _RSP_GET__ALM_MSG;
+				fnc_name = _DRV_GET__ALM_MSG;
+			}
+			else if(k == 4)
+			{
+				key_word = _RSP_GET__N2_STS;
+				fnc_name = _DRV_GET__N2_STS;
+			}
+			else if(k == 5)
+			{
+				key_word = _RSP_GET__RFID_READ;
+				fnc_name = _DRV_GET__RFID_READ;
+			}
+			else if(k == 6)
+			{
+				key_word = _RSP_GET__TIME_READ;
+				fnc_name = _DRV_GET__TIME_READ;
+			}
 
-			else if(k == 21)		key_word = _DRV_SET__INIT;
-			else if(k == 22)		key_word = _DRV_SET__LOAD;
-			else if(k == 23)		key_word = _DRV_SET__UNLOAD;
-			else if(k == 24)		key_word = _DRV_SET__OPEN;
-			else if(k == 25)		key_word = _DRV_SET__CLOSE;
-			else if(k == 26)		key_word = _DRV_SET__CLAMP;
-			else if(k == 27)		key_word = _DRV_SET__UCLAMP;
-			else if(k == 28)		key_word = _DRV_SET__MODE;
-			else if(k == 29)		key_word = _DRV_SET__SIGNAL_LAMP;
-			else if(k == 30)		key_word = _DRV_SET__RESET;
-			else if(k == 31)		key_word = _DRV_SET__N2_RUN;
-			else if(k == 32)		key_word = _DRV_SET__AVG_TIMEOUT;
-			else if(k == 33)		key_word = _DRV_SET__RFID_WRITE;
-			else					continue;
+			else if(k == 21)
+			{
+				key_word = _RSP_SET__INIT;
+				fnc_name = _DRV_SET__INIT;
+			}
+			else if(k == 22)
+			{
+				key_word = _RSP_SET__LOAD;
+				fnc_name = _DRV_SET__LOAD;
+			}
+			else if(k == 23)
+			{
+				key_word = _RSP_SET__UNLOAD;
+				fnc_name = _DRV_SET__UNLOAD;
+			}
+			else if(k == 24)
+			{
+				key_word = _RSP_SET__OPEN;
+				fnc_name = _DRV_SET__OPEN;
+			}
+			else if(k == 25)
+			{
+				key_word = _RSP_SET__CLOSE;
+				fnc_name = _DRV_SET__CLOSE;
+			}
+			else if(k == 26)
+			{
+				key_word = _RSP_SET__CLAMP;
+				fnc_name = _DRV_SET__CLAMP;
+			}
+			else if(k == 27)
+			{
+				key_word = _RSP_SET__UCLAMP;
+				fnc_name = _DRV_SET__UCLAMP;
+			}
+			else if(k == 28)
+			{
+				key_word = _RSP_SET__MODE;
+				fnc_name = _DRV_SET__MODE;
+			}
+			else if(k == 29)
+			{
+				key_word = _RSP_SET__SIGNAL_LAMP;
+				fnc_name = _DRV_SET__SIGNAL_LAMP;
+			}
+			else if(k == 30)
+			{
+				key_word = _RSP_SET__RESET;
+				fnc_name = _DRV_SET__RESET;
+			}
+			else if(k == 31)
+			{
+				key_word = _RSP_SET__N2_RUN;
+				fnc_name = _DRV_SET__N2_RUN;
+			}
+			else if(k == 32)
+			{
+				key_word = _RSP_SET__AVG_TIMEOUT;
+				fnc_name = _DRV_SET__AVG_TIMEOUT;
+			}
+			else if(k == 33)
+			{
+				key_word = _RSP_SET__RFID_WRITE;
+				fnc_name = _RSP_SET__RFID_WRITE;
+			}
+			else
+			{
+				continue;
+			}
 
 			// Check : Keyword ...
 			CStringArray l_para;
@@ -194,7 +281,7 @@ int  CDriver__LPx_ETHERNET
 
 					for(str_i=0; str_i<str_len; str_i++)
 					{
-						if(str_i == 0)		para_id  = str_para[0];
+							 if(str_i == 0)		para_id  = str_para[0];
 						else if(str_i == 1)		para_rsp = str_para[1];
 					}
 				}
@@ -204,40 +291,53 @@ int  CDriver__LPx_ETHERNET
 				}
 			}
 
-			if(active_prt)
+			// ...
 			{
-				printf(" * Result Report ... \n");
-				printf("  * para_id   <- %s \n", para_id);
-				printf("  * para_rsp  <- %s \n", para_rsp);
-				printf("  * para_data <- %s \n", para_data);
+				log_msg = " * Result Report ... \n";
+
+				log_bff.Format("  * para_id   <- %s \n", para_id);
+				log_msg += log_bff;
+				log_bff.Format("  * para_rsp  <- %s \n", para_rsp);
+				log_msg += log_bff;
+				log_bff.Format("  * para_data <- %s \n", para_data);
+				log_msg += log_bff;
 
 				if(para_rsp.CompareNoCase("2") == 0)
 				{
 					CString cancel_code = Get__CANCEL_CODE_OF_NAK(para_data);
-					printf("  ** Cancel_Code <- %s \n", cancel_code);
+
+					log_bff.Format("  ** Cancel_Code <- %s \n", cancel_code);
+					log_msg += log_bff;
 
 					sCH__DRV_CANCEL_CODE->Set__DATA(cancel_code);
 				}
+				log_msg += "\n";
 
-				printf("\n");
+				Fnc__DRV_LOG(log_msg);
 			}
 
-			if(mDrv_Msg.Check__MSG_DB(key_word, para_id))
+			if(mDrv_Msg.Check__MSG_DB(fnc_name, para_id))
 			{
-				mDrv_Msg.Set__MSG_INFO_OF_RSP(key_word, para_id, para_rsp, para_data);
+				int r_flag = mDrv_Msg.Set__MSG_INFO_OF_RSP(fnc_name, para_id, para_rsp, para_data);
+
+				log_msg.Format("mDrv_Msg.Set__MSG_INFO_OF_RSP() ... r_flag (%1d) \n", r_flag);
+				Fnc__DRV_LOG(log_msg);
 			}
 			else
 			{
+				log_msg.Format("mDrv_Msg.Check__MSG_DB(%s, %s) ... Error !!!! \n", fnc_name,para_id);
+				Fnc__DRV_LOG(log_msg);
+
 				if(para_rsp == "1")
 				{
-					if(key_word.CompareNoCase(_DRV_GET__STATE) == 0)
+					if(fnc_name.CompareNoCase(_DRV_GET__STATE) == 0)
 					{
 						int lp_id = atoi(para_id);
 						_Update__LPx_STATE(lp_id, para_data);
 					}
 				}
 
-				mDrv_Msg.Delete__MSG_INFO(key_word, para_id);
+				mDrv_Msg.Delete__MSG_INFO(fnc_name, para_id);
 			}
 			break;
 		}

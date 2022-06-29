@@ -18,10 +18,7 @@ CObj__VAC_SERIAL::~CObj__VAC_SERIAL()
 //--------------------------------------------------------------------------------
 int CObj__VAC_SERIAL::__DEFINE__CONTROL_MODE(obj, l_mode)
 {
-	// ...
-	{
-		sObject_Name = obj;
-	}
+	sObject_Name = obj;
 
 	// ...
 	{
@@ -30,26 +27,14 @@ int CObj__VAC_SERIAL::__DEFINE__CONTROL_MODE(obj, l_mode)
 		ADD__CTRL_VAR(sMODE__LOCAL,  "LOCAL");
 		ADD__CTRL_VAR(sMODE__REMOTE, "REMOTE");
 
-		//
-		CString sMODE__PUMP_START;
-		int  Call__PUMP_START(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+		ADD__CTRL_VAR(sMODE__PUMP_START, "PUMP.START");
+		ADD__CTRL_VAR(sMODE__PUMP_STOP,  "PUMP.STOP");
 
-		CString sMODE__PUMP_STOP;
-		int  Call__PUMP_STOP(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+		ADD__CTRL_VAR(sMODE__ROOTS_START, "ROOTS.START");
+		ADD__CTRL_VAR(sMODE__ROOTS_STOP,  "ROOTS.STOP");
 
-		//
-		CString sMODE__ROOTS_START;
-		int  Call__ROOTS_START(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
-
-		CString sMODE__ROOTS_STOP;
-		int  Call__ROOTS_STOP(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
-
-		//
-		CString sMODE__PURGE_START;
-		int  Call__PURGE_START(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
-
-		CString sMODE__PURGE_STOP;
-		int  Call__PURGE_STOP(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+		ADD__CTRL_VAR(sMODE__PURGE_START, "PURGE.START");
+		ADD__CTRL_VAR(sMODE__PURGE_STOP,  "PURGE.STOP");
 	}
 
 	return 1;
@@ -65,6 +50,7 @@ int CObj__VAC_SERIAL::__DEFINE__VERSION_HISTORY(version)
 // ...
 #define  MON_ID__IO_MONITOR						1
 
+
 int CObj__VAC_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 {
 	DECLARE__STD_VARIABLE
@@ -77,11 +63,17 @@ int CObj__VAC_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "OBJ.MSG";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_MSG, str_name);
+	}
 
-		//
-		str_name = "MON.COMM.STS";
+	// INFO ...
+	{
+		str_name = "INFO.DRV.COM_PORT";	
 		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__MON_COMM_STS,str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_DRV_COM_PORT, str_name);
+
+		str_name = "INFO.DRV.PARAMETER";	
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_DRV_PARAMETER, str_name);
 	}
 
 	// MON...
@@ -89,6 +81,15 @@ int CObj__VAC_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "MON.VERSION";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_VERSION, str_name);
+
+		str_name = "MON.COMM.STS";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_COMM_STS, str_name);
+
+		//
+		str_name = "MON.ACTIVE.FAULT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_ACTIVE_FAULT, str_name);
 	}
 
 	// MON.STATE...
@@ -136,6 +137,15 @@ int CObj__VAC_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "MON.STATE.CONTROL_MODE";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_STATE_CONTROL_MODE, str_name);
+
+		//
+		str_name = "MON.STATE.PRESSURE_mBAR";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_STATE_PRESSURE_mBAR, str_name);
+
+		str_name = "MON.STATE.FB_POWER";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_STATE_FB_POWER, str_name);
 	}
 
 	// ...
@@ -294,12 +304,27 @@ int CObj__VAC_SERIAL::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// ...
 	{
+		file_name.Format("%s-DRV.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xDRV__LOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xDRV__LOG_CTRL->SET__PROPERTY(file_name, 2*3, 30);
+
+		xDRV__LOG_CTRL->DISABLE__TIME_LOG();
+		xDRV__LOG_CTRL->WRITE__LOG(log_msg);
+
+		xDRV__LOG_CTRL->ENABLE__TIME_LOG();
+		xDRV__LOG_CTRL->WRITE__LOG("   START   \n");
+	}
+
+	// ...
+	{
 		SCX__SEQ_INFO x_seq_info;
 
 		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
-
-	m_nCommState = OFFLINE;
 	return 1;
 }
 int CObj__VAC_SERIAL
@@ -347,32 +372,6 @@ int CObj__VAC_SERIAL
 	}
 
 	// ...
-	{
-		CString file_name;
-		CString log_msg;
-
-		// ...
-		{
-			file_name.Format("%s-DRV.log", sObject_Name);
-
-			log_msg  = "\n\n";
-			log_msg += "//------------------------------------------------------------------------";
-
-			// ...
-			{
-				xDRV__LOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-				xDRV__LOG_CTRL->SET__PROPERTY(file_name, 2*3, 30);
-
-				xDRV__LOG_CTRL->DISABLE__TIME_LOG();
-				xDRV__LOG_CTRL->WRITE__LOG(log_msg);
-
-				xDRV__LOG_CTRL->ENABLE__TIME_LOG();
-				xDRV__LOG_CTRL->WRITE__LOG("   START   \n");
-			}
-		}
-	}
-
-	// ...
 	CString log_msg;
 	CString log_bff;
 
@@ -395,13 +394,19 @@ int CObj__VAC_SERIAL
 
 	// ...
 	{
-		sPROTOCOL_INFO.Format("Rate[%1d] DataBit[%1d] StopBit[%1d] Parity[%1d] \n",
-								nBaudRate, 
-								nDataBit, 
-								nStopBit, 
-								nParity);
+		CString str_info;
 
-		sPROTOCOL_INFO += "Terminal String : Byte Count \n";							  
+		str_info.Format("Rate[%1d] DataBit[%1d] StopBit[%1d] Parity[%1d]",
+						nBaudRate, 
+						nDataBit, 
+						nStopBit, 
+						nParity);
+
+		sCH__INFO_DRV_PARAMETER->Set__DATA(str_info);
+
+		//
+		log_msg += "Terminal String : <CR> \n";	
+		log_msg += "\n";
 	}
 
 	if(iActive__SIM_MODE > 0)
@@ -428,7 +433,6 @@ int CObj__VAC_SERIAL
 		WRITE__DRV_LOG_MSG(log_msg);
 	}
 
-	sCH__MON_COMM_STS->Set__DATA(STR__ONLINE);
 	return 1;
 }
 
@@ -479,9 +483,9 @@ int CObj__VAC_SERIAL::__CALL__MONITORING(id, p_variable, p_alarm)
 {
 	switch(id)
 	{
-	case MON_ID__IO_MONITOR:
-		Mon__IO_MONITOR(p_variable,p_alarm);
-		break;
+		case MON_ID__IO_MONITOR:
+			Mon__IO_MONITOR(p_variable,p_alarm);
+			break;
 	}
 	return 1;
 }

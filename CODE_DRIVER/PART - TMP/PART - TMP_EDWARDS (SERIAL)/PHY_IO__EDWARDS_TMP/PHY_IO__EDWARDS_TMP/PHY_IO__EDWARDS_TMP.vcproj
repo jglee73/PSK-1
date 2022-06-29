@@ -146,7 +146,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
+				OutputFile="..\..\..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\PHY_IO__EDWARDS_TMP.def"
 				GenerateDebugInformation="true"
@@ -258,7 +258,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__STP_SERIAL__MON_FNC.cpp"
+					RelativePath=".\CObj__STP_SERIAL__MON_STATE_CHECK.cpp"
 					>
 				</File>
 				<File

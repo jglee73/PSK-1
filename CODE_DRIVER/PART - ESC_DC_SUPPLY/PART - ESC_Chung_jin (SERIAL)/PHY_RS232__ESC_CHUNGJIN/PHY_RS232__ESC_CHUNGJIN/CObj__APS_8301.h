@@ -15,15 +15,16 @@ private:
 	// ...
 	int iActive_SIM;
 
+	// ...	
 	SCX__SERIAL_JG mX_Serial;
 
 	CString sTerm_Str;
 	CString sTerm_Exp;
 
-	CString sPROTOCOL_INFO;
-	int	 m_nCommState;
 	int	 m_Rcv_Time;
 	int	 m_RetryCnt;
+
+	bool bActive__COMM_ONLINE;
 	//
 
 
@@ -40,9 +41,14 @@ private:
 	//-------------------------------------------------------------------------
 	//  INTERNAL PROPERTY
 
-	// ...
+	// OBJ ...
 	CX__VAR_STRING_CTRL  sCH__OBJ_MSG;
 
+	// INFO ...
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_COM_PORT;
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_PARAMETER;
+
+	// MON ...
 	CX__VAR_STRING_CTRL  sCH__MON_COMM_STS;
 	CX__VAR_STRING_CTRL  sCH__MON_SYSTEM_ABORT;
 

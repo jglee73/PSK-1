@@ -39,13 +39,28 @@ void CObj__NAVII_SERIAL
 }
 
 int CObj__NAVII_SERIAL
-::_Recv__Command(const byte addr_id,
+::_Recv__Command(const CString& var_name,
+				 const byte addr_id,
 				 const byte cmmd_id,
 				 const byte s_data_len,
 				 const byte r_data_len, 
 				 unsigned char* send_data,
 				 unsigned char* recv_data)
 {
+	// Log ...
+	{
+		CString s_msg;
+		CString s_bff;
+
+		s_bff.Format("_Recv__Command() \n");
+		s_msg += s_bff;
+		s_bff.Format("var_name <- %s \n", var_name);
+		s_msg += s_bff;
+
+		Write__DRV_LOG(s_msg);
+	}
+
+	// ...
 	int	n_cnt = 1;
 
 	do 
@@ -152,8 +167,9 @@ int CObj__NAVII_SERIAL
 				{
 					recv_data[k++] = r_data[i];
 				}
-
 				recv_data[k] = 0;
+
+				bActive__COMM_ONLINE = true;
 				return k;
 			}
 		}
@@ -162,6 +178,7 @@ int CObj__NAVII_SERIAL
 	}
 	while(++n_cnt <= m_RetryCnt);
 
+	bActive__COMM_ONLINE = false;
 	return -1;
 }
 

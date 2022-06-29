@@ -78,17 +78,17 @@ int CObj__OVATION_2560::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"STANDARD PULSING","");
 		LINK__VAR_DIGITAL_CTRL(dCH__Pulsing_Mode,str_name);
 
-		str_name = "APP.OBJ.MSG";
+		str_name = "OBJ.MSG";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__OBJ_MSG, str_name);
 
-		//str_name = "CFG.FREQ.TUNE.DELAY";
-		//STD__ADD_ANALOG(str_name, "msec", 0, 100, 10000);
-		//LINK__VAR_ANALOG_CTRL(aCH__FREQ_TUNE_DELAY, str_name);
+		// str_name = "CFG.FREQ.TUNE.DELAY";
+		// STD__ADD_ANALOG(str_name, "msec", 0, 100, 10000);
+		// LINK__VAR_ANALOG_CTRL(aCH__FREQ_TUNE_DELAY, str_name);
 
-		//str_name = "SET.POWER";
-		//STD__ADD_ANALOG(str_name, "Watt", 0, 0, 2500);
-		//LINK__VAR_ANALOG_CTRL(aCH__SET_POWER, str_name);
+		// str_name = "SET.POWER";
+		// STD__ADD_ANALOG(str_name, "Watt", 0, 0, 2500);
+		// LINK__VAR_ANALOG_CTRL(aCH__SET_POWER, str_name);
 
 		str_name = "PARA.TUNE.DELAY";
 		STD__ADD_ANALOG(str_name, "msec", 0, 100, 10000);

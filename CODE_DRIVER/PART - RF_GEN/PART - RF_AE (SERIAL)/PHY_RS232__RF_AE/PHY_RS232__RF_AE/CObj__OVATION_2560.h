@@ -7,6 +7,17 @@
 #include "CObj__OVATION_2560__DEF.h"
 
 
+// Pulse Parameter
+#define 	RF_Ps_Master		1			// 1	Pulsing mode		 : 1 Master , 2 Slave mode
+#define		RF_Ps_Sync_Out		2			// 2	Pulse sync output	 : 0 Sync off, 1 Sync on
+// 3	Reserved
+#define		RF_Ps_Slave_Delay	4			// 4	Slave input delay	 : 0 ~ 100000
+#define		RF_Ps_Memory		5			// 5	Set memory mode		 : 0 RAM, 1 NVRAM(∫Ò»÷πﬂº∫)
+#define		RF_Ps_Explicit		6			// 6	Explicit enable mode : 0 Implicit, 1 Explicit enable
+#define		RF_Ps_Enable		7			// 7	Pulsing enable mode	 : 0 Off, 1 On
+#define		RF_Ps_Mode			8			// 8	Generator mode		 : 0 Standard, 1 Pulse, 2 Arc management
+
+
 class CObj__OVATION_2560: public __IOBJ__IO_TYPE
 {
 private:
@@ -32,17 +43,6 @@ private:
 
 	int	RF_Ps_Request;
 	int	RF_Ps_state;			// 0(false) : Standard Mode, 1(true) : Pulse Mode
-
-	// Pulse Parameter
-#define 	RF_Ps_Master		1			// 1	Pulsing mode		 : 1 Master , 2 Slave mode
-#define		RF_Ps_Sync_Out		2			// 2	Pulse sync output	 : 0 Sync off, 1 Sync on
-											// 3	Reserved
-#define		RF_Ps_Slave_Delay	4			// 4	Slave input delay	 : 0 ~ 100000
-#define		RF_Ps_Memory		5			// 5	Set memory mode		 : 0 RAM, 1 NVRAM(∫Ò»÷πﬂº∫)
-#define		RF_Ps_Explicit		6			// 6	Explicit enable mode : 0 Implicit, 1 Explicit enable
-#define		RF_Ps_Enable		7			// 7	Pulsing enable mode	 : 0 Off, 1 On
-#define		RF_Ps_Mode			8			// 8	Generator mode		 : 0 Standard, 1 Pulse, 2 Arc management
-
 	//
 
 	//-------------------------------------------------------------------------
@@ -52,6 +52,8 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__DRV_LOG_PARAM_START_STOP;
 
 	CX__VAR_STRING_CTRL  sCH__OBJ_MSG;	
+
+	// PARA ...
 	CX__VAR_ANALOG_CTRL  aCH__SET_POWER;
 	CX__VAR_DIGITAL_CTRL dCH__SET_TUNE_USE;			
 	CX__VAR_ANALOG_CTRL  aCH__SET_START_FREQUENCY;	

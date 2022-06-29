@@ -162,29 +162,29 @@ int  CDB__ADS_CTRL::Get__AI_DATA(const int ads_index, const int ch_id, double& r
 	return r_flag;
 }
 
-int  CDB__ADS_CTRL::Set__DO_DATA(const int ads_index, const int ch_id, const int item_index)
+int  CDB__ADS_CTRL::Set__DO_DATA(const int ads_index, const int ch_id, const int item_index, const bool active__byte_ctrl)
 {
 	EnterCriticalSection(&mDB_LOCK);
 
-	int r_flag = mDB__ADS_OUT.Set__DIO_DATA(ads_index, ch_id, item_index);
+	int r_flag = mDB__ADS_OUT.Set__DIO_DATA(ads_index, ch_id, item_index, active__byte_ctrl);
 
 	LeaveCriticalSection(&mDB_LOCK);
 	return r_flag;
 }
-int  CDB__ADS_CTRL::Get__DO_DATA(const int ads_index, const int ch_id, int& item_index)
+int  CDB__ADS_CTRL::Get__DO_DATA(const int ads_index, const int ch_id, int& item_index, unsigned char& r_byte_data)
 {
 	EnterCriticalSection(&mDB_LOCK);
 
-	int r_flag = mDB__ADS_OUT.Get__DIO_DATA(ads_index, ch_id, item_index);
+	int r_flag = mDB__ADS_OUT.Get__DIO_DATA(ads_index, ch_id, item_index, r_byte_data);
 
 	LeaveCriticalSection(&mDB_LOCK);
 	return r_flag;
 }
-int  CDB__ADS_CTRL::Get__DI_DATA(const int ads_index, const int ch_id, int& item_index)
+int  CDB__ADS_CTRL::Get__DI_DATA(const int ads_index, const int ch_id, int& item_index, unsigned char& r_byte_data)
 {
 	EnterCriticalSection(&mDB_LOCK);
 
-	int r_flag = mDB__ADS_IN.Get__DIO_DATA(ads_index, ch_id, item_index);
+	int r_flag = mDB__ADS_IN.Get__DIO_DATA(ads_index, ch_id, item_index, r_byte_data);
 
 	LeaveCriticalSection(&mDB_LOCK);
 	return r_flag;
@@ -231,7 +231,7 @@ int CDB__ADS_CTRL::Get__ADS_IN_HEXA(const CString& ads_name, CString& ads_hexa)
 {
 	EnterCriticalSection(&mDB_LOCK);
 
-	int r_flag =  mDB__ADS_IN.Get__ADS_DATA(ads_name, ads_hexa);
+	int r_flag =  mDB__ADS_IN.Get__ADS_HEXA(ads_name, ads_hexa);
 
 	LeaveCriticalSection(&mDB_LOCK);
 	return r_flag;

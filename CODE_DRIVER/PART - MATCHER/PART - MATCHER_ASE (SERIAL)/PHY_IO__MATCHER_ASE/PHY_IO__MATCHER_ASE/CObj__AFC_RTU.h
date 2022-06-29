@@ -37,7 +37,8 @@ private:
 
 	// ...
 	SCX__SERIAL_JG mX_Serial;
-	int iSIM_FLAG;
+	
+	int iActive__SIM_MODE;
 	//
 
 

@@ -22,6 +22,9 @@
 #define  STR__ON				"ON"
 #define  STR__OFF				"OFF"
 
+#define  STR__YES				"YES"
+#define  STR__NO				"NO"
+
 #define  STR__HOST				"HOST"
 #define  STR__USER				"USER"
 #define  STR__AUTO				"AUTO"

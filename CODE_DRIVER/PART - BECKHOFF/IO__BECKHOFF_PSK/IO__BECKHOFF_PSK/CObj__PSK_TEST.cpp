@@ -83,6 +83,24 @@ int CObj__PSK_TEST::__DEFINE__VARIABLE_STD(p_variable)
 			STD__ADD_STRING(str_name);
 			LINK__VAR_STRING_CTRL(sCH__INFO_PLC_NETID_X[i], str_name);
 		}
+
+		//
+		str_name = "INFO.PLC.PORT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_PLC_PORT, str_name);
+
+		str_name = "INFO.PLC.ADS_NAME_OUTPUT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_PLC_ADS_NAME_OUTPUT, str_name);
+
+		str_name = "INFO.PLC.ADS_NAME_INPUT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_PLC_ADS_NAME_INPUT, str_name);
+
+		//
+		str_name = "INFO.IO_FILE";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_IO_FILE, str_name);
 	}
 
 	// INFO_DRV ...
@@ -310,18 +328,26 @@ int CObj__PSK_TEST::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 		
 		iPARA__ADS_PORT = atoi(def_data);
+		sCH__INFO_PLC_PORT->Set__DATA(def_data);
 
 		//
 		def_name = "ADS.NAME_OUTPUT";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
 		sPARA__ADS_NAME_OUTPUT = def_data;
+		sCH__INFO_PLC_ADS_NAME_OUTPUT->Set__DATA(def_data);
 
 		//
 		def_name = "ADS.NAME_INPUT";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
 		sPARA__ADS_NAME_INPUT = def_data;
+		sCH__INFO_PLC_ADS_NAME_INPUT->Set__DATA(def_data);
+	}
+
+	if(iActive__SIM_MODE > 0)
+	{
+		return -1;
 	}
 
 	// ADS Driver Init ...
@@ -360,6 +386,8 @@ int CObj__PSK_TEST::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 }
 int CObj__PSK_TEST::__INITIALIZE__IO(p_io_para)
 {
+	CString io_file = p_io_para->Get__IO_FILE();
+	sCH__INFO_IO_FILE->Set__DATA(io_file);
 
 	return 1;
 }

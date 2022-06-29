@@ -240,10 +240,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__PSK__CALL_HANDOFF_ACTIVE.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\CObj__PSK__CALL_HANDOFF_PASSIVE.cpp"
 					>
 				</File>

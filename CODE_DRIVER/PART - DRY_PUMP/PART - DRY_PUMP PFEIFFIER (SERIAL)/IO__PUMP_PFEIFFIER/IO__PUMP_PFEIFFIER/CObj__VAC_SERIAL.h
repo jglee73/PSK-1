@@ -16,12 +16,12 @@ private:
 	CCommon_Error__USER_FNC mERROR__USER_FNC;
 
 	// ...
+	int iActive__SIM_MODE;
+
+	// ...
 	SCX__SERIAL_JG mX_Serial;
 
-	CString sPROTOCOL_INFO;
-	int	m_nCommState;
-
-	int iActive__SIM_MODE;
+	bool bActive__COMM_ONLINE;
 	int iPara__ADDR_ID;
 	//
 
@@ -36,10 +36,16 @@ private:
 	//-------------------------------------------------------------------------
 	//  INTERNAL PROPERTY
 	CX__VAR_STRING_CTRL  sCH__OBJ_MSG;
-	CX__VAR_STRING_CTRL  sCH__MON_COMM_STS;	
+
+	// INFO ...
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_COM_PORT;	
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_PARAMETER;	
 
 	// IMON ...
+	CX__VAR_STRING_CTRL  sCH__MON_COMM_STS;	
 	CX__VAR_STRING_CTRL  sCH__MON_VERSION;
+
+	CX__VAR_STRING_CTRL  sCH__MON_ACTIVE_FAULT;
 
 	// IMON.STATE ...
 	CX__VAR_STRING_CTRL  sCH__MON_STATE_PUMP_RUNNING;
@@ -53,6 +59,9 @@ private:
 	CX__VAR_STRING_CTRL  sCH__MON_STATE_HEAT1_POWER;
 	CX__VAR_STRING_CTRL  sCH__MON_STATE_FAULT;
 	CX__VAR_STRING_CTRL  sCH__MON_STATE_CONTROL_MODE;
+
+	CX__VAR_STRING_CTRL  sCH__MON_STATE_PRESSURE_mBAR;
+	CX__VAR_STRING_CTRL  sCH__MON_STATE_FB_POWER;
 	//
 
 	// IO CHANNEL  ...
@@ -103,15 +112,7 @@ private:
 	void Mon__IO_MONITOR(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
 
 	// ...
-	int _Drv__CMMD_SEND(const CString& set_cmmd,
-						CString* r_data);
-
-	int _Get__STRING_ARRAY(const CString& xxx_data,
-						   const CString& str_delimiter,
-						   CStringArray& l_data);
-
-	CString _Get__STRING_DATA(const CString& xxx_data,
-							  const CString& str_delimiter);
+	int _Drv__CMMD_SEND(const CString& set_cmmd, CString* r_data);
 
 	int _Update__PUMP_STATE(const CString& rsp_data);
 	//

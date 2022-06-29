@@ -196,32 +196,79 @@ int CObj__APS_8301
 int CObj__APS_8301
 ::_Send__Command(const CString& org_cmd, CString* r_data)
 {
+	CString log_msg;
+	CString log_bff;
+
+	// ...
 	CString r_bff;
 	mX_Serial->CLEAR__BUFFER(&r_bff);
 
-	// 
-	double cfg__to_sec = 0.5;
-
-	//
+	// ...
 	CString s_cmd;
 
 	s_cmd  = org_cmd;
 	s_cmd += sTerm_Str;
 
-	int r_len = mX_Serial->DATA__RECV(sTerm_Str, &s_cmd, cfg__to_sec);
+	// ...
+	{
+		log_msg = "Send >> \n";
+		log_bff.Format("%s<%s>\n", org_cmd, sTerm_Exp);
+		log_msg += log_bff;
+
+		Write__DRV_LOG(log_msg);		
+	}
+
+	// ...
+	int cfg__to_msec = 500;
+
+	int r_len = mX_Serial->DATA__RECV(sTerm_Str, &s_cmd, cfg__to_msec);
 	if (r_len < 0)
 	{
+		// ...
+		{
+			log_msg = "Recv << \n";
+			log_bff.Format("Error (%1d)\n", r_len);
+			log_msg += log_bff;
+
+			Write__DRV_LOG(log_msg);		
+		}
+
+		bActive__COMM_ONLINE = false;
 		return -1;
 	}
+
+	// ...
+	bActive__COMM_ONLINE = true;
 
 	int s_index = s_cmd.Find(org_cmd);
 	if(s_index < 0)
 	{
+		// ...
+		{
+			log_msg = "Recv << \n";
+			log_bff.Format("%s\n", s_cmd);
+			log_msg += log_bff;
+			log_bff.Format("Error (No Command)\n");
+			log_msg += log_bff;
+
+			Write__DRV_LOG(log_msg);		
+		}
 		return -2;
 	}
 
 	CString ch_data = s_cmd.Mid(s_index + org_cmd.GetLength());
-
 	r_data = &ch_data;
+
+	// ...
+	{
+		log_msg = "Recv << \n";
+		log_bff.Format("%s\n", s_cmd);
+		log_msg += log_bff;
+		log_bff.Format("Data : %s\n", ch_data);
+		log_msg += log_bff;
+
+		Write__DRV_LOG(log_msg);		
+	}
+
 	return 1;
 }

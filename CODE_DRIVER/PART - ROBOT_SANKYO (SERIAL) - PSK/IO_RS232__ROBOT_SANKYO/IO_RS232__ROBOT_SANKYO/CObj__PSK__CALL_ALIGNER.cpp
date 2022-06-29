@@ -8,7 +8,26 @@
 
 // ...
 int  CObj__PSK
-::Call__ALGN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+::Call__AL_INIT(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+{
+	if(Is__ONLINE(p_alarm) < 0)
+	{
+		return -1;
+	}
+
+	// ALIGNER.CTRL ...
+	{
+		doCH__AL_COMMAND->Set__DATA(_AL_MODE__INIT);
+
+		int r_flag = _Wait__AL_ACTION(p_variable, p_alarm);
+		if(r_flag < 0)			return -11;
+	}
+
+	return 1;
+}
+
+int  CObj__PSK
+::Call__ALIGN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 	if(Is__ONLINE(p_alarm) < 0)
 	{
@@ -30,19 +49,5 @@ int  CObj__PSK
 	}
 
 	return 1;
-}
-
-int  CObj__PSK
-::Call__ALGNPLACE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
-{
-
-	return -1;
-}
-
-int  CObj__PSK
-::Call__PLACE_PICK(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
-{
-
-	return -1;
 }
 

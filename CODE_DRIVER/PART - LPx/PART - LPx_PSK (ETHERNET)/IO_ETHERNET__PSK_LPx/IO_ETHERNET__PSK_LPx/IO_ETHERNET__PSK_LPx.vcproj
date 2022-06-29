@@ -148,7 +148,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
+				OutputFile="..\..\..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\IO_ETHERNET__PSK_LPx.def"
 				GenerateDebugInformation="true"

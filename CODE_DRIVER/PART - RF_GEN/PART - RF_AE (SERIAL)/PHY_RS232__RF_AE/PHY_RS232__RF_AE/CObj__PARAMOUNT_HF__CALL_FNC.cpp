@@ -8,14 +8,12 @@ int CObj__PARAMOUNT_HF
 {
 	int flag = 1;
 
-	Write__DRV_LOG("Initial_Start");
-
 	if(Call__POWER_SET(p_variable, p_alarm, false) < 0) 
 	{
 		flag = -1;
 	}
 
-	aCH__PARA_POWER_SET->Set__DATA("0.0");
+	aCH__PARA_SET_POWER->Set__DATA("0.0");
 	doCH__REGULATION_MODE->Set__DATA(STR__FORWARD);
 
 	if(Call__CTRL_MODE(p_variable, p_alarm, true) < 0) 
@@ -27,7 +25,6 @@ int CObj__PARAMOUNT_HF
 		flag = -1;
 	}
 
-	Write__DRV_LOG("Initial_End");
 	return flag;
 }
 
@@ -50,7 +47,7 @@ int  CObj__PARAMOUNT_HF
 
 	if(active_set)
 	{
-		aCH__PARA_POWER_SET->Set__DATA(ch_data);
+		aCH__PARA_SET_POWER->Get__DATA(ch_data);
 		aoCH__POWER_SET->Set__DATA(ch_data);
 
 		flag = doCH__POWER_MODE->Set__DATA(STR__ON);
@@ -68,12 +65,12 @@ int CObj__PARAMOUNT_HF
 ::Call__PROC_SET(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 	CString log_msg;
-	int		flag = -1;
+	int	flag = -1;
 
 mode_sel:
 
 	CString trg_value;
-	aCH__PARA_POWER_SET->Get__DATA(trg_value);
+	aCH__PARA_SET_POWER->Get__DATA(trg_value);
 
 	if(sCH__INFO_CTRL_MODE_READ->Check__DATA(STR__HOST) < 0)
 	{

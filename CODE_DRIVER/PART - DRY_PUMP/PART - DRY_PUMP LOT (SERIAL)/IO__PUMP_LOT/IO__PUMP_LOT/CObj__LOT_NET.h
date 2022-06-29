@@ -1,0 +1,193 @@
+#pragma once
+
+#include "Interface_Code.h"
+#include "CCommon_Error.h"
+
+#include "CObj__LOT_NET__DEF.h"
+
+
+class CObj__LOT_NET : public __IOBJ__IO_TYPE
+{
+private:
+	//-------------------------------------------------------------------------
+	CString	sObject_Name;
+
+	// ...
+	CCommon_Error__USER_FNC mERROR__USER_FNC;
+
+	// ...
+	int iActive__SIM_MODE;
+
+	// ...
+	SCX__ETHERNET_JGLEE mX_Net;
+
+	bool bActive__COMM_ONLINE;
+	//
+
+	//-------------------------------------------------------------------------
+	SCX__USER_LOG_CTRL xAPP__LOG_CTRL;
+	SCX__USER_LOG_CTRL xDRV__LOG_CTRL;
+
+	void WRITE__APP_LOG_MSG(const CString& log_msg);
+	void WRITE__DRV_LOG_MSG(const CString& log_msg);
+	//
+
+	//-------------------------------------------------------------------------
+	//  INTERNAL PROPERTY
+
+	CX__VAR_STRING_CTRL  sCH__OBJ_MSG;
+
+	// INFO ...
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_IP_PORT;
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_PARAMETER;
+
+	// MON ...
+	CX__VAR_STRING_CTRL  sCH__MON_COMM_STS;	
+
+	CX__VAR_DIGITAL_CTRL dCH__MON_PUMP_STS;
+	CX__VAR_DIGITAL_CTRL dCH__MON_ACTIVE_FAULT;
+	CX__VAR_DIGITAL_CTRL dCH__MON_ACTIVE_WARNING;
+
+	CX__VAR_STRING_CTRL  sCH__MON_MODE_STS;
+	CX__VAR_STRING_CTRL  sCH__MON_VERSION;
+
+	// PUMP WARNING ...
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PUMP_BODY_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_EXHAUST_PRESSURE;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_OIL_PRESSURE;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_H2O_FLOW;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PURGE_FLOW_ANALOG_1;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PURGE_FLOW_ANALOG_2;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PROCESS_TEMPERATURE_LOW;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PROCESS_TEMPERATURE_HIGH;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PUMP_MOTOR_OVER_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PUMP_VFD_DIGITAL;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_EXHAUST_PRESSURE_LOW;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_EXHAUST_PRESSURE_HIGH;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PUMP_MOTOR_CURRENT;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_HOT_N2_TEMPERAURE;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_PUMP_VFD_ANALOG;
+
+	// BLOWER WARNING ...
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_BLOWER_MOTOR_CURRENT;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_INLET_PRESSURE_SWITCH;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_BLOWER_1_VFD;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_BLOWER_MOTOR_CONTACTOR;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_BLOWER_MOTOR_OVERLOAD;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_BLOWER_BODY_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_WARNING_BLOWER_VFD;
+
+	// PUMP ALARM ...
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_PUMP_BODY_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_EXHAUST_PRESSURE;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_MISSING_OIL_TIMEOUT;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_PUMP_MOTOR_CONTACTOR;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_PUMP_MOTOR_OVERLOAD;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_BLOWER_BODY_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_EMO;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_PUMP_MOTOR_OVER_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_BLOWER_MOTOR_CONTACTOR;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_EXHAUST_MANIFOLD_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_BLOWER_MOTOR_OVERLOAD;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_PURGE_FLOW_ANALOG_1;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_PURGE_FLOW_ANALOG_2;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_BLOWER_MOTOR_OVER_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_H2O_FLOW;
+	CX__VAR_STRING_CTRL  sCH__MON_ALARM_PUMP_MOTOR_CURRENT;
+
+	// ANALOG VALUE ...
+	CX__VAR_STRING_CTRL  sCH__MON_PUMP_BODY_TEMPERATURE;
+	CX__VAR_STRING_CTRL  sCH__MON_EXHAUST_PRESSURE;
+	CX__VAR_STRING_CTRL  sCH__MON_PUMP_MOTOR_CURRENT;
+	CX__VAR_STRING_CTRL  sCH__MON_BLOWER_MOTOR_CURRENT;
+	//
+
+	// IO CHANNEL  ...
+	// DO
+	CX__VAR_DIGITAL_CTRL doCH__MODE_SET;
+
+	// SI
+	CX__VAR_STRING_CTRL  siCH__MODE_STS;
+	CX__VAR_STRING_CTRL  siCH__VERSION;
+
+	CX__VAR_STRING_CTRL  siCH__PUMP_WARNING;
+	CX__VAR_STRING_CTRL  siCH__BLOWER_WARNING;
+	CX__VAR_STRING_CTRL  siCH__PUMP_ALARM;
+
+	CX__VAR_STRING_CTRL  siCH__PUMP_BODY_TEMPERATURE;
+	CX__VAR_STRING_CTRL  siCH__EXHAUST_PRESSURE;
+	CX__VAR_STRING_CTRL  siCH__PUMP_MOTOR_CURRENT;
+	CX__VAR_STRING_CTRL  siCH__BLOWER_MOTOR_CURRENT;
+	//
+
+
+	//-------------------------------------------------------------------------
+	CString sMODE__INIT;
+	int  Call__INIT(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+
+	CString sMODE__LOCAL;
+	int  Call__LOCAL(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+
+	CString sMODE__REMOTE;
+	int  Call__REMOTE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+
+	CString sMODE__ON;
+	int  Call__ON(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+
+	CString sMODE__AUTO_SHUTDOWN;
+	int  Call__AUTO_SHUTDOWN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+
+	CString sMODE__FAST_SHUTDOWN;
+	int  Call__FAST_SHUTDOWN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+
+	// ...
+	void Mon__IO_MONITOR(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
+
+	// ...
+	int _Drv__CMMD_SEND(const CString& set_cmmd,
+		CString* r_data);
+
+	int _Get__STRING_ARRAY(const CString& xxx_data,
+		const CString& str_delimiter,
+		CStringArray& l_data);
+	CString _Get__STRING_DATA(const CString& xxx_data,
+		const CString& str_delimiter);
+
+	CString _Get__MODE_STATUS(const CString& rsp_data);
+
+	int _Update__PUMP_WARNING(const CString& rsp_data);
+	int _Update__BLOWER_WARNING(const CString& rsp_data);
+	int _Update__PUMP_ALARM(const CString& rsp_data);
+	//
+
+
+public:
+	CObj__LOT_NET();
+	~CObj__LOT_NET();
+
+	// ...
+	int __DEFINE__CONTROL_MODE(obj,l_mode);
+	int __DEFINE__VERSION_HISTORY(version);
+
+	int __DEFINE__VARIABLE_STD(p_variable);
+	int __DEFINE__VARIABLE_IO(p_rs232_variable);
+
+	int __DEFINE__ALARM(p_alarm);
+
+	// ...
+	int __INITIALIZE__OBJECT(p_variable,p_ext_obj_create);
+	int __INITIALIZE__IO(p_io_para);
+
+	// ...
+	int __CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm);
+	int __CALL__MONITORING(id, p_variable, p_alarm);
+
+	// ...
+	int __Read__ANALOG(const CString& var_name, const CDS_IO__CHANNEL_INFO& io_info, double& read_data);
+	int __Read__DIGITAL(const CString& var_name,const CDS_IO__CHANNEL_INFO& io_info, CString& read_data,int& item_index);
+	int __Read__STRING(const CString& var_name, const CDS_IO__CHANNEL_INFO& io_info, CString& read_data);
+
+	int __Write__ANALOG(const CString& var_name, const CDS_IO__CHANNEL_INFO& io_info, const double set_data);
+	int __Write__DIGITAL(const CString& var_name,const CDS_IO__CHANNEL_INFO& io_info, const CString& set_data,const int item_index);
+	int __Write__STRING(const CString& var_name, const CDS_IO__CHANNEL_INFO& io_info, const CString& set_data);
+};

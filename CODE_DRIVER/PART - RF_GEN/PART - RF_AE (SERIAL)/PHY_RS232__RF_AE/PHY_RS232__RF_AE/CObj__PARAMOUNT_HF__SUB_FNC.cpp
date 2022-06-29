@@ -96,6 +96,11 @@ int CObj__PARAMOUNT_HF
 			r_flag = mX_Serial->CHAR__RECV(r_data, &r_len, m_Rcv_Time);
 		}
 
+		if(r_len > 0)
+		{
+			dCH__MON_COMM_STS->Set__DATA(STR__ONLINE); 
+		}
+
 		// Send Log ...
 		{
 			CString s_msg;
@@ -158,6 +163,7 @@ int CObj__PARAMOUNT_HF
 	}
 	while(++n_cnt <= m_RetryCnt);
 
+	dCH__MON_COMM_STS->Set__DATA(STR__OFFLINE); 
 	return -1;
 }
 

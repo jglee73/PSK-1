@@ -3,6 +3,8 @@
 #include "CObj__VAC_SERIAL__DEF.h"
 #include "CCommon_DEF.h"
 
+#include "Macro_Function.h"
+
 
 //------------------------------------------------------------------------------------
 int CObj__VAC_SERIAL
@@ -46,54 +48,78 @@ int CObj__VAC_SERIAL
 
 	// ...
 	CString r_data = "";
+
 	int r_flag = _Drv__CMMD_SEND(set_cmmd, &r_data);
 
+	// ...
 	CString log_msg;
-	log_msg.Format("RECV << [%s] \n", r_data);
+	CString log_bff;
+
+	log_msg.Format("DATA(%1d) : [%s] \n", r_flag,r_data);
 	WRITE__DRV_LOG_MSG(log_msg);
 
 	if(r_flag < 0)
 	{
-		m_nCommState = OFFLINE;
+		read_data = "Error";
 		return -1;
 	}
 
 	// ...
-	CStringArray l_rsp;
 	CString rsp_data1 = "";
 	CString rsp_data2 = "";
 	CString rsp_data3 = "";
 	CString ch_data;
 
-	_Get__STRING_ARRAY(r_data, " ", l_rsp);
+	// ...
+	{
+		CStringArray l_rsp;
+		Macro__Get_Para_List_From_String(r_data, l_rsp);
 
-	int r_size = l_rsp.GetSize();
-	if(r_size > 0)		rsp_data1 = l_rsp[0];
-	if(r_size > 1)		rsp_data2 = l_rsp[1];
-	if(r_size > 2)		rsp_data3 = l_rsp[2];
+		log_msg = "Data.Parsing \n";
+
+		int r_size = l_rsp.GetSize();
+		if(r_size > 0)
+		{
+			rsp_data1 = l_rsp[0];
+
+			log_bff.Format(" 1. [%s] \n", rsp_data1);
+			log_msg += log_bff;
+		}
+		if(r_size > 1)
+		{
+			rsp_data2 = l_rsp[1];
+
+			log_bff.Format(" 2. [%s] \n", rsp_data2);
+			log_msg += log_bff;
+		}
+		if(r_size > 2)
+		{
+			rsp_data3 = l_rsp[2];
+
+			log_bff.Format(" 3. [%s] \n", rsp_data3);
+			log_msg += log_bff;
+		}
+
+		WRITE__DRV_LOG_MSG(log_msg);
+	}
 
 	if(siCH__VERSION->Check__VARIABLE_NAME(var_name) > 0)
 	{
 		rsp_data1.Trim();
-		read_data = rsp_data1;
-
-		log_msg.Format("r_size [%d][%s]", r_size, rsp_data1);
-		WRITE__DRV_LOG_MSG(log_msg);
-
 		ch_data.Format("Ver.%s", rsp_data1);
+
 		sCH__MON_VERSION->Set__DATA(ch_data);
 	}
 	else if(siCH__PUMP_STATE->Check__VARIABLE_NAME(var_name) > 0)
 	{
 		// Pump.State ...
-		{
-			_Update__PUMP_STATE(rsp_data1);
-		}
+		_Update__PUMP_STATE(rsp_data1);
 
-		read_data = rsp_data1;
+		sCH__MON_STATE_PRESSURE_mBAR->Set__DATA(rsp_data2);
+		sCH__MON_STATE_FB_POWER->Set__DATA(rsp_data3);
 	}
-	
-	m_nCommState = ONLINE;
+
+	read_data = "OK";
 	return 1;
 }
 
@@ -180,11 +206,9 @@ int CObj__VAC_SERIAL
 	
 	if(r_flag < 0)
 	{
-		m_nCommState = OFFLINE;
 		return -1;
 	}
 
-	m_nCommState = ONLINE;
 	return 1;
 }
 
@@ -200,128 +224,137 @@ int CObj__VAC_SERIAL
 
 // ...
 int  CObj__VAC_SERIAL
-::_Drv__CMMD_SEND(const CString& cmmd_data,
-				  CString* p_recv)
+::_Drv__CMMD_SEND(const CString& cmmd_data, CString* p_recv)
 {
 	CString log_msg = "";
 	CString log_bff = "";
 
 	CString cmmd_addr;
-	CString cmmd_set = "";
-	CString cmmd_end = "";
+	CString cmmd_org;
 
-	int i_addr = 0;
+	int i_addr = iPara__ADDR_ID;
 	int rty_cnt = 0;
 
 	cmmd_addr.Format("#%03d", i_addr);
-	cmmd_set.Format("%s %s%c", cmmd_addr,cmmd_data, CR);
-	cmmd_end.Format("%c", CR);
+	cmmd_org.Format("%s%s", cmmd_addr,cmmd_data);
 
-RETRY:
+LOOP_RETRY:
+
 	// ...
-	CString bff;
-	mX_Serial->CLEAR__BUFFER(&bff);
+	CString r_err;
+	mX_Serial->CLEAR__BUFFER(&r_err);
 	
 	// ...
 	{
 		log_msg = "SEND >> \n";
 
-		log_bff.Format(" [%s] \n", cmmd_set);
+		log_bff.Format("%s<CR>\n", cmmd_org);
 		log_msg += log_bff;
 		
 		WRITE__DRV_LOG_MSG(log_msg);
 	}
+
+	// ...
+	CString s_cmmd;
+
+	s_cmmd  = cmmd_org;
+	s_cmmd += (char) CR;
 	
-	int s_flag = mX_Serial->DATA__SEND(cmmd_set);
-
-	CString r_data;
-	int r_flag = mX_Serial->DATA__RECV(cmmd_end, &r_data, 150);
+	int s_flag = mX_Serial->DATA__SEND(s_cmmd);
 
 	// ...
-	{
-		log_msg = "RECV << \n";
-
-		log_bff.Format(" [%s] \n", r_data);
-		log_msg += log_bff;
-
-		WRITE__DRV_LOG_MSG(log_msg);
-	}
-
-	if(r_flag < 0)
-	{
-		rty_cnt++;
-		if (rty_cnt > 3)
-		{
-			log_msg.Format( "Error : retry over !, s_flag[%d], r_flag[%d] \n", s_flag, r_flag);
-			WRITE__DRV_LOG_MSG(log_msg);
-		}
-		else
-		{
-			log_msg.Format( "retry [%d] time !",rty_cnt);
-			WRITE__DRV_LOG_MSG(log_msg);
-			goto RETRY;
-		}
-
-		rty_cnt = 0;
-
-		log_msg.Format( "Error : Timeout !, s_flag[%d], r_flag[%d] \n",s_flag, r_flag);
-		WRITE__DRV_LOG_MSG(log_msg);
-		return -1;
-	}
-
-	// ...
-	{
-		int s_index = r_data.Find(cmmd_addr);
-		if(s_index < 0)		return -11;
-
-		r_data.Delete(0, s_index+cmmd_addr.GetLength());
-		p_recv->Format("%s", r_data);
-	}
-	return 1;
-}
-
-int CObj__VAC_SERIAL
-::_Get__STRING_ARRAY(const CString& xxx_data,
-				     const CString& str_delimiter,
-				     CStringArray& l_data)
-{
-	l_data.RemoveAll();
-
-	CString str_data = xxx_data;
-	int del_size = str_delimiter.GetLength();
+	CString r_bff;
+	CString cmmd_end;
+	cmmd_end = (char) CR;
 
 	while(1)
 	{
-		int s_index = str_data.Find(str_delimiter);
-		if(s_index < 0)
+		CString r_data;
+		CString n_data;
+
+		int r_flag = mX_Serial->DATA__RECV(cmmd_end, &n_data, 200);
+		
+		r_data  = r_bff;
+		r_data += n_data;
+
+		// ...
 		{
-			l_data.Add(str_data);
+			log_msg.Format("RECV << [%1d] \n", r_flag);
+
+			log_bff.Format("%s\n", r_data);
+			log_msg += log_bff;
+
+			WRITE__DRV_LOG_MSG(log_msg);
+		}
+
+		if(r_flag < 0)
+		{
+			rty_cnt++;	
+			if (rty_cnt < 3)
+			{
+				log_msg.Format( "Error retry [%d] !", rty_cnt);
+				WRITE__DRV_LOG_MSG(log_msg);
+
+				goto LOOP_RETRY;
+			}
+
+			log_msg.Format( "Error timeout ! \n");
+			WRITE__DRV_LOG_MSG(log_msg);
+
+			bActive__COMM_ONLINE = false;
+			return -1;
+		}
+
+		bActive__COMM_ONLINE = true;
+
+		if(r_data.Find(cmmd_org) != 0)
+		{
+			int s_index = r_data.Find(cmmd_addr);
+			if(s_index < 0)		return -11;
+
+			r_data.Delete(0, s_index+cmmd_addr.GetLength());
+			p_recv->Format("%s", r_data);
 			return 1;
 		}
 
 		// ...
-		CString str_rsp = str_data;
+		{
+			log_msg.Format("Echo Mode ! \n");
+			WRITE__DRV_LOG_MSG(log_msg);
+		}
 
-		str_rsp.Delete(s_index, str_data.GetLength()-s_index);
-		str_data.Delete(0, s_index+del_size);
+		// ...
+		{
+			r_bff = "";
+			mX_Serial->CLEAR__BUFFER(&r_bff);
 
-		l_data.Add(str_rsp);
+			r_bff = Macro__Delete_Null_Char(r_bff);
+			if(r_bff.GetLength() > 0)
+			{
+				log_msg.Format("Recv_Buffer <- [%1d] \n", r_bff.GetLength());
+				log_msg += r_bff;
+				log_msg += "\n";
+				
+				WRITE__DRV_LOG_MSG(log_msg);
+
+				int s_index = r_bff.Find(cmmd_end);
+				if(s_index >= 0)
+				{
+					r_bff.Delete(s_index, r_bff.GetLength() - s_index);
+
+					//
+					s_index = r_bff.Find(cmmd_addr);
+					if(s_index < 0)		return -12;
+
+					r_bff.Delete(0, s_index+cmmd_addr.GetLength());
+					p_recv->Format("%s", r_bff);
+					return 12;
+				}
+			}
+		}
 	}
-	return -1;
-}
-CString CObj__VAC_SERIAL
-::_Get__STRING_DATA(const CString& xxx_data,
-					const CString& str_delimiter)
-{
-	CString str_data = xxx_data;
 
-	int s_index = str_data.Find(str_delimiter);
-	if(s_index < 0)			return "";
-
-	int del_size = str_delimiter.GetLength();
-	str_data.Delete(0, s_index+del_size);
-
-	return str_data;
+	return -21;
 }
 
 int CObj__VAC_SERIAL
@@ -402,8 +435,20 @@ int CObj__VAC_SERIAL
 		}
 		if(i == 9)
 		{
-			if(i_data > 0)		sCH__MON_STATE_FAULT->Set__DATA(STR__OPEN);
-			else				sCH__MON_STATE_FAULT->Set__DATA(STR__CLOSE);
+			if(i_data == 0)
+			{
+				sCH__MON_ACTIVE_FAULT->Set__DATA(STR__OFF);
+
+				sCH__MON_STATE_FAULT->Set__DATA("OK");
+			}
+			else
+			{
+				sCH__MON_ACTIVE_FAULT->Set__DATA(STR__ON);
+
+					 if(i_data == 1)			sCH__MON_STATE_FAULT->Set__DATA("ALERT");
+				else if(i_data == 2)			sCH__MON_STATE_FAULT->Set__DATA("ALARM");
+				else							sCH__MON_STATE_FAULT->Set__DATA(ch_data);
+			}
 
 			continue;
 		}

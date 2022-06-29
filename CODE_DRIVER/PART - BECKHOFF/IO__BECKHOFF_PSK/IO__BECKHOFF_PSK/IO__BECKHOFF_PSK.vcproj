@@ -149,7 +149,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="TcAdsDll.lib"
-				OutputFile="..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
+				OutputFile="..\..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="C:\TwinCAT\AdsApi\TcAdsDll\Lib"
 				ModuleDefinitionFile=".\IO__BECKHOFF_PSK.def"

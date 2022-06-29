@@ -364,7 +364,7 @@ int CObj__AFC_RTU::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		SCX__SEQ_INFO x_seq_info;
 
-		iSIM_FLAG = x_seq_info->Is__SIMULATION_MODE();
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 	return 1;
 }
@@ -455,11 +455,6 @@ int CObj__AFC_RTU::__INITIALIZE__IO(p_io_para)
 
 	// ...
 	{
-		mX_Serial->INIT__COMPORT(com_port, baud_rate, data_bit, stop_bit, parity);
-	}
-
-	// ...
-	{
 		CString ch_data;
 
 		//
@@ -483,6 +478,28 @@ int CObj__AFC_RTU::__INITIALIZE__IO(p_io_para)
 
 		ch_data.Format("%1d", stop_bit);
 		sCH__INFO_STOP_BIT->Set__DATA(ch_data);
+	}
+
+	if(iActive__SIM_MODE > 0)
+	{
+		return -1;
+	}
+
+	if(mX_Serial->INIT__COMPORT(com_port, baud_rate, data_bit, stop_bit, parity) < 0)
+	{
+		log_bff.Format("Fail to do INIT__COMPORT: %d, ret:-1\n", com_port);
+		log_msg += log_bff;
+
+		xI__APP_LOG_CTRL->WRITE__LOG(log_msg);
+		xI__DRV_LOG_CTRL->WRITE__LOG(log_msg);
+		return -1;
+	}
+	else
+	{
+		log_msg += "Initialize RS-232 Complete \n";
+
+		xI__APP_LOG_CTRL->WRITE__LOG(log_msg);
+		xI__DRV_LOG_CTRL->WRITE__LOG(log_msg);
 	}
 	return 1;
 }

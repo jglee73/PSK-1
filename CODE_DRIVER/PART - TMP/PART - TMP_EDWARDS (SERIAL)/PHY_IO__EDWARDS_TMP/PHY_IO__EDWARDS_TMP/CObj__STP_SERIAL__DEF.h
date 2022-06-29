@@ -9,6 +9,7 @@
 
 #define  STR__LOCAL					"LOCAL"
 #define  STR__REMOTE				"REMOTE"
+#define  STR__MANUAL				"MANUAL"
 
 #define  STR__STANDBY				"STANDBY"
 #define  STR__MAINTMODE				"MAINTMODE"

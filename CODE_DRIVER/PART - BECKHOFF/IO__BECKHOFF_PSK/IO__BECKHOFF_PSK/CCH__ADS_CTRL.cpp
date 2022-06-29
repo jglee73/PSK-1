@@ -9,6 +9,10 @@ CCH__ADS_CTRL mCH__ADS_IN;
 CCH__ADS_CTRL mCH__ADS_OUT;
 
 
+#define _RW_TYPE__READ				1
+#define _RW_TYPE__WRITE				2
+
+
 // ...
 CCH__ADS_CTRL::CCH__ADS_CTRL()
 {
@@ -42,11 +46,11 @@ void CCH__ADS_CTRL::Clear__ADS_CH()
 
 // ...
 int  CCH__ADS_CTRL::
-Add__ADS_CH(const int io_type, const CString& io_name, const CString& ads_header, const CString& ads_name, const int md_id, const int ch_id)
+Add__ADS_CH(const int io_type, const CString& io_name, const CString& ads_header, const CString& ads_name, const int md_id, const int ch_id, const int cmd_id)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
-	int r_flag = _Add__ADS_CH(io_type, io_name, ads_header, ads_name, md_id, ch_id);
+	int r_flag = _Add__ADS_CH(io_type, io_name, ads_header, ads_name, md_id, ch_id, cmd_id);
 
 	LeaveCriticalSection(&mCS_LOCK);
 	return r_flag;
@@ -112,8 +116,8 @@ int  CCH__ADS_CTRL::Set__ADS_CH(const int io_type, const CString& io_name, const
 
 			if(p_ch->iIO_TYPE != io_type)		continue;
 		
-			if(p_ch->iMD_ID != md_id)			continue;
-			if(p_ch->iCH_ID != ch_id)			continue;
+			if(p_ch->iMD_ID  != md_id)			continue;
+			if(p_ch->iCH_ID  != ch_id)			continue;
 
 			if(p_ch->sIO_NAME.CompareNoCase(io_name) != 0)		continue;
 
@@ -129,7 +133,7 @@ int  CCH__ADS_CTRL::Set__ADS_CH(const int io_type, const CString& io_name, const
 	return check_flag;
 }
 
-int  CCH__ADS_CTRL::Set__LOCAL_AO_CH(const CString& ads_name, const int md_id, const int ch_id, const double set_data)
+int  CCH__ADS_CTRL::Set__LOCAL_AO_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, const double set_data)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -137,9 +141,10 @@ int  CCH__ADS_CTRL::Set__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__AIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__AIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__AIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__AO_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__AO_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__AO_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__AO_ADS_INDEX;
 
 	// ...
 	{
@@ -147,8 +152,9 @@ int  CCH__ADS_CTRL::Set__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
@@ -176,6 +182,7 @@ int  CCH__ADS_CTRL::Set__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
@@ -187,7 +194,7 @@ int  CCH__ADS_CTRL::Set__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 	LeaveCriticalSection(&mCS_LOCK);
 	return check_flag;
 }
-int  CCH__ADS_CTRL::Get__LOCAL_AO_CH(const CString& ads_name, const int md_id, const int ch_id, CString& str_data)
+int  CCH__ADS_CTRL::Get__LOCAL_AO_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, CString& str_data)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -195,9 +202,10 @@ int  CCH__ADS_CTRL::Get__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__AIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__AIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__AIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__AO_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__AO_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__AO_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__AO_ADS_INDEX;
 
 	// ...
 	{
@@ -205,8 +213,9 @@ int  CCH__ADS_CTRL::Get__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
@@ -234,6 +243,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
@@ -245,7 +255,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_AO_CH(const CString& ads_name, const int md_id, c
 	LeaveCriticalSection(&mCS_LOCK);
 	return check_flag;
 }
-int  CCH__ADS_CTRL::Get__LOCAL_AI_CH(const CString& ads_name, const int md_id, const int ch_id, double& read_data)
+int  CCH__ADS_CTRL::Get__LOCAL_AI_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, double& read_data)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -253,9 +263,10 @@ int  CCH__ADS_CTRL::Get__LOCAL_AI_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__AIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__AIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__AIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__AI_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__AI_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__AI_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__AI_ADS_INDEX;
 
 	// ...
 	{
@@ -263,8 +274,9 @@ int  CCH__ADS_CTRL::Get__LOCAL_AI_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
@@ -292,6 +304,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_AI_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
@@ -304,7 +317,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_AI_CH(const CString& ads_name, const int md_id, c
 	return check_flag;
 }
 
-int  CCH__ADS_CTRL::Set__LOCAL_DO_CH(const CString& ads_name, const int md_id, const int ch_id, const int item_index)
+int  CCH__ADS_CTRL::Set__LOCAL_DO_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, const int item_index, const bool active__byte_ctrl)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -312,9 +325,10 @@ int  CCH__ADS_CTRL::Set__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 	 int check_flag = -11;
 
 	 // ...
-	 CUIntArray* pl__md_id = &iList__DIO_MD_ID;
-	 CUIntArray* pl__ch_id = &iList__DIO_CH_ID;
-	 CUIntArray* pl__ads_index = &iList__DIO_ADS_INDEX;
+	 CUIntArray* pl__md_id  = &iList__DO_MD_ID;
+	 CUIntArray* pl__ch_id  = &iList__DO_CH_ID;
+	 CUIntArray* pl__cmd_id = &iList__DO_CMD_ID;
+	 CUIntArray* pl__ads_index = &iList__DO_ADS_INDEX;
 
 	 // ...
 	 {
@@ -322,12 +336,13 @@ int  CCH__ADS_CTRL::Set__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 
 		 for(int i=0; i<i_limit; i++)
 		 {
-			 if(md_id != pl__md_id->GetAt(i))		continue;
-			 if(ch_id != pl__ch_id->GetAt(i))		continue;
+			 if(md_id  != pl__md_id->GetAt(i))		continue;
+			 if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			 if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			 int ads_index = pl__ads_index->GetAt(i);
 
-			 check_flag = mDB__ADS_CTRL.Set__DO_DATA(ads_index, ch_id, item_index);
+			 check_flag = mDB__ADS_CTRL.Set__DO_DATA(ads_index, ch_id, item_index, active__byte_ctrl);
 
 			 active__db_add = false;
 			 break;
@@ -351,10 +366,11 @@ int  CCH__ADS_CTRL::Set__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
-			check_flag = mDB__ADS_CTRL.Set__DO_DATA(ads_index, ch_id, item_index);
+			check_flag = mDB__ADS_CTRL.Set__DO_DATA(ads_index, ch_id, item_index, active__byte_ctrl);
 			break;
 		}
 	}
@@ -362,7 +378,7 @@ int  CCH__ADS_CTRL::Set__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 	LeaveCriticalSection(&mCS_LOCK);
 	return check_flag;
 }
-int  CCH__ADS_CTRL::Get__LOCAL_DO_CH(const CString& ads_name, const int md_id, const int ch_id, int& item_index)
+int  CCH__ADS_CTRL::Get__LOCAL_DO_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, int& item_index)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -370,9 +386,10 @@ int  CCH__ADS_CTRL::Get__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__DIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__DIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__DIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__DO_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__DO_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__DO_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__DO_ADS_INDEX;
 
 	// ...
 	{
@@ -380,12 +397,14 @@ int  CCH__ADS_CTRL::Get__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
-			check_flag = mDB__ADS_CTRL.Get__DO_DATA(ads_index, ch_id, item_index);
+			unsigned char r_byte_data;
+			check_flag = mDB__ADS_CTRL.Get__DO_DATA(ads_index, ch_id, item_index, r_byte_data);
 
 			active__db_add = false;
 			break;
@@ -409,10 +428,13 @@ int  CCH__ADS_CTRL::Get__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
-			check_flag = mDB__ADS_CTRL.Get__DO_DATA(ads_index, ch_id, item_index);
+			unsigned char r_byte_data;
+			check_flag = mDB__ADS_CTRL.Get__DO_DATA(ads_index, ch_id, item_index, r_byte_data);
+
 			break;
 		}
 	}
@@ -420,7 +442,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_DO_CH(const CString& ads_name, const int md_id, c
 	LeaveCriticalSection(&mCS_LOCK);
 	return check_flag;
 }
-int  CCH__ADS_CTRL::Get__LOCAL_DI_CH(const CString& ads_name, const int md_id, const int ch_id, int& item_index)
+int  CCH__ADS_CTRL::Get__LOCAL_DI_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, int& item_index, unsigned char& r_byte_data)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -428,9 +450,10 @@ int  CCH__ADS_CTRL::Get__LOCAL_DI_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__DIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__DIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__DIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__DI_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__DI_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__DI_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__DI_ADS_INDEX;
 
 	// ...
 	{
@@ -438,12 +461,13 @@ int  CCH__ADS_CTRL::Get__LOCAL_DI_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
-			check_flag = mDB__ADS_CTRL.Get__DI_DATA(ads_index, ch_id, item_index);
+			check_flag = mDB__ADS_CTRL.Get__DI_DATA(ads_index, ch_id, item_index, r_byte_data);
 
 			active__db_add = false;
 			break;
@@ -462,15 +486,16 @@ int  CCH__ADS_CTRL::Get__LOCAL_DI_CH(const CString& ads_name, const int md_id, c
 
 			int ads_index = p_ch->iADS_INDEX;	
 			if(ads_index < 0)			break;
-
+			
 			// ...
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
-			check_flag = mDB__ADS_CTRL.Get__DI_DATA(ads_index, ch_id, item_index);
+			check_flag = mDB__ADS_CTRL.Get__DI_DATA(ads_index, ch_id, item_index, r_byte_data);
 			break;
 		}
 	}
@@ -479,7 +504,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_DI_CH(const CString& ads_name, const int md_id, c
 	return check_flag;
 }
 
-int  CCH__ADS_CTRL::Set__LOCAL_SO_CH(const CString& ads_name, const int md_id, const int ch_id, const int set_data)
+int  CCH__ADS_CTRL::Set__LOCAL_SO_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, const int set_data)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -487,9 +512,10 @@ int  CCH__ADS_CTRL::Set__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__SIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__SIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__SIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__SO_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__SO_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__SO_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__SO_ADS_INDEX;
 
 	// ...
 	{
@@ -497,8 +523,9 @@ int  CCH__ADS_CTRL::Set__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
@@ -526,6 +553,7 @@ int  CCH__ADS_CTRL::Set__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
@@ -537,7 +565,7 @@ int  CCH__ADS_CTRL::Set__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 	LeaveCriticalSection(&mCS_LOCK);
 	return check_flag;
 }
-int  CCH__ADS_CTRL::Get__LOCAL_SO_CH(const CString& ads_name, const int md_id, const int ch_id, CString& str_hexa)
+int  CCH__ADS_CTRL::Get__LOCAL_SO_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, CString& str_hexa)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -545,9 +573,10 @@ int  CCH__ADS_CTRL::Get__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__SIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__SIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__SIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__SI_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__SI_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__SI_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__SI_ADS_INDEX;
 
 	// ...
 	{
@@ -555,8 +584,9 @@ int  CCH__ADS_CTRL::Get__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
@@ -584,6 +614,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
@@ -595,7 +626,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_SO_CH(const CString& ads_name, const int md_id, c
 	LeaveCriticalSection(&mCS_LOCK);
 	return check_flag;
 }
-int  CCH__ADS_CTRL::Get__LOCAL_SI_CH(const CString& ads_name, const int md_id, const int ch_id, CString& str_hexa)
+int  CCH__ADS_CTRL::Get__LOCAL_SI_CH(const CString& ads_name, const int md_id, const int ch_id, const int cmd_id, CString& str_hexa)
 {
 	EnterCriticalSection(&mCS_LOCK);
 
@@ -603,9 +634,10 @@ int  CCH__ADS_CTRL::Get__LOCAL_SI_CH(const CString& ads_name, const int md_id, c
 	int check_flag = -11;
 
 	// ...
-	CUIntArray* pl__md_id = &iList__SIO_MD_ID;
-	CUIntArray* pl__ch_id = &iList__SIO_CH_ID;
-	CUIntArray* pl__ads_index = &iList__SIO_ADS_INDEX;
+	CUIntArray* pl__md_id  = &iList__SI_MD_ID;
+	CUIntArray* pl__ch_id  = &iList__SI_CH_ID;
+	CUIntArray* pl__cmd_id = &iList__SI_CMD_ID;
+	CUIntArray* pl__ads_index = &iList__SI_ADS_INDEX;
 
 	// ...
 	{
@@ -613,8 +645,9 @@ int  CCH__ADS_CTRL::Get__LOCAL_SI_CH(const CString& ads_name, const int md_id, c
 
 		for(int i=0; i<i_limit; i++)
 		{
-			if(md_id != pl__md_id->GetAt(i))		continue;
-			if(ch_id != pl__ch_id->GetAt(i))		continue;
+			if(md_id  != pl__md_id->GetAt(i))		continue;
+			if(ch_id  != pl__ch_id->GetAt(i))		continue;
+			if(cmd_id != pl__cmd_id->GetAt(i))		continue;
 
 			int ads_index = pl__ads_index->GetAt(i);
 
@@ -642,6 +675,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_SI_CH(const CString& ads_name, const int md_id, c
 			{
 				pl__md_id->Add(md_id);
 				pl__ch_id->Add(ch_id);
+				pl__cmd_id->Add(cmd_id);
 				pl__ads_index->Add(ads_index);
 			}
 
@@ -655,7 +689,7 @@ int  CCH__ADS_CTRL::Get__LOCAL_SI_CH(const CString& ads_name, const int md_id, c
 }
 
 int  CCH__ADS_CTRL::
-_Add__ADS_CH(const int io_type,const CString& io_name, const CString& ads_header,const CString& ads_name, const int md_id,const int ch_id)
+_Add__ADS_CH(const int io_type,const CString& io_name, const CString& ads_header,const CString& ads_name, const int md_id, const int ch_id, const int cmd_id)
 {
 	CPtrArray* p_list = &pList_CH;
 
@@ -664,14 +698,14 @@ _Add__ADS_CH(const int io_type,const CString& io_name, const CString& ads_header
 		CCH__ADS_INFO* p_ch = new CCH__ADS_INFO;
 		p_list->Add(p_ch);
 
-		p_ch->iIO_TYPE  = io_type;
-		p_ch->sIO_NAME  = io_name;
+		p_ch->iIO_TYPE = io_type;
+		p_ch->sIO_NAME = io_name;
 
 		p_ch->sADS__FULL_NAME.Format("%s%s", ads_header,ads_name);
 		p_ch->sADS__CFG_NAME = ads_name;
 
-		p_ch->iMD_ID = md_id;
-		p_ch->iCH_ID = ch_id;
+		p_ch->iMD_ID  = md_id;
+		p_ch->iCH_ID  = ch_id;
 	}
 	return 1;
 }

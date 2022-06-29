@@ -9,9 +9,8 @@ void CObj__AFC_RTU
 ::Mon__MONITOR(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
 	CString ch_data;
-	int loop_count = 0;
 
-	if(iSIM_FLAG > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		dCH__MON_MAT_STS_MANUAL_ACTIVE->Set__DATA(STR__OFF);
 		dCH__MON_MAT_STS_PRESET_ENABLE_ACTIVE->Set__DATA(STR__ON);
@@ -24,10 +23,15 @@ void CObj__AFC_RTU
 		dCH__MON_MAT_STS_FAN1_ALARM_ACTIVE->Set__DATA(STR__OFF);
 		dCH__MON_MAT_STS_FAN2_ALARM_ACTIVE->Set__DATA(STR__OFF);
 
-		//
+		bActive__COMM_ONLINE = true;
+	}
+	else
+	{
+		bActive__COMM_ONLINE = false;
 	}
 
-	bActive__COMM_ONLINE = true;
+	int loop_count = 0;
+
 
 	while(1)
 	{
@@ -36,23 +40,29 @@ void CObj__AFC_RTU
 		loop_count++;
 		if(loop_count > 10)		loop_count = 1;
 
+
 		if(loop_count == 1)
 		{
 			if(bActive__COMM_ONLINE)
 			{
-
+				sCH__MON_COMM_STATE->Set__DATA(STR__ONLINE);
 			}
 			else
 			{
-				int alarm_id = ALID__OFFLINE;
-				CString	r_act;
+				sCH__MON_COMM_STATE->Set__DATA(STR__OFFLINE);
 
-				p_alarm->Check__ALARM(alarm_id,r_act);
-				p_alarm->Post__ALARM_With_MESSAGE(alarm_id, "");
+				// ...
+				{
+					int alarm_id = ALID__OFFLINE;
+					CString	r_act;
+
+					p_alarm->Check__ALARM(alarm_id,r_act);
+					p_alarm->Post__ALARM_With_MESSAGE(alarm_id, "");
+				}
 			}
 		}
 
-		if(iSIM_FLAG > 0)
+		if(iActive__SIM_MODE > 0)
 		{
 			ch_data = aoCH__Preset_Load_Position->Get__STRING();
 			sCH__MON_CUR_LOAD_POSITION->Set__DATA(ch_data);

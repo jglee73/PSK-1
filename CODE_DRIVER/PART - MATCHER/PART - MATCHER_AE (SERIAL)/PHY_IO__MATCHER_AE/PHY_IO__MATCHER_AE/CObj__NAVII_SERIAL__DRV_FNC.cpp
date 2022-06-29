@@ -37,7 +37,7 @@ int CObj__NAVII_SERIAL
 	unsigned char s_data[MAX_CHAR] = {0,};
 	CString ch_data;
 
-	byte addr_id = iUNIT__ADDR_ID;
+	byte addr_id = (byte) aCH__CFG_PART_ADDRES_ID->Get__VALUE();
 
 
 	if((siCH__CTRL_MODE_HEXA_CH1->Check__VARIABLE_NAME(var_name) > 0)
@@ -84,7 +84,7 @@ int CObj__NAVII_SERIAL
 			return -11;
 		}
 
-		int r_len = _Recv__Command(addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
+		int r_len = _Recv__Command(var_name, addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
 		if(r_len >= r_data_len)
 		{
 			if(cmmd_id == _DRV_CMMD__REPORT_CONTROL_MODE)
@@ -177,7 +177,7 @@ int CObj__NAVII_SERIAL
 	unsigned char s_data[MAX_CHAR] = {0,};
 	CString ch_data;
 
-	byte addr_id = iUNIT__ADDR_ID;
+	byte addr_id = (byte) aCH__CFG_PART_ADDRES_ID->Get__VALUE();
 
 	
 	if(doCH__ALL_CAPACITOR_INIT->Check__VARIABLE_NAME(var_name) > 0)
@@ -186,7 +186,7 @@ int CObj__NAVII_SERIAL
 		byte s_data_len = 0;
 		byte r_data_len = 1;
 
-		int r_len = _Recv__Command(addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
+		int r_len = _Recv__Command(var_name, addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
 		if(r_len >= r_data_len)
 		{
 			byte byte_00 = 0x0ff & r_data[0];
@@ -248,7 +248,7 @@ int CObj__NAVII_SERIAL
 		s_data[8] = 0x0ff & para_tune_max;
 		s_data[9] = 0x0ff & (para_tune_max >> 8);
 
-		int r_len = _Recv__Command(addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
+		int r_len = _Recv__Command(var_name, addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
 		if(r_len >= r_data_len)
 		{
 			byte byte_00 = 0x0ff & r_data[0];
@@ -328,7 +328,7 @@ int CObj__NAVII_SERIAL
 		s_data[2] = 0x0ff & para_set;
 		s_data[3] = 0x0ff & (para_set >> 8);
 
-		int r_len = _Recv__Command(addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
+		int r_len = _Recv__Command(var_name, addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
 		if(r_len >= r_data_len)
 		{
 			byte byte_00 = 0x0ff & r_data[0];
@@ -409,7 +409,7 @@ int CObj__NAVII_SERIAL
 		s_data[2] = 0x0ff & para_pos;
 		s_data[3] = 0x0ff & (para_pos >> 8);
 
-		int r_len = _Recv__Command(addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
+		int r_len = _Recv__Command(var_name, addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
 		if(r_len >= r_data_len)
 		{
 			byte byte_00 = 0x0ff & r_data[0];
@@ -471,7 +471,7 @@ int CObj__NAVII_SERIAL
 		s_data[4] = 0x0ff & para_tune_pos;
 		s_data[5] = 0x0ff & (para_tune_pos >> 8);
 
-		int r_len = _Recv__Command(addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
+		int r_len = _Recv__Command(var_name, addr_id,cmmd_id,s_data_len,r_data_len, s_data,r_data);		
 		if(r_len >= r_data_len)
 		{
 			byte byte_00 = 0x0ff & r_data[0];

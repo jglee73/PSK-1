@@ -57,6 +57,7 @@ int CObj__PSK
 
 		if(str__send_data.Find(r_cmmd) == 0)
 		{  
+			recv_data = str__send_data;
 			return 1;  
 		}
 		return -11;

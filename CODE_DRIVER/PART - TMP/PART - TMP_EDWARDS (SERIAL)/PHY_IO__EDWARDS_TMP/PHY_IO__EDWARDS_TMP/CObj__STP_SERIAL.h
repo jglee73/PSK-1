@@ -19,12 +19,12 @@ private:
 	SCX__USER_LOG_CTRL xAPP_LOG_CTRL;
 	SCX__USER_LOG_CTRL xDRV_LOG_CTRL;
 
-	int iACTIVE_SIM;
+	int iActive__SIM_MODE;
 
 	// ...
 	SCX__SERIAL_JG	mX_Serial;
 
-	int	 m_nCommState;
+	bool bActive__COOM_ONLINE;
 	//
 
 
@@ -39,6 +39,9 @@ private:
 	CX__VAR_STRING_CTRL  sCH__MON_PUMP_STS;
 	CX__VAR_STRING_CTRL  sCH__MON_ERROR_STS;
 
+	// CFG ...
+	CX__VAR_DIGITAL_CTRL dCH__CFG_CONTROL_TYPE;
+
 	CX__VAR_ANALOG_CTRL  aCH__CFG_TARGET_SPEED_RPM;
 
 	CX__VAR_ANALOG_CTRL  aCH__CFG_STOP_TIMEOUT;
@@ -46,7 +49,14 @@ private:
 	CX__VAR_ANALOG_CTRL  aCH__CFG_TARGET_SPEED_TIMEOUT;
 	CX__VAR_ANALOG_CTRL  aCH__CFG_MON_INTERVAL;
 
-	// ...
+	// MANUAL ...
+	CX__VAR_STRING_CTRL  sCH__MANUAL_ROT_SPEED_RPM;
+	CX__VAR_STRING_CTRL  sCH__MANUAL_ERROR_COUNT;
+
+	// INFO ...
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_COM_PORT;	  
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_BAUD_RATE;	  
+
 	CX__VAR_STRING_CTRL  sCH__INFO_ROT_SPEED_HZ;
 	CX__VAR_STRING_CTRL  sCH__INFO_ROT_SPEED_RPM;
 
@@ -70,9 +80,6 @@ private:
 
 	// DO ...
 	CX__VAR_DIGITAL_CTRL doCH__OP_CMMD;
-
-	// DI  ...
-	CX__VAR_DIGITAL_CTRL diCH__COMM_STS;
 
 	// SI ...
 	CX__VAR_STRING_CTRL  siCH__ReadMeas_HEXA;
@@ -112,7 +119,7 @@ private:
 	//
 
 	//-------------------------------------------------------------------------
-	void Mon__IO_MONITOR(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
+	void Mon__STATE_CHECK(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
 	// ...
 	int  Is__OFFLINE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);

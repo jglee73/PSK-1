@@ -263,6 +263,20 @@ int CObj__NAVII_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 
 	// CFG ...
 	{
+		// ...
+		{
+			str_name = "CFG.PART.ADDRES_ID";
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "id", 0, 1, 255, "");
+			LINK__VAR_ANALOG_CTRL(aCH__CFG_PART_ADDRES_ID, str_name);
+		}
+
+		// Use ...
+		{
+			str_name = "CFG.USE.CH2";
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "NO  YES", "");
+			LINK__VAR_DIGITAL_CTRL(dCH__CFG_USE_CH2, str_name);
+		}
+
 		// Load ...
 		{
 			str_name = "CFG.LOAD_MIN.CH1";
@@ -367,20 +381,20 @@ int CObj__NAVII_SERIAL::__DEFINE__VARIABLE_IO(p_io_variable)
 	// SI ...
 	{
 		str_name = "si.CTRL_MODE.HEXA.CH1";
-		IO__ADD_STRING_READ(str_name);
+		IO__ADD_STRING_READ_WITH_OPTION(str_name, "","","", 0.5, "");
 		LINK__IO_VAR_STRING_CTRL(siCH__CTRL_MODE_HEXA_CH1, str_name);
 
-		str_name = "si.CTRL_MODE.HEXA.CH2";
-		IO__ADD_STRING_READ(str_name);
-		LINK__IO_VAR_STRING_CTRL(siCH__CTRL_MODE_HEXA_CH2, str_name);
-
-		//
 		str_name = "si.CAPACITOR_POS.HEXA.CH1";
-		IO__ADD_STRING_READ(str_name);
+		IO__ADD_STRING_READ_WITH_OPTION(str_name, "","","", 0.5, "");
 		LINK__IO_VAR_STRING_CTRL(siCH__CAPACITOR_POS_HEXA_CH1, str_name);
 
+		//
+		str_name = "si.CTRL_MODE.HEXA.CH2";
+		IO__ADD_STRING_READ__MANUAL(str_name);
+		LINK__IO_VAR_STRING_CTRL(siCH__CTRL_MODE_HEXA_CH2, str_name);
+
 		str_name = "si.CAPACITOR_POS.HEXA.CH2";
-		IO__ADD_STRING_READ(str_name);
+		IO__ADD_STRING_READ__MANUAL(str_name);
 		LINK__IO_VAR_STRING_CTRL(siCH__CAPACITOR_POS_HEXA_CH2, str_name);
 	}
 
@@ -504,11 +518,6 @@ int CObj__NAVII_SERIAL::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
-	// ADDR_ID ...
-	{
-		iUNIT__ADDR_ID = 0x01;
-	}
-
 	// ...
 	{
 		SCX__SEQ_INFO x_seq_info;
@@ -547,9 +556,18 @@ int CObj__NAVII_SERIAL::__INITIALIZE__IO(p_io_para)
 	// ...
 	{
 		sPROTOCOL_INFO.Format("Rate[%1d] DataBit[%1d] StopBit[%1d] Parity[%1d] \n",
-			nRate, nByte, nStop, nParity);
+								nRate, nByte, nStop, nParity);
 
-		sPROTOCOL_INFO += "Terminal String : [CR] \n";							  
+		sPROTOCOL_INFO += "Terminal String : [CheckSum] \n";	
+
+		//
+		CString str_log;
+
+		str_log = "\n";
+		str_log += sPROTOCOL_INFO;
+
+		xI__APP_LOG_CTRL->WRITE__LOG(str_log);
+		xI__DRV_LOG_CTRL->WRITE__LOG(str_log);
 	}
 
 	if(iActive_SIM > 0)

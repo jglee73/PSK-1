@@ -146,7 +146,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
+				OutputFile="..\..\..\..\App_Ver\Release-IO_Dll\$(ProjectName)_R.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\IO__PUMP_PFEIFFIER.def"
 				GenerateDebugInformation="true"
@@ -275,6 +275,50 @@
 				</File>
 				<File
 					RelativePath=".\CObj__VAC_SERIAL__MON_FNC.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CObj__VAC_NET"
+				>
+				<File
+					RelativePath=".\CObj__VAC_NET.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VAC_NET.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VAC_NET__CALL_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VAC_NET__DEF.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VAC_NET__DRV_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VAC_NET__LOG_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VAC_NET__MON_FNC.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Macro_Function"
+				>
+				<File
+					RelativePath=".\Macro_Function.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Macro_Function.h"
 					>
 				</File>
 			</Filter>

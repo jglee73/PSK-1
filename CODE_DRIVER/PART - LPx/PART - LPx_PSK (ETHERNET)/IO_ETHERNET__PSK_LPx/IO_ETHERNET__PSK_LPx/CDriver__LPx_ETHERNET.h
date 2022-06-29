@@ -61,7 +61,7 @@ public:
 			p_info->sPARA_ID  = para_id;
 		}
 
-		if(pList__MSG_INFO.GetSize() > 10)
+		if(pList__MSG_INFO.GetSize() > 30)
 		{
 			p_info = (CObj__Driver_INFO*) pList__MSG_INFO[0];
 			delete p_info;
@@ -275,7 +275,7 @@ private:
 	SCX__USER_LOG_CTRL xAPP_LOG_CTRL;
 	SCX__USER_LOG_CTRL xDRV_LOG_CTRL;
 	
-	bool bActive_SIM;
+	int iActive__SIM_MODE;
 
 	//
 	CII__EXT_FNC_MODE_CTRL *pII__EXT_MODE_CTRL;

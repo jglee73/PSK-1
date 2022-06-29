@@ -42,6 +42,9 @@ private:
 	CString	sObject_Name;
 
 	// ...
+	bool bActive__COMM_ONLINE;
+
+	// ...
 	int iActive_SIM;
 
 	SCX__SERIAL_JG mX_Serial;
@@ -69,7 +72,7 @@ private:
 	SCX__USER_LOG_CTRL xI__APP_LOG_CTRL;
 	SCX__USER_LOG_CTRL xI__DRV_LOG_CTRL;
 
-	byte iUNIT__ADDR_ID;
+	// byte iUNIT__ADDR_ID;
 	int  iFLAG__DRV_FLAG;
 
 	// ...
@@ -145,6 +148,10 @@ private:
 	CX__VAR_STRING_CTRL	 sCH__INFO_CSR_MSG;
 
 	// CFG ...
+	CX__VAR_ANALOG_CTRL  aCH__CFG_PART_ADDRES_ID;
+
+	CX__VAR_DIGITAL_CTRL dCH__CFG_USE_CH2;
+
 	CX__VAR_ANALOG_CTRL  aCH__CFG_LOAD_MIN_CH1;
 	CX__VAR_ANALOG_CTRL  aCH__CFG_LOAD_MAX_CH1;
 
@@ -236,7 +243,7 @@ private:
 
 	// ...
 	void _Set_CheckSum(unsigned char *s_cmmd, const int s_len);
-	int  _Recv__Command(const byte addr_id,const byte cmmd_id,const byte s_data_len,const byte r_data_len, unsigned char* s_data,unsigned char* r_data);
+	int  _Recv__Command(const CString& var_name, const byte addr_id,const byte cmmd_id,const byte s_data_len,const byte r_data_len, unsigned char* s_data,unsigned char* r_data);
 
 	CString _Get__CSR_CODE(const byte csr_code);
 
