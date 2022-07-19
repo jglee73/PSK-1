@@ -666,25 +666,12 @@ int CObj__STEP_STRIP::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			pOBJ_CTRL__MAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
 			//
-			var_name = "PARA.LOAD_POS.CH1";
+			var_name = "PARA.LOAD_POSITION";
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_LOAD_POS_CH1, obj_name,var_name);
 
-			var_name = "PARA.LOAD_POS.CH2";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_LOAD_POS_CH2, obj_name,var_name);
-
 			//
-			var_name = "PARA.TUNE_POS.CH1";
+			var_name = "PARA.TUNE_POSITION";
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_TUNE_POS_CH1, obj_name,var_name);
-
-			var_name = "PARA.TUNE_POS.CH2";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_TUNE_POS_CH2, obj_name,var_name);
-
-			//
-			var_name = "PARA.CAP_POS.CH1";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_CAP_POS_CH1, obj_name,var_name);
-
-			var_name = "PARA.CAP_POS.CH2";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_CAP_POS_CH2, obj_name,var_name);
 		}
 	}
 

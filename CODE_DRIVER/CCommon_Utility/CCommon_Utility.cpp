@@ -78,3 +78,17 @@ int CCommon_Utility
 
 	return i_hexa;
 }
+
+int CCommon_Utility
+::Check__Same_String(const CString& str_data, const CStringArray& l_data)
+{
+	int i_limit = l_data.GetSize();
+	int i;
+
+	for(i=0; i<i_limit; i++)
+	{
+		if(str_data.CompareNoCase(l_data[i]) == 0)
+			return i;
+	}
+	return -1;
+}

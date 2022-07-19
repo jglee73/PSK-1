@@ -162,7 +162,7 @@ void CObj__STD_TYPE
 			{
 				sCH__LINK_SET_MELODY_BUZZER->Set__DATA(STR__OFF);
 
-				for (i=0; i<CFG_MELODY_MAX; i++)
+				for (i=0; i<iSIZE_MELODY; i++)
 				{
 					if(doEXT_CH__MELODY[i]->Check__DATA(STR__OFF) < 0)
 					{
@@ -179,7 +179,7 @@ void CObj__STD_TYPE
 
 				if(var_data.CompareNoCase(STR__OFF) == 0)
 				{
-					for (i=0; i<CFG_MELODY_MAX; i++)
+					for (i=0; i<iSIZE_MELODY; i++)
 					{
 						if(doEXT_CH__MELODY[i]->Check__DATA(STR__OFF) < 0)
 						{
@@ -192,12 +192,9 @@ void CObj__STD_TYPE
 					dCH__CFG_MELODY_NUM->Get__DATA(var_num);
 					i = atoi(var_num)-1;
 
-					for (int j=0; j<CFG_MELODY_MAX; j++)
+					for (int j=0; j<iSIZE_MELODY; j++)
 					{
-						if(i == j)
-						{
-							continue;
-						}
+						if(i == j)		continue;
 
 						if(doEXT_CH__MELODY[j]->Check__DATA(STR__OFF) < 0)
 						{
@@ -205,9 +202,12 @@ void CObj__STD_TYPE
 						}
 					}
 
-					if(doEXT_CH__MELODY[i]->Check__DATA(STR__ON) < 0)
+					if(i < iSIZE_MELODY)
 					{
-						doEXT_CH__MELODY[i]->Set__DATA(STR__ON);
+						if(doEXT_CH__MELODY[i]->Check__DATA(STR__ON) < 0)
+						{
+							doEXT_CH__MELODY[i]->Set__DATA(STR__ON);
+						}
 					}
 				}
 			}

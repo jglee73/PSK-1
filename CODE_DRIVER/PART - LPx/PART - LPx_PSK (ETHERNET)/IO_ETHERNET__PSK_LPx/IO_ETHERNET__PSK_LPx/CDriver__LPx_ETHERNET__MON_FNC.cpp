@@ -11,14 +11,53 @@ void CDriver__LPx_ETHERNET
 ::Mon__IO_MONITOR(CII_OBJECT__VARIABLE* p_variable,
 				  CII_OBJECT__ALARM* p_alarm)
 {
-	CString var_data;
+	if(iActive__SIM_MODE > 0)
+	{
+		bActive__COMM_ONLINE = true;
+
+		//
+		sCH__INR__ERROR_ID_DEC->Set__DATA("0");
+		sCH__INR__ERROR_ID_HEXA->Set__DATA("Ox0");
+
+		sCH__INR__ALGINER_ERROR_ID->Set__DATA("0");
+	}
+	else
+	{
+		bActive__COMM_ONLINE = false;
+	}
+
+	// ...
+	bool active__cfg_change = true;
 	int i;
+
+	// Config.Save ...
+	{
+		active__cfg_change = false;
+
+		siCH__PIO_TP_INFO->Get__STRING();
+		_Save__Config_Change();
+	}
 
 
 	while(1)
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.1);
 
+
+		// CONFIG.SAVE ...
+		if(dEXT_CH__CONFIG_SAVE->Check__DATA(STR__UnChange) > 0)
+		{
+			if(active__cfg_change)
+			{
+				active__cfg_change = false;
+
+				_Save__Config_Change();			
+			}
+		}
+		else
+		{
+			active__cfg_change = true;
+		}
 
 		// LP_STATE ...
 		for(i=0; i<CFG_LPx__SIZE; i++)
@@ -27,39 +66,21 @@ void CDriver__LPx_ETHERNET
 		}
 
 		//
-		if((dCH__SIM_CFG__REAL_TEST->Check__DATA(STR__YES) < 0)
-		&& (iActive__SIM_MODE > 0))
+		if(bActive__COMM_ONLINE)
 		{
-			iSim_Flag = 1;
-		}
-		else
-		{
-			iSim_Flag = -1;
-		}
-
-		if(iSim_Flag > 0)
-		{
-			diCH__COMM_STS->Set__DATA(STR__ONLINE);
 			sCH__MON_COMMUNICATION_STATE->Set__DATA(STR__ONLINE);
 		}
 		else
 		{
-			if(diCH__COMM_STS->Check__DATA(STR__OFFLINE) > 0)
-			{
-				sCH__MON_COMMUNICATION_STATE->Set__DATA(STR__OFFLINE);
+			sCH__MON_COMMUNICATION_STATE->Set__DATA(STR__OFFLINE);
 
-				// ...
-				{
-					CString r_act;
-					int alarm_id = ALID__OFFLINE_ALARM;
-
-					p_alarm->Check__ALARM(alarm_id,r_act);
-					p_alarm->Post__ALARM(alarm_id);
-				}
-			}
-			else
+			// ...
 			{
-				sCH__MON_COMMUNICATION_STATE->Set__DATA(STR__ONLINE);
+				CString r_act;
+				int alarm_id = ALID__OFFLINE_ALARM;
+
+				p_alarm->Check__ALARM(alarm_id,r_act);
+				p_alarm->Post__ALARM(alarm_id);
 			}
 		}
 
@@ -96,6 +117,7 @@ int  CDriver__LPx_ETHERNET
 
 	int err_count = 0;
 
+
 	while(1)
 	{
 		int r_len = mX_Net->DATA__RECV_QUEUE(&str_data, 1, &err_msg);
@@ -103,28 +125,26 @@ int  CDriver__LPx_ETHERNET
 		{
 			Sleep(1);
 
-			err_count++;
-			if(err_count > 2)		m_nCommState = OFFLINE;
-
+			if(bActive__COMM_ONLINE)
+			{
+				bActive__COMM_ONLINE = true;
+			}
+			else
+			{
+				err_count++;
+				if(err_count > 2)		bActive__COMM_ONLINE = false;
+			}
 			continue;
 		}
 
 		err_count = 0;
-		m_nCommState = ONLINE;
+		bActive__COMM_ONLINE = true;
 
 		// ...
 		{
 			log_msg.Format(" * Recv <- %s%s\n", str_data,sEnd_InStr);
 
 			Fnc__DRV_LOG(log_msg);
-		}
-
-		if(active_prt)
-		{
-			printf(" <--- \n");
-			printf(" * r_len : %1d \n", r_len);
-			printf(" * err_msg  : %s \n",   err_msg);
-			printf(" * str_data : %s%s \n", str_data,sEnd_InStr);
 		}
 
 		// ...
@@ -247,19 +267,6 @@ int  CDriver__LPx_ETHERNET
 				continue;
 			}
 
-			if(active_prt)
-			{
-				printf(" * key_word : [%s] \n", key_word);
-
-				// ...
-				int t_limit = l_para.GetSize();
-
-				printf(" ** para list (%1d) ... \n", t_limit);
-
-				for(int t=0; t<t_limit; t++)
-					printf("  * %1d) %1s \n", t,l_para[t]);
-			}
-
 			// ...
 			CString str_para;
 
@@ -344,4 +351,52 @@ int  CDriver__LPx_ETHERNET
 	}
 
 	return -1;
+}
+
+// ..
+int CDriver__LPx_ETHERNET::_Save__Config_Change()
+{
+	CString log_msg;
+	CString log_bff;
+
+	log_msg = "_Save__Config_Change() ... \n";
+
+	// ...
+	CString ch_data;
+	int i;
+
+	// PIO_CFG.TPx ...
+	{
+		log_msg += "PIO_CFG.TPx \n";
+
+		for(i=0; i<CFG_PIO__TP_SIZE; i++)
+		{
+			aCH__PIO_CFG__TP_X[i]->Get__DATA(ch_data);
+			if(sCH__PIO_INFO__TP_X[i]->Check__DATA(ch_data) > 0)			continue;
+
+			if(iActive__SIM_MODE > 0)
+			{
+				sCH__PIO_INFO__TP_X[i]->Set__DATA(ch_data);
+			}
+
+			log_bff.Format(" * %s <- %s \n",
+							aoCH__PIO_TP_X[i]->Get__CHANNEL_NAME(),
+							ch_data);
+			log_msg += log_bff;
+
+			aoCH__PIO_TP_X[i]->Set__DATA(ch_data);
+		}
+
+		if(iActive__SIM_MODE > 0)
+		{
+			for(i=0; i<CFG_PIO__TP_SIZE; i++)
+			{
+				aCH__PIO_CFG__TP_X[i]->Get__DATA(ch_data);
+				sCH__PIO_INFO__TP_X[i]->Set__DATA(ch_data);
+			}
+		}
+	}
+
+	xAPP_LOG_CTRL->WRITE__LOG(log_msg);
+	return 1;
 }

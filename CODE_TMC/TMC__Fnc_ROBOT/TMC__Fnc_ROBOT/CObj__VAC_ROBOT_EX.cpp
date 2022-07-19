@@ -56,17 +56,17 @@ int CObj__VAC_ROBOT_EX::__DEFINE__VERSION_HISTORY(version)
 
 // ...
 #define  APP_DSP__PARA_ARM							\
-"A  B"
+"A  B  AB"
 
 #define  APP_DSP__PARA_MODULE						\
-"LBA  LBB  LBC  LBD  								\
- LLL  LLU                                           \
-PM1  PM2  PM3  PM4  PM5  PM6"
+"LBA  LBB  LBC  LBD									\
+ LLL  LLU											\
+ PM1   PM2   PM3   PM4   PM5   PM6"
 
 #define  APP_DSP__PARA_SLOT							\
 " 1  2  3  4  5  6  7  8  9 10						\
-11 12 13 14 15 16 17 18 19 20						\
-21 22 23 24 25 26 27 28 29 30"
+ 11 12 13 14 15 16 17 18 19 20						\
+ 21 22 23 24 25 26 27 28 29 30"
 
 #define APP_DSP__ARM_ACT				"RETRACT  EXTEND"
 #define APP_DSP__SV_STATUS				"UNKNOWN  CLOSE  OPEN"
@@ -116,15 +116,74 @@ int CObj__VAC_ROBOT_EX::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "PARA.SLOT";
 		STD__ADD_DIGITAL_WITH_COMMENT(str_name,APP_DSP__PARA_SLOT,"");
 		LINK__VAR_DIGITAL_CTRL(dCH__PARA_SLOT,str_name);
+	}
+
+	// WAC ...
+	{
+		// FROM_CTC.WAC.PMX ...
+		for(i=0; i<CFG_PM_LIMIT; i++)
+		{
+			int id = i + 1;
+
+			str_name.Format("FROM_CTC.WAC.PM%1d.USE", id);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__FROM_CTC_WAC_PM_USE_X[i], str_name);
+
+			str_name.Format("FROM_CTC.WAC.PM%1d.PICK.CHECK", id);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__FROM_CTC_WAC_PM_PICK_CHECK_X[i], str_name);
+
+			str_name.Format("FROM_CTC.WAC.PM%1d.PLACE.CHECK", id);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__FROM_CTC_WAC_PM_PLACE_CHECK_X[i], str_name);
+
+			//
+			str_name.Format("FROM_CTC.WAC.PM%1d.POS.ID", id);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__FROM_CTC_WAC_PM_POS_ID_X[i], str_name);
+
+			str_name.Format("FROM_CTC.WAC.PM%1d.POS.SLOT", id);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__FROM_CTC_WAC_PM_POS_SLOT_X[i], str_name);
+
+			//
+			str_name.Format("FROM_CTC.WAC.PM%1d.DELAY.SEC", id);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__FROM_CTC_WAC_PM_DELAY_SEC_X[i], str_name);
+		}
+
+		str_name = "FROM_CTC.WAC.PMC.WAFER.TYPE";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__FROM_CTC_WAC_PM_WAFER_TYPE, str_name);
 
 		//
-		str_name = "sWAC.USE";
+		str_name = "INFO.WAC.PMC.ACTIVE";
 		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__WAC_USE,str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_WAC_PMC_ACTIVE, str_name);
 
-		str_name = "sWAC.DELAY.SEC";
+		str_name = "INFO.WAC.PMC.STATE";
 		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__WAC_DELAY_SEC,str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_WAC_PMC_STATE, str_name);
+
+		str_name = "INFO.WAC.PMC.ARM.TYPE";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_WAC_PMC_ARM_TYPE, str_name);
+
+		str_name = "INFO.WAC.PMC.WFR.INFO";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_WAC_PMC_WFR_INFO, str_name);
+
+		str_name = "INFO.WAC.PMC.POS.ID";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_WAC_PMC_POS_ID, str_name);
+
+		str_name = "INFO.WAC.PMC.POS.SLOT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_WAC_PMC_POS_SLOT, str_name);
+
+		str_name = "INFO.WAC.PMC.DELAY.COUNT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_WAC_PMC_DELAY_COUNT, str_name);
 	}
 
 	// ...
@@ -170,6 +229,12 @@ l_act.Add("ABORT");
 l_act.RemoveAll();								\
 l_act.Add("CHECK_RETRY");						\
 l_act.Add("ABORT");
+
+#define  ACT__ABORT_RETRY_IGNORE				\
+l_act.RemoveAll();								\
+l_act.Add("ABORT");								\
+l_act.Add("RETRY");								\
+l_act.Add("IGNORE");
 
 
 int CObj__VAC_ROBOT_EX::__DEFINE__ALARM(p_alarm)
@@ -221,10 +286,9 @@ int CObj__VAC_ROBOT_EX::__DEFINE__ALARM(p_alarm)
 		alarm_msg  = "Please, check material on Robot's A-Arm.\n";
 		alarm_msg += "PHY_VAC_ROBOT+OTR.OUT.MON.dARM_A.MATERIAL.STATUS";
 
-		ACT__RETRY_ABORT;
+		ACT__ABORT_RETRY_IGNORE;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
-
 	// ...
 	{
 		alarm_id = ALID__ARM_B__MATERIAL_NONE_ERROR;
@@ -235,7 +299,7 @@ int CObj__VAC_ROBOT_EX::__DEFINE__ALARM(p_alarm)
 		alarm_msg = "Please, check material on Robot's B-Arm.\n";
 		alarm_msg += "PHY_VAC_ROBOT+OTR.OUT.MON.dARM_B.MATERIAL.STATUS";
 
-		ACT__RETRY_ABORT;
+		ACT__ABORT_RETRY_IGNORE;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
@@ -276,7 +340,7 @@ int CObj__VAC_ROBOT_EX::__DEFINE__ALARM(p_alarm)
 
 		alarm_msg = "Please, check material in PMC.\n";
 
-		ACT__RETRY_ABORT;
+		ACT__ABORT_RETRY_IGNORE;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
@@ -417,19 +481,31 @@ int CObj__VAC_ROBOT_EX::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		pROBOT__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
 
-		// Material Status
-		str_name = "OTR.OUT.MON.dARM_A.MATERIAL.STATUS";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_STATUS,def_data,str_name);
+		// ANI ...
+		{
+			str_name = "OTR.OUT.MON.dACT.ARM";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PHY_ROBOT__MON_ACT_ARM, def_data,str_name);
+			
+			str_name = "OTR.OUT.MON.dTRG.ROTATE";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PHY_ROBOT__MON_TRG_ROT, def_data,str_name);
+		}
 
-		str_name = "OTR.OUT.MON.dARM_B.MATERIAL.STATUS";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_STATUS,def_data,str_name);
+		// Material Status ...
+		{
+			str_name = "OTR.OUT.MON.dARM_A.MATERIAL.STATUS";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_STATUS, def_data,str_name);
 
-		// Material Title
-		str_name = "OTR.OUT.MON.sARM_A.MATERIAL.TITLE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_TITLE,def_data,str_name);
+			str_name = "OTR.OUT.MON.dARM_B.MATERIAL.STATUS";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_STATUS, def_data,str_name);
+		}
+		// Material Title ...
+		{
+			str_name = "OTR.OUT.MON.sARM_A.MATERIAL.TITLE";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_TITLE, def_data,str_name);
 
-		str_name = "OTR.OUT.MON.sARM_B.MATERIAL.TITLE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_TITLE,def_data,str_name);
+			str_name = "OTR.OUT.MON.sARM_B.MATERIAL.TITLE";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_TITLE, def_data,str_name);
+		}
 	}
 
 	// PMx SIZE ...
@@ -548,11 +624,15 @@ int CObj__VAC_ROBOT_EX::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				pLLx__OBJ_CTRL[i] = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
 				//
-				str_name = "OTR.OUT.MON.dPRESSURE.STATUS";
-				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx__PRESSURE_STATUS[i], obj_name,str_name);
+				str_name = "PARA.SLOT.ID";
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__LLx__PARA_SLOT_ID[i], obj_name,str_name);
 
 				str_name = "PARA.HANDSHAKE.SLOT";
 				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__LLx__PARA_HANDSHAKE_SLOT[i], obj_name,str_name);
+
+				//
+				str_name = "OTR.OUT.MON.dPRESSURE.STATUS";
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx__PRESSURE_STATUS[i], obj_name,str_name);
 
 				str_name = "OTR.IN.MON.ROBOT.TRANSFER.FLAG";
 				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LLx__ROBOT_TRANSFER_FLAG[i], obj_name,str_name);
@@ -809,7 +889,7 @@ int CObj__VAC_ROBOT_EX::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		// ...
 		{
 			CString log_msg;
-			log_msg.Format("Aborted ... :  [%s]",mode);
+			log_msg.Format("Aborted (%1d) ... :  [%s]", flag, mode);
 
 			xLOG_CTRL->WRITE__LOG(log_msg);
 		}

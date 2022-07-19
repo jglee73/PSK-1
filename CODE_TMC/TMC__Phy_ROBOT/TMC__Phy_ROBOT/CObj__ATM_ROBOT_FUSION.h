@@ -17,6 +17,8 @@ private:
 	SCX__USER_LOG_CTRL xAPP_LOG_CTRL;
 	int iFlag__APP_LOG;
 
+	int iActive__SIM_MODE;
+
 
 	//-------------------------------------------------------------------------
 	//  INTERNAL PROPERTY
@@ -125,6 +127,8 @@ private:
 	CX__VAR_STRING_CTRL  sEXT_CH__CUR_AL1_CCD_POS;
 
 	// LLx ...
+	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_SLOT_USE_X[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
+
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_LLx_ALIGN_ANGLE[CFG_LLx__SIZE];
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT[CFG_LLx__SIZE];
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_RANGE[CFG_LLx__SIZE];
@@ -195,6 +199,18 @@ private:
 	CX__VAR_DIGITAL_CTRL dEXT_CH__SIDE_STORAGE2_SLOT_STATUS[CFG_LPx__SLOT_SIZE];
 	CX__VAR_STRING_CTRL  sEXT_CH__SIDE_STORAGE2_SLOT_TITLE[CFG_LPx__SLOT_SIZE];
 
+	// ARM_RNE.SENSOR ...
+	bool bActive__ROBOT_RNE_SNS__ARM_A;
+	bool bActive__ROBOT_RNE_SNS__ARM_B;
+
+	CX__VAR_DIGITAL_CTRL dEXT_CH__ROBOT_RNE_SNS__ARM_A;
+	CX__VAR_DIGITAL_CTRL dEXT_CH__ROBOT_RNE_SNS__ARM_B;
+
+	// ARM_RNE.STATE ...
+	CString sDATA__RNE_ON;
+	CString sDATA__RNE_OFF;
+	//
+
 
 	//-------------------------------------------------------------------------
 	CString sMODE__INIT;
@@ -219,7 +235,8 @@ private:
 					CII_OBJECT__ALARM* p_alarm,
 					const CString& arm_type,
 					const CString& stn_name,
-					const CString& stn_slot);
+					const CString& stn_slot,
+					const bool active__align_pick);
 
 	int  Fnc__ACTION(const CString& arm_type,
 					 const CString& stn_name,
@@ -306,6 +323,7 @@ private:
 								    const CString& stn_name,
 								    const CString& stn_slot,
 								    const CString& act_name);
+
 	int  Interlock__CHECK_DOOR_OPEN(CII_OBJECT__ALARM* p_alarm,
 									const CString& stn_name,
 									const CString& stn_slot,
@@ -317,10 +335,13 @@ private:
 									const CString& stn_slot);
 
 	// ...
-	int  Interlock__AL1_SLOT_CHECK(const CString& stn_name,
+	int  Interlock__AL1_SLOT_CHECK(CII_OBJECT__ALARM* p_alarm,
+									const CString& stn_name,
 									const CString& para_slot,
 									CString& trg_slot);
-	int  Interlock__LLx_SLOT_CHECK(const CString& stn_name,
+
+	int  Interlock__LLx_SLOT_CHECK(CII_OBJECT__ALARM* p_alarm,
+								   const CString& stn_name,
 									const CString& para_slot,
 									CString& trg_slot);
 

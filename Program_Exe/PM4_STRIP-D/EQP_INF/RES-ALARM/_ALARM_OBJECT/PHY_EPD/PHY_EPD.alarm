@@ -1,0 +1,4 @@
+#ID=1	3101	LIGHT	PHY_EPD - EPD Detect Maximum Timeout !
+#ID=2	3102	LIGHT	PHY_EPD - EPD Detect : Unknown Slope Direction !
+#ID=3	3103	LIGHT	PHY_EPD - EPD Detect : Minimum Timeout !
+#ID=5	3105	LIGHT	PHY_EPD - EPD Error Range !

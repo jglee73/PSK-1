@@ -743,9 +743,11 @@ int CObj__VAT_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	def_name = "DATA.CONTROL_TYPE";
 	p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-	if(def_data.CompareNoCase("OBJ") == 0)		iDATA__VAT_CTRL_TYPE = _VAT_CTRL_TYPE__OBJ;
-	else										iDATA__VAT_CTRL_TYPE = _VAT_CTRL_TYPE__IO;
+		 if(def_data.CompareNoCase("OBJ")  == 0)		iDATA__VAT_CTRL_TYPE = _VAT_CTRL_TYPE__OBJ;
+	else if(def_data.CompareNoCase("HEXA") == 0)		iDATA__VAT_CTRL_TYPE = _VAT_CTRL_TYPE__HEXA;
+	else												iDATA__VAT_CTRL_TYPE = _VAT_CTRL_TYPE__IO;
 
+	// LINK OBJ ...
 	if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__OBJ)
 	{
 		def_name = "OBJ__VAT_NAME";
@@ -797,105 +799,174 @@ int CObj__VAT_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__VAT__CUR_POSITION_PER, obj_name,var_name);
 		}
 	}
+	// LINK HEXA ...
+	else if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__HEXA)		
+	{
+		// LINK_HEXA.MAX_VALUE ...
+		{
+			def_name = "LINK_HEXA.MAX_VALUE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			if(x_utility.Check__Hexa_Type(def_data) > 0)		iLINK_HEXA__MAX_VALUE = x_utility.Get__Hexa_From_String(def_data);
+			else												iLINK_HEXA__MAX_VALUE = atoi(def_data);
+
+			if(iLINK_HEXA__MAX_VALUE < 1)			iLINK_HEXA__MAX_VALUE = 1;
+		}
+
+		// SO.APC_CTRL_MODE ...
+		{
+			def_name = "CH__SO_APC_CTRL_MODE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,    obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SO_APC_CTRL_MODE, obj_name,var_name);
+		}
+		// SO.APC_SETPOINT_DATA ...
+		{
+			def_name = "CH__SO_APC_SETPOINT_DATA";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,       obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SO_APC_SETPOINT_DATA, obj_name,var_name);
+		}
+		// SO.APC_SETPOINT_TYPE ...
+		{
+			def_name = "CH__SO_APC_SETPOINT_TYPE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,        obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SO_APC_SETPOINT_TYPE, obj_name,var_name);
+		}
+
+		// SI.APC_STATE ...
+		{
+			def_name = "CH__SI_APC_STATE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SI_APC_STATE_HEXA,  obj_name,var_name);
+		}
+		// SI.APC_PRESSURE ...
+		{
+			def_name = "CH__SI_APC_PRESSURE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,  obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SI_APC_PRESSURE, obj_name,var_name);
+		}
+		// SI.APC_POSITION ...
+		{
+			def_name = "CH__SI_APC_POSITION";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,  obj_name,var_name);
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SI_APC_POSITION, obj_name,var_name);
+		}
+	}
 	else     // LINK.IO ...
 	{
-		// LINK : OUTPUT ...
+		// DO.APC_CTRL_MODE ...
 		{
-			// DO.APC_CTRL_MODE ...
-			{
-				def_name = "CH__DO_APC_CTRL_MODE";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,    obj_name,var_name);
-				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_APC_CTRL_MODE, obj_name,var_name);
-			}
-			// AO.APC_SETPOINT_DATA ...
-			{
-				def_name = "CH__AO_APC_SETPOINT_DATA";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,       obj_name,var_name);
-				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AO_APC_SETPOINT_DATA, obj_name,var_name);
-			}
-			// DO.APC_SETPOINT_TYPE ...
-			{
-				def_name = "CH__DO_APC_SETPOINT_TYPE";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,        obj_name,var_name);
-				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_APC_SETPOINT_TYPE, obj_name,var_name);
-			}
+			def_name = "CH__DO_APC_CTRL_MODE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,    obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_APC_CTRL_MODE, obj_name,var_name);
+		}
+		// AO.APC_SETPOINT_DATA ...
+		{
+			def_name = "CH__AO_APC_SETPOINT_DATA";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,       obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AO_APC_SETPOINT_DATA, obj_name,var_name);
+		}
+		// DO.APC_SETPOINT_TYPE ...
+		{
+			def_name = "CH__DO_APC_SETPOINT_TYPE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,        obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_APC_SETPOINT_TYPE, obj_name,var_name);
 		}
 
-		// LINK : INPUT ...
+		// AI.APC_PRESSURE ...
 		{
-			// DI.APC_STATE ...
+			def_name = "CH__AI_APC_PRESSURE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,  obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_APC_PRESSURE, obj_name,var_name);
+		}
+		// AI.APC_POSITION ...
+		{
+			def_name = "CH__AI_APC_POSITION";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,  obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_APC_POSITION, obj_name,var_name);
+		}
+
+		// DI.APC_STATE ...
+		{
+			def_name = "CH__DI_APC_STATE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			bool def_check = x_utility.Check__Link(ch_name);
+			bActive__DI_APC_STATE_IO = def_check;
+
+			if(def_check)
 			{
-				def_name = "CH__DI_APC_STATE";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_STATE,  obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_STATE_IO,  obj_name,var_name);
 			}
+		}
+		// SI.APC_STATE ...
+		{
+			def_name = "CH__SI_APC_STATE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
-			// AI.APC_PRESSURE ...
+			bool def_check = x_utility.Check__Link(ch_name);
+			bActive__SI_APC_STATE_IO = def_check;
+
+			if(def_check)
 			{
-				def_name = "CH__AI_APC_PRESSURE";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,  obj_name,var_name);
-				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_APC_PRESSURE, obj_name,var_name);
-			}
-			// AI.APC_POSITION ...
-			{
-				def_name = "CH__AI_APC_POSITION";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name,  obj_name,var_name);
-				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_APC_POSITION, obj_name,var_name);
-			}
-
-			// DI.APC_VLV_CLOSE ...
-			{
-				def_name = "CH__DI_APC_VLV_CLOSE";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-
-				bool def_check = x_utility.Check__Link(ch_name);
-				bActive__DI_APC_VLV_CLOSE = def_check;
-
-				if(def_check)
-				{
-					p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_VLV_CLOSE, obj_name,var_name);
-				}
-			}
-
-			// DI.APC_VLV_OPEN ...
-			{
-				def_name = "CH__DI_APC_VLV_OPEN";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-
-				bool def_check = x_utility.Check__Link(ch_name);
-				bActive__DI_APC_VLV_OPEN = def_check;
-
-				if(def_check)
-				{
-					p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_VLV_OPEN, obj_name,var_name);
-				}
-			}
-
-			// DI.APC_VLV_STATE ...
-			{
-				def_name = "CH__DI_APC_VLV_STATE";
-				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-
-				bool def_check = x_utility.Check__Link(ch_name);
-				bActive__DI_APC_VLV_STATE = def_check;
-
-				if(def_check)
-				{
-					p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_VLV_STATE, obj_name,var_name);
-				}
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__SI_APC_STATE_IO, obj_name,var_name);
 			}
 		}
 
-		// ...
+		// DI.APC_VLV_CLOSE ...
+		{
+			def_name = "CH__DI_APC_VLV_CLOSE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			bool def_check = x_utility.Check__Link(ch_name);
+			bActive__DI_APC_VLV_CLOSE = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_VLV_CLOSE, obj_name,var_name);
+			}
+		}
+		// DI.APC_VLV_OPEN ...
+		{
+			def_name = "CH__DI_APC_VLV_OPEN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			bool def_check = x_utility.Check__Link(ch_name);
+			bActive__DI_APC_VLV_OPEN = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_VLV_OPEN, obj_name,var_name);
+			}
+		}
+		// DI.APC_VLV_STATE ...
+		{
+			def_name = "CH__DI_APC_VLV_STATE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+			bool def_check = x_utility.Check__Link(ch_name);
+			bActive__DI_APC_VLV_STATE = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DI_APC_VLV_STATE, obj_name,var_name);
+			}
+		}
 	}
 
 	// ...

@@ -1,0 +1,25 @@
+#DATAITEMLIST
+IO si.PMC_AI_03_0
+IO si.PMC_AI_03_1
+IO ai.APC.Pressure
+IO ai.APC.Position
+IO di.APC.Status
+IO si.APC.Status
+IO di.APC.Vlv.Close.Check
+IO di.APC.Vlv.Open.Check
+IO di.APC.Device.Check
+IO si.PMC_DI_03_0
+IO si.PMC_DI_03_1
+IO si.PMC_DI_03_2
+IO si.PMC_DI_03_3
+IO so.PMC_DO_03_0
+IO so.PMC_DO_03_1
+IO so.PMC_AO_03_0
+IO do.APC.Mode.Set
+IO do.APC.SetPoint.Type
+IO ao.APC.SetPoint.Data
+PHY_VAT PARA.PRESSURE
+PHY_VAT PARA.POSITION
+PHY_VAT PARA.HOLD.SEC
+PHY_VAT CFG.PRESSURE.MAX.VALUE
+PHY_VAT CFG.PRESSURE.MAX.mTORR

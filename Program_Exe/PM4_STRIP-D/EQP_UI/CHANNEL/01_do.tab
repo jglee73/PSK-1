@@ -1,0 +1,19 @@
+#DATAITEMLIST
+IO so.PMC_DO_01_0
+IO do.RF1.Power                          
+IO do.RF1.Reset
+IO do.RF1.Mode.Select
+
+IO so.PMC_DO_01_1
+IO do.PM.Slot.Vlv.Open
+IO do.PM.Slot.Vlv.Close
+
+IO so.PMC_DO_01_2
+IO do.Soft.Vac.Vlv
+IO do.Bara.Protect.10_Torr.Vlv
+IO do.UPW.Vlv
+
+IO so.PMC_DO_01_3
+IO do.Vapor.3Way.Supply.Vlv
+IO do.Vapor.3Way.Dump.Vlv
+IO do.Pump.Purge.N2.Vlv

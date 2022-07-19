@@ -366,9 +366,6 @@ int  CDriver__LPx_ETHERNET
 					const CString& set_para,
 					CString& rsp_data) 
 {
-	printf("Drv__GET_LPx_CMMD() - Start ... \n");
-
-	// ...
 	double to_sec = 1.0;
 
 	CString err_msg;
@@ -381,16 +378,12 @@ int  CDriver__LPx_ETHERNET
 	log_msg.Format(" %s -> %s%s", var_name, str_cmmd, sEnd_OutStr);
 	Fnc__DRV_LOG(log_msg);
 
-	printf(" -> %s%s \n", str_cmmd, sEnd_OutStr);
-
 	mDrv_Msg.Load__MSG_INFO(fnc_cmmd, lp_id);
 
 	mX_Net->DATA__SEND(str_cmmd, 1, &err_msg);
 
 	CString para_rsp;
 	int r_flag = mDrv_Msg.Wait__MSG_INFO(fnc_cmmd,lp_id, to_sec, para_rsp,rsp_data);
-
-	printf("Drv__GET_LPx_CMMD() - End (%s) ... r_flag (%1d) \n", para_rsp, r_flag);
 
 	// ...
 	{
@@ -403,6 +396,9 @@ int  CDriver__LPx_ETHERNET
 
 		Fnc__DRV_LOG(log_msg);
 	}
+
+	if(r_flag  > 0)			bActive__COMM_ONLINE = true;
+	else					bActive__COMM_ONLINE = false;
 
 	if(para_rsp != "1")		return -1;
 	return 1;

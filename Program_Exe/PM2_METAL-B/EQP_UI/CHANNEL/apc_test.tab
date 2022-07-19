@@ -1,0 +1,18 @@
+#DATAITEMLIST
+IO si.PMA_AI_03_0
+IO si.PMA_AI_03_1
+IO ai.APC.Pressure
+IO ai.APC.Position
+IO di.APC.Status
+IO di.APC.Vlv.Close.Check
+IO di.APC.Vlv.Open.Check
+IO di.APC.Device.Check
+IO si.PMA_DI_03_0
+IO si.PMA_DI_03_1
+IO si.PMA_DI_03_2
+IO si.PMA_DI_03_3
+IO so.PMA_DO_03_0
+IO so.PMA_DO_03_1
+IO so.PMA_AO_03_0
+IO do.APC.Mode.Set
+IO do.APC.SetPoint.Type

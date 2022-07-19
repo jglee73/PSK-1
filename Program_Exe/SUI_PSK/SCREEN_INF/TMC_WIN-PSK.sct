@@ -124,7 +124,7 @@ WINDOW_NAME TMC_CFG__ROBOT
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE1.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.ROBOT.SAVE 
 }
 
 WINDOW_NAME TMC_CFG__PRESSURE
@@ -135,7 +135,7 @@ WINDOW_NAME TMC_CFG__PRESSURE
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE2.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.PRESSURE.SAVE 
 }
 
 WINDOW_NAME TMC_CFG__SLOT_VALVE 
@@ -146,7 +146,7 @@ WINDOW_NAME TMC_CFG__SLOT_VALVE
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE3.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.SLOT_VALVE.SAVE 
 }
 
 WINDOW_NAME TMC_CFG__FA_INTERFACE 
@@ -157,7 +157,7 @@ WINDOW_NAME TMC_CFG__FA_INTERFACE
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE4.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.FA_INTERFACE.SAVE 
 }
 
 WINDOW_NAME TMC_CFG__SYSTEM
@@ -168,7 +168,7 @@ WINDOW_NAME TMC_CFG__SYSTEM
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL			            DB_CFG+CFG.PAGE5.SAVE 
+	STATUS_CHANNEL			            DB_CFG+CFG.PAGE.SYSTEM.SAVE 
 }
 
 WINDOW_NAME TMC_CFG__LLx 
@@ -179,10 +179,10 @@ WINDOW_NAME TMC_CFG__LLx
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE6.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.LLx.SAVE 
 }
 
-WINDOW_NAME TMC_CFG__LPx
+WINDOW_NAME TMC_CFG__LPx_COMMON
 {
 	#CALL_DEFINE                    DEF__FRAME_CLIENT
 
@@ -190,7 +190,18 @@ WINDOW_NAME TMC_CFG__LPx
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE7.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.LPx_COMMON.SAVE 
+}
+
+WINDOW_NAME TMC_CFG__LPx_PURGE
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint  
+	
+	PAGE_TYPE			                  CONFIG 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.LPx_PURGE.SAVE 
 }
 
 WINDOW_NAME TMC_CFG__DA 
@@ -201,7 +212,7 @@ WINDOW_NAME TMC_CFG__DA
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE8.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.DA.SAVE 
 }
 
 WINDOW_NAME TMC_CFG__ACTIVE_HANDOFF
@@ -212,7 +223,7 @@ WINDOW_NAME TMC_CFG__ACTIVE_HANDOFF
 	USER_LEVEL                      Maint  
 	
 	PAGE_TYPE			                  CONFIG 
-	STATUS_CHANNEL		              DB_CFG+CFG.PAGE9.SAVE 
+	STATUS_CHANNEL		              DB_CFG+CFG.PAGE.ACTIVE_HANDOFF.SAVE 
 } 
 
 
@@ -274,6 +285,14 @@ WINDOW_NAME TMC_PART__MANIFOLD_TEST
 }
 
 WINDOW_NAME TMC_PART__EFEM
+{
+	#CALL_DEFINE                    DEF__FRAME_CLIENT
+
+	CTRL_CHANNEL                    SCR.CLIENT 
+	USER_LEVEL                      Maint
+}
+
+WINDOW_NAME TMC_PART__PUMP
 {
 	#CALL_DEFINE                    DEF__FRAME_CLIENT
 
@@ -349,8 +368,8 @@ WINDOW_NAME TMC_POPUP__LP1_RF_MNT
 	POPUP                           YES
 	LOW_LEFT_X                      10  
 	LOW_LEFT_Y                      10 
-	WIDTH                           410 
-	HEIGHT                          402 
+	WIDTH                           530
+	HEIGHT                          542 
 
 	SEQ_CTRL_CHANNEL                DB_GUI+sPOPUP.MNT.LP1
 	USER_LEVEL                      Maint  
@@ -358,10 +377,10 @@ WINDOW_NAME TMC_POPUP__LP1_RF_MNT
 WINDOW_NAME TMC_POPUP__LP2_RF_MNT 
 {
 	POPUP                           YES
-	LOW_LEFT_X                      10  
+	LOW_LEFT_X                      110  
 	LOW_LEFT_Y                      10 
-	WIDTH                           410 
-	HEIGHT                          402 
+	WIDTH                           530
+	HEIGHT                          542 
 
 	SEQ_CTRL_CHANNEL                DB_GUI+sPOPUP.MNT.LP2
 	USER_LEVEL                      Maint  
@@ -369,10 +388,10 @@ WINDOW_NAME TMC_POPUP__LP2_RF_MNT
 WINDOW_NAME TMC_POPUP__LP3_RF_MNT 
 {
 	POPUP                           YES
-	LOW_LEFT_X                      10  
+	LOW_LEFT_X                      210  
 	LOW_LEFT_Y                      10 
-	WIDTH                           410 
-	HEIGHT                          402 
+	WIDTH                           530
+	HEIGHT                          542 
 
 	SEQ_CTRL_CHANNEL                DB_GUI+sPOPUP.MNT.LP3
 	USER_LEVEL                      Maint  
@@ -401,7 +420,7 @@ WINDOW_NAME TMC_POPUP__LL2_MNT
 	USER_LEVEL                      Maint  
 }
 
-WINDOW_NAME TMC_POPUP__LP1_E84_IO 
+WINDOW_NAME TMC_POPUP__LP1_E84_IO-PSK
 {
 	POPUP                           YES
 	LOW_LEFT_X                      50  
@@ -412,10 +431,10 @@ WINDOW_NAME TMC_POPUP__LP1_E84_IO
 	CTRL_CHANNEL                    GUI.POPUP.MNT.E1
 	USER_LEVEL                      Maint  
 }
-WINDOW_NAME TMC_POPUP__LP2_E84_IO
+WINDOW_NAME TMC_POPUP__LP2_E84_IO-PSK
 {
 	POPUP                           YES
-	LOW_LEFT_X                      50  
+	LOW_LEFT_X                      100  
 	LOW_LEFT_Y                      30 
 	WIDTH                           360 
 	HEIGHT                          595 
@@ -423,10 +442,10 @@ WINDOW_NAME TMC_POPUP__LP2_E84_IO
 	CTRL_CHANNEL                    GUI.POPUP.MNT.E2
 	USER_LEVEL                      Maint  
 }
-WINDOW_NAME TMC_POPUP__LP3_E84_IO
+WINDOW_NAME TMC_POPUP__LP3_E84_IO-PSK
 {
 	POPUP                           YES
-	LOW_LEFT_X                      50  
+	LOW_LEFT_X                      150  
 	LOW_LEFT_Y                      30 
 	WIDTH                           360 
 	HEIGHT                          595 

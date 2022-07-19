@@ -137,6 +137,10 @@ private:
 	CString sMODE__MANUAL;
 	int  Call__MANUAL(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
 
+	//
+	CString sMODE__PROC_CTRL;
+	int  Call__PROC_CTRL(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
+	
 	// ...
 	unsigned int _Make__READ_PACKET(unsigned char* s_data, 
 		                            const unsigned char addr_id,

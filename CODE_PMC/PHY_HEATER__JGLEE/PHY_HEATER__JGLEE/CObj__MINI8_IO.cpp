@@ -120,6 +120,13 @@ int CObj__MINI8_IO::__DEFINE__VARIABLE_STD(p_variable)
 		}
 	}
 
+	// CFG : SYSTEM ...
+	{
+		str_name = "CFG.PART.USE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "YES NO", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_PART_USE, str_name);
+	}
+
 	// CFG : ERROR CHECK ...
 	for(i=0; i<iLOOP_SIZE; i++)
 	{
@@ -1230,7 +1237,7 @@ int CObj__MINI8_IO::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))
 	{
 		CString log_msg;
-		log_msg.Format("Aborted ... :  [%s]",mode);
+		log_msg.Format("Aborted (%1d) ... :  [%s]", flag,mode);
 
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 		xI_LOG_CTRL->WRITE__LOG(log_msg);		
@@ -1238,7 +1245,7 @@ int CObj__MINI8_IO::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	else
 	{
 		CString log_msg;
-		log_msg.Format("Completed ... :  [%s]",mode);
+		log_msg.Format("Completed ... :  [%s]", mode);
 
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 		xI_LOG_CTRL->WRITE__LOG(log_msg);

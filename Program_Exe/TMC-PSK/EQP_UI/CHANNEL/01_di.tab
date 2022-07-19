@@ -1,0 +1,52 @@
+#DATAITEMLIST
+IO si.Node1.Hexa.01
+
+IO di.LL1.VAC.Fast.VLV.OPEN
+IO di.LL1.VAC.Fast.VLV.CLOSE
+IO di.LL1_Left.DV.OPEN
+IO di.LL1_Left.DV.CLOSE
+IO di.LL1_Left.SV.OPEN
+IO di.LL1_Left.SV.CLOSE
+
+IO di.LL1.Wafer.Protrusion.1.OK
+IO di.LL1.Wafer.Protrusion.2.OK
+IO di.LL1.Wafer.Protrusion.3.OK
+IO di.EFEM.Side_Storage.SW
+IO di.LL1.ATM.SNS
+IO di.LL1.VAC.SNS
+
+IO di.LL2.VAC.Fast.VLV.OPEN
+IO di.LL2.VAC.Fast.VLV.CLOSE
+IO di.LL2_Left.DV.OPEN
+IO di.LL2_Left.DV.CLOSE
+IO di.LL2_Left.SV.OPEN
+IO di.LL2_Left.SV.CLOSE
+
+IO di.LL2.Wafer.Protrusion.1.OK
+IO di.LL2.Wafer.Protrusion.2.OK
+IO di.LL2.Wafer.Protrusion.3.OK
+IO di.LL2.ATM.SNS
+IO di.LL2.VAC.SNS
+
+IO di.FM.INTLK.Sensor.1
+IO di.FM.INTLK.Sensor.2
+IO di.MainRack.Door.Open
+IO di.MainRack.GPS.PWR.Alarm
+IO di.MainRack.GPS.State
+IO di.MainRack.UPS.State
+
+IO di.MainRack.SPS.State
+IO di.Smoke.Detect.Alarm
+IO di.MainRack.Fan.Alarm
+IO di.FilterRack.Fan.Alarm
+IO di.EFEM.ST1.Sensor
+IO di.EFEM.ST1.N2.Flow
+
+IO di.LL1_Right.DV.OPEN
+IO di.LL1_Right.DV.CLOSE
+IO di.LL1_Right.SV.OPEN
+IO di.LL1_Right.SV.CLOSE
+IO di.LL2_Right.DV.OPEN
+IO di.LL2_Right.DV.CLOSE
+IO di.LL2_Right.SV.OPEN
+IO di.LL2_Right.SV.CLOSE

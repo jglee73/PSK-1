@@ -15,7 +15,7 @@ void CObj__CHM_STD
 	CString str__vac_sns;
 	CString var__data;
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		diEXT_CH__ATM_SENSOR->Set__DATA(sDATA__ATM_OFF);
 		diEXT_CH__VAC_SENSOR->Set__DATA(sDATA__VAC_ON);
@@ -26,7 +26,36 @@ void CObj__CHM_STD
 	while(1)
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.1);
-		
+
+
+		if(iActive__SIM_MODE > 0)
+		{
+			if(doEXT_CH__FAST_PUMP_VLV__SET->Check__DATA(STR__OPEN) > 0)
+			{
+				if(bActive__DI_FR_VLV_OPEN)			diEXT_CH__DI_FR_VLV_OPEN->Set__DATA(STR__ON);
+				if(bActive__DI_FR_VLV_CLOSE)		diEXT_CH__DI_FR_VLV_CLOSE->Set__DATA(STR__OFF);
+			}
+			else
+			{
+				if(bActive__DI_FR_VLV_OPEN)			diEXT_CH__DI_FR_VLV_OPEN->Set__DATA(STR__OFF);
+				if(bActive__DI_FR_VLV_CLOSE)		diEXT_CH__DI_FR_VLV_CLOSE->Set__DATA(STR__ON);
+			}
+
+			if(bActive__SOFT_PUMP_VLV__SET)
+			{
+				if(doEXT_CH__SOFT_PUMP_VLV__SET->Check__DATA(STR__OPEN) > 0)
+				{
+					if(bActive__DI_SR_VLV_OPEN)		diEXT_CH__DI_SR_VLV_OPEN->Set__DATA(STR__ON);
+					if(bActive__DI_SR_VLV_CLOSE)	diEXT_CH__DI_SR_VLV_CLOSE->Set__DATA(STR__OFF);
+				}
+				else
+				{
+					if(bActive__DI_SR_VLV_OPEN)		diEXT_CH__DI_SR_VLV_OPEN->Set__DATA(STR__OFF);
+					if(bActive__DI_SR_VLV_CLOSE)	diEXT_CH__DI_SR_VLV_CLOSE->Set__DATA(STR__ON);
+				}
+			}
+		}
+
 		// PRESSURE ...
 		{
 			aiEXT_CH__TMC_CHM__PRESSURE_TORR->Get__DATA(var__data);
@@ -99,33 +128,44 @@ void CObj__CHM_STD
 			{
 				dCH__TMC_CHM_PRESSURE_STATUS->Set__DATA(STR__BTW);
 			}			
+
+			//
+			if(bActive__DO_GAUGE_ISO_VLV)
+			{
+				bool active__valve_open = false;
+
+				if(str__vac_sns.CompareNoCase(sDATA__VAC_ON) == 0)
+				{
+					double cur_press = aCH__TMC_CHM_PRESSURE_TORR->Get__VALUE();
+					double ref_press = aCH__CFG_GAUGE_LIMIT_PRESSURE->Get__VALUE();
+
+					if(cur_press < ref_press)		active__valve_open = true;
+				}
+
+				if(active__valve_open)			doEXT_CH__DO_GAUGE_ISO_VLV__SET->Set__DATA(STR__OPEN);
+				else							doEXT_CH__DO_GAUGE_ISO_VLV__SET->Set__DATA(STR__CLOSE);
+			}
 		}
 
 		// ...
 		{
-			if(diEXT_CH__ATM_SENSOR->Check__DATA(sDATA__ATM_ON) > 0)
-			{
-				dCH__TMC_CMH_VAC_SNS->Set__DATA(STR__OFF);
-			}
-			else
-			{
-				dCH__TMC_CMH_VAC_SNS->Set__DATA(STR__ON);
-			}
+			if(diEXT_CH__ATM_SENSOR->Check__DATA(sDATA__ATM_ON) > 0)			dCH__TMC_CMH_VAC_SNS->Set__DATA(STR__OFF);
+			else																dCH__TMC_CMH_VAC_SNS->Set__DATA(STR__ON);
 		}
 
-		Update__PUMP_VLV_STS(p_alarm);
+		//
+		Update__PUMP_VLV_STS(p_variable, p_alarm);
 
 		Fnc__INTERLOCK(p_variable,p_alarm);
 	}	
 }
 
 void CObj__CHM_STD
-::Fnc__INTERLOCK(CII_OBJECT__VARIABLE* p_variable,
-			     CII_OBJECT__ALARM* p_alarm)
+::Fnc__INTERLOCK(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 	if(Check__VENT_ALL_VLV__CLOSE(p_alarm) < 0)
 	{			
-		if(Check__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+		if(Check__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 		{
 			Fnc__VENT_ALL_VLV__CLOSE(p_alarm);
 
@@ -144,9 +184,9 @@ void CObj__CHM_STD
 	if((sEXT_CH__MON_PUMP_COMM_STS->Check__DATA(STR__ONLINE) < 0) 
 	|| (sEXT_CH__MON_PUMP_RUN_STS->Check__DATA(STR__ON) < 0))
 	{
-		if(Check__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+		if(Check__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 		{
-			Fnc__PUMP_ALL_VLV__CLOSE(p_alarm);
+			Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm);
 
 			// ...
 			{

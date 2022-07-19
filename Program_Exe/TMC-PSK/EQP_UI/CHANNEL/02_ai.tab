@@ -1,0 +1,14 @@
+#DATAITEMLIST
+IO ai.TM.Pressure.1
+IO ai.LL1.Pressure.1
+IO ai.LL2.Pressure.1
+IO ai.TM.EPC.Pressure
+IO ai.TM.Pressure
+
+IO ai.LL1.Pressure
+IO ai.LL2.Pressure
+
+IO ai.EFEM.ST1.Fan
+
+IO ai.LL.Water.Flow
+IO ai.LL.12_N2.Flow

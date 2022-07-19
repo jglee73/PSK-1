@@ -1,0 +1,21 @@
+#DATAITEMLIST
+IO si.PMC_DI_01_0
+IO di.RF1.Ready
+IO di.RF1.Power
+IO di.RF1.Alarm
+IO di.Source.Box.Cover.Open
+IO di.Source.Box.Fan.Alarm
+
+IO si.PMC_DI_01_1
+IO di.RF_Gen.PCW.Alarm
+IO di.RF_Gen.Water_Leak.Alarm
+IO di.RF_Gen.Cover.Open
+
+IO si.PMC_DI_01_2
+IO di.PM.Slot.Vlv.Open
+IO di.PM.Slot.Vlv.Close
+
+IO si.PMC_DI_01_3
+IO di.CHM.ATM.Sts
+IO di.CHM.VAC.Sts
+IO di.DNET.Fan.Alarm

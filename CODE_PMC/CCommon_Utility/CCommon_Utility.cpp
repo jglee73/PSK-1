@@ -118,5 +118,8 @@ int CCommon_Utility
 	int s_index = str_data.Find("OX");
 	if(s_index == 0)			return 1;
 
+	s_index = str_data.Find("0X");
+	if(s_index == 0)			return 1;
+
 	return -1;
 }

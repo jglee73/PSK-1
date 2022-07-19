@@ -14,15 +14,6 @@ void CObj__DNET_STD
 	CString ch_data;
 
 	// ...
-	{
-		ch_data.Format("%1d", usOutputOffset);
-		sCH__DNET_INFO__OUT_BYTE_SIZE->Set__DATA(ch_data);
-
-		ch_data.Format("%1d", usInputOffset);
-		sCH__DNET_INFO__IN_BYTE_SIZE->Set__DATA(ch_data);
-	}
-
-	// ...
 	SCX__ASYNC_TIMER_CTRL x_heartbeat_timer;
 
 	if(bActive__DO_DNET_HEARTBEAT)
@@ -50,15 +41,18 @@ void CObj__DNET_STD
 	{
 		diCH__COMM_STS->Set__DATA(STR__OFFLINE);
 
-		// ...
+		if(_Check__SLAVE_ERROR() > 0)
 		{
-			double cfg_sec = aCH__CFG_DRV_INT_STABLE_SEC->Get__VALUE();
-			double cfg_msec = cfg_sec * 1000.0;
-		
-			Sleep(cfg_msec);   // NDet 안정화
-		}
+			// ...
+			{
+				double cfg_sec = aCH__CFG_DRV_INT_STABLE_SEC->Get__VALUE();
+				double cfg_msec = cfg_sec * 1000.0;
 
-		Call__DEV_INFO(p_variable, p_alarm);
+				Sleep(cfg_msec);   // NDet 안정화
+			}
+
+			Call__DEV_INFO(p_variable, p_alarm);
+		}
 	}
 
 	if(iActive__SIM_MODE > 0)
@@ -192,8 +186,7 @@ void CObj__DNET_STD
 	// ...
 }
 
-void CObj__DNET_STD
-::_DNet__UPDATE_INFO()
+void CObj__DNET_STD::_DNet__UPDATE_INFO()
 {
 	if(iDNet_BoardNumber < 0)
 	{

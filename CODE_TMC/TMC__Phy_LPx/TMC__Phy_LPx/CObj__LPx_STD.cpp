@@ -20,27 +20,29 @@ int CObj__LPx_STD::__DEFINE__CONTROL_MODE(obj,l_mode)
 
 	// ...
 	{
-		ADD__CTRL_VAR(sMODE__INIT,       "INIT");
-		ADD__CTRL_VAR(sMODE__HOME,       "HOME");
+		ADD__CTRL_VAR(sMODE__INIT, "INIT");
+		ADD__CTRL_VAR(sMODE__HOME, "HOME");
 
 		ADD__CTRL_VAR(sMODE__DOOR_OPEN,  "DOOR_OPEN");
 		ADD__CTRL_VAR(sMODE__CHECK_DOOR_OPEN, "CHECK_DOOR_OPEN");
 
-		ADD__CTRL_VAR(sMODE__LOAD,       "LOAD");
-		ADD__CTRL_VAR(sMODE__UNLOAD,     "UNLOAD");
+		ADD__CTRL_VAR(sMODE__LOAD,   "LOAD");
+		ADD__CTRL_VAR(sMODE__UNLOAD, "UNLOAD");
 
-		ADD__CTRL_VAR(sMODE__PREPLOAD,   "PREPLOAD");
-		ADD__CTRL_VAR(sMODE__RLSUNLOAD,  "RLSUNLOAD");
+		ADD__CTRL_VAR(sMODE__PREPLOAD,  "PREPLOAD");
+		ADD__CTRL_VAR(sMODE__RLSUNLOAD, "RLSUNLOAD");
 
-		ADD__CTRL_VAR(sMODE__CID_READ,	 "CID_READ");
-		ADD__CTRL_VAR(sMODE__PAGE_READ,	 "PAGE_READ");
+		ADD__CTRL_VAR(sMODE__CYCLE, "CYCLE");
+
+		ADD__CTRL_VAR(sMODE__CID_READ,	"CID_READ");
+		ADD__CTRL_VAR(sMODE__PAGE_READ,	"PAGE_READ");
 
 		ADD__CTRL_VAR(sMODE__CID_WRITE,	 "CID_WRITE");
 		ADD__CTRL_VAR(sMODE__PAGE_WRITE, "PAGE_WRITE");
 
-		ADD__CTRL_VAR(sMODE__MAP,		 "MAP");
-		ADD__CTRL_VAR(sMODE__CLAMP,		 "CLAMP");
-		ADD__CTRL_VAR(sMODE__UNCLAMP,    "UNCLAMP");
+		ADD__CTRL_VAR(sMODE__MAP,	  "MAP");
+		ADD__CTRL_VAR(sMODE__CLAMP,	  "CLAMP");
+		ADD__CTRL_VAR(sMODE__UNCLAMP, "UNCLAMP");
 
 		// 
 		ADD__CTRL_VAR(sMODE__EXTENDPADDLE,  "EXTENDPADDLE");
@@ -128,10 +130,6 @@ int CObj__LPx_STD::__DEFINE__VARIABLE_STD(p_variable)
 
 	// ...
 	{
-		str_name = "OTR.IN.CFG.BYPASS.READ.ID.FLAG";
-		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
-		LINK__VAR_STRING_CTRL(sCH__CFG_BYPASS_READ_ID_FLAG,str_name);
-
 		str_name = "OTR.IN.CFG.FA.MODE";
 		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
 		LINK__VAR_STRING_CTRL(sCH__CFG_FA_MODE,str_name);
@@ -139,6 +137,15 @@ int CObj__LPx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "OTR.IN.CFG.FA.SERVICE.MODE";
 		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
 		LINK__VAR_STRING_CTRL(sCH__CFG_FA_SERVICE_MODE,str_name);
+
+		str_name = "MON.ACTIVE.FA.AUTO";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_ACTIVE_FA_AUTO, str_name);
+
+		//
+		str_name = "OTR.IN.CFG.BYPASS.READ.ID.FLAG";
+		STD__ADD_STRING_WITH_X_OPTION(str_name,"");
+		LINK__VAR_STRING_CTRL(sCH__CFG_BYPASS_READ_ID_FLAG,str_name);
 
 		str_name = "OTR.IN.CFG.RELOAD.FLAG";
 		STD__ADD_STRING(str_name);
@@ -172,6 +179,10 @@ int CObj__LPx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		str_name = "CFG.LOAD.MAP.MODE";
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "DISABLE ENABLE", "");
 		LINK__VAR_DIGITAL_CTRL(dCH__CFG_LOAD_MAP_MODE, str_name);
+
+		str_name = "CFG.LOAD_ACT.AUTO_MAP.MODE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "DISABLE ENABLE", "");
+		LINK__VAR_DIGITAL_CTRL(dCH__CFG_LOAD_ACT_AUTO_MAP_MODE, str_name);
 	}
 
 	// ...
@@ -193,7 +204,7 @@ int CObj__LPx_STD::__DEFINE__ALARM(p_alarm)
 {
 	DECLARE__ALARM;
 
-	//.....
+	// ...
 	CString title;
 	title.Format("%s - ",sObject_Name);
 
@@ -202,40 +213,55 @@ int CObj__LPx_STD::__DEFINE__ALARM(p_alarm)
 	CStringArray l_act;
 	int alarm_id;
 
-	//.....
-	alarm_id = ALID__PUMP_PRESSURE__TIMEOUT;
+	// ...
+	{
+		alarm_id = ALID__PUMP_PRESSURE__TIMEOUT;
 
-	alarm_title  = title;
-	alarm_title += "Pump Pressure TimeOut.";
+		alarm_title  = title;
+		alarm_title += "Pump Pressure TimeOut.";
 
-	alarm_msg = "Please, check pump pressure config !\n";
+		alarm_msg = "Please, check pump pressure config !\n";
 
-	ACT__RETRY_ABORT;
-	ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__DOOR__NOT_OPEN;
 
-	//.....
-	alarm_id = ALID__DOOR__NOT_OPEN;
+		alarm_title  = title;
+		alarm_title += "Door Status is not open !";
 
-	alarm_title  = title;
-	alarm_title += "Door Status is not open !";
+		alarm_msg = "Please, check loadport door status !\n";
+	
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__MAP_SEQ_LOCK__INTERLOCK;
 
-	alarm_msg = "Please, check loadport door status !\n";
+		alarm_title  = title;
+		alarm_title += "Currently, Load Port's status is \"Mapping_Sequence Lock\".";
 
-	ACT__RETRY_ABORT;
-	ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+		alarm_msg = "Please, check ATM Robot's status !\n";
 
-	//.....
-	alarm_id = ALID__MAP_SEQ_LOCK__INTERLOCK;
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__ROBOT_ARM__NOT_RETRACTED;
 
-	alarm_title  = title;
-	alarm_title += "Currently, Load Port's status is \"Mapping_Sequence Lock\".";
+		alarm_title  = title;
+		alarm_title += "Robot's arm is not retracted !\".";
 
-	alarm_msg = "Please, check ATM Robot's status !\n";
+		alarm_msg = "Please, check the RNE sensor of ATM Robot's arm ! \n";
 
-	ACT__RETRY_ABORT;
-	ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
 
-	//
 	return 1;
 }
 
@@ -266,6 +292,9 @@ int CObj__LPx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString def_name;
 	CString def_data;
 	CString str_name;
+	CString ch_name;
+	CString obj_name;
+	CString var_name;
 	int i;
 
 	// ...
@@ -274,7 +303,15 @@ int CObj__LPx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	bOBJ_TYPE__DUAL = TRUE;
 
-	// LPx OBJECT -----
+	// CH_LINK : OBJ_STATE ...
+	{
+		def_name = "CH__OBJ_STATE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,str_name);
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__OBJ_STATE, obj_name,str_name);
+	}
+
+	// OBJ : LPx ...
 	{
 		def_name = "OBJ.LP";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
@@ -308,35 +345,76 @@ int CObj__LPx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		str_name = "OTR.IN.sLP.RELOAD.FLAG";
 		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RELOAD_FLAG, def_data,str_name);
 
-		str_name = "OTR.IN.sLP.FA.MODE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__FA_MODE, def_data,str_name);
-
-		str_name = "OTR.IN.sLP.FA.SERVICE.MODE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__FA_SERVICE_MODE, def_data,str_name); 
+		str_name = "MON.ACTIVE.FA.AUTO";
+		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__LPx__MON_ACTIVE_FA_AUTO, def_data,str_name);
 	}
 
-	// LPx_RF OBJECT -----
+	// OBJ : LPx_RF ...
 	{
 		def_name = "OBJ.RF";
-		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
 		obj_rf = def_data;
-		pRFx__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
 
-		//
-		str_name = "OTR.OUT.MON.sCID.STRING";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RFx__CID_STRING, def_data,str_name);
+		if((def_data.CompareNoCase(STR__NO)   == 0)
+		|| (def_data.CompareNoCase(STR__NULL) == 0))
+		{
+			bActive__RFx_OBJ = false;
+		}
+		else
+		{
+			bActive__RFx_OBJ = true;
+		}
 
-		str_name = "OTR.IN.dLP.FA.MODE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RFx__FA_MODE, def_data,str_name);
+		if(bActive__RFx_OBJ)
+		{
+			pRFx__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
 
-		str_name = "OTR.IN.dLP.FA.SERVICE.MODE";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RFx__FA_SERVICE_MODE, def_data,str_name);
+			//
+			str_name = "OTR.OUT.MON.sCID.STRING";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RFx__CID_STRING, def_data,str_name);
+
+			str_name = "MON.ACTIVE.FA.AUTO";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__RFx__MON_ACTIVE_FA_AUTO, def_data,str_name);
+		}
 	}
 
-	if(obj_lp == obj_rf)
+	// ARM_RNE.SENSOR ...
+	{
+		def_name = "ROBOT.ARM_RNE_SNS";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if((def_data.CompareNoCase(STR__NO)   == 0)
+		|| (def_data.CompareNoCase(STR__NULL) == 0))
+		{
+			bActive__ROBOT_ARM_RNE_SNS = false;
+		}
+		else
+		{
+			bActive__ROBOT_ARM_RNE_SNS = true;
+
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_ARM_RNE_SNS, obj_name,var_name);
+		}
+
+		//
+		def_name = "DATA.RNE_ON";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+		sDATA__RNE_ON = def_data;
+
+		def_name = "DATA.RNE_OFF";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+		sDATA__RNE_OFF = def_data;
+	}
+
+	// ...
+	if(obj_lp.CompareNoCase(obj_rf) == 0)
 	{
 		bOBJ_TYPE__DUAL = FALSE;
+	}
+	else
+	{
+		bOBJ_TYPE__DUAL = TRUE;
 	}
 
 	// ...
@@ -359,6 +437,12 @@ int CObj__LPx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				dCH__SLOT_STATUS[i]->Set__DATA(STR__EXIST);
 			}
 			*/
+
+			//
+			if(bActive__ROBOT_ARM_RNE_SNS)
+			{
+				dEXT_CH__ROBOT_ARM_RNE_SNS->Set__DATA(sDATA__RNE_ON);
+			}
 		}
 	}
 
@@ -416,6 +500,8 @@ LOOP_RETRY:
 		ELSE_IF__CTRL_MODE(sMODE__PREPLOAD)				flag = Call__PREPLOAD(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__RLSUNLOAD)			flag = Call__RLSUNLOAD(p_variable,p_alarm);
 
+		ELSE_IF__CTRL_MODE(sMODE__CYCLE)				flag = Call__CYCLE(p_variable,p_alarm);
+
 		ELSE_IF__CTRL_MODE(sMODE__CID_READ)				flag = Call__CID_READ(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__PAGE_READ)			flag = Call__PAGE_READ(p_variable,p_alarm);
 
@@ -444,11 +530,6 @@ LOOP_RETRY:
 
 		ELSE_IF__CTRL_MODE(sMODE__EXTENDSHUTTLE)		flag = Call__EXTENDSHUTTLE(p_variable,p_alarm);
 		ELSE_IF__CTRL_MODE(sMODE__RETRACTSHUTTLE)		flag = Call__RETRACTSHUTTLE(p_variable,p_alarm);
-
-		else
-		{
-
-		}
 	}
 
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))

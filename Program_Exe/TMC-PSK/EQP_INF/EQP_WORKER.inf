@@ -25,6 +25,10 @@
 #OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__LBx_TEST
 #OBJECT_STD    EQP__Page_OBJ                 LOCK.TYPE                PAGE__MANIFOLD_TEST
 
+#OBJECT_STD    EQP__Page_OBJ                 STD.TYPE                 PAGE__LP1
+#OBJECT_STD    EQP__Page_OBJ                 STD.TYPE                 PAGE__LP2
+#OBJECT_STD    EQP__Page_OBJ                 STD.TYPE                 PAGE__LP3
+
 #OBJECT_STD    EQP__Page_OBJ                 STD.TYPE                 PAGE__LP1_RF
 #OBJECT_STD    EQP__Page_OBJ                 STD.TYPE                 PAGE__LP2_RF
 #OBJECT_STD    EQP__Page_OBJ                 STD.TYPE                 PAGE__LP3_RF
@@ -37,8 +41,9 @@
 // #OBJECT_STD    EQP__STD_Utility_OBJ          CFG_TO_CSV               Mng_CFG_TO_CSV
 
 
-#OBJECT_STD    TMC__MON_OBJ                  CDA                      MON__CDA
+// #OBJECT_STD    TMC__MON_OBJ                  CDA                      MON__CDA
 #OBJECT_STD    TMC__Phy_SIGNAL_TOWER         STD.TYPE                 PHY__SIGNAL_TOWER
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LAMP.CTRL                PHY_PSK__LAMP
 
 
 ===========================================================================
@@ -52,8 +57,7 @@
 #OBJECT_STD    TMC__Phy_PMC                  PMC.SIMPLE               PHY__PMx
 #OBJECT_STD    TMC__Active_HandOff           PMC.EX                   OPR__PMx_HANDOFF
 
-// #OBJECT_IO     Phy_IO__BROOKS_ROBOT          VacRobot.PSK             PHY_IO__VAC_ROBOT
-#OBJECT_IO     IO__ROBOT_PERSIMMON           VAC_ROBOT.SERIAL         PHY_IO__VAC_ROBOT
+#OBJECT_IO     Phy_IO__ROBOT_PERSIMMON_PSK   PERSIMMON.NET            PHY_IO__VAC_ROBOT
 
 
 ===========================================================================
@@ -69,6 +73,7 @@
 #OBJECT_STD    TMC__Phy_ROBOT                SIDE.STORAGE             PHY__BUFF2
 
 #OBJECT_IO     IO_RS232__ROBOT_SANKYO        PSK                      PHY_IO__ATM_ROBOT
+
 
 ===========================================================================
 #OBJECT_STD    TMC__INF_MODULE               ALx.STD                  INF__AL1
@@ -113,16 +118,16 @@
 
 
 ===========================================================================
+/*
 #OBJECT_STD    TMC__Phy_PUMP                 VIRTUAL.TYPE             PHY__TMC_PUMP
 #OBJECT_STD    TMC__Phy_PUMP                 VIRTUAL.TYPE             PHY__LLx_PUMP
+*/
 
-/*
 #OBJECT_STD    TMC__Phy_PUMP                 IO.OBJ                   PHY__TMC_PUMP
 #OBJECT_STD    TMC__Phy_PUMP                 IO.OBJ                   PHY__LLx_PUMP
 
-#OBJECT_IO     Phy_RS232__DRY_PUMP           LOT.VAC                  PHY_IO___TMC_PUMP
-#OBJECT_IO     Phy_RS232__DRY_PUMP           LOT.VAC                  PHY_IO___LLx_PUMP
-*/
+#OBJECT_IO     IO__PUMP_PFEIFFIER            VAC.SERIAL               PHY_IO__PUMP_TM
+#OBJECT_IO     IO__PUMP_PFEIFFIER            VAC.SERIAL               PHY_IO__PUMP_LL
 
 
 ===========================================================================
@@ -134,37 +139,29 @@
 #OBJECT_STD    TMC__OPR_MODULE               LPx.STD                  OPR__LP2
 #OBJECT_STD    TMC__OPR_MODULE               LPx.STD                  OPR__LP3
 
-#OBJECT_STD    TMC__Fnc_LPx                  LPx.STD                  FNC__LP1
-#OBJECT_STD    TMC__Fnc_LPx                  LPx.STD                  FNC__LP2
-#OBJECT_STD    TMC__Fnc_LPx                  LPx.STD                  FNC__LP3
-
 #OBJECT_STD    TMC__Phy_LPx                  LPx.SYS                  PHY__LP1
 #OBJECT_STD    TMC__Phy_LPx                  LPx.SYS                  PHY__LP2
 #OBJECT_STD    TMC__Phy_LPx                  LPx.SYS                  PHY__LP3
 
-#OBJECT_IO     Phy_IO__CYMECHS_LPx           DURAPORT.SERIAL          PHY_RS232__LP1
-#OBJECT_IO     Phy_IO__CYMECHS_LPx           DURAPORT.SERIAL          PHY_RS232__LP2
-#OBJECT_IO     Phy_IO__CYMECHS_LPx           DURAPORT.SERIAL          PHY_RS232__LP3
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LPx.CTRL                 PHY_IO__LP1
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LPx.CTRL                 PHY_IO__LP2
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LPx.CTRL                 PHY_IO__LP3
 
-#OBJECT_STD    Phy__IO_LOADPORT              OHT_E84.IO               PHY_OHT__LP1
-#OBJECT_STD    Phy__IO_LOADPORT              OHT_E84.IO               PHY_OHT__LP2
-#OBJECT_STD    Phy__IO_LOADPORT              OHT_E84.IO               PHY_OHT__LP3
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          RFID.CTRL                PHY_RFID__LP1
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          RFID.CTRL                PHY_RFID__LP2
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          RFID.CTRL                PHY_RFID__LP3
 
-#OBJECT_IO     Phy_IO__BROOKS_RFID           LF80.SERIAL              PHY_RS232__RF1
-#OBJECT_IO     Phy_IO__BROOKS_RFID           LF80.SERIAL              PHY_RS232__RF2
-#OBJECT_IO     Phy_IO__BROOKS_RFID           LF80.SERIAL              PHY_RS232__RF3
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          OHT.CTRL                 PHY_OHT__LP1
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          OHT.CTRL                 PHY_OHT__LP2
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          OHT.CTRL                 PHY_OHT__LP3
+
+#OBJECT_IO     IO_ETHERNET__PSK_LPx          DRIVER.LPx_ETHERNET      IO_EFEM
 
 
 ===========================================================================
-// #OBJECT_IO     Phy_IO__DNET_HILSCHER         TYPE.BROOKS              IO
-#OBJECT_IO     PMC__VIRTUAL_IO                IO.VIRTUAL                  IO
+#OBJECT_IO     PHY_RS232__FFU_SYSWORK        LV32.BLDC                PHY_IO__FFU
 
-#OBJECT_IO     Phy_IO__MKS_GAUGE             901P.SERIAL              IO_LBA__CHM_GAUGE
-#OBJECT_IO     Phy_IO__MKS_GAUGE             901P.SERIAL              IO_LBB__CHM_GAUGE
-#OBJECT_IO     Phy_IO__MKS_GAUGE             901P.SERIAL              IO_TM1__CHM_GAUGE
 
-#OBJECT_IO     Phy_IO__MKS_GAUGE             901P.SERIAL              IO_LLx__PUMP_GAUGE
-#OBJECT_IO     Phy_IO__MKS_GAUGE             901P.SERIAL              IO_TM1__PUMP_GAUGE
-
-#OBJECT_IO     Phy_IO__MARS_FFU              MS.FC100                 PHY_IO__FFU
+===========================================================================
+#OBJECT_IO     Phy_IO__DNET_HILSCHER         DNET.STD                 IO
 

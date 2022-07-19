@@ -1,0 +1,17 @@
+#DATAITEMLIST
+IO si.PMC_AI_01_0
+IO ai.RF1.Forward.Power
+IO si.PMC_AI_01_1
+IO ai.RF1.Refect.Power
+IO si.PMC_AI_01_10
+IO ai.EPD.Monitor
+IO si.PMC_AI_01_12
+IO ai.CHM.Pressure.1000_Torr
+IO si.PMC_AI_01_14
+IO ai.Pin_Pos.Displacement
+IO si.PMC_AI_01_16
+IO ai.LFC1.Monitor
+IO si.PMC_AI_01_21
+IO ai.Gas_Box.Diff_Pressure
+IO si.PMC_AI_01_22
+IO ai.Wall.Temp.Monitor

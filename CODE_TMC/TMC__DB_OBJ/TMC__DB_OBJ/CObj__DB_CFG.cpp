@@ -65,11 +65,57 @@ int CObj__DB_CFG::__DEFINE__VARIABLE_STD(p_variable)
 	CString def_data;
 	int i;
 
+	// LLx ...
+	{
+		CString def_name;
+		CString def_data;
+
+		def_name = "LLx.MULTI_SLOT_VALVE";
+		p_variable->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if(def_data.CompareNoCase("YES") == 0)			bActive__LLx_MULTI_SLOT_VALVE = true;
+		else											bActive__LLx_MULTI_SLOT_VALVE = false;
+	}
+
 	for(i=0;i<CFG_PAGE__SIZE;i++)
 	{
 		str_name.Format("CFG.PAGE%1d.SAVE",i+1);
 		LINK__VAR(dVAR__CFG_PAGEx_SAVE[i],str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__CFG_STS,"");
+	}
+
+	// PAGE.LPX ...
+	{
+		str_name = "CFG.PAGE.ROBOT.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.PRESSURE.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.SLOT_VALVE.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.FA_INTERFACE.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.SYSTEM.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.LLx.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.DA.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.ACTIVE_HANDOFF.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		//
+		str_name = "CFG.PAGE.LPx_COMMON.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
+
+		str_name = "CFG.PAGE.LPx_PURGE.SAVE";
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, APP_DSP__CFG_STS, "");
 	}
 
 	// ...
@@ -270,11 +316,6 @@ int CObj__DB_CFG::__DEFINE__VARIABLE_STD(p_variable)
 
 			str_name.Format("CFG.PM%1d.CHM.TYPE", id);
 			STD__ADD_DIGITAL(str_name, "REAL DUMMY");
-
-			/*
-			str_name.Format("CFG.dLOCAL_DYNAMIC_ALGN_PM%1d", id);	
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-			*/
 		}
 	}
 
@@ -285,66 +326,81 @@ int CObj__DB_CFG::__DEFINE__VARIABLE_STD(p_variable)
 			CString ll_name = _Get__LLx_NAME(i);
 			int id = i + 1;
 
-			//
-			str_name.Format("CFG.LL%1d.ALIGN.POS", id);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name,"deg",1,0.0,360.0,"");
+			if(bActive__LLx_MULTI_SLOT_VALVE)
+			{
+				str_name.Format("CFG.LL%1d.1.ALIGN.POS", id);
+				STD__ADD_ANALOG_WITH_X_OPTION(str_name,"deg",1,0.0,360.0,"");
 
-			//
-			str_name.Format("CFG.%s.EXIST.FLAG", ll_name);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
+				str_name.Format("CFG.LL%1d.2.ALIGN.POS", id);
+				STD__ADD_ANALOG_WITH_X_OPTION(str_name,"deg",1,0.0,360.0,"");
 
-			str_name.Format("CFG.%s.SV.EXIST.FLAG", ll_name);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","");
+				//
+				str_name.Format("CFG.LL%1d.1.EXIST.FLAG", id);
+				STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
 
-			str_name.Format("CFG.%s.SLOT.MAX", ll_name);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "slot", 0,0,2, "");
+				str_name.Format("CFG.LL%1d.2.EXIST.FLAG", id);
+				STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
+			}
+			else
+			{
+				str_name.Format("CFG.LL%1d.ALIGN.POS", id);
+				STD__ADD_ANALOG_WITH_X_OPTION(str_name,"deg",1,0.0,360.0,"");
+
+				//
+				str_name.Format("CFG.%s.EXIST.FLAG", ll_name);
+				STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
+			}
+
+			// ...
+			{
+				str_name.Format("CFG.%s.SV.EXIST.FLAG", ll_name);
+				STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","");
+
+				str_name.Format("CFG.%s.SLOT.MAX", ll_name);
+				STD__ADD_ANALOG_WITH_X_OPTION(str_name, "slot", 0,0,2, "");
 		
-			//
-			str_name.Format("CFG.%s.LIFT_PIN.EXIST.FLAG", ll_name);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","");
+				//
+				str_name.Format("CFG.%s.LIFT_PIN.EXIST.FLAG", ll_name);
+				STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","");
 
-			str_name.Format("CFG.%s.LIFT_PIN.DOWN.MODE.AFTER_DOOR_CLOSE", ll_name);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ENABLE DISABLE","");
+				str_name.Format("CFG.%s.LIFT_PIN.DOWN.MODE.AFTER_DOOR_CLOSE", ll_name);
+				STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ENABLE DISABLE","");
 
-			str_name.Format("CFG.%s.LIFT_PIN.UP.MODE.AFTER_HEATING", ll_name);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"DISABLE ENABLE","");
+				str_name.Format("CFG.%s.LIFT_PIN.UP.MODE.AFTER_HEATING", ll_name);
+				STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"DISABLE ENABLE","");
 
-			str_name.Format("CFG.%s.LIFT_PIN.UP.TIMEOUT", ll_name);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 3, 100, "");
+				str_name.Format("CFG.%s.LIFT_PIN.UP.TIMEOUT", ll_name);
+				STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 3, 100, "");
 
-			str_name.Format("CFG.%s.LIFT_PIN.DOWN.TIMEOUT", ll_name);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 3, 100, "");
-
-			/*
-			str_name.Format("CFG.dLOCAL_DYNAMIC_ALGN_AIRLOCK%1d", id);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-			*/
+				str_name.Format("CFG.%s.LIFT_PIN.DOWN.TIMEOUT", ll_name);
+				STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 3, 100, "");
+			}
 		}
 	}
 
-	// VIS1 -----
+	// VIS1 ...
 	{
 		str_name.Format("CFG.VIS1.EXIST.FLAG");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
 	}
 
-	// BUFF1 -----
+	// BUFF1 ...
 	{
 		str_name.Format("CFG.BUFF1.EXIST.FLAG");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
 	}
-	// BUFF2 -----
+	// BUFF2 ...
 	{
 		str_name.Format("CFG.BUFF2.EXIST.FLAG");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
 	}
-	// FULL BUFF -----
+	// FULL BUFF ...
 	{
 		str_name.Format("CFG.FULL.BUFF.EXIST.FLAG");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,APP_DSP__YES_NO,"");
 	}
 
-	// Cool Station
+	// Cool Station ...
 	{
 		str_name.Format("CFG.dCOOL.STATION.SLOT1.USE");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NOTUSE AVAILABLE","");
@@ -362,539 +418,284 @@ int CObj__DB_CFG::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,180,"def:60");
 	}
 
-	/*
-	// ...
+	// OCR ...
 	{
-		// MBAParamsAvgERRange
-		str_name.Format("CFG.aMBA.PARAMS.AVG.ERRANGE");		// Excel Num:465
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",1,0.0,50.0,"def:1.0d");
+		str_name.Format("CFG.dOCR.ENABLED");	
+		STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "FALSE TRUE", "");
 
-		// MBAParamsDistanceToChamber
-		str_name.Format("CFG.aMBA.PARAMS.DISTANCE.TO.CHAMBER");		// Excel Num:466
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",1,0.0,10000.0,"def:908.0d");
-
-		// MBAParamsMode
-		str_name.Format("CFG.dMBA.PARAMS.MODE");			// Excel Num:467
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"UNKNOWN ETCHRATE", "");
-
-		// NotCommunicatingAllLightsOff
-		str_name.Format("CFG.dNOT.COMM.ALL.LIGHTS.OFF");	// Excel Num:468
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-
-		// EnableNotchAngleForSinglePM
-		str_name.Format("CFG.dENABLE.NOTCH.ANGLE.SINGLE.PM");	// Excel Num:125
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-
-		// EnableNotchDitheringForCWACWafers
-		str_name.Format("CFG.dENABLE.NOTCH.DITHERING.CWAC.WFRS");	// Excel Num:126
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NO YES", "");
-
-		// EnableOfflineMetrologyCapability
-		str_name.Format("CFG.dENABLE.OFFLINE.METROLOGY.CAPABILITY");	// Excel Num:127
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-
-		// FanFilterUnitAlarmClearing
-		str_name.Format("CFG.dFFU.ALARM.LEVEL");	// Excel Num:131
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NONE WARN_ONLY", "");
-
-		// FanFilterUnitAlarmClearingFFU
-		str_name.Format("CFG.dFFU.ALARM.CLEARING");	// Excel Num:132
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NONE DO_NOTHING", "");
-
-		// FanFilterUnitTimeToWaitBeforeAllowingStartAfterAlarmCleared
-		str_name.Format("CFG.aFFU.AFTER.ALARM.CLEAR.START.WAIT");	// Excel Num:132
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0.0,3600,"def:90");
-
-		// FanFilterUnitTimeToWaitBeforeAllowingStartAfterAlarmClearedFFU
-		str_name.Format("CFG.aFFU.AFTER.ALARM.CLEAR.START.WAIT.FFU");	// Excel Num:132
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0.0,3600,"def:90");
-	}
-	*/
-
-	// --------- OCR --------------
-	{
-		// OCR_Enabled
-		str_name.Format("CFG.dOCR.ENABLED");	// Excel Num:148
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-
-		// OcrAngleToRotateBack
-		str_name.Format("CFG.aOCR.ANGLE.ROTATE.BACK");	// 
+		str_name.Format("CFG.aOCR.ANGLE.ROTATE.BACK");	
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",1,0.0,3600,"def:0");
 
-		// OcrDebugMode
 		str_name.Format("CFG.dOCR.DEBUG.MODE");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
 
-		// OcrErrorBypass
-		str_name.Format("CFG.aOCR.ERROR.BYPASS");	// 
+		str_name.Format("CFG.aOCR.ERROR.BYPASS");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,2,"def:1");
 
-		// OcrNumberOfRetriesFor_SEMI_M14
-		str_name.Format("CFG.aOCR.NUM.RETRY.SEMI.M14");	// 
+		str_name.Format("CFG.aOCR.NUM.RETRY.SEMI.M14");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,999,"def:5");
 
-		// OcrNumberOfRetriesFor_SEMI_T7
-		str_name.Format("CFG.aOCR.NUM.RETRY.SEMI.M17");	// 
+		str_name.Format("CFG.aOCR.NUM.RETRY.SEMI.M17");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,999,"def:8");
 
-		// OCRPlaceToCenterAlign
-		str_name.Format("CFG.aOCR.RPLACE.CENTER.ALIGN");	// 
+		str_name.Format("CFG.aOCR.RPLACE.CENTER.ALIGN");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,1,"def:0");
 
-		// OcrScoreLimit_SEMI_M14
-		str_name.Format("CFG.aOCR.SCORE.LIMIT.SEMI.M14");	// 
+		str_name.Format("CFG.aOCR.SCORE.LIMIT.SEMI.M14");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,50,999,"def:70");
 
-		// OcrSelectReadOptionType
-		str_name.Format("CFG.aOCR.SELECT.READ.OPT.TYPE");	// 
+		str_name.Format("CFG.aOCR.SELECT.READ.OPT.TYPE");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,2,"def:0");
 
-		// OcrVerifyCyclingTestEnabled
-		str_name.Format("CFG.dVERIFY.CYCLE.TEST.ENABLED");	// Excel Num:157
+		str_name.Format("CFG.dVERIFY.CYCLE.TEST.ENABLED");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
 
-		// OcrWaferRotateAngle
-		str_name.Format("CFG.aOCR.WAFER.ROTATE.ANGLE");	// 
+		str_name.Format("CFG.aOCR.WAFER.ROTATE.ANGLE");	
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",1,0.0,3600,"def:900");
 	}
 
-	/*
-	// --------- METROLOGY --------------
-	{
-		// OfflineMetrologyDirectory
-		str_name.Format("CFG.sMETROLOGY.DIRECTORY");	// 
-		STD__ADD_STRING_WITH_X_OPTION(str_name, "\\");
-
-		// OfflineMetrologyDrive
-		str_name.Format("CFG.sMETROLOGY.OFFLINE.DRIVE");	// 
-		STD__ADD_STRING_WITH_X_OPTION(str_name, "K:");
-
-		// OfflineMetrologyFilePreservationDays
-		str_name.Format("CFG.aMETROLOGY.OFFLINE.PRESERVATION.DAYS");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"days",1,0,1825,"def:90");
-
-		// OfflineMetrologyType
-		str_name.Format("CFG.dMETROLOGY.OFFLINE.TYPE");	// Excel Num:162
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NONE FILE", "");
-
-		// UseMetrologyWithSentAlignmentAngle
-		str_name.Format("CFG.dUSE.METROLOGY.ALIGN.ANGLE");	// Excel Num:179
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NO YES", "");
-
-		// AtmPressureMonitoring
-		str_name.Format("CFG.dATM.PRESS.MONITORING");	// Excel Num:89
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"DISABLE ENABLE", "");
-
-		// CheckForWaferPresentWhenPickingFromAPM
-		str_name.Format("CFG.dWFR.PRESENT.CHECK.WHEN.PICK.FROM.APM");	// Excel Num:91
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"NO YES", "");
-
-		// TMUPC1Setpoint
-		str_name.Format("CFG.aTM.UPC1.SETPOINT");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,10,150,"def:90");
-
-		// TMUPC2Setpoint
-		str_name.Format("CFG.aTM.UPC2.SETPOINT");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,10,150,"def:90");
-
-		// TMTraceDataLogTim
-		str_name.Format("CFG.aTM.TRACE.DATALOG.TIME");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,10,900,"def:300");
-
-		// TMLoggingExpireDays : 507
-		str_name.Format("CFG.aTM.LOGGING.EXPIRE.DAYS");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,5,30,"def:5");
-
-		// TMDisableCoverSwitchCheck : 500
-		str_name.Format("CFG.dTM.DISABLE.COVER.SWITCH.CHECK");	// Excel Num:500
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "FALSE");
-
-		// TMConvectron3ForelineCrossoverPressure : 494
-		str_name.Format("CFG.aTM.CONV3.FORELINE.CROSS.PRESS");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000,"def:200");
-
-		// TMConvectron3ForelineCrossoverStabilizeTime
-		str_name.Format("CFG.aTM.CONV3.FORELINE.CROSS.STAB.TIME");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,60,"def:5");
-
-		// TMConvectron3ForelineCrossoverTimeout : 
-		str_name.Format("CFG.aTM.CONV3.FORELINE.CROSS.TIMEOUT");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,180,"def:60");
-
-		// TMConvectron3LowerTolerance
-		str_name.Format("CFG.aTM.CONV3.LOWER.TOLERANCE");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000,"def:20");
-
-		// TMConvectron3UpperTolerance
-		str_name.Format("CFG.aTM.CONV3.UPPER.TOLERANCE");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000,"def:20");
-
-		// TMConvectron1ForelineCrossoverPressure : 489
-		str_name.Format("CFG.aTM.CONV1.FORELINE.CROSS.PRESS");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000,"def:200");
-
-		// TMConvectron1ForelineCrossoverStabilizeTime
-		str_name.Format("CFG.aTM.CONV1.FORELINE.CROSS.STAB.TIME");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,60,"def:5");
-
-		// TMConvectron1ForelineCrossoverTimeout : 
-		str_name.Format("CFG.aTM.CONV1.FORELINE.CROSS.TIMEOUT");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,0,180,"def:60");
-
-		// TMConvectron1LowerTolerance
-		str_name.Format("CFG.aTM.CONV1.LOWER.TOLERANCE");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000,"def:20");
-
-		// TMConvectron1UpperTolerance
-		str_name.Format("CFG.aTM.CONV1.UPPER.TOLERANCE");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000,"def:20");
-
-		// TMConvectron1AtmosphereHighPressure
-		str_name.Format("CFG.aTM.CONV1.ATM.HIGH.PRESS");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000000,"def:770000");
-
-		// TMConvectron1AtmosphereLowPressure
-		str_name.Format("CFG.aTM.CONV1.ATM.LOW.PRESS");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,0,1000000,"def:750000");
-
-		// AirLock1ArmAssignment
-		str_name.Format("CFG.dLL1.ARM.ASSIGNMENT");		// Excel Num:385
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ARM_A ARM_B", "");
-
-		// AirLock2ArmAssignment
-		str_name.Format("CFG.dLL2.ARM.ASSIGNMENT");		// Excel Num:386
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ARM_A ARM_B", "");
-
-		// CtlStateOfflineLights
-		str_name.Format("CFG.dCTL.STS.OFFLINE.LIGHTS");		// Excel Num:387
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE", "");
-	}
-	*/
-
-	/*
-	// AirLock 1 -----------------------------
-	{
-		// DAAirLock1ExtendRadialHardTolerance
-		str_name.Format("CFG.aLL1.DYNAMIC.ALIGN.EXTEND.R.HARD.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-
-		// DAAirLock1ExtendRadialSoftTolerance
-		str_name.Format("CFG.aLL1.DYNAMIC.ALIGN.EXTEND.R.SOFT.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-
-		// DAAirLock1ExtendThetaHardTolerance
-		str_name.Format("CFG.aLL1.DYNAMIC.ALIGN.EXTEND.T.HARD.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-
-		// DAAirLock1ExtendThetaSoftTolerance
-		str_name.Format("CFG.aLL1.DYNAMIC.ALIGN.EXTEND.T.SOFT.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-	}
-	// AirLock 2 -----------------------------
-	{
-		// DAAirLock2ExtendRadialHardTolerance
-		str_name.Format("CFG.aLL2.DYNAMIC.ALIGN.EXTEND.R.HARD.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-
-		// DAAirLock2ExtendRadialSoftTolerance
-		str_name.Format("CFG.aLL2.DYNAMIC.ALIGN.EXTEND.R.SOFT.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-
-		// DAAirLock2ExtendThetaHardTolerance
-		str_name.Format("CFG.aLL2.DYNAMIC.ALIGN.EXTEND.T.HARD.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-
-		// DAAirLock2ExtendThetaSoftTolerance : 403
-		str_name.Format("CFG.aLL2.DYNAMIC.ALIGN.EXTEND.T.SOFT.TOL");	// 
-		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"mtorr",0,50,4000,"def:750000");
-	}
-	*/
-
-	/*
 	// ...
 	{
-		// PM1ArmAssignment : 469
-		str_name.Format("CFG.dPM1.ARM.ASSIGNMENT");	// 
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ARMA ARMB","def:ARMA");
-
-		// PM2ArmAssignment : 470
-		str_name.Format("CFG.dPM2.ARM.ASSIGNMENT");	// 
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ARMA ARMB","def:ARMA");
-
-		// PM3ArmAssignment : 471
-		str_name.Format("CFG.dPM3.ARM.ASSIGNMENT");	// 
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ARMA ARMB","def:ARMA");
-
-		// PM4ArmAssignment : 472
-		str_name.Format("CFG.dPM4.ARM.ASSIGNMENT");	// 
-		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"ARMA ARMB","def:ARMA");
-	}
-	*/
-
-	// ...
-	{
-		// AGV1ClampTurnOffHO : 193
-		str_name.Format("CFG.dOHT1.CLAMP.TURN.OFF.HO");	// 
+		str_name.Format("CFG.dOHT1.CLAMP.TURN.OFF.HO");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV1ClampTurnOffHO : 258
-		str_name.Format("CFG.dOHT2.CLAMP.TURN.OFF.HO");	// 
+		str_name.Format("CFG.dOHT2.CLAMP.TURN.OFF.HO");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV1ClampTurnOffHO : 323
-		str_name.Format("CFG.dOHT3.CLAMP.TURN.OFF.HO");	// 
+		str_name.Format("CFG.dOHT3.CLAMP.TURN.OFF.HO");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV1CompleteOnTimeoutE23_T5
-		str_name.Format("CFG.aOHT1.COMPLETE.ON.TIMEOUTE23_T5");	// 
+		str_name.Format("CFG.aOHT1.COMPLETE.ON.TIMEOUTE23_T5");	
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,1,999,"def:60");
 
-		// AGV2CompleteOnTimeoutE23_T5
-		str_name.Format("CFG.aOHT2.COMPLETE.ON.TIMEOUTE23_T5");	// 
+		str_name.Format("CFG.aOHT2.COMPLETE.ON.TIMEOUTE23_T5");	
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,1,999,"def:60");
 
-		// AGV3CompleteOnTimeoutE23_T5
-		str_name.Format("CFG.aOHT3.COMPLETE.ON.TIMEOUTE23_T5");	// 
+		str_name.Format("CFG.aOHT3.COMPLETE.ON.TIMEOUTE23_T5");	
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"sec",0,1,999,"def:60");
 
-		// AGV1Enable_debug
-		str_name.Format("CFG.dOHT1.ENABLE.DEBUG");	// 
+		str_name.Format("CFG.dOHT1.ENABLE.DEBUG");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV2Enable_debug
-		str_name.Format("CFG.dOHT2.ENABLE.DEBUG");	// 
+		str_name.Format("CFG.dOHT2.ENABLE.DEBUG");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV3Enable_debug
-		str_name.Format("CFG.dOHT3.ENABLE.DEBUG");	// 
+		str_name.Format("CFG.dOHT3.ENABLE.DEBUG");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV1EnabledDisplayOnUI
-		str_name.Format("CFG.dOHT1.ENABLED.DISPLAY.ON.UI");	// 
+		str_name.Format("CFG.dOHT1.ENABLED.DISPLAY.ON.UI");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV2EnabledDisplayOnUI
-		str_name.Format("CFG.dOHT2.ENABLED.DISPLAY.ON.UI");	// 
+		str_name.Format("CFG.dOHT2.ENABLED.DISPLAY.ON.UI");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV3EnabledDisplayOnUI
-		str_name.Format("CFG.dOHT3.ENABLED.DISPLAY.ON.UI");	// 
+		str_name.Format("CFG.dOHT3.ENABLED.DISPLAY.ON.UI");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV1ErrorRecoveryOneOption
-		str_name.Format("CFG.dOHT1.ERR.RECOVERY.ONE.OPTION");	// 
+		str_name.Format("CFG.dOHT1.ERR.RECOVERY.ONE.OPTION");	
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"UNKNOWN NONE","def:NONE");
 
-		// AGV2ErrorRecoveryOneOption
-		str_name.Format("CFG.dOHT2.ERR.RECOVERY.ONE.OPTION");	// 
+		str_name.Format("CFG.dOHT2.ERR.RECOVERY.ONE.OPTION");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"UNKNOWN NONE","def:NONE");
 
-		// AGV3ErrorRecoveryOneOption
-		str_name.Format("CFG.dOHT3.ERR.RECOVERY.ONE.OPTION");	// 
+		str_name.Format("CFG.dOHT3.ERR.RECOVERY.ONE.OPTION");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"UNKNOWN NONE","def:NONE");
 
-		// AGV1PIOErrorRecoveryType1
-		str_name.Format("CFG.dOHT1.ERR.RECOVERY.TYPE1");	// 
+		str_name.Format("CFG.dOHT1.ERR.RECOVERY.TYPE1");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV2PIOErrorRecoveryType1
-		str_name.Format("CFG.dOHT2.ERR.RECOVERY.TYPE1");	// 
+		str_name.Format("CFG.dOHT2.ERR.RECOVERY.TYPE1");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV3PIOErrorRecoveryType1
-		str_name.Format("CFG.dOHT3.ERR.RECOVERY.TYPE1");	// 
+		str_name.Format("CFG.dOHT3.ERR.RECOVERY.TYPE1");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// AGV1SelectE23_E84 
-		str_name.Format("CFG.dOHT1.SELECT.E23.E84");	// 
+		str_name.Format("CFG.dOHT1.SELECT.E23.E84");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"0 1","def:0");
 
-		// AGV2SelectE23_E84 
-		str_name.Format("CFG.dOHT2.SELECT.E23.E84");	// 
+		str_name.Format("CFG.dOHT2.SELECT.E23.E84");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"0 1","def:0");
 
-		// AGV3SelectE23_E84 
-		str_name.Format("CFG.dOHT3.SELECT.E23.E84");	// 
+		str_name.Format("CFG.dOHT3.SELECT.E23.E84");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"0 1","def:0");
 
-		// AGV1ShortDelay
-		str_name.Format("CFG.aOHT1.SHORT.DELAY");	// 
+		str_name.Format("CFG.aOHT1.SHORT.DELAY");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"msec",0,50,1000,"def:500");
 
-		// AGV2ShortDelay
-		str_name.Format("CFG.aOHT2.SHORT.DELAY");	// 
+		str_name.Format("CFG.aOHT2.SHORT.DELAY");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"msec",0,50,1000,"def:500");
 
-		// AGV3ShortDelay
-		str_name.Format("CFG.aOHT3.SHORT.DELAY");	// 
+		str_name.Format("CFG.aOHT3.SHORT.DELAY");
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"msec",0,50,1000,"def:500");
 	}
 
 	// ...
 	{
-		// Port1_DisplayReadTagForPage1And2Only
-		str_name.Format("CFG.dLP1.DISPLAY.READ.TAG.PAGE1and2.ONLY");	// 
+		str_name.Format("CFG.dLP1.DISPLAY.READ.TAG.PAGE1and2.ONLY");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port2_DisplayReadTagForPage1And2Only
-		str_name.Format("CFG.dLP2.DISPLAY.READ.TAG.PAGE1and2.ONLY");	// 
+		str_name.Format("CFG.dLP2.DISPLAY.READ.TAG.PAGE1and2.ONLY");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port3_DisplayReadTagForPage1And2Only
-		str_name.Format("CFG.dLP3.DISPLAY.READ.TAG.PAGE1and2.ONLY");	// 
+		str_name.Format("CFG.dLP3.DISPLAY.READ.TAG.PAGE1and2.ONLY");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port1_MakeAccessModeViolationToPostErrorAlarm
-		str_name.Format("CFG.dLP1.ACC.MODE.VIOLATION.TO.POST.ERR.ALARM");	// 
+		str_name.Format("CFG.dLP1.ACC.MODE.VIOLATION.TO.POST.ERR.ALARM");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port2_MakeAccessModeViolationToPostErrorAlarm
-		str_name.Format("CFG.dLP2.ACC.MODE.VIOLATION.TO.POST.ERR.ALARM");	// 
+		str_name.Format("CFG.dLP2.ACC.MODE.VIOLATION.TO.POST.ERR.ALARM");
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port3_MakeAccessModeViolationToPostErrorAlarm
-		str_name.Format("CFG.dLP3.ACC.MODE.VIOLATION.TO.POST.ERR.ALARM");	// 
+		str_name.Format("CFG.dLP3.ACC.MODE.VIOLATION.TO.POST.ERR.ALARM");
 		LINK__VAR(dVAR__CFG_LP3_ACC_MODE_VIOLATION_TO_POST_ERR_ALARM,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port1IsDualLightInstalled
-		str_name.Format("CFG.dLP1.IS.DUAL.LIGHT.INSTALLED");	// 
+		str_name.Format("CFG.dLP1.IS.DUAL.LIGHT.INSTALLED");
 		LINK__VAR(dVAR__CFG_LP1_IS_DUAL_LIGHT_INSTALLED,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port2IsDualLightInstalled
-		str_name.Format("CFG.dLP2.IS.DUAL.LIGHT.INSTALLED");	// 
+		str_name.Format("CFG.dLP2.IS.DUAL.LIGHT.INSTALLED"); 
 		LINK__VAR(dVAR__CFG_LP2_IS_DUAL_LIGHT_INSTALLED,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port3IsDualLightInstalled
-		str_name.Format("CFG.dLP3.IS.DUAL.LIGHT.INSTALLED");	// 
+		str_name.Format("CFG.dLP3.IS.DUAL.LIGHT.INSTALLED");
 		LINK__VAR(dVAR__CFG_LP3_IS_DUAL_LIGHT_INSTALLED,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port1loadPortEnable_debug
-		str_name.Format("CFG.dLP1.ENABLE.DEBUG");	// 
+		str_name.Format("CFG.dLP1.ENABLE.DEBUG");
 		LINK__VAR(dVAR__CFG_LP1_ENABLE_DEBUG,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"0 1","def:0");
 
-		// Port2loadPortEnable_debug
-		str_name.Format("CFG.dLP2.ENABLE.DEBUG");	// 
+		str_name.Format("CFG.dLP2.ENABLE.DEBUG");
 		LINK__VAR(dVAR__CFG_LP2_ENABLE_DEBUG,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"0 1","def:0");
 
-		// Port3loadPortEnable_debug
-		str_name.Format("CFG.dLP3.ENABLE.DEBUG");	// 
+		str_name.Format("CFG.dLP3.ENABLE.DEBUG");
 		LINK__VAR(dVAR__CFG_LP3_ENABLE_DEBUG,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"0 1","def:0");
 
-		// Port1loadPortWaferNumber
-		str_name.Format("CFG.aLP1.WAFER.NUMBER");	// 
+		str_name.Format("CFG.aLP1.WAFER.NUMBER");
 		LINK__VAR(aVAR__CFG_LP1_WAFER_NUMBER,str_name);
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,13,26,"def:25");
 
-		// Port2loadPortWaferNumber
-		str_name.Format("CFG.aLP2.WAFER.NUMBER");	// 
+		str_name.Format("CFG.aLP2.WAFER.NUMBER");
 		LINK__VAR(aVAR__CFG_LP2_WAFER_NUMBER,str_name);
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,13,26,"def:25");
 
-		// Port3loadPortWaferNumber
-		str_name.Format("CFG.aLP3.WAFER.NUMBER");	// 
+		str_name.Format("CFG.aLP3.WAFER.NUMBER");
 		LINK__VAR(aVAR__CFG_LP3_WAFER_NUMBER,str_name);
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,13,26,"def:25");
 	}
 
 	// ...
 	{
-		// LP1PDOLightButtonsDockUndockOption
-		str_name.Format("CFG.aLP1.PDO.LIGHT.BTN.DOCK.UNDOCK.OPT");	// 
+		str_name.Format("CFG.aLP1.PDO.LIGHT.BTN.DOCK.UNDOCK.OPT");
 		LINK__VAR(dVAR__CFG_LP1_PDO_LIGHT_BTN_DOCK_UNDOCK_OPT,str_name);
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,0,2,"def:0");
 
-		// LP2PDOLightButtonsDockUndockOption
-		str_name.Format("CFG.aLP2.PDO.LIGHT.BTN.DOCK.UNDOCK.OPT");	// 
+		str_name.Format("CFG.aLP2.PDO.LIGHT.BTN.DOCK.UNDOCK.OPT");
 		LINK__VAR(dVAR__CFG_LP2_PDO_LIGHT_BTN_DOCK_UNDOCK_OPT,str_name);
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,0,2,"def:0");
 
-		// LP3PDOLightButtonsDockUndockOption
-		str_name.Format("CFG.aLP3.PDO.LIGHT.BTN.DOCK.UNDOCK.OPT");	// 
+		str_name.Format("CFG.aLP3.PDO.LIGHT.BTN.DOCK.UNDOCK.OPT");
 		LINK__VAR(dVAR__CFG_LP3_PDO_LIGHT_BTN_DOCK_UNDOCK_OPT,str_name);
 		STD__ADD_ANALOG_WITH_X_OPTION(str_name,"-",0,0,2,"def:0");
 	}
 
 	// ...
 	{
-		// Port1Read8Bytes16BytesForTagRead : RETURN8
-		str_name.Format("CFG.dLP1.READ.8BYTES.FOR.TAG.READ");	// 
+		str_name.Format("CFG.dLP1.READ.8BYTES.FOR.TAG.READ");
 		LINK__VAR(dVAR__CFG_LP1_READ_8BYTES_FOR_TAG_READ,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"UNKNOWN RETURN8","def:RETURN8");
 
-		// Port2Read8Bytes16BytesForTagRead : RETURN8
-		str_name.Format("CFG.dLP2.READ.8BYTES.FOR.TAG.READ");	// 
+		str_name.Format("CFG.dLP2.READ.8BYTES.FOR.TAG.READ");
 		LINK__VAR(dVAR__CFG_LP2_READ_8BYTES_FOR_TAG_READ,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"UNKNOWN RETURN8","def:RETURN8");
 
-		// Port3Read8Bytes16BytesForTagRead : RETURN8
-		str_name.Format("CFG.dLP3.READ.8BYTES.FOR.TAG.READ");	// 
+		str_name.Format("CFG.dLP3.READ.8BYTES.FOR.TAG.READ");
 		LINK__VAR(dVAR__CFG_LP3_READ_8BYTES_FOR_TAG_READ,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"UNKNOWN RETURN8","def:RETURN8");
 
-		// 246.Port1TrimLeadingAndTrailngSpaces
-		str_name.Format("CFG.dLP1.TRIM.LEADING.TRAILING.SPACES");	// 
+		str_name.Format("CFG.dLP1.TRIM.LEADING.TRAILING.SPACES");
 		LINK__VAR(dVAR__CFG_LP1_TRIM_LEADING_TRAILING_SPACES,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port2TrimLeadingAndTrailngSpaces
-		str_name.Format("CFG.dLP2.TRIM.LEADING.TRAILING.SPACES");	// 
+		str_name.Format("CFG.dLP2.TRIM.LEADING.TRAILING.SPACES");
 		LINK__VAR(dVAR__CFG_LP2_TRIM_LEADING_TRAILING_SPACES,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port3TrimLeadingAndTrailngSpaces
-		str_name.Format("CFG.dLP3.TRIM.LEADING.TRAILING.SPACES");	// 
+		str_name.Format("CFG.dLP3.TRIM.LEADING.TRAILING.SPACES");
 		LINK__VAR(dVAR__CFG_LP3_TRIM_LEADING_TRAILING_SPACES,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:FALSE");
 
-		// Port1TrimTrailngUnderScores
-		str_name.Format("CFG.dLP1.TRIM.TRAILING.UNDER.SCORES");	// 
+		str_name.Format("CFG.dLP1.TRIM.TRAILING.UNDER.SCORES");	
 		LINK__VAR(dVAR__CFG_LP1_TRIM_TRAILING_UNDER_SCORES,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 
-		// Port2TrimTrailngUnderScores
-		str_name.Format("CFG.dLP2.TRIM.TRAILING.UNDER.SCORES");	// 
+		str_name.Format("CFG.dLP2.TRIM.TRAILING.UNDER.SCORES");	
 		LINK__VAR(dVAR__CFG_LP2_TRIM_TRAILING_UNDER_SCORES,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 
-		// Port3TrimTrailngUnderScores
-		str_name.Format("CFG.dLP3.TRIM.TRAILING.UNDER.SCORES");	// 
+		str_name.Format("CFG.dLP3.TRIM.TRAILING.UNDER.SCORES");	
 		LINK__VAR(dVAR__CFG_LP3_TRIM_TRAILING_UNDER_SCORES,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 	}
 
 	// ...
 	{
-		// TagID1EnabledDisplayOnUI : 254
-		str_name.Format("CFG.dLP1.TAG.ID1.ENABLED.DISPLAY.ON.UI");	// 
+		str_name.Format("CFG.dLP1.TAG.ID1.ENABLED.DISPLAY.ON.UI");
 		LINK__VAR(dVAR__CFG_LP1_TAG_ID1_ENABLED_DISPLAY_ON_UI,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 
-		// TagID1EnabledDisplayOnUI : 
-		str_name.Format("CFG.dLP2.TAG.ID1.ENABLED.DISPLAY.ON.UI");	// 
+		str_name.Format("CFG.dLP2.TAG.ID1.ENABLED.DISPLAY.ON.UI");
 		LINK__VAR(dVAR__CFG_LP2_TAG_ID1_ENABLED_DISPLAY_ON_UI,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 
-		// TagID1EnabledDisplayOnUI : 
-		str_name.Format("CFG.dLP3.TAG.ID1.ENABLED.DISPLAY.ON.UI");	// 
+		str_name.Format("CFG.dLP3.TAG.ID1.ENABLED.DISPLAY.ON.UI");
 		LINK__VAR(dVAR__CFG_LP3_TAG_ID1_ENABLED_DISPLAY_ON_UI,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 	}
 
-	// ...
+	// CFG : LLx SLOT ...
+	{
+		for(i=0; i<CFG_LLx__LIMIT; i++)
+		{
+			int id = i + 1;
+
+			str_name.Format("CFG.LL%1d.SLOT01.USE", id);
+			STD__ADD_DIGITAL(str_name,"NO  YES");
+
+			str_name.Format("CFG.LL%1d.SLOT02.USE", id);
+			STD__ADD_DIGITAL(str_name,"NO  YES");
+		}
+	}
+
+	// LLx ALIGN ...
 	{
 		// ...
 		{
-			str_name = "MAINT.TARGET.LLx.NAME";
-			STD__ADD_DIGITAL(str_name,"LBA LBB LBC LBD");
+			if(bActive__LLx_MULTI_SLOT_VALVE)
+			{
+				str_name = "MAINT.TARGET.LLx.NAME";
+				STD__ADD_DIGITAL(str_name,"LL1 LL2");
 
+				str_name = "MAINT.TARGET.LLx.SLOT";
+				STD__ADD_DIGITAL(str_name, "1 2");
+			}
+			else
+			{
+				str_name = "MAINT.TARGET.LLx.NAME";
+				STD__ADD_DIGITAL(str_name,"LBA LBB LBC LBD");
+
+				str_name = "MAINT.TARGET.LLx.SLOT";
+				STD__ADD_DIGITAL(str_name, "1");
+			}
+
+			//
 			str_name = "MODULE.LINK.sTARGET.LLx.NAME";
+			STD__ADD_STRING(str_name);
+
+			str_name = "MODULE.LINK.sTARGET.LLx.SLOT";
 			STD__ADD_STRING(str_name);
 		}
 
@@ -903,7 +704,14 @@ int CObj__DB_CFG::__DEFINE__VARIABLE_STD(p_variable)
 			str_name = "CUR.AL1.TARGET.LLx.NAME";
 			STD__ADD_STRING(str_name);
 
+			str_name = "CUR.AL1.TARGET.LLx.SLOT";
+			STD__ADD_STRING(str_name);
+
+			//
 			str_name = "CUR.AL2.TARGET.LLx.NAME";
+			STD__ADD_STRING(str_name);
+
+			str_name = "CUR.AL2.TARGET.LLx.SLOT";
 			STD__ADD_STRING(str_name);
 		}
 
@@ -922,46 +730,72 @@ int CObj__DB_CFG::__DEFINE__VARIABLE_STD(p_variable)
 	{
 		int id = i + 1;
 
-		// AirLock1PostPositionIncrement	  Degree  0	 3	0
+		if(bActive__LLx_MULTI_SLOT_VALVE)
+		{
+			str_name.Format("CFG.LL%1d.1.POST.POSITION.INCREMENT", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,3, "");
+
+			str_name.Format("CFG.LL%1d.2.POST.POSITION.INCREMENT", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,3, "");
+
+			//
+			str_name.Format("CFG.LL%1d.1.POST.POSITION.INCREMENT.RANGE", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,360, "");
+
+			str_name.Format("CFG.LL%1d.2.POST.POSITION.INCREMENT.RANGE", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,360, "");
+
+			//
+			str_name.Format("CFG.LL%1d.1.POST.POSITION.INCREMENT.START.ANGLE", id); 
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,360, "");
+
+			str_name.Format("CFG.LL%1d.2.POST.POSITION.INCREMENT.START.ANGLE", id); 
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,360, "");
+
+			//
+			str_name.Format("CFG.LL%1d.1.POST.POSITION.INCREMENT.APPLY", id);
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"DISABLE ENABLE","");
+
+			str_name.Format("CFG.LL%1d.2.POST.POSITION.INCREMENT.APPLY", id);
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"DISABLE ENABLE","");
+
+			//
+			str_name.Format("CUR.LL%1d.1.POST.POSITION.INCREMENT.ANGLE", id);
+			STD__ADD_ANALOG(str_name,"degree", 0,0,360);
+
+			str_name.Format("CUR.LL%1d.2.POST.POSITION.INCREMENT.ANGLE", id);
+			STD__ADD_ANALOG(str_name,"degree", 0,0,360);
+		}
+		else
 		{
 			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT", id);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name,"angle",0,0,3,"def:0");
-		}
-		// AirLock1PostPositionIncrementRange Degree  0	 30	 30
-		{	
-			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.RANGE", id);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name,"angle",0,0,30,"def:0");
-		}
-		// AirLock1PostPositionIncrementStartAngle	Degree	50	90	64
-		{
-			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.START.ANGLE", id); 
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name,"angle",0,50,90,"def:64");
-		}
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,3, "");
 
-		// ...
-		{
+			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.RANGE", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,360, "");
+
+			str_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.START.ANGLE", id); 
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "degree", 0,0,360, "");
+
 			str_name.Format("CFG.LL%1d.POST.POSITION.INCREMENT.APPLY", id);
 			STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"DISABLE ENABLE","");
 
 			str_name.Format("CUR.aLL%1d.POST.POSITION.INCREMENT.ANGLE", id);
-			STD__ADD_ANALOG(str_name,"angle",0,0,360);
+			STD__ADD_ANALOG(str_name, "degree", 0,0,360);
 		}
 	}
 
 	// ...
 	{
-		// 78. AllowInitAPMsWhenInitializeAll	null	null	null	TRUE
-		str_name.Format("CFG.dALLOW.INIT.APM.WHEN.INIT.ALL");	// 
+		str_name.Format("CFG.dALLOW.INIT.APM.WHEN.INIT.ALL");
 		LINK__VAR(dVAR__CFG_ALLOW_INIT_APM_WHEN_INIT_ALL,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 
-		// 79. AllowInitMetrologyWhenInitializeAll	null	null	null	TRUE
-		str_name.Format("CFG.dALLOW.INIT.METROLOGY.WHEN.INIT.ALL");	// 
+		str_name.Format("CFG.dALLOW.INIT.METROLOGY.WHEN.INIT.ALL");	
 		LINK__VAR(dVAR__CFG_ALLOW_INIT_METROLOGY_WHEN_INIT_ALL,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"FALSE TRUE","def:TRUE");
 
-		// 80. AllowLoadUnloadErrorToContinueAGVOperation	null	0	1	0
-		str_name.Format("CFG.dALLOW.LOAD.UNLOAD.ERR.TO.CONTINUE.OHT.OPERATION");	// 
+		str_name.Format("CFG.dALLOW.LOAD.UNLOAD.ERR.TO.CONTINUE.OHT.OPERATION");
 		LINK__VAR(dVAR__CFG_ALLOW_LOAD_UNLOAD_ERR_TO_CONTINUE_OHT_OPERATION,str_name);
 		STD__ADD_DIGITAL_WITH_X_OPTION(str_name,"0 1","def:TRUE");
 	}

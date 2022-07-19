@@ -86,6 +86,11 @@ int CObj__LOT_NET
 
 	WRITE__DRV_LOG_MSG(log_msg);
 
+	if(r_flag < 0)
+	{
+		return -11;
+	}
+
 	// ...
 	CString rsp_cmmd  = "";
 	CString rsp_data1 = "";
@@ -419,6 +424,12 @@ CString CObj__LOT_NET
 CString CObj__LOT_NET
 ::_Get__MODE_STATUS(const CString& rsp_data)
 {
+	if(rsp_data.GetLength() < 9)
+	{
+		return "RSP.Error";
+	}
+
+	// ...
 	CString i_data = "";
 	int	i_val = 0;
 

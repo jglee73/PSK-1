@@ -1,40 +1,131 @@
 #pragma once
-extern "C"
-{
-#include <stdio.h>
-}
+
 #include "Interface_Code.h"
-
 #include "VTYRemoteMessages.h"
-#define	EPD_RECIPE_DIRECTORY		".\\EPD_Recipe\\"
 
-// ...
-#define		CR						0x0D
-#define		 LF						0x0A
-#define		HUGE_STR_LENGTH			30000
-#define		MAX_STR_LENGTH			2048
-#define		DEFAULT_STR_LENGTH		256
-#define		DATA_LENGTH				0x82
-#define		MAX_DATA_CHANNEL		8
+#include "CObj__VERITY_STD__DEF.h"
 
 
-enum { OFF , ON };
-enum { UNKNOWN, IDLE , RUN };
-enum { STOPPED , RUNNING };	// Fan Status
-enum { Normal, TempError, CommError , NAKError }; // Error Status
-
-typedef struct
+class CCheck__Msg_Info
 {
-	//double dMonitor;	//0 - 1000.00
-	double dMonitor[MAX_DATA_CHANNEL];
-	int nWaveType;		//0:Unknown, 1:309nm, 2:387nm
-	int nEndPoint;		//0:Off, 1:On
-	int nRunning;		//0:Unknown, 1:Idle, 2:Run
-	int nErrStatus;		//0:Normal, 1:Temp_Error, 2:CommError
-	int nNakCommand;
-	bool bRecvStart;
-	char szChannelName[MAX_DATA_CHANNEL][DEFAULT_STR_LENGTH];
-} REPORT;
+public:
+	short int iCMD_ID;
+	unsigned short int iSS_INFO;
+
+	bool bActive__RECV_CMD;
+};
+
+class CCheck__Msg_Ctrl
+{
+private:
+	CRITICAL_SECTION mCS_LOCK;
+
+	CPtrArray pList__MSG_INFO;
+
+	// ...
+	int _Wait__COMMAND_ID(const short int cmd_id, unsigned short int& ss_info)
+	{
+		int i_limit = pList__MSG_INFO.GetSize();
+
+		for(int i=0; i<i_limit; i++)
+		{
+			CCheck__Msg_Info* p_info = (CCheck__Msg_Info*) pList__MSG_INFO[i];
+
+			if(cmd_id != p_info->iCMD_ID)		continue;
+			if(!p_info->bActive__RECV_CMD)		continue;
+
+			ss_info = p_info->iSS_INFO;
+
+			// ...
+			{
+				pList__MSG_INFO.RemoveAt(i);
+				delete p_info;
+			}
+			return 1;
+		}
+		return -1;
+	}
+
+public:
+	CCheck__Msg_Ctrl()
+	{
+		InitializeCriticalSection(&mCS_LOCK);
+
+	}
+	~CCheck__Msg_Ctrl()
+	{
+		
+		DeleteCriticalSection(&mCS_LOCK);
+	}
+
+	// ...
+	void Load__COMMAND_ID(const short int cmd_id)
+	{
+		EnterCriticalSection(&mCS_LOCK);
+
+		CCheck__Msg_Info* p_info = new CCheck__Msg_Info;
+		pList__MSG_INFO.Add(p_info);
+
+		p_info->iCMD_ID = cmd_id;
+		p_info->iSS_INFO = 0xff;
+		p_info->bActive__RECV_CMD = false;
+
+		if(pList__MSG_INFO.GetSize() > 10)
+		{
+			p_info = (CCheck__Msg_Info*) pList__MSG_INFO[0];
+			delete p_info;
+
+			pList__MSG_INFO.RemoveAt(0);
+		}
+
+		LeaveCriticalSection(&mCS_LOCK);
+	}
+	void Recv__COMMAND_ID(const short int cmd_id, unsigned short int ss_info)
+	{
+		EnterCriticalSection(&mCS_LOCK);
+
+		int i_limit = pList__MSG_INFO.GetSize();
+
+		for(int i=0; i<i_limit; i++)
+		{
+			CCheck__Msg_Info* p_info = (CCheck__Msg_Info*) pList__MSG_INFO[i];
+
+			if(cmd_id != p_info->iCMD_ID)		continue;
+			
+			p_info->iSS_INFO = ss_info;
+			p_info->bActive__RECV_CMD = true;
+			break;;
+		}
+
+		LeaveCriticalSection(&mCS_LOCK);
+	}
+	
+	int Wait__COMMAND_ID(const short int cmd_id, unsigned short int& ss_info)
+	{
+		// double cfg_sec = 1.0; 
+		double cfg_sec = 5.0; 
+		int r_flag = -1;
+		
+		SCX__ASYNC_TIMER_CTRL x_timer_ctrl;
+		x_timer_ctrl->START__COUNT_UP(9999.0);
+
+		while(r_flag < 0)
+		{
+			if(x_timer_ctrl->Get__CURRENT_TIME() > cfg_sec)
+			{
+				return -1;
+			}
+
+			EnterCriticalSection(&mCS_LOCK);
+
+			r_flag = _Wait__COMMAND_ID(cmd_id, ss_info);
+
+			LeaveCriticalSection(&mCS_LOCK);
+		}
+		return 1;
+	}
+};
+
 
 class CObj__VERITY_STD : public __IOBJ__IO_TYPE
 {
@@ -44,82 +135,113 @@ private:
 
 	// ...
 	SCX__USER_LOG_CTRL  mX__Log_Ctrl;
-	SCX__ETHERNET_JGLEE mX__Net_Client;
 
 	int iActive__SIM_MODE;
+
+	SCX__ETHERNET_JGLEE mX__Net_Client;
+	CCheck__Msg_Ctrl mCheck__Msg_Ctrl;
+
+	bool bActive__COMM_ONLINE;
 	//
 
 
 	//-------------------------------------------------------------------------
 	//  INTERNAL PROPERTY
 
-	CX__VAR_STRING_CTRL sCH__COMM_STATE;
+	// OBJ ...
+	CX__VAR_STRING_CTRL  sCH__OBJ_MSG;
+
+	// MON ...
+	CX__VAR_STRING_CTRL  sCH__MON_COMM_STATE;
+
+	CX__VAR_DIGITAL_CTRL dCH__MON_ACTIVE_NOTREADY;
+	CX__VAR_DIGITAL_CTRL dCH__MON_ACTIVE_READY;
+	CX__VAR_DIGITAL_CTRL dCH__MON_ACTIVE_ENDPOINT;
+
+	CX__VAR_STRING_CTRL  sCH__MON_WAVE_INTENSITY_VALUE;
+
+	// PARA ...
+	CX__VAR_STRING_CTRL  sCH__PARA_CONNECT_INFO;
+
+	CX__VAR_STRING_CTRL  sCH__PARA_CFG_VALIDATE_INFO;
+	CX__VAR_STRING_CTRL  sCH__PARA_STEP_START_CFG_NAME;
+
+	CX__VAR_STRING_CTRL  sCH__PARA_WAFER_LOTID;
+	CX__VAR_STRING_CTRL  sCH__PARA_WAFER_SLOTID;
+	CX__VAR_STRING_CTRL  sCH__PARA_WAFER_CSTID;
+	CX__VAR_STRING_CTRL  sCH__PARA_WAFER_ID;
+	CX__VAR_STRING_CTRL  sCH__PARA_WAFER_RECIPE;
+	CX__VAR_STRING_CTRL  sCH__PARA_WAFER_STEP;
+
+	CX__VAR_DIGITAL_CTRL dCH__PARA_ACTIVE_NET_BUFFER_CHECK;
+
+	// INFO ...
+	CX__VAR_STRING_CTRL  sCH__INFO_VERSION;
+
+	CX__VAR_STRING_CTRL  sCH__INFO_CFG_LIST_STR;
+	CX__VAR_STRING_CTRL  sCH__INFO_CFG_NAME_X[_SIZE__CFG_LIST];
+	CX__VAR_STRING_CTRL  sCH__INFO_CFG_DATE_X[_SIZE__CFG_LIST];
+	CX__VAR_STRING_CTRL  sCH__INFO_CFG_SIZE_X[_SIZE__CFG_LIST];
+
+	// INFO.DRV ...
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_CONTROL_STS;
+
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_VERSION_STS;
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_CFG_LIST_STS;
+
+	CX__VAR_STRING_CTRL  sCH__INFO_DRV_WAFER_INFO_STS;
 	//
 
 	//-------------------------------------------------------------------------
-	// INIT ...
 	CString sMODE__INIT;
-	CString sMODE__START;
-	CString sMODE__STOP;
-	CString sMODE__RESET;
-	char	g_szRecipeName[128];
-	
 	int Call__INIT(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	//
+	CString sMODE__COMM_TEST;
+	int Call__COMM_TEST(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	//
+	CString sMODE__CFG_LIST;
+	int Call__CFG_LIST(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	CString sMODE__CFG_VALIDATE;
+	int Call__CFG_VALIDATE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	//
+	CString sMODE__WAFER_INFO;
+	int Call__WAFER_INFO(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	//
+	CString sMODE__STEP_START;
+	int Call__STEP_START(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	CString sMODE__STEP_STOP;
+	int Call__STEP_STOP(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	CString sMODE__COMPLETE;
+	int Call__COMPLETE(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	//
+	CString sMODE__GET_NET_BUUFER;
+	int Call__GET_NET_BUFFER(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
 	//
 
-	bool SEND_COMMAND( const unsigned char *_szSend , int _nLength );
-	bool RECV_COMMAND( unsigned char *_pcData , const unsigned char *_pcSendData , int _nLength , int *_nDataLen );
-
-	//-------------------------------------------------------------------------
+	// ...
 	void Mon__IO_MONITORING(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
-	
+	void Mon__DRV_PROC(CII_OBJECT__VARIABLE *p_variable, CII_OBJECT__ALARM *p_alarm);
+
+	// ...
+	int  SEND__COMMAND(const CString& var_name,const CString& set_data, const int cmd_id, const char *p_send,const int s_len, unsigned short int& ss_info);
 	//
-	CX__VAR_DIGITAL_CTRL	doCH__EPD_Start;
-	CX__VAR_DIGITAL_CTRL	doCH__EPD_Stop;
-	CX__VAR_DIGITAL_CTRL	doCH__EPD_Reset;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_EndPoint;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_Status;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_SensorErr;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_GetRecipe;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_Nak_Command;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_CommTest;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_EndOverEtch;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_Finish;
-	CX__VAR_DIGITAL_CTRL	diCH__EPD_TimeSync;
 
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor1;
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor2;
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor3;
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor4;
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor5;
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor6;
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor7;
-	CX__VAR_ANALOG_CTRL		aiCH__EPD_Monitor8;
+	// ...
+	CX__VAR_DIGITAL_CTRL doCH__Control_SET;
 
-	CX__VAR_STRING_CTRL		soCH__EPD_WAFER_INFO;
-	CX__VAR_STRING_CTRL		soCH__EPD_Recipe_Name;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name1;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name2;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name3;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name4;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name5;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name6;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name7;
-	CX__VAR_STRING_CTRL		siCH__EPD_Mon_Name8;
+	CX__VAR_DIGITAL_CTRL doCH__VERSION_REQ;
+	CX__VAR_DIGITAL_CTRL doCH__CFG_LIST_REQ;
 
-	REPORT	g_stReport;
-	CRITICAL_SECTION mSc;
-	bool	g_bEndThread;
-	bool	g_bEPDThreadPause;
-
-	typedef union{
-		unsigned char szData[4];
-		float fData;
-		int nData;
-	}Convert;
-
-	Convert TypeConvert;
-	void Fnc__Write_Log(const char *szMsg , bool _bSendRecv , bool _bResult , int _nLength );
+	CX__VAR_DIGITAL_CTRL doCH__WAFER_INFO_SET;
+	//
 
 public:
 	CObj__VERITY_STD();

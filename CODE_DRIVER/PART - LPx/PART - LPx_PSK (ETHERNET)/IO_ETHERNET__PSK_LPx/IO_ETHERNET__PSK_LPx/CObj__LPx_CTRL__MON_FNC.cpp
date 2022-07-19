@@ -12,6 +12,7 @@ Mon__STATE_MONITOR(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 	bool active__pio_check = false;
 	bool active__init_mode_req = true;
 
+	int loop_count = 0;
 	CString ch_data;
 
 
@@ -19,18 +20,48 @@ Mon__STATE_MONITOR(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.1);
 
-		if(bActive__SIM_MODE)
+		loop_count++;
+		if(loop_count > 10)		loop_count = 1;
+
+
+		if(loop_count == 1)
 		{
+			if(sEXT_CH__MON_COMMUNICATION_STATE->Check__DATA(STR__OFFLINE) > 0)
+			{
+				int alarm_id = ALID__OFFLINE;
+				CString r_act;
 
-		}
+				p_alarm->Check__ALARM(alarm_id,r_act);
+				p_alarm->Post__ALARM(alarm_id);
+			}
 
-		if(sEXT_CH__MON_COMMUNICATION_STATE->Check__DATA(STR__OFFLINE) > 0)
-		{
-			int alarm_id = ALID__OFFLINE;
-			CString r_act;
+			if((sEXT_CH__LP_INFO__STATUS->Check__DATA(STR__ERROR)      > 0)
+			|| (sEXT_CH__LP_INFO__RFID_STATUS->Check__DATA(STR__ERROR) > 0))
+			{
+				siEXT_CH__LP_ALARM_MSG->Get__STRING();
+				siEXT_CH__LP_ALARM_TXT->Get__STRING();
 
-			p_alarm->Check__ALARM(alarm_id,r_act);
-			p_alarm->Post__ALARM(alarm_id);
+				CString err_msg = sEXT_CH__LP_INFO__ALM_MSG->Get__STRING();
+				CString err_txt = sEXT_CH__LP_INFO__ALM_TXT->Get__STRING();
+
+				int alarm_id = ALID__LPx_ERROR_CODE;
+				CString alm_msg;
+				CString alm_bff;
+				CString r_act;
+
+				alm_bff.Format("Alarm Message ... \n");
+				alm_msg += alm_bff;
+				alm_bff.Format(" * %s \n", err_msg);
+				alm_msg += alm_bff;
+
+				alm_bff.Format("Alarm Text ... \n");
+				alm_msg += alm_bff;
+				alm_bff.Format(" * %s \n", err_txt);
+				alm_msg += alm_bff;
+
+				p_alarm->Check__ALARM(alarm_id, r_act);
+				p_alarm->Post__ALARM_With_MESSAGE(alarm_id, alm_msg);
+			}
 		}
 
 		if(sEXT_CH__LP_INFO__AGV_STATUS->Check__DATA(STR__BUSY) > 0)
@@ -119,6 +150,20 @@ Mon__STATE_MONITOR(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 			}
 		}
 
-		// ...
+		_Update__LPx_STATE();
 	}	
+}
+
+void CObj__LPx_CTRL::_Update__LPx_STATE()
+{
+	CString ch_data;
+
+	ch_data = sEXT_CH__LP_INFO__FOUP_EXIST->Get__STRING();
+	sCH__MON_FOUP_STATUS->Set__DATA(ch_data);
+
+	ch_data = sEXT_CH__LP_INFO__DOOR_STATUS->Get__STRING();
+	sCH__MON_DOOR_STATUS->Set__DATA(ch_data);
+
+	ch_data = sEXT_CH__LP_INFO__CLAMP_STATUS->Get__STRING();
+	sCH__MON_CLAMP_STATUS->Set__DATA(ch_data);
 }

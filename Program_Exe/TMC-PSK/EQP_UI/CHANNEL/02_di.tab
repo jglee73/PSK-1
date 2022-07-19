@@ -1,0 +1,27 @@
+#DATAITEMLIST
+IO si.Node2.Hexa.01
+
+IO di.CHM1.ATM.SNS
+IO di.CHM1.VAC.SNS
+IO di.LL.Water.Flow.Gauge.Alarm
+IO di.LL.12_N2.Flow.Gauge.Alarm
+IO di.TM.Top.Lid.Close
+IO di.TM.Robot.Control.Mode
+
+IO di.TM.VAC.Fast.VLV.OPEN
+IO di.TM.VAC.Fast.VLV.CLOSE
+IO di.TM.Wafer.INTLK.Sensor.A
+IO di.TM.Wafer.INTLK.Sensor.B
+IO di.TM.Wafer.INTLK.Sensor.C
+IO di.TM.Wafer.INTLK.Sensor.D
+
+IO di.TM.ELT_BOX.Alarm
+IO di.TM.ELT_BOX.Fan.Alarm
+IO di.LL.PCW.Leak.Alarm
+IO di.TM.Safety.INTLK.Warning
+
+IO di.LL.PCW.IN.Alarm
+IO di.CDA.Alarm
+IO di.LL.PCW.OUT.Alarm
+IO di.TM.EPC.Pressure.Alarm
+IO di.DNet.Fan.Alarm

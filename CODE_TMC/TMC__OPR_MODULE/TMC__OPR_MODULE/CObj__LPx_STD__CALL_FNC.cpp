@@ -24,6 +24,10 @@ int  CObj__LPx_STD::Call__HOME(CII_OBJECT__VARIABLE* p_variable)
 {
 	return pLPx__OBJ_CTRL->Call__OBJECT("HOME");
 }
+int  CObj__LPx_STD::Call__ALARM_RESET(CII_OBJECT__VARIABLE* p_variable)
+{
+	return pLPx__OBJ_CTRL->Call__OBJECT("ALARM.RESET");
+}
 
 //
 int  CObj__LPx_STD::Call__PREPLOAD(const CString& mode,CII_OBJECT__VARIABLE* p_variable)

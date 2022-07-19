@@ -48,6 +48,7 @@ int  CObj__SYS_IO
 	}
 
 	// 3. Slow Valve <- Open
+	if(bActive__DO_ROUGH_SOFT_VLV)
 	{
 		ch_name = sCH_Name__DO_ROUGH_SOFT_VLV;
 		_Macro__Get_Channel_To_Obj_Variable(ch_name, obj_name,var_name);
@@ -110,10 +111,14 @@ SetPoint__VAC_Foreline_Vlv_Open(CString &err_msg)
 		err_msg = "Vacuum fast-valve is not closed. \n";
 		return -12;
 	}
-	if(doEXT_CH__DO_ROUGH_SOFT_VLV->Check__DATA(STR__Close) < 0)
+
+	if(bActive__DO_ROUGH_SOFT_VLV)
 	{
-		err_msg = "Vacuum slow-valve is not closed. \n";
-		return -13;
+		if(doEXT_CH__DO_ROUGH_SOFT_VLV->Check__DATA(STR__Close) < 0)
+		{
+			err_msg = "Vacuum slow-valve is not closed. \n";
+			return -13;
+		}
 	}
 
 	return 1;
@@ -147,10 +152,13 @@ IFnc_SetPoint__VAC_Fast_Vlv_Open()
 int CObj__SYS_IO::
 SetPoint__VAC_Fast_Vlv_Open(CString &err_msg)
 {
-	if(dEXT_CH__IO_ATM_SNS->Check__DATA(sATM_SNS__ACTIVE_STATE) > 0)
+	if(bActive__DO_ROUGH_SOFT_VLV)
 	{
-		err_msg = "ATM sensor is not \"Off\". \n";
-		return -1;
+		if(dEXT_CH__IO_ATM_SNS->Check__DATA(sATM_SNS__ACTIVE_STATE) > 0)
+		{
+			err_msg = "ATM sensor is not \"Off\". \n";
+			return -11;
+		}
 	}
 
 	if(bActive__DO_ROUGH_FORELINE_VLV)
@@ -158,7 +166,7 @@ SetPoint__VAC_Fast_Vlv_Open(CString &err_msg)
 		if(doEXT_CH__DO_ROUGH_FORELINE_VLV->Check__DATA(STR__Close) < 0)
 		{
 			err_msg = "TMP foreline valve is not closed. \n";
-			return -1;
+			return -12;
 		}
 	}
 

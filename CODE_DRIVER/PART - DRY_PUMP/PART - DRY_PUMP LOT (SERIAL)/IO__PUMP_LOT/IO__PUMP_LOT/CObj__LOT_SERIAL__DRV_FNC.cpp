@@ -437,6 +437,12 @@ CString CObj__LOT_SERIAL
 CString CObj__LOT_SERIAL
 ::_Get__MODE_STATUS(const CString& rsp_data)
 {
+	if(rsp_data.GetLength() < 9)
+	{
+		return "RSP.Error";
+	}
+
+	// ...
 	CString i_data = "";
 	int	i_val = 0;
 

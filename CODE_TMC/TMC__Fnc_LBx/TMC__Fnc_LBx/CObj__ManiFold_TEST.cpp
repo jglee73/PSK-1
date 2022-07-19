@@ -73,8 +73,8 @@ int CObj__ManiFold_TEST::__DEFINE__VARIABLE_STD(p_variable)
 	{
 		CString ll_name;
 		
-		if(i == 0)		ll_name = "TMC";
-		else			ll_name.Format("LL%1d", i);
+		int id = i + 1;
+		ll_name.Format("MD%1d", id);
 
 		//
 		str_name.Format("CYCLE_TEST.CFG.ACTIVE.%s", ll_name);;

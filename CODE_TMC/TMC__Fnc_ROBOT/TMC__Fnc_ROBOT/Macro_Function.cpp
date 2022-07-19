@@ -26,13 +26,10 @@ int  Macro__CHECK_PMx_INDEX(const CString& stn_name)
 	CString pm_name;
 	int i;
 
-	for(i=0;i<CFG_PM_LIMIT;i++)
+	for(i=0; i<CFG_PM_LIMIT; i++)
 	{
-		pm_name.Format("PM%1d",i+1);
-		if(pm_name.CompareNoCase(stn_name) != 0)
-		{
-			continue;
-		}
+		pm_name.Format("PM%1d", i+1);
+		if(pm_name.CompareNoCase(stn_name) != 0)		continue;
 
 		return i;
 	}

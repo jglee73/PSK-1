@@ -121,6 +121,47 @@ int CDriver__LPx_ETHERNET::__DEFINE__VARIABLE_STD(p_variable)
 		}
 	}
 
+	// PARA.N2_PURGE ...
+	{
+		for(i=0; i<CFG_LPx__SIZE; i++)
+		{
+			int id = i + 1;
+
+			str_name.Format("PARA.LP_N2_NOZZLE_1.VALVE.%1d", id);
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0  1  2  3", "");
+			LINK__VAR_DIGITAL_CTRL(dCH__PARA_LP_N2_NOZZLE_1__VALVE_X[i], str_name);
+
+			str_name.Format("PARA.LP_N2_NOZZLE_1.MFC.%1d", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 100, "");
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_LP_N2_NOZZLE_1__MFC_X[i], str_name);
+
+			str_name.Format("PARA.LP_N2_NOZZLE_2.VALVE.%1d", id);
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0  1  2  3", "");
+			LINK__VAR_DIGITAL_CTRL(dCH__PARA_LP_N2_NOZZLE_2__VALVE_X[i], str_name);
+
+			str_name.Format("PARA.LP_N2_NOZZLE_2.MFC.%1d", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 100, "");
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_LP_N2_NOZZLE_2__MFC_X[i], str_name);
+
+			str_name.Format("PARA.LP_N2_NOZZLE_3.VALVE.%1d", id);
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0  1  2  3", "");
+			LINK__VAR_DIGITAL_CTRL(dCH__PARA_LP_N2_NOZZLE_3__VALVE_X[i], str_name);
+
+			str_name.Format("PARA.LP_N2_NOZZLE_3.MFC.%1d", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 100, "");
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_LP_N2_NOZZLE_3__MFC_X[i], str_name);
+
+			//
+			str_name.Format("PARA.LP_N2_EHHAUST_NOZZLE.%1d", id);
+			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0FF  ON", "");
+			LINK__VAR_DIGITAL_CTRL(dCH__PARA_LP_N2_EHHAUST_NOZZLE_X[i], str_name);
+
+			str_name.Format("PARA.LP_N2_DELAY_TIME.%1d", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
+			LINK__VAR_ANALOG_CTRL(aCH__PARA_LP_N2_DELAY_TIME_X[i], str_name);
+		}
+	}
+
 	// CFG ...
 	{
 		str_name = "CFG.COMM_MODE";
@@ -148,55 +189,25 @@ int CDriver__LPx_ETHERNET::__DEFINE__VARIABLE_STD(p_variable)
 			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "NO  YES", "");
 			LINK__VAR_DIGITAL_CTRL(dCH__CFG_LP_CLOSE_MAPPING_X[i], str_name);
 		}
-
-		// N2 ...
-		for(i=0; i<CFG_LPx__SIZE; i++)
-		{
-			int id = i + 1;
-
-			str_name.Format("CFG.LP_N2_NOZZLE_1.VALVE.%1d", id);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0  1  2  3", "");
-			LINK__VAR_DIGITAL_CTRL(dCH__CFG_LP_N2_NOZZLE_1__VALVE_X[i], str_name);
-
-			str_name.Format("CFG.LP_N2_NOZZLE_1.MFC.%1d", id);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 100, "");
-			LINK__VAR_ANALOG_CTRL(aCH__CFG_LP_N2_NOZZLE_1__MFC_X[i], str_name);
-
-			str_name.Format("CFG.LP_N2_NOZZLE_2.VALVE.%1d", id);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0  1  2  3", "");
-			LINK__VAR_DIGITAL_CTRL(dCH__CFG_LP_N2_NOZZLE_2__VALVE_X[i], str_name);
-
-			str_name.Format("CFG.LP_N2_NOZZLE_2.MFC.%1d", id);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 100, "");
-			LINK__VAR_ANALOG_CTRL(aCH__CFG_LP_N2_NOZZLE_2__MFC_X[i], str_name);
-
-			str_name.Format("CFG.LP_N2_NOZZLE_3.VALVE.%1d", id);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0  1  2  3", "");
-			LINK__VAR_DIGITAL_CTRL(dCH__CFG_LP_N2_NOZZLE_3__VALVE_X[i], str_name);
-
-			str_name.Format("CFG.LP_N2_NOZZLE_3.MFC.%1d", id);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sccm", 0, 0, 100, "");
-			LINK__VAR_ANALOG_CTRL(aCH__CFG_LP_N2_NOZZLE_3__MFC_X[i], str_name);
-
-			//
-			str_name.Format("CFG.LP_N2_EHHAUST_NOZZLE.%1d", id);
-			STD__ADD_DIGITAL_WITH_X_OPTION(str_name, "0FF  ON", "");
-			LINK__VAR_DIGITAL_CTRL(dCH__CFG_LP_N2_EHHAUST_NOZZLE_X[i], str_name);
-
-			str_name.Format("CFG.LP_N2_DELAY_TIME.%1d", id);
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 0, 300, "");
-			LINK__VAR_ANALOG_CTRL(aCH__CFG_LP_N2_DELAY_TIME_X[i], str_name);
-		}
 	}
 
-	// PIO_TP INFO ...
-	for(i=0; i<CFG_LPx__SIZE; i++)
+	for(i=0; i<CFG_PIO__TP_SIZE; i++)
 	{
 		int id = i + 1;
 
-		str_name.Format("PIO_INFO.TP%1d", id);
-		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__PIO_INFO__TP_X[i], str_name);
+		// PIO_CFG.TPx ...
+		{
+			str_name.Format("PIO_CFG.TP%1d", id);
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "sec", 0, 1, 999, "");
+			LINK__VAR_ANALOG_CTRL(aCH__PIO_CFG__TP_X[i], str_name);
+		}
+
+		// PIO_INFO.TPx ...
+		{
+			str_name.Format("PIO_INFO.TP%1d", id);
+			STD__ADD_STRING(str_name);
+			LINK__VAR_STRING_CTRL(sCH__PIO_INFO__TP_X[i], str_name);
+		}
 	}
 
 	// LPx INFO ...
@@ -217,6 +228,10 @@ int CDriver__LPx_ETHERNET::__DEFINE__VARIABLE_STD(p_variable)
 		str_name.Format("LP_INFO.RFID_RSP.%1d", id);
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__LP_INFO__RFID_RSP_X[i], str_name);
+
+		str_name.Format("LP_INFO.RFID_ERROR_CODE.%1d", id);
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__LP_INFO__RFID_ERROR_CODE_X[i], str_name);
 
 		//
 		str_name.Format("LP_INFO.INITIAL.%1d", id);
@@ -424,17 +439,6 @@ int CDriver__LPx_ETHERNET::__DEFINE__VARIABLE_STD(p_variable)
 		str_name.Format("N2_INFO.CASSETTE.TYPE.%1d", id);
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__N2_INFO__CASSETTE_TYPE_X[i], str_name);
-	}
-
-	// Simulation ...
-	{
-		str_name = "SIM.CFG.REAL.TEST";
-		STD__ADD_DIGITAL(str_name, "NO YES");
-		LINK__VAR_DIGITAL_CTRL(dCH__SIM_CFG__REAL_TEST, str_name);
-
-		str_name = "SIM.CFG.ALIGN.TIME";
-		STD__ADD_STRING_WITH_X_OPTION(str_name, "");
-		LINK__VAR_STRING_CTRL(sCH__SIM_CFG__ALIGN_TIME, str_name);
 	}
 
 	// ...
@@ -783,7 +787,7 @@ int CDriver__LPx_ETHERNET::__DEFINE__VARIABLE_IO(p_io_variable)
 		{
 			// PIO TP ... 
 			{
-				for(i=0; i<CFG_LPx__SIZE; i++)
+				for(i=0; i<CFG_PIO__TP_SIZE; i++)
 				{
 					int id = i + 1;
 
@@ -855,13 +859,6 @@ int CDriver__LPx_ETHERNET::__DEFINE__VARIABLE_IO(p_io_variable)
 				IO__ADD_DIGITAL_WRITE(str_name, "STOP START");
 				LINK__IO_VAR_DIGITAL_CTRL(doCH__LP_N2_RUN_X[i], str_name);
 			}
-		}
-
-		// DI  -----------------------------
-		{
-			str_name = "di.ComSts";
-			IO__ADD_DIGITAL_READ(str_name, APP_DSP__ComSts);
-			LINK__IO_VAR_DIGITAL_CTRL(diCH__COMM_STS, str_name);
 		}
 	}
 
@@ -936,9 +933,6 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {
 	// APP LOG ...
 	{
-		iFlag__APP_LOG = 1;
-
-		// ...
 		CString file_name;
 		CString log_msg;
 
@@ -959,9 +953,6 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// DRV LOG ...
 	{
-		iFlag__DRV_LOG = 1;
-
-		// ...
 		CString file_name;
 		CString log_msg;
 
@@ -980,6 +971,26 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		xDRV_LOG_CTRL->WRITE__LOG("   START   \n");
 	}
 
+	// ...
+	CString def_name;
+	CString ch_name;
+	CString obj_name;
+	CString var_name;
+
+	// CH.CONFIG_SAVE ...
+	{
+		def_name = "CH.CONFIG_SAVE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CONFIG_SAVE, obj_name,var_name);
+	}
+
+	// ...
+	{
+		SCX__SEQ_INFO x_seq_info;
+
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
+	}
 	return 1;
 }
 int CDriver__LPx_ETHERNET::__INITIALIZE__IO(p_io_para)
@@ -1081,9 +1092,17 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__IO(p_io_para)
 		xDRV_LOG_CTRL->WRITE__LOG(log_msg);
 	}
 
+	if(iActive__SIM_MODE > 0)
+	{
+		log_msg  = "\n";
+		log_msg += "Simulation Mode ... \n";
+
+		xDRV_LOG_CTRL->WRITE__LOG(log_msg);
+		return -1;
+	}
+
 	// ...
 	CString err_msg;
-	printf("%s : Connecting (%s %s) ... \n", sObject_Name, net_ip,net_port);
 
 	mX_Net->INIT__PROPERTY(net_ip, atoi(net_port));
 	if(mX_Net->CONNECT(&err_msg) < 0)
@@ -1094,30 +1113,16 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__IO(p_io_para)
 		log_bff.Format(" * Error Message <- \"%s\" \n", err_msg);
 		log_msg += log_bff;
 
-		printf("%s : %s", sObject_Name, log_msg);
 		xDRV_LOG_CTRL->WRITE__LOG(log_msg);
-
-		m_nCommState = OFFLINE;
-		diCH__COMM_STS->Set__DATA(STR__OFFLINE);
 	}
 	else
 	{
 		log_msg = "Connection Result ... \n";
 		log_msg += "Init-Ethernet Completed ... \n";
 
-		printf("%s : %s", sObject_Name, log_msg);
 		xDRV_LOG_CTRL->WRITE__LOG(log_msg);
-
-		m_nCommState = ONLINE;
-		diCH__COMM_STS->Set__DATA(STR__ONLINE);
 	}
 
-	// ...
-	{
-		SCX__SEQ_INFO x_seq_info;
-
-		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
-	}
 	return 1;
 }
 
@@ -1125,6 +1130,8 @@ int CDriver__LPx_ETHERNET::__INITIALIZE__IO(p_io_para)
 //--------------------------------------------------------------------------------
 int CDriver__LPx_ETHERNET::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm)
 {
+	DECLARE__EXT_CTRL(p_variable);
+
 LOOP_RETRY:
 
 	// ...
@@ -1178,16 +1185,12 @@ LOOP_RETRY:
 
 	if(seq_flag > 0)
 	{
-		pII__EXT_MODE_CTRL = p_variable->Get__EXT_FNC_MODE_CTRL();
-		pII__EXT_VAR_CTRL  = p_variable->Get__EXT_FNC_VAR_CTRL();
-		pII__EXT_FNC_CTRL  = p_variable->Get__EXT_USER_FNC_CTRL();
-
 		// ...
 		{
-			CString upper_obj = pII__EXT_MODE_CTRL->Get__UPPER_OBJECT_NAME();	
+			CString upper_obj = p_ext_mode_ctrl->Get__UPPER_OBJECT_NAME();				
 
 			CString log_msg;
-			log_msg.Format("Object Call: [%s] ==> [%s]",  upper_obj,sObject_Name);
+			log_msg.Format("[%s] started ... by %s", mode, upper_obj);
 
 			Fnc__APP_LOG(log_msg);
 		}

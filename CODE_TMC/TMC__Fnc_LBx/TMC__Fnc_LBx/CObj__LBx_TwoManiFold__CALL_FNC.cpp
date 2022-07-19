@@ -61,13 +61,13 @@ Mode_Chk_Rty:
 
 	// ...
 	{
-		Sleep(100);
 		dCH__PUMPING_STS_FLAG->Set__DATA("PUMPING");
+		Sleep(100);
 	}
 
 	if(dEXT_CH__OTHER_LBX_PUMPING_STS_FLAG->Check__DATA("PUMPING") > 0)
 	{
-		dCH__PUMPING_STS_FLAG->Set__DATA("");
+		dCH__PUMPING_STS_FLAG->Set__DATA("END");
 		goto Mode_Chk_Rty;
 	}
 

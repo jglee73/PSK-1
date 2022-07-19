@@ -1,0 +1,7 @@
+#DATAITEMLIST
+IO so.PMC_AO_01_0
+IO ao.RF1.Power.Set
+IO so.PMC_AO_01_10
+IO ao.LFC1.Ratio.Set
+IO so.PMC_AO_01_22
+IO ao.Wall.Temperature

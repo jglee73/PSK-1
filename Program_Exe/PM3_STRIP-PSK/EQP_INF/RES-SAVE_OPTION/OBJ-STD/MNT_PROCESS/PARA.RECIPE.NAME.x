@@ -1,1 +1,0 @@
-PRC\TEST_STRIP

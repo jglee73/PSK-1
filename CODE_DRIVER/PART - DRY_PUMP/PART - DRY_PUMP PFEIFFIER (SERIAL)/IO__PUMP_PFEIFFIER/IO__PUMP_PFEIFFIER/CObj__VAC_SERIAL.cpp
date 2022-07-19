@@ -143,6 +143,11 @@ int CObj__VAC_SERIAL::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_STATE_PRESSURE_mBAR, str_name);
 
+		str_name = "MON.STATE.PRESSURE_TORR";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_STATE_PRESSURE_TORR, str_name);
+
+		//
 		str_name = "MON.STATE.FB_POWER";
 		STD__ADD_STRING(str_name);
 		LINK__VAR_STRING_CTRL(sCH__MON_STATE_FB_POWER, str_name);

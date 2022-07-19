@@ -408,18 +408,24 @@ int CObj__GAS_VLV_FNC::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 //-------------------------------------------------------------------------
 int CObj__GAS_VLV_FNC::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 {
+	DECLARE__EXT_CTRL(p_variable);
+
 LOOP_RETRY:
 
 	// ...
-	{
-		CString log_msg;
-		log_msg.Format("Start ... :  [%s]",mode);
-
-		xLOG_CTRL->WRITE__LOG(log_msg);
-		sCH__OBJ_MSG->Set__DATA(log_msg);
-	}
-
 	int flag = 1;
+
+	CString log_msg;
+	CString log_bff;
+
+	// ...
+	{
+		log_msg.Format("Start [%s] ... By %s", mode, p_ext_mode_ctrl->Get__UPPER_OBJECT_NAME());
+		sCH__OBJ_MSG->Set__DATA(log_msg);
+
+		log_msg += "\n";
+		xLOG_CTRL->WRITE__LOG(log_msg);
+	}
 
 	// ...
 	bool active__interlock_check = true;
@@ -465,7 +471,7 @@ LOOP_RETRY:
 					goto LOOP_RETRY;
 				}
 
-				flag = -1;
+				flag = -101;
 			}
 		}
 	}

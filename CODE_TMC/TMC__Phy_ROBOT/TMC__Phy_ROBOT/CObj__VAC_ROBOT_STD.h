@@ -204,6 +204,8 @@ private:
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_REF_ATM_PRESSURE;
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_REF_VAC_PRESSURE;
 
+	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_SLOT_MAX[CFG_LLx__SIZE];
+	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_SLOT_USE_X[CFG_LLx__SIZE][CFG_LLx__SLOT_SIZE];
 	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_1_EXIST_FLAG[CFG_LLx__SIZE];
 	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_2_EXIST_FLAG[CFG_LLx__SIZE];
 	CX__VAR_DIGITAL_CTRL dEXT_CH__CFG_LLx_EXIST_FLAG[CFG_LLx__SIZE];
@@ -223,9 +225,16 @@ private:
 	CX__VAR_STRING_CTRL  sEXT_CH__ROBOT_DA_RESULT_R_OFFSET_DEG;
 	CX__VAR_STRING_CTRL  sEXT_CH__ROBOT_DA_RESULT_T_OFFSET_MM;
 
-	// IO : ARM_RNE_SNS ... 
-	bool bActive__ROBOT_ARM_RNE_SNS;
-	CX__VAR_DIGITAL_CTRL dEXT_CH__ROBOT_ARM_RNE_SNS;
+	// ARM_RNE.SENSOR ...
+	bool bActive__ROBOT_RNE_SNS__ARM_A;
+	bool bActive__ROBOT_RNE_SNS__ARM_B;
+
+	CX__VAR_DIGITAL_CTRL dEXT_CH__ROBOT_RNE_SNS__ARM_A;
+	CX__VAR_DIGITAL_CTRL dEXT_CH__ROBOT_RNE_SNS__ARM_B;
+
+	// ARM_RNE.STATE ...
+	CString sDATA__RNE_ON;
+	CString sDATA__RNE_OFF;
 	//
 
 	// TMC CHM -----
@@ -420,6 +429,10 @@ private:
 
 	//-------------------------------------------------------------------------
 	// ...
+	int  Interlock__LLx_SLOT_CHECK(CII_OBJECT__ALARM* p_alarm,
+								   const CString& stn_name, 
+								   const CString& para_slot);
+
 	int  Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
 								   const bool active_place,
 								   const CString& arm_type,

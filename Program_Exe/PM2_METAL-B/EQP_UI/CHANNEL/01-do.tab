@@ -1,0 +1,20 @@
+#DATAITEMLIST
+IO so.PMA_DO_01_1
+IO do.PM.Slot.Vlv.Open
+IO do.PM.Slot.Vlv.Close
+
+IO so.PMA_DO_01_2
+IO do.Soft.Vac.Vlv
+IO do.Fast.Vac.Vlv
+IO do.Bara.Protect.01_Torr.Vlv
+IO do.Bara.Protect.10_Torr.Vlv
+IO do.He_Side.Supply.Vlv
+IO do.He_Side.Dump.Vlv
+
+IO so.PMA_DO_01_3
+IO do.He.Dump.Ctrl.Vlv
+IO do.Gas.Final.Vlv
+IO do.He.Supply.3Way.Vlv
+IO do.He.Dump.3Way.Vlv
+IO do.TMP.Vac.Vlv
+IO do.TMP.N2.Supply.Vlv

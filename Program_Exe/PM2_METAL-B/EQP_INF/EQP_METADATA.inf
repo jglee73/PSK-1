@@ -1,0 +1,133 @@
+
+#DEFINE   ##MFC_SIZE           9
+#DEFINE   ##PT_SIZE            10
+
+
+#INCLUDE  "_METADATA__IO_INTERLOCK.inf"
+#INCLUDE  "_METADATA__GAS_BOX.inf"
+#INCLUDE  "_METADATA__VAC_SYS.inf"
+#INCLUDE  "_METADATA__RF_SYS.inf"
+#INCLUDE  "_METADATA__HEATER_SYS.inf"
+
+#INCLUDE  "_METADATA__PMC_SYS.inf"
+#INCLUDE  "_METADATA__PROC_SYS.inf"
+#INCLUDE  "_METADATA__UTILITY_SYS.inf"
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_CHM_IO
+
+#DEFINE_CONSTANT    OBJ__DB_INF                         DB_INF
+#DEFINE_CONSTANT    OBJ__DB_SYS                         DB_SYS
+
+#DEFINE_CONSTANT    CH__DI_VAC_SNS                      IO+di.CHM.VAC.Sts
+#DEFINE_CONSTANT    CH__DI_ATM_SNS                      IO+di.CHM.ATM.Sts
+
+#DEFINE_CONSTANT    CH__DI_SLOT_VLV_OPEN                IO+di.PM.Slot.Vlv.Open
+#DEFINE_CONSTANT    CH__DI_SLOT_VLV_CLOSE               IO+di.PM.Slot.Vlv.Close
+
+#DEFINE_CONSTANT    CH.DO_CHM_CHECK_VLV 	              NULL
+
+#DEFINE_CONSTANT    DATA.PRC_GAUGE_SIZE     	          1
+#DEFINE_CONSTANT    CH.DO_PRC_GAUGE_VLV.1	              IO+do.Bara.Protect.10_Torr.Vlv
+#DEFINE_CONSTANT    CH.AI_PRC_GAUGE_TORR.1              IO+ai.CHM.Pressure.10_Torr
+
+#DEFINE_CONSTANT    CH__AI_CHM_GAUGE_TORR               IO+ai.CHM.Pressure.1000_Torr
+#DEFINE_CONSTANT    CH__AI_FORELINE_GAUGE_TORR          IO+ai.Pump.Line.Pressure
+
+#DEFINE_CONSTANT    CH__RF_TOTAL_ON_STATE               DB_INF+RF.ON.STS
+#DEFINE_CONSTANT    DATA.RF_SIZE						            2
+#DEFINE_CONSTANT    CH__RF_ON_STATE.1                   PHY_RF_SRC+MON.IO.POWER.STATE
+#DEFINE_CONSTANT    CH__RF_ON_STATE.2                   PHY_RF_BIAS+MON.IO.POWER.STATE
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_LIFT_PIN
+
+#DEFINE_CONSTANT    CH__LIFT_PIN_STATE                  DB_INF+LIFT_PIN.STATUS
+
+#DEFINE_CONSTANT    CH__ESC_CHUCK_STATE                 PHY_ESC+MON.CHUCK_STATUS
+
+#DEFINE_CONSTANT    DATA__ESC_CH_SIZE					  		    1
+#DEFINE_CONSTANT    CH__ESC_AI_VOLTAGE.1					  		PHY_IO__ESC+si.ESC.VOLTAGE
+
+#DEFINE_CONSTANT    CH__DO_PIN_UP                       IO+do.ESC.Pin.Up
+#DEFINE_CONSTANT    CH__DO_PIN_DOWN                     IO+do.ESC.Pin.Down
+#DEFINE_CONSTANT    CH__DO_PIN_MIDDLE                   IO+do.ESC.Pin.Middle
+
+#DEFINE_CONSTANT    CH__DO_TRANSFER_PIN_UP              IO+do.ESC.Pin.Up
+#DEFINE_CONSTANT    CH__DO_TRANSFER_PIN_DOWN            IO+do.ESC.Pin.Down
+#DEFINE_CONSTANT    CH__DO_MIDDLE_PIN_UP                IO+do.ESC.Pin.Middle
+#DEFINE_CONSTANT    CH__DO_MIDDLE_PIN_DOWN              NULL
+
+#DEFINE_CONSTANT    DATA__DI_PIN_SENSOR                 YES
+#DEFINE_CONSTANT    CH__DI_PIN_UP                       IO+di.Pin.Up
+#DEFINE_CONSTANT    CH__DI_PIN_MIDDLE                   IO+di.Pin.Middle
+#DEFINE_CONSTANT    CH__DI_PIN_DOWN                     IO+di.Pin.Down
+
+#DEFINE_CONSTANT    DATA__PIN_SIZE                      0
+
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__TMP
+
+#OBJECT_IO_PARA     COM_PORT                       9
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__RF_SRC
+
+#OBJECT_IO_PARA     COM_PORT                       10
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__RF_BIAS
+
+#OBJECT_IO_PARA     COM_PORT                       11
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__MAT_SRC
+
+#OBJECT_IO_PARA     COM_PORT                       12
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__MAT_BIAS
+
+#OBJECT_IO_PARA     COM_PORT                       13
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__ESC
+
+#OBJECT_IO_PARA     COM_PORT                       14
+			
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__EPD
+
+#OBJECT_IO_PARA     IP                             192.168.100.50
+#OBJECT_IO_PARA     PORT                           21842
+
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__CHILLER
+
+#OBJECT_IO_PARA     IP                             192.168.0.51
+#OBJECT_IO_PARA     PORT                           4002
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__PUMP
+
+#OBJECT_IO_PARA     IP                             192.168.0.50
+#OBJECT_IO_PARA     PORT                           4002
+#OBJECT_IO_PARA     ADDRESS_ID                     0
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    IO
+
+#OBJECT_IO_FILE     CFG_IO__METAL_B.cfg  
+
+#DEFINE_CONSTANT    PLC.NETID                      5.100.31.183.1.1
+
+#DEFINE_CONSTANT    ADS.PORT                       301
+#DEFINE_CONSTANT    ADS.NAME_OUTPUT                "Task 2.Outputs."
+#DEFINE_CONSTANT    ADS.NAME_INPUT                 "Task 2.Inputs."
+

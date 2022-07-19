@@ -1,0 +1,6 @@
+#ID=2	4002	LIGHT	PHY_MFC4 - In MFC config page, MFC's use is selected to "YES".
+#ID=1	4001	LIGHT	PHY_MFC4 - MFC Flow Control Aborted !.
+#ID=3	4003	LIGHT	PHY_MFC4 - MFC Flow Control Warning Range Alarm.
+#ID=4	4004	LIGHT	PHY_MFC4 - MFC Flow Control Abort Range Alarm.
+#ID=5	4005	LIGHT	PHY_MFC4 - During Idle, MFC Flow Control Warning Range Alarm.
+#ID=6	4006	LIGHT	PHY_MFC4 - During Idle, MFC Flow Control Abort Range Alarm.

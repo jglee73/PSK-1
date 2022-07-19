@@ -1,0 +1,20 @@
+#DATAITEMLIST
+IO so.PMC_DO_02_0
+IO do.PV1
+IO do.PV2
+IO do.PV3
+IO do.PV4
+IO do.PV5
+IO do.PV6
+
+IO so.PMC_DO_02_1
+IO do.PV1_1
+IO do.PV2_1
+
+IO so.PMC_DO_02_3
+IO do.Heater.Wall.Power
+IO do.Heater.Chuck1_Inner.Pwr
+IO do.Heater.Chuck1_Outer.Pwr
+IO do.Heater.Chuck2_Inner.Pwr
+IO do.Heater.Chuck2_Outer.Pwr
+IO do.Heater.Vac_Line.Pwr

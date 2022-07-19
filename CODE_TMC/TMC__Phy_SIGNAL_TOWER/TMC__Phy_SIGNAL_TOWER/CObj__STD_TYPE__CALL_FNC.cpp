@@ -165,23 +165,31 @@ Call__ALARM_BUZZER_OFF()
 int CObj__STD_TYPE::
 Call__ALARM_BUZZER_RESET_ON()
 {
-	doEXT_CH__ALARM_BUZZER_RESET->Set__DATA(STR__ON);
-
-	return 1;
+	if(bActive__ALARM_BUZZER_RESET)
+	{
+		doEXT_CH__ALARM_BUZZER_RESET->Set__DATA(STR__ON);
+		return 1;
+	}
+	return -1;
 }
 int CObj__STD_TYPE::
 Is__ALARM_BUZZER_RESET_ON()
 {
-	if(doEXT_CH__ALARM_BUZZER_RESET->Check__DATA(STR__ON) > 0)	return 1;
-
+	if(bActive__ALARM_BUZZER_RESET)
+	{
+		return doEXT_CH__ALARM_BUZZER_RESET->Check__DATA(STR__ON);
+	}
 	return -1;
 }
 int CObj__STD_TYPE::
 Call__ALARM_BUZZER_RESET_OFF()
 {
-	doEXT_CH__ALARM_BUZZER_RESET->Set__DATA(STR__OFF);
-
-	return 1;
+	if(bActive__ALARM_BUZZER_RESET)
+	{
+		doEXT_CH__ALARM_BUZZER_RESET->Set__DATA(STR__OFF);
+		return 1;
+	}
+	return -1;
 }
 
 int CObj__STD_TYPE::
@@ -226,7 +234,7 @@ Call__MELODY_ON()
 		CString str_data = dCH__CFG_MELODY_NUM->Get__STRING();
 		int i = atoi(str_data) - 1;
 
-		doEXT_CH__MELODY[i]->Set__DATA(STR__ON);
+		if(i < iSIZE_MELODY)		doEXT_CH__MELODY[i]->Set__DATA(STR__ON);
 	}
 	return 1;
 }
@@ -234,10 +242,7 @@ Call__MELODY_ON()
 int CObj__STD_TYPE::
 Call__MELODY_OFF()
 {
-	CString str_data;
-
-	// ...
-	for (int i=0; i<CFG_MELODY_MAX; i++)
+	for (int i=0; i<iSIZE_MELODY; i++)
 	{
 		doEXT_CH__MELODY[i]->Set__DATA(STR__OFF);
 	}

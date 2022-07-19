@@ -15,15 +15,17 @@ int  CObj__LPx_STD
 	{
 		flag = -1;
 	}
+
 	Update__MAP_INFO(p_variable,p_alarm);
 	
 	if(dCH__CFG_RF_EXIST_FLAG->Check__DATA(STR__YES) > 0)
 	{
 		if(bOBJ_TYPE__DUAL)
 		{
-			if(pRFx__OBJ_CTRL->Call__OBJECT(CMMD__INIT) < 0)
+			if(bActive__RFx_OBJ)
 			{
-				flag = -1;
+				if(pRFx__OBJ_CTRL->Call__OBJECT(CMMD__INIT) < 0)
+					flag = -1;
 			}
 		}
 	}
@@ -85,6 +87,13 @@ int  CObj__LPx_STD
 		{
 			flag = Fnc__MAP(p_variable, p_alarm);
 		}
+		else
+		{
+			if(dCH__CFG_LOAD_ACT_AUTO_MAP_MODE->Check__DATA(STR__ENABLE) > 0)
+			{
+				Update__MAP_INFO(p_variable,p_alarm);
+			}
+		}
 	}
 
 	Update__MAP_INFO(p_variable,p_alarm);
@@ -95,10 +104,15 @@ int  CObj__LPx_STD
 int  CObj__LPx_STD
 ::Call__UNLOAD(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	int flag = pLPx__OBJ_CTRL->Call__OBJECT(CMMD__UNLOAD);
+	int r_flag;
+
+	r_flag = Alarm_Check__ARM_NOT_RETRACTED(p_alarm);
+	if(r_flag < 0)		return r_flag;
+
+	r_flag = pLPx__OBJ_CTRL->Call__OBJECT(CMMD__UNLOAD);
 
 	Update__MAP_INFO(p_variable,p_alarm);
-	return flag;
+	return r_flag;
 }
 
 // PREPLOAD -----
@@ -122,11 +136,16 @@ int  CObj__LPx_STD
 	return 1;
 }
 
-// RLSUNLOAD ----- 
 int  CObj__LPx_STD
 ::Call__RLSUNLOAD(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
 	return pLPx__OBJ_CTRL->Call__OBJECT(CMMD__RLSUNLOAD);
+}
+
+int  CObj__LPx_STD
+::Call__CYCLE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+{
+	return pLPx__OBJ_CTRL->Call__OBJECT(CMMD__CYCLE);
 }
 
 // CID_READ -----
@@ -140,16 +159,19 @@ int  CObj__LPx_STD
 {
 	if(dCH__CFG_RF_EXIST_FLAG->Check__DATA(STR__YES) > 0)
 	{
-		int flag = pRFx__OBJ_CTRL->Call__OBJECT(CMMD__CID_READ);
-	
-		// ...
+		if(bActive__RFx_OBJ)
 		{
-			CString var_data;
+			int flag = pRFx__OBJ_CTRL->Call__OBJECT(CMMD__CID_READ);
+	
+			// ...
+			{
+				CString var_data;
 
-			sEXT_CH__RFx__CID_STRING->Get__DATA(var_data);
-			sCH__FOUP_CID_STRING->Set__DATA(var_data);
+				sEXT_CH__RFx__CID_STRING->Get__DATA(var_data);
+				sCH__FOUP_CID_STRING->Set__DATA(var_data);
+			}
+			return flag;
 		}
-		return flag;
 	}
 
 	sCH__FOUP_CID_STRING->Set__DATA("");
@@ -160,13 +182,10 @@ int  CObj__LPx_STD
 {
 	if(dCH__CFG_RF_EXIST_FLAG->Check__DATA(STR__YES) > 0)
 	{
-		int flag = pRFx__OBJ_CTRL->Call__OBJECT(CMMD__PAGE_READ);
-	
-		// ...
+		if(bActive__RFx_OBJ)
 		{
-
+			return pRFx__OBJ_CTRL->Call__OBJECT(CMMD__PAGE_READ);
 		}
-		return flag;
 	}
 	return 1;
 }
@@ -176,13 +195,10 @@ int  CObj__LPx_STD
 {
 	if(dCH__CFG_RF_EXIST_FLAG->Check__DATA(STR__YES) > 0)
 	{
-		int flag = pRFx__OBJ_CTRL->Call__OBJECT(CMMD__CID_WRITE);
-	
-		// ...
+		if(bActive__RFx_OBJ)
 		{
-
+			return pRFx__OBJ_CTRL->Call__OBJECT(CMMD__CID_WRITE);
 		}
-		return flag;
 	}
 	return 1;
 }
@@ -191,13 +207,10 @@ int  CObj__LPx_STD
 {
 	if(dCH__CFG_RF_EXIST_FLAG->Check__DATA(STR__YES) > 0)
 	{
-		int flag = pRFx__OBJ_CTRL->Call__OBJECT(CMMD__PAGE_WRITE);
-	
-		// ...
+		if(bActive__RFx_OBJ)
 		{
-
+			return pRFx__OBJ_CTRL->Call__OBJECT(CMMD__PAGE_WRITE);
 		}
-		return flag;
 	}
 	return 1;
 }
@@ -292,6 +305,9 @@ int  CObj__LPx_STD
 int  CObj__LPx_STD
 ::Call__CLOSEDOOR(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
+	int r_flag = Alarm_Check__ARM_NOT_RETRACTED(p_alarm);
+	if(r_flag < 0)		return r_flag;
+
 	return pLPx__OBJ_CTRL->Call__OBJECT(CMMD__CLOSEDOOR);
 }
 	

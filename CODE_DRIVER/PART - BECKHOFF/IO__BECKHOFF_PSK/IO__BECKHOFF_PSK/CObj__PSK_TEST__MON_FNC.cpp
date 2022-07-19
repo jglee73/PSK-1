@@ -71,14 +71,22 @@ void CObj__PSK_TEST
 					mADS_CTRL.Clear__DRV_ERROR();
 
 					// ...
-					int alm_id = ALID__PLC_OFFLINE;
-					CString alm_msg;
-					CString	r_act;
+					{
+						int alm_id = ALID__PLC_OFFLINE;
+						CString alm_msg;
+						CString	r_act;
 
-					alm_msg.Format("Error Variable <- %s \n", drv_err__var);
+						alm_msg.Format("Error Variable <- %s \n", drv_err__var);
+	
+						p_alarm->Check__ALARM(alm_id,r_act);
+						p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+					}
 
-					p_alarm->Check__ALARM(alm_id,r_act);
-					p_alarm->Post__ALARM_With_MESSAGE(alm_id, alm_msg);
+					sCH__MON_COMM_STATE->Set__DATA(STR__OFFLINE);
+				}
+				else
+				{
+					sCH__MON_COMM_STATE->Set__DATA(STR__ONLINE);
 				}
 			}
 

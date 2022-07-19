@@ -76,10 +76,16 @@ private:
 	CX__VAR_DIGITAL_CTRL doEXT_CH__LIGHT_BLUE__BLINK;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__LIGHT_WHITE__BLINK;
 
+	//
 	CX__VAR_DIGITAL_CTRL doEXT_CH__ALARM_BUZZER;
+
+	bool bActive__ALARM_BUZZER_RESET;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__ALARM_BUZZER_RESET;
 
+	//
+	int iSIZE_MELODY;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__MELODY[CFG_MELODY_MAX];
+	//
 
 
 	//------------------------------------------------------------------------------

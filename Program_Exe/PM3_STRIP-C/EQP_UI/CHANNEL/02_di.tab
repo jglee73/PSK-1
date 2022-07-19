@@ -1,0 +1,24 @@
+#DATAITEMLIST
+IO si.PMC_DI_02_0
+IO di.Gas_Box.Door.Open
+IO di.Gas_Box.Exhaust.Alarm
+IO di.Gas1.Leak.Warning
+IO di.Gas1.Leak.Alarm
+IO di.Gas2.Leak.Warning
+IO di.Gas2.Leak.Alarm
+
+IO si.PMC_DI_02_1
+IO di.PM.Top_Lid.Open
+IO di.PM.Scrubber.Alarm
+
+IO si.PMC_DI_02_2
+IO di.Wall.Heater.Limit.Alarm
+IO di.CH1.PCW.Alarm
+IO di.CH2.PCW.Alarm
+IO di.PM.Water.Leak.Alarm
+
+IO si.PMC_DI_02_3
+IO di.Fire.Detector.Alarm
+IO di.ELT_Box.Cover.Warning
+IO di.ELT_Box.Fan.Alarm
+IO di.Pump.Purge_N2.Flow

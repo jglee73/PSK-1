@@ -7,12 +7,37 @@
 
 
 // ...
-int  CObj__VAC_ROBOT_EX::
-Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
-						  const int place_flag,
-						  const CString& arm_type,
-						  const CString& stn_name,
-						  const CString& stn_slot)
+int  CObj__VAC_ROBOT_EX
+::Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
+						    const int place_flag,
+						    const CString& arm_type,
+						    const CString& stn_name,
+						    const CString& stn_slot)
+{
+	CStringArray l__arm_type;
+	CStringArray l__stn_name;
+	CStringArray l__stn_slot;
+
+	_Get__ARM_INFO(arm_type,stn_name,stn_slot, l__arm_type,l__stn_name,l__stn_slot);
+
+	int i_limit = l__arm_type.GetSize();
+	for(int i=0; i<i_limit; i++)
+	{
+		CString cur__arm_type = l__arm_type[i];
+		CString cur__stn_name = l__stn_name[i];
+		CString cur__stn_slot = l__stn_slot[i];
+
+		int r_flag = _Interlock__CHECK_MATERIAL(p_alarm,place_flag, cur__arm_type,cur__stn_name,cur__stn_slot);
+		if(r_flag < 0)		return r_flag;
+	}
+	return 1;
+}
+int  CObj__VAC_ROBOT_EX
+::_Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
+						     const int place_flag,
+						     const CString& arm_type,
+						     const CString& stn_name,
+						     const CString& stn_slot)
 {
 LOOP_RETRY:
 
@@ -20,7 +45,7 @@ LOOP_RETRY:
 	int slot_index = atoi(stn_slot) - 1;
 	CString wfr_sts;
 
-	if(arm_type.CompareNoCase(ARM_A) == 0)
+	if(arm_type.CompareNoCase(_ARM_A) == 0)
 	{
 		dEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_STATUS->Get__DATA(wfr_sts);
 
@@ -36,8 +61,8 @@ LOOP_RETRY:
 
 				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-				if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-				return -1;
+				if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+				if(r_act.CompareNoCase(ACT__IGNORE) != 0)		return -11;
 			}
 		}
 		else
@@ -57,7 +82,7 @@ LOOP_RETRY:
 			}
 		}
 	}
-	else if(arm_type.CompareNoCase(ARM_B) == 0)
+	else if(arm_type.CompareNoCase(_ARM_B) == 0)
 	{
 		dEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_STATUS->Get__DATA(wfr_sts);
 
@@ -73,8 +98,8 @@ LOOP_RETRY:
 
 				p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-				if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-				return -1;
+				if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+				if(r_act.CompareNoCase(ACT__IGNORE) != 0)		return -12;
 			}
 		}
 		else
@@ -117,8 +142,8 @@ LOOP_RETRY:
 
 					p_alarm->Popup__ALARM_With_MESSAGE(alarm_id,err_msg,r_act);
 
-					if(r_act.CompareNoCase(ACT__RETRY) == 0)		goto LOOP_RETRY;
-					return -1;
+					if(r_act.CompareNoCase(ACT__RETRY)  == 0)		goto LOOP_RETRY;
+					if(r_act.CompareNoCase(ACT__IGNORE) != 0)		return -21;
 				}
 			}
 			else
@@ -140,16 +165,39 @@ LOOP_RETRY:
 		}
 	}
 
-	//
 	return 1;
 }
 
 
-int  CObj__VAC_ROBOT_EX::
-Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
-						  const CString& arm_type,
-						  const CString& stn_name,
-						  const CString& stn_slot)
+int  CObj__VAC_ROBOT_EX
+::Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
+						    const CString& arm_type,
+						    const CString& stn_name,
+						    const CString& stn_slot)
+{
+	CStringArray l__arm_type;
+	CStringArray l__stn_name;
+	CStringArray l__stn_slot;
+
+	_Get__ARM_INFO(arm_type,stn_name,stn_slot, l__arm_type,l__stn_name,l__stn_slot);
+
+	int i_limit = l__arm_type.GetSize();
+	for(int i=0; i<i_limit; i++)
+	{
+		CString cur__arm_type = l__arm_type[i];
+		CString cur__stn_name = l__stn_name[i];
+		CString cur__stn_slot = l__stn_slot[i];
+
+		int r_flag = _Fnc__CHANGE_MATERIAL_INFO(place_flag, cur__arm_type,cur__stn_name,cur__stn_slot);
+		if(r_flag < 0)		return r_flag;
+	}
+	return 1;
+}
+int  CObj__VAC_ROBOT_EX
+::_Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
+						     const CString& arm_type,
+						     const CString& stn_name,
+						     const CString& stn_slot)
 {
 	int check_flag = -1;
 	int slot_index = atoi(stn_slot) - 1;
@@ -159,7 +207,7 @@ Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
 
 	if(place_flag > 0)
 	{
-		if(arm_type.CompareNoCase(ARM_A) == 0)
+		if(arm_type.CompareNoCase(_ARM_A) == 0)
 		{
 			dEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_STATUS->Get__DATA(wfr_sts);
 			sEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_TITLE->Get__DATA(wfr_title);
@@ -167,7 +215,7 @@ Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
 			dEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_STATUS->Set__DATA(STR__NONE);
 			sEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_TITLE->Set__DATA("");
 		}
-		else if(arm_type.CompareNoCase(ARM_B) == 0)
+		else if(arm_type.CompareNoCase(_ARM_B) == 0)
 		{
 			dEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_STATUS->Get__DATA(wfr_sts);
 			sEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_TITLE->Get__DATA(wfr_title);
@@ -237,12 +285,12 @@ Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
 	{
 		if(wfr_sts.GetLength() > 0)
 		{
-			if(arm_type.CompareNoCase(ARM_A) == 0)
+			if(arm_type.CompareNoCase(_ARM_A) == 0)
 			{
 				dEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_STATUS->Set__DATA(wfr_sts);
 				sEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_TITLE->Set__DATA(wfr_title);
 			}
-			else if(arm_type.CompareNoCase(ARM_B) == 0)
+			else if(arm_type.CompareNoCase(_ARM_B) == 0)
 			{
 				dEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_STATUS->Set__DATA(wfr_sts);
 				sEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_TITLE->Set__DATA(wfr_title);

@@ -246,6 +246,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CObj__VERITY_STD__DEF.h"
+					>
+				</File>
+				<File
 					RelativePath=".\CObj__VERITY_STD__DRV_FNC.cpp"
 					>
 				</File>
@@ -254,11 +258,59 @@
 					>
 				</File>
 				<File
-					RelativePath=".\CObj__VERITY_STD_SUB_FNC.cpp"
+					RelativePath=".\CObj__VERITY_STD__MON_PROC.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CMng__MSG_CTRL"
+				>
+				<File
+					RelativePath=".\CMng__MSG_CTRL.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CMng__MSG_CTRL.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CMng__MSG_CTRL__CLIENT.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CMng__MSG_CTRL__SERVER.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\VTYRemoteMessages.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CObj__VERITY_SERVER"
+				>
+				<File
+					RelativePath=".\CObj__VERITY_SERVER.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VERITY_SERVER.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VERITY_SERVER__CALL_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VERITY_SERVER__DEF.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VERITY_SERVER__DRV_FNC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CObj__VERITY_SERVER__MON_PROC.cpp"
 					>
 				</File>
 			</Filter>

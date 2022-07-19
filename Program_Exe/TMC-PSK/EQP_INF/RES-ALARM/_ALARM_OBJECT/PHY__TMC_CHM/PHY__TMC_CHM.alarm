@@ -6,3 +6,8 @@
 #ID=6	26906	LIGHT	PHY__TMC_CHM - Dry Pump is Offline or Not Run Status !
 #ID=7	26907	LIGHT	PHY__TMC_CHM - Exhaust Pressure Timeout !
 #ID=8	26908	LIGHT	PHY__TMC_CHM - Chamber's lid is not closed !
+#ID=9	26909	LIGHT	PHY__TMC_CHM - ATM High Pressure limit !
+#ID=11	26911	LIGHT	PHY__TMC_CHM - SR Valve Close Timeout !
+#ID=12	26912	LIGHT	PHY__TMC_CHM - SR Valve Open Timeout !
+#ID=13	26913	LIGHT	PHY__TMC_CHM - FR Valve Close Timeout !
+#ID=14	26914	LIGHT	PHY__TMC_CHM - FR Valve Open Timeout !

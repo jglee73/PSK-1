@@ -1,0 +1,93 @@
+
+#DEFINE   ##MFC_SIZE           5
+#DEFINE   ##PT_SIZE            6
+
+
+#INCLUDE  "_METADATA__IO_INTERLOCK.inf"
+#INCLUDE  "_METADATA__GAS_BOX.inf"
+#INCLUDE  "_METADATA__VAC_SYS.inf"
+#INCLUDE  "_METADATA__RF_SYS.inf"
+#INCLUDE  "_METADATA__HEATER_SYS.inf"
+
+#INCLUDE  "_METADATA__PMC_SYS.inf"
+#INCLUDE  "_METADATA__PROC_SYS.inf"
+#INCLUDE  "_METADATA__UTILITY_SYS.inf"
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_CHM_IO
+
+#DEFINE_CONSTANT    OBJ__DB_INF                         DB_INF
+#DEFINE_CONSTANT    OBJ__DB_SYS                         DB_SYS
+
+#DEFINE_CONSTANT    CH__DI_VAC_SNS                      IO+di.CHM.VAC.Sts
+#DEFINE_CONSTANT    CH__DI_ATM_SNS                      IO+di.CHM.ATM.Sts
+
+#DEFINE_CONSTANT    CH__DI_SLOT_VLV_OPEN                IO+di.PM.Slot.Vlv.Open
+#DEFINE_CONSTANT    CH__DI_SLOT_VLV_CLOSE               IO+di.PM.Slot.Vlv.Close
+
+#DEFINE_CONSTANT    CH.DO_CHM_CHECK_VLV 	              NULL
+
+#DEFINE_CONSTANT    DATA.PRC_GAUGE_SIZE     	          1
+#DEFINE_CONSTANT    CH.DO_PRC_GAUGE_VLV.1	              IO+do.Bara.Protect.10_Torr.Vlv
+#DEFINE_CONSTANT    CH.AI_PRC_GAUGE_TORR.1              IO+ai.CHM.Pressure.10_Torr
+
+#DEFINE_CONSTANT    CH__AI_CHM_GAUGE_TORR               IO+ai.CHM.Pressure.1000_Torr
+#DEFINE_CONSTANT    CH__AI_FORELINE_GAUGE_TORR          IO+ai.Pump.Line.Pressure
+
+#DEFINE_CONSTANT    CH__RF_TOTAL_ON_STATE               DB_INF+RF.ON.STS
+#DEFINE_CONSTANT    DATA.RF_SIZE						            1
+#DEFINE_CONSTANT    CH__RF_ON_STATE.1                   PHY_RF_TOP+MON.IO.POWER.STATE
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_LIFT_PIN
+
+#DEFINE_CONSTANT    CH__LIFT_PIN_STATE                  DB_INF+LIFT_PIN.STATUS
+
+#DEFINE_CONSTANT    CH__ESC_CHUCK_STATE                 NULL
+#DEFINE_CONSTANT    DATA__ESC_CH_SIZE					  		    0
+
+#DEFINE_CONSTANT    CH__DO_TRANSFER_PIN_UP              IO+do.ESC.Pin.Up
+#DEFINE_CONSTANT    CH__DO_TRANSFER_PIN_DOWN            IO+do.ESC.Pin.Down
+#DEFINE_CONSTANT    CH__DO_MIDDLE_PIN_UP                IO+do.ESC.Pin.Middle
+#DEFINE_CONSTANT    CH__DO_MIDDLE_PIN_DOWN              NULL
+
+#DEFINE_CONSTANT    DATA__DI_PIN_SENSOR                 NO
+#DEFINE_CONSTANT    DATA__PIN_SIZE                      3
+#DEFINE_CONSTANT    CH__AI_PIN_POS.1                    IO+ai.Pin_Pos.AMP1
+#DEFINE_CONSTANT    CH__AI_PIN_POS.2                    IO+ai.Pin_Pos.AMP2
+#DEFINE_CONSTANT    CH__AI_PIN_POS.3                    IO+ai.Pin_Pos.AMP3
+
+			
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__LIFT_PIN   
+
+#OBJECT_IO_PARA     COM_PORT                       2
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__MATCHER
+
+#OBJECT_IO_PARA     COM_PORT                       7
+#OBJECT_IO_PARA     SLAVE_ID                       1
+
+
+//-------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__PUMP
+
+#OBJECT_IO_PARA     IP                             192.168.0.50
+#OBJECT_IO_PARA     PORT                           8003
+#OBJECT_IO_PARA     ADDRESS_ID                     0
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    IO
+
+#OBJECT_IO_FILE     CFG_IO__STRIP_C.cfg  
+
+#DEFINE_CONSTANT    PLC.NETID           5.100.31.192.1.1
+
+#DEFINE_CONSTANT    ADS.PORT            301
+#DEFINE_CONSTANT    ADS.NAME_OUTPUT     "Task 2.Outputs."
+#DEFINE_CONSTANT    ADS.NAME_INPUT      "Task 2.Inputs."
+

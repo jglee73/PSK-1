@@ -11,24 +11,24 @@ public:
 
 	// ...
 	int Call__ERROR__MODULE_OBJ(const CString& upper_obj,
-		const CString& ch_ctrl,
-		const CString& ch_mode,
-		const CString& ch_status,
-		const int err_type,
-		const CString& err_msg,
-		CII_OBJECT__ALARM *p_alarm);
+								const CString& ch_ctrl,
+								const CString& ch_mode,
+								const CString& ch_status,
+								const int err_type,
+								const CString& err_msg,
+								CII_OBJECT__ALARM *p_alarm);
 
 	int Call__ERROR__ABORTED(const CString& upper_obj,
-		const CString& obj_mode,
-		CII_OBJECT__ALARM *p_alarm);
+								const CString& obj_mode,
+								CII_OBJECT__ALARM *p_alarm);
 
 	int Call__ERROR__OFFLINE(const CString& upper_obj,
-		const CString& obj_mode,
-		CII_OBJECT__ALARM *p_alarm);
+								const CString& obj_mode,
+								CII_OBJECT__ALARM *p_alarm);
 
 	int Call__ERROR__NOT_STANDBY(const CString& upper_obj,
-		const CString& obj_mode,
-		CII_OBJECT__ALARM *p_alarm);
+								const CString& obj_mode,
+								CII_OBJECT__ALARM *p_alarm);
 };
 
 class CCommon_Error__USER_FNC : public CII__ERROR_FEEDBACK__USER_FNC

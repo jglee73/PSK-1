@@ -1,0 +1,6 @@
+#ID=1	901	LIGHT	FNC_STEP - STEP OVERTIME ALARM.
+#ID=2	902	LIGHT	FNC_STEP - STABLE OVERTIME ALARM.
+#ID=3	903	LIGHT	FNC_STEP - OBJECT OVERTIME ALARM.
+#ID=4	904	LIGHT	FNC_STEP - Temperature stable timeout error In the step preparation.
+#ID=5	905	LIGHT	FNC_STEP - Temperature stable timeout warning In the step preparation.
+#ID=6	906	LIGHT	FNC_STEP - Step parameter setting error !

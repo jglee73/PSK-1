@@ -71,6 +71,13 @@ int CObj__PSK_TEST::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_STRING_CTRL(sCH__OBJ_MSG, str_name);
 	}
 
+	// MON ...
+	{
+		str_name = "MON.COMM.STATE";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_COMM_STATE, str_name);
+	}
+
 	// INFO ...
 	{
 		str_name = "INFO.PLC.NETID.STR";

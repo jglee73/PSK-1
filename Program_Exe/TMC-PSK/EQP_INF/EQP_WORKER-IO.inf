@@ -1,0 +1,44 @@
+
+===========================================================================
+#OBJECT_STD    TMC__DB_OBJ                   DB.CFG                   DB_CFG
+#OBJECT_STD    TMC__DB_OBJ                   DB.GUI                   DB_GUI
+
+#OBJECT_STD    TMC__DB_OBJ                   DB.LLx                   DB_LBA
+#OBJECT_STD    TMC__DB_OBJ                   DB.LLx                   DB_LBB
+
+
+===========================================================================
+/*
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LAMP.CTRL               PHY_PSK__LAMP
+
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LPx.CTRL                PHY_PSK__LP1
+*/
+
+/*
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LPx.CTRL                PHY_PSK__LP2
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          LPx.CTRL                PHY_PSK__LP3
+
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          RFID.CTRL               PHY_PSK__RFID1
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          RFID.CTRL               PHY_PSK__RFID2
+#OBJECT_STD    IO_ETHERNET__PSK_LPx          RFID.CTRL               PHY_PSK__RFID3
+*/
+
+
+===========================================================================
+#OBJECT_IO     Phy_IO__DNET_HILSCHER         DNET.STD                 IO
+
+/*
+#OBJECT_IO     PHY_RS232__FFU_SYSWORK        LV32.BLDC                PHY_IO__FFU
+
+#OBJECT_IO     IO__PUMP_PFEIFFIER            VAC.SERIAL               PHY_IO__PUMP_TM
+#OBJECT_IO     IO__PUMP_PFEIFFIER            VAC.SERIAL               PHY_IO__PUMP_LL
+*/
+
+/*
+#OBJECT_IO     IO_ETHERNET__PSK_LPx          DRIVER.LPx_ETHERNET      IO_DRV__PSK_LPx
+
+#OBJECT_IO     IO_RS232__ROBOT_SANKYO        PSK                      PHY_IO__ATM_ROBOT
+*/
+
+// #OBJECT_IO     Phy_IO__ROBOT_PERSIMMON_PSK   PERSIMMON.NET            PHY_IO__VAC_ROBOT
+

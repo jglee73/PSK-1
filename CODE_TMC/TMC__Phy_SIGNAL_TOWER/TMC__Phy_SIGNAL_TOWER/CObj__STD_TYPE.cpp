@@ -234,6 +234,7 @@ int CObj__STD_TYPE::__Define__USER_FUNCTION(CII_DEFINE__FUNCTION *p_fnc_ctrl)
 int CObj__STD_TYPE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {
 	CString def_name;
+	CString def_data;
 
 	CString ch_name;
 	CString obj_name;
@@ -299,13 +300,32 @@ int CObj__STD_TYPE::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__ALARM_BUZZER, obj_name,var_name);
 
+		//
 		def_name = "CH.ALARM.BUZZER.RESET";		// Buzzer Off !!
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__ALARM_BUZZER_RESET, obj_name,var_name);
+
+		if((ch_name.CompareNoCase("NO")   == 0)
+		|| (ch_name.CompareNoCase("NONE") == 0)
+		|| (ch_name.CompareNoCase("NULL") == 0))
+		{
+			bActive__ALARM_BUZZER_RESET = false;
+		}
+		else
+		{
+			bActive__ALARM_BUZZER_RESET = true;
+
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__ALARM_BUZZER_RESET, obj_name,var_name);
+		}
 
 		//
-		for(int i=0; i<CFG_MELODY_MAX; i++)
+		def_name = "DATA.MELODY_SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		iSIZE_MELODY = atoi(def_data);
+		if(iSIZE_MELODY > CFG_MELODY_MAX)			iSIZE_MELODY = CFG_MELODY_MAX;
+
+		for(int i=0; i<iSIZE_MELODY; i++)
 		{
 			def_name.Format("CH.MELODY%d.CTRL", i+1);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);

@@ -95,7 +95,10 @@ Mode_Chk_Rty:
 	// Other : CL.PUMP_VLV
 	for(i=0; i<iOTHER_CHM__SIZE; i++)
 	{
-		if(pOther_CHM__OBJ_PHY_X[i]->Is__OBJ_BUSY() > 0)		continue;
+		if(sEXT_CH__OTHER_CHM__OBJ_ACTIVE_MODE_X[i]->Check__DATA(sMODE__VENT) > 0)
+		{
+			continue;
+		}
 
 		pOther_CHM__OBJ_PHY_X[i]->Call__OBJECT("CL.PUMP_VLV");
 	}
@@ -159,7 +162,7 @@ int  CObj__LBx_ManiFold_X::Call__LEAK_CHECK(CII_OBJECT__VARIABLE* p_variable, CI
 		}
 	}
 
-	sCH__OBJ_MSG->Set__DATA("LLx-CHM Pumping ...");
+	sCH__OBJ_MSG->Set__DATA("Pumping ...");
 
 	// ...
 	int r_flag;
@@ -193,7 +196,7 @@ int  CObj__LBx_ManiFold_X::Fnc__LEAK_CHECK(CII_OBJECT__VARIABLE* p_variable, CII
 
 	// Over-Pumping -----
 	{
-		log_msg = "LLx-CHM Leak_Check : Over-Pumping ...";
+		log_msg = "Leak_Check : Over-Pumping ...";
 
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 		xLOG_CTRL->WRITE__LOG(log_msg);
@@ -226,7 +229,7 @@ int  CObj__LBx_ManiFold_X::Fnc__LEAK_CHECK(CII_OBJECT__VARIABLE* p_variable, CII
 
 	// Stable Time -----
 	{
-		log_msg = "TMC-CHM Leak_Check : Stable Time ...";
+		log_msg = "Leak_Check : Stable Time ...";
 
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 		xLOG_CTRL->WRITE__LOG(log_msg);
@@ -257,7 +260,7 @@ int  CObj__LBx_ManiFold_X::Fnc__LEAK_CHECK(CII_OBJECT__VARIABLE* p_variable, CII
 
 	// Leak Check -----
 	{
-		log_msg = "TMC-CHM Leak_Checking ...";
+		log_msg = "Leak_Checking ...";
 
 		sCH__OBJ_MSG->Set__DATA(log_msg);
 		xLOG_CTRL->WRITE__LOG(log_msg);
@@ -611,7 +614,7 @@ Call__DV_CLOSE(CII_OBJECT__VARIABLE* p_variable,
 			   CII_OBJECT__ALARM *p_alarm)
 {
 	if((dEXT_CH__CFG_SETUP_TEST_MODE->Check__DATA(STR__ENABLE) > 0)
-		&& (dEXT_CH__CFG_SETUP_LLx_DOOR_SLOT_VLV_CONTROL->Check__DATA(STR__DISABLE) > 0))
+	&& (dEXT_CH__CFG_SETUP_LLx_DOOR_SLOT_VLV_CONTROL->Check__DATA(STR__DISABLE) > 0))
 	{
 		return 1;
 	}
@@ -679,17 +682,24 @@ int  CObj__LBx_ManiFold_X::
 Call__ISOLATE(CII_OBJECT__VARIABLE* p_variable,
 			  CII_OBJECT__ALARM *p_alarm)
 {
-	int flag;
+	CString ch_data;
 
-	// DV CLOSE ...
+	for(int i=0; i<iLBx_SLOT_SIZE; i++)
 	{
-		flag = Call__DV_CLOSE(p_variable, p_alarm);
-		if(flag < 0)		return flag;
-	}
-	// SV CLOSE ...
-	{
-		flag = Call__SV_CLOSE(p_variable, p_alarm);
-		if(flag < 0)		return flag;
+		ch_data.Format("%1d", i+1);
+		aEXT_CH__PARA_SLOT_ID->Set__DATA(ch_data);
+
+		// DV CLOSE ...
+		{
+			int r_flag = Call__DV_CLOSE(p_variable, p_alarm);
+			if(r_flag < 0)		return r_flag;
+		}
+
+		// SV CLOSE ...
+		{
+			int r_flag = Call__SV_CLOSE(p_variable, p_alarm);
+			if(r_flag < 0)		return r_flag;
+		}
 	}
 
 	return pLBx_CHM__OBJ_CTRL->Call__OBJECT("ALL_GAS_VLV_CLOSE");

@@ -109,6 +109,46 @@ int CObj__ATM_ROBOT_STD::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_DIGITAL(str_name,APP_DSP__PARA_SLOT);
 		LINK__VAR_DIGITAL_CTRL(xCH__PARA_SLOT,str_name);
 	}
+
+	// CFG ...
+	{
+		str_name = "CFG.PLACE_FRONT_TO_LLx_DOOR";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CFG_PLACE_FRONT_TO_LLx_DOOR, str_name);
+
+		str_name = "CFG.PICK_FRONT_TO_LLx_DOOR";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CFG_PICK_FRONT_TO_LLx_DOOR, str_name);
+
+		//
+		str_name = "CFG.MOVE_TO_LLx.DELAY.SEC";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CFG_MOVE_TO_LLx_DELAY_SEC, str_name);
+
+		str_name = "CFG.FRONT_LPx_ID";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CFG_FRONT_LPx_ID, str_name);
+
+		str_name = "CFG.FRONT_LPx_SLOT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__CFG_FRONT_LPx_SLOT, str_name);
+	}
+
+	// INFO ...
+	{
+		str_name = "INFO.FUME_CLEAR.STATE";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_FUME_CLEAR_STATE, str_name);
+
+		str_name = "INFO.FUME_CLEAR.POS";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_FUME_CLEAR_POS, str_name);
+
+		str_name = "INFO.FUME_CLEAR.DELAY.COUNT";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__INFO_FUME_CLEAR_DELAY_COUNT, str_name);
+	}
+
 	return 1;
 }
 int CObj__ATM_ROBOT_STD::__DEFINE__ALARM(p_alarm)
@@ -122,7 +162,28 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {	
 	CString def_name;
 	CString def_data;
+	CString obj_name;
 	CString str_name;
+
+	// ...
+	{
+		CString file_name;
+		CString log_msg;
+
+		file_name.Format("%s_App.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
+
+		xLOG_CTRL->DISABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG(log_msg);
+
+		xLOG_CTRL->ENABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG("   START   \n");
+	}
 
 	// DB_CFG ...
 	{
@@ -149,18 +210,10 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_STRING_CTRL(xEXT_CH__OBJ_STATUS, def_data,str_name);
 	}
 
-	// AL1 
-	{
-		def_name = "OBJ__AL1";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
-
-		pAL1__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
-	}
-
 	// LLx ...
 	{
 		def_name = "DATA.LLx_SIZE";
-		p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+		p_variable->Get__DEF_CONST_DATA(def_name, def_data);
 		
 		iSIZE__LLx = atoi(def_data);
 		if(iSIZE__LLx > CFG_LLx_LIMIT)		iSIZE__LLx = CFG_LLx_LIMIT;
@@ -169,9 +222,13 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		for(int i=0; i<iSIZE__LLx; i++)
 		{
 			def_name.Format("OBJ__LL%1d", i+1);
-			p_variable->Get__DEF_CONST_DATA(def_name,def_data);
+			p_variable->Get__DEF_CONST_DATA(def_name, obj_name);
 
-			pLLx__OBJ_CTRL[i] = p_ext_obj_create->Create__OBJECT_CTRL(def_data);
+			pLLx__OBJ_CTRL[i] = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			//
+			str_name = "PARA.SLOT.ID";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__LLx__PARA_SLOT_ID[i], obj_name,str_name);
 		}
 	}
 
@@ -202,25 +259,6 @@ int CObj__ATM_ROBOT_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
-	// ...
-	{
-		CString file_name;
-		CString log_msg;
-
-		file_name.Format("%s_App.log", sObject_Name);
-
-		log_msg  = "\n\n";
-		log_msg += "//------------------------------------------------------------------------";
-
-		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
-
-		xLOG_CTRL->DISABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG(log_msg);
-
-		xLOG_CTRL->ENABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG("   START   \n");
-	}
 	return 1;
 }
 
@@ -394,11 +432,6 @@ int CObj__ATM_ROBOT_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 								para_arm,
 								para_module,
 								para_slot);
-		}
-
-		else									
-		{
-
 		}
 	}
 

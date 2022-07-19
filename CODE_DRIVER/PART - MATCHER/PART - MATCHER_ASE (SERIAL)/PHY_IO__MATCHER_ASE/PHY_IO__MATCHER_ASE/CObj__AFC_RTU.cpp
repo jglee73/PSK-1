@@ -21,10 +21,12 @@ int CObj__AFC_RTU::__DEFINE__CONTROL_MODE(obj, l_mode)
 
 	// ...
 	{
-		ADD__CTRL_VAR(sMODE__INIT,   "INIT");
+		ADD__CTRL_VAR(sMODE__INIT, "INIT");
 
-		ADD__CTRL_VAR(sMODE__AUTO,   "POWER.ON");
-		ADD__CTRL_VAR(sMODE__MANUAL, "POWER.OFF");
+		ADD__CTRL_VAR(sMODE__AUTO,   "AUTO");
+		ADD__CTRL_VAR(sMODE__MANUAL, "MANUAL");
+
+		ADD__CTRL_VAR(sMODE__PROC_CTRL, "PROC.CTRL");
 	}
 	return 1;
 }
@@ -521,14 +523,15 @@ int CObj__AFC_RTU::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_alarm)
 
 	// ...
 	{
-			 IF__CTRL_MODE(sMODE__INIT)				flag = Call__INIT(p_variable,p_alarm);
-		ELSE_IF__CTRL_MODE(sMODE__AUTO)				flag = Call__AUTO(p_variable,p_alarm);
-		ELSE_IF__CTRL_MODE(sMODE__MANUAL)			flag = Call__MANUAL(p_variable,p_alarm);
+			 IF__CTRL_MODE(sMODE__INIT)				flag = Call__INIT(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__AUTO)				flag = Call__AUTO(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__MANUAL)			flag = Call__MANUAL(p_variable, p_alarm);
+		ELSE_IF__CTRL_MODE(sMODE__PROC_CTRL)		flag = Call__PROC_CTRL(p_variable, p_alarm);
 	}
 
 	if((flag < 0)||(p_variable->Check__CTRL_ABORT() > 0))
 	{
-		msg.Format("%s Aborted (%1d)", mode, flag);
+		msg.Format("%s Aborted ... (%1d)", mode, flag);
 	}
 	else
 	{

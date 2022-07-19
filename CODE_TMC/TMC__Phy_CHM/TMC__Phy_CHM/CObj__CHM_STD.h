@@ -18,7 +18,7 @@ private:
 	SCX__USER_LOG_CTRL xLOG_CTRL;
 	CII_EXT_OBJECT__CTRL *m_xI_DATALOG_OBJ_CTRL;
 
-	int  iSim_Flag;
+	int  iActive__SIM_MODE;
 	int	 m_nDatalog_Flag;
 	//
 
@@ -93,6 +93,8 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__CFG_EQUAL_VLV_OPEN_WHEN_ATM;
 	
 	CX__VAR_ANALOG_CTRL  aCH__CFG_ATM_HIGH_PRESSURE_TORR;
+
+	CX__VAR_ANALOG_CTRL  aCH__CFG_GAUGE_LIMIT_PRESSURE;
 	//
 
 
@@ -107,6 +109,10 @@ private:
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_REF_ATM_PRESSURE;
 	CX__VAR_ANALOG_CTRL  aEXT_CH__CFG_REF_VAC_PRESSURE;
 
+	// OBJ : BALLAST_LOG ...
+	bool bActive__BALLAST_LOG;
+	CII_EXT_OBJECT__CTRL *pOBJ__BALLAST_LOG;
+
 	// OBJ : IO ...
 	// VENT VLV
 	CX__VAR_DIGITAL_CTRL doEXT_CH__FAST_VENT_VLV__SET;
@@ -117,13 +123,30 @@ private:
 	bool bActive__ATM_EQUAL_VLV;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__ATM_EQUAL_VLV__SET;
 
+	bool bActive__DO_GAUGE_ISO_VLV;
+	CX__VAR_DIGITAL_CTRL doEXT_CH__DO_GAUGE_ISO_VLV__SET;
+
 	// PUMP VLV
 	CX__VAR_DIGITAL_CTRL doEXT_CH__FAST_PUMP_VLV__SET;
 
 	bool bActive__SOFT_PUMP_VLV__SET;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__SOFT_PUMP_VLV__SET;
 
-	// SNS
+	// FR.VLV SENSOR ...
+	bool bActive__DI_FR_VLV_OPEN;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_FR_VLV_OPEN;
+
+	bool bActive__DI_FR_VLV_CLOSE;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_FR_VLV_CLOSE;
+
+	// SR.VLV SENSOR ...
+	bool bActive__DI_SR_VLV_OPEN;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_SR_VLV_OPEN;
+
+	bool bActive__DI_SR_VLV_CLOSE;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_SR_VLV_CLOSE;
+
+	// PRESSURE SNS ...
 	bool bActive__ATM_SNS_Virtual_Type;
 
 	CX__VAR_DIGITAL_CTRL diEXT_CH__ATM_SENSOR;
@@ -224,17 +247,17 @@ private:
 
 	// ...
 	int  Check__VENT_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
-	int  Check__PUMP_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
+	int  Check__PUMP_ALL_VLV__CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
-	int  Check__PUMP_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
-	void Update__PUMP_VLV_STS(CII_OBJECT__ALARM* p_alarm);
+	int  Check__PUMP_VLV__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+	void Update__PUMP_VLV_STS(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
 	int  Fnc__VENT_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
 	int  Fnc__VENT_ALL_VLV__CLOSE_WITHOUT_EQUAL_VLV(CII_OBJECT__ALARM* p_alarm);
-	int  Fnc__PUMP_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
+	int  Fnc__PUMP_ALL_VLV__CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
-	int  Fnc__PUMP_FAST_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
-	int  Fnc__PUMP_SOFT_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
+	int  Fnc__PUMP_FAST_VLV__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+	int  Fnc__PUMP_SOFT_VLV__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 	int  Fnc__PUMP_BALLAST_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
 
 	int  Fnc__VENT_FAST_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
@@ -253,6 +276,14 @@ private:
 
 	// ...
 	int Check__CHM_LID_CLOSE(CII_OBJECT__ALARM* p_alarm);
+
+	int Check__SR_VLV_CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int Check__SR_VLV_OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int _Check__SR_VLV_STATE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const bool active__wait_check,const bool active__close_check);
+
+	int Check__FR_VLV_CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int Check__FR_VLV_OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int _Check__FR_VLV_STATE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm, const bool active__wait_check, const bool active__close_check);
 	//
 
 

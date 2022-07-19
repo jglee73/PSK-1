@@ -236,7 +236,13 @@ int CObj__CHM_STD::__DEFINE__VARIABLE_STD(p_variable)
 	str_name = "CFG.ATM.HIGH.PRESSURE.TORR";
 	STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 0, 0, 1000, "");
 	LINK__VAR_ANALOG_CTRL(aCH__CFG_ATM_HIGH_PRESSURE_TORR, str_name);
-	//
+
+	// ...
+	{
+		str_name = "CFG.GAUGE.LIMIT_PRESSURE";
+		STD__ADD_ANALOG_WITH_X_OPTION(str_name, "torr", 3, 0, 100, "");
+		LINK__VAR_ANALOG_CTRL(aCH__CFG_GAUGE_LIMIT_PRESSURE, str_name);
+	}
 
 	// ...
 	{
@@ -390,13 +396,81 @@ int CObj__CHM_STD::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
+	// ...
+	{
+		alarm_id = ALID__SR_VALVE_NOT_CLOSE;
+
+		alarm_title  = title;
+		alarm_title += "SR Valve Close Timeout !";
+
+		alarm_msg.Format("Please, check the state of SR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__SR_VALVE_NOT_OPEN;
+
+		alarm_title  = title;
+		alarm_title += "SR Valve Open Timeout !";
+
+		alarm_msg.Format("Please, check the state of SR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__FR_VALVE_NOT_CLOSE;
+
+		alarm_title  = title;
+		alarm_title += "FR Valve Close Timeout !";
+
+		alarm_msg.Format("Please, check the state of FR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__FR_VALVE_NOT_OPEN;
+
+		alarm_title  = title;
+		alarm_title += "FR Valve Open Timeout !";
+
+		alarm_msg.Format("Please, check the state of FR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
 	return 1;
 }
 
 //-------------------------------------------------------------------------
 int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {
-	m_xI_DATALOG_OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL("FNC_BALLAST_DATALOG");
+	// ...
+	{
+		CString file_name;
+		CString log_msg;
+
+		file_name.Format("%s_APP.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
+
+		xLOG_CTRL->DISABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG(log_msg);
+
+		xLOG_CTRL->ENABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG("   START   \n");
+	}
 
 	// ...
 	CString def_name;
@@ -433,17 +507,31 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_SIM_PUMP_TIME, def_data,str_name);
 	}
 
+	// OBJ : BALLAST_LOG ...
+	{
+		def_name = "OBJ__BALLAST_LOG";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
+
+		def_check = x_utility.Check__Link(obj_name);
+		bActive__BALLAST_LOG = def_check;
+
+		if(def_check)
+		{
+			pOBJ__BALLAST_LOG = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+		}
+	}
+
 	// OBJ : IO ...
 	{
 		// VENT VLV ...
 		{
-			def_name = "VAR__IO_DO_FAST_VENT_VLV";
+			def_name = "CH__IO_DO_FAST_VENT_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__FAST_VENT_VLV__SET, obj_name,var_name);
 
 			//
-			def_name = "VAR__IO_DO_SOFT_VENT_VLV";
+			def_name = "CH__IO_DO_SOFT_VENT_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
 			def_check = x_utility.Check__Link(def_data);
@@ -456,7 +544,7 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			}
 
 			//
-			def_name = "VAR__IO_DO_EQUAL_VLV";
+			def_name = "CH__IO_DO_EQUAL_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
 			def_check = x_utility.Check__Link(def_data);
@@ -467,16 +555,29 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__ATM_EQUAL_VLV__SET, obj_name,var_name);
 			}
+
+			//
+			def_name = "CH__IO_DO_GAUGE_ISO_VLV";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DO_GAUGE_ISO_VLV = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__DO_GAUGE_ISO_VLV__SET, obj_name,var_name);
+			}
 		}
 		// PUMP VLV ...
 		{
-			def_name = "VAR__IO_DO_FAST_PUMP_VLV";
+			def_name = "CH__IO_DO_FAST_PUMP_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__FAST_PUMP_VLV__SET, obj_name,var_name);
 
 			//
-			def_name = "VAR__IO_DO_SOFT_PUMP_VLV";
+			def_name = "CH__IO_DO_SOFT_PUMP_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
 			def_check = x_utility.Check__Link(def_data);
@@ -488,8 +589,62 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__SOFT_PUMP_VLV__SET, obj_name,var_name);
 			}
 		}
+		// FR.VLV SENSOR ...
+		{
+			def_name = "CH__IO_DI_FR_VLV_OPEN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
-		// SNS ...
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_FR_VLV_OPEN = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_FR_VLV_OPEN, obj_name,var_name);
+			}
+
+			//
+			def_name = "CH__IO_DI_FR_VLV_CLOSE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_FR_VLV_CLOSE = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_FR_VLV_CLOSE, obj_name,var_name);
+			}
+		}
+		// SR.VLV SENSOR ...
+		{
+			def_name = "CH__IO_DI_SR_VLV_OPEN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_SR_VLV_OPEN = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_SR_VLV_OPEN, obj_name,var_name);
+			}
+
+			//
+			def_name = "CH__IO_DI_SR_VLV_CLOSE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_SR_VLV_CLOSE = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_SR_VLV_CLOSE, obj_name,var_name);
+			}
+		}
+
+		// PRESSURE SENSOR ...
 		{
 			def_name = "DATA.ATM_SNS.VIRTUAL_TYPE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
@@ -499,7 +654,7 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 			// ATM.SNS ...
 			{
-				def_name = "VAR__IO_DI_ATM_SNS";
+				def_name = "CH__IO_DI_ATM_SNS";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__ATM_SENSOR, obj_name,var_name);
@@ -515,7 +670,7 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			}
 			// VAC.SNS ...
 			{
-				def_name = "VAR__IO_DI_VAC_SNS";
+				def_name = "CH__IO_DI_VAC_SNS";
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__VAC_SENSOR, obj_name,var_name);
@@ -533,7 +688,7 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		// LID ...
 		{
-			def_name = "VAR__IO_DI_LID_CLOSE_SNS";
+			def_name = "CH__IO_DI_LID_CLOSE_SNS";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
 			def_check = x_utility.Check__Link(def_data);
@@ -548,12 +703,12 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		// BALLAST ...
 		{
-			def_name.Format("VAR__IO_DO_BALLAST_VALVE_SET");
+			def_name.Format("CH__IO_DO_BALLAST_VALVE_SET");
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__BALLAST_VALVE_SET, obj_name,var_name);
 
-			def_name.Format("VAR__IO_AO_BALLAST_N2_SET");
+			def_name.Format("CH__IO_AO_BALLAST_N2_SET");
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_ANALOG_CTRL(aoEXT_CH__BALLAST_N2_SET, obj_name,var_name);
@@ -577,13 +732,13 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// OBJ : GAUGE ...
 	{
-		def_name = "VAR__PRESSURE_TORR";
+		def_name = "CH__PRESSURE_TORR";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 		LINK__EXT_VAR_ANALOG_CTRL(aiEXT_CH__TMC_CHM__PRESSURE_TORR, obj_name,var_name);
 
 		//
-		def_name = "VAR__EXHAUST_PRESSURE";
+		def_name = "CH__EXHAUST_PRESSURE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
 		def_check = x_utility.Check__Link(def_data);
@@ -600,36 +755,16 @@ int CObj__CHM_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		SCX__SEQ_INFO x_seq_info;
 
-		iSim_Flag = x_seq_info->Is__SIMULATION_MODE();
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		if(bActive__LID_CLOSE)
 			diEXT_CH__CHM_LID_CLOSE_SMS->Set__DATA(STR__ON);
 
 		if(bActive__TMC_CHM__EXHAUST_PRESSURE)
 			aiEXT_CH__TMC_CHM__EXHAUST_PRESSURE->Set__VALUE(0.01);
-	}
-
-	// ...
-	{
-		CString file_name;
-		CString log_msg;
-
-		file_name.Format("%s_APP.log", sObject_Name);
-
-		log_msg  = "\n\n";
-		log_msg += "//------------------------------------------------------------------------";
-
-		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
-
-		xLOG_CTRL->DISABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG(log_msg);
-
-		xLOG_CTRL->ENABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG("   START   \n");
 	}
 
 	return 1;

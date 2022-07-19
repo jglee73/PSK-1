@@ -9,34 +9,49 @@
 int CObj__LAMP_CTRL::
 Call__RED_ON()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_RED_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LINK_LIGHT_RED_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_RED_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LOCAL_LINK_LIGHT_RED_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_RED->Set__DATA(STR__ON);
-	else						dCH__LINK_LOCAL_LIGHT_RED->Set__DATA(STR__ON);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__RED_OFF()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_RED_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_RED_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_RED_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_RED_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_RED->Set__DATA(STR__OFF);
-	else						dCH__LINK_LOCAL_LIGHT_RED->Set__DATA(STR__OFF);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__RED_BLINK()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_RED_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_RED_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_RED_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_RED_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_RED->Set__DATA(STR__BLINK);
-	else						dCH__LINK_LOCAL_LIGHT_RED->Set__DATA(STR__BLINK);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 
@@ -45,34 +60,49 @@ Call__RED_BLINK()
 int CObj__LAMP_CTRL::
 Call__YELLOW_ON()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_YELLOW_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LINK_LIGHT_YELLOW_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_YELLOW_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LOCAL_LINK_LIGHT_YELLOW_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_YELLOW->Set__DATA(STR__ON);
-	else						dCH__LINK_LOCAL_LIGHT_YELLOW->Set__DATA(STR__ON);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__YELLOW_OFF()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_YELLOW_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_YELLOW_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_YELLOW_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_YELLOW_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_YELLOW->Set__DATA(STR__OFF);
-	else						dCH__LINK_LOCAL_LIGHT_YELLOW->Set__DATA(STR__OFF);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__YELLOW_BLINK()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_YELLOW_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_YELLOW_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_YELLOW_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_YELLOW_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_YELLOW->Set__DATA(STR__BLINK);
-	else						dCH__LINK_LOCAL_LIGHT_YELLOW->Set__DATA(STR__BLINK);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 
@@ -81,34 +111,49 @@ Call__YELLOW_BLINK()
 int CObj__LAMP_CTRL::
 Call__GREEN_ON()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_GREEN_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LINK_LIGHT_GREEN_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_GREEN_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LOCAL_LINK_LIGHT_GREEN_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_GREEN->Set__DATA(STR__ON);
-	else						dCH__LINK_LOCAL_LIGHT_GREEN->Set__DATA(STR__ON);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__GREEN_OFF()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_GREEN_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_GREEN_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_GREEN_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_GREEN_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_GREEN->Set__DATA(STR__OFF);
-	else						dCH__LINK_LOCAL_LIGHT_GREEN->Set__DATA(STR__OFF);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__GREEN_BLINK()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_GREEN_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_GREEN_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_GREEN_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_GREEN_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_GREEN->Set__DATA(STR__BLINK);
-	else						dCH__LINK_LOCAL_LIGHT_GREEN->Set__DATA(STR__BLINK);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 
@@ -117,34 +162,49 @@ Call__GREEN_BLINK()
 int CObj__LAMP_CTRL::
 Call__BLUE_ON()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_BLUE_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LINK_LIGHT_BLUE_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_BLUE_ON_OFF_ACTIVE->Set__DATA(STR__ON);
+		dCH__LOCAL_LINK_LIGHT_BLUE_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_BLUE->Set__DATA(STR__ON);
-	else						dCH__LINK_LOCAL_LIGHT_BLUE->Set__DATA(STR__ON);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__BLUE_OFF()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_BLUE_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_BLUE_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_BLUE_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_BLUE_BLINK_ACTIVE->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_BLUE->Set__DATA(STR__OFF);
-	else						dCH__LINK_LOCAL_LIGHT_BLUE->Set__DATA(STR__OFF);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__BLUE_BLINK()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_LIGHT_BLUE_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LINK_LIGHT_BLUE_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_LIGHT_BLUE_ON_OFF_ACTIVE->Set__DATA(STR__OFF);
+		dCH__LOCAL_LINK_LIGHT_BLUE_BLINK_ACTIVE->Set__DATA(STR__ON);
+	}
 
-	if(active__remote_mode)		dCH__LIGHT_BLUE->Set__DATA(STR__BLINK);
-	else						dCH__LINK_LOCAL_LIGHT_BLUE->Set__DATA(STR__BLINK);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 
@@ -170,23 +230,29 @@ Call__WHITE_BLINK()
 int CObj__LAMP_CTRL::
 Call__ALARM_BUZZER_ON()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_ALARM_BUZZER->Set__DATA(STR__ON);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_ALARM_BUZZER->Set__DATA(STR__ON);
+	}
 
-	if(active__remote_mode)			dCH__ALARM_BUZZER->Set__DATA(STR__ON);
-	else							dCH__LINK_LOCAL_ALARM_BUZZER->Set__DATA(STR__ON);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::
 Call__ALARM_BUZZER_OFF()
 {
-	bool active__remote_mode = dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE);
+	if(dCH__IO_MONITOR__ACTIVE_FLAG->Check__DATA(STR__ENABLE) > 0)
+	{
+		dCH__LINK_ALARM_BUZZER->Set__DATA(STR__OFF);
+	}
+	else
+	{
+		dCH__LOCAL_LINK_ALARM_BUZZER->Set__DATA(STR__OFF);
+	}
 
-	if(active__remote_mode)			dCH__ALARM_BUZZER->Set__DATA(STR__OFF);
-	else							dCH__LINK_LOCAL_ALARM_BUZZER->Set__DATA(STR__OFF);
-
-	doEXT_CH__EFEM_LAMP_BUZZER->Set__DATA(CMD__SET);
 	return 1;
 }
 int CObj__LAMP_CTRL::

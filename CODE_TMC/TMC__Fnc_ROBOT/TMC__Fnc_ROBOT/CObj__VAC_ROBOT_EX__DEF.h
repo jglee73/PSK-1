@@ -38,29 +38,36 @@ enum {ACT_HOFF__SWAP__PICK_X__PLACE = -1, ACT_HOFF__SWAP__PLACE_X__PICK = 1};
 #define  CMMD__PLACE_COMPLETE   "PLACE_COMPLETE"
 
 // ...
+#define  CMMD__VENT				"VENT"
+
 #define  CMMD__PUMP				"PUMP"
 #define  CMMD__TRANSFER_PUMP	"TRANSFER_PUMP"
 
 #define  STR__NONE				"NONE"
 #define  STR__EXIST				"EXIST"
 #define  STR__UNKNOWN			"UNKNOWN"
+#define  STR__MAPPED			"MAPPED"
 
 #define  ACT__RETRY				"RETRY"
+#define  ACT__IGNORE			"IGNORE"
 #define  CHECK__RETRY			"CHECK_RETRY"
 
-//.....
-#define  ARM_A					"A"
-#define  ARM_B					"B"
 
-//.....
+// ...
+#define  _ARM_A					"A"
+#define  _ARM_B					"B"
+#define  _ARM_AB				"AB"
+
+
+// ...
 #define  STR__ENABLE			"ENABLE"
 #define  STR__DISABLE			"DISABLE"
 
 #define  STR__OPEN				"OPEN"
 #define  STR__CLOSE				"CLOSE"
 
-//.....
 #define  STR__VAC				"VAC"
+#define  STR__ATM				"ATM"
 
 #define  STR__UP				"UP"
 #define  STR__DOWN				"DOWN"
@@ -68,11 +75,11 @@ enum {ACT_HOFF__SWAP__PICK_X__PLACE = -1, ACT_HOFF__SWAP__PLACE_X__PICK = 1};
 #define  STR__IDLE				"IDLE"
 #define  STR__MAINT				"MAINT"
 
-// ...
+#define  STR__ALL               "ALL"
+
 #define  STR__YES               "YES"
 #define  STR__NO				"NO"
 
-// ...
 #define  STR__PASSIVE			"PASSIVE"
 #define  STR__ACTIVE			"ACTIVE"
-
+//

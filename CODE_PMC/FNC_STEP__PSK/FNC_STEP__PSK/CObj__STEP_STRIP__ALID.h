@@ -2,7 +2,7 @@
 
 
 // ...
-#define ACT__CLEAR							"CLEAR"
+#define ACT__CLEAR												"CLEAR"
 
 
 // ...

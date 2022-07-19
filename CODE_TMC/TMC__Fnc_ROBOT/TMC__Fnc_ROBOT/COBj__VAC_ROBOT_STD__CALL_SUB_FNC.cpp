@@ -1067,13 +1067,8 @@ LOOP_RETRY:
 }
 
 int  CObj__VAC_ROBOT_STD::
-Fnc__TRANSFER_AUTO_PUMPING(const CString& stn_name)
+Fnc__TRANSFER_AUTO_PUMPING(const CString& arm_type, const CString& stn_name, const CString& stn_slot)
 {
-	CString str_log;
-	CString para_module;
-
-	para_module = stn_name;
-
 	if(dEXT_CH__CFG_TRANSFER_MODE->Check__DATA(STR__VAC) > 0)
 	{
 		// VAC_CHM - PUMP
@@ -1083,7 +1078,7 @@ Fnc__TRANSFER_AUTO_PUMPING(const CString& stn_name)
 		}
 
 		// LLx - PUMP
-		int ll_i = Macro__CHECK_LLx_INDEX(para_module);
+		int ll_i = Macro__CHECK_LLx_INDEX(stn_name);
 		if(ll_i >= 0)
 		{
 			if(sEXT_CH__LLx__PRESSURE_STATUS[ll_i]->Check__DATA(STR__VAC) < 0)
@@ -1092,8 +1087,7 @@ Fnc__TRANSFER_AUTO_PUMPING(const CString& stn_name)
 			}
 		}
 	}
-
-	return OBJ_AVAILABLE;
+	return 1;
 }
 
 int  CObj__VAC_ROBOT_STD::

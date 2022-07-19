@@ -115,7 +115,15 @@ int CObj__VAC_SERIAL
 		// Pump.State ...
 		_Update__PUMP_STATE(rsp_data1);
 
+		//
 		sCH__MON_STATE_PRESSURE_mBAR->Set__DATA(rsp_data2);
+
+		double cur_mbar = atof(rsp_data2);
+		double cur_torr = 0.750062 * cur_mbar;
+		ch_data.Format("%.3f", cur_torr);
+		sCH__MON_STATE_PRESSURE_TORR->Set__DATA(ch_data);
+
+		//
 		sCH__MON_STATE_FB_POWER->Set__DATA(rsp_data3);
 	}
 

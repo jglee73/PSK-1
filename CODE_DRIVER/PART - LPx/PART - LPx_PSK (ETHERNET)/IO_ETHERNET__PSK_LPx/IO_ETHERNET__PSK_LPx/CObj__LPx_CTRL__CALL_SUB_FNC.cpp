@@ -31,7 +31,7 @@ int CObj__LPx_CTRL
 {
 	int sim_count = 0;
 
-	if(bActive__SIM_MODE)
+	if(iActive__SIM_MODE > 0)
 	{
 		siEXT_CH__LP_STATE->Set__DATA(STR__OK);
 		sEXT_CH__LP_INFO__STATUS->Set__DATA(STR__RUN);
@@ -39,12 +39,14 @@ int CObj__LPx_CTRL
 
 	while(1)
 	{
-		if(siEXT_CH__LP_STATE->Check__DATA(STR__OK) < 0)			return -1;
+		if(p_variable->Check__CTRL_ABORT() > 0)						return -1;
+
+		if(siEXT_CH__LP_STATE->Check__DATA(STR__OK) < 0)			return -11;
 		if(sEXT_CH__LP_INFO__STATUS->Check__DATA(STR__STOP) > 0)	return 1;
 
 		Sleep(100);
 
-		if(bActive__SIM_MODE)
+		if(iActive__SIM_MODE > 0)
 		{
 			sim_count++;
 			if(sim_count >= 10)
@@ -73,6 +75,11 @@ int CObj__LPx_CTRL
 		return -11;
 	}
 
+	if(iActive__SIM_MODE > 0)
+	{
+		sEXT_CH__LP_INFO__INITIAL->Set__DATA(STR__ON);
+	}
+
 	if(sEXT_CH__LP_INFO__INITIAL->Check__DATA(STR__ON) < 0)
 	{
 		return -12;
@@ -81,7 +88,7 @@ int CObj__LPx_CTRL
 }
 
 int CObj__LPx_CTRL
-::Fnc__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+::Fnc__DOOR_OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 	int state = Is__ONLINE(p_variable, p_alarm);
 	if(state < 0)		return - 1;
@@ -94,6 +101,11 @@ int CObj__LPx_CTRL
 		return -11;
 	}
 
+	if(iActive__SIM_MODE > 0)
+	{
+		sEXT_CH__LP_INFO__DOOR_STATUS->Set__DATA(STR__OPEN);
+	}
+
 	if(sEXT_CH__LP_INFO__DOOR_STATUS->Check__DATA(STR__OPEN) < 0)
 	{
 		return -12;
@@ -101,7 +113,7 @@ int CObj__LPx_CTRL
 	return 1;
 }
 int CObj__LPx_CTRL
-::Fnc__CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+::Fnc__DOOR_CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 	int state = Is__ONLINE(p_variable, p_alarm);
 	if(state < 0)		return - 1;
@@ -112,6 +124,11 @@ int CObj__LPx_CTRL
 	if(Wait__LP_STATE(p_variable, p_alarm) < 0)
 	{
 		return -11;
+	}
+
+	if(iActive__SIM_MODE > 0)
+	{
+		sEXT_CH__LP_INFO__DOOR_STATUS->Set__DATA(STR__CLOSE);
 	}
 
 	if(sEXT_CH__LP_INFO__DOOR_STATUS->Check__DATA(STR__CLOSE) < 0)
@@ -135,10 +152,19 @@ int CObj__LPx_CTRL
 		return -11;
 	}
 
+	if(iActive__SIM_MODE > 0)
+	{
+		sCH__MON_FOUP_POS_STATUS->Set__DATA(STR__LOAD);
+
+		sEXT_CH__LP_INFO__DOOR_STATUS->Set__DATA(STR__OPEN);
+	}
+
 	if(sEXT_CH__LP_INFO__DOOR_STATUS->Check__DATA(STR__OPEN) < 0)
 	{
 		return -12;
 	}
+
+	_Update__LPx_STATE();
 	return 1;
 }
 int CObj__LPx_CTRL
@@ -155,21 +181,30 @@ int CObj__LPx_CTRL
 		return -11;
 	}
 
+	if(iActive__SIM_MODE > 0)
+	{
+		sCH__MON_FOUP_POS_STATUS->Set__DATA(STR__UNLOAD);
+
+		sEXT_CH__LP_INFO__DOOR_STATUS->Set__DATA(STR__CLOSE);
+	}
+
 	if(sEXT_CH__LP_INFO__DOOR_STATUS->Check__DATA(STR__CLOSE) < 0)
 	{
 		return -12;
 	}
+
+	_Update__LPx_STATE();
 	return 1;
 }
 
 int CObj__LPx_CTRL
-::Fnc__DOCK(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+::Fnc__SHUTTLE_IN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 
 	return -1;
 }
 int CObj__LPx_CTRL
-::Fnc__UNDOCK(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
+::Fnc__SHUTTLE_OUT(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm)
 {
 
 	return -1;
@@ -187,6 +222,11 @@ int CObj__LPx_CTRL
 	if(Wait__LP_STATE(p_variable, p_alarm) < 0)
 	{
 		return -11;
+	}
+
+	if(iActive__SIM_MODE > 0)
+	{
+		sEXT_CH__LP_INFO__CLAMP_STATUS->Set__DATA(STR__CLAMP);
 	}
 
 	if(sEXT_CH__LP_INFO__CLAMP_STATUS->Check__DATA(STR__CLAMP) < 0)
@@ -207,6 +247,11 @@ int CObj__LPx_CTRL
 	if(Wait__LP_STATE(p_variable, p_alarm) < 0)
 	{
 		return -11;
+	}
+
+	if(iActive__SIM_MODE > 0)
+	{
+		sEXT_CH__LP_INFO__CLAMP_STATUS->Set__DATA(STR__UNCLAMP);
 	}
 
 	if(sEXT_CH__LP_INFO__CLAMP_STATUS->Check__DATA(STR__UNCLAMP) < 0)

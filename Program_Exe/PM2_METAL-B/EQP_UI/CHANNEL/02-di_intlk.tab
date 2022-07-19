@@ -1,0 +1,40 @@
+#DATAITEMLIST
+IO si.PMA_DI_02_4
+IO di.HW_Intlk.CHM.Lid.Opened
+IO di.HW_Intlk.Slot.Vlv.Closed
+IO di.HW_Intlk.Pump.Running
+IO di.HW_Intlk.CHM.Vac
+IO di.HW_Intlk.Fast.Vac.Opened
+IO di.HW_Intlk.Gas_Box.Door.Opened
+IO di.HW_Intlk.Gas_Box.Exhaust
+IO di.HW_Intlk.Gas1.Leak
+
+IO si.PMA_DI_02_5
+IO di.HW_Intlk.Gas2.Leak
+IO di.HW_Intlk.Gas3.Leak
+IO di.HW_Intlk.Flame.Detect
+IO di.HW_Intlk.Gas.Vlv.Opened
+IO di.HW_Intlk.Liquid.Leak
+IO di.HW_Intlk.RF_Gen.Water.Leak
+IO di.HW_Intlk.Source.Water.Leak
+IO di.HW_Intlk.TMP.Water.Leak
+
+IO si.PMA_DI_02_6
+IO di.HW_Intlk.Source.Cover.Opened
+IO di.HW_Intlk.Matcher1
+IO di.HW_Intlk.Matcher2
+IO di.HW_Intlk.Generator.Enable
+IO di.HW_Intlk.CHM.ATM
+IO di.HW_Intlk.TM.ATM.Sts
+IO di.HW_Intlk.TM.VAC.Sts
+IO di.HW_Intlk.Slot.Vlv.Opened
+
+IO si.PMA_DI_02_7
+IO di.HW_Intlk.Inner_Slot.Vlv.Opened
+IO di.HW_Intlk.TM.Robot.PM.Extend
+IO di.Safety_Intlk.Gas.Vlv.Opened
+IO di.Safety_Intlk.Slot.Vlv.Opened
+IO di.Safety_Intlk.RF_Gen
+IO di.Safety_Intlk.Controller.All
+IO di.ESC.He.Pressure.Alarm
+IO di.ESC.Noise.Filter.Fan.Alarm

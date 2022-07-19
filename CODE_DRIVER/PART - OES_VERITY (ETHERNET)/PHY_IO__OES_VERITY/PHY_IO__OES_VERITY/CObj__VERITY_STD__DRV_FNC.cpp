@@ -1,116 +1,16 @@
 #include "stdafx.h"
 #include "CObj__VERITY_STD.h"
 
+#include "CMng__MSG_CTRL.h"
 
-int	 g_nData[6]	  = { VTY_WAFER_LOT_NAME , VTY_WAFER_SLOT , VTY_WAFER_CASSETTE , VTY_WAFER_WAFERID , VTY_WAFER_RECIPE , VTY_WAFER_STEP_NUM };
-
-void EPDRecipeWrite( char* szLogMsg , ... )
-{
-	FILE*		log_file;
-	va_list		ap;
-	char		cBuffer[MAX_STR_LENGTH] = { 0 , };
-	char	    cFileName[64] = { 0 , };
-	char		cFilePath[256] = { 0 , };
-
-	ZeroMemory( cBuffer , MAX_STR_LENGTH );
-	va_start( ap , szLogMsg );
-	vsprintf( cBuffer , szLogMsg , ap );
-	va_end( ap );
-
-	sprintf( cFilePath , "%s%s" , EPD_RECIPE_DIRECTORY , cBuffer );
-
-	log_file = fopen( cFilePath , "w" );
-
-	if( log_file )
-	{
-		fprintf( log_file , "%s\n" , cBuffer );
-		fclose( log_file );
-	}
-}
 
 //-------------------------------------------------------------------------------------
-void DATA_SEPERATE( unsigned char *SourceString , char delimiterChar , unsigned char *ResultString1 , unsigned char *ResultString2 , int ReadMaxCount ) {
-	int Mode = 0 , count = 0;
-
-	while( *SourceString ) {
-		if      ( Mode == 0 ) {
-			if ( *SourceString == delimiterChar ) {
-				*ResultString1 = 0;
-				Mode  = 1;
-				count = 0;
-			}
-			else {
-				if ( count < ReadMaxCount ) {
-					*ResultString1 = *SourceString;
-					*ResultString1++;
-					count++;
-				}
-			}
-		}
-		else if ( Mode == 1 ) {
-			if ( count < ReadMaxCount ) {
-				*ResultString2 = *SourceString;
-				*ResultString2++;
-				count++;
-			}
-		}
-		*SourceString++;
-	}
-	if      ( Mode == 0 ) {
-		*ResultString1 = 0;
-		*ResultString2 = 0;
-	}
-	else if ( Mode == 1 ) {
-		*ResultString2 = 0;
-	}
-}
-
-// ...
 int CObj__VERITY_STD
 ::__Read__ANALOG(const CString& var_name, 
 				 const CDS_IO__CHANNEL_INFO& io_info, 
 				 double& read_data)
 {
-	if( aiCH__EPD_Monitor1->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[0];
-		return 1;
-	}
-	else if( aiCH__EPD_Monitor2->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[1];
-		return 1;
-	}
-	else if( aiCH__EPD_Monitor3->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[2];
-		return 1;
-	}
-	else if( aiCH__EPD_Monitor4->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[3];
-		return 1;
-	}
-	else if( aiCH__EPD_Monitor5->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[4];
-		return 1;
-	}
-	else if( aiCH__EPD_Monitor6->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[5];
-		return 1;
-	}
-	else if( aiCH__EPD_Monitor7->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[6];
-		return 1;
-	}
-	else if( aiCH__EPD_Monitor8->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.dMonitor[7];
-		return 1;
-	}
+
 	return -1;
 }
 
@@ -119,46 +19,7 @@ int CObj__VERITY_STD
 				 const CDS_IO__CHANNEL_INFO& io_info, 
 				 CString& read_data)
 {
-	if( siCH__EPD_Mon_Name1->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[0];
-		return 1;
-	}
-	else if( siCH__EPD_Mon_Name2->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[1];
-		return 1;
-	}
-	else if( siCH__EPD_Mon_Name3->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[2];
-		return 1;
-	}
-	else if( siCH__EPD_Mon_Name4->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[3];
-		return 1;
-	}
-	else if( siCH__EPD_Mon_Name5->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[4];
-		return 1;
-	}
-	else if( siCH__EPD_Mon_Name6->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[5];
-		return 1;
-	}
-	else if( siCH__EPD_Mon_Name7->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[6];
-		return 1;
-	}
-	else if( siCH__EPD_Mon_Name8->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		read_data = g_stReport.szChannelName[7];
-		return 1;
-	}
+
 	return -1;
 }
 
@@ -168,82 +29,6 @@ int CObj__VERITY_STD
 				  CString& read_data,
 				  int& item_index)
 {
-	int nIndex = 0;
-	int nTempIndex = 0;
-	int nData = 0;
-	int nLength = 0;
-	int nCnt = 0;
-	unsigned char szSendCommand[DEFAULT_STR_LENGTH] = { 0 , };
-	unsigned char szRecvCommand[HUGE_STR_LENGTH] = { 0 , };
-	char szEPDRecipeName[DEFAULT_STR_LENGTH] = { 0 , };
-	bool bResult = false;
-	
-	if(diCH__EPD_EndPoint->Check__VARIABLE_NAME(var_name) > 0 )
-		return g_stReport.nEndPoint;
-	else if(diCH__EPD_Status->Check__VARIABLE_NAME(var_name) > 0 )
-		return g_stReport.nRunning;
-	else if(diCH__EPD_SensorErr->Check__VARIABLE_NAME(var_name) > 0 )
-		return g_stReport.nErrStatus;
-	else if(diCH__EPD_GetRecipe->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		szSendCommand[nCnt++] = VTY_LP_TOURI % 256;
-		szSendCommand[nCnt++] = VTY_LP_TOURI / 256;
-		szSendCommand[nCnt++] = VTY_CMD_CFG_LIST % 256;
-		szSendCommand[nCnt++] = VTY_CMD_CFG_LIST / 256;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		//sprintf( szSendCommand , "%c%c%c%c%c%c%c%c%c%c" , VTY_LP_TOURI % 256 , VTY_LP_TOURI / 256 , VTY_CMD_CFG_LIST % 256 , VTY_CMD_CFG_LIST / 256 , 0 , 0 , 0 , 0 , 0 , 0 );
-		if( ::TryEnterCriticalSection( &mSc ) == TRUE )
-		{
-			if( SEND_COMMAND( szSendCommand , 10 ) )
-			{
-				bResult = RECV_COMMAND( szRecvCommand , NULL , 0 , &nLength );
-				if( bResult )
-				{
-					nTempIndex = 10;
-					for( nIndex = 0; nIndex < 100; nIndex++ )
-					{
-						memset( szEPDRecipeName , 0x00 , DEFAULT_STR_LENGTH );
-						sprintf( szEPDRecipeName , "%s" , szRecvCommand + nTempIndex );
-						if( strlen( (char *)szEPDRecipeName ) == 0 )
-							return -1;
-
-						nTempIndex += 264;
-						EPDRecipeWrite( "%s" , szEPDRecipeName );
-					}
-				}
-			}
-			::LeaveCriticalSection( &mSc );
-		}
-	}
-	else if(diCH__EPD_Nak_Command->Check__VARIABLE_NAME(var_name) > 0 )
-		return g_stReport.nNakCommand;
-	else if(diCH__EPD_CommTest->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		szSendCommand[nCnt++] = VTY_LP_TOURI % 256;
-		szSendCommand[nCnt++] = VTY_LP_TOURI / 256;
-		szSendCommand[nCnt++] = VTY_CMD_TEST % 256;
-		szSendCommand[nCnt++] = VTY_CMD_TEST / 256;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		//sprintf( szSendCommand , "%c%c%c%c%c%c%c%c%c%c" , VTY_LP_TOURI % 256 , VTY_LP_TOURI / 256 , VTY_CMD_TEST % 256 , VTY_CMD_TEST / 256 , 0 , 0 , 0 , 0 , 0 , 0 );
-		if( ::TryEnterCriticalSection( &mSc ) == TRUE )
-		{
-			if( SEND_COMMAND( szSendCommand , 10 ) )
-			{
-				return RECV_COMMAND( szRecvCommand , NULL , 0 , &nLength );				
-			}
-			::LeaveCriticalSection( &mSc );
-		}
-	}
 	
 	return -1;
 }
@@ -255,6 +40,7 @@ int CObj__VERITY_STD
 				  const CDS_IO__CHANNEL_INFO& io_info, 
 				  const double set_data)
 {
+
 	return -1;
 }
 
@@ -264,82 +50,192 @@ int CObj__VERITY_STD
 				   const CString& set_data,
 				   const int item_index)
 {
-	int nDataLength = 0;
-	int nSendLength = 0;
-	int nCnt = 0;
-	unsigned char szSendCommand[DEFAULT_STR_LENGTH] = { 0 , };
-	unsigned char szRecvCommand[DEFAULT_STR_LENGTH] = { 0 , };
-	bool bResult = false;
-	bool bStart = false;
+	CMng__MGS_CTRL x_msg;
 
-	::EnterCriticalSection( &mSc );
-	if( doCH__EPD_Start->Check__VARIABLE_NAME(var_name) > 0 )	// Start
+	CString str_rsp = "Error";
+
+	//
+	if(doCH__Control_SET->Check__VARIABLE_NAME(var_name) > 0)
 	{
-		szSendCommand[nCnt++] = VTY_LP_TOURI % 256;
-		szSendCommand[nCnt++] = VTY_LP_TOURI / 256;
-		szSendCommand[nCnt++] = VTY_CMD_START % 256;
-		szSendCommand[nCnt++] = VTY_CMD_START / 256;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = DATA_LENGTH % 256;
-		szSendCommand[nCnt++] = DATA_LENGTH / 256;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		//sprintf( szSendCommand , "%c%c%c%c%c%c%c%c%c%c%s" , VTY_LP_TOURI % 256 , VTY_LP_TOURI / 256 , VTY_CMD_START % 256 , VTY_CMD_START / 256 , 0 , 0 , DATA_LENGTH % 256 , DATA_LENGTH / 256 , 0 , 0 , g_szRecipeName );
-		szSendCommand[138]	  = VTY_ASCII;
-		szSendCommand[139]	  = strlen( g_szRecipeName );
-		//sprintf( szSendCommand + 138 , "%c%c" , VTY_ASCII , strlen( g_szRecipeName ) );
-		nSendLength = 140;
-		g_stReport.nEndPoint = 0;
-		bStart = true;
-	}
-	else if( doCH__EPD_Stop->Check__VARIABLE_NAME(var_name) > 0 )	// Stop
-	{
-		szSendCommand[nCnt++] = VTY_LP_TOURI % 256;
-		szSendCommand[nCnt++] = VTY_LP_TOURI / 256;
-		szSendCommand[nCnt++] = VTY_CMD_STOP % 256;
-		szSendCommand[nCnt++] = VTY_CMD_STOP / 256;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		//sprintf( szSendCommand , "%c%c%c%c%c%c%c%c%c%c" , VTY_LP_TOURI % 256 , VTY_LP_TOURI / 256 , VTY_CMD_STOP % 256 , VTY_CMD_STOP / 256 , 0 , 0 , 0 , 0 , 0 , 0 );
-		nSendLength = 10;
-		g_stReport.nRunning = 1;
-		while( !g_bEPDThreadPause )
+		char s_cmmd[256] = { 0 , };
+
+		CString str_info;
+		int cmd_id = 0;
+
+		if(set_data.CompareNoCase(STR__Connect) == 0)
 		{
-			Sleep( 1 );
+			cmd_id = VTY_CONNECT;
+			
+			str_info = sCH__PARA_CONNECT_INFO->Get__STRING();
 		}
-	}
-	else if( doCH__EPD_Reset->Check__VARIABLE_NAME(var_name) > 0 )	// Reset
-	{
-		szSendCommand[nCnt++] = VTY_LP_TOURI % 256;
-		szSendCommand[nCnt++] = VTY_LP_TOURI / 256;
-		szSendCommand[nCnt++] = VTY_CMD_RESET % 256;
-		szSendCommand[nCnt++] = VTY_CMD_RESET / 256;
-		szSendCommand[nCnt++] = VTY_RSC_RESETALL % 256;
-		szSendCommand[nCnt++] = VTY_RSC_RESETALL / 256;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		//sprintf( szSendCommand , "%c%c%c%c%c%c%c%c%c%c" , VTY_LP_TOURI % 256 , VTY_LP_TOURI / 256 , VTY_CMD_RESET % 256 , VTY_CMD_RESET / 256 , VTY_RSC_RESETALL % 256 , VTY_RSC_RESETALL / 256 , 0 , 0 , 0 , 0 );
-		nSendLength = 10;
-		g_stReport.nRunning = 1;
+		else if(set_data.CompareNoCase(STR__Comm_Test) == 0)			cmd_id = VTY_CMD_TEST;
+		else if(set_data.CompareNoCase(STR__Reset) == 0)				cmd_id = VTY_CMD_RESET;
+		else if(set_data.CompareNoCase(STR__Start) == 0)
+		{
+			cmd_id = VTY_CMD_START;
+
+			str_info = sCH__PARA_STEP_START_CFG_NAME->Get__STRING();
+		}
+		else if(set_data.CompareNoCase(STR__Stop)  == 0)				cmd_id = VTY_CMD_STOP;
+		else if(set_data.CompareNoCase(STR__Complete) == 0)				cmd_id = VTY_CMD_COMPLETE;
+		else if(set_data.CompareNoCase(STR__Cfg_Validate) == 0)
+		{
+			cmd_id = VTY_CMD_CFG_VALIDATE;
+			
+			str_info = sCH__PARA_CFG_VALIDATE_INFO->Get__STRING();
+		}
+		else
+		{
+			sCH__INFO_DRV_CONTROL_STS->Set__DATA(str_rsp);
+			return -1;
+		}
+
+		int s_len = x_msg.Make__PACKET_INFO_CLIENT(cmd_id, s_cmmd, str_info);
+		unsigned short int ss_info;
+
+		int r_flag = SEND__COMMAND(var_name,set_data, cmd_id, s_cmmd,s_len, ss_info);
+
+		if(r_flag < 0)
+		{
+			str_rsp.Format("Error.%1d", r_flag);
+		}
+		else
+		{
+			if(ss_info != VTY_OK)			str_rsp = "Fail";
+			else							str_rsp = STR__OK;
+		}
+
+		sCH__INFO_DRV_CONTROL_STS->Set__DATA(str_rsp);
+
+		if(str_rsp.CompareNoCase(STR__OK) == 0)			return 1;
+		return -1;
 	}
 
-	if( SEND_COMMAND( szSendCommand , nSendLength ) )
+	//
+	if((doCH__VERSION_REQ->Check__VARIABLE_NAME(var_name) > 0)
+	|| (doCH__CFG_LIST_REQ->Check__VARIABLE_NAME(var_name) > 0))
 	{
-		bResult = RECV_COMMAND( szRecvCommand , szSendCommand , 10 , &nDataLength );
-		if( ( bResult ) && ( bStart ) )
+		char s_cmmd[256] = { 0 , };
+
+		bool active__ver_req = false;
+		bool active__cfg_req = false;
+
+			 if(doCH__VERSION_REQ->Check__VARIABLE_NAME(var_name)  > 0)			active__ver_req = true;
+		else if(doCH__CFG_LIST_REQ->Check__VARIABLE_NAME(var_name) > 0)			active__cfg_req = true;
+
+		// ...
+		short int cmd_id = 0;
+
+			 if(active__ver_req)			cmd_id = VTY_CMD_VERSION;
+		else if(active__cfg_req)			cmd_id = VTY_CMD_CFG_LIST;
+
+		if(cmd_id > 0)
 		{
-			g_stReport.nRunning = 2;
-			return 1;
+			int s_len = x_msg.Make__PACKET_INFO_CLIENT(cmd_id, s_cmmd);
+			unsigned short int ss_info;
+
+			int r_flag = SEND__COMMAND(var_name,set_data, cmd_id, s_cmmd,s_len, ss_info);
+			
+			if(r_flag < 0)
+			{
+				str_rsp.Format("Error.%1d", r_flag);
+			}
+			else
+			{
+				if(ss_info != VTY_OK)		str_rsp = "Fail";
+				else						str_rsp = STR__OK;
+			}
 		}
+
+			 if(active__ver_req)			sCH__INFO_DRV_VERSION_STS->Set__DATA(str_rsp);
+		else if(active__cfg_req)			sCH__INFO_DRV_CFG_LIST_STS->Set__DATA(str_rsp);
+
+		if(str_rsp.CompareNoCase(STR__OK) == 0)			return 1;
+		return -1;
 	}
-	::LeaveCriticalSection( &mSc );
+
+	if(doCH__WAFER_INFO_SET->Check__VARIABLE_NAME(var_name) > 0)
+	{
+		char s_cmmd[4096] = { 0 , };
+
+		int cmd_id = VTY_CMD_WAFERINFO;
+
+		CStringArray l_item;
+		CStringArray l_data;
+
+		CString str_item;
+		CString str_data;
+
+		// 1. LotID
+		{
+			str_item = STR__LotID;
+			str_data = sCH__PARA_WAFER_LOTID->Get__STRING();
+
+			l_item.Add(str_item);
+			l_data.Add(str_data);
+		}
+		// 2. LotID
+		{
+			str_item = STR__SlotID;
+			str_data = sCH__PARA_WAFER_SLOTID->Get__STRING();
+
+			l_item.Add(str_item);
+			l_data.Add(str_data);
+		}
+		// 3. Cassette
+		{
+			str_item = STR__Cassette;
+			str_data = sCH__PARA_WAFER_CSTID->Get__STRING();
+
+			l_item.Add(str_item);
+			l_data.Add(str_data);
+		}
+		// 4. Wafer
+		{
+			str_item = STR__Wafer;
+			str_data = sCH__PARA_WAFER_ID->Get__STRING();
+
+			l_item.Add(str_item);
+			l_data.Add(str_data);
+		}
+		// 5. Recipe
+		{
+			str_item = STR__Recipe;
+			str_data = sCH__PARA_WAFER_RECIPE->Get__STRING();
+
+			l_item.Add(str_item);
+			l_data.Add(str_data);
+		}
+		// 6. Step
+		{
+			str_item = STR__Step;
+			str_data = sCH__PARA_WAFER_STEP->Get__STRING();
+
+			l_item.Add(str_item);
+			l_data.Add(str_data);
+		}
+
+		int s_len = x_msg.Make__PACKET_INFO_CLIENT(cmd_id, s_cmmd, l_item,l_data);
+		unsigned short int ss_info;
+
+		int r_flag = SEND__COMMAND(var_name,set_data, cmd_id, s_cmmd,s_len, ss_info);
+
+		if(r_flag < 0)
+		{
+			str_rsp.Format("Error.%1d", r_flag);
+		}
+		else
+		{
+			if(ss_info != VTY_OK)			str_rsp = "Fail";
+			else							str_rsp = STR__OK;
+		}
+
+		sCH__INFO_DRV_WAFER_INFO_STS->Set__DATA(str_rsp);
+
+		if(str_rsp.CompareNoCase(STR__OK) == 0)			return 1;
+		return -1;
+	}
+
 	return -1;
 }
 
@@ -348,55 +244,101 @@ int CObj__VERITY_STD
 				  const CDS_IO__CHANNEL_INFO& io_info, 
 				  const CString& set_data)
 {
-	int nIndex = 0;
-	int nCnt = 0;
-	int nTempIndex = 0;
-	unsigned char szSendCommand[MAX_STR_LENGTH] = { 0 , };
-	unsigned char szRecvCommand[MAX_STR_LENGTH] = { 0 , };
-	unsigned char szValue[DEFAULT_STR_LENGTH] = { 0 , };
 
-	if( soCH__EPD_WAFER_INFO->Check__VARIABLE_NAME(var_name) > 0 )
-	{
-		memcpy( szRecvCommand , (unsigned char*)(LPCTSTR)set_data , set_data.GetLength() );
-		szSendCommand[nCnt++] = VTY_LP_TOURI % 256;
-		szSendCommand[nCnt++] = VTY_LP_TOURI / 256;
-		szSendCommand[nCnt++] = VTY_CMD_WAFERINFO % 256;
-		szSendCommand[nCnt++] = VTY_CMD_WAFERINFO / 256;
-		szSendCommand[nCnt++] = VTY_WISC_NEWWAFER % 256;
-		szSendCommand[nCnt++] = VTY_WISC_NEWWAFER / 256;
-		szSendCommand[nCnt++] = 1584 % 256;
-		szSendCommand[nCnt++] = 1584 / 256;
-		szSendCommand[nCnt++] = 0;
-		szSendCommand[nCnt++] = 0;
-		//sprintf( szSendCommand , "%c%c%c%c%c%c%c%c%c%c" , VTY_LP_TOURI % 256 , VTY_LP_TOURI / 256 , VTY_CMD_WAFERINFO % 256 , VTY_CMD_WAFERINFO / 256 , VTY_WISC_NEWWAFER % 256 , VTY_WISC_NEWWAFER / 256 , 1584 % 256 , 1584 / 256 , 0 , 0 );
-			
-		for( nIndex = 0; nIndex < 6; nIndex++ )
-		{
-			nTempIndex = 10 + ( nIndex * 264 );
-			DATA_SEPERATE( szRecvCommand , '|' , szValue , szRecvCommand , DEFAULT_STR_LENGTH );
-			//strcat( szSendCommand + nTempIndex , szValue );
-			memcpy( szSendCommand + nTempIndex , szValue , strlen((char*)szValue) );
-			szSendCommand[nTempIndex + 129] = strlen( (char*)szValue );
-			DATA_SEPERATE( szRecvCommand , '|' , szValue , szRecvCommand , DEFAULT_STR_LENGTH );
-			//strcat( szSendCommand + nTempIndex + 130 , szValue );
-			memcpy( szSendCommand + nTempIndex + 130 , szValue , strlen((char*)szValue) );
-			szSendCommand[nTempIndex + 259] = strlen( (char*)szValue );
-			TypeConvert.nData = g_nData[nIndex];
-			memcpy( &( szSendCommand[nTempIndex + 260] ) , TypeConvert.szData , 4 );
-		}
-		::EnterCriticalSection( &mSc );
-		if( SEND_COMMAND( szSendCommand , 1594 ) )
-		{
-			RECV_COMMAND( szRecvCommand , szSendCommand , 10 , &nTempIndex );
-		}
-		::LeaveCriticalSection( &mSc );
-		return 1;
-	}
-	else if( soCH__EPD_Recipe_Name->Check__VARIABLE_NAME(var_name) > 0 )
-	{	
-		sprintf( g_szRecipeName , "%s" , set_data );
-		return 1;
-	}
 	return -1;
 }
 
+
+// ...
+int CObj__VERITY_STD
+::SEND__COMMAND(const CString& var_name,
+				const CString& set_data,
+				const int cmd_id, 
+				const char* p_send,
+				const int s_len, 
+				unsigned short int& ss_info)
+{
+	CString log_msg;
+	CString log_bff;
+
+	CString r_err;
+
+	// ...
+	{
+		log_msg.Format("Var_Name <- %s \n", var_name); 
+
+		if(set_data.GetLength() > 0)
+		{
+			log_bff.Format(" * Set_Data <- [%s] \n", set_data); 
+			log_msg += log_bff;
+		}
+
+		//
+		log_bff.Format("SEND >> [%1d] \n", s_len); 
+		log_msg += log_bff;
+
+		int i_limit = s_len;
+		for(int i=0; i<i_limit; i++)
+		{
+			if((i > 0) && ((i % 10) == 0))
+			{
+				log_msg += "\n";
+			}
+
+			//
+			unsigned char ch = 0x0ff & p_send[i];
+
+			log_bff.Format("%02X ", ch);
+			log_msg += log_bff;
+		}
+		log_msg += "\n";
+
+		mX__Log_Ctrl->WRITE__LOG(log_msg);
+	}
+
+	// ...
+	mCheck__Msg_Ctrl.Load__COMMAND_ID(cmd_id);
+
+	int s_flag = mX__Net_Client->CHAR__SEND((char*) p_send, s_len, 1, &r_err);
+
+	// ...
+	{
+		log_msg.Format("s_flag : [%1d] \n", s_flag); 
+		log_msg += "\n";
+
+		if(s_flag < 0)
+		{
+			log_bff.Format(" * r_err <- %s \n", r_err);
+			log_msg += log_bff;
+		}
+
+		mX__Log_Ctrl->WRITE__LOG(log_msg);
+	}
+
+	if(s_flag < 0)
+	{
+		bActive__COMM_ONLINE = false;
+		return -11;
+	}
+
+	// ...
+	int r_flag = mCheck__Msg_Ctrl.Wait__COMMAND_ID(cmd_id, ss_info);
+
+	if(r_flag < 0)
+	{
+		log_msg.Format("Recv.Timeout !!!"); 
+
+		mX__Log_Ctrl->WRITE__LOG(log_msg);
+
+		bActive__COMM_ONLINE = false;
+	}
+	else
+	{
+		log_msg.Format("ss_info <- 0x%04X", ss_info); 
+
+		mX__Log_Ctrl->WRITE__LOG(log_msg);
+
+		bActive__COMM_ONLINE = true;
+	}
+	return r_flag;
+}

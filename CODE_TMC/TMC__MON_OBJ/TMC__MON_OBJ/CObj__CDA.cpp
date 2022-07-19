@@ -46,16 +46,6 @@ int CObj__CDA::__DEFINE__VARIABLE_STD(p_variable)
 			str_name = "CFG.CDA_GN2.LOW_PRESSURE";
 			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "MPa", 3, 0.0, 1, "");
 		}
-		else if(i == _INDEX__CDA_PM1)
-		{
-			str_name = "CFG.CDA_PM1.LOW_PRESSURE";
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "MPa", 3, 0.0, 1, "");
-		}
-		else if(i == _INDEX__CDA_PM2)
-		{
-			str_name = "CFG.CDA_PM2.LOW_PRESSURE";
-			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "MPa", 3, 0.0, 1, "");
-		}
 		else if(i == _INDEX__CDA_TM_LL)
 		{
 			str_name = "CFG.CDA_TM_LL.LOW_PRESSURE";
@@ -65,6 +55,16 @@ int CObj__CDA::__DEFINE__VARIABLE_STD(p_variable)
 		{
 			str_name = "CFG.CDA_PCW.LOW_PRESSURE";
 			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "L/Min", 1, 0.0, 250, "");
+		}
+		else if(i == _INDEX__CDA1_PM)
+		{
+			str_name = "CFG.CDA1_PM.LOW_PRESSURE";
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "MPa", 3, 0.0, 1, "");
+		}
+		else if(i == _INDEX__CDA2_PM)
+		{
+			str_name = "CFG.CDA2_PM.LOW_PRESSURE";
+			STD__ADD_ANALOG_WITH_X_OPTION(str_name, "MPa", 3, 0.0, 1, "");
 		}
 		else
 		{
@@ -185,14 +185,21 @@ int CObj__CDA::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		for(int i = 0; i<_CFG__CDA_SIZE; i++)
 		{
 				 if(i == _INDEX__CDA_GN2)			var_name = "ai.GN2.Pressure.Switch";
-			else if(i == _INDEX__CDA_PM1)			var_name = "ai.CDA1.PM.Pressure.Switch";
-			else if(i == _INDEX__CDA_PM2)			var_name = "ai.CDA2.PM.Pressure.Switch";
 			else if(i == _INDEX__CDA_TM_LL)			var_name = "ai.CDA2.TM_LL.Pressure.Switch";
 			else if(i == _INDEX__CDA_PCW)			var_name = "ai.PCW.Flow.Meter";
+			else if(i >= _INDEX__CDA1_PM)			var_name = "ai.CDA1.PM.Pressure.Switch";
+			else if(i >= _INDEX__CDA2_PM)			var_name = "ai.CDA2.PM.Pressure.Switch";
 			else									continue;
 
 			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CDA_PRESSURE[i], obj_name,var_name);
 		}
+	}
+
+	// ...
+	{
+		SCX__SEQ_INFO x_seq_info;
+
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 
 	return 1;

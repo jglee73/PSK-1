@@ -23,6 +23,9 @@
 #define  STR__ALERT								"ALERT"
 #define  STR__ALARM								"ALARM"
 
+#define  STR__REMOTE							"REMOTE"
+#define  STR__LOCAL								"LOCAL"
+
 
 // ...
 #define  _Cmmd_IO__Pump_Stop					"Pump.Stop"

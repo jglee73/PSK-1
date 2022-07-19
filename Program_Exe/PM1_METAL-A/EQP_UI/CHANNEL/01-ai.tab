@@ -1,0 +1,17 @@
+#DATAITEMLIST
+IO si.PMA_AI_01_2
+IO ai.TMP.PCW.Flow.Monitor
+IO si.PMA_AI_01_11
+IO ai.ESC.He.Flow
+IO si.PMA_AI_01_12
+IO ai.CHM.Pressure.1000_Torr
+IO si.PMA_AI_01_13
+IO ai.CHM.Pressure.10_Torr
+IO si.PMA_AI_01_14
+IO ai.ESC.He.Pressure
+IO si.PMA_AI_01_16
+IO ai.Pump.Line.Pressure
+IO si.PMA_AI_01_17
+IO ai.PT1.Pressure
+IO si.PMA_AI_01_21
+IO ai.Gas_Box.Diff_Pressure

@@ -415,7 +415,9 @@ RETRY_LOOP:
 					if(sim_sec <= x_asyc_timer->Get__CURRENT_TIME())
 					{
 						ch_data.Format("%.3f", cfg_press - 0.1);
+
 						sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch_data);
+						aEXT_CH__CHM_PRESSURE_TORR->Set__DATA(ch_data);
 					}
 				}
 
@@ -1015,7 +1017,9 @@ RETRY_LOOP:
 				if(sim_sec <= x_asyc_timer->Get__CURRENT_TIME())
 				{
 					ch_data.Format("%.3f", cfg__ref_press - 0.001);
+					
 					sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch_data);
+					aEXT_CH__CHM_PRESSURE_TORR->Set__DATA(ch_data);
 
 					dEXT_CH__CHM_ATM_SNS->Set__DATA(STR__OFF);
 				}

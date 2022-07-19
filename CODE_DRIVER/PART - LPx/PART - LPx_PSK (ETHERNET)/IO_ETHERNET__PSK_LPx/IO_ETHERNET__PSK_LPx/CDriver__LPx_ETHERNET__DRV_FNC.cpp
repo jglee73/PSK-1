@@ -18,14 +18,6 @@ int CDriver__LPx_ETHERNET
 ::__Read__DIGITAL(const CString& var_name,const CDS_IO__CHANNEL_INFO& io_info, CString& read_data,int& item_index)
 {
 
-	if(diCH__COMM_STS->Check__VARIABLE_NAME(var_name) > 0)
-	{
-		if(m_nCommState == OFFLINE)			read_data = STR__OFFLINE;
-		else								read_data = STR__ONLINE;
-
-		return 1;
-	}
-
 	return -1;
 }
 
@@ -172,7 +164,8 @@ int CDriver__LPx_ETHERNET
 		int r_flag = Drv__GET_LPx_CMMD(var_name, str_cmmd,str_lp,set_para, rsp_data) ;
 		if(r_flag < 0)
 		{
-			return -1;
+			read_data = "Error";
+			return 1;
 		}
 
 		// ...
@@ -197,6 +190,8 @@ int CDriver__LPx_ETHERNET
 				sCH__PIO_INFO__TP_X[k]->Set__DATA("");
 			}
 		}
+
+		read_data = "OK";
 		return 1;
 	}
 
@@ -340,6 +335,9 @@ int CDriver__LPx_ETHERNET
 		// N2_RUN ...
 		if(doCH__LP_N2_RUN_X[i]->Check__VARIABLE_NAME(var_name) > 0)
 		{
+			bool active__ctrl_mfc = true;
+
+			// ...
 			CString para_00__run;
 			CString para_01__vlv;
 			CString para_01__mfc;
@@ -353,42 +351,63 @@ int CDriver__LPx_ETHERNET
 			if(set_data.CompareNoCase(STR__START) == 0)			para_00__run = "1";
 			else												para_00__run = "0";
 
-			dCH__CFG_LP_N2_NOZZLE_1__VALVE_X[i]->Get__DATA(para_01__vlv);
-			aCH__CFG_LP_N2_NOZZLE_1__MFC_X[i]->Get__DATA(para_01__mfc);
-			dCH__CFG_LP_N2_NOZZLE_2__VALVE_X[i]->Get__DATA(para_02__vlv);
-			aCH__CFG_LP_N2_NOZZLE_2__MFC_X[i]->Get__DATA(para_02__mfc);
-			dCH__CFG_LP_N2_NOZZLE_3__VALVE_X[i]->Get__DATA(para_03__vlv);
-			aCH__CFG_LP_N2_NOZZLE_3__MFC_X[i]->Get__DATA(para_03__mfc);
+			dCH__PARA_LP_N2_NOZZLE_1__VALVE_X[i]->Get__DATA(para_01__vlv);
+			aCH__PARA_LP_N2_NOZZLE_1__MFC_X[i]->Get__DATA(para_01__mfc);
+			dCH__PARA_LP_N2_NOZZLE_2__VALVE_X[i]->Get__DATA(para_02__vlv);
+			aCH__PARA_LP_N2_NOZZLE_2__MFC_X[i]->Get__DATA(para_02__mfc);
+			dCH__PARA_LP_N2_NOZZLE_3__VALVE_X[i]->Get__DATA(para_03__vlv);
+			aCH__PARA_LP_N2_NOZZLE_3__MFC_X[i]->Get__DATA(para_03__mfc);
 			
-			if(dCH__CFG_LP_N2_EHHAUST_NOZZLE_X[i]->Check__DATA(STR__ON) > 0)		para_04 = "1";
+			if(dCH__PARA_LP_N2_EHHAUST_NOZZLE_X[i]->Check__DATA(STR__ON) > 0)		para_04 = "1";
 			else																	para_04 = "0";
 			
-			aCH__CFG_LP_N2_DELAY_TIME_X[i]->Get__DATA(para_05);
+			aCH__PARA_LP_N2_DELAY_TIME_X[i]->Get__DATA(para_05);
 
 			//
 			str_cmmd  = _DRV_SET__N2_RUN;
 
-			set_para  = "[";
-			set_para += para_00__run;
-			set_para += "/";
+			if(active__ctrl_mfc)
+			{
+				set_para  = "[";
+				set_para += para_00__run;
+				set_para += "/";
 
-			set_para += para_01__vlv;
-			set_para += para_01__mfc;
-			set_para += "/";
+				set_para += para_01__mfc;
+				set_para += "/";
 
-			set_para += para_02__vlv;
-			set_para += para_02__mfc;
-			set_para += "/";
+				set_para += para_02__mfc;
+				set_para += "/";
 
-			set_para += para_03__vlv;
-			set_para += para_03__mfc;
-			set_para += "/";
+				set_para += para_03__mfc;
+				set_para += "/";
 
-			set_para += para_04;
-			set_para += "/";
+				set_para += para_04;
+				set_para += "/";
 
-			set_para += para_05;
-			set_para += "]";
+				set_para += para_05;
+				set_para += "]";
+			}
+			else
+			{
+				set_para  = "[";
+				set_para += para_00__run;
+				set_para += "/";
+
+				set_para += para_01__vlv;
+				set_para += "/";
+
+				set_para += para_02__vlv;
+				set_para += "/";
+
+				set_para += para_03__vlv;
+				set_para += "/";
+
+				set_para += para_04;
+				set_para += "/";
+
+				set_para += para_05;
+				set_para += "]";
+			}
 
 			int r_flag = Drv__GET_LPx_CMMD(var_name, str_cmmd,str_lp,set_para, rsp_data) ;
 			if(r_flag < 0)

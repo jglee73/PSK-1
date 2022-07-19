@@ -10,6 +10,7 @@
 #define  CMMD__UNLOAD			"UNLOAD"
 #define  CMMD__PREPLOAD			"PREPLOAD"
 #define  CMMD__RLSUNLOAD		"RLSUNLOAD"
+#define  CMMD__CYCLE		    "CYCLE"
 #define  CMMD__MAP				"MAP"
 #define  CMMD__CLAMP			"CLAMP"
 #define  CMMD__UNCLAMP			"UNCLAMP"
@@ -58,3 +59,12 @@
 
 #define  STR__YES				"YES"
 #define  STR__NO				"NO"
+#define  STR__NULL				"NULL"
+
+#define  STR__AUTO				"AUTO"
+#define  STR__MANUAL			"MANUAL"
+
+#define  STR__CTCINUSE			"CTCINUSE"
+#define  STR__STANDBY			"STANDBY"
+#define  STR__MAINTMODE			"MAINTMODE"
+

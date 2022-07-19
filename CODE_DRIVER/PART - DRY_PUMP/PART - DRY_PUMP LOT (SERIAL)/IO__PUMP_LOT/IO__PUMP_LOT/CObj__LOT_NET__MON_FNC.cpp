@@ -51,7 +51,7 @@ void CObj__LOT_NET
 			CString ch_data = sCH__MON_MODE_STS->Get__STRING();
 
 			if((ch_data.CompareNoCase(STR__Start) == 0)
-				|| (ch_data.CompareNoCase(STR__Operating) == 0))
+			|| (ch_data.CompareNoCase(STR__Operating) == 0))
 			{
 				dCH__MON_PUMP_STS->Set__DATA(STR__ON);
 			}

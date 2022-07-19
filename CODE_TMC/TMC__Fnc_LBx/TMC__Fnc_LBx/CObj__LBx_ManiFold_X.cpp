@@ -442,6 +442,9 @@ int CObj__LBx_ManiFold_X::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				pOther_CHM__OBJ_FNC_X[i] = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
 				//
+				str_name = "OBJ.ACTIVE.MODE";
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__OTHER_CHM__OBJ_ACTIVE_MODE_X[i], obj_name,str_name);
+
 				str_name = "dOTR.OUT.PUMPING.STS.FLAG";
 				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__OTHER_CHM__PUMPING_STS_FLAG_X[i], obj_name,str_name);
 			}
@@ -489,6 +492,39 @@ int CObj__LBx_ManiFold_X::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 
 	// ...
 	int flag = -1;
+
+	// ...
+	CStringArray l_para;
+	p_variable->Get__FNC_PARAMETER(l_para);
+
+	if(l_para.GetSize() > 0)
+	{
+		CString log_msg;
+		CString log_bff;
+
+		int i_limit = l_para.GetSize();
+
+		log_msg = "\n";
+		log_bff.Format("Parameter Limit <- [%1d] ... \n", i_limit); 
+		log_msg += log_bff;
+
+		for(int i=0; i<i_limit; i++)
+		{
+			CString para_data = l_para[i];
+
+			log_bff.Format(" * %1d) [%s] \n", i+1,para_data);
+			log_msg += log_bff;
+
+			switch(i)
+			{
+				case 0:		
+					aCH__PARA_SLOT_ID->Set__DATA(para_data);
+					break;
+			}	
+		}
+
+		xLOG_CTRL->WRITE__LOG(log_msg);
+	}
 
 	// ...
 	{

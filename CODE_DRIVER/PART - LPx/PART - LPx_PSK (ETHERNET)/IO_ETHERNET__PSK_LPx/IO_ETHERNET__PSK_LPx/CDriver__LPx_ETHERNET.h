@@ -277,26 +277,17 @@ private:
 	
 	int iActive__SIM_MODE;
 
-	//
-	CII__EXT_FNC_MODE_CTRL *pII__EXT_MODE_CTRL;
-	CII__EXT_FNC_VAR_CTRL  *pII__EXT_VAR_CTRL;
-	CII__EXT_USER_FNC_CTRL *pII__EXT_FNC_CTRL;
+	// ...
+	bool bActive__COMM_ONLINE;
 
-	//
 	CObj__Driver_MSG mDrv_Msg;
 
 	SCX__ETHERNET_JGLEE mX_Net;
 	CString sEnd_InStr;
 	CString sEnd_OutStr;
 
-	int	 m_nCommState;
 	int	 m_Rcv_Time;
 	int	 m_Out_Time;
-
-	//
-	int  iFlag__APP_LOG;
-	int  iFlag__DRV_LOG;
-	int  iSim_Flag;
 	//
 
 
@@ -318,6 +309,16 @@ private:
 
 	CX__VAR_ANALOG_CTRL  aCH__PARA_RFID_PAGE_ID_X[CFG_LPx__SIZE];
 
+	// PARA.N2_PURGE ...
+	CX__VAR_DIGITAL_CTRL dCH__PARA_LP_N2_NOZZLE_1__VALVE_X[CFG_LPx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__PARA_LP_N2_NOZZLE_1__MFC_X[CFG_LPx__SIZE];
+	CX__VAR_DIGITAL_CTRL dCH__PARA_LP_N2_NOZZLE_2__VALVE_X[CFG_LPx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__PARA_LP_N2_NOZZLE_2__MFC_X[CFG_LPx__SIZE];
+	CX__VAR_DIGITAL_CTRL dCH__PARA_LP_N2_NOZZLE_3__VALVE_X[CFG_LPx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__PARA_LP_N2_NOZZLE_3__MFC_X[CFG_LPx__SIZE];
+	CX__VAR_DIGITAL_CTRL dCH__PARA_LP_N2_EHHAUST_NOZZLE_X[CFG_LPx__SIZE];
+	CX__VAR_ANALOG_CTRL  aCH__PARA_LP_N2_DELAY_TIME_X[CFG_LPx__SIZE];
+
 	// CFG ...
 	CX__VAR_DIGITAL_CTRL dCH__CFG_COMM_MODE;
 	
@@ -326,23 +327,18 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__CFG_LP_USE_X[CFG_LPx__SIZE];
 	CX__VAR_DIGITAL_CTRL dCH__CFG_LP_CLOSE_MAPPING_X[CFG_LPx__SIZE];
 
-	CX__VAR_DIGITAL_CTRL dCH__CFG_LP_N2_NOZZLE_1__VALVE_X[CFG_LPx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG_LP_N2_NOZZLE_1__MFC_X[CFG_LPx__SIZE];
-	CX__VAR_DIGITAL_CTRL dCH__CFG_LP_N2_NOZZLE_2__VALVE_X[CFG_LPx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG_LP_N2_NOZZLE_2__MFC_X[CFG_LPx__SIZE];
-	CX__VAR_DIGITAL_CTRL dCH__CFG_LP_N2_NOZZLE_3__VALVE_X[CFG_LPx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG_LP_N2_NOZZLE_3__MFC_X[CFG_LPx__SIZE];
-	CX__VAR_DIGITAL_CTRL dCH__CFG_LP_N2_EHHAUST_NOZZLE_X[CFG_LPx__SIZE];
-	CX__VAR_ANALOG_CTRL  aCH__CFG_LP_N2_DELAY_TIME_X[CFG_LPx__SIZE];
+	// PIO_TP CFG ...
+	CX__VAR_ANALOG_CTRL  aCH__PIO_CFG__TP_X[CFG_PIO__TP_SIZE];
 
 	// PIO_TP INFO ...
-	CX__VAR_STRING_CTRL  sCH__PIO_INFO__TP_X[CFG_LPx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__PIO_INFO__TP_X[CFG_PIO__TP_SIZE];
 
 	// LPx INFO ...
 	CX__VAR_STRING_CTRL  sCH__LP_INFO__ALM_TXT_X[CFG_LPx__SIZE];
 	CX__VAR_STRING_CTRL  sCH__LP_INFO__ALM_MSG_X[CFG_LPx__SIZE];
 
 	CX__VAR_STRING_CTRL  sCH__LP_INFO__RFID_RSP_X[CFG_LPx__SIZE];
+	CX__VAR_STRING_CTRL  sCH__LP_INFO__RFID_ERROR_CODE_X[CFG_LPx__SIZE];
 
 	CX__VAR_STRING_CTRL  sCH__LP_INFO__INITIAL_X[CFG_LPx__SIZE];
 	CX__VAR_STRING_CTRL  sCH__LP_INFO__STATUS_X[CFG_LPx__SIZE];
@@ -398,12 +394,8 @@ private:
 	CX__VAR_STRING_CTRL  sCH__N2_INFO__NOZZLE_4__PRESSURE_X[CFG_LPx__SIZE];
 	CX__VAR_STRING_CTRL  sCH__N2_INFO__OXYGEN_DENSITY_X[CFG_LPx__SIZE];
 	CX__VAR_STRING_CTRL  sCH__N2_INFO__CASSETTE_TYPE_X[CFG_LPx__SIZE];
-	//
 
 	// ...
-	CX__VAR_DIGITAL_CTRL dCH__SIM_CFG__REAL_TEST;
-	CX__VAR_STRING_CTRL  sCH__SIM_CFG__ALIGN_TIME;
-
 	CX__VAR_STRING_CTRL  sCH__ACT_MSG;
 
 	CX__VAR_STRING_CTRL  sCH__INR__ERROR_ID_DEC;
@@ -474,9 +466,6 @@ private:
 
 	CX__VAR_DIGITAL_CTRL doCH__LP_N2_RUN_X[CFG_LPx__SIZE];
 
-	// DI  ----------
-	CX__VAR_DIGITAL_CTRL diCH__COMM_STS;
-
 	// SO ...
 	CX__VAR_STRING_CTRL  soCH__CHECK_CMMD;
 
@@ -494,11 +483,9 @@ private:
 	CX__VAR_STRING_CTRL  siCH__LP_N2_STATUS_X[CFG_LPx__SIZE];
 
 	CX__VAR_STRING_CTRL  siCH__RFID_READ_X[CFG_LPx__SIZE];
-	//
 
 	// ...
 	int iMsg_ID;
-
 	int Get__Msg_ID()
 	{
 		iMsg_ID++;
@@ -508,6 +495,13 @@ private:
 
 		return iMsg_ID;
 	}
+
+
+	//-------------------------------------------------------------------------
+	// EXTERNAL PROPERTY
+
+	CX__VAR_DIGITAL_CTRL dEXT_CH__CONFIG_SAVE;
+	//
 
 
 	//-------------------------------------------------------------------------
@@ -576,7 +570,6 @@ private:
 	// ...
 	void Fnc__APP_LOG(const CString& log_msg);
 	void Fnc__DRV_LOG(const CString& log_msg);
-	void Fnc__DRV_LOG_FORMAT(const char *fmt, ...);
 	void Fnc__ACT_MSG(const CString& act_msg);
 
 	// ...
@@ -608,6 +601,9 @@ private:
 	int  _Update__LPx_STATE(const int lp_id, const CString& str_rsp);
 	int  _Update__LPx_MAP(const int lp_id, const CString& str_rsp);
 	int  _Update__LPx_N2_STS(const int lp_id, const CString& str_rsp);
+
+	// ...
+	int  _Save__Config_Change();
 	//
 
 public:

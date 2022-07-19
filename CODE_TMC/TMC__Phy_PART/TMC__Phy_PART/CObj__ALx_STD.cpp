@@ -2,6 +2,8 @@
 #include "CObj__ALx_STD.h"
 #include "CObj__ALx_STD__DEF.h"
 
+#include "Macro_Function.h"
+
 
 //-------------------------------------------------------------------------
 CObj__ALx_STD::CObj__ALx_STD()
@@ -109,6 +111,47 @@ int CObj__ALx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	int al_id = -1;
 
+	// ...
+	{
+		CString file_name;
+		CString log_msg;
+
+		file_name.Format("%s_App.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
+
+		xLOG_CTRL->DISABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG(log_msg);
+
+		xLOG_CTRL->ENABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG("   START   \n");
+	}
+
+	// LLx ...
+	{
+		def_name = "LLx.MULTI_DOOR_VALVE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if(def_data.CompareNoCase("YES") == 0)			bActive__LLx_MULTI_DOOR_VALVE = true;
+		else											bActive__LLx_MULTI_DOOR_VALVE = false;
+
+		if(bActive__LLx_MULTI_DOOR_VALVE)
+		{
+			def_name = "LLx.SLOT_SIZE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			iLLx_SLOT_SIZE = atoi(def_data);
+			if(iLLx_SLOT_SIZE > CFG_LLx__SLOT_SIZE)		iLLx_SLOT_SIZE = CFG_LLx__SLOT_SIZE;
+		}
+		else
+		{
+			iLLx_SLOT_SIZE = 1;
+		}
+	}
 
 	// DB_CFG ...
 	{
@@ -120,105 +163,81 @@ int CObj__ALx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			var_name = "MAINT.TARGET.LLx.NAME";
 			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__MAINT_TARGT_LLx_NAME, def_data,var_name);
 
+			var_name = "MAINT.TARGET.LLx.SLOT";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__MAINT_TARGT_LLx_SLOT, def_data,var_name);
+
+			//
 			var_name = "MODULE.LINK.sTARGET.LLx.NAME";
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__MODULE_LINK_TARGT_LLx_NAME, def_data,var_name);
+
+			var_name = "MODULE.LINK.sTARGET.LLx.SLOT";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__MODULE_LINK_TARGT_LLx_SLOT, def_data,var_name);
 
 			//
 			var_name = "CUR.AL1.TARGET.LLx.NAME";
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_TARGET_LLx_NAME, def_data,var_name);
 
+			var_name = "CUR.AL1.TARGET.LLx.SLOT";
+			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_TARGET_LLx_SLOT, def_data,var_name);
+
 			var_name = "CUR.AL1.CCD.POS";
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__CUR_AL1_CCD_POS, def_data,var_name);
 		}
 
-		// ...
+		if(bActive__LLx_MULTI_DOOR_VALVE)
 		{
-			var_name = "CFG.LL1.ALIGN.POS";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL1_ALIGN_ANGLE, def_data,var_name);
+			for(int i=0; i<CFG_LLx__SIZE; i++)
+			{
+				int id = i + 1;
 
-			var_name = "CFG.LL2.ALIGN.POS";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL2_ALIGN_ANGLE, def_data,var_name);
+				for(int k=0; k<CFG_LLx__SLOT_SIZE; k++)
+				{
+					int slot = k + 1;
 
-			var_name = "CFG.LL3.ALIGN.POS";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL3_ALIGN_ANGLE, def_data,var_name);
+					var_name.Format("CFG.LL%1d.%1d.ALIGN.POS", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_ALIGN_ANGLE[i][k], def_data,var_name);
 
-			var_name = "CFG.LL4.ALIGN.POS";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL4_ALIGN_ANGLE, def_data,var_name);
+					var_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT[i][k], def_data,var_name);
+
+					var_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT.RANGE", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_RANGE[i][k], def_data,var_name);
+
+					var_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT.START.ANGLE", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_START_ANGLE[i][k], def_data,var_name);
+
+					var_name.Format("CFG.LL%1d.%1d.POST.POSITION.INCREMENT.APPLY", id,slot);
+					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_APPLY[i][k], def_data,var_name);
+
+					var_name.Format("CUR.LL%1d.%1d.POST.POSITION.INCREMENT.ANGLE", id,slot);
+					LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LLx_X_POST_POSITION_INCREMENT_ANGLE[i][k], def_data,var_name);
+				}
+			}
 		}
-
-		// ...
+		else
 		{
-			var_name = "CFG.aLL1.POST.POSITION.INCREMENT";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL1_POST_POSITION_INCREMENT, def_data,var_name);
+			for(int i=0; i<CFG_LLx__SIZE; i++)
+			{
+				int id = i + 1;
 
-			var_name = "CFG.aLL2.POST.POSITION.INCREMENT"; 
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL2_POST_POSITION_INCREMENT, def_data,var_name);
+				var_name.Format("CFG.LL%1d.ALIGN.POS", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_ALIGN_ANGLE[i], def_data,var_name);
 
-			var_name = "CFG.aLL3.POST.POSITION.INCREMENT";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL3_POST_POSITION_INCREMENT, def_data,var_name);
+				var_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT[i], def_data,var_name);
 
-			var_name = "CFG.aLL4.POST.POSITION.INCREMENT"; 
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL4_POST_POSITION_INCREMENT, def_data,var_name);
-		}
+				var_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.RANGE", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_RANGE[i], def_data,var_name);
 
-		// ...
-		{
-			var_name = "CFG.aLL1.POST.POSITION.INCREMENT.RANGE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL1_POST_POSITION_INCREMENT_RANGE, def_data,var_name);
+				var_name.Format("CFG.aLL%1d.POST.POSITION.INCREMENT.START.ANGLE", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_START_ANGLE[i], def_data,var_name);
 
-			var_name = "CFG.aLL2.POST.POSITION.INCREMENT.RANGE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL2_POST_POSITION_INCREMENT_RANGE, def_data,var_name);
+				var_name.Format("CFG.LL%1d.POST.POSITION.INCREMENT.APPLY", id);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_APPLY[i], def_data,var_name);
 
-			var_name = "CFG.aLL3.POST.POSITION.INCREMENT.RANGE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL3_POST_POSITION_INCREMENT_RANGE, def_data,var_name);
-
-			var_name = "CFG.aLL4.POST.POSITION.INCREMENT.RANGE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL4_POST_POSITION_INCREMENT_RANGE, def_data,var_name);
-		}
-
-		// ...
-		{
-			var_name = "CFG.aLL1.POST.POSITION.INCREMENT.START.ANGLE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL1_POST_POSITION_INCREMENT_START_ANGLE, def_data,var_name);
-
-			var_name = "CFG.aLL2.POST.POSITION.INCREMENT.START.ANGLE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL2_POST_POSITION_INCREMENT_START_ANGLE, def_data,var_name);
-
-			var_name = "CFG.aLL3.POST.POSITION.INCREMENT.START.ANGLE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL3_POST_POSITION_INCREMENT_START_ANGLE, def_data,var_name);
-
-			var_name = "CFG.aLL4.POST.POSITION.INCREMENT.START.ANGLE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CFG_LL4_POST_POSITION_INCREMENT_START_ANGLE, def_data,var_name);
-		}
-
-		// ...
-		{
-			var_name = "CFG.LL1.POST.POSITION.INCREMENT.APPLY";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LL1_POST_POSITION_INCREMENT_APPLY, def_data,var_name);
-
-			var_name = "CFG.LL2.POST.POSITION.INCREMENT.APPLY";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LL2_POST_POSITION_INCREMENT_APPLY, def_data,var_name);
-
-			var_name = "CFG.LL3.POST.POSITION.INCREMENT.APPLY";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LL3_POST_POSITION_INCREMENT_APPLY, def_data,var_name);
-
-			var_name = "CFG.LL4.POST.POSITION.INCREMENT.APPLY";
-			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LL4_POST_POSITION_INCREMENT_APPLY, def_data,var_name);
-		}
-
-		// ...
-		{
-			var_name = "CUR.aLL1.POST.POSITION.INCREMENT.ANGLE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LL1_POST_POSITION_INCREMENT_ANGLE, def_data,var_name);
-
-			var_name = "CUR.aLL2.POST.POSITION.INCREMENT.ANGLE"; 
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LL2_POST_POSITION_INCREMENT_ANGLE, def_data,var_name);
-
-			var_name = "CUR.aLL3.POST.POSITION.INCREMENT.ANGLE";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LL3_POST_POSITION_INCREMENT_ANGLE, def_data,var_name);
-
-			var_name = "CUR.aLL4.POST.POSITION.INCREMENT.ANGLE"; 
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LL4_POST_POSITION_INCREMENT_ANGLE, def_data,var_name);
+				var_name.Format("CUR.aLL%1d.POST.POSITION.INCREMENT.ANGLE", id);
+				LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[i], def_data,var_name);
+			}
 		}
 	}
 
@@ -244,35 +263,46 @@ int CObj__ALx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		def_name = "OBJ__AL";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-		pALx__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
-	
-		//
-		var_name = "PARA.STN.SLOT";
-		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ALx_PARA_SLOT, obj_name,var_name);
+		if((obj_name.CompareNoCase("NO")   == 0)
+		|| (obj_name.CompareNoCase("NULL") == 0))
+		{
+			bActive__AL1_USE = false;
+		}
+		else
+		{
+			bActive__AL1_USE = true;
+		}
 
-		var_name = "PARA.CCD.POS";
-		LINK__EXT_VAR_STRING_CTRL(sEXT_CH__ALx_PARA_CCD_POS, obj_name,var_name);
+		if(bActive__AL1_USE)
+		{
+			pALx__OBJ_CTRL = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+
+			// LINK.MODE ...
+			{
+				def_name = "AL_MODE.INIT";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+				sDATA__AL_MODE__INIT = def_data;
+
+				def_name = "AL_MODE.ALIGN";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+				sDATA__AL_MODE__ALIGN = def_data;
+			}
+
+			// LINK.CHANNEL ...
+			{
+				def_name = "CH_AL.PARA_SLOT_ID";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ALx_PARA_SLOT, obj_name,var_name);
+
+				def_name = "CH_AL.PARA_CCD_POS";
+				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+				LINK__EXT_VAR_STRING_CTRL(sEXT_CH__ALx_PARA_CCD_POS, obj_name,var_name);
+			}
+		}
 	}
 
-	// ...
-	{
-		CString file_name;
-		CString log_msg;
-
-		file_name.Format("%s_App.log", sObject_Name);
-
-		log_msg  = "\n\n";
-		log_msg += "//------------------------------------------------------------------------";
-
-		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
-
-		xLOG_CTRL->DISABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG(log_msg);
-
-		xLOG_CTRL->ENABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG("   START   \n");
-	}
 	return 1;
 }
 
@@ -295,6 +325,7 @@ int CObj__ALx_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 	if(mode.CompareNoCase(sMODE__ALIGN) == 0)
 	{
 		CString llx_name;
+		CString llx_slot;
 		CString al_angle;
 
 		CString var_data;
@@ -302,271 +333,176 @@ int CObj__ALx_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		if(sEXT_CH__OBJ_STATUS->Check__DATA(STR__MAINTMODE) > 0)
 		{
 			dEXT_CH__MAINT_TARGT_LLx_NAME->Get__DATA(llx_name);
+			dEXT_CH__MAINT_TARGT_LLx_SLOT->Get__DATA(llx_slot);
 		}
 		else
 		{
 			sEXT_CH__MODULE_LINK_TARGT_LLx_NAME->Get__DATA(llx_name);	
+			sEXT_CH__MODULE_LINK_TARGT_LLx_SLOT->Get__DATA(llx_slot);	
+
 			if(llx_name == "")		llx_name = "LBA";
+			if(llx_slot == "")		llx_slot = "1";
 		}
 
 		// ...
 		{
 			log_msg = "\n";
 
-			log_bff.Format("[%s] Align Info ... \n", llx_name);
+			log_bff.Format("%s(%s) Align Info ... \n", llx_name,llx_slot);
 			log_msg += log_bff;
 		}
 
-		if(llx_name.CompareNoCase("LBA") == 0)
+		// ...
+		bool active_ll = false;
+
+		int ll_index   = Macro__CHECK_LLx_INDEX(llx_name);
+		int slot_index = -1;
+
+		if(ll_index >= 0)
 		{
-			if(dEXT_CH__CFG_LL1_POST_POSITION_INCREMENT_APPLY->Check__DATA(STR__ENABLE) > 0)
+			if(bActive__LLx_MULTI_DOOR_VALVE)
 			{
-				aEXT_CH__CUR_LL1_POST_POSITION_INCREMENT_ANGLE->Get__DATA(var_data);
-				double cur_angle = atof(var_data);
-
-				aEXT_CH__CFG_LL1_POST_POSITION_INCREMENT->Get__DATA(var_data);
-				double cfg_inc = atof(var_data);
-
-				aEXT_CH__CFG_LL1_POST_POSITION_INCREMENT_RANGE->Get__DATA(var_data);
-				double max_angle = atof(var_data);
-
-				if(cur_angle > max_angle)		cur_angle = 0;
-
-				// ...
-				aEXT_CH__CFG_LL1_POST_POSITION_INCREMENT_START_ANGLE->Get__DATA(var_data);
-				double start_angle = atof(var_data);
-
-				al_angle.Format("%.0f", (start_angle+cur_angle));
-
-				// ...
-				{
-					double next_angle = cur_angle + cfg_inc;
-					if(next_angle > max_angle)		next_angle = 0;
-
-					var_data.Format("%.0f", next_angle);
-					aEXT_CH__CUR_LL1_POST_POSITION_INCREMENT_ANGLE->Set__DATA(var_data);
-				}
-
-				// ...
-				{
-					log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
-					log_msg += log_bff;
-
-					log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
-				}
-			}	
+				slot_index = atoi(llx_slot) - 1;
+			
+				if((slot_index >= 0) && (slot_index < CFG_LLx__SLOT_SIZE))
+					active_ll = true;
+			}
 			else
 			{
-				aEXT_CH__CFG_LL1_ALIGN_ANGLE->Get__DATA(al_angle);
-
-				// ...
-				{
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
-				}
+				active_ll = true;
 			}
 		}
-		else if(llx_name.CompareNoCase("LBB") == 0)
+
+		if(active_ll)
 		{
-			if(dEXT_CH__CFG_LL2_POST_POSITION_INCREMENT_APPLY->Check__DATA(STR__ENABLE) > 0)
+			if(bActive__LLx_MULTI_DOOR_VALVE)
 			{
-				aEXT_CH__CUR_LL2_POST_POSITION_INCREMENT_ANGLE->Get__DATA(var_data);
-				double cur_angle = atof(var_data);
-
-				aEXT_CH__CFG_LL2_POST_POSITION_INCREMENT->Get__DATA(var_data);
-				double cfg_inc = atof(var_data);
-
-				aEXT_CH__CFG_LL2_POST_POSITION_INCREMENT_RANGE->Get__DATA(var_data);
-				double max_angle = atof(var_data);
-
-				if(cur_angle > max_angle)		cur_angle = 0;
-
-				// ...
-				aEXT_CH__CFG_LL2_POST_POSITION_INCREMENT_START_ANGLE->Get__DATA(var_data);
-				double start_angle = atof(var_data);
-
-				al_angle.Format("%.0f", (start_angle+cur_angle));
-
-				// ...
+				if(dEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_APPLY[ll_index][slot_index]->Check__DATA(STR__ENABLE) > 0)
 				{
-					double next_angle = cur_angle + cfg_inc;
-					if(next_angle > max_angle)		next_angle = 0;
+					aEXT_CH__CUR_LLx_X_POST_POSITION_INCREMENT_ANGLE[ll_index][slot_index]->Get__DATA(var_data);
+					double cur_angle = atof(var_data);
 
-					var_data.Format("%.0f", next_angle);
-					aEXT_CH__CUR_LL2_POST_POSITION_INCREMENT_ANGLE->Set__DATA(var_data);
-				}
+					aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT[ll_index][slot_index]->Get__DATA(var_data);
+					double cfg_inc = atof(var_data);
 
-				// ...
+					aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_RANGE[ll_index][slot_index]->Get__DATA(var_data);
+					double max_angle = atof(var_data);
+
+					if(cur_angle > max_angle)		cur_angle = 0;
+
+					// ...
+					aEXT_CH__CFG_LLx_X_POST_POSITION_INCREMENT_START_ANGLE[ll_index][slot_index]->Get__DATA(var_data);
+					double start_angle = atof(var_data);
+
+					al_angle.Format("%.0f", (start_angle+cur_angle));
+
+					// ...
+					{
+						double next_angle = cur_angle + cfg_inc;
+						if(next_angle > max_angle)		next_angle = 0;
+
+						var_data.Format("%.0f", next_angle);
+						aEXT_CH__CUR_LLx_X_POST_POSITION_INCREMENT_ANGLE[ll_index][slot_index]->Set__DATA(var_data);
+					}
+
+					// ...
+					{
+						log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
+						log_msg += log_bff;
+
+						log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
+				}	
+				else
 				{
-					log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
-					log_msg += log_bff;
+					aEXT_CH__CFG_LLx_X_ALIGN_ANGLE[ll_index][slot_index]->Get__DATA(al_angle);
 
-					log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
-				}
-			}	
-			else
-			{
-				aEXT_CH__CFG_LL2_ALIGN_ANGLE->Get__DATA(al_angle);
-
-				// ...
-				{
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
+					// ...
+					{
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
 				}
 			}
-		}
-		else if(llx_name.CompareNoCase("LBC") == 0)
-		{
-			if(dEXT_CH__CFG_LL3_POST_POSITION_INCREMENT_APPLY->Check__DATA(STR__ENABLE) > 0)
-			{
-				aEXT_CH__CUR_LL3_POST_POSITION_INCREMENT_ANGLE->Get__DATA(var_data);
-				double cur_angle = atof(var_data);
-
-				aEXT_CH__CFG_LL3_POST_POSITION_INCREMENT->Get__DATA(var_data);
-				double cfg_inc = atof(var_data);
-
-				aEXT_CH__CFG_LL3_POST_POSITION_INCREMENT_RANGE->Get__DATA(var_data);
-				double max_angle = atof(var_data);
-
-				if(cur_angle > max_angle)		cur_angle = 0;
-
-				// ...
-				aEXT_CH__CFG_LL3_POST_POSITION_INCREMENT_START_ANGLE->Get__DATA(var_data);
-				double start_angle = atof(var_data);
-
-				al_angle.Format("%.0f", (start_angle+cur_angle));
-
-				// ...
-				{
-					double next_angle = cur_angle + cfg_inc;
-					if(next_angle > max_angle)		next_angle = 0;
-
-					var_data.Format("%.0f", next_angle);
-					aEXT_CH__CUR_LL3_POST_POSITION_INCREMENT_ANGLE->Set__DATA(var_data);
-				}
-
-				// ...
-				{
-					log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
-					log_msg += log_bff;
-
-					log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
-				}
-			}	
 			else
 			{
-				aEXT_CH__CFG_LL3_ALIGN_ANGLE->Get__DATA(al_angle);
-
-				// ...
+				if(dEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_APPLY[ll_index]->Check__DATA(STR__ENABLE) > 0)
 				{
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
-				}
-			}
-		}
-		else if(llx_name.CompareNoCase("LBD") == 0)
-		{
-			if(dEXT_CH__CFG_LL4_POST_POSITION_INCREMENT_APPLY->Check__DATA(STR__ENABLE) > 0)
-			{
-				aEXT_CH__CUR_LL4_POST_POSITION_INCREMENT_ANGLE->Get__DATA(var_data);
-				double cur_angle = atof(var_data);
+					aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[ll_index]->Get__DATA(var_data);
+					double cur_angle = atof(var_data);
 
-				aEXT_CH__CFG_LL4_POST_POSITION_INCREMENT->Get__DATA(var_data);
-				double cfg_inc = atof(var_data);
+					aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT[ll_index]->Get__DATA(var_data);
+					double cfg_inc = atof(var_data);
 
-				aEXT_CH__CFG_LL4_POST_POSITION_INCREMENT_RANGE->Get__DATA(var_data);
-				double max_angle = atof(var_data);
+					aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_RANGE[ll_index]->Get__DATA(var_data);
+					double max_angle = atof(var_data);
 
-				if(cur_angle > max_angle)		cur_angle = 0;
+					if(cur_angle > max_angle)		cur_angle = 0;
 
-				// ...
-				aEXT_CH__CFG_LL4_POST_POSITION_INCREMENT_START_ANGLE->Get__DATA(var_data);
-				double start_angle = atof(var_data);
+					// ...
+					aEXT_CH__CFG_LLx_POST_POSITION_INCREMENT_START_ANGLE[ll_index]->Get__DATA(var_data);
+					double start_angle = atof(var_data);
 
-				al_angle.Format("%.0f", (start_angle+cur_angle));
+					al_angle.Format("%.0f", (start_angle+cur_angle));
 
-				// ...
+					// ...
+					{
+						double next_angle = cur_angle + cfg_inc;
+						if(next_angle > max_angle)		next_angle = 0;
+
+						var_data.Format("%.0f", next_angle);
+						aEXT_CH__CUR_LLx_POST_POSITION_INCREMENT_ANGLE[ll_index]->Set__DATA(var_data);
+					}
+
+					// ...
+					{
+						log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
+						log_msg += log_bff;
+
+						log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
+						log_msg += log_bff;
+
+						log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
+						log_msg += log_bff;
+
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
+				}	
+				else
 				{
-					double next_angle = cur_angle + cfg_inc;
-					if(next_angle > max_angle)		next_angle = 0;
+					aEXT_CH__CFG_LLx_ALIGN_ANGLE[ll_index]->Get__DATA(al_angle);
 
-					var_data.Format("%.0f", next_angle);
-					aEXT_CH__CUR_LL4_POST_POSITION_INCREMENT_ANGLE->Set__DATA(var_data);
-				}
-
-				// ...
-				{
-					log_bff.Format("   CFG Increment Apply <- [%s] \n", STR__ENABLE);
-					log_msg += log_bff;
-
-					log_bff.Format("   Current Increment Angle <- [%.0f] \n", cur_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Start Angle <- [%.0f] \n", start_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Angle <- [%.0f] \n", cfg_inc);
-					log_msg += log_bff;
-
-					log_bff.Format("   CFG Increment Range <- [%.0f] \n", max_angle);
-					log_msg += log_bff;
-
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
-				}
-			}	
-			else
-			{
-				aEXT_CH__CFG_LL4_ALIGN_ANGLE->Get__DATA(al_angle);
-
-				// ...
-				{
-					log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
-					log_msg += log_bff;
+					// ...
+					{
+						log_bff.Format("   Target Align Angle <- [%s] \n", al_angle);
+						log_msg += log_bff;
+					}
 				}
 			}
 		}
 
 		sEXT_CH__CUR_AL1_TARGET_LLx_NAME->Set__DATA(llx_name);
+		sEXT_CH__CUR_AL1_TARGET_LLx_SLOT->Set__DATA(llx_slot);
 		sEXT_CH__CUR_AL1_CCD_POS->Set__DATA(al_angle);
 
 		xLOG_CTRL->WRITE__LOG(log_msg);

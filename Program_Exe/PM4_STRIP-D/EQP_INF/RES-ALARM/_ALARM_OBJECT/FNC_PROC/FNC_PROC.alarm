@@ -1,0 +1,13 @@
+#ID=1	801	LIGHT	FNC_PROC - Process recipe does not exist.
+#ID=2	802	LIGHT	FNC_PROC - Check Process Recovery Action !
+#ID=3	803	LIGHT	FNC_PROC - Check Process Recovery Action !
+#ID=4	804	LIGHT	FNC_PROC - Process [Plasma Dechuck] recipe does not exist.
+#ID=5	805	LIGHT	FNC_PROC - Process [Plasma Dechuck] Sequence Failed.
+#ID=6	806	LIGHT	FNC_PROC - Process recipe file is being changed, now. 
+
+#ID=7	807	LIGHT	FNC_PROC - Do you want to convert the status of wafer ? 
+
+#ID=8	808	LIGHT	FNC_PROC - Do you want to proceed the re-processing of wafer ?
+#ID=9	809	LIGHT	FNC_PROC - The step size of process recipe is not correct !
+#ID=10	810	LIGHT	FNC_PROC - Process를 진행할 상태가 아닙니다.
+#ID=11	811	LIGHT	FNC_PROC - DI Sensor 관련 Heavy Error가 발생 했습니다.

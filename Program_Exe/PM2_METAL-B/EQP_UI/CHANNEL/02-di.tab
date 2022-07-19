@@ -1,0 +1,26 @@
+#DATAITEMLIST
+IO si.PMA_DI_02_0
+IO di.Gas_Box.Door.Open
+IO di.Gas_Box.Exhaust.Alarm
+IO di.Gas1.Leak.Warning
+IO di.Gas1.Leak.Alarm
+IO di.Gas2.Leak.Warning
+IO di.Gas2.Leak.Alarm
+                                              
+IO si.PMA_DI_02_1
+IO di.PM.Top_Lid.Open.Alarm
+IO di.PM.Scrubber.Alarm
+IO di.Gas1.Leak.Detect
+IO di.Gas2.Leak.Detect
+IO di.CDA.State.Alarm
+                                                
+IO si.PMA_DI_02_2
+IO di.ELT.Cover.Open
+IO di.RF_Gen.PCW.Top.Alarm
+IO di.RF_Gen.PCW.Bottom.Alarm
+IO di.RF_Gen.Water.Leak
+IO di.Liquid.Leak.Alarm
+
+IO si.PMA_DI_02_3
+IO di.Fire.Detector.Alarm
+IO di.ELT.Fan.Alarm

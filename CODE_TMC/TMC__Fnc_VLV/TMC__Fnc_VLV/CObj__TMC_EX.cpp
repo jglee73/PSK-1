@@ -341,18 +341,45 @@ int CObj__TMC_EX::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 {
 	DECLARE__EXT_CTRL(p_variable);
 
+	int flag = -1;
+
+	// ...
+	CStringArray l_para;
+	p_variable->Get__FNC_PARAMETER(l_para);
+
+	if(l_para.GetSize() > 0)
+	{
+		int limit = l_para.GetSize();
+
+		for(int i=0; i<limit; i++)
+		{
+			CString para_data = l_para[i];
+
+			switch(i)
+			{
+				case 0:		
+					aCH__PARA_PMC_ID->Set__DATA(para_data);
+					break;
+			}	
+		}
+	}
+
 	// ...
 	{
 		CString log_msg;
+		CString log_bff;
 
-		log_msg.Format("Start  [%s] ... Called By %s", 
+		log_msg.Format("Start  [%s] ... Called By %s \n", 
 						mode,
 						p_ext_mode_ctrl->Get__UPPER_OBJECT_NAME());
 
+		log_bff.Format(" * %s <- %.0f \n", 
+			           aCH__PARA_PMC_ID->Get__VARIABLE_NAME(),
+					   aCH__PARA_PMC_ID->Get__VALUE());
+		log_msg += log_bff;
+
 		xLOG_CTRL->WRITE__LOG(log_msg);
 	}
-
-	int flag = -1;
 
 	// ...
 	{

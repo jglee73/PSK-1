@@ -797,38 +797,50 @@ int CObj__STEP_METAL::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
-	// OBJ MATCHER ...
+	// OBJ__MAT_SOURCE ...
 	{
-		def_name = "OBJ__MATCHER";
+		def_name = "OBJ__MAT_SOURCE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,obj_name);
 
 		def_check = x_utility.Check__Link(obj_name);
-		bActive__OBJ_CTRL__MAT = def_check;
+		bActive__OBJ_CTRL__MAT_SRC = def_check;
 
 		if(def_check)
 		{
-			pOBJ_CTRL__MAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+			pOBJ_CTRL__MAT_SRC = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
 			//
 			var_name = "PARA.LOAD_POS.CH1";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_LOAD_POS_CH1, obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT_SRC__PARA_LOAD_POS_CH1, obj_name,var_name);
 
-			var_name = "PARA.LOAD_POS.CH2";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_LOAD_POS_CH2, obj_name,var_name);
-
-			//
 			var_name = "PARA.TUNE_POS.CH1";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_TUNE_POS_CH1, obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT_SRC__PARA_TUNE_POS_CH1, obj_name,var_name);
 
-			var_name = "PARA.TUNE_POS.CH2";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_TUNE_POS_CH2, obj_name,var_name);
+			var_name = "PARA.CAP_POS.CH1";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT_SRC__PARA_CAP_POS_CH1, obj_name,var_name);
+		}
+	}
+	// OBJ__MAT_BIAS ...
+	{
+		def_name = "OBJ__MAT_BIAS";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,obj_name);
+
+		def_check = x_utility.Check__Link(obj_name);
+		bActive__OBJ_CTRL__MAT_BIAS = def_check;
+
+		if(def_check)
+		{
+			pOBJ_CTRL__MAT_BIAS = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
 
 			//
-			var_name = "PARA.CAP_POS.CH1";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_CAP_POS_CH1, obj_name,var_name);
+			var_name = "PARA.LOAD_POS.CH1";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT_BIAS__PARA_LOAD_POS_CH1, obj_name,var_name);
 
-			var_name = "PARA.CAP_POS.CH2";
-			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT__PARA_CAP_POS_CH2, obj_name,var_name);
+			var_name = "PARA.TUNE_POS.CH1";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT_BIAS__PARA_TUNE_POS_CH1, obj_name,var_name);
+
+			var_name = "PARA.CAP_POS.CH1";
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__MAT_BIAS__PARA_CAP_POS_CH1, obj_name,var_name);
 		}
 	}
 

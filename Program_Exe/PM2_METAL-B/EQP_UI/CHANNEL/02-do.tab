@@ -1,0 +1,42 @@
+#DATAITEMLIST
+IO so.PMA_DO_02_0
+IO do.PV12_1
+IO do.PV12_2
+IO do.PV20
+IO do.PV30
+IO do.PV40
+IO do.PV50
+IO do.PV60
+IO do.PV70
+
+IO so.PMA_DO_02_1
+IO do.PV80
+IO do.PV90
+IO do.PV100
+IO do.PV22
+IO do.PV32
+IO do.PV42
+IO do.PV52
+IO do.PV62
+
+IO so.PMA_DO_02_2
+IO do.PV72
+IO do.PV82
+IO do.PV92
+IO do.PV102
+IO do.Purge_All_Vlv
+IO do.PV103
+IO do.PV13
+
+IO so.PMA_DO_02_3
+IO do.Chuck.Zone_1.Heater.Pwr
+IO do.Chuck.Zone_2.Heater.Pwr
+IO do.Chuck.Zone_3.Heater.Pwr
+IO do.Chuck.Zone_4.Heater.Pwr
+IO do.Wall.Heater.Pwr
+IO do.Vac_Line.Heater.Pwr
+
+IO so.PMA_DO_02_6
+IO do.ESC.Pin.Up
+IO do.ESC.Pin.Down
+IO do.ESC.Pin.Middle

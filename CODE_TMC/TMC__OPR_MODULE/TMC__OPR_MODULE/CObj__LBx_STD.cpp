@@ -96,6 +96,11 @@ int CObj__LBx_STD::__DEFINE__VARIABLE_STD(p_variable)
 		LINK__VAR_DIGITAL_CTRL(dCH__OBJ_STATUS,str_name);
 
 		//
+		str_name = "PARA.SLOT.ID";
+		STD__ADD_DIGITAL(str_name, "1 2");
+		LINK__VAR_DIGITAL_CTRL(dCH__PARA_SLOT_ID, str_name);
+
+		//
 		str_name = "PARA.PREHEAT.TIME";
 		STD__ADD_ANALOG_WITH_COMMENT(str_name,"sec",1,0,9999,"");
 		LINK__VAR_ANALOG_CTRL(aCH__PARA_PREHEAT_TIME,str_name);
@@ -155,6 +160,10 @@ int CObj__LBx_STD::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		{
 			var_name = "OTR.OUT.MON.OBJ.STATUS";
 			LINK__EXT_VAR_STRING_CTRL(sEXT_CH__OBJ_STATUS, obj_name,var_name);
+
+			//
+			var_name = "PARA.SLOT.ID";
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PARA_SLOT_ID, obj_name,var_name);
 
 			//
 			var_name = "OTR.IN.PARA.aPREHEAT.TIME";
@@ -226,10 +235,16 @@ int CObj__LBx_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 
 	// ...
 	{
+		CString para__slot_id;
 		CString para__preheat_time;
 		CString para__cooling_time;
 		CString para__prematerial_slot;
 
+		//
+		para__slot_id = dCH__PARA_SLOT_ID->Get__STRING();
+		dEXT_CH__PARA_SLOT_ID->Set__DATA(para__slot_id);
+
+		//
 		aCH__PARA_PREHEAT_TIME->Get__DATA(para__preheat_time);
 		aEXT_CH__PARA_PREHEAT_TIME->Set__DATA(para__preheat_time);
 
@@ -239,8 +254,9 @@ int CObj__LBx_STD::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		aCH__PARA_PREMATERIAL_SLOT->Get__DATA(para__prematerial_slot);
 		aEXT_CH__PARA_PREMATERIAL_SLOT->Set__DATA(para__prematerial_slot);
 
-		log_msg.Format("Start ... :  [%s] (%s,%s,%s)",
+		log_msg.Format("Start ... :  [%s] (%1d) (%s,%s,%s)",
 						mode,
+						para__slot_id,
 						para__preheat_time,
 						para__cooling_time,
 						para__prematerial_slot);

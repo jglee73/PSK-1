@@ -1,0 +1,25 @@
+#DATAITEMLIST
+IO si.PMA_DI_01_0
+IO di.Source.Box.Cover.Open
+
+IO si.PMA_DI_01_1
+IO di.TMP.PCW.Alarm
+IO di.TMP.Water_Leak.Alarm
+IO di.RF_Gen.Rack.Door.Open
+
+IO si.PMA_DI_01_2
+IO di.Pin.Up
+IO di.Pin.Down
+IO di.Pin.Middle
+IO di.RF_Matcher.Interlock.Top
+IO di.RF_Matcher.Interlock.Bottom
+IO di.PM.Slot.Vlv.Open
+IO di.PM.Slot.Vlv.Close
+
+IO si.PMA_DI_01_3
+IO di.Vac.Fast.Vlv.Open
+IO di.Vac.Fast.Vlv.Close
+IO di.CHM.ATM.Sts
+IO di.CHM.VAC.Sts
+IO di.DNET.Fan.Alarm
+

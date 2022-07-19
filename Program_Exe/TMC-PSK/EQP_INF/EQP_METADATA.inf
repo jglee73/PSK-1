@@ -30,118 +30,14 @@
 //------------------------------------------------
 #OBJECT_PROPERTY    PAGE__SYS_CTRL
 
-#DEFINE_CONSTANT    CH.CATEGORY.LOCK       DB_CFG+CUR.UTILITY.CATEGORY
-#DEFINE_CONSTANT    DATA.CATEGORY.LOCK     SYSTEM.AREA
+#DEFINE_CONSTANT    CH.CATEGORY.LOCK                    DB_CFG+CUR.UTILITY.CATEGORY
+#DEFINE_CONSTANT    DATA.CATEGORY.LOCK                  SYSTEM.AREA
 
-#DEFINE_CONSTANT    CH.FNC.LOCK            DB_CFG+CUR.UTILITY.FNC.NAME
-#DEFINE_CONSTANT    DATA.FNC.LOCK          SYSTEM.FNC
+#DEFINE_CONSTANT    CH.FNC.LOCK                         DB_CFG+CUR.UTILITY.FNC.NAME
+#DEFINE_CONSTANT    DATA.FNC.LOCK                       SYSTEM.FNC
 
-#FNC_MODE           SYSTEM_INIT            MNG__SYS_CTRL   SYSTEM_INIT
-#FNC_MODE           SYSTEM_MAINT           MNG__SYS_CTRL   SYSTEM_MAINT
-
-
-//------------------------------------------------
-#OBJECT_PROPERTY    IO_LBA__CHM_GAUGE
-#DEFINE_CONSTANT    DATA.LOG_TYPE                       L1
-#DEFINE_CONSTANT    DATA.OFFLINE_VALUE                  300
-#OBJECT_IO_PARA     COM_PORT                            20
-
-#OBJECT_PROPERTY    IO_LBB__CHM_GAUGE
-#DEFINE_CONSTANT    DATA.LOG_TYPE                       L2
-#DEFINE_CONSTANT    DATA.OFFLINE_VALUE                  300
-#OBJECT_IO_PARA     COM_PORT                            21
-
-#OBJECT_PROPERTY    IO_TM1__CHM_GAUGE
-#DEFINE_CONSTANT    DATA.LOG_TYPE                       __
-#DEFINE_CONSTANT    DATA.OFFLINE_VALUE                  300
-#OBJECT_IO_PARA     COM_PORT                            24
-
-
-#OBJECT_PROPERTY    IO_LLx__PUMP_GAUGE
-#DEFINE_CONSTANT    DATA.LOG_TYPE                       L1
-#DEFINE_CONSTANT    DATA.OFFLINE_VALUE                  300
-#OBJECT_IO_PARA     COM_PORT                            25
-
-#OBJECT_PROPERTY    IO_TM1__PUMP_GAUGE
-#DEFINE_CONSTANT    DATA.LOG_TYPE                       __
-#DEFINE_CONSTANT    DATA.OFFLINE_VALUE                  300
-#OBJECT_IO_PARA     COM_PORT                            28
-
-
-#OBJECT_PROPERTY    PHY_IO__FFU
-#OBJECT_IO_PARA     COM_PORT                            17
-
-
-//------------------------------------------------
-#OBJECT_PROPERTY    IO
-
-#OBJECT_IO_FILE     CFG_IO__TMC_PSK.cfg  
-
-//----------------------
-#OBJECT_IO_PARA     BOARD.ID                            0
-#OBJECT_IO_PARA     NODE.SIZE                           5
-
-#OBJECT_IO_PARA     NODE.1.MACID                        2
-#OBJECT_IO_PARA     NODE.1.NAME                         NA9111
-#OBJECT_IO_PARA     NODE.1.IN_OFFSET                    1
-#OBJECT_IO_PARA     NODE.1.IN_BYTE                      19
-#OBJECT_IO_PARA     NODE.1.OUT_OFFSET                   0
-#OBJECT_IO_PARA     NODE.1.OUT_BYTE                     4
-
-#OBJECT_IO_PARA     NODE.2.MACID                        3
-#OBJECT_IO_PARA     NODE.2.NAME                         CJ1W_DRM2
-#OBJECT_IO_PARA     NODE.2.IN_OFFSET                    0       
-#OBJECT_IO_PARA     NODE.2.IN_BYTE                      48
-#OBJECT_IO_PARA     NODE.2.OUT_OFFSET                   0
-#OBJECT_IO_PARA     NODE.2.OUT_BYTE                     20
-
-#OBJECT_IO_PARA     NODE.3.MACID                        4
-#OBJECT_IO_PARA     NODE.3.NAME                         EUROTHERM_MINI
-#OBJECT_IO_PARA     NODE.3.IN_OFFSET                    0       
-#OBJECT_IO_PARA     NODE.3.IN_BYTE                      112
-#OBJECT_IO_PARA     NODE.3.OUT_OFFSET                   0
-#OBJECT_IO_PARA     NODE.3.OUT_BYTE                     30
-
-#OBJECT_IO_PARA     NODE.4.MACID                        5
-#OBJECT_IO_PARA     NODE.4.NAME                         INTELLISYS
-#OBJECT_IO_PARA     NODE.4.IN_OFFSET                    0       
-#OBJECT_IO_PARA     NODE.4.IN_BYTE                      9
-#OBJECT_IO_PARA     NODE.4.OUT_OFFSET                   0
-#OBJECT_IO_PARA     NODE.4.OUT_BYTE                     4 
-
-#OBJECT_IO_PARA     NODE.5.MACID                        6
-#OBJECT_IO_PARA     NODE.5.NAME                         INTELLISYS
-#OBJECT_IO_PARA     NODE.5.IN_OFFSET                    0       
-#OBJECT_IO_PARA     NODE.5.IN_BYTE                      9
-#OBJECT_IO_PARA     NODE.5.OUT_OFFSET                   0
-#OBJECT_IO_PARA     NODE.5.OUT_BYTE                     4 
-//----------------------
-
-#DEFINE_CONSTANT    FLAG__DRV_LOG                       YES
-
-//----------------------
-#DEFINE_CONSTANT    LINK.IO_SIZE                        0
-#DEFINE_CONSTANT    LINK.IO_CHANNEL.1                   IO+do.TM.SAFETY.LLA_ON
-#DEFINE_CONSTANT    LINK.IO_CHANNEL.2                   IO+do.TM.SAFETY.LLB_ON
-#DEFINE_CONSTANT    LINK.IO_CHANNEL.3                   IO+do.TM.SAFETY.SLOT_CLOSE
-#DEFINE_CONSTANT    LINK.IO_CHANNEL.4                   IO+do.TM.SAFETY.SLOT_OPEN
-//----------------------
-
-
-//------------------------------------------------
-#OBJECT_PROPERTY    IO_OHT
-
-#OBJECT_IO_FILE     DNet_IO__LPx_OHT.cfg 
-
-#DEFINE_CONSTANT    FLAG__DRV_LOG                       YES
-
-
-//------------------------------------------------
-#OBJECT_PROPERTY    TMC_LINK
-
-#OBJECT_LINK_FILE   LINK__CFG_TMC_To_PMC.cfg
-
-#DEFINE_CONSTANT    FLAG__DRV_LOG                       YES
+#FNC_MODE           SYSTEM_INIT                         MNG__SYS_CTRL   SYSTEM_INIT
+#FNC_MODE           SYSTEM_MAINT                        MNG__SYS_CTRL   SYSTEM_MAINT
 
 
 //------------------------------------------------
@@ -157,23 +53,226 @@
 //------------------------------------------------
 #OBJECT_PROPERTY    PHY__SIGNAL_TOWER
 
-#DEFINE_CONSTANT    CH.LIGHT.RED.ON_OFF									IO+do.Signal_Tower.Red
-#DEFINE_CONSTANT    CH.LIGHT.YELLOW.ON_OFF              IO+do.Signal_Tower.Yellow
-#DEFINE_CONSTANT    CH.LIGHT.GREEN.ON_OFF               IO+do.Signal_Tower.Green
-#DEFINE_CONSTANT    CH.LIGHT.BLUE.ON_OFF                IO+do.Signal_Tower.Blue
-#DEFINE_CONSTANT    CH.LIGHT.WHITE.ON_OFF               IO+do.Signal_Tower.White.On_Off
+#DEFINE_CONSTANT    CH.LIGHT.RED.ON_OFF									PHY_PSK__LAMP+LINK.LIGHT.RED.ON_OFF.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.YELLOW.ON_OFF              PHY_PSK__LAMP+LINK.LIGHT.YELLOW.ON_OFF.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.GREEN.ON_OFF               PHY_PSK__LAMP+LINK.LIGHT.GREEN.ON_OFF.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.BLUE.ON_OFF                PHY_PSK__LAMP+LINK.LIGHT.BLUE.ON_OFF.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.WHITE.ON_OFF               PHY_PSK__LAMP+LINK.LIGHT.WHITE.ON_OFF.ACTIVE
 
-#DEFINE_CONSTANT    CH.LIGHT.RED.BLINK                  IO+do.Signal_Tower.Red.Blink
-#DEFINE_CONSTANT    CH.LIGHT.YELLOW.BLINK               IO+do.Signal_Tower.Yellow.Blink
-#DEFINE_CONSTANT    CH.LIGHT.GREEN.BLINK                IO+do.Signal_Tower.Green.Blink
-#DEFINE_CONSTANT    CH.LIGHT.BLUE.BLINK                 IO+do.Signal_Tower.Blue.Blink
-#DEFINE_CONSTANT    CH.LIGHT.WHITE.BLINK                IO+do.Signal_Tower.White.Blink
+#DEFINE_CONSTANT    CH.LIGHT.RED.BLINK                  PHY_PSK__LAMP+LINK.LIGHT.RED.BLINK.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.YELLOW.BLINK               PHY_PSK__LAMP+LINK.LIGHT.YELLOW.BLINK.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.GREEN.BLINK                PHY_PSK__LAMP+LINK.LIGHT.GREEN.BLINK.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.BLUE.BLINK                 PHY_PSK__LAMP+LINK.LIGHT.BLUE.BLINK.ACTIVE
+#DEFINE_CONSTANT    CH.LIGHT.WHITE.BLINK                PHY_PSK__LAMP+LINK.LIGHT.WHITE.BLINK.ACTIVE
 
-#DEFINE_CONSTANT    CH.ALARM.BUZZER								      IO+do.Signal_Tower.Buzzer.1
-#DEFINE_CONSTANT    CH.ALARM.BUZZER.RESET               IO+do.Signal_Tower.Buzzer.Reset
+#DEFINE_CONSTANT    CH.ALARM.BUZZER								      PHY_PSK__LAMP+LINK.ALARM.BUZZER
+#DEFINE_CONSTANT    CH.ALARM.BUZZER.RESET               NULL
 
-#DEFINE_CONSTANT    CH.MELODY1.CTRL                     IO+do.Signal_Tower.Melody.1
-#DEFINE_CONSTANT    CH.MELODY2.CTRL                     IO+do.Signal_Tower.Melody.2
-#DEFINE_CONSTANT    CH.MELODY3.CTRL                     IO+do.Signal_Tower.Melody.3
-#DEFINE_CONSTANT    CH.MELODY4.CTRL                     IO+do.Signal_Tower.Melody.4
+#DEFINE_CONSTANT    DATA.MELODY_SIZE                    1
+#DEFINE_CONSTANT    CH.MELODY1.CTRL                     PHY_PSK__LAMP+LINK.MELODY.BUZZER
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY__TMC_PUMP
+
+#DEFINE_CONSTANT    OBJ__PUMP                           PHY_IO__PUMP_TM
+#DEFINE_CONSTANT    OBJ_MODE.PUMP_INIT                  INIT
+#DEFINE_CONSTANT    OBJ_MODE.PUMP_ON                    PUMP.START
+#DEFINE_CONSTANT    OBJ_MODE.PUMP_OFF                   PUMP.STOP
+
+#DEFINE_CONSTANT    CH.DI_PUMP_STATE_RUNNING            PHY_IO__PUMP_TM+MON.STATE.PUMP_RUNNING
+#DEFINE_CONSTANT    CH.DI_PUMP_BLOWER_RUNNING           PHY_IO__PUMP_TM+MON.STATE.ROOTS_RUNNING
+#DEFINE_CONSTANT    CH.DI_PUMP_WARNING_NORMAL           NULL
+#DEFINE_CONSTANT    CH.DI_PUMP_ALARM_NORMAL             NULL
+#DEFINE_CONSTANT    CH.DI_PUMP_OPERATION_READY          NULL
+#DEFINE_CONSTANT    CH.DI_PUMP_ALARM_ERROR              PHY_IO__PUMP_TM+MON.ACTIVE.FAULT
+
+#DEFINE_CONSTANT    DATA_SIZE.DO_PUMP_LIN_VALVE         2
+#DEFINE_CONSTANT    CH.DO_PUMP_LINE_VALVE.1             IO+do.CHM1.FAST.PUMP.VLV
+#DEFINE_CONSTANT    CH.DO_PUMP_LINE_VALVE.2             IO+do.CHM1.SOFT.PUMP.VLV
+
+#DEFINE_CONSTANT    DATA_SIZE.DI_PUMP_CLOSE_VALVE       1
+#DEFINE_CONSTANT    CH.DI_PUMP_CLOSE_VALVE.1            IO+di.TM.VAC.Fast.VLV.CLOSE
+
+#DEFINE_CONSTANT    DATA_SIZE.DI_PUMP_OPEN_VALVE        1
+#DEFINE_CONSTANT    CH.DI_PUMP_OPEN_VALVE.1             IO+di.TM.VAC.Fast.VLV.OPEN
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY__LLx_PUMP
+
+#DEFINE_CONSTANT    OBJ__PUMP                           PHY_IO__PUMP_LL
+#DEFINE_CONSTANT    OBJ_MODE.PUMP_INIT                  INIT
+#DEFINE_CONSTANT    OBJ_MODE.PUMP_ON                    PUMP.START
+#DEFINE_CONSTANT    OBJ_MODE.PUMP_OFF                   PUMP.STOP
+
+#DEFINE_CONSTANT    CH.DI_PUMP_STATE_RUNNING            PHY_IO__PUMP_LL+MON.STATE.PUMP_RUNNING
+#DEFINE_CONSTANT    CH.DI_PUMP_BLOWER_RUNNING           PHY_IO__PUMP_LL+MON.STATE.ROOTS_RUNNING
+#DEFINE_CONSTANT    CH.DI_PUMP_WARNING_NORMAL           NULL
+#DEFINE_CONSTANT    CH.DI_PUMP_ALARM_NORMAL             NULL
+#DEFINE_CONSTANT    CH.DI_PUMP_OPERATION_READY          NULL
+#DEFINE_CONSTANT    CH.DI_PUMP_ALARM_ERROR              PHY_IO__PUMP_LL+MON.ACTIVE.FAULT
+
+#DEFINE_CONSTANT    DATA_SIZE.DO_PUMP_LIN_VALVE         4
+#DEFINE_CONSTANT    CH.DO_PUMP_LINE_VALVE.1             IO+do.LL1.FAST.PUMP.VLV
+#DEFINE_CONSTANT    CH.DO_PUMP_LINE_VALVE.2             IO+do.LL1.SOFT.PUMP.VLV
+#DEFINE_CONSTANT    CH.DO_PUMP_LINE_VALVE.3             IO+do.LL2.FAST.PUMP.VLV
+#DEFINE_CONSTANT    CH.DO_PUMP_LINE_VALVE.4             IO+do.LL2.SOFT.PUMP.VLV
+
+#DEFINE_CONSTANT    DATA_SIZE.DI_PUMP_CLOSE_VALVE       2
+#DEFINE_CONSTANT    CH.DI_PUMP_CLOSE_VALVE.1            IO+di.LL1.VAC.Fast.VLV.CLOSE
+#DEFINE_CONSTANT    CH.DI_PUMP_CLOSE_VALVE.2            IO+di.LL2.VAC.Fast.VLV.CLOSE
+
+#DEFINE_CONSTANT    DATA_SIZE.DI_PUMP_OPEN_VALVE        2
+#DEFINE_CONSTANT    CH.DI_PUMP_OPEN_VALVE.1             IO+di.LL1.VAC.Fast.VLV.OPEN
+#DEFINE_CONSTANT    CH.DI_PUMP_OPEN_VALVE.2             IO+di.LL2.VAC.Fast.VLV.OPEN
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__FFU
+#OBJECT_IO_PARA     COM_PORT                            3
+
+#OBJECT_PROPERTY    PHY_IO__PUMP_LL
+#OBJECT_IO_PARA     COM_PORT                            4
+#OBJECT_IO_PARA     ADDRESS_ID                          0
+
+#OBJECT_PROPERTY    PHY_IO__PUMP_TM
+#OBJECT_IO_PARA     COM_PORT                            5
+#OBJECT_IO_PARA     ADDRESS_ID                          0
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    IO_EFEM
+
+#DEFINE_CONSTANT    CH.CONFIG_SAVE                      DB_CFG+CFG.PAGE.LPx_PURGE.SAVE 
+
+#OBJECT_IO_PARA     IP                                  192.168.0.9
+#OBJECT_IO_PARA     PORT                                17000
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_PSK__LAMP
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_IO__LP1
+#DEFINE_CONSTANT    LINK.LPx_ID                         1
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#OBJECT_PROPERTY    PHY_IO__LP2
+#DEFINE_CONSTANT    LINK.LPx_ID                         2
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#OBJECT_PROPERTY    PHY_IO__LP3
+#DEFINE_CONSTANT    LINK.LPx_ID                         3
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_RFID__LP1
+#DEFINE_CONSTANT    LINK.LPx_ID                         1
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.FA_AUTO          PHY__LP1+LINK_PIO.ACTIVE.FA_AUTO
+
+#OBJECT_PROPERTY    PHY_RFID__LP2
+#DEFINE_CONSTANT    LINK.LPx_ID                         2
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.FA_AUTO          PHY__LP2+LINK_PIO.ACTIVE.FA_AUTO
+
+#OBJECT_PROPERTY    PHY_RFID__LP3
+#DEFINE_CONSTANT    LINK.LPx_ID                         3
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.FA_AUTO          PHY__LP3+LINK_PIO.ACTIVE.FA_AUTO
+
+//------------------------------------------------
+#OBJECT_PROPERTY    PHY_OHT__LP1
+
+#DEFINE_CONSTANT    LINK.LPx_ID                         1
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#DEFINE_CONSTANT		CH.LINK_PIO.TRANSFER_STATE          PHY__LP1+OTR.OUT.MON.sTRANSFER.PIO.STATUS
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.RUN              PHY__LP1+LINK_PIO.ACTIVE.RUN
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.FA_AUTO          PHY__LP1+LINK_PIO.ACTIVE.FA_AUTO
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.LOAD_REQ         PHY__LP1+LINK_PIO.ACTIVE.LOAD_REQ
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.UNLOAD_REQ       PHY__LP1+LINK_PIO.ACTIVE.UNLOAD_REQ
+
+#OBJECT_PROPERTY    PHY_OHT__LP2
+#DEFINE_CONSTANT    LINK.LPx_ID                         2
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#DEFINE_CONSTANT		CH.LINK_PIO.TRANSFER_STATE          PHY__LP2+OTR.OUT.MON.sTRANSFER.PIO.STATUS
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.RUN              PHY__LP2+LINK_PIO.ACTIVE.RUN
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.FA_AUTO          PHY__LP2+LINK_PIO.ACTIVE.FA_AUTO
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.LOAD_REQ         PHY__LP2+LINK_PIO.ACTIVE.LOAD_REQ
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.UNLOAD_REQ       PHY__LP2+LINK_PIO.ACTIVE.UNLOAD_REQ
+
+#OBJECT_PROPERTY    PHY_OHT__LP3
+#DEFINE_CONSTANT    LINK.LPx_ID                         3
+#DEFINE_CONSTANT    LINK.DRIVER                         IO_EFEM
+
+#DEFINE_CONSTANT		CH.LINK_PIO.TRANSFER_STATE          PHY__LP3+OTR.OUT.MON.sTRANSFER.PIO.STATUS
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.RUN              PHY__LP3+LINK_PIO.ACTIVE.RUN
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.FA_AUTO          PHY__LP3+LINK_PIO.ACTIVE.FA_AUTO
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.LOAD_REQ         PHY__LP3+LINK_PIO.ACTIVE.LOAD_REQ
+#DEFINE_CONSTANT		CH.LINK_PIO.ACTIVE.UNLOAD_REQ       PHY__LP3+LINK_PIO.ACTIVE.UNLOAD_REQ
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    IO
+
+#DEFINE_CONSTANT    CH__DO_DNET_HEARTBEAT               IO+do.PC.Alive.Pulse
+
+#OBJECT_IO_FILE     CFG_IO__TMC_PSK.cfg  
+
+//----------------------
+#OBJECT_IO_PARA     BOARD.ID                            0
+#OBJECT_IO_PARA     BOARD.OUT_OFFSET                    100     // 0
+#OBJECT_IO_PARA     BOARD.IN_OFFSET                     100     // 0
+
+//----------------------
+#OBJECT_IO_PARA     NODE.SIZE                           3
+
+#OBJECT_IO_PARA     NODE.1.MACID                        1
+#OBJECT_IO_PARA     NODE.1.NAME                         DIO6464P/PSK
+#OBJECT_IO_PARA     NODE.1.IN_OFFSET                    0       
+#OBJECT_IO_PARA     NODE.1.IN_BYTE.MAX                  100
+#OBJECT_IO_PARA     NODE.1.IN_BYTE.USE                  28
+#OBJECT_IO_PARA     NODE.1.OUT_OFFSET                   0
+#OBJECT_IO_PARA     NODE.1.OUT_BYTE.MAX                 100
+#OBJECT_IO_PARA     NODE.1.OUT_BYTE.USE                 20
+
+#OBJECT_IO_PARA     NODE.2.MACID                        2
+#OBJECT_IO_PARA     NODE.2.NAME                         ADIO24243232P/PSK
+#OBJECT_IO_PARA     NODE.2.IN_OFFSET                    0
+#OBJECT_IO_PARA     NODE.2.IN_BYTE.MAX                  100
+#OBJECT_IO_PARA     NODE.2.IN_BYTE.USE                  68
+#OBJECT_IO_PARA     NODE.2.OUT_OFFSET                   0
+#OBJECT_IO_PARA     NODE.2.OUT_BYTE.MAX                 100
+#OBJECT_IO_PARA     NODE.2.OUT_BYTE.USE                 64
+
+#OBJECT_IO_PARA     NODE.3.MACID                        3
+#OBJECT_IO_PARA     NODE.3.NAME                         DIO6464P/PSK
+#OBJECT_IO_PARA     NODE.3.IN_OFFSET                    0
+#OBJECT_IO_PARA     NODE.3.IN_BYTE.MAX                  100
+#OBJECT_IO_PARA     NODE.3.IN_BYTE.USE                  28
+#OBJECT_IO_PARA     NODE.3.OUT_OFFSET                   0
+#OBJECT_IO_PARA     NODE.3.OUT_BYTE.MAX                 100
+#OBJECT_IO_PARA     NODE.3.OUT_BYTE.USE                 20
+//----------------------
+
+//----------------------
+#DEFINE_CONSTANT    LINK.IO_SIZE                        0
+#DEFINE_CONSTANT    LINK.IO_CHANNEL.1                   IO+do.TM.SAFETY.LLA_ON
+#DEFINE_CONSTANT    LINK.IO_CHANNEL.2                   IO+do.TM.SAFETY.LLB_ON
+#DEFINE_CONSTANT    LINK.IO_CHANNEL.3                   IO+do.TM.SAFETY.SLOT_CLOSE
+#DEFINE_CONSTANT    LINK.IO_CHANNEL.4                   IO+do.TM.SAFETY.SLOT_OPEN
+//----------------------
+
+
+//------------------------------------------------
+#OBJECT_PROPERTY    TMC_LINK
+
+#OBJECT_LINK_FILE   LINK__CFG_TMC_To_PMC.cfg
+
+#DEFINE_CONSTANT    FLAG__DRV_LOG                       YES
 

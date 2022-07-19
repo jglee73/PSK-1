@@ -76,9 +76,14 @@ int CObj__SYS_IO::__DEFINE__VARIABLE_STD(p_variable)
 		p_variable->Get__DEF_CONST_DATA(def_name, ch_name);
 		sCH_Name__DO_ROUGH_FAST_VLV = ch_name;
 
+		//
 		def_name = "CH__DO_ROUGH_SOFT_VLV";
 		p_variable->Get__DEF_CONST_DATA(def_name, ch_name);
+
 		sCH_Name__DO_ROUGH_SOFT_VLV = ch_name;
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__DO_ROUGH_SOFT_VLV = def_check;
 
 		//
 		def_name = "CH__IO_VAC_SNS";
@@ -241,10 +246,18 @@ int CObj__SYS_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__DO_ROUGH_FAST_VLV, obj_name,var_name);
 
+		//
 		def_name = "CH__DO_ROUGH_SOFT_VLV";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__DO_ROUGH_SOFT_VLV, obj_name,var_name);
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__DO_ROUGH_SOFT_VLV = def_check;
+
+		if(def_check)
+		{
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__DO_ROUGH_SOFT_VLV, obj_name,var_name);
+		}
 
 		//
 		def_name = "CH__IO_VAC_SNS";

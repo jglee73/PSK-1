@@ -87,7 +87,7 @@
 
 #DEFINE_CONSTANT    OBJ__DB           		              DB_CFG
 
-#OBJECT_IO_PARA     COM_PORT  11 
+#OBJECT_IO_PARA     COM_PORT  1 
 
 
 //------------------------------------------------

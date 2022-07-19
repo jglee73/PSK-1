@@ -1,0 +1,8 @@
+#DATAITEMLIST
+IO si.PMC_AI_02_5
+IO ai.CH1.PCW.Temperature
+IO ai.CH1.PCW.Flow
+
+IO si.PMC_AI_02_6
+IO ai.CH2.PCW.Temperature
+IO ai.CH2.PCW.Flow

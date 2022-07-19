@@ -33,4 +33,5 @@ public:
 	// ...
 	int Get__StringArrray_From_String(const CString& str_data,const CString& str_sep,CStringArray& l_data);
 	int Get__Hexa_From_String(const CString& str_data);
+	int Check__Same_String(const CString& str_data, const CStringArray& l_data);
 };

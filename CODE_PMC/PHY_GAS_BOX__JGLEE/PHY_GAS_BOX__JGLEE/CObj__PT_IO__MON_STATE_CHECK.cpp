@@ -6,7 +6,7 @@
 int  CObj__PT_IO
 ::Mon__STATE_CHECK(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
 {
-	int loop_count = 1000;
+	int loop_count = 0;
 
 	CString ch_data;
 	int i;
@@ -16,9 +16,9 @@ int  CObj__PT_IO
 		p_variable->Wait__SINGLE_OBJECT(0.1);
 
 		loop_count++;
-		if(loop_count >= 10)		loop_count = 0;
+		if(loop_count >= 10)		loop_count = 1;
 
-		if(loop_count == 0)
+		if(loop_count == 1)
 		{			
 			// RANGE ...
 			for(i=0; i<iPT_SIZE; i++)
@@ -33,29 +33,33 @@ int  CObj__PT_IO
 			}
 		}
 
-		// ZERO-CAL ...
-		for(i=0; i<iPT_SIZE; i++)
+		if((loop_count == 1)
+		|| (loop_count == 6))
 		{
-			if(sCH__ZERO_CAL_REQ_PRESSURE__PT_X[i]->Check__DATA(STR__YES) > 0)
+			// ZERO-CAL ...
+			for(i=0; i<iPT_SIZE; i++)
 			{
-				sCH__ZERO_CAL_REQ_PRESSURE__PT_X[i]->Set__DATA("");
+				if(sCH__ZERO_CAL_REQ_PRESSURE__PT_X[i]->Check__DATA(STR__YES) > 0)
+				{
+					sCH__ZERO_CAL_REQ_PRESSURE__PT_X[i]->Set__DATA("");
 
-				aEXT_CH__AI_PT_PRESSURE_X[i]->Get__DATA(ch_data);
-				aCH__ZERO_CAL_OFFSET__PT_X[i]->Set__DATA(ch_data);
+					aEXT_CH__AI_PT_PRESSURE_X[i]->Get__DATA(ch_data);
+					aCH__ZERO_CAL_OFFSET__PT_X[i]->Set__DATA(ch_data);
+				}
+				if(sCH__ZERO_CAL_RESET_PRESSURE__PT_X[i]->Check__DATA(STR__YES) > 0)
+				{
+					sCH__ZERO_CAL_RESET_PRESSURE__PT_X[i]->Set__DATA("");
+
+					aCH__ZERO_CAL_OFFSET__PT_X[i]->Set__DATA("0");
+				}
+
+				aCH__ZERO_CAL_OFFSET__PT_X[i]->Get__DATA(ch_data);
+				double off_value = atof(ch_data);
+				double cur_value = aEXT_CH__AI_PT_PRESSURE_X[i]->Get__VALUE();
+				double cal_value = cur_value - off_value;
+
+				aCH__MON_PRESSURE__PT_X[i]->Set__VALUE(cal_value);
 			}
-			if(sCH__ZERO_CAL_RESET_PRESSURE__PT_X[i]->Check__DATA(STR__YES) > 0)
-			{
-				sCH__ZERO_CAL_RESET_PRESSURE__PT_X[i]->Set__DATA("");
-
-				aCH__ZERO_CAL_OFFSET__PT_X[i]->Set__DATA("0");
-			}
-
-			aCH__ZERO_CAL_OFFSET__PT_X[i]->Get__DATA(ch_data);
-			double off_value = atof(ch_data);
-			double cur_value = aEXT_CH__AI_PT_PRESSURE_X[i]->Get__VALUE();
-			double cal_value = cur_value - off_value;
-
-			aCH__MON_PRESSURE__PT_X[i]->Set__VALUE(cal_value);
 		}
 
 		// ...

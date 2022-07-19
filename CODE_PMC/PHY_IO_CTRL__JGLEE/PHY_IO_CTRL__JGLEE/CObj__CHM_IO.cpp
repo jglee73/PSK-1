@@ -251,6 +251,19 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 
 		//
+		def_name = "CH.DO_CHM_CHECK_VLV";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__DO_CHM_CHECK_VLV = def_check;
+
+		if(def_check)
+		{
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__DO_CHM_CHECK_VLV, obj_name,var_name);
+		}
+
+		//
 		def_name = "DATA.PRC_GAUGE_SIZE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
@@ -275,14 +288,28 @@ int CObj__CHM_IO::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		//
 		def_name = "CH__AI_CHM_GAUGE_TORR";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_CHM_GAUGE_TORR, obj_name,var_name);
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__AI_CHM_GAUGE_TORR = def_check;
+
+		if(def_check)
+		{
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_CHM_GAUGE_TORR, obj_name,var_name);
+		}
 
 		//
 		def_name = "CH__AI_FORELINE_GAUGE_TORR";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
-		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
-		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_FORELINE_GAUGE_TORR, obj_name,var_name);
+
+		def_check = x_utility.Check__Link(ch_name);
+		bActive__AI_FORELINE_GAUGE_TORR = def_check;
+
+		if(def_check)
+		{
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
+			LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__AI_FORELINE_GAUGE_TORR, obj_name,var_name);
+		}
 	}
 
 	// RF INFO ...

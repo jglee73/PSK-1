@@ -39,9 +39,6 @@ int CObj__PMC_EX::__DEFINE__VERSION_HISTORY(version)
 
 
 // ...
-#define  MON_ID__MODULE_STATUS							1
-
-// ...
 #define  DSP__OBJ_MODE									\
 "INIT                                                   \
 S1 S2 S3												\
@@ -109,10 +106,6 @@ int CObj__PMC_EX::__DEFINE__VARIABLE_STD(p_variable)
 		}
 	}
 
-	// ...
-	{
-		// p_variable->Add__MONITORING_PROC(3.0, MON_ID__MODULE_STATUS);
-	}
 	return 1;
 }
 int CObj__PMC_EX::__DEFINE__ALARM(p_alarm)
@@ -225,12 +218,34 @@ int CObj__PMC_EX::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 {
 	int flag = -1;
 
+	// ...
+	CStringArray l_para;
+	p_variable->Get__FNC_PARAMETER(l_para);
+
+	if(l_para.GetSize() > 0)
+	{
+		int limit = l_para.GetSize();
+
+		for(int i=0; i<limit; i++)
+		{
+			CString para_data = l_para[i];
+
+			switch(i)
+			{
+				case 0:		
+					aCH__PARA_PMx_ID->Set__DATA(para_data);
+					break;
+			}	
+		}
+	}
+
+	// ...
 	int pm_i = (int) (aCH__PARA_PMx_ID->Get__VALUE() - 1);
 
 	// ...
 	{
 		CString log_msg;
-		log_msg.Format("Start_PM(%1d) ... :  [%s]", pm_i+1,mode);
+		log_msg.Format("Start_PM(%1d) ... :  [%s]", pm_i+1, mode);
 
 		xLOG_CTRL->WRITE__LOG(log_msg);
 	}
@@ -249,20 +264,6 @@ int CObj__PMC_EX::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__R1)			flag = Call__R1(p_variable, pm_i);
 		ELSE_IF__CTRL_MODE(sMODE__R2)			flag = Call__R2(p_variable, pm_i);
 		ELSE_IF__CTRL_MODE(sMODE__R3)			flag = Call__R3(p_variable, pm_i);
-
-		else
-		{
-			CString bff;
-			CString alarm_msg;
-			CString r_act;
-
-			bff.Format("Object Name : %s\n", sObject_Name);
-			alarm_msg  = bff;
-			bff.Format("Unknown Object Mode : \"%s\"\n", mode);
-			alarm_msg += bff;
-
-			p_alarm->Popup__ALARM_With_MESSAGE(ALID__OBJECT_MODE_UNKNOWN,alarm_msg,r_act);		
-		}
 	}
 	else
 	{
@@ -296,12 +297,6 @@ int CObj__PMC_EX::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 
 int CObj__PMC_EX::__CALL__MONITORING(id,p_variable,p_alarm)
 {
-	switch(id)
-	{
-		case MON_ID__MODULE_STATUS:
-			Mon__MODULE_STATUS(p_variable,p_alarm);
-			break;
-	}
 
 	return 1;
 }

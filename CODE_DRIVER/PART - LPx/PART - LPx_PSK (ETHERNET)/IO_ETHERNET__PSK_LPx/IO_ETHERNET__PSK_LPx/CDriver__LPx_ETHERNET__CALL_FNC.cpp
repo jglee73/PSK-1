@@ -11,13 +11,6 @@
 int  CDriver__LPx_ETHERNET
 ::Call__INIT(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	if(iSim_Flag > 0)
-	{
-		Sleep(1500);
-		return 1;
-	}
-
-	// ...
 	int status = -1;
 
 	// ...
@@ -37,17 +30,7 @@ int  CDriver__LPx_ETHERNET
 	SCX__TIMER_CTRL x_timer_ctrl;
 	x_timer_ctrl->REGISTER__ABORT_OBJECT(sObject_Name);
 
-	if(iSim_Flag > 0)     
-	{
-		diCH__COMM_STS->Set__DATA("Online");
-
-		sCH__INR__ERROR_ID_DEC->Set__DATA("0");
-		sCH__INR__ERROR_ID_HEXA->Set__DATA("Ox0");
-
-		sCH__INR__ALGINER_ERROR_ID->Set__DATA("0");
-	}
-
-	if(diCH__COMM_STS->Check__DATA("Online") > 0)
+	if(sCH__MON_COMMUNICATION_STATE->Check__DATA(STR__ONLINE) > 0)
 	{
 		CString str__err_id;
 		int i__err_id;

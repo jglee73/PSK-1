@@ -15,7 +15,7 @@ void CObj__LBx_CHM_SLOT
 	CString str__open_sns;
 	CString str__close_sns;
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		for(int i=0; i<iLBx_SLOT_SIZE; i++)
 		{
@@ -36,13 +36,42 @@ void CObj__LBx_CHM_SLOT
 		}
 	}
 
+
 	while(1)
 	{
 		p_variable->Wait__SINGLE_OBJECT(0.01);
 
+
+		if(iActive__SIM_MODE > 0)
+		{
+			if(doEXT_CH__SOFT_PUMP_VLV__SET->Check__DATA(STR__CLOSE) > 0)
+			{
+				if(bActive__DI_SR_VLV_OPEN)			diEXT_CH__DI_SR_VLV_OPEN->Set__DATA(STR__OFF);
+				if(bActive__DI_SR_VLV_CLOSE)		diEXT_CH__DI_SR_VLV_CLOSE->Set__DATA(STR__ON);
+			}
+			else
+			{
+				if(bActive__DI_SR_VLV_OPEN)			diEXT_CH__DI_SR_VLV_OPEN->Set__DATA(STR__ON);
+				if(bActive__DI_SR_VLV_CLOSE)		diEXT_CH__DI_SR_VLV_CLOSE->Set__DATA(STR__OFF);
+			}
+
+			if(doEXT_CH__FAST_PUMP_VLV__SET->Check__DATA(STR__CLOSE) > 0)
+			{
+				if(bActive__DI_FR_VLV_OPEN)			diEXT_CH__DI_FR_VLV_OPEN->Set__DATA(STR__OFF);
+				if(bActive__DI_FR_VLV_CLOSE)		diEXT_CH__DI_FR_VLV_CLOSE->Set__DATA(STR__ON);
+			}
+			else
+			{
+				if(bActive__DI_FR_VLV_OPEN)			diEXT_CH__DI_FR_VLV_OPEN->Set__DATA(STR__ON);
+				if(bActive__DI_FR_VLV_CLOSE)		diEXT_CH__DI_FR_VLV_CLOSE->Set__DATA(STR__OFF);
+			}
+		}
+
 		// PRESSURE ...
-		aiEXT_CH__LBx__PRESSURE_TORR->Get__DATA(var__data);
-		aCH__PRESSURE_TORR->Set__DATA(var__data);
+		{
+			aiEXT_CH__LBx__PRESSURE_TORR->Get__DATA(var__data);
+			aCH__PRESSURE_TORR->Set__DATA(var__data);
+		}
 
 		// jglee : 2020.10.20
 		if(bActive__ATM_SNS_Virtual_Type)
@@ -138,16 +167,16 @@ void CObj__LBx_CHM_SLOT
 		}
 
 		// PUMP VLV FLAG ...
-		Update__PUMP_VLV_STS(p_alarm);
+		Update__PUMP_VLV_STS(p_variable, p_alarm);
 
 		// SV STATUS ...
-		Update__SV_STS(p_variable,p_alarm);
+		Update__SV_STS(p_variable, p_alarm);
 
 		// DV STATUS ...
-		Update__DV_STS(p_variable,p_alarm);
+		Update__DV_STS(p_variable, p_alarm);
 
 		// LIFT_PIN STATUS ...
-		Update__LIFT_PIN_STS(p_variable,p_alarm);
+		Update__LIFT_PIN_STS(p_variable, p_alarm);
 
 		// INTERLOCK CHECK ...
 		Fnc__INTERLOCK(p_variable, p_alarm);
@@ -192,9 +221,9 @@ void CObj__LBx_CHM_SLOT
 
 		if(active__door_open)
 		{
-			if(Check__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+			if(Check__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 			{
-				Fnc__PUMP_ALL_VLV__CLOSE(p_alarm);
+				Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm);
 
 				// ...
 				int alarm_id = ALID__DOOR_VALVE__PUMP_INTERLOCK;
@@ -208,7 +237,7 @@ void CObj__LBx_CHM_SLOT
 
 	if(Check__VENT_ALL_VLV__CLOSE(p_alarm) < 0)
 	{			
-		if(Check__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+		if(Check__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 		{
 			if(sCH__OUTPROC_ACTIVE_FLAG->Check__DATA(STR__YES) < 0)
 			{
@@ -227,11 +256,11 @@ void CObj__LBx_CHM_SLOT
 	}		
 
 	if((sEXT_CH__MON_PUMP_COMM_STS->Check__DATA(STR__ONLINE) < 0) 
-		|| (sEXT_CH__MON_PUMP_RUN_STS->Check__DATA(STR__ON) < 0))
+	|| (sEXT_CH__MON_PUMP_RUN_STS->Check__DATA(STR__ON) < 0))
 	{
-		if(Check__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+		if(Check__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 		{
-			Fnc__PUMP_ALL_VLV__CLOSE(p_alarm);
+			Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm);
 
 			// ...
 			{
@@ -329,7 +358,7 @@ void CObj__LBx_CHM_SLOT
 		return;
 	}
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		CString ch_data;
 

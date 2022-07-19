@@ -583,6 +583,30 @@ int CObj__ATM_ROBOT_FUSION::__DEFINE__ALARM(p_alarm)
 		ACT__RETRY_ABORT;
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
+	//.....
+	{
+		alarm_id = ALID__ALx__SLOT_ID_ERROR;
+
+		alarm_title  = title;
+		alarm_title += "ALx Slot_ID Error !";
+
+		alarm_msg = "Please, check the ALx slot parameter of command. \n";
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	//.....
+	{
+		alarm_id = ALID__LLx__SLOT_ID_ERROR;
+
+		alarm_title  = title;
+		alarm_title += "LLx Slot_ID Error !";
+
+		alarm_msg = "Please, check the LLx slot parameter of command. \n";
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
 
 	//.....
 	{
@@ -844,6 +868,27 @@ int CObj__ATM_ROBOT_FUSION::__DEFINE__ALARM(p_alarm)
 //--------------------------------------------------------------------------------
 int CObj__ATM_ROBOT_FUSION::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {
+	// ...
+	{
+		CString file_name;
+		CString log_msg;
+
+		file_name.Format("%s_App.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xAPP_LOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xAPP_LOG_CTRL->SET__PROPERTY(file_name,24*5,60);
+
+		xAPP_LOG_CTRL->DISABLE__TIME_LOG();
+		xAPP_LOG_CTRL->WRITE__LOG(log_msg);
+
+		xAPP_LOG_CTRL->ENABLE__TIME_LOG();
+		xAPP_LOG_CTRL->WRITE__LOG("   START   \n");
+	}
+
+	// ...
 	CString def_name;
 	CString def_data;
 	CString str_name;
@@ -867,18 +912,11 @@ int CObj__ATM_ROBOT_FUSION::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		if(def_data.CompareNoCase("YES") == 0)			bActive__LLx_MULTI_SLOT_VALVE = true;
 		else											bActive__LLx_MULTI_SLOT_VALVE = false;
 
-		if((bActive__LLx_MULTI_DOOR_VALVE) || (bActive__LLx_MULTI_SLOT_VALVE))
-		{
-			def_name = "LLx.SLOT_SIZE";
-			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+		def_name = "LLx.SLOT_SIZE";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
-			iLLx_SLOT_SIZE = atoi(def_data);
-			if(iLLx_SLOT_SIZE > CFG_LLx__SLOT_SIZE)		iLLx_SLOT_SIZE = CFG_LLx__SLOT_SIZE;
-		}
-		else
-		{
-			iLLx_SLOT_SIZE = 1;
-		}
+		iLLx_SLOT_SIZE = atoi(def_data);
+		if(iLLx_SLOT_SIZE > CFG_LLx__SLOT_SIZE)		iLLx_SLOT_SIZE = CFG_LLx__SLOT_SIZE;
 
 		//
 		def_name = "DATA.LLx_SIZE";
@@ -1013,6 +1051,17 @@ int CObj__ATM_ROBOT_FUSION::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		for(i=0; i<CFG_LLx__SIZE; i++)
 		{
 			int id = i + 1;
+
+			// .CFG.SLOT.USE ..
+			{
+				for(int  k=0; k<CFG_LLx__SLOT_SIZE; k++)
+				{
+					int slot = k + 1;
+
+					str_name.Format("CFG.LL%1d.SLOT%02d.USE", id, slot);
+					LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__CFG_LLx_SLOT_USE_X[i][k], def_data,str_name);
+				}
+			}
 
 			if(bActive__LLx_MULTI_DOOR_VALVE)
 			{
@@ -1197,28 +1246,66 @@ int CObj__ATM_ROBOT_FUSION::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		}
 	}
 
-	iFlag__APP_LOG = 1;
+	// ARM_RNE.SENSOR ... 
+	{
+		def_name = "ROBOT.RNE_SNS.ARM_A";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if((def_data.CompareNoCase(STR__NO)   == 0)
+		|| (def_data.CompareNoCase(STR__NULL) == 0))
+		{
+			bActive__ROBOT_RNE_SNS__ARM_A = false;
+		}
+		else
+		{
+			bActive__ROBOT_RNE_SNS__ARM_A = true;
+
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,str_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_RNE_SNS__ARM_A, obj_name,str_name);
+		}
+
+		//
+		def_name = "ROBOT.RNE_SNS.ARM_B";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+
+		if((def_data.CompareNoCase(STR__NO)   == 0)
+		|| (def_data.CompareNoCase(STR__NULL) == 0))
+		{
+			bActive__ROBOT_RNE_SNS__ARM_B = false;
+		}
+		else
+		{
+			bActive__ROBOT_RNE_SNS__ARM_B = true;
+
+			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,str_name);
+			LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__ROBOT_RNE_SNS__ARM_B, obj_name,str_name);
+		}
+	}
+	// ARM_RNE.STATE ...
+	{
+		def_name = "DATA.RNE_ON";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+		sDATA__RNE_ON = def_data;
+
+		def_name = "DATA.RNE_OFF";
+		p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
+		sDATA__RNE_OFF = def_data;
+	}
 
 	// ...
 	{
-		CString file_name;
-		CString log_msg;
+		SCX__SEQ_INFO x_seq_info;
 
-		file_name.Format("%s_App.log", sObject_Name);
-
-		log_msg  = "\n\n";
-		log_msg += "//------------------------------------------------------------------------";
-
-		xAPP_LOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-		xAPP_LOG_CTRL->SET__PROPERTY(file_name,24*5,60);
-
-		xAPP_LOG_CTRL->DISABLE__TIME_LOG();
-		xAPP_LOG_CTRL->WRITE__LOG(log_msg);
-
-		xAPP_LOG_CTRL->ENABLE__TIME_LOG();
-		xAPP_LOG_CTRL->WRITE__LOG("   START   \n");
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 	}
 
+	if(iActive__SIM_MODE > 0)
+	{
+		if(bActive__ROBOT_RNE_SNS__ARM_A)			dEXT_CH__ROBOT_RNE_SNS__ARM_A->Set__DATA(sDATA__RNE_ON);
+		if(bActive__ROBOT_RNE_SNS__ARM_B)			dEXT_CH__ROBOT_RNE_SNS__ARM_B->Set__DATA(sDATA__RNE_ON);
+	}
+
+	iFlag__APP_LOG = 1;
 	return 1;
 }
 
@@ -1291,17 +1378,17 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 	}
 
 	// ...
-	bool active_align = false;
+	bool active__align_pick = false;
 
 	if(para__stn_name.CompareNoCase(STR__AL1) == 0)
 	{
 		if(mode.CompareNoCase(sMODE__PICK) == 0)
 		{
-			active_align = true;
+			active__align_pick = true;
 		}
 	}
 
-	if(active_align)
+	if(active__align_pick)
 	{
 		CString log_msg;
 		CString log_bff;
@@ -1465,13 +1552,17 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 			}
 		}
 
-		if(dEXT_CH__CFG_ALIGN_DEVICE->Check__DATA("ATM_RB") > 0)
+		if(dEXT_CH__CFG_ALIGN_DEVICE->Check__DATA(STR__ATM_RB) > 0)
 		{
 			sEXT_CH__CUR_AL1_TARGET_LLx_NAME->Set__DATA(llx_name);
 			sEXT_CH__CUR_AL1_TARGET_LLx_SLOT->Set__DATA(llx_slot);
 
 			aEXT_CH__ALIGNER_ANGLE_PARA->Set__DATA(al_angle);
 			sEXT_CH__CUR_AL1_CCD_POS->Set__DATA(al_angle);
+		}
+		else
+		{
+			active__align_pick = false;
 		}
 
 		Fnc__APP_LOG(log_msg);
@@ -1675,7 +1766,7 @@ int CObj__ATM_ROBOT_FUSION::__CALL__CONTROL_MODE(mode, p_debug, p_variable, p_al
 
 		if(flag > 0)
 		{
-			flag = Call__PICK(p_variable,p_alarm, para__arm_type,para__stn_name,para__stn_slot);
+			flag = Call__PICK(p_variable,p_alarm, para__arm_type,para__stn_name,para__stn_slot, active__align_pick);
 		}
 	}
 	ELSE_IF__CTRL_MODE(sMODE__PLACE)

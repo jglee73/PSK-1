@@ -1,0 +1,15 @@
+
+===========================================================================
+#OBJECT_STD     PMC_DB__JGLEE               DB.INF                  DB_INF
+#OBJECT_STD     PMC_DB__JGLEE               DB.SYS                  DB_SYS
+#OBJECT_STD     PMC_DB__JGLEE               DB.GUI                  DB_GUI
+
+#OBJECT_STD     PMC_DB__JGLEE               DB.ETCHER               DB_ETCHER
+
+
+===========================================================================
+#OBJECT_IO      PHY_IO__MATCHER_AE          NAVII.SERIAL            PHY_IO__MATCHER
+
+
+===========================================================================
+#OBJECT_IO      IO__BECKHOFF_PSK            PSK.TEST                IO

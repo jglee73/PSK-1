@@ -121,4 +121,3 @@ int  CObj__LBx_TwoManiFold
 	printf(" * [%s] PLACE_COMPLETE - End ... \n", sObject_Name);
 	return 1;
 }
-

@@ -1,0 +1,4 @@
+#ID=1	2201	LIGHT	OPR_PMC - In PMC, there is a wafer that not processed.
+#ID=2	2202	LIGHT	OPR_PMC - Total Wafer Count Warning !
+#ID=3	2203	LIGHT	OPR_PMC - Total Wafer Count & System Down  !
+#ID=5	2205	LIGHT	OPR_PMC - DI Sensor 관련 Heavy Error가 발생 했습니다.

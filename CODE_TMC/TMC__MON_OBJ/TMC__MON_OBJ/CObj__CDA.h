@@ -5,10 +5,10 @@
 
 #define _CFG__CDA_SIZE				5
 #define _INDEX__CDA_GN2				0
-#define _INDEX__CDA_PM1				1
-#define _INDEX__CDA_PM2				2
-#define _INDEX__CDA_TM_LL			3
-#define _INDEX__CDA_PCW				4
+#define _INDEX__CDA_TM_LL			1
+#define _INDEX__CDA_PCW				2
+#define _INDEX__CDA1_PM				3
+#define _INDEX__CDA2_PM				4
 
 
 class CObj__CDA : public __IOBJ__STD_TYPE
@@ -17,7 +17,8 @@ private:
 	//------------------------------------------------------------------------------
 	CString sObject_Name;
 
-
+	int iActive__SIM_MODE;
+	
 	//------------------------------------------------------------------------------
 	// INTERNAL PROPERTY
 

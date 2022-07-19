@@ -3,6 +3,8 @@
 #include "CObj__LBx_CHM_SLOT__ALID.h"
 #include "CObj__LBx_CHM_SLOT__DEF.h"
 
+#include "CCommon_Utility.h"
+
 
 //-------------------------------------------------------------------------
 CObj__LBx_CHM_SLOT::CObj__LBx_CHM_SLOT()
@@ -852,6 +854,56 @@ int CObj__LBx_CHM_SLOT::__DEFINE__ALARM(p_alarm)
 		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
 	}
 
+	// ...
+	{
+		alarm_id = ALID__SR_VALVE_NOT_CLOSE;
+
+		alarm_title  = title;
+		alarm_title += "SR Valve Close Timeout !";
+
+		alarm_msg.Format("Please, check the state of SR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__SR_VALVE_NOT_OPEN;
+
+		alarm_title  = title;
+		alarm_title += "SR Valve Open Timeout !";
+
+		alarm_msg.Format("Please, check the state of SR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
+	// ...
+	{
+		alarm_id = ALID__FR_VALVE_NOT_CLOSE;
+
+		alarm_title  = title;
+		alarm_title += "FR Valve Close Timeout !";
+
+		alarm_msg.Format("Please, check the state of FR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+	// ...
+	{
+		alarm_id = ALID__FR_VALVE_NOT_OPEN;
+
+		alarm_title  = title;
+		alarm_title += "FR Valve Open Timeout !";
+
+		alarm_msg.Format("Please, check the state of FR valve.\n");
+
+		ACT__RETRY_ABORT;
+		ADD__ALARM_EX(alarm_id,alarm_title,alarm_msg,l_act);
+	}
+
 	return 1;
 }
 
@@ -859,6 +911,26 @@ int CObj__LBx_CHM_SLOT::__DEFINE__ALARM(p_alarm)
 int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 {
 	xI_ASYNC_TIMER->REGISTER__COUNT_CHANNEL(sObject_Name,aCH__TIME_COUNT->Get__VARIABLE_NAME());
+
+	// ...
+	{
+		CString file_name;
+		CString log_msg;
+
+		file_name.Format("%s_App.log", sObject_Name);
+
+		log_msg  = "\n\n";
+		log_msg += "//------------------------------------------------------------------------";
+
+		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
+		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
+
+		xLOG_CTRL->DISABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG(log_msg);
+
+		xLOG_CTRL->ENABLE__TIME_LOG();
+		xLOG_CTRL->WRITE__LOG("   START   \n");
+	}
 
 	// ...
 	CString def_name;
@@ -869,6 +941,10 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	CString obj_name;
 	CString var_name;
 	int i;
+
+	// ...
+	CCommon_Utility x_utility;
+	bool def_check;
 
 
 	// OBJ INFO -----
@@ -972,37 +1048,38 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 			def_name = "LINK_OBJ.GAS";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-			if(obj_name.CompareNoCase("NO") == 0)			pOBJ_CTRL__GAS = NULL;
-			else											pOBJ_CTRL__GAS = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+			def_check = x_utility.Check__Link(obj_name);
+			bActive__OBJ_GAS = def_check;
 
-			if(pOBJ_CTRL__GAS == NULL)			bActive__OBJ_GAS = FALSE;
-			else								bActive__OBJ_GAS = TRUE;	
+			if(def_check)
+			{
+				pOBJ_CTRL__GAS = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+			}
 		}
 		// OBJ : VAT ...
 		{
 			def_name = "LINK_OBJ.VAT";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, obj_name);
 
-			if(obj_name.CompareNoCase("NO") == 0)			pOBJ_CTRL__VAT = NULL;
-			else											pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+			def_check = x_utility.Check__Link(obj_name);
+			bActive__OBJ_VAT = def_check;
 
-			if(pOBJ_CTRL__VAT == NULL)			bActive__OBJ_VAT = FALSE;
-			else								bActive__OBJ_VAT = TRUE;	
+			if(def_check)
+			{
+				pOBJ_CTRL__VAT = p_ext_obj_create->Create__OBJECT_CTRL(obj_name);
+			}
 		}
 
 		// GAUGE ...
 		{
-			def_name = "VAR__IO_GAUGE_VLV";
+			def_name = "CH__IO_GAUGE_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-			if(def_data.CompareNoCase("NO") == 0)
-			{
-				bAtive__GAUGE_VLV = FALSE;
-			}
-			else
-			{
-				bAtive__GAUGE_VLV = TRUE;
+			def_check = x_utility.Check__Link(def_data);
+			bAtive__GAUGE_VLV = def_check;
 
+			if(def_check)
+			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__GAUGE_VLV, obj_name,var_name);
 			}
@@ -1018,7 +1095,7 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 			for(i=0; i<iData__LID_SIZE; i++)
 			{
-				def_name.Format("VAR__LID_CLOSE_SNS.%1d", i+1);
+				def_name.Format("CH__LID_CLOSE_SNS.%1d", i+1);
 				p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(ch_name, obj_name,var_name);
@@ -1032,29 +1109,29 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		def_name = "DATA.LIFT_PIN.USE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 
-		if(def_data.CompareNoCase("NO") == 0)			bActive__LIFT_PIN = FALSE;
-		else
-		{
-			bActive__LIFT_PIN = TRUE;
+		def_check = x_utility.Check__Link(def_data);
+		bActive__LIFT_PIN = def_check;
 
-			// do
-			def_name = "VAR__IO_DO_LIFT_PIN_UP";
+		if(def_check)
+		{
+			// do.Channel ...
+			def_name = "CH__IO_DO_LIFT_PIN_UP";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LBx__LIFT_PIN_UP, obj_name,var_name);
 
-			def_name = "VAR__IO_DO_LIFT_PIN_DOWN";
+			def_name = "CH__IO_DO_LIFT_PIN_DOWN";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LBx__LIFT_PIN_DOWN, obj_name,var_name);
 
 			// di
-			def_name = "VAR__IO_DI_LIFT_PIN_UP";
+			def_name = "CH__IO_DI_LIFT_PIN_UP";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__LIFT_PIN_UP, obj_name,var_name);
 
-			def_name = "VAR__IO_DI_LIFT_PIN_DOWN";
+			def_name = "CH__IO_DI_LIFT_PIN_DOWN";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__LIFT_PIN_DOWN, obj_name,var_name);
@@ -1072,13 +1149,13 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		for(i=0; i<iData__ROBOT_ARM_RNE; i++)
 		{
 			// VAC Robot Arm Sns
-			def_name.Format("VAR__IO_DI_VAC_RB_RNE.%1d", i+1);
+			def_name.Format("CH__IO_DI_VAC_RB_RNE.%1d", i+1);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__VAC_RB_RNE_X[i], obj_name,var_name);
 
 			// ATM Robot Arm Sns
-			def_name.Format("VAR__IO_DI_ATM_RB_RNE.%1d", i+1);
+			def_name.Format("CH__IO_DI_ATM_RB_RNE.%1d", i+1);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__ATM_RB_RNE_X[i], obj_name,var_name);
@@ -1100,48 +1177,103 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		// VENT VLV ...
 		{
-			def_name = "VAR__IO_DO_SOFT_VENT_VLV";
+			def_name = "CH__IO_DO_SOFT_VENT_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-			if(def_data.CompareNoCase("NO") == 0)		bActive__SOFT_VENT_VLV = false;
-			else
-			{
-				bActive__SOFT_VENT_VLV = true;
+			def_check = x_utility.Check__Link(def_data);
+			bActive__SOFT_VENT_VLV = def_check;
 
+			if(def_check)
+			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__SOFT_VENT_VLV__SET, obj_name,var_name);
 			}
 
 			//
-			def_name = "VAR__IO_DO_FAST_VENT_VLV";
+			def_name = "CH__IO_DO_FAST_VENT_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__FAST_VENT_VLV__SET, obj_name,var_name);
 
 			//
-			def_name = "VAR__IO_DO_EQUAL_VLV";
+			def_name = "CH__IO_DO_EQUAL_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, def_data);
 
-			if(def_data.CompareNoCase("NO") == 0)		bActive__ATM_EQUAL_VLV = false;
-			else
-			{
-				bActive__ATM_EQUAL_VLV = true;
+			def_check = x_utility.Check__Link(def_data);
+			bActive__ATM_EQUAL_VLV = def_check;
 
+			if(def_check)
+			{
 				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 				LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__ATM_EQUAL_VLV__SET, obj_name,var_name);
 			}
 		}
 		// PUMP VLV ...
 		{
-			def_name = "VAR__IO_DO_SOFT_PUMP_VLV";
+			def_name = "CH__IO_DO_SOFT_PUMP_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__SOFT_PUMP_VLV__SET, obj_name,var_name);
 
-			def_name = "VAR__IO_DO_FAST_PUMP_VLV";
+			def_name = "CH__IO_DO_FAST_PUMP_VLV";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__FAST_PUMP_VLV__SET, obj_name,var_name);
+		}
+
+		// DI.FR.VLV 
+		{
+			def_name = "CH__IO_DI_FR_VLV_OPEN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_FR_VLV_OPEN = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_FR_VLV_OPEN, obj_name,var_name);
+			}
+			
+			//
+			def_name = "CH__IO_DI_FR_VLV_CLOSE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_FR_VLV_CLOSE = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_FR_VLV_CLOSE, obj_name,var_name);
+			}			
+		}
+		// DI.SR.VLV 
+		{
+			def_name = "CH__IO_DI_SR_VLV_OPEN";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_SR_VLV_OPEN = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_SR_VLV_OPEN, obj_name,var_name);
+			}
+
+			//
+			def_name = "CH__IO_DI_SR_VLV_CLOSE";
+			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
+
+			def_check = x_utility.Check__Link(def_data);
+			bActive__DI_SR_VLV_CLOSE = def_check;
+
+			if(def_check)
+			{
+				p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
+				LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__DI_SR_VLV_CLOSE, obj_name,var_name);
+			}			
 		}
 	}
 
@@ -1152,24 +1284,24 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		// DV ...
 		{
-			// do
-			def_name.Format("VAR__IO_DO_DV_OPEN.%1d", id);
+			// do.Channel ...
+			def_name.Format("CH__IO_DO_DV_OPEN.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LLx__DV_OPEN_X[i], obj_name,var_name);
 
-			def_name.Format("VAR__IO_DO_DV_CLOSE.%1d", id);
+			def_name.Format("CH__IO_DO_DV_CLOSE.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LLx__DV_CLOSE_X[i], obj_name,var_name);
 
-			// di
-			def_name.Format("VAR__IO_DI_DV_OPEN.%1d", id);
+			// di.Channel ...
+			def_name.Format("CH__IO_DI_DV_OPEN.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LLx__DV_OPEN_X[i], obj_name,var_name);
 
-			def_name.Format("VAR__IO_DI_DV_CLOSE.%1d", id);
+			def_name.Format("CH__IO_DI_DV_CLOSE.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LLx__DV_CLOSE_X[i], obj_name,var_name);
@@ -1177,24 +1309,24 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		
 		// SV ...
 		{
-			// do
-			def_name.Format("VAR__IO_DO_SV_TM_OPEN.%1d", id);
+			// do.Channel ...
+			def_name.Format("CH__IO_DO_SV_TM_OPEN.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LLx__SV_OPEN_X[i], obj_name,var_name);
 
-			def_name.Format("VAR__IO_DO_SV_TM_CLOSE.%1d", id);
+			def_name.Format("CH__IO_DO_SV_TM_CLOSE.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(doEXT_CH__LLx__SV_CLOSE_X[i], obj_name,var_name);
 
-			// di
-			def_name.Format("VAR__IO_DI_SV_TM_OPEN.%1d", id);
+			// di.Channel ...
+			def_name.Format("CH__IO_DI_SV_TM_OPEN.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LLx__SV_OPEN_X[i], obj_name,var_name);
 
-			def_name.Format("VAR__IO_DI_SV_TM_CLOSE.%1d", id);
+			def_name.Format("CH__IO_DI_SV_TM_CLOSE.%1d", id);
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 			p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 			LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LLx__SV_CLOSE_X[i], obj_name,var_name);
@@ -1220,12 +1352,12 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	{
 		CString obj_name, var_name;
 
-		def_name = "VAR__PRESSURE_TORR";
+		def_name = "CH__PRESSURE_TORR";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 		LINK__EXT_VAR_ANALOG_CTRL(aiEXT_CH__LBx__PRESSURE_TORR, obj_name,var_name);
 
-		def_name = "VAR__EXHAUST_PRESSURE";
+		def_name = "CH__EXHAUST_PRESSURE";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 		LINK__EXT_VAR_ANALOG_CTRL(aiEXT_CH__LBx__EXHAUST_PRESSURE, obj_name,var_name);
@@ -1236,12 +1368,12 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 		if(def_data.CompareNoCase("YES") == 0)		bActive__ATM_SNS_Virtual_Type = true;
 		else										bActive__ATM_SNS_Virtual_Type = false;
 
-		def_name = "VAR__ATM_SNS";
+		def_name = "CH__ATM_SNS";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__ATM_SNS, obj_name,var_name);
 
-		def_name = "VAR__VAC_SNS";
+		def_name = "CH__VAC_SNS";
 		p_ext_obj_create->Get__DEF_CONST_DATA(def_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name,var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(diEXT_CH__LBx__VAC_SNS, obj_name,var_name);
@@ -1269,7 +1401,7 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// PHY_TM : TMÀÇ Pressure Status (ATM, VAC, BTW)
 	{
-		str_name.Format("VAR__PHY_TM_PRESS_STS");
+		str_name.Format("CH__PHY_TM_PRESS_STS");
 		p_ext_obj_create->Get__DEF_CONST_DATA(str_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 		LINK__EXT_VAR_DIGITAL_CTRL(dEXT_CH__PHY_TM__PRESS_STS, obj_name,var_name);
@@ -1277,7 +1409,7 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 	// PHY_TM : TMÀÇ Pressure Torr
 	{
-		str_name.Format("VAR__PHY_TM_PRESS_TORR");
+		str_name.Format("CH__PHY_TM_PRESS_TORR");
 		p_ext_obj_create->Get__DEF_CONST_DATA(str_name,def_data);
 		p_ext_obj_create->Get__CHANNEL_To_OBJ_VAR(def_data, obj_name, var_name);
 		LINK__EXT_VAR_ANALOG_CTRL(aEXT_CH__PHY_TM__PRESS_TORR, obj_name,var_name);
@@ -1286,9 +1418,9 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 	// ...
 	{
 		SCX__SEQ_INFO x_seq_info;
-		iSim_Flag = x_seq_info->Is__SIMULATION_MODE();
+		iActive__SIM_MODE = x_seq_info->Is__SIMULATION_MODE();
 
-		if(iSim_Flag > 0)
+		if(iActive__SIM_MODE > 0)
 		{
 			aiEXT_CH__LBx__EXHAUST_PRESSURE->Set__VALUE(0.01);
 
@@ -1297,26 +1429,6 @@ int CObj__LBx_CHM_SLOT::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 				diEXT_CH__LID_CLOSE_SNS_X[i]->Set__DATA(STR__ON);
 			}
 		}
-	}
-
-	// ...
-	{
-		CString file_name;
-		CString log_msg;
-
-		file_name.Format("%s_App.log", sObject_Name);
-
-		log_msg  = "\n\n";
-		log_msg += "//------------------------------------------------------------------------";
-
-		xLOG_CTRL->CREATE__SUB_DIRECTORY(sObject_Name);
-		xLOG_CTRL->SET__PROPERTY(file_name,24*5,60);
-
-		xLOG_CTRL->DISABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG(log_msg);
-
-		xLOG_CTRL->ENABLE__TIME_LOG();
-		xLOG_CTRL->WRITE__LOG("   START   \n");
 	}
 
 	return 1;
@@ -1515,7 +1627,7 @@ int CObj__LBx_CHM_SLOT::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		}
 	}
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		if(dCH__CFG_SIM_TEST_ACTIVE__WAIT->Check__DATA(STR__YES) > 0)
 		{

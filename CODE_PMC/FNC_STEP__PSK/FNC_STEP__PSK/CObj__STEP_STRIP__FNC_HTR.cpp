@@ -154,7 +154,7 @@ int CObj__STEP_STRIP
 			}
 
 			if((active__hard_stable)
-				|| (active__soft_stable))
+			|| (active__soft_stable))
 			{
 				if(active__stable_count <= 0)
 				{

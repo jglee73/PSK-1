@@ -16,9 +16,10 @@ private:
 	//-------------------------------------------------------------------------
 	CString sObject_Name;
 
+	// ...
 	SCX__USER_LOG_CTRL xLOG_CTRL;
-	int  iSim_Flag;
-
+	int iActive__SIM_MODE;
+	//
 
 	//-------------------------------------------------------------------------
 	// INTERNAL PROPERTY
@@ -206,6 +207,20 @@ private:
 	// PUMP VLV
 	CX__VAR_DIGITAL_CTRL doEXT_CH__SOFT_PUMP_VLV__SET;
 	CX__VAR_DIGITAL_CTRL doEXT_CH__FAST_PUMP_VLV__SET;
+
+	// DI.FR.VLV 
+	bool bActive__DI_FR_VLV_OPEN;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_FR_VLV_OPEN;
+
+	bool bActive__DI_FR_VLV_CLOSE;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_FR_VLV_CLOSE;
+
+	// DI.SR.VLV 
+	bool bActive__DI_SR_VLV_OPEN;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_SR_VLV_OPEN;
+
+	bool bActive__DI_SR_VLV_CLOSE;
+	CX__VAR_DIGITAL_CTRL diEXT_CH__DI_SR_VLV_CLOSE;
 
 	// SLOT CONTROL ...
 	// SV 
@@ -423,21 +438,21 @@ private:
 	int  Check__TRANSFER_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm,	const CString& act_name);
 
 	int  Check__VENT_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
-	int  Check__PUMP_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
+	int  Check__PUMP_ALL_VLV__CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
-	int  Check__PUMP_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
-	void Update__PUMP_VLV_STS(CII_OBJECT__ALARM* p_alarm);
+	int  Check__PUMP_VLV__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+	void Update__PUMP_VLV_STS(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
-	int  Is_SV_CLOSE_CONDITION(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
-	int  Is_DV_CLOSE_CONDITION(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
+	int  Is_SV_CLOSE_CONDITION(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+	int  Is_DV_CLOSE_CONDITION(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
 	int  Fnc__VENT_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
 	int  Fnc__VENT_ALL_VLV__CLOSE_WITHOUT_EQUAL_VLV(CII_OBJECT__ALARM* p_alarm);
-	int  Fnc__PUMP_ALL_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
+	int  Fnc__PUMP_ALL_VLV__CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
-	int  Fnc__PUMP_SOFT_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
-	int  Fnc__PUMP_SOFT_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
-	int  Fnc__PUMP_FAST_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
+	int  Fnc__PUMP_SOFT_VLV__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+	int  Fnc__PUMP_SOFT_VLV__CLOSE(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
+	int  Fnc__PUMP_FAST_VLV__OPEN(CII_OBJECT__VARIABLE* p_variable, CII_OBJECT__ALARM* p_alarm);
 
 	int  Fnc__VENT_SOFT_VLV__OPEN(CII_OBJECT__ALARM* p_alarm);
 	int  Fnc__VENT_SOFT_VLV__CLOSE(CII_OBJECT__ALARM* p_alarm);
@@ -466,6 +481,15 @@ private:
 	void Update__SV_STS(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
 	void Update__DV_STS(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
 	void Update__LIFT_PIN_STS(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm);
+
+	// ...
+	int  Check__SR_VALVE_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int  Check__SR_VALVE_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int  _Check__SR_VALVE_STATE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const bool active__wait_check, const bool active__close_check);
+
+	int  Check__FR_VALVE_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int  Check__FR_VALVE_OPEN(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const bool active__wait_check);
+	int  _Check__FR_VALVE_STATE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm, const bool active__wait_check, const bool active__close_check);
 
 	// ...
 	void Fnc__MSG(const CString &sMsg);		// sCH__MSG

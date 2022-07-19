@@ -372,41 +372,42 @@ int CObj__STEP_METAL
 			para__rcp_value = atof(rcp__mat_src_shunt);
 			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_src_learned_shunt);
 
-			aEXT_CH__MAT__PARA_LOAD_POS_CH1->Set__VALUE(para__rcp_value);
+			aEXT_CH__MAT_SRC__PARA_LOAD_POS_CH1->Set__VALUE(para__rcp_value);
 
 			//
 			para__rcp_value = atof(rcp__mat_src_series);
 			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_src_learned_series);
 
-			aEXT_CH__MAT__PARA_TUNE_POS_CH1->Set__VALUE(para__rcp_value);
+			aEXT_CH__MAT_SRC__PARA_TUNE_POS_CH1->Set__VALUE(para__rcp_value);
 
 			//
 			para__rcp_value = atof(rcp__mat_src_capacity);
 			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_src_learned_capacity);
 
-			aEXT_CH__MAT__PARA_CAP_POS_CH1->Set__VALUE(para__rcp_value);
+			aEXT_CH__MAT_SRC__PARA_CAP_POS_CH1->Set__VALUE(para__rcp_value);
 		}
 		// BIAS ...
 		{
 			para__rcp_value = atof(rcp__mat_bias_shunt);
 			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_bias_learned_shunt);
 
-			aEXT_CH__MAT__PARA_LOAD_POS_CH2->Set__VALUE(para__rcp_value);
+			aEXT_CH__MAT_BIAS__PARA_LOAD_POS_CH1->Set__VALUE(para__rcp_value);
 
 			//
 			para__rcp_value = atof(rcp__mat_bias_series);
 			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_bias_learned_series);
 
-			aEXT_CH__MAT__PARA_TUNE_POS_CH2->Set__VALUE(para__rcp_value);
+			aEXT_CH__MAT_BIAS__PARA_TUNE_POS_CH1->Set__VALUE(para__rcp_value);
 
 			//
 			para__rcp_value = atof(rcp__mat_bias_capacity);
 			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_bias_learned_capacity);
 
-			aEXT_CH__MAT__PARA_CAP_POS_CH2->Set__VALUE(para__rcp_value);
+			aEXT_CH__MAT_BIAS__PARA_CAP_POS_CH1->Set__VALUE(para__rcp_value);
 		}
 
-		MAT_OBJ__Start_MODE(obj_mode);
+		MAT_SRC_OBJ__Start_MODE(obj_mode);
+		MAT_BIAS_OBJ__Start_MODE(obj_mode);
 	}
 
 	// ESC ...
@@ -714,11 +715,12 @@ int CObj__STEP_METAL
 			if(MFC_OBJ__Check_ABORTED() > 0)						return -211;
 			if(APC_OBJ__Check_ABORTED() > 0)						return -212;
 
-			if(RF_SRC_OBJ__Check_ABORTED()  > 0)					return -221;
-			if(RF_BIAS_OBJ__Check_ABORTED() > 0)					return -222;
-			if(MAT_OBJ__Check_ABORTED() > 0)						return -223;
-			if(ESC_OBJ__Check_ABORTED() > 0)						return -224;
-			if(LIFT_PIN_OBJ__Check_ABORTED() > 0)					return -225;
+			if(RF_SRC_OBJ__Check_ABORTED()   > 0)					return -221;
+			if(RF_BIAS_OBJ__Check_ABORTED()  > 0)					return -222;
+			if(MAT_SRC_OBJ__Check_ABORTED()  > 0)					return -223;
+			if(MAT_BIAS_OBJ__Check_ABORTED() > 0)					return -224;
+			if(ESC_OBJ__Check_ABORTED() > 0)						return -225;
+			if(LIFT_PIN_OBJ__Check_ABORTED() > 0)					return -226;
 		}
 
 		if(active__stable_mode)

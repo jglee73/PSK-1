@@ -9,10 +9,13 @@ void CObj__LPx_STD
 {
 	CString var_data;
 
+
 	while(1)
 	{
-		Sleep(9);
+		p_variable->Wait__SINGLE_OBJECT(0.01);
 
+
+		//
 		sEXT_CH__LPx__CLAMP_STS->Get__DATA(var_data);
 		sCH__CLAMP_STS->Set__DATA(var_data);
 
@@ -28,24 +31,38 @@ void CObj__LPx_STD
 		sEXT_CH__TRANSFER_PIO_STATUS->Get__DATA(var_data);
 		sCH__TRANSFER_PIO_STATUS->Set__DATA(var_data);
 
-		// RELOAD FLAG !!
-		sCH__CFG_RELOAD_FLAG->Get__DATA(var_data);
-		sEXT_CH__RELOAD_FLAG->Set__DATA(var_data);
-
-		// FA MODE !!
-		sCH__CFG_FA_MODE->Get__DATA(var_data);	
-
-		if((var_data.CompareNoCase("AUTO")   == 0)
-		|| (var_data.CompareNoCase("MANUAL") == 0))
+		// RELOAD FLAG ...
 		{
-			sEXT_CH__FA_MODE->Set__DATA(var_data);
-			sEXT_CH__RFx__FA_MODE->Set__DATA(var_data);
+			sCH__CFG_RELOAD_FLAG->Get__DATA(var_data);
+			sEXT_CH__RELOAD_FLAG->Set__DATA(var_data);
 		}
 
-		// FA SERVICE REQ !!
-		sCH__CFG_FA_SERVICE_MODE->Get__DATA(var_data);
+		// CHECK : ACTIVE FA AUTO ...
+		{
+			bool active__fa_auto = false;
 
-		sEXT_CH__FA_SERVICE_MODE->Set__DATA(var_data);
-		sEXT_CH__RFx__FA_SERVICE_MODE->Set__DATA(var_data);
+			CString obj_state = dEXT_CH__OBJ_STATE->Get__STRING();
+
+			if((obj_state.CompareNoCase(STR__STANDBY)  == 0)
+			|| (obj_state.CompareNoCase(STR__CTCINUSE) == 0))
+			{
+				if((sCH__CFG_FA_MODE->Check__DATA(STR__AUTO) > 0)
+				&& (sCH__CFG_FA_SERVICE_MODE->Check__DATA(STR__YES) > 0))
+				{
+					active__fa_auto = true;
+				}
+			}
+
+			if(active__fa_auto)			sCH__MON_ACTIVE_FA_AUTO->Set__DATA(STR__YES);	
+			else						sCH__MON_ACTIVE_FA_AUTO->Set__DATA(STR__NO);
+
+			//
+			var_data = sCH__MON_ACTIVE_FA_AUTO->Get__STRING();
+
+			sEXT_CH__LPx__MON_ACTIVE_FA_AUTO->Set__DATA(var_data);
+			if(bActive__RFx_OBJ)		sEXT_CH__RFx__MON_ACTIVE_FA_AUTO->Set__DATA(var_data);
+		}
+
+		// ...
 	}	
 }

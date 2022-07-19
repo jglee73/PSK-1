@@ -42,11 +42,13 @@
 "PAGE__LBB_LEAK" Object not defined ! 
 "PAGE__LBB_VLV" Object not defined ! 
 "PAGE__LBx_TEST" Object not defined ! 
+"PAGE__LP1" Object not defined ! 
+"PAGE__LP2" Object not defined ! 
+"PAGE__LP3" Object not defined ! 
 "PAGE__MANIFOLD_TEST" Object not defined ! 
 "PAGE__SYS_CTRL" Object not defined ! 
 "PAGE__TMC_LEAK" Object not defined ! 
-"PHY__LLx_PUMP" Object not defined ! 
-"PHY__TMC_PUMP" Object not defined ! 
+"PHY_PSK__LAMP" Object not defined ! 
 
 
 //==================================================================================== 
@@ -953,8 +955,7 @@ OBJECT_NAME : PHY_IO__VAC_ROBOT   (OffsetID:22300) (ToolID:) (UnitID:)
 Please, Check Communication Status !
 "
 #RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
+     CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -976,309 +977,17 @@ Please, Check Communication Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   21 
-#EXTERNAL_ID   22321 
+#INTERNAL_ID   13 
+#EXTERNAL_ID   22313 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__VAC_ROBOT - TMC_CHM's Pressure is not ATM."
+"PHY_IO__VAC_ROBOT - Function dose not exist !"
 #MESSAGE 
-"Please, Check TMC_CHM's Pressure !
-TMC_CHM's Pressure must be ATM.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   22322 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - LBA's Pressure is not ATM."
-#MESSAGE 
-"Please, Check LBA's Pressure !
-LBA's Pressure must be ATM.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   23 
-#EXTERNAL_ID   22323 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - LBB's pressure is not ATM."
-#MESSAGE 
-"Please, check LBB's pressure !
-LBB's pressure must be ATM.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   25 
-#EXTERNAL_ID   22325 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - PMC's pressure is not ATM."
-#MESSAGE 
-"Please, check PMC's pressure !
-PMC's pressure must be ATM.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   26 
-#EXTERNAL_ID   22326 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - TMC_CHM's Pressure is not VAC."
-#MESSAGE 
-"Please, Check TMC_CHM's Pressure !
-TMC_CHM's Pressure must be VAC.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   27 
-#EXTERNAL_ID   22327 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - LBA's Pressure is not VAC."
-#MESSAGE 
-"Please, Check LBA's Pressure !
-LBA's Pressure must be VAC.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   28 
-#EXTERNAL_ID   22328 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - LBB's pressure is not VAC."
-#MESSAGE 
-"Please, check LBB's pressure !
-LBB's pressure must be VAC.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   22331 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - PMC's pressure is not VAC."
-#MESSAGE 
-"Please, check PMC's pressure !
-PMC's pressure must be VAC.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   22332 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - LBA's valve status is not open."
-#MESSAGE 
-"Please, check LBA's valve status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   22333 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - LBB's valve status is not open."
-#MESSAGE 
-"Please, check LBB's valve status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   22334 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - PMC's valve status is not open."
-#MESSAGE 
-"Please, check PMC's valve status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   22335 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - R Offset Abort range error."
-#MESSAGE 
-"Please, check wafer position on the ARM !
+"Please, check the object code !
 "
 #RECOVERY_ACTION 
      ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   36 
-#EXTERNAL_ID   22336 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - T Offset Abort range error."
-#MESSAGE 
-"Please, check wafer position on the ARM !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   37 
-#EXTERNAL_ID   22337 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - R Offset Soft range error."
-#MESSAGE 
-"Please, check wafer position on the ARM !
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   38 
-#EXTERNAL_ID   22338 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - T Offset Soft range error."
-#MESSAGE 
-"Please, check wafer position on the ARM !
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   39 
-#EXTERNAL_ID   22339 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - R Offset Hard range error."
-#MESSAGE 
-"Please, check wafer position on the ARM !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   40 
-#EXTERNAL_ID   22340 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - T Offset Hard range error."
-#MESSAGE 
-"Please, check wafer position on the ARM !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   41 
-#EXTERNAL_ID   22341 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - Controller Error Code"
-#MESSAGE 
-""
-#RECOVERY_ACTION 
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   42 
-#EXTERNAL_ID   22342 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__VAC_ROBOT - VACRB: Mapping Information Error"
-#MESSAGE 
-"After Map Complete, Wafer Status is different from Mapping Sensor.
-"
-#RECOVERY_ACTION 
-     ABORT   ""
-     SENSOR_SYNC   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -4215,89 +3924,6 @@ OBJECT_NAME : PHY__AL1   (OffsetID:24300) (ToolID:) (UnitID:)
 //------------------------------------------------------------
 OBJECT_NAME : PHY_IO__AL1   (OffsetID:24400) (ToolID:) (UnitID:) 
 
-#INTERNAL_ID   11 
-#EXTERNAL_ID   24411 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__AL1 - Offline."
-#MESSAGE 
-"Controller is Offline.
-Please, Check Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   24412 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__AL1 - Error Code !"
-#MESSAGE 
-"Please, check HW status !
-"
-#RECOVERY_ACTION 
-     ABORT   ""
-     RETRY   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   24413 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__AL1 - Align and Pick Action Timeout Occur."
-#MESSAGE 
-"Align and Pick Action Timeout Occur.
-Please, Check ATM Robot Status !
-"
-#RECOVERY_ACTION 
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   14 
-#EXTERNAL_ID   24414 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__AL1 - Config Option, Mapping Disable Alarm."
-#MESSAGE 
-"Now, Mapping Disable Config Option Selected.
-Would you like to continue ??
-"
-#RECOVERY_ACTION 
-     NO   ""
-     YES   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   15 
-#EXTERNAL_ID   24415 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__AL1 - Invalid Target Station Eorror."
-#MESSAGE 
-"Please, check Target Station's Name !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
 
 //------------------------------------------------------------
 OBJECT_NAME : PAGE__TMC_CHM   (OffsetID:25100) (ToolID:) (UnitID:) 
@@ -4577,6 +4203,85 @@ Please, check pump status !
 "PHY__TMC_CHM - Chamber's lid is not closed !"
 #MESSAGE 
 "Please, check the lid of chamber !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   9 
+#EXTERNAL_ID   26909 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_CHM - ATM High Pressure limit !"
+#MESSAGE 
+"Please, check config pressure or gauge status.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   26911 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_CHM - SR Valve Close Timeout !"
+#MESSAGE 
+"Please, check the state of SR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   26912 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_CHM - SR Valve Open Timeout !"
+#MESSAGE 
+"Please, check the state of SR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   26913 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_CHM - FR Valve Close Timeout !"
+#MESSAGE 
+"Please, check the state of FR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   26914 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_CHM - FR Valve Open Timeout !"
+#MESSAGE 
+"Please, check the state of FR valve.
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -5196,12 +4901,12 @@ Please, check pump status !
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY__LBA - After Venting Complete, Atm High Press Alarm !"
+"PHY__LBA - ATM High Pressure limit !"
 #MESSAGE 
-"Please, check LL Pressure or Gauge Status.
+"Please, check config pressure or gauge status.
 "
 #RECOVERY_ACTION 
-     ABORT   ""
+     CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -5231,6 +4936,70 @@ Please, check pump status !
 "Please, check the lid of LLx !
 "
 #RECOVERY_ACTION 
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   29931 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBA - SR Valve Close Timeout !"
+#MESSAGE 
+"Please, check the state of SR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   29932 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBA - SR Valve Open Timeout !"
+#MESSAGE 
+"Please, check the state of SR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   29933 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBA - FR Valve Close Timeout !"
+#MESSAGE 
+"Please, check the state of FR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   29934 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBA - FR Valve Open Timeout !"
+#MESSAGE 
+"Please, check the state of FR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
      ABORT   ""
 #OPTION1    
 #OPTION2    
@@ -5627,12 +5396,12 @@ Please, check pump status !
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY__LBB - After Venting Complete, Atm High Press Alarm !"
+"PHY__LBB - ATM High Pressure limit !"
 #MESSAGE 
-"Please, check LL Pressure or Gauge Status.
+"Please, check config pressure or gauge status.
 "
 #RECOVERY_ACTION 
-     ABORT   ""
+     CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
@@ -5662,6 +5431,70 @@ Please, check pump status !
 "Please, check the lid of LLx !
 "
 #RECOVERY_ACTION 
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   30031 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBB - SR Valve Close Timeout !"
+#MESSAGE 
+"Please, check the state of SR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   30032 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBB - SR Valve Open Timeout !"
+#MESSAGE 
+"Please, check the state of SR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   30033 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBB - FR Valve Close Timeout !"
+#MESSAGE 
+"Please, check the state of FR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   30034 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LBB - FR Valve Open Timeout !"
+#MESSAGE 
+"Please, check the state of FR valve.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
      ABORT   ""
 #OPTION1    
 #OPTION2    
@@ -5755,69 +5588,14 @@ OBJECT_NAME : PHY__LP1   (OffsetID:32400) (ToolID:) (UnitID:)
 #OPTION2    
 #OPTION3    
 
-
-//------------------------------------------------------------
-OBJECT_NAME : PHY_IO__LP1   (OffsetID:32500) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   32501 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP1 - Offline."
-#MESSAGE 
-"Communication is Offline.
-Please, Check DeviceNet Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   2 
-#EXTERNAL_ID   32502 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP1 - Offline."
-#MESSAGE 
-"Controller is Offline.
-Please, Check LoadPort Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   3 
-#EXTERNAL_ID   32503 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP1 - Command Timeout."
-#MESSAGE 
-"After Command Send, Result Can't Receive.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
 #INTERNAL_ID   4 
-#EXTERNAL_ID   32504 
+#EXTERNAL_ID   32404 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP1 - LOAD... FOUP NONE ALARM."
+"PHY__LP1 - Robot's arm is not retracted !"."
 #MESSAGE 
-"Before Foup Load Action, Foup Not Exist on the loadport.
-Please, Check Foup properly placed !
+"Please, check the RNE sensor of ATM Robot's arm ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -5827,11 +5605,44 @@ Please, Check Foup properly placed !
 #OPTION3    
 
 #INTERNAL_ID   5 
-#EXTERNAL_ID   32505 
+#EXTERNAL_ID   32405 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP1 - LP PADDLE UP... WAFER SLIDE OUT SENSOR ALARM."
+"PHY__LP1 - LOAD... FOUP NONE ALARM."
+#MESSAGE 
+"Before load action, foup dosen't exist on the load-port.
+Please, Check if foup is properly placed !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   32406 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LP1 - LP Mapping Sensor Not Use"
+#MESSAGE 
+"Please, check config option !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   32407 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LP1 - LP PADDLE UP... WAFER SLIDE OUT SENSOR ALARM."
 #MESSAGE 
 "Before LP Paddle Up Action, Wafer Slide Out Sensor On Status.
 Please, Check Wafer Status in the loadport !
@@ -5843,15 +5654,15 @@ Please, Check Wafer Status in the loadport !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   6 
-#EXTERNAL_ID   32506 
+#INTERNAL_ID   11 
+#EXTERNAL_ID   32411 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP1 - LP PADDLE UP/DN... PADDLE SENSOR NOT EXT STATUS ALARM."
+"PHY__LP1 - MAP ERROR (Door doesn't open) !"
 #MESSAGE 
-"Before LP Paddle Up/Down Action, Paddle Not Extend Status.
-Please, Check Paddle Extend Status !
+"The "Map" command cannot be executed, because the door of loadport is not open. 
+Please, open the door of loadport ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -5860,14 +5671,15 @@ Please, Check Paddle Extend Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   7 
-#EXTERNAL_ID   32507 
+#INTERNAL_ID   12 
+#EXTERNAL_ID   32412 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP1 - LP Mapping Sensor Not Use"
+"PHY__LP1 - MAP ERROR (Foup doesn't exist) !"
 #MESSAGE 
-"Please, check config option !
+"The "Map" command cannot be executed, because foup doesn't exist. 
+Please, check the state of foup ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -5876,14 +5688,15 @@ Please, Check Paddle Extend Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   8 
-#EXTERNAL_ID   32508 
+#INTERNAL_ID   13 
+#EXTERNAL_ID   32413 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP1 - LP has no RF-tag reader !"
+"PHY__LP1 - MAP ERROR (Foup isn't loadded) !"
 #MESSAGE 
-"Please, check config option !
+"The "Map" command cannot be executed, because foup isn't loaded. 
+Please, check the state of foup ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -5894,14 +5707,14 @@ Please, Check Paddle Extend Status !
 
 
 //------------------------------------------------------------
-OBJECT_NAME : PHY_RS232__LP1   (OffsetID:32600) (ToolID:) (UnitID:) 
+OBJECT_NAME : PHY_IO__LP1   (OffsetID:32500) (ToolID:) (UnitID:) 
 
 #INTERNAL_ID   11 
-#EXTERNAL_ID   32611 
+#EXTERNAL_ID   32511 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_RS232__LP1 : Offline !"
+"PHY_IO__LP1 : Offline !"
 #MESSAGE 
 "Please, check communication line !
 "
@@ -5912,400 +5725,27 @@ OBJECT_NAME : PHY_RS232__LP1   (OffsetID:32600) (ToolID:) (UnitID:)
 #OPTION3    
 
 #INTERNAL_ID   12 
-#EXTERNAL_ID   32612 
+#EXTERNAL_ID   32512 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_RS232__LP1 : Error Code !"
+"PHY_IO__LP1 : LPx Error Code !"
 #MESSAGE 
 "Please, check HW status !
 "
 #RECOVERY_ACTION 
-     ABORT   ""
-     RETRY   ""
-     IGNORE   ""
+     CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
 
 
 //------------------------------------------------------------
+OBJECT_NAME : PHY_RS232__LP1   (OffsetID:32600) (ToolID:) (UnitID:) 
+
+
+//------------------------------------------------------------
 OBJECT_NAME : PHY_OHT__LP1   (OffsetID:32700) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   32701 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - Offline."
-#MESSAGE 
-"Communication is Offline.
-Please, Check DeviceNet Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   2 
-#EXTERNAL_ID   32702 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - Offline."
-#MESSAGE 
-"Controller is Offline.
-Please, Check LoadPort Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   3 
-#EXTERNAL_ID   32703 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - Command Timeout."
-#MESSAGE 
-"After Command Send, Result Can't Receive.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   32711 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP1 LOAD Timeout"
-#MESSAGE 
-"TP1 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   32712 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP2 LOAD Timeout"
-#MESSAGE 
-"TP2 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   32713 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP3 LOAD Timeout"
-#MESSAGE 
-"TP3 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   14 
-#EXTERNAL_ID   32714 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP4 LOAD Timeout"
-#MESSAGE 
-"TP4 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   15 
-#EXTERNAL_ID   32715 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP5 LOAD Timeout"
-#MESSAGE 
-"TP5 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   21 
-#EXTERNAL_ID   32721 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP1 UNLOAD Timeout"
-#MESSAGE 
-"TP1 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   32722 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP2 UNLOAD Timeout"
-#MESSAGE 
-"TP2 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   23 
-#EXTERNAL_ID   32723 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP3 UNLOAD Timeout"
-#MESSAGE 
-"TP3 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   24 
-#EXTERNAL_ID   32724 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP4 UNLOAD Timeout"
-#MESSAGE 
-"TP4 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   25 
-#EXTERNAL_ID   32725 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - TP5 UNLOAD Timeout"
-#MESSAGE 
-"TP5 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   26 
-#EXTERNAL_ID   32726 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - UNCLAMP Error"
-#MESSAGE 
-"When UNLOAD Transfer, Now CLAMP Sts..."
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   5 
-#EXTERNAL_ID   32705 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - ERR = Light Curtain Cut"
-#MESSAGE 
-"In FullAuto Mode, Light Curtain is cut"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   27 
-#EXTERNAL_ID   32727 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - FOUP Violation Error(EXIST), When wait CS0[ON], VALID[ON]"
-#MESSAGE 
-"Waiting Load PIO Sequence Start, FOUP or MATERIAL Exist Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   28 
-#EXTERNAL_ID   32728 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - FOUP Violation Error(NONE), When wait CS0[ON], VALID[ON]"
-#MESSAGE 
-"Waiting Unload PIO Sequence Start, FOUP Not Exist Error."
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   29 
-#EXTERNAL_ID   32729 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - FOUP Logic Error(PRESENT SNS ON), When wait CS0, VALID"
-#MESSAGE 
-"Waiting PIO Sequence Start, FOUP Sts Unknown Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   30 
-#EXTERNAL_ID   32730 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - FOUP Logic Error(PLACE SNS ON), When wait CS0, VALID"
-#MESSAGE 
-"Waiting PIO Sequence Start, FOUP Sts Unknown Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   32731 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - LP CLAMP ERROR."
-#MESSAGE 
-"Before LP Receive New Foup, Now Not Unclamp but Clamp Status.
-Please, Check Clamp Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   32732 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - Active Abnormal Signal Occur."
-#MESSAGE 
-"During PIO Communication, Active's Abnormal Signal Received.
-Please, Check OHT's Signal Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   32735 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - Valid Signal Off Occur."
-#MESSAGE 
-"During PIO Communication, Active's Abnormal Signal Received.
-Please, Check OHT's Valid Signal Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   32733 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - Foup Logic Error Occur."
-#MESSAGE 
-"During PIO Communication, Foup Logic Error Occur.
-Please, Check Place or Present Sensor Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   32734 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP1 - Foup Violation Error Occur."
-#MESSAGE 
-"During PIO Communication, Foup Violation Error Occur.
-Please, Check Place and Present Sensor Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
 
 
 //------------------------------------------------------------
@@ -6371,69 +5811,14 @@ OBJECT_NAME : PHY__LP2   (OffsetID:33400) (ToolID:) (UnitID:)
 #OPTION2    
 #OPTION3    
 
-
-//------------------------------------------------------------
-OBJECT_NAME : PHY_IO__LP2   (OffsetID:33500) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   33501 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP2 - Offline."
-#MESSAGE 
-"Communication is Offline.
-Please, Check DeviceNet Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   2 
-#EXTERNAL_ID   33502 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP2 - Offline."
-#MESSAGE 
-"Controller is Offline.
-Please, Check LoadPort Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   3 
-#EXTERNAL_ID   33503 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP2 - Command Timeout."
-#MESSAGE 
-"After Command Send, Result Can't Receive.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
 #INTERNAL_ID   4 
-#EXTERNAL_ID   33504 
+#EXTERNAL_ID   33404 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP2 - LOAD... FOUP NONE ALARM."
+"PHY__LP2 - Robot's arm is not retracted !"."
 #MESSAGE 
-"Before Foup Load Action, Foup Not Exist on the loadport.
-Please, Check Foup properly placed !
+"Please, check the RNE sensor of ATM Robot's arm ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -6443,11 +5828,44 @@ Please, Check Foup properly placed !
 #OPTION3    
 
 #INTERNAL_ID   5 
-#EXTERNAL_ID   33505 
+#EXTERNAL_ID   33405 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP2 - LP PADDLE UP... WAFER SLIDE OUT SENSOR ALARM."
+"PHY__LP2 - LOAD... FOUP NONE ALARM."
+#MESSAGE 
+"Before load action, foup dosen't exist on the load-port.
+Please, Check if foup is properly placed !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   33406 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LP2 - LP Mapping Sensor Not Use"
+#MESSAGE 
+"Please, check config option !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   33407 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LP2 - LP PADDLE UP... WAFER SLIDE OUT SENSOR ALARM."
 #MESSAGE 
 "Before LP Paddle Up Action, Wafer Slide Out Sensor On Status.
 Please, Check Wafer Status in the loadport !
@@ -6459,15 +5877,15 @@ Please, Check Wafer Status in the loadport !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   6 
-#EXTERNAL_ID   33506 
+#INTERNAL_ID   11 
+#EXTERNAL_ID   33411 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP2 - LP PADDLE UP/DN... PADDLE SENSOR NOT EXT STATUS ALARM."
+"PHY__LP2 - MAP ERROR (Door doesn't open) !"
 #MESSAGE 
-"Before LP Paddle Up/Down Action, Paddle Not Extend Status.
-Please, Check Paddle Extend Status !
+"The "Map" command cannot be executed, because the door of loadport is not open. 
+Please, open the door of loadport ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -6476,14 +5894,15 @@ Please, Check Paddle Extend Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   7 
-#EXTERNAL_ID   33507 
+#INTERNAL_ID   12 
+#EXTERNAL_ID   33412 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP2 - LP Mapping Sensor Not Use"
+"PHY__LP2 - MAP ERROR (Foup doesn't exist) !"
 #MESSAGE 
-"Please, check config option !
+"The "Map" command cannot be executed, because foup doesn't exist. 
+Please, check the state of foup ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -6492,14 +5911,15 @@ Please, Check Paddle Extend Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   8 
-#EXTERNAL_ID   33508 
+#INTERNAL_ID   13 
+#EXTERNAL_ID   33413 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP2 - LP has no RF-tag reader !"
+"PHY__LP2 - MAP ERROR (Foup isn't loadded) !"
 #MESSAGE 
-"Please, check config option !
+"The "Map" command cannot be executed, because foup isn't loaded. 
+Please, check the state of foup ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -6510,14 +5930,14 @@ Please, Check Paddle Extend Status !
 
 
 //------------------------------------------------------------
-OBJECT_NAME : PHY_RS232__LP2   (OffsetID:33600) (ToolID:) (UnitID:) 
+OBJECT_NAME : PHY_IO__LP2   (OffsetID:33500) (ToolID:) (UnitID:) 
 
 #INTERNAL_ID   11 
-#EXTERNAL_ID   33611 
+#EXTERNAL_ID   33511 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_RS232__LP2 : Offline !"
+"PHY_IO__LP2 : Offline !"
 #MESSAGE 
 "Please, check communication line !
 "
@@ -6528,400 +5948,27 @@ OBJECT_NAME : PHY_RS232__LP2   (OffsetID:33600) (ToolID:) (UnitID:)
 #OPTION3    
 
 #INTERNAL_ID   12 
-#EXTERNAL_ID   33612 
+#EXTERNAL_ID   33512 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_RS232__LP2 : Error Code !"
+"PHY_IO__LP2 : LPx Error Code !"
 #MESSAGE 
 "Please, check HW status !
 "
 #RECOVERY_ACTION 
-     ABORT   ""
-     RETRY   ""
-     IGNORE   ""
+     CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
 
 
 //------------------------------------------------------------
+OBJECT_NAME : PHY_RS232__LP2   (OffsetID:33600) (ToolID:) (UnitID:) 
+
+
+//------------------------------------------------------------
 OBJECT_NAME : PHY_OHT__LP2   (OffsetID:33700) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   33701 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - Offline."
-#MESSAGE 
-"Communication is Offline.
-Please, Check DeviceNet Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   2 
-#EXTERNAL_ID   33702 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - Offline."
-#MESSAGE 
-"Controller is Offline.
-Please, Check LoadPort Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   3 
-#EXTERNAL_ID   33703 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - Command Timeout."
-#MESSAGE 
-"After Command Send, Result Can't Receive.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   33711 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP1 LOAD Timeout"
-#MESSAGE 
-"TP1 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   33712 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP2 LOAD Timeout"
-#MESSAGE 
-"TP2 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   33713 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP3 LOAD Timeout"
-#MESSAGE 
-"TP3 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   14 
-#EXTERNAL_ID   33714 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP4 LOAD Timeout"
-#MESSAGE 
-"TP4 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   15 
-#EXTERNAL_ID   33715 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP5 LOAD Timeout"
-#MESSAGE 
-"TP5 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   21 
-#EXTERNAL_ID   33721 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP1 UNLOAD Timeout"
-#MESSAGE 
-"TP1 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   33722 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP2 UNLOAD Timeout"
-#MESSAGE 
-"TP2 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   23 
-#EXTERNAL_ID   33723 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP3 UNLOAD Timeout"
-#MESSAGE 
-"TP3 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   24 
-#EXTERNAL_ID   33724 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP4 UNLOAD Timeout"
-#MESSAGE 
-"TP4 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   25 
-#EXTERNAL_ID   33725 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - TP5 UNLOAD Timeout"
-#MESSAGE 
-"TP5 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   26 
-#EXTERNAL_ID   33726 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - UNCLAMP Error"
-#MESSAGE 
-"When UNLOAD Transfer, Now CLAMP Sts..."
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   5 
-#EXTERNAL_ID   33705 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - ERR = Light Curtain Cut"
-#MESSAGE 
-"In FullAuto Mode, Light Curtain is cut"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   27 
-#EXTERNAL_ID   33727 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - FOUP Violation Error(EXIST), When wait CS0[ON], VALID[ON]"
-#MESSAGE 
-"Waiting Load PIO Sequence Start, FOUP or MATERIAL Exist Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   28 
-#EXTERNAL_ID   33728 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - FOUP Violation Error(NONE), When wait CS0[ON], VALID[ON]"
-#MESSAGE 
-"Waiting Unload PIO Sequence Start, FOUP Not Exist Error."
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   29 
-#EXTERNAL_ID   33729 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - FOUP Logic Error(PRESENT SNS ON), When wait CS0, VALID"
-#MESSAGE 
-"Waiting PIO Sequence Start, FOUP Sts Unknown Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   30 
-#EXTERNAL_ID   33730 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - FOUP Logic Error(PLACE SNS ON), When wait CS0, VALID"
-#MESSAGE 
-"Waiting PIO Sequence Start, FOUP Sts Unknown Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   33731 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - LP CLAMP ERROR."
-#MESSAGE 
-"Before LP Receive New Foup, Now Not Unclamp but Clamp Status.
-Please, Check Clamp Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   33732 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - Active Abnormal Signal Occur."
-#MESSAGE 
-"During PIO Communication, Active's Abnormal Signal Received.
-Please, Check OHT's Signal Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   33735 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - Valid Signal Off Occur."
-#MESSAGE 
-"During PIO Communication, Active's Abnormal Signal Received.
-Please, Check OHT's Valid Signal Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   33733 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - Foup Logic Error Occur."
-#MESSAGE 
-"During PIO Communication, Foup Logic Error Occur.
-Please, Check Place or Present Sensor Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   33734 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP2 - Foup Violation Error Occur."
-#MESSAGE 
-"During PIO Communication, Foup Violation Error Occur.
-Please, Check Place and Present Sensor Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
 
 
 //------------------------------------------------------------
@@ -6987,69 +6034,14 @@ OBJECT_NAME : PHY__LP3   (OffsetID:34400) (ToolID:) (UnitID:)
 #OPTION2    
 #OPTION3    
 
-
-//------------------------------------------------------------
-OBJECT_NAME : PHY_IO__LP3   (OffsetID:34500) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   34501 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP3 - Offline."
-#MESSAGE 
-"Communication is Offline.
-Please, Check DeviceNet Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   2 
-#EXTERNAL_ID   34502 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP3 - Offline."
-#MESSAGE 
-"Controller is Offline.
-Please, Check LoadPort Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   3 
-#EXTERNAL_ID   34503 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_IO__LP3 - Command Timeout."
-#MESSAGE 
-"After Command Send, Result Can't Receive.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
 #INTERNAL_ID   4 
-#EXTERNAL_ID   34504 
+#EXTERNAL_ID   34404 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP3 - LOAD... FOUP NONE ALARM."
+"PHY__LP3 - Robot's arm is not retracted !"."
 #MESSAGE 
-"Before Foup Load Action, Foup Not Exist on the loadport.
-Please, Check Foup properly placed !
+"Please, check the RNE sensor of ATM Robot's arm ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -7059,11 +6051,44 @@ Please, Check Foup properly placed !
 #OPTION3    
 
 #INTERNAL_ID   5 
-#EXTERNAL_ID   34505 
+#EXTERNAL_ID   34405 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP3 - LP PADDLE UP... WAFER SLIDE OUT SENSOR ALARM."
+"PHY__LP3 - LOAD... FOUP NONE ALARM."
+#MESSAGE 
+"Before load action, foup dosen't exist on the load-port.
+Please, Check if foup is properly placed !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   34406 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LP3 - LP Mapping Sensor Not Use"
+#MESSAGE 
+"Please, check config option !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   34407 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LP3 - LP PADDLE UP... WAFER SLIDE OUT SENSOR ALARM."
 #MESSAGE 
 "Before LP Paddle Up Action, Wafer Slide Out Sensor On Status.
 Please, Check Wafer Status in the loadport !
@@ -7075,15 +6100,15 @@ Please, Check Wafer Status in the loadport !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   6 
-#EXTERNAL_ID   34506 
+#INTERNAL_ID   11 
+#EXTERNAL_ID   34411 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP3 - LP PADDLE UP/DN... PADDLE SENSOR NOT EXT STATUS ALARM."
+"PHY__LP3 - MAP ERROR (Door doesn't open) !"
 #MESSAGE 
-"Before LP Paddle Up/Down Action, Paddle Not Extend Status.
-Please, Check Paddle Extend Status !
+"The "Map" command cannot be executed, because the door of loadport is not open. 
+Please, open the door of loadport ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -7092,14 +6117,15 @@ Please, Check Paddle Extend Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   7 
-#EXTERNAL_ID   34507 
+#INTERNAL_ID   12 
+#EXTERNAL_ID   34412 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP3 - LP Mapping Sensor Not Use"
+"PHY__LP3 - MAP ERROR (Foup doesn't exist) !"
 #MESSAGE 
-"Please, check config option !
+"The "Map" command cannot be executed, because foup doesn't exist. 
+Please, check the state of foup ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -7108,14 +6134,15 @@ Please, Check Paddle Extend Status !
 #OPTION2    
 #OPTION3    
 
-#INTERNAL_ID   8 
-#EXTERNAL_ID   34508 
+#INTERNAL_ID   13 
+#EXTERNAL_ID   34413 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__LP3 - LP has no RF-tag reader !"
+"PHY__LP3 - MAP ERROR (Foup isn't loadded) !"
 #MESSAGE 
-"Please, check config option !
+"The "Map" command cannot be executed, because foup isn't loaded. 
+Please, check the state of foup ! 
 "
 #RECOVERY_ACTION 
      RETRY   ""
@@ -7126,14 +6153,14 @@ Please, Check Paddle Extend Status !
 
 
 //------------------------------------------------------------
-OBJECT_NAME : PHY_RS232__LP3   (OffsetID:34600) (ToolID:) (UnitID:) 
+OBJECT_NAME : PHY_IO__LP3   (OffsetID:34500) (ToolID:) (UnitID:) 
 
 #INTERNAL_ID   11 
-#EXTERNAL_ID   34611 
+#EXTERNAL_ID   34511 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_RS232__LP3 : Offline !"
+"PHY_IO__LP3 : Offline !"
 #MESSAGE 
 "Please, check communication line !
 "
@@ -7144,400 +6171,27 @@ OBJECT_NAME : PHY_RS232__LP3   (OffsetID:34600) (ToolID:) (UnitID:)
 #OPTION3    
 
 #INTERNAL_ID   12 
-#EXTERNAL_ID   34612 
+#EXTERNAL_ID   34512 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_RS232__LP3 : Error Code !"
+"PHY_IO__LP3 : LPx Error Code !"
 #MESSAGE 
 "Please, check HW status !
 "
 #RECOVERY_ACTION 
-     ABORT   ""
-     RETRY   ""
-     IGNORE   ""
+     CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
 
 
 //------------------------------------------------------------
+OBJECT_NAME : PHY_RS232__LP3   (OffsetID:34600) (ToolID:) (UnitID:) 
+
+
+//------------------------------------------------------------
 OBJECT_NAME : PHY_OHT__LP3   (OffsetID:34700) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   34701 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - Offline."
-#MESSAGE 
-"Communication is Offline.
-Please, Check DeviceNet Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   2 
-#EXTERNAL_ID   34702 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - Offline."
-#MESSAGE 
-"Controller is Offline.
-Please, Check LoadPort Communication Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   3 
-#EXTERNAL_ID   34703 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - Command Timeout."
-#MESSAGE 
-"After Command Send, Result Can't Receive.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   34711 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP1 LOAD Timeout"
-#MESSAGE 
-"TP1 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   34712 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP2 LOAD Timeout"
-#MESSAGE 
-"TP2 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   34713 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP3 LOAD Timeout"
-#MESSAGE 
-"TP3 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   14 
-#EXTERNAL_ID   34714 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP4 LOAD Timeout"
-#MESSAGE 
-"TP4 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   15 
-#EXTERNAL_ID   34715 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP5 LOAD Timeout"
-#MESSAGE 
-"TP5 Timeout in LOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   21 
-#EXTERNAL_ID   34721 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP1 UNLOAD Timeout"
-#MESSAGE 
-"TP1 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   34722 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP2 UNLOAD Timeout"
-#MESSAGE 
-"TP2 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   23 
-#EXTERNAL_ID   34723 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP3 UNLOAD Timeout"
-#MESSAGE 
-"TP3 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   24 
-#EXTERNAL_ID   34724 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP4 UNLOAD Timeout"
-#MESSAGE 
-"TP4 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   25 
-#EXTERNAL_ID   34725 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - TP5 UNLOAD Timeout"
-#MESSAGE 
-"TP5 Timeout in UNLOAD Transfer"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   26 
-#EXTERNAL_ID   34726 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - UNCLAMP Error"
-#MESSAGE 
-"When UNLOAD Transfer, Now CLAMP Sts..."
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   5 
-#EXTERNAL_ID   34705 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - ERR = Light Curtain Cut"
-#MESSAGE 
-"In FullAuto Mode, Light Curtain is cut"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   27 
-#EXTERNAL_ID   34727 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - FOUP Violation Error(EXIST), When wait CS0[ON], VALID[ON]"
-#MESSAGE 
-"Waiting Load PIO Sequence Start, FOUP or MATERIAL Exist Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   28 
-#EXTERNAL_ID   34728 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - FOUP Violation Error(NONE), When wait CS0[ON], VALID[ON]"
-#MESSAGE 
-"Waiting Unload PIO Sequence Start, FOUP Not Exist Error."
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   29 
-#EXTERNAL_ID   34729 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - FOUP Logic Error(PRESENT SNS ON), When wait CS0, VALID"
-#MESSAGE 
-"Waiting PIO Sequence Start, FOUP Sts Unknown Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   30 
-#EXTERNAL_ID   34730 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - FOUP Logic Error(PLACE SNS ON), When wait CS0, VALID"
-#MESSAGE 
-"Waiting PIO Sequence Start, FOUP Sts Unknown Error"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   34731 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - LP CLAMP ERROR."
-#MESSAGE 
-"Before LP Receive New Foup, Now Not Unclamp but Clamp Status.
-Please, Check Clamp Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   34732 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - Active Abnormal Signal Occur."
-#MESSAGE 
-"During PIO Communication, Active's Abnormal Signal Received.
-Please, Check OHT's Signal Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   34735 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - Valid Signal Off Occur."
-#MESSAGE 
-"During PIO Communication, Active's Abnormal Signal Received.
-Please, Check OHT's Valid Signal Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   34733 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - Foup Logic Error Occur."
-#MESSAGE 
-"During PIO Communication, Foup Logic Error Occur.
-Please, Check Place or Present Sensor Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   34734 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_OHT__LP3 - Foup Violation Error Occur."
-#MESSAGE 
-"During PIO Communication, Foup Violation Error Occur.
-Please, Check Place and Present Sensor Status !
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     COMPLETE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
 
 
 //------------------------------------------------------------
@@ -7607,15 +6261,18 @@ OBJECT_NAME : PHY_HTR__PM6_GATE   (OffsetID:42400) (ToolID:) (UnitID:)
 //------------------------------------------------------------
 OBJECT_NAME : MON__CDA   (OffsetID:43100) (ToolID:) (UnitID:) 
 
+
+//------------------------------------------------------------
+OBJECT_NAME : IO   (OffsetID:51100) (ToolID:) (UnitID:) 
+
 #INTERNAL_ID   1 
-#EXTERNAL_ID   43101 
+#EXTERNAL_ID   51101 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"MON__CDA - GN2 CDA Low-Pressure !"
+"IO - Offline !"
 #MESSAGE 
-"Please, check the pressure of cda gn2.
-"
+"Check the line & parameter."
 #RECOVERY_ACTION 
      CHECK   ""
 #OPTION1    
@@ -7623,14 +6280,13 @@ OBJECT_NAME : MON__CDA   (OffsetID:43100) (ToolID:) (UnitID:)
 #OPTION3    
 
 #INTERNAL_ID   2 
-#EXTERNAL_ID   43102 
+#EXTERNAL_ID   51102 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"MON__CDA - PM1 CDA Low-Pressure !"
+"IO - Last Error Code !"
 #MESSAGE 
-"Please, check the pressure of cda pm1.
-"
+"Check the line & parameter."
 #RECOVERY_ACTION 
      CHECK   ""
 #OPTION1    
@@ -7638,53 +6294,34 @@ OBJECT_NAME : MON__CDA   (OffsetID:43100) (ToolID:) (UnitID:)
 #OPTION3    
 
 #INTERNAL_ID   3 
-#EXTERNAL_ID   43103 
+#EXTERNAL_ID   51103 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"MON__CDA - PM2 CDA Low-Pressure !"
+"IO - Device-Net Node Error !"
 #MESSAGE 
-"Please, check the pressure of cda pm2.
-"
+"Check the device-net node."
 #RECOVERY_ACTION 
-     CHECK   ""
+     ABORT   ""
+     RETRY   ""
+     IGNORE   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
 
 #INTERNAL_ID   4 
-#EXTERNAL_ID   43104 
+#EXTERNAL_ID   51104 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"MON__CDA - TM_LL CDA Low-Pressure !"
+"IO - Device-Net Initial Error !"
 #MESSAGE 
-"Please, check the pressure of cda tm_ll.
-"
+"Check the device-net state."
 #RECOVERY_ACTION 
      CHECK   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    
-
-#INTERNAL_ID   5 
-#EXTERNAL_ID   43105 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"MON__CDA - PCW CDA Low-Pressure !"
-#MESSAGE 
-"Please, check the pressure of cda pcw.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-
-//------------------------------------------------------------
-OBJECT_NAME : IO   (OffsetID:51100) (ToolID:) (UnitID:) 
 
 
 //------------------------------------------------------------
@@ -7698,71 +6335,9 @@ OBJECT_NAME : PHY_LBB_MFC1   (OffsetID:51300) (ToolID:) (UnitID:)
 //------------------------------------------------------------
 OBJECT_NAME : IO_LBA__CHM_GAUGE   (OffsetID:51400) (ToolID:) (UnitID:) 
 
-#INTERNAL_ID   1 
-#EXTERNAL_ID   51401 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_LBA__CHM_GAUGE - Offline !"
-#MESSAGE 
-"Gauge Controller is Offline.
-Please, Check Communication Status !
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   51422 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_LBA__CHM_GAUGE - Control Timeout !"
-#MESSAGE 
-"GAuge Controller is Timeout.
-Please, Check Gauge Control Status !"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
 
 //------------------------------------------------------------
 OBJECT_NAME : IO_LBB__CHM_GAUGE   (OffsetID:51500) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   51501 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_LBB__CHM_GAUGE - Offline !"
-#MESSAGE 
-"Gauge Controller is Offline.
-Please, Check Communication Status !
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   51522 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_LBB__CHM_GAUGE - Control Timeout !"
-#MESSAGE 
-"GAuge Controller is Timeout.
-Please, Check Gauge Control Status !"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
 
 
 //------------------------------------------------------------
@@ -7775,37 +6350,6 @@ OBJECT_NAME : IO_LBD__CHM_GAUGE   (OffsetID:51700) (ToolID:) (UnitID:)
 
 //------------------------------------------------------------
 OBJECT_NAME : IO_TM1__CHM_GAUGE   (OffsetID:51800) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   1 
-#EXTERNAL_ID   51801 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_TM1__CHM_GAUGE - Offline !"
-#MESSAGE 
-"Gauge Controller is Offline.
-Please, Check Communication Status !
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   51822 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_TM1__CHM_GAUGE - Control Timeout !"
-#MESSAGE 
-"GAuge Controller is Timeout.
-Please, Check Gauge Control Status !"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
 
 
 //------------------------------------------------------------
@@ -7823,2061 +6367,17 @@ OBJECT_NAME : IO_LBCD__PUMP_GAUGE   (OffsetID:52100) (ToolID:) (UnitID:)
 //------------------------------------------------------------
 OBJECT_NAME : IO_TM1__PUMP_GAUGE   (OffsetID:52200) (ToolID:) (UnitID:) 
 
-#INTERNAL_ID   1 
-#EXTERNAL_ID   52201 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_TM1__PUMP_GAUGE - Offline !"
-#MESSAGE 
-"Gauge Controller is Offline.
-Please, Check Communication Status !
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   52222 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"IO_TM1__PUMP_GAUGE - Control Timeout !"
-#MESSAGE 
-"GAuge Controller is Timeout.
-Please, Check Gauge Control Status !"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
 
 //------------------------------------------------------------
 OBJECT_NAME : PHY_RS232__RF1   (OffsetID:52300) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   52312 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Offline [Full Auto]"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   52313 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Offline [Not Full Auto]"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     IGNORE   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   52311 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Offline"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   21 
-#EXTERNAL_ID   52321 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Auto Fail"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   52322 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Auto Fail [Full Auto]"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   23 
-#EXTERNAL_ID   52323 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Auto Fail [Not Full Auto]"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   24 
-#EXTERNAL_ID   52324 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader :  Ex-Fail"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   25 
-#EXTERNAL_ID   52325 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader :  Ex-Fail [Full Auto]"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   26 
-#EXTERNAL_ID   52326 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader :  Ex-Fail [Not Full Auto]"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   27 
-#EXTERNAL_ID   52327 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader :  Write-Fail"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   28 
-#EXTERNAL_ID   52328 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader :  Write-Fail [Full Auto]"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   29 
-#EXTERNAL_ID   52329 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader :  Write-Fail [Not Full Auto]"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   30 
-#EXTERNAL_ID   52330 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : NO Tag"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   52331 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : NO Tag [Full Auto]"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   52332 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : NO Tag [Not Full Auto]"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   52333 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Invalid1"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   52334 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Invalid1 [Full Auto]"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   52335 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Invalid1 [Not Full Auto]"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   36 
-#EXTERNAL_ID   52336 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Unknown"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   37 
-#EXTERNAL_ID   52337 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Unknown [Full Auto]"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   38 
-#EXTERNAL_ID   52338 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Unknown [Not Full Auto]"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   39 
-#EXTERNAL_ID   52339 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Unconfig"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   40 
-#EXTERNAL_ID   52340 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Unconfig [Full Auto]"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   41 
-#EXTERNAL_ID   52341 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Unconfig [Not Full Auto]"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   42 
-#EXTERNAL_ID   52342 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Check"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   43 
-#EXTERNAL_ID   52343 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Check [Full Auto]"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   44 
-#EXTERNAL_ID   52344 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Check [Not Full Auto]"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   45 
-#EXTERNAL_ID   52345 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Void Ackn"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   46 
-#EXTERNAL_ID   52346 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Void Ackn [Full Auto]"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   47 
-#EXTERNAL_ID   52347 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Void Ackn [Not Full Auto]"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   48 
-#EXTERNAL_ID   52348 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Locked"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   49 
-#EXTERNAL_ID   52349 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Locked [Full Auto]"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   50 
-#EXTERNAL_ID   52350 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Locked [Not Full Auto]"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   51 
-#EXTERNAL_ID   52351 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Msg Len"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   52 
-#EXTERNAL_ID   52352 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Msg Len [Full Auto]"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   53 
-#EXTERNAL_ID   52353 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Msg Len [Not Full Auto]"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   54 
-#EXTERNAL_ID   52354 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Invalid2"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   55 
-#EXTERNAL_ID   52355 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Invalid2 [Full Auto]"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   56 
-#EXTERNAL_ID   52356 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : Invalid2 [Not Full Auto]"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   57 
-#EXTERNAL_ID   52357 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : No Ackn"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   58 
-#EXTERNAL_ID   52358 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : No Ackn [Full Auto]"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   59 
-#EXTERNAL_ID   52359 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF1 - RF Reader : No Ackn [Not Full Auto]"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
 
 
 //------------------------------------------------------------
 OBJECT_NAME : PHY_RS232__RF2   (OffsetID:52400) (ToolID:) (UnitID:) 
 
-#INTERNAL_ID   12 
-#EXTERNAL_ID   52412 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Offline [Full Auto]"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   52413 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Offline [Not Full Auto]"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     IGNORE   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   52411 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Offline"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   21 
-#EXTERNAL_ID   52421 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Auto Fail"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   52422 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Auto Fail [Full Auto]"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   23 
-#EXTERNAL_ID   52423 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Auto Fail [Not Full Auto]"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   24 
-#EXTERNAL_ID   52424 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader :  Ex-Fail"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   25 
-#EXTERNAL_ID   52425 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader :  Ex-Fail [Full Auto]"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   26 
-#EXTERNAL_ID   52426 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader :  Ex-Fail [Not Full Auto]"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   27 
-#EXTERNAL_ID   52427 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader :  Write-Fail"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   28 
-#EXTERNAL_ID   52428 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader :  Write-Fail [Full Auto]"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   29 
-#EXTERNAL_ID   52429 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader :  Write-Fail [Not Full Auto]"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   30 
-#EXTERNAL_ID   52430 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : NO Tag"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   52431 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : NO Tag [Full Auto]"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   52432 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : NO Tag [Not Full Auto]"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   52433 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Invalid1"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   52434 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Invalid1 [Full Auto]"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   52435 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Invalid1 [Not Full Auto]"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   36 
-#EXTERNAL_ID   52436 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Unknown"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   37 
-#EXTERNAL_ID   52437 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Unknown [Full Auto]"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   38 
-#EXTERNAL_ID   52438 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Unknown [Not Full Auto]"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   39 
-#EXTERNAL_ID   52439 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Unconfig"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   40 
-#EXTERNAL_ID   52440 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Unconfig [Full Auto]"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   41 
-#EXTERNAL_ID   52441 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Unconfig [Not Full Auto]"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   42 
-#EXTERNAL_ID   52442 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Check"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   43 
-#EXTERNAL_ID   52443 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Check [Full Auto]"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   44 
-#EXTERNAL_ID   52444 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Check [Not Full Auto]"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   45 
-#EXTERNAL_ID   52445 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Void Ackn"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   46 
-#EXTERNAL_ID   52446 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Void Ackn [Full Auto]"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   47 
-#EXTERNAL_ID   52447 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Void Ackn [Not Full Auto]"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   48 
-#EXTERNAL_ID   52448 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Locked"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   49 
-#EXTERNAL_ID   52449 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Locked [Full Auto]"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   50 
-#EXTERNAL_ID   52450 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Locked [Not Full Auto]"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   51 
-#EXTERNAL_ID   52451 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Msg Len"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   52 
-#EXTERNAL_ID   52452 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Msg Len [Full Auto]"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   53 
-#EXTERNAL_ID   52453 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Msg Len [Not Full Auto]"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   54 
-#EXTERNAL_ID   52454 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Invalid2"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   55 
-#EXTERNAL_ID   52455 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Invalid2 [Full Auto]"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   56 
-#EXTERNAL_ID   52456 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : Invalid2 [Not Full Auto]"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   57 
-#EXTERNAL_ID   52457 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : No Ackn"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   58 
-#EXTERNAL_ID   52458 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : No Ackn [Full Auto]"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   59 
-#EXTERNAL_ID   52459 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF2 - RF Reader : No Ackn [Not Full Auto]"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
 
 //------------------------------------------------------------
 OBJECT_NAME : PHY_RS232__RF3   (OffsetID:52500) (ToolID:) (UnitID:) 
-
-#INTERNAL_ID   12 
-#EXTERNAL_ID   52512 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Offline [Full Auto]"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   13 
-#EXTERNAL_ID   52513 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Offline [Not Full Auto]"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     IGNORE   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   11 
-#EXTERNAL_ID   52511 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Offline"
-#MESSAGE 
-"1. Check the Serial cable.
-2. Check the RF Reader power.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   21 
-#EXTERNAL_ID   52521 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Auto Fail"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   22 
-#EXTERNAL_ID   52522 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Auto Fail [Full Auto]"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   23 
-#EXTERNAL_ID   52523 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Auto Fail [Not Full Auto]"
-#MESSAGE 
-"1. Automatic reading is not possible.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   24 
-#EXTERNAL_ID   52524 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader :  Ex-Fail"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   25 
-#EXTERNAL_ID   52525 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader :  Ex-Fail [Full Auto]"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   26 
-#EXTERNAL_ID   52526 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader :  Ex-Fail [Not Full Auto]"
-#MESSAGE 
-"1. read of write initiated from the terminal respectively other.
-  actions cannot be carried out.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   27 
-#EXTERNAL_ID   52527 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader :  Write-Fail"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   28 
-#EXTERNAL_ID   52528 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader :  Write-Fail [Full Auto]"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   29 
-#EXTERNAL_ID   52529 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader :  Write-Fail [Not Full Auto]"
-#MESSAGE 
-"1. data transfer to the tag not possible.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   30 
-#EXTERNAL_ID   52530 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : NO Tag"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   31 
-#EXTERNAL_ID   52531 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : NO Tag [Full Auto]"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   32 
-#EXTERNAL_ID   52532 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : NO Tag [Not Full Auto]"
-#MESSAGE 
-"1. NO Tag or antenna installed.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   33 
-#EXTERNAL_ID   52533 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Invalid1"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   34 
-#EXTERNAL_ID   52534 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Invalid1 [Full Auto]"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   35 
-#EXTERNAL_ID   52535 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Invalid1 [Not Full Auto]"
-#MESSAGE 
-"1. Invalid paramter or command.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   36 
-#EXTERNAL_ID   52536 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Unknown"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   37 
-#EXTERNAL_ID   52537 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Unknown [Full Auto]"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   38 
-#EXTERNAL_ID   52538 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Unknown [Not Full Auto]"
-#MESSAGE 
-"1. Unknown failure.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   39 
-#EXTERNAL_ID   52539 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Unconfig"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   40 
-#EXTERNAL_ID   52540 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Unconfig [Full Auto]"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   41 
-#EXTERNAL_ID   52541 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Unconfig [Not Full Auto]"
-#MESSAGE 
-"1. The device is not configured.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   42 
-#EXTERNAL_ID   52542 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Check"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   43 
-#EXTERNAL_ID   52543 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Check [Full Auto]"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   44 
-#EXTERNAL_ID   52544 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Check [Not Full Auto]"
-#MESSAGE 
-"1. Parity or and checksum failure.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   45 
-#EXTERNAL_ID   52545 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Void Ackn"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   46 
-#EXTERNAL_ID   52546 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Void Ackn [Full Auto]"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   47 
-#EXTERNAL_ID   52547 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Void Ackn [Not Full Auto]"
-#MESSAGE 
-"1. No Valid Acknowledge.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   48 
-#EXTERNAL_ID   52548 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Locked"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   49 
-#EXTERNAL_ID   52549 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Locked [Full Auto]"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   50 
-#EXTERNAL_ID   52550 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Locked [Not Full Auto]"
-#MESSAGE 
-"1. Locked Page cannot be written.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   51 
-#EXTERNAL_ID   52551 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Msg Len"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   52 
-#EXTERNAL_ID   52552 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Msg Len [Full Auto]"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   53 
-#EXTERNAL_ID   52553 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Msg Len [Not Full Auto]"
-#MESSAGE 
-"1. Message too long.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   54 
-#EXTERNAL_ID   52554 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Invalid2"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   55 
-#EXTERNAL_ID   52555 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Invalid2 [Full Auto]"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   56 
-#EXTERNAL_ID   52556 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : Invalid2 [Not Full Auto]"
-#MESSAGE 
-"1. Invalid Parameter or Command.
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   57 
-#EXTERNAL_ID   52557 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : No Ackn"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   58 
-#EXTERNAL_ID   52558 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : No Ackn [Full Auto]"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     CHECK   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
-
-#INTERNAL_ID   59 
-#EXTERNAL_ID   52559 
-#LEVEL   LIGHT 
-#HOST_REPORT   YES
-#TITLE 
-"PHY_RS232__RF3 - RF Reader : No Ackn [Not Full Auto]"
-#MESSAGE 
-"1. The Message which has to be confirmed has been sent maximally.
-   (RS232 maxrepeat) and has not been confirmed by the terminal.
-   within the defined thme frame (see paramter 5).
-"
-#RECOVERY_ACTION 
-     RETRY   ""
-     ABORT   ""
-     IGNORE   ""
-#OPTION1    
-#OPTION2    
-#OPTION3    
 
 
 //------------------------------------------------------------
@@ -9899,15 +6399,315 @@ Please, Check Communication Status !
 #OPTION2    
 #OPTION3    
 
+#INTERNAL_ID   2 
+#EXTERNAL_ID   52602 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Low Limit differential pressure !"
+#MESSAGE 
+"The log limit differential pressure error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   52611 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(1) : Low Limit differential pressure !"
+#MESSAGE 
+"The log limit differential pressure error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   52621 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(1) : Power Off !"
+#MESSAGE 
+"Power-Off error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   52631 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(1) : Over-Current !"
+#MESSAGE 
+"Over-current error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   41 
+#EXTERNAL_ID   52641 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(1) : Motor Error !"
+#MESSAGE 
+"Motor error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   51 
+#EXTERNAL_ID   52651 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(1) : Connection Error !"
+#MESSAGE 
+"Connection error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   52612 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(2) : Low Limit differential pressure !"
+#MESSAGE 
+"The log limit differential pressure error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
 #INTERNAL_ID   22 
 #EXTERNAL_ID   52622 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"PHY_IO__FFU - Control Timeout !"
+"PHY_IO__FFU - Fan(2) : Power Off !"
 #MESSAGE 
-"FFU Controller is Timeout.
-Please, Check FFU Control Status !"
+"Power-Off error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   52632 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(2) : Over-Current !"
+#MESSAGE 
+"Over-current error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   42 
+#EXTERNAL_ID   52642 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(2) : Motor Error !"
+#MESSAGE 
+"Motor error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   52 
+#EXTERNAL_ID   52652 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(2) : Connection Error !"
+#MESSAGE 
+"Connection error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   52613 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(3) : Low Limit differential pressure !"
+#MESSAGE 
+"The log limit differential pressure error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   23 
+#EXTERNAL_ID   52623 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(3) : Power Off !"
+#MESSAGE 
+"Power-Off error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   52633 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(3) : Over-Current !"
+#MESSAGE 
+"Over-current error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   43 
+#EXTERNAL_ID   52643 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(3) : Motor Error !"
+#MESSAGE 
+"Motor error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   53 
+#EXTERNAL_ID   52653 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(3) : Connection Error !"
+#MESSAGE 
+"Connection error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   52614 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(4) : Low Limit differential pressure !"
+#MESSAGE 
+"The log limit differential pressure error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   24 
+#EXTERNAL_ID   52624 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(4) : Power Off !"
+#MESSAGE 
+"Power-Off error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   52634 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(4) : Over-Current !"
+#MESSAGE 
+"Over-current error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   44 
+#EXTERNAL_ID   52644 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(4) : Motor Error !"
+#MESSAGE 
+"Motor error has occurred. 
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   54 
+#EXTERNAL_ID   52654 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__FFU - Fan(4) : Connection Error !"
+#MESSAGE 
+"Connection error has occurred. 
+"
 #RECOVERY_ACTION 
      CHECK   ""
 #OPTION1    
@@ -10167,17 +6967,478 @@ OBJECT_NAME : MNG__SYS_CTRL   (OffsetID:0) (ToolID:) (UnitID:)
 
 
 //------------------------------------------------------------
-OBJECT_NAME : IO_LLx__PUMP_GAUGE   (OffsetID:0) (ToolID:) (UnitID:) 
+OBJECT_NAME : PHY__LLx_PUMP   (OffsetID:0) (ToolID:) (UnitID:) 
 
 #INTERNAL_ID   1 
 #EXTERNAL_ID   1 
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"IO_LLx__PUMP_GAUGE - Offline !"
+"PHY__LLx_PUMP - The state of pump is not running !"
 #MESSAGE 
-"Gauge Controller is Offline.
-Please, Check Communication Status !
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LLx_PUMP - The state of pump blower is not running !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LLx_PUMP - The state of pump warning is not normal !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   4 
+#EXTERNAL_ID   4 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LLx_PUMP - The state of pump alarm is not normal !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   5 
+#EXTERNAL_ID   5 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LLx_PUMP - The state of pump operation is not ready !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   6 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LLx_PUMP - The state of pump alarm is error !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   7 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LLx_PUMP - Pump Initial Error !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   8 
+#EXTERNAL_ID   8 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__LLx_PUMP - Pump valve is not close !"
+#MESSAGE 
+"Please, check the pump valve !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : PHY__TMC_PUMP   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - The state of pump is not running !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - The state of pump blower is not running !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - The state of pump warning is not normal !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   4 
+#EXTERNAL_ID   4 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - The state of pump alarm is not normal !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   5 
+#EXTERNAL_ID   5 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - The state of pump operation is not ready !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   6 
+#EXTERNAL_ID   6 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - The state of pump alarm is error !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   7 
+#EXTERNAL_ID   7 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - Pump Initial Error !"
+#MESSAGE 
+"Please, check the state of pump !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   8 
+#EXTERNAL_ID   8 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY__TMC_PUMP - Pump valve is not close !"
+#MESSAGE 
+"Please, check the pump valve !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : PHY_RFID__LP1   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Offline"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Offline [Full Auto]"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Offline [Not Full Auto]"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     IGNORE   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Auto Fail"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Auto Fail [Full Auto]"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Auto Fail [Not Full Auto]"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader :  Ex-Fail"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   15 
+#EXTERNAL_ID   15 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader :  Ex-Fail [Full Auto]"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   16 
+#EXTERNAL_ID   16 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader :  Ex-Fail [Not Full Auto]"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   17 
+#EXTERNAL_ID   17 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader :  Write-Fail"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   18 
+#EXTERNAL_ID   18 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader :  Write-Fail [Full Auto]"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   19 
+#EXTERNAL_ID   19 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader :  Write-Fail [Not Full Auto]"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   20 
+#EXTERNAL_ID   20 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : NO Tag"
+#MESSAGE 
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   21 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : NO Tag [Full Auto]"
+#MESSAGE 
+"1. NO Tag or antenna installed.
 "
 #RECOVERY_ACTION 
      CHECK   ""
@@ -10190,12 +7451,1999 @@ Please, Check Communication Status !
 #LEVEL   LIGHT 
 #HOST_REPORT   YES
 #TITLE 
-"IO_LLx__PUMP_GAUGE - Control Timeout !"
+"PHY_RFID__LP1 - RF Reader : NO Tag [Not Full Auto]"
 #MESSAGE 
-"GAuge Controller is Timeout.
-Please, Check Gauge Control Status !"
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   23 
+#EXTERNAL_ID   23 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Invalid1"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   24 
+#EXTERNAL_ID   24 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Invalid1 [Full Auto]"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
 #RECOVERY_ACTION 
      CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   25 
+#EXTERNAL_ID   25 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Invalid1 [Not Full Auto]"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   26 
+#EXTERNAL_ID   26 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Unknown"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   27 
+#EXTERNAL_ID   27 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Unknown [Full Auto]"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   28 
+#EXTERNAL_ID   28 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Unknown [Not Full Auto]"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   29 
+#EXTERNAL_ID   29 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Unconfig"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   30 
+#EXTERNAL_ID   30 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Unconfig [Full Auto]"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   31 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Unconfig [Not Full Auto]"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   32 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Check"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   33 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Check [Full Auto]"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   34 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Check [Not Full Auto]"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   35 
+#EXTERNAL_ID   35 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Void Ackn"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   36 
+#EXTERNAL_ID   36 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Void Ackn [Full Auto]"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   37 
+#EXTERNAL_ID   37 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Void Ackn [Not Full Auto]"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   38 
+#EXTERNAL_ID   38 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Locked"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   39 
+#EXTERNAL_ID   39 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Locked [Full Auto]"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   40 
+#EXTERNAL_ID   40 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Locked [Not Full Auto]"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   41 
+#EXTERNAL_ID   41 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Msg Len"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   42 
+#EXTERNAL_ID   42 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Msg Len [Full Auto]"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   43 
+#EXTERNAL_ID   43 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Msg Len [Not Full Auto]"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   44 
+#EXTERNAL_ID   44 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Invalid2"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   45 
+#EXTERNAL_ID   45 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Invalid2 [Full Auto]"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   46 
+#EXTERNAL_ID   46 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : Invalid2 [Not Full Auto]"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   47 
+#EXTERNAL_ID   47 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : No Ackn"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   48 
+#EXTERNAL_ID   48 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : No Ackn [Full Auto]"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   49 
+#EXTERNAL_ID   49 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP1 - RF Reader : No Ackn [Not Full Auto]"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : PHY_RFID__LP2   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Offline"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Offline [Full Auto]"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Offline [Not Full Auto]"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     IGNORE   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Auto Fail"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Auto Fail [Full Auto]"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Auto Fail [Not Full Auto]"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader :  Ex-Fail"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   15 
+#EXTERNAL_ID   15 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader :  Ex-Fail [Full Auto]"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   16 
+#EXTERNAL_ID   16 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader :  Ex-Fail [Not Full Auto]"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   17 
+#EXTERNAL_ID   17 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader :  Write-Fail"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   18 
+#EXTERNAL_ID   18 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader :  Write-Fail [Full Auto]"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   19 
+#EXTERNAL_ID   19 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader :  Write-Fail [Not Full Auto]"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   20 
+#EXTERNAL_ID   20 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : NO Tag"
+#MESSAGE 
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   21 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : NO Tag [Full Auto]"
+#MESSAGE 
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   22 
+#EXTERNAL_ID   22 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : NO Tag [Not Full Auto]"
+#MESSAGE 
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   23 
+#EXTERNAL_ID   23 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Invalid1"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   24 
+#EXTERNAL_ID   24 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Invalid1 [Full Auto]"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   25 
+#EXTERNAL_ID   25 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Invalid1 [Not Full Auto]"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   26 
+#EXTERNAL_ID   26 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Unknown"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   27 
+#EXTERNAL_ID   27 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Unknown [Full Auto]"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   28 
+#EXTERNAL_ID   28 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Unknown [Not Full Auto]"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   29 
+#EXTERNAL_ID   29 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Unconfig"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   30 
+#EXTERNAL_ID   30 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Unconfig [Full Auto]"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   31 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Unconfig [Not Full Auto]"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   32 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Check"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   33 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Check [Full Auto]"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   34 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Check [Not Full Auto]"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   35 
+#EXTERNAL_ID   35 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Void Ackn"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   36 
+#EXTERNAL_ID   36 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Void Ackn [Full Auto]"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   37 
+#EXTERNAL_ID   37 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Void Ackn [Not Full Auto]"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   38 
+#EXTERNAL_ID   38 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Locked"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   39 
+#EXTERNAL_ID   39 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Locked [Full Auto]"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   40 
+#EXTERNAL_ID   40 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Locked [Not Full Auto]"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   41 
+#EXTERNAL_ID   41 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Msg Len"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   42 
+#EXTERNAL_ID   42 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Msg Len [Full Auto]"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   43 
+#EXTERNAL_ID   43 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Msg Len [Not Full Auto]"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   44 
+#EXTERNAL_ID   44 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Invalid2"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   45 
+#EXTERNAL_ID   45 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Invalid2 [Full Auto]"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   46 
+#EXTERNAL_ID   46 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : Invalid2 [Not Full Auto]"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   47 
+#EXTERNAL_ID   47 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : No Ackn"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   48 
+#EXTERNAL_ID   48 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : No Ackn [Full Auto]"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   49 
+#EXTERNAL_ID   49 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP2 - RF Reader : No Ackn [Not Full Auto]"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : PHY_RFID__LP3   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   1 
+#EXTERNAL_ID   1 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Offline"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   2 
+#EXTERNAL_ID   2 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Offline [Full Auto]"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   3 
+#EXTERNAL_ID   3 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Offline [Not Full Auto]"
+#MESSAGE 
+"1. Check the Serial cable.
+2. Check the RF Reader power.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     IGNORE   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Auto Fail"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Auto Fail [Full Auto]"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Auto Fail [Not Full Auto]"
+#MESSAGE 
+"1. Automatic reading is not possible.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader :  Ex-Fail"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   15 
+#EXTERNAL_ID   15 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader :  Ex-Fail [Full Auto]"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   16 
+#EXTERNAL_ID   16 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader :  Ex-Fail [Not Full Auto]"
+#MESSAGE 
+"1. read of write initiated from the terminal respectively other.
+  actions cannot be carried out.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   17 
+#EXTERNAL_ID   17 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader :  Write-Fail"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   18 
+#EXTERNAL_ID   18 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader :  Write-Fail [Full Auto]"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   19 
+#EXTERNAL_ID   19 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader :  Write-Fail [Not Full Auto]"
+#MESSAGE 
+"1. data transfer to the tag not possible.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   20 
+#EXTERNAL_ID   20 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : NO Tag"
+#MESSAGE 
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   21 
+#EXTERNAL_ID   21 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : NO Tag [Full Auto]"
+#MESSAGE 
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   22 
+#EXTERNAL_ID   22 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : NO Tag [Not Full Auto]"
+#MESSAGE 
+"1. NO Tag or antenna installed.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   23 
+#EXTERNAL_ID   23 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Invalid1"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   24 
+#EXTERNAL_ID   24 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Invalid1 [Full Auto]"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   25 
+#EXTERNAL_ID   25 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Invalid1 [Not Full Auto]"
+#MESSAGE 
+"1. Invalid paramter or command.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   26 
+#EXTERNAL_ID   26 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Unknown"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   27 
+#EXTERNAL_ID   27 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Unknown [Full Auto]"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   28 
+#EXTERNAL_ID   28 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Unknown [Not Full Auto]"
+#MESSAGE 
+"1. Unknown failure.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   29 
+#EXTERNAL_ID   29 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Unconfig"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   30 
+#EXTERNAL_ID   30 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Unconfig [Full Auto]"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   31 
+#EXTERNAL_ID   31 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Unconfig [Not Full Auto]"
+#MESSAGE 
+"1. The device is not configured.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   32 
+#EXTERNAL_ID   32 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Check"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   33 
+#EXTERNAL_ID   33 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Check [Full Auto]"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   34 
+#EXTERNAL_ID   34 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Check [Not Full Auto]"
+#MESSAGE 
+"1. Parity or and checksum failure.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   35 
+#EXTERNAL_ID   35 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Void Ackn"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   36 
+#EXTERNAL_ID   36 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Void Ackn [Full Auto]"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   37 
+#EXTERNAL_ID   37 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Void Ackn [Not Full Auto]"
+#MESSAGE 
+"1. No Valid Acknowledge.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   38 
+#EXTERNAL_ID   38 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Locked"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   39 
+#EXTERNAL_ID   39 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Locked [Full Auto]"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   40 
+#EXTERNAL_ID   40 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Locked [Not Full Auto]"
+#MESSAGE 
+"1. Locked Page cannot be written.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   41 
+#EXTERNAL_ID   41 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Msg Len"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   42 
+#EXTERNAL_ID   42 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Msg Len [Full Auto]"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   43 
+#EXTERNAL_ID   43 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Msg Len [Not Full Auto]"
+#MESSAGE 
+"1. Message too long.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   44 
+#EXTERNAL_ID   44 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Invalid2"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   45 
+#EXTERNAL_ID   45 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Invalid2 [Full Auto]"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   46 
+#EXTERNAL_ID   46 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : Invalid2 [Not Full Auto]"
+#MESSAGE 
+"1. Invalid Parameter or Command.
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   47 
+#EXTERNAL_ID   47 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : No Ackn"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   48 
+#EXTERNAL_ID   48 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : No Ackn [Full Auto]"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   49 
+#EXTERNAL_ID   49 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_RFID__LP3 - RF Reader : No Ackn [Not Full Auto]"
+#MESSAGE 
+"1. The Message which has to be confirmed has been sent maximally.
+   (RS232 maxrepeat) and has not been confirmed by the terminal.
+   within the defined thme frame (see paramter 5).
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : IO_EFEM   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO_EFEM - Offline."
+#MESSAGE 
+"Controller is Offline.
+Please, Check Communication Status !
+"
+#RECOVERY_ACTION 
+     RETRY   ""
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO_EFEM - Error Code !"
+#MESSAGE 
+"Please, check HW status !
+"
+#RECOVERY_ACTION 
+     ABORT   ""
+     RETRY   ""
+     IGNORE   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO_EFEM - Error Code !"
+#MESSAGE 
+"Please, check HW status !
+"
+#RECOVERY_ACTION 
+     CHECK   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO_EFEM - Align and Pick Action Timeout Occur."
+#MESSAGE 
+"Align and Pick Action Timeout Occur.
+Please, Check ATM Robot Status !
+"
+#RECOVERY_ACTION 
+     ABORT   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   15 
+#EXTERNAL_ID   15 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"IO_EFEM - Config Option, Mapping Disable Alarm."
+#MESSAGE 
+"Now, Mapping Disable Config Option Selected.
+Would you like to continue ??
+"
+#RECOVERY_ACTION 
+     NO   ""
+     YES   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : PHY_IO__PUMP_LL   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_LL - Pump Offline !"
+#MESSAGE 
+"Check the status of communication !"
+#RECOVERY_ACTION 
+     RETRY   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_LL - Pump Alarm !"
+#MESSAGE 
+"Please, check the status of pump !"
+#RECOVERY_ACTION 
+     RETRY   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_LL - Blower Warning !"
+#MESSAGE 
+"Please, check the status of blower !"
+#RECOVERY_ACTION 
+     RETRY   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_LL - Pump Warning !"
+#MESSAGE 
+"Please, check the status of pump !"
+#RECOVERY_ACTION 
+     RETRY   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+
+//------------------------------------------------------------
+OBJECT_NAME : PHY_IO__PUMP_TM   (OffsetID:0) (ToolID:) (UnitID:) 
+
+#INTERNAL_ID   11 
+#EXTERNAL_ID   11 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_TM - Pump Offline !"
+#MESSAGE 
+"Check the status of communication !"
+#RECOVERY_ACTION 
+     RETRY   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   12 
+#EXTERNAL_ID   12 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_TM - Pump Alarm !"
+#MESSAGE 
+"Please, check the status of pump !"
+#RECOVERY_ACTION 
+     RETRY   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   13 
+#EXTERNAL_ID   13 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_TM - Blower Warning !"
+#MESSAGE 
+"Please, check the status of blower !"
+#RECOVERY_ACTION 
+     RETRY   ""
+#OPTION1    
+#OPTION2    
+#OPTION3    
+
+#INTERNAL_ID   14 
+#EXTERNAL_ID   14 
+#LEVEL   LIGHT 
+#HOST_REPORT   YES
+#TITLE 
+"PHY_IO__PUMP_TM - Pump Warning !"
+#MESSAGE 
+"Please, check the status of pump !"
+#RECOVERY_ACTION 
+     RETRY   ""
 #OPTION1    
 #OPTION2    
 #OPTION3    

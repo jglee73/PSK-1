@@ -315,12 +315,6 @@ int CObj__STEP_STRIP
 			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_top_learned_series);
 
 			aEXT_CH__MAT__PARA_TUNE_POS_CH1->Set__VALUE(para__rcp_value);
-
-			//
-			para__rcp_value = atof(rcp__mat_top_capacity);
-			if(para__rcp_value < 0.01)			para__rcp_value = atof(rcp__mat_top_learned_capacity);
-
-			aEXT_CH__MAT__PARA_CAP_POS_CH1->Set__VALUE(para__rcp_value);
 		}
 
 		MAT_OBJ__Start_MODE(obj_mode);

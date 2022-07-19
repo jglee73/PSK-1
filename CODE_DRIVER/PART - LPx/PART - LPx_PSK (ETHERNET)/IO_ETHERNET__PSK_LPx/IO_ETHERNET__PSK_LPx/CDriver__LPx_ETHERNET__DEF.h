@@ -63,3 +63,7 @@
 #define _CMD__UNCLAMP               "UNCLAMP"
 
 
+// ...
+#define STR__Change					"Change"
+#define STR__UnChange				"UnChange"
+

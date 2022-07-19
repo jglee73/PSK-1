@@ -31,9 +31,24 @@ private:
 	CX__VAR_DIGITAL_CTRL dCH__PARA_MODULE;
 	CX__VAR_DIGITAL_CTRL dCH__PARA_SLOT;
 
-	CX__VAR_STRING_CTRL  sCH__WAC_USE;
-	CX__VAR_STRING_CTRL  sCH__WAC_DELAY_SEC;
+	//
+	CX__VAR_STRING_CTRL  sCH__FROM_CTC_WAC_PM_USE_X[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sCH__FROM_CTC_WAC_PM_PICK_CHECK_X[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sCH__FROM_CTC_WAC_PM_PLACE_CHECK_X[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sCH__FROM_CTC_WAC_PM_POS_ID_X[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sCH__FROM_CTC_WAC_PM_POS_SLOT_X[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sCH__FROM_CTC_WAC_PM_DELAY_SEC_X[CFG_PM_LIMIT];
+	CX__VAR_STRING_CTRL  sCH__FROM_CTC_WAC_PM_WAFER_TYPE;
 
+	CX__VAR_STRING_CTRL  sCH__INFO_WAC_PMC_ACTIVE;
+	CX__VAR_STRING_CTRL  sCH__INFO_WAC_PMC_STATE;
+	CX__VAR_STRING_CTRL  sCH__INFO_WAC_PMC_ARM_TYPE;
+	CX__VAR_STRING_CTRL  sCH__INFO_WAC_PMC_WFR_INFO;
+	CX__VAR_STRING_CTRL  sCH__INFO_WAC_PMC_POS_ID;
+	CX__VAR_STRING_CTRL  sCH__INFO_WAC_PMC_POS_SLOT;
+	CX__VAR_STRING_CTRL  sCH__INFO_WAC_PMC_DELAY_COUNT;
+
+	//
 	CX__VAR_DIGITAL_CTRL dCH__CFG_LLx_CLOSE_SEQUENCE_MODE;
 	CX__VAR_DIGITAL_CTRL dCH__CFG_PMx_CLOSE_SEQUENCE_MODE;
 
@@ -61,6 +76,9 @@ private:
 
 	// VAC_ROBOT -----
 	CII_EXT_OBJECT__CTRL *pROBOT__OBJ_CTRL;
+
+	CX__VAR_DIGITAL_CTRL dEXT_CH__PHY_ROBOT__MON_ACT_ARM;
+	CX__VAR_DIGITAL_CTRL dEXT_CH__PHY_ROBOT__MON_TRG_ROT;
 
 	CX__VAR_DIGITAL_CTRL dEXT_CH__PHY_ROBOT__ARM_A_MATERIAL_STATUS;
 	CX__VAR_DIGITAL_CTRL dEXT_CH__PHY_ROBOT__ARM_B_MATERIAL_STATUS;
@@ -101,8 +119,10 @@ private:
 	int iSIZE__LLx;
 	CII_EXT_OBJECT__CTRL *pLLx__OBJ_CTRL[CFG_LLx_LIMIT];
 
-	CX__VAR_STRING_CTRL  sEXT_CH__LLx__PRESSURE_STATUS[CFG_LLx_LIMIT];
+	CX__VAR_ANALOG_CTRL  aEXT_CH__LLx__PARA_SLOT_ID[CFG_LLx_LIMIT];
 	CX__VAR_ANALOG_CTRL  aEXT_CH__LLx__PARA_HANDSHAKE_SLOT[CFG_LLx_LIMIT];
+
+	CX__VAR_STRING_CTRL  sEXT_CH__LLx__PRESSURE_STATUS[CFG_LLx_LIMIT];
 
 	CX__VAR_STRING_CTRL  sEXT_CH__LLx__ROBOT_TRANSFER_FLAG[CFG_LLx_LIMIT];
 
@@ -210,6 +230,21 @@ private:
 						const int handoff_mode);
 
 	//
+	int  Fnc__WAC_ACT(CII_OBJECT__VARIABLE* p_variable,
+					  CII_OBJECT__ALARM* p_alarm,
+					  const CString& wac_arm,
+					  const CString& para_arm,
+					  const CString& para_module,
+					  const CString& para_slot);
+
+	int  _Fnc__WAC_ACT(CII_OBJECT__VARIABLE* p_variable,
+					   CII_OBJECT__ALARM* p_alarm,
+					   const CString& wac_arm,
+					   const CString& para_arm,
+					   const CString& para_module,
+					   const CString& para_slot);
+
+	//
 	CString sMODE__ROTATE;
 	int  Call__ROTATE(CII_OBJECT__VARIABLE* p_variable,
 					  CII_OBJECT__ALARM* p_alarm,
@@ -285,15 +320,13 @@ private:
 							CII_OBJECT__ALARM* p_alarm,
 							const CString& para_arm,
 							const CString& para_module,
-							const CString& para_slot,
-							const int pm_index);
+							const CString& para_slot);
 
 	int Fnc__ACT_HOFF_PLACE(CII_OBJECT__VARIABLE* p_variable,
 							CII_OBJECT__ALARM* p_alarm,
 							const CString& para_arm,
 							const CString& para_module,
-							const CString& para_slot,
-							const int pm_index);
+							const CString& para_slot);
 
 	int Is__TRANSFER_READY_TO_PICK(CII_OBJECT__ALARM* p_alarm, 
 									const CString str_pick_place,
@@ -336,8 +369,17 @@ private:
 									const CString& arm_type,
 									const CString& stn_name,
 									const CString& stn_slot);
+	int  _Interlock__CHECK_MATERIAL(CII_OBJECT__ALARM* p_alarm,
+									const int place_flag,
+									const CString& arm_type,
+									const CString& stn_name,
+									const CString& stn_slot);
 
 	int Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
+									const CString& arm_type,
+									const CString& stn_name,
+									const CString& stn_slot);
+	int _Fnc__CHANGE_MATERIAL_INFO(const int place_flag,
 									const CString& arm_type,
 									const CString& stn_name,
 									const CString& stn_slot);
@@ -352,13 +394,21 @@ private:
 	int  Fnc__PMx_SV_CLOSE_CHECK(CII_OBJECT__ALARM* p_alarm);
 
 	//
-	int  Fnc__TRANSFER_AUTO_PUMPING(const CString& stn_name);
+	int  Fnc__TRANSFER_AUTO_PUMPING(const CString& arm_type, const CString& stn_name, const CString& stn_slot);
 
-	int  Fnc__RUN_SV_OPEN(const CString& stn_name);
-	int  Fnc__WAIT_SV_OPEN(const CString& stn_name);
-	int  Fnc__CALL_SV_OPEN(const CString& stn_name);
+	int  Fnc__RUN_SV_OPEN( const CString& arm_type, const CString& stn_name, const CString& stn_slot);
+	int  Fnc__WAIT_SV_OPEN(const CString& arm_type, const CString& stn_name, const CString& stn_slot);
+	int  Fnc__CALL_SV_OPEN(const CString& arm_type, const CString& stn_name, const CString& stn_slot);
 
+	//
 	void Fnc__APP_LOG(const CString& log_msg);
+
+	void _Get__ARM_INFO(const CString& arm_type, 
+						const CString& stn_name, 
+						const CString& stn_slot, 
+					    CStringArray& l__arm_type, 
+						CStringArray& l__stn_name, 
+						CStringArray& l__stn_slot);
 	//
 
 public:

@@ -226,7 +226,7 @@ int CObj__INTERLOCK_GAS_BOX::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		// GAS_BOX.DIFF_PRESSURE ...
 		{
-			def_name = "CH__GAS_BOX_DIFF_PRESSURE";
+			def_name = "CH__AI_GAS_BOX_DIFF_PRESSURE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			bool def_check = x_utility.Check__Link(ch_name);
@@ -241,7 +241,7 @@ int CObj__INTERLOCK_GAS_BOX::__INITIALIZE__OBJECT(p_variable,p_ext_obj_create)
 
 		// DGF.ALL_CLOSE_ACTIVE ...
 		{
-			def_name = "CH__DGF_ALL_CLOSE_ACTIVE";
+			def_name = "CH__DI_DGF_ALL_CLOSE_ACTIVE";
 			p_ext_obj_create->Get__DEF_CONST_DATA(def_name, ch_name);
 
 			bool def_check = x_utility.Check__Link(ch_name);

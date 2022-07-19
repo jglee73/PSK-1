@@ -28,6 +28,15 @@ int CObj__VAT_IO
 	{
 		return pOBJ_CTRL__VAT->Call__OBJECT(sVAT_CMMD__CLOSE);
 	}
+	else if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__HEXA)
+	{
+		sEXT_CH__SO_APC_CTRL_MODE->Set__DATA("01");
+
+		if(iActive__SIM_MODE > 0)
+		{
+			sEXT_CH__SI_APC_POSITION->Set__DATA("00 00");
+		}
+	}
 	else
 	{
 		dEXT_CH__DO_APC_CTRL_MODE->Set__DATA(STR__CLOSE);
@@ -50,6 +59,21 @@ int CObj__VAT_IO
 	if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__OBJ)
 	{
 		return pOBJ_CTRL__VAT->Call__OBJECT(sVAT_CMMD__OPEN);
+	}
+	else if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__HEXA)
+	{
+		sEXT_CH__SO_APC_CTRL_MODE->Set__DATA("02");
+
+		if(iActive__SIM_MODE > 0)
+		{
+			UNION_2_BYTE__UINT m_pos;
+			m_pos.uiDATA = (unsigned short int) iLINK_HEXA__MAX_VALUE;
+	
+			CString str_hexa;
+			str_hexa.Format("%02X %02X", 0x0ff & m_pos.cBYTE[0], 0x0ff & m_pos.cBYTE[1]);
+
+			sEXT_CH__SI_APC_POSITION->Set__DATA(str_hexa);
+		}
 	}
 	else
 	{
@@ -92,6 +116,27 @@ int CObj__VAT_IO
 		}
 
 		return pOBJ_CTRL__VAT->Call__OBJECT(sVAT_CMMD__POSITION);
+	}
+	else if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__HEXA)
+	{
+		int set_hexa = (int) (set_pos * iLINK_HEXA__MAX_VALUE / 100.0);
+	
+		UNION_2_BYTE__UINT x_data;
+		x_data.uiDATA = 0x0ffff & set_hexa;
+
+		CString str_hexa;
+		str_hexa.Format("%02X %02X", 0x0ff & x_data.cBYTE[0], 0x0ff & x_data.cBYTE[1]);
+
+		sCH__MON_SET_POSITION->Set__DATA(ch_pos);
+		sEXT_CH__SO_APC_SETPOINT_DATA->Set__DATA(str_hexa);
+
+		sEXT_CH__SO_APC_SETPOINT_TYPE->Set__DATA("01");
+		sEXT_CH__SO_APC_CTRL_MODE->Set__DATA("00");
+
+		if(iActive__SIM_MODE > 0)
+		{
+			sEXT_CH__SI_APC_POSITION->Set__DATA(str_hexa);
+		}
 	}
 	else
 	{
@@ -149,6 +194,30 @@ int CObj__VAT_IO
 			if(iActive__SIM_MODE > 0)
 			{
 				aEXT_CH__VAT__CUR_POSITION_PER->Set__DATA(ch_pos);
+			}
+		}
+		else if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__HEXA)
+		{
+			CString ch_pos;
+
+			ch_pos.Format("%.1f", para__hold_pos);
+			int set_hexa = (int) ((para__hold_pos / 100.0) * iLINK_HEXA__MAX_VALUE);
+
+			UNION_2_BYTE__UINT x_data;
+			x_data.uiDATA = 0x0ffff & set_hexa;
+
+			CString str_hexa;
+			str_hexa.Format("%02X %02X", 0x0ff & x_data.cBYTE[0], 0x0ff & x_data.cBYTE[1]);
+
+			sCH__MON_SET_POSITION->Set__DATA(ch_pos);
+			sEXT_CH__SO_APC_SETPOINT_DATA->Set__DATA(str_hexa);
+
+			sEXT_CH__SO_APC_SETPOINT_TYPE->Set__DATA("01");
+			sEXT_CH__SO_APC_CTRL_MODE->Set__DATA("00");
+
+			if(iActive__SIM_MODE > 0)
+			{
+				sEXT_CH__SI_APC_POSITION->Set__DATA(str_hexa);
 			}
 		}
 		else
@@ -213,20 +282,37 @@ int CObj__VAT_IO
 
 		return pOBJ_CTRL__VAT->Call__OBJECT(sVAT_CMMD__PRESSURE);
 	}
+	else if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__HEXA)
+	{
+		double cfg_max = aCH__CFG_PRESSURE_MAX_VALUE->Get__VALUE();
+		int set_hexa = (int) ((set_pressure / cfg_max) * iLINK_HEXA__MAX_VALUE);
+
+		UNION_2_BYTE__UINT x_data;
+		x_data.uiDATA = 0x0ffff & set_hexa;
+
+		CString str_hexa;
+		str_hexa.Format("%02X %02X", 0x0ff & x_data.cBYTE[0], 0x0ff & x_data.cBYTE[1]);
+
+		sCH__MON_SET_PRESSURE->Set__DATA(ch_pressure);
+		sEXT_CH__SO_APC_SETPOINT_DATA->Set__DATA(str_hexa);
+
+		sEXT_CH__SO_APC_SETPOINT_TYPE->Set__DATA("00");
+		sEXT_CH__SO_APC_CTRL_MODE->Set__DATA("00");
+
+		if(iActive__SIM_MODE > 0)
+		{
+			sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch_pressure);
+			sEXT_CH__SI_APC_PRESSURE->Set__DATA(str_hexa);
+		}
+	}
 	else
 	{
+		double cfg__press_max = aCH__CFG_PRESSURE_MAX_VALUE->Get__VALUE();
+		double set__press_per = (set_pressure / cfg__press_max) * 100.0;
+		if(set__press_per > 100.0)			set__press_per = 100.0;
+
 		sCH__MON_SET_PRESSURE->Set__DATA(ch_pressure);
-
-		if(iPARA__PRESSURE_UNIT == _PRESSURE_UNIT__mTORR)
-		{
-			double pressure_mtorr = atof(ch_pressure) * 1000.0;
-
-			aEXT_CH__AO_APC_SETPOINT_DATA->Set__VALUE(pressure_mtorr);
-		}
-		else
-		{
-			aEXT_CH__AO_APC_SETPOINT_DATA->Set__DATA(ch_pressure);
-		}
+		aEXT_CH__AO_APC_SETPOINT_DATA->Set__VALUE(set__press_per);
 
 		dEXT_CH__DO_APC_SETPOINT_TYPE->Set__DATA(STR__PRESSURE);
 		dEXT_CH__DO_APC_CTRL_MODE->Set__DATA(STR__CONTROL);

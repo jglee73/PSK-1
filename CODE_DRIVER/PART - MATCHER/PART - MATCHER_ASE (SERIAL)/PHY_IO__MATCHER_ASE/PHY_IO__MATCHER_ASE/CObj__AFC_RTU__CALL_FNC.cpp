@@ -50,7 +50,6 @@ int  CObj__AFC_RTU
 	}
 	return 1;
 }
-
 int  CObj__AFC_RTU
 ::Call__MANUAL(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
@@ -83,6 +82,27 @@ int  CObj__AFC_RTU
 		aoCH__Preset_Tune_Position->Set__DATA(ch_data);
 
 		dCH__PARA_DRV_CTRL_MODE->Set__DATA(STR__MANUAL);
+		dCH__PARA_DRV_PRESET->Set__DATA(STR__ENABLE);
+
+		doCH__OP_Mode->Set__DATA(STR__ON);
+	}
+	return 1;
+}
+
+int  CObj__AFC_RTU
+::Call__PROC_CTRL(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
+{
+	CString ch_data;
+
+	// ...
+	{
+		aCH__PARA_LOAD_POSITION->Get__DATA(ch_data);
+		aoCH__Preset_Load_Position->Set__DATA(ch_data);
+
+		aCH__PARA_TUNE_POSITION->Get__DATA(ch_data);
+		aoCH__Preset_Tune_Position->Set__DATA(ch_data);
+
+		dCH__PARA_DRV_CTRL_MODE->Set__DATA(STR__AUTO);
 		dCH__PARA_DRV_PRESET->Set__DATA(STR__ENABLE);
 
 		doCH__OP_Mode->Set__DATA(STR__ON);

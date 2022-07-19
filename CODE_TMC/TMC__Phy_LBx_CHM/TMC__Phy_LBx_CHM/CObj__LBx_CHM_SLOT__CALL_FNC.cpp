@@ -36,7 +36,7 @@ int  CObj__LBx_CHM_SLOT
 int  CObj__LBx_CHM_SLOT
 ::Call__CL_PUMP_VLV(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	Fnc__PUMP_ALL_VLV__CLOSE(p_alarm);
+	Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm);
 	return 1;
 }
 
@@ -45,7 +45,7 @@ int  CObj__LBx_CHM_SLOT
 ::Call__OP_PUMP_VLV(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
 	Fnc__VENT_ALL_VLV__CLOSE(p_alarm);
-	Fnc__PUMP_FAST_VLV__OPEN(p_alarm);
+	Fnc__PUMP_FAST_VLV__OPEN(p_variable, p_alarm);
 	return 1;
 }
 
@@ -115,7 +115,7 @@ LOOP_RETRY:
 	}
 
 	Fnc__LOG("Pump Valve All Close !!");
-	if(Fnc__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+	if(Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 	{
 		return -13;
 	}
@@ -198,7 +198,7 @@ LOOP_RETRY:
 	if((cur__press <= cfg__press)
 	&& (dCH__PRESSURE_STATUS->Check__DATA(STR__IO_VAC) > 0))
 	{
-		Fnc__PUMP_FAST_VLV__OPEN(p_alarm);
+		Fnc__PUMP_FAST_VLV__OPEN(p_variable, p_alarm);
 
 		Fnc__LOG("APC Valve Open !");
 		_Fnc__OBJ_VAT__OPEN();
@@ -217,7 +217,7 @@ LOOP_RETRY:
 		goto START_FAST_PUMP;
 	}
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_OFF);
 		diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_OFF);
@@ -228,11 +228,11 @@ LOOP_RETRY:
 
 	if(dCH__CFG_USE_SOFT_PUMP_VALVE->Check__DATA(STR__NO) > 0)
 	{
-		Fnc__PUMP_FAST_VLV__OPEN(p_alarm);
+		Fnc__PUMP_FAST_VLV__OPEN(p_variable, p_alarm);
 	}
 	else
 	{
-		Fnc__PUMP_SOFT_VLV__OPEN(p_alarm);
+		Fnc__PUMP_SOFT_VLV__OPEN(p_variable, p_alarm);
 	}
 
 	xI_ASYNC_TIMER->START__COUNT_UP(trg_timeout);	// Start...
@@ -265,7 +265,7 @@ LOOP_RETRY:
 	{	
 		double cfg_timeout;
 
-		if(iSim_Flag > 0)
+		if(iActive__SIM_MODE > 0)
 		{
 			CString str_sim_data;
 			SCX__TIMER_CTRL xSim_timer;
@@ -345,7 +345,7 @@ LOOP_RETRY:
 
 START_FAST_PUMP:
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_OFF);
 		diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_ON);
@@ -353,10 +353,10 @@ START_FAST_PUMP:
 
 	// ...
 	Fnc__LOG("Soft Pump Valve Close !!");
-	Fnc__PUMP_SOFT_VLV__CLOSE(p_alarm);
+	Fnc__PUMP_SOFT_VLV__CLOSE(p_variable, p_alarm);
 
 	// Fast Pumping -----
-	Fnc__PUMP_FAST_VLV__OPEN(p_alarm);
+	Fnc__PUMP_FAST_VLV__OPEN(p_variable, p_alarm);
 
 	xI_ASYNC_TIMER->START__COUNT_UP(trg_timeout);	// Start...
 
@@ -376,7 +376,7 @@ START_FAST_PUMP:
 		double trg_timeout = 9999.0;	
 		double cfg_timeout;
 
-		if(iSim_Flag > 0)
+		if(iActive__SIM_MODE > 0)
 		{
 			CString str_sim_data;
 			SCX__TIMER_CTRL xSim_timer;
@@ -456,7 +456,7 @@ START_FAST_PUMP:
 		}
 	}
 
-	Update__PUMP_VLV_STS(p_alarm);
+	Update__PUMP_VLV_STS(p_variable, p_alarm);
 	return 1;
 }
 
@@ -646,7 +646,7 @@ LOOP_RETRY:
 	}
 
 	Fnc__LOG("Pump Valve All Close !!");
-	if(Fnc__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+	if(Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 	{
 		return -1;
 	}
@@ -667,7 +667,7 @@ LOOP_RETRY:
 
 		xI_ASYNC_TIMER->START__COUNT_UP(trg_timeout);
 
-		if(iSim_Flag > 0)
+		if(iActive__SIM_MODE > 0)
 		{
 			diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_OFF);
 			diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_OFF);
@@ -684,7 +684,7 @@ LOOP_RETRY:
 		{
 			double cfg_timeout;
 
-			if(iSim_Flag > 0)
+			if(iActive__SIM_MODE > 0)
 			{
 				CString str_sim_data;
 				SCX__TIMER_CTRL xSim_timer;
@@ -798,7 +798,7 @@ LOOP_RETRY:
 
 		xI_ASYNC_TIMER->START__COUNT_UP(trg_timeout);
 
-		if(iSim_Flag > 0)
+		if(iActive__SIM_MODE > 0)
 		{
 			diEXT_CH__LBx__ATM_SNS->Set__DATA(sDATA__ATM_ON);
 			diEXT_CH__LBx__VAC_SNS->Set__DATA(sDATA__VAC_OFF);
@@ -817,7 +817,7 @@ LOOP_RETRY:
 			// ...
 			double cfg_timeout;
 
-			if(iSim_Flag > 0)
+			if(iActive__SIM_MODE > 0)
 			{
 				CString str_sim_data;
 				SCX__TIMER_CTRL xSim_timer;
@@ -971,7 +971,7 @@ LOOP_RETRY:
 	Set__SLOT_DV_CLOSE();
 
 	// Add Simulation !!
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		SCX__TIMER_CTRL sim_timer;
 		aEXT_CH__CFG_SIM_DOOR_VLV_CLOSE_TIME->Get__DATA(var_data);
@@ -1101,7 +1101,7 @@ LOOP_RETRY:
 
 	Set__SLOT_DV_OPEN();
 
-	if(iSim_Flag > 0)
+	if(iActive__SIM_MODE > 0)
 	{
 		SCX__TIMER_CTRL sim_timer;
 		aEXT_CH__CFG_SIM_DOOR_VLV_OPEN_TIME->Get__DATA(var_data);
@@ -1428,7 +1428,7 @@ int  CObj__LBx_CHM_SLOT
 	}
 
 	Fnc__LOG("Pump Valve All Close !!");
-	if(Fnc__PUMP_ALL_VLV__CLOSE(p_alarm) < 0)
+	if(Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm) < 0)
 	{
 		return -2;
 	}
@@ -1994,7 +1994,7 @@ int  CObj__LBx_CHM_SLOT
 int  CObj__LBx_CHM_SLOT
 ::Fnc__AUTO_PUMP_VLV_CLOSE(CII_OBJECT__VARIABLE* p_variable,CII_OBJECT__ALARM* p_alarm)
 {
-	Fnc__PUMP_ALL_VLV__CLOSE(p_alarm);
+	Fnc__PUMP_ALL_VLV__CLOSE(p_variable, p_alarm);
 	return 1;
 }
 

@@ -3,7 +3,7 @@
 
 // ...
 #define  ALID__OFFLINE									11
-#define  ALID__ERROR_CODE								12
+#define  ALID__LPx_ERROR_CODE							12
 
 
 // ...
