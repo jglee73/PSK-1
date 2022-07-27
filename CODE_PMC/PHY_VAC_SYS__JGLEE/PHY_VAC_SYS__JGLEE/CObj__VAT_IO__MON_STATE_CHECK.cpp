@@ -50,26 +50,28 @@ int CObj__VAT_IO
 			double min_value = atof(ch_data);
 
 			aCH__CFG_PRESSURE_MAX_VALUE->Get__DATA(ch_data);
-			double max_value = atof(ch_data);
+			double max_value_torr = atof(ch_data);
+			double max_value_mtorr = max_value_torr * 1000.0;
 
-			ch_data.Format("%.0f", max_value * 1000.0);
+			ch_data.Format("%.1f", max_value_mtorr);
 			sCH__CFG_PRESSURE_MAX_mTORR->Set__DATA(ch_data);
 
 			aCH__CFG_PRESSURE_DEC_VALUE->Get__DATA(ch_data);
 			int i_dec = atoi(ch_data);
 
-			aCH__PARA_PRESSURE->Change__MIN_MAX_DEC(min_value,max_value,i_dec);
+			aCH__PARA_PRESSURE->Change__MIN_MAX_DEC(min_value,max_value_torr,i_dec);
+			aCH__PARA_PRESSURE_mTORR->Change__MIN_MAX_DEC(min_value,max_value_mtorr,1);
 
 			//
 			if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__OBJ)
 			{
-				aEXT_CH__VAT__PARA_PRESSURE_VALUE->Change__MIN_MAX_DEC(min_value,max_value,i_dec);
-				aEXT_CH__VAT__CUR_PRESSURE_VALUE->Change__MIN_MAX_DEC(min_value,max_value,i_dec);
+				aEXT_CH__VAT__PARA_PRESSURE_VALUE->Change__MIN_MAX_DEC(min_value,max_value_torr,i_dec);
+				aEXT_CH__VAT__CUR_PRESSURE_VALUE->Change__MIN_MAX_DEC(min_value,max_value_torr,i_dec);
 			}
 			else if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__IO)
 			{
 				aEXT_CH__AO_APC_SETPOINT_DATA->Change__MIN_MAX_DEC(0, 100, 3);
-				aEXT_CH__AI_APC_PRESSURE->Change__MIN_MAX_DEC(min_value,max_value,i_dec);
+				aEXT_CH__AI_APC_PRESSURE->Change__MIN_MAX_DEC(min_value,max_value_torr,i_dec);
 			}
 		}
 

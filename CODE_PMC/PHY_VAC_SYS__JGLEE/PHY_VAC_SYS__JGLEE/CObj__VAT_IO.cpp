@@ -29,6 +29,8 @@ int CObj__VAT_IO::__DEFINE__CONTROL_MODE(obj,l_mode)
 		ADD__CTRL_VAR(sMODE__CLOSE, "CLOSE");
 
 		ADD__CTRL_VAR(sMODE__PRESSURE, "PRESSURE");
+		ADD__CTRL_VAR(sMODE__PRESSURE_mTORR, "PRESSURE.mTORR");
+
 		ADD__CTRL_VAR(sMODE__POSITION, "POSITION");
 
 		ADD__CTRL_VAR(sMODE__BALLAST_TRANSFER, "BALLAST.TRANSFER");
@@ -78,6 +80,11 @@ int CObj__VAT_IO::__DEFINE__VARIABLE_STD(p_variable)
 		STD__ADD_ANALOG(str_name, "torr", 3, 0.0, 10.0);
 		LINK__VAR_ANALOG_CTRL(aCH__PARA_PRESSURE, str_name);
 		
+		str_name = "PARA.PRESSURE.mTORR";
+		STD__ADD_ANALOG(str_name, "mtorr", 1, 0.0, 10000.0);
+		LINK__VAR_ANALOG_CTRL(aCH__PARA_PRESSURE_mTORR, str_name);
+
+		//
 		str_name = "PARA.POSITION";
 		STD__ADD_ANALOG(str_name, "%", 1, 0.0, 100.0);
 		LINK__VAR_ANALOG_CTRL(aCH__PARA_POSITION, str_name);
@@ -109,10 +116,15 @@ int CObj__VAT_IO::__DEFINE__VARIABLE_STD(p_variable)
 
 	// MON.PRESSURE ...
 	{
-		str_name = "MON.SET.PRESSURE";
+		str_name = "MON.SET.PRESSURE.TORR";
 		STD__ADD_STRING(str_name);
-		LINK__VAR_STRING_CTRL(sCH__MON_SET_PRESSURE, str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_SET_PRESSURE_TORR, str_name);
 
+		str_name = "MON.SET.PRESSURE.mTORR";
+		STD__ADD_STRING(str_name);
+		LINK__VAR_STRING_CTRL(sCH__MON_SET_PRESSURE_mTORR, str_name);
+
+		//
 		str_name = "MON.PRESSURE.TORR";
 		STD__ADD_STRING_WITH_OPTION(str_name, -1, "L", "");
 		LINK__VAR_STRING_CTRL(sCH__MON_PRESSURE_TORR, str_name);
@@ -1055,6 +1067,13 @@ int CObj__VAT_IO::__CALL__CONTROL_MODE(mode,p_debug,p_variable,p_alarm)
 		ELSE_IF__CTRL_MODE(sMODE__PRESSURE)
 		{
 			flag = Call__PRESSURE(p_variable, p_alarm);
+
+			dCH__MON_IDLE_PRESSURE_CHECK_ACTIVE->Set__DATA(STR__READY);
+			dCH__MON_PROC_PRESSURE_CHECK_ACTIVE->Set__DATA(STR__READY);
+		}
+		ELSE_IF__CTRL_MODE(sMODE__PRESSURE_mTORR)
+		{
+			flag = Call__PRESSURE_mTORR(p_variable, p_alarm);
 
 			dCH__MON_IDLE_PRESSURE_CHECK_ACTIVE->Set__DATA(STR__READY);
 			dCH__MON_PROC_PRESSURE_CHECK_ACTIVE->Set__DATA(STR__READY);

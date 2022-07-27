@@ -166,6 +166,14 @@ int CObj__VAT_IO
 	return Fnc__PRESSURE(p_variable,p_alarm, set_pressure);
 }
 int CObj__VAT_IO
+::Call__PRESSURE_mTORR(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm)
+{
+	double set_pressure = aCH__PARA_PRESSURE_mTORR->Get__VALUE() * 0.001;
+
+	return Fnc__PRESSURE(p_variable,p_alarm, set_pressure);
+}
+
+int CObj__VAT_IO
 ::Fnc__PRESSURE(CII_OBJECT__VARIABLE *p_variable,CII_OBJECT__ALARM *p_alarm, const double set_pressure)
 {
 	double para__hold_sec = aCH__PARA_HOLD_SEC->Get__VALUE();
@@ -245,38 +253,38 @@ int CObj__VAT_IO
 		}
 	}
 
-	//
-	CString ch_pressure;
-	ch_pressure.Format("%.3f", set_pressure);
+	// ...
+	CString ch__pressure_torr;
+	CString ch__pressure_mtorr;
+
+	ch__pressure_torr.Format("%.3f", set_pressure);
+	ch__pressure_mtorr.Format("%.1f", set_pressure * 1000.0);
+
+	sCH__MON_SET_PRESSURE_TORR->Set__DATA(ch__pressure_torr);
+	sCH__MON_SET_PRESSURE_mTORR->Set__DATA(ch__pressure_mtorr);
 
 	if(iDATA__VAT_CTRL_TYPE == _VAT_CTRL_TYPE__OBJ)
 	{
-		sCH__MON_SET_PRESSURE->Set__DATA(ch_pressure);
-
 		if(iPARA__PRESSURE_UNIT == _PRESSURE_UNIT__mTORR)
 		{
-			double set_mtorr = set_pressure * 1000.0;
-
-			aEXT_CH__VAT__PARA_PRESSURE_VALUE->Set__VALUE(set_mtorr);
+			aEXT_CH__VAT__PARA_PRESSURE_VALUE->Set__DATA(ch__pressure_mtorr);
 		}
 		else
 		{
-			aEXT_CH__VAT__PARA_PRESSURE_VALUE->Set__DATA(ch_pressure);
+			aEXT_CH__VAT__PARA_PRESSURE_VALUE->Set__DATA(ch__pressure_torr);
 		}
 
 		if(iActive__SIM_MODE > 0)
 		{
-			sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch_pressure);
+			sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch__pressure_torr);
 
 			if(iPARA__PRESSURE_UNIT == _PRESSURE_UNIT__mTORR)
 			{
-				double pressure_mtorr = atof(ch_pressure) * 1000.0;
-
-				aEXT_CH__VAT__CUR_PRESSURE_VALUE->Set__VALUE(pressure_mtorr);
+				aEXT_CH__VAT__CUR_PRESSURE_VALUE->Set__DATA(ch__pressure_mtorr);
 			}		
 			else
 			{
-				aEXT_CH__VAT__CUR_PRESSURE_VALUE->Set__DATA(ch_pressure);
+				aEXT_CH__VAT__CUR_PRESSURE_VALUE->Set__DATA(ch__pressure_torr);
 			}
 		}
 
@@ -293,7 +301,6 @@ int CObj__VAT_IO
 		CString str_hexa;
 		str_hexa.Format("%02X %02X", 0x0ff & x_data.cBYTE[0], 0x0ff & x_data.cBYTE[1]);
 
-		sCH__MON_SET_PRESSURE->Set__DATA(ch_pressure);
 		sEXT_CH__SO_APC_SETPOINT_DATA->Set__DATA(str_hexa);
 
 		sEXT_CH__SO_APC_SETPOINT_TYPE->Set__DATA("00");
@@ -301,7 +308,7 @@ int CObj__VAT_IO
 
 		if(iActive__SIM_MODE > 0)
 		{
-			sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch_pressure);
+			sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch__pressure_torr);
 			sEXT_CH__SI_APC_PRESSURE->Set__DATA(str_hexa);
 		}
 	}
@@ -311,7 +318,6 @@ int CObj__VAT_IO
 		double set__press_per = (set_pressure / cfg__press_max) * 100.0;
 		if(set__press_per > 100.0)			set__press_per = 100.0;
 
-		sCH__MON_SET_PRESSURE->Set__DATA(ch_pressure);
 		aEXT_CH__AO_APC_SETPOINT_DATA->Set__VALUE(set__press_per);
 
 		dEXT_CH__DO_APC_SETPOINT_TYPE->Set__DATA(STR__PRESSURE);
@@ -319,17 +325,15 @@ int CObj__VAT_IO
 
 		if(iActive__SIM_MODE > 0)
 		{
-			sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch_pressure);
+			sEXT_CH__SIM_PRESSURE_TORR->Set__DATA(ch__pressure_torr);
 
 			if(iPARA__PRESSURE_UNIT == _PRESSURE_UNIT__mTORR)
 			{
-				double pressure_mtorr = atof(ch_pressure) * 1000.0;
-
-				aEXT_CH__AI_APC_PRESSURE->Set__VALUE(pressure_mtorr);
+				aEXT_CH__AI_APC_PRESSURE->Set__DATA(ch__pressure_mtorr);
 			}		
 			else
 			{
-				aEXT_CH__AI_APC_PRESSURE->Set__DATA(ch_pressure);
+				aEXT_CH__AI_APC_PRESSURE->Set__DATA(ch__pressure_torr);
 			}
 
 			if(bActive__DI_APC_VLV_CLOSE)		dEXT_CH__DI_APC_VLV_CLOSE->Set__DATA(STR__OFF);

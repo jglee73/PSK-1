@@ -28,12 +28,14 @@
 
 #DEFINE_CONSTANT    CH.DO_CHM_CHECK_VLV 	              NULL
 
-#DEFINE_CONSTANT    DATA.PRC_GAUGE_SIZE     	          1
+#DEFINE_CONSTANT    DATA.PRC_GAUGE_SIZE     	          2
 #DEFINE_CONSTANT    CH.DO_PRC_GAUGE_VLV.1	              IO+do.Bara.Protect.10_Torr.Vlv
 #DEFINE_CONSTANT    CH.AI_PRC_GAUGE_TORR.1              IO+ai.CHM.Pressure.10_Torr
+#DEFINE_CONSTANT    CH.DO_PRC_GAUGE_VLV.2	              IO+do.Bara.Protect.01_Torr.Vlv
+#DEFINE_CONSTANT    CH.AI_PRC_GAUGE_TORR.2              IO+ai.APC.Pressure
 
 #DEFINE_CONSTANT    CH__AI_CHM_GAUGE_TORR               IO+ai.CHM.Pressure.1000_Torr
-#DEFINE_CONSTANT    CH__AI_FORELINE_GAUGE_TORR          IO+ai.Pump.Line.Pressure
+#DEFINE_CONSTANT    CH__AI_FORELINE_GAUGE_TORR          IO+ai.Pump.Line.Pressure_Torr
 
 #DEFINE_CONSTANT    CH__RF_TOTAL_ON_STATE               DB_INF+RF.ON.STS
 #DEFINE_CONSTANT    DATA.RF_SIZE						            2

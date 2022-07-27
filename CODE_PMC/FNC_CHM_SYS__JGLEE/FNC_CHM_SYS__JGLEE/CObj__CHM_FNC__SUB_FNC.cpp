@@ -197,7 +197,7 @@ LOOP_RETRY:
 			xLOG_CTRL->WRITE__LOG(log_msg);
 		}
 
-		if(pOBJ_CTRL__GAS_VLV->Call__OBJECT(CMMD_GAS__PROC_READY) < 0)
+		if(pOBJ_CTRL__GAS_VLV->Call__OBJECT(CMMD_GAS__ALL_CLOSE) < 0)
 		{
 			return -11;
 		}

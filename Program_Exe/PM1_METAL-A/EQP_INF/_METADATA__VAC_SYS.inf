@@ -93,5 +93,5 @@
 
 #DEFINE_CONSTANT    CH__DI_PUMP_POWER_SNS               NULL
 #DEFINE_CONSTANT    CH__DI_PUMP_VAC_SNS                 NULL
-#DEFINE_CONSTANT    CH__AI_PUMP_PRESSURE_TORR           IO+ai.Pump.Line.Pressure
+#DEFINE_CONSTANT    CH__AI_PUMP_PRESSURE_TORR           IO+ai.Pump.Line.Pressure_Torr
 

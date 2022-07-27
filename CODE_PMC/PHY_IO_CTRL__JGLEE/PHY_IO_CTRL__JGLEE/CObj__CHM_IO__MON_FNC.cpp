@@ -120,10 +120,27 @@ int CObj__CHM_IO
 
 			if(interlock__do_iso_vlv > 0)
 			{
+				bool active__interlock_pressure = false;
+
+				if(bActive__AI_CHM_GAUGE_TORR)
+				{
+					double cur__chm_press = aEXT_CH__AI_CHM_GAUGE_TORR->Get__VALUE();
+					double cfg__interlock_press = aCH__CFG_INTERLOCK_HIGH_LIMIT_PRESSURE->Get__VALUE();
+
+					if(cur__chm_press >= cfg__interlock_press)		active__interlock_pressure = true;
+				}
+
 				for(i=0; i<iSIZE__PRC_GUAGE; i++)
 				{
-					if(vac_flag > 0)		dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[i]->Set__DATA(STR__OPEN);
-					else					dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[i]->Set__DATA(STR__CLOSE);
+					if(active__interlock_pressure)
+					{
+						dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[i]->Set__DATA(STR__CLOSE);
+					}
+					else
+					{
+						if(vac_flag > 0)		dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[i]->Set__DATA(STR__OPEN);
+						else					dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[i]->Set__DATA(STR__CLOSE);
+					}
 				}
 			}
 
@@ -147,8 +164,7 @@ int CObj__CHM_IO
 				{
 					if(dEXT_CH__DO_PRC_GAUGE_ISO_VLV_X[i]->Check__DATA(STR__OPEN) < 0)
 					{
-						if(bActive__AI_CHM_GAUGE_TORR)
-							cur_press = aEXT_CH__AI_CHM_GAUGE_TORR->Get__VALUE();
+						if(bActive__AI_CHM_GAUGE_TORR)		cur_press = aEXT_CH__AI_CHM_GAUGE_TORR->Get__VALUE();
 
 						continue;
 					}
@@ -160,10 +176,9 @@ int CObj__CHM_IO
 					double cur__prc_press = aEXT_CH__AI_PRC_GAUGE_TORR_X[i]->Get__VALUE();
 					double cur__chm_press = 500.0;
 
-					if(bActive__AI_CHM_GAUGE_TORR)
-						cur__chm_press = aEXT_CH__AI_CHM_GAUGE_TORR->Get__VALUE();
+					if(bActive__AI_CHM_GAUGE_TORR)			cur__chm_press = aEXT_CH__AI_CHM_GAUGE_TORR->Get__VALUE();
 						
-					if(cur__prc_press <= cfg_max_torr)		cur_press = cur__prc_press;
+					if(cur__prc_press < cfg_max_torr)		cur_press = cur__prc_press;
 					else									cur_press = cur__chm_press;
 
 					break;

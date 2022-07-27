@@ -42,6 +42,10 @@ int CObj__CHM_FNC
 		log_msg.Format("Fnc__LOW_VAC_PUMP() : Failed [%d] ...", flag);	
 		xLOG_CTRL->WRITE__LOG(log_msg);
 	}
+	else
+	{
+		pOBJ_CTRL__GAS_VLV->Call__OBJECT(CMMD_GAS__PROC_READY);
+	}
 	return flag;
 }
 

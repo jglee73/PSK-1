@@ -788,7 +788,7 @@ WINDOW_NAME APP_POPUP_IO_OES
 	LOW_LEFT_X                      225  
 	LOW_LEFT_Y                      25 
 	WIDTH                           530
-	HEIGHT                          442 
+	HEIGHT                          542 
 	
 	SEQ_CTRL_CHANNEL                DB_GUI+GUI.PMC.ESC.POPUP
 	USER_LEVEL                      Maint
